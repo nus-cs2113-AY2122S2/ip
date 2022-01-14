@@ -5,6 +5,14 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+
+        Ui ui = new Ui();
+
+        System.out.println(logo);
+        System.out.println(ui.drawLine());
+        System.out.println(ui.greet());
+        System.out.println(ui.drawLine());
+        System.out.println(ui.goodbye());
+        System.out.println(ui.drawLine());
     }
 }
