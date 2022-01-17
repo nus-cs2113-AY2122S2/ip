@@ -20,20 +20,17 @@ public class Duke {
                 for (int i = 0; i < store.size(); i++){
                     System.out.println(i + 1 + ". " + store.get(i).getTask());
                 }
-            }
-            else if (userInput.startsWith("mark")){
+            } else if (userInput.startsWith("mark")){
                 int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
                 Task currentTask = store.get(taskIndex - 1);
-                currentTask.markDone();
+                currentTask.setDone(true);
                 System.out.println(currentTask.getTask());
-            }
-            else if (userInput.startsWith("unmark")){
+            } else if (userInput.startsWith("unmark")){
                 int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
                 Task currentTask = store.get(taskIndex - 1);
-                currentTask.unmarkDone();
+                currentTask.setDone(false);
                 System.out.println(currentTask.getTask());
-            }
-            else{
+            } else{
                 Task newTask = new Task(userInput);
                 store.add(newTask);
                 System.out.println("added: " + userInput);
