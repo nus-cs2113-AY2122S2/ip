@@ -12,13 +12,8 @@ public class Duke {
         String bye = " Bye. Hope to see you again soon!";
 
         String line = "____________________________________________________________";
+        System.out.println(line);
         System.out.println("Hello from\n" + logo);
-        System.out.println(line);
-        System.out.println(greet);
-        System.out.println(line);
-        System.out.println(bye);
-        System.out.println(line);
-
-
+        System.out.println(greet + "\n" + line + "\n" + bye + "\n" + line);
     }
 }
