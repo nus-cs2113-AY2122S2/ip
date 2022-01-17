@@ -1,4 +1,4 @@
-public class Duke {
+public class Sora {
     private static void printGreetings() {
         String logo = "     _______.  ______   .______          ___      \n"
                 + "    /       | /  __  \\  |   _  \\        /   \\     \n"
@@ -20,7 +20,5 @@ public class Duke {
 
     public static void main(String[] args) {
         printGreetings();
-
-
     }
 }
