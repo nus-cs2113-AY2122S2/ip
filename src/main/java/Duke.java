@@ -12,16 +12,30 @@ public class Duke {
         System.out.println("What can I do for you?");
         Scanner sc = new Scanner(System.in);
         String userInput = sc.nextLine();
-        ArrayList<String> store = new ArrayList<String>();
+        ArrayList<Task> store = new ArrayList<Task>();
 
         while (!userInput.equals("bye")){
             if (userInput.equals("list")){
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < store.size(); i++){
-                    System.out.println(i + 1 + ". " + store.get(i));
+                    System.out.println(i + 1 + ". " + store.get(i).getTask());
                 }
             }
+            else if (userInput.startsWith("mark")){
+                int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
+                Task currentTask = store.get(taskIndex - 1);
+                currentTask.markDone();
+                System.out.println(currentTask.getTask());
+            }
+            else if (userInput.startsWith("unmark")){
+                int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
+                Task currentTask = store.get(taskIndex - 1);
+                currentTask.unmarkDone();
+                System.out.println(currentTask.getTask());
+            }
             else{
-                store.add(userInput);
+                Task newTask = new Task(userInput);
+                store.add(newTask);
                 System.out.println("added: " + userInput);
             }
             userInput = sc.nextLine();
