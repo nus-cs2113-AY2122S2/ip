@@ -13,6 +13,5 @@ public class Duke {
         System.out.println(line);
         System.out.println("Bye! Hope to see you soon :D");
         System.out.println(line);
-        
     }
 }
