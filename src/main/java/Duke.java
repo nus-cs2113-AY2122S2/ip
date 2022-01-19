@@ -8,5 +8,10 @@ public class Duke {
         String line = "-----------------------------";
         System.out.println("Hello from\n" + logo);
         System.out.println(line);
+        System.out.println("Hello there! I'm Duke :D");
+        System.out.println("What can I do for you?");
+        System.out.println(line);
+        System.out.println("Bye! Hope to see you soon :D");
+        System.out.println(line);
     }
 }
