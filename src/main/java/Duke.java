@@ -6,7 +6,10 @@ public class Duke {
     }
 
     public static void linePrinter() {
-        System.out.println("______________________________________________");
+        for(int i = 0; i < 70; i++) {
+            System.out.print("\u2500");
+        }
+        System.out.println("\u2500");
     }
 
     public static void exitLine() {
