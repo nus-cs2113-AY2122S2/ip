@@ -28,7 +28,24 @@ public final class Sailfish {
     public void takeControl() {
         // Prints the welcome text.
         this.printWelcome();
-        System.out.println("Farewell, sailor!");
+
+        // Input loop.
+        while (true) {
+            System.out.println("-".repeat(width));
+            // Get input from the user.
+            Command command = Command.fromString(this.scanner.nextLine().toLowerCase());
+            System.out.println("-".repeat(width));
+
+            // Switch the command.
+            switch (command.getCommand()) {
+            case "bye": // Exit the app.
+                System.out.println("Farewell, sailor!");
+                return;
+            default: // Any command not recognised by the bot.
+                System.out.println(command.getCommand());
+                break;
+            }
+        }
     }
 
     /**
