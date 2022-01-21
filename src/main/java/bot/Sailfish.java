@@ -1,5 +1,7 @@
 package bot;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public final class Sailfish {
@@ -14,10 +16,16 @@ public final class Sailfish {
     private final Scanner scanner;
 
     /**
+     * The list of tasks stored by the bot.
+     */
+    private final List<Task> tasks;
+
+    /**
      * Creates the bot.
      */
     public Sailfish() {
         this.scanner = new Scanner(System.in);
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -38,11 +46,14 @@ public final class Sailfish {
 
             // Switch the command.
             switch (command.getCommand()) {
+            case "list": // List all tasks.
+                this.list();
+                break;
             case "bye": // Exit the app.
                 System.out.println("Farewell, sailor!");
                 return;
-            default: // Any command not recognised by the bot.
-                System.out.println(command.getCommand());
+            default:
+                this.add(command);
                 break;
             }
         }
@@ -60,5 +71,26 @@ public final class Sailfish {
                 "╚═════╝░╚═╝░░╚═╝╚═╝╚══════╝╚═╝░░░░░╚═╝╚═════╝░╚═╝░░╚═╝\n" +
                 "Commanding the seas since 2022.\n" +
                 "What can Poseidon do for you today?");
+    }
+
+    /**
+     * List all stored tasks.
+     */
+    private void list() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Here are the tasks in your list:\n");
+
+        // Print each task.
+        for (int i = 0; i < this.tasks.size(); i++) {
+            builder.append(String.format("%d. %s\n", i + 1, this.tasks.get(i)));
+        }
+
+        // Print the tasks.
+        System.out.println(builder);
+    }
+
+    private void add(Command command) {
+        this.tasks.add(new Task(String.format("%s %s", command.getCommand(), command.getDesc())));
+        System.out.printf("Added task: %s %s\n", command.getCommand(), command.getDesc());
     }
 }
