@@ -4,7 +4,7 @@
 public class ChatBox {
 
     private String contends = "";
-    private String upperLine = "____________________________________________________________";
+    private static String upperLine = "____________________________________________________________";
 
     /**
      * Intitializes a ChatBox with Defined contends
@@ -12,6 +12,10 @@ public class ChatBox {
      */
     public ChatBox(String _contends){
         contendsSetter(_contends);
+    }
+
+    public ChatBox(){
+
     }
 
 
@@ -30,7 +34,7 @@ public class ChatBox {
      */
     public String chatBoxGetter()
     {
-        String returnString = upperLine + "\n" + contends ;
+        String returnString = upperLine + "\n" + contends + "\n" + upperLine + "\n";
         return returnString;
     }
 
@@ -39,7 +43,17 @@ public class ChatBox {
      */
     public void chatBoxPrinter()
     {
-        String printString = upperLine + "\n" + contends ;
+        String printString = upperLine + "\n" + contends + "\n" + upperLine + "\n";
+        System.out.println(printString);
+    }
+
+
+    /** Print the chatBox without creating object
+     * @param _contends The contends that needs to be printed
+     */
+    public static void chatBoxPrinter(String _contends)
+    {
+        String printString = upperLine + "\n" + _contends  + "\n" + upperLine + "\n";
         System.out.println(printString);
     }
 

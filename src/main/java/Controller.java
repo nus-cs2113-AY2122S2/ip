@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Controller {
     private String helloWords = " Hello! I'm Duke\n" + " What can I do for you?";
     private String exitWords = "Bye. Hope to see you again soon!";
+    private String EXIT_COMMAND = "bye";
     ChatBox chatBox;
 
     /**
@@ -36,28 +37,33 @@ public class Controller {
 
 
     /**
-     *  Listen to the i/o and
+     *  Listen to the i/o and pass the instruction to operationFactory
      */
     public void listen(){
 
         Scanner sc = new Scanner(System.in);
 
+        OperationFactory operationFactory = new OperationFactory();
+
         while(true){
             try{
                 String order = sc.nextLine();
+                operationFactory.orderSetter(order);
+                Operation operation = operationFactory.makeOperation();
+                ChatBox.chatBoxPrinter(operation.getResult());
+                if (operation.getOperationName().equals("bye")){
+                    break;
+                }
 
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
+
+
         }
 
     }
-
-
-
-
-
 
 }
