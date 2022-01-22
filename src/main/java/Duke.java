@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
     private static String line = "____________________________________________________________\n";
-    private static String[] list = new String[100];
+    private static userContent[] list = new userContent[100];
     private static int listIndex = 0;
 
     public static void greeting() {
@@ -44,14 +44,27 @@ public class Duke {
     public static void printList(){
         System.out.println("Go finish these task, NOW:");
         for(int i = 1; i <= listIndex; i++){
-            System.out.println(i + ". " + list[i]);
+            System.out.println(i + ". " + "[" + (list[i].getMark()? "X":" ") + "] " + list[i].getContent());
         }
     }
 
     public static void addToList(String input){
         listIndex++;
-        list[listIndex] = input;
+        list[listIndex] = new userContent(input, listIndex);
         System.out.println("Added: " + input);
+    }
+
+    public static void mark(String number){
+        System.out.println("So you've done this task, that's great I guess? ");
+        list[Integer.parseInt(number)].setMark();
+        System.out.println(number + ". " + "[X] " + list[Integer.parseInt(number)].getContent());
+    }
+
+    public static void unmark(String number){
+        System.out.println("What do you mean you've undone");
+        list[Integer.parseInt(number)].setUnmark();
+        System.out.println(number + ". " + "[ ] " + list[Integer.parseInt(number)].getContent());
+
     }
 
     public static void takeInput(String userInput){
@@ -60,6 +73,12 @@ public class Duke {
         switch (words[0]){
         case "list":
             printList();
+            break;
+        case "unmark":
+            unmark(words[1]);
+            break;
+        case "mark":
+            mark(words[1]);
             break;
         case "":
             System.out.println("Type something ya prick");
