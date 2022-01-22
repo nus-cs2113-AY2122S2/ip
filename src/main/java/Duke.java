@@ -3,6 +3,8 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
+        String[] list = new String[100];
+        int noOfListItems = 0;
         String logo = "     /\\   |  ____/ __ \\| \\ | |\n"
                 + "    /  \\  | |__ | |  | |  \\| |\n"
                 + "   / /\\ \\ |  __|| |  | | . ` |\n"
@@ -14,8 +16,17 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String response = in.nextLine();
         while (!response.equals("bye")) {
-            System.out.println(response);
-            response = in.nextLine();
+            if (response.equals("list")) {
+                for (int i = 0; i < noOfListItems; i++) {
+                    System.out.println((i + 1) + ". " + list[i]);
+                }
+                response = in.nextLine();
+            } else {
+                list[noOfListItems] = response;
+                System.out.println("added: " + response);
+                noOfListItems++;
+                response = in.nextLine();
+            }
         }
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________\n");
