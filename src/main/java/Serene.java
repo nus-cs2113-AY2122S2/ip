@@ -14,35 +14,54 @@ public class Serene {
     public static final int TASK_LIMIT = 100;
     private static final int DONE = -1;
     private static final int CONTINUE = -2;
-    private static String[] storedResponses = new String[TASK_LIMIT];
+    private static Task[] storedResponses = new Task[TASK_LIMIT];
     private static int responsesSoFar = 0;
 
 
 
-    public static void partitionPrint(String input) {
+    public static void printWithPartition(String input) {
         System.out.println(partitionLine);
         System.out.println(input);
         System.out.println(partitionLine);
     }
 
+    public static String getTaskWithStatus (int taskIndex) {
+        return "[" + storedResponses[taskIndex].getStatusIcon() + "] " + storedResponses[taskIndex].getDescription();
+    }
+
     public static void printResponseList() {
         System.out.println(partitionLine);
+        System.out.println("Here is your task list:");
         for (int i = 0; i < responsesSoFar; i++) {
-            System.out.println(i+1 + ". " + storedResponses[i]);
+            System.out.println(i+1 + "." + getTaskWithStatus(i));
         }
         System.out.println(partitionLine);
     }
 
     public static int parseInput(String userInput) {
-        switch(userInput) {
+        String[] responsePartition = userInput.split(" ");
+        String keyword = responsePartition[0];
+        int taskIndex = 0;
+        switch(keyword) {
         case "bye":
             return DONE;
         case "list":
             printResponseList();
             break;
+        case "mark":
+            taskIndex = Integer.parseInt(responsePartition[1]) - 1;
+            storedResponses[taskIndex].markDone();
+            printWithPartition("Good job~ This task is now done:\n" + getTaskWithStatus(taskIndex));
+            break;
+        case "unmark":
+            taskIndex = Integer.parseInt(responsePartition[1]) - 1;
+            storedResponses[taskIndex].markNotDone();
+            printWithPartition("Sigh. Here we go again:\n" + getTaskWithStatus(taskIndex));
+            break;
         default:
-            storedResponses[responsesSoFar] = userInput;
-            partitionPrint("added: " + userInput);
+            Task t = new Task(userInput);
+            storedResponses[responsesSoFar] = t;
+            printWithPartition("added: " + userInput);
             responsesSoFar++;
         }
         return CONTINUE;
@@ -51,7 +70,7 @@ public class Serene {
     public static void printWelcomeMessage() {
         System.out.println(partitionLine);
         System.out.println("Booting up\n" + logo);
-        partitionPrint(greetLine);
+        printWithPartition(greetLine);
     }
 
     public static void main(String[] args) {
@@ -64,6 +83,6 @@ public class Serene {
             String userInput = in.nextLine();
             statusOfSerene = parseInput(userInput);
         }
-        partitionPrint(exitLine);
+        printWithPartition(exitLine);
     }
 }
