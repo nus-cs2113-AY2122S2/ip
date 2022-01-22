@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
@@ -26,8 +25,9 @@ public class Duke {
                 String[] words = response.split(" ");
                 int index = Integer.parseInt(words[1]);
                 list[index - 1].setNotDone();
+                String description = list[index - 1].getDescription();
                 System.out.println("Alright, marked as undone!:\n" + "[" + list[index - 1].getStatusIcon() + "] " +
-                        list[index - 1].getDescription());
+                        description);
                 response = in.nextLine();
 
             } else if (response.contains("mark")) {
@@ -35,9 +35,8 @@ public class Duke {
                 int index = Integer.parseInt(words[1]);
                 list[index - 1].setDone();
                 String description = list[index - 1].getDescription();
-
-                System.out.println("Congrats on completing this task!:\n" + "[" + list[index - 1].getStatusIcon() + "] " +
-                        list[index - 1].getDescription());
+                System.out.println("Congrats on completing this task!:\n" + "[" + list[index - 1].getStatusIcon()
+                        + "] " + description);
                 response = in.nextLine();
             }
             else {
@@ -45,7 +44,6 @@ public class Duke {
                 list[Task.getNoOfItems()] = t;
                 System.out.println("added: " + response);
                 Task.setNoOfItems(Task.getNoOfItems() + 1);
-
                 response = in.nextLine();
             }
         }
