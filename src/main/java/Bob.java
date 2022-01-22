@@ -28,21 +28,39 @@ public class Bob {
         PrintBorder();
     }
 
+    public static void DisplayList(String[] list, int count) {
+        PrintBorder();
+        for (int i = 0; i < count; i++) {
+            System.out.print("\t" + (i + 1) + ". ");
+            System.out.println(list[i]);
+        }
+        PrintBorder();
+    }
+
     public static void main(String[] args) {
-        Greetings();
         String command;
         Scanner in = new Scanner(System.in);
+        String[] list = new String[100];
+        int count = 0;
 
+        Greetings();
         do {
             System.out.println("");
             command = in.nextLine();
 
             switch (command.split(" ")[0]) {
+            case "list":
+                DisplayList(list, count);
+                continue;
             case "bye":
                 break;
             default:
+                // the 'Add' function
+                list[count] = command;
+                count++;
+
                 PrintBorder();
-                System.out.println("\t" + command);
+                System.out.println("\tadded:" + command);
                 PrintBorder();
             }
         } while (command.split(" ")[0].compareTo("bye") != 0);
