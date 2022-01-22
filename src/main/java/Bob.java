@@ -1,5 +1,6 @@
 import java.util.Locale;
 import java.util.Scanner;
+import util.Task;
 
 public class Bob {
 
@@ -28,20 +29,47 @@ public class Bob {
         PrintBorder();
     }
 
-    public static void DisplayList(String[] list, int count) {
+    public static void DisplayList(Task[] list) {
+        int count = Task.getCount();
+
         PrintBorder();
+        System.out.println("\tTask list:");
         for (int i = 0; i < count; i++) {
-            System.out.print("\t" + (i + 1) + ". ");
-            System.out.println(list[i]);
+            System.out.print("\t" + (i + 1) + ".");
+            System.out.print("[" + list[i].getStatusSymbol() + "] ");
+            System.out.println(list[i].getDescription());
         }
+        PrintBorder();
+    }
+
+    public static void UpdateStatus(Task[] list, String command, boolean doneStatus) {
+        if (command.split(" ").length != 2) {
+            System.out.println("\tInvalid number of arguments.");
+            return;
+        }
+        int id = Integer.parseInt(command.split(" ")[1]);
+        if (id > Task.getCount()) {
+            System.out.println("\tInvalid task id detected.");
+            return;
+        }
+        Task target = list[id - 1];
+        target.setDone(doneStatus);
+
+        PrintBorder();
+        if (doneStatus) {
+            System.out.println("\tThe following task has been checked off:");
+        }
+        else {
+            System.out.println("\tThe following task has yet to be completed:");
+        }
+        System.out.println("\t  [" + target.getStatusSymbol() + "] " + target.getDescription());
         PrintBorder();
     }
 
     public static void main(String[] args) {
         String command;
         Scanner in = new Scanner(System.in);
-        String[] list = new String[100];
-        int count = 0;
+        Task[] list = new Task[100];
 
         Greetings();
         do {
@@ -50,14 +78,20 @@ public class Bob {
 
             switch (command.split(" ")[0]) {
             case "list":
-                DisplayList(list, count);
+                DisplayList(list);
+                continue;
+            case "mark":
+                UpdateStatus(list, command, true);
+                continue;
+            case "unmark":
+                UpdateStatus(list, command, false);
                 continue;
             case "bye":
                 break;
             default:
                 // the 'Add' function
-                list[count] = command;
-                count++;
+                Task temp = new Task(command);
+                list[Task.getCount() - 1] = temp;
 
                 PrintBorder();
                 System.out.println("\tadded:" + command);
