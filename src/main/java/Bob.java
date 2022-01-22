@@ -4,13 +4,19 @@ import util.Task;
 
 public class Bob {
 
-    public static void PrintBorder() {
+    /**
+     * Prints a horizontal border for actions performed.
+     */
+    public static void printBorder() {
         String border = "\t____________________________________________________________";
         System.out.println(border);
     }
 
-    public static void Greetings() {
-        PrintBorder();
+    /**
+     * Prints the initial greetings when the program starts.
+     */
+    public static void greetings() {
+        printBorder();
         String logo = "\t.______     ______   .______   \n"
                 + "\t|   _  \\   /  __  \\  |   _  \\  \n"
                 + "\t|  |_)  | |  |  |  | |  |_)  | \n"
@@ -20,42 +26,57 @@ public class Bob {
                 + "\tHello! I'm Bob\n"
                 + "\tWhat can I do for you?";
         System.out.println(logo);
-        PrintBorder();
+        printBorder();
     }
 
-    public static void GoodBye() {
-        PrintBorder();
+    /**
+     * Prints the exit message.
+     */
+    public static void goodBye() {
+        printBorder();
         System.out.println("\tSee next time. /|\\(◦.◦)/|\\");
-        PrintBorder();
+        printBorder();
     }
 
-    public static void DisplayList(Task[] list) {
+    /**
+     * Displays the current tasks and their statuses.
+     *
+     * @param list a Task class list.
+     */
+    public static void displayList(Task[] list) {
         int count = Task.getCount();
 
-        PrintBorder();
+        printBorder();
         System.out.println("\tTask list:");
         for (int i = 0; i < count; i++) {
             System.out.print("\t" + (i + 1) + ".");
             System.out.print("[" + list[i].getStatusSymbol() + "] ");
             System.out.println(list[i].getDescription());
         }
-        PrintBorder();
+        printBorder();
     }
 
-    public static void UpdateStatus(Task[] list, String command, boolean doneStatus) {
+    /**
+     * Updates the completion status of an indicated task.
+     *
+     * @param list a Task class list.
+     * @param command the command containing the class id to be updated.
+     * @param doneStatus the status to be updated to.
+     */
+    public static void updateStatus(Task[] list, String command, boolean doneStatus) {
         if (command.split(" ").length != 2) {
-            System.out.println("\tInvalid number of arguments.");
+            System.out.println("\t! Invalid number of arguments.");
             return;
         }
         int id = Integer.parseInt(command.split(" ")[1]);
         if (id > Task.getCount()) {
-            System.out.println("\tInvalid task id detected.");
+            System.out.println("\t! Invalid task id detected.");
             return;
         }
         Task target = list[id - 1];
         target.setDone(doneStatus);
 
-        PrintBorder();
+        printBorder();
         if (doneStatus) {
             System.out.println("\tThe following task has been checked off:");
         }
@@ -63,7 +84,7 @@ public class Bob {
             System.out.println("\tThe following task has yet to be completed:");
         }
         System.out.println("\t  [" + target.getStatusSymbol() + "] " + target.getDescription());
-        PrintBorder();
+        printBorder();
     }
 
     public static void main(String[] args) {
@@ -71,20 +92,20 @@ public class Bob {
         Scanner in = new Scanner(System.in);
         Task[] list = new Task[100];
 
-        Greetings();
+        greetings();
         do {
             System.out.println("");
             command = in.nextLine();
 
             switch (command.split(" ")[0]) {
             case "list":
-                DisplayList(list);
+                displayList(list);
                 continue;
             case "mark":
-                UpdateStatus(list, command, true);
+                updateStatus(list, command, true);
                 continue;
             case "unmark":
-                UpdateStatus(list, command, false);
+                updateStatus(list, command, false);
                 continue;
             case "bye":
                 break;
@@ -93,12 +114,12 @@ public class Bob {
                 Task temp = new Task(command);
                 list[Task.getCount() - 1] = temp;
 
-                PrintBorder();
+                printBorder();
                 System.out.println("\tadded:" + command);
-                PrintBorder();
+                printBorder();
             }
         } while (command.split(" ")[0].compareTo("bye") != 0);
 
-        GoodBye();
+        goodBye();
     }
 }
