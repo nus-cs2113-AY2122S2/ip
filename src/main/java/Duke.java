@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
 
-    static String[] taskList = new String[100];
+    static Task[] taskList = new Task[100];
     static Boolean[] taskStatusList = new Boolean [100];
     static int currentCount = 0;
     static String dashedLine = "\t____________________________________________________________";
@@ -11,7 +11,7 @@ public class Duke {
         taskStatusList[index - 1] = true;
         String message = dashedLine + "\n" +
                 "\t Nice! I've marked this task as done: \n" +
-                "\t \t [X] " + taskList[index - 1] + "\n" +
+                "\t \t [X] " + taskList[index - 1].task + "\n" +
                 dashedLine ;
         System.out.println(message);
     }
@@ -20,13 +20,13 @@ public class Duke {
         taskStatusList[index - 1] = false;
         String message = dashedLine + "\n" +
                 "\tOK, I've marked this task as not done yet: \n" +
-                "\t \t [ ] " + taskList[index - 1] + "\n" +
+                "\t \t [ ] " + taskList[index - 1].task + "\n" +
                 dashedLine ;
         System.out.println(message);
     }
 
     public static void addToList(String line){
-        taskList[currentCount] = line;
+        taskList[currentCount] = new Task(line);
         taskStatusList[currentCount] = false;
         currentCount += 1;
         String message = dashedLine + "\n" +
@@ -43,7 +43,7 @@ public class Duke {
                 indicator = "[X]";
             } else indicator = "[ ]";
             System.out.print("\n");
-            System.out.print("\t" + (j+1) + "." + indicator + " " + taskList[j]);
+            System.out.print("\t" + (j+1) + "." + indicator + " " + taskList[j].task);
         }
         System.out.println("\n" + dashedLine);
     }
