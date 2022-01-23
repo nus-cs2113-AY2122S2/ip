@@ -14,8 +14,8 @@ public class Serene {
     public static final int TASK_LIMIT = 100;
     private static final int DONE = -1;
     private static final int CONTINUE = -2;
-    private static Task[] storedResponses = new Task[TASK_LIMIT];
-    private static int responsesSoFar = 0;
+    private static Task[] taskList = new Task[TASK_LIMIT];
+    private static int taskCount = 0;
 
 
 
@@ -26,13 +26,13 @@ public class Serene {
     }
 
     public static String getTaskWithStatus (int taskIndex) {
-        return "[" + storedResponses[taskIndex].getStatusIcon() + "] " + storedResponses[taskIndex].getDescription();
+        return "[" + taskList[taskIndex].getStatusIcon() + "] " + taskList[taskIndex].getDescription();
     }
 
     public static void printResponseList() {
         System.out.println(partitionLine);
         System.out.println("Here is your task list:");
-        for (int i = 0; i < responsesSoFar; i++) {
+        for (int i = 0; i < taskCount; i++) {
             System.out.println(i+1 + "." + getTaskWithStatus(i));
         }
         System.out.println(partitionLine);
@@ -50,19 +50,19 @@ public class Serene {
             break;
         case "mark":
             taskIndex = Integer.parseInt(responsePartition[1]) - 1;
-            storedResponses[taskIndex].markDone();
+            taskList[taskIndex].markDone();
             printWithPartition("Good job~ This task is now done:\n" + getTaskWithStatus(taskIndex));
             break;
         case "unmark":
             taskIndex = Integer.parseInt(responsePartition[1]) - 1;
-            storedResponses[taskIndex].markNotDone();
+            taskList[taskIndex].markNotDone();
             printWithPartition("Sigh. Here we go again:\n" + getTaskWithStatus(taskIndex));
             break;
         default:
             Task t = new Task(userInput);
-            storedResponses[responsesSoFar] = t;
+            taskList[taskCount] = t;
             printWithPartition("added: " + userInput);
-            responsesSoFar++;
+            taskCount++;
         }
         return CONTINUE;
     }
@@ -75,8 +75,8 @@ public class Serene {
 
     public static void main(String[] args) {
         int statusOfSerene = CONTINUE;
-        String[] storedResponses = new String[TASK_LIMIT];
-        int responsesSoFar = 0;
+        String[] taskList = new String[TASK_LIMIT];
+        int taskCount = 0;
         Scanner in = new Scanner(System.in);
         printWelcomeMessage();
         while (statusOfSerene != DONE) {
