@@ -44,7 +44,7 @@ public class Sora {
     public static void main(String[] args) {
         // Start Sora
         Sora sora = new Sora();
-        SoraList soraList = new SoraList();
+        TaskList taskList = new TaskList();
         sora.printGreetings();
 
         // Get user command
@@ -57,20 +57,43 @@ public class Sora {
 
         while (!userInput.equalsIgnoreCase("bye")) {
             if (userInput.equalsIgnoreCase("list")) {
-                System.out.println(Helper.getRandomAcknowledgement() + ", here's the list of texts that you have given to me:");
+                // Display the task list
+                System.out.println(Helper.getRandomAcknowledgement() + ", here's the list of tasks that you have given to me:");
+                System.out.println();
+                taskList.displayList();
                 System.out.println();
 
-                // Get the list, iterate through and print it
-                ArrayList<String> currentList = soraList.getList();
-                for (int i = 0; i < currentList.size(); i += 1) {
-                    System.out.println("\t" + (i + 1) + ". " + currentList.get(i));
+            } else if (userInput.toLowerCase().startsWith("mark")) {
+                // Obtain task number
+                int taskNum = Integer.parseInt(userInput.split(" ")[1]);
+                boolean markSuccess = taskList.updateDoneStatus(taskNum, true);
+
+                if (markSuccess) {
+                    System.out.println(Helper.getRandomAcknowledgement() + ", I've marked this task as done:");
+                    System.out.println();
+                    taskList.displayTask(taskNum);
+                    System.out.println();
+                } else {
+                    System.out.println("Oops, I couldn't mark that task as done.");
+                    System.out.println("Sorry about that... (-ω-、)");
                 }
+            } else if (userInput.toLowerCase().startsWith("unmark")) {
+                // Obtain task number
+                int taskNum = Integer.parseInt(userInput.split(" ")[1]);
+                boolean unmarkSuccess = taskList.updateDoneStatus(taskNum, false);
 
-                System.out.println();
-
+                if (unmarkSuccess) {
+                    System.out.println(Helper.getRandomAcknowledgement() + ", I've marked this task as not done:");
+                    System.out.println();
+                    taskList.displayTask(taskNum);
+                    System.out.println();
+                } else {
+                    System.out.println("Oops, I couldn't mark that task as not done.");
+                    System.out.println("Sorry about that... (-ω-、)");
+                }
             } else {
                 // Add text to list
-                boolean addSuccess = soraList.addText(userInput);
+                boolean addSuccess = taskList.addTask(userInput);
 
                 if (addSuccess) {
                     System.out.println(Helper.getRandomAcknowledgement() + ", I have added your text to my list:");
