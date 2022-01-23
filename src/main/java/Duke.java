@@ -5,13 +5,37 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello I'm Duke.\n" + logo);
-        System.out.println("____________________________________________________________");
-        System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
+        System.out.println("\t"+logo);
+        System.out.println("\t____________________________________________________________");
+        System.out.println("\tHello I'm Duke.");
+        System.out.println("\tWhat can I do for you?");
+        System.out.println("\t____________________________________________________________");
+        System.out.println();
 
 
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________");
+
+
+        System.out.println("list");
+        System.out.println("\t____________________________________________________________");
+        System.out.println("\tlist");
+        System.out.println("\t____________________________________________________________");
+        System.out.println();
+
+
+
+
+        System.out.println("blah");
+        System.out.println("\t____________________________________________________________");
+        System.out.println("\tblah");
+        System.out.println("\t____________________________________________________________");
+        System.out.println();
+
+
+
+        
+        System.out.println("bye");
+        System.out.println("\t____________________________________________________________");
+        System.out.println("\tBye. Hope to see you again soon!");
+        System.out.println("\t____________________________________________________________");
     }
 }
