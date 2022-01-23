@@ -12,7 +12,7 @@ public class Duke {
         String input;
         Scanner in = new Scanner(System.in);
         printLine();
-        System.out.print("Hello! I'm Duke\n" +
+        System.out.print("Hello! I'm Bob\n" +
                 "What can I do for you?\n");
         printLine();
         input = in.nextLine();
