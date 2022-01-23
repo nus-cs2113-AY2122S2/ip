@@ -19,4 +19,15 @@ public class Command {
         System.out.println("    "+s);
         PatternGenerator.generateLine();
     }
+
+    public static void add(String s){
+        Task.addTask(s);
+        PatternGenerator.generateDoubleLines();
+        System.out.println("    Added: "+ s);
+        PatternGenerator.generateDoubleLines();
+    }
+
+    public static void list(){
+        Task.listTasks();
+    }
 }

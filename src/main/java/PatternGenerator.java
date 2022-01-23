@@ -7,5 +7,8 @@ public class PatternGenerator {
         System.out.println(">>> ");
     }
 
+    public static void generateDoubleLines(){
+        System.out.println("============================================================");
+    }
 
 }

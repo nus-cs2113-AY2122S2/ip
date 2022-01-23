@@ -13,11 +13,24 @@ public class Duke {
         String input;
         while (true){
             input = sc.nextLine();
-            if (input.equals("bye")){
-                Command.exit();
+            getCommand(input);
+            if(input.equals("bye")){
                 break;
             }
-            Command.echo(input);
+        }
+    }
+
+    public static void getCommand (String input){
+        switch (input) {
+        case "bye":
+            Command.exit();
+            break;
+        case "list":
+            Command.list();
+            break;
+        default:
+            Command.add(input);
+            break;
         }
     }
 
