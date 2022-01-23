@@ -2,11 +2,26 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static void echoMessage(String line){
-        String message = "\t____________________________________________________________\n" +
-                "\t" + line + "\n" +
-                "\t____________________________________________________________";
+    static String[] textList = new String[100];
+    static int currentCount = 0;
+    static String dashedLine = "\t____________________________________________________________";
+
+    public static void addToList(String line){
+        textList[currentCount] = line;
+        currentCount += 1;
+        String message = dashedLine + "\n" +
+                "\t" + "added:" + line + "\n" +
+                dashedLine;
         System.out.println(message);
+    }
+
+    public static void printList(){
+        System.out.print(dashedLine);
+        for (int j = 0; j < currentCount; j++){
+            System.out.print("\n");
+            System.out.print("\t" + (j+1) + ". " + textList[j]);
+        }
+        System.out.println("\n" + dashedLine);
     }
 
     public static void main(String[] args) {
@@ -20,23 +35,25 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
 
-        String greeting = "\t____________________________________________________________\n" +
+        String greeting = dashedLine + "\n" +
                 "\t Hello! I'm Duke\n" +
                 "\t What can I do for you?\n" +
-                "\t____________________________________________________________";
+                dashedLine;
 
-        String bye = "\t____________________________________________________________\n" +
+        String bye = dashedLine + "\n" +
                 "\t Bye. Hope to see you again soon!\n" +
-                "\t____________________________________________________________";
+                dashedLine;
 
         System.out.println(greeting);
 
         line = in.nextLine();
 
         while (!line.contains("bye")){
-            echoMessage(line);
+            if (line.equals("list")){
+                printList();
+            } else addToList(line);
             line = in.nextLine();
         }
-        System.out.println(bye);
+        System.out.print(bye);
     }
 }
