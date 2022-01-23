@@ -1,10 +1,6 @@
+import java.util.Scanner;
+
 public class Duke {
-    public static void greeting() {
-        System.out.println(" Hello! I'm Duke");
-        System.out.println(" What can I do for you?");
-
-    }
-
     public static void linePrinter() {
         for(int i = 0; i < 70; i++) {
             System.out.print("\u2500");
@@ -12,22 +8,42 @@ public class Duke {
         System.out.println("\u2500");
     }
 
+    public static void greeting() {
+        linePrinter();
+        System.out.println(" I have been waiting for you, Mister Winters");
+        System.out.println(" Forgive my manners, call me the Duke. Now to business. " +
+                "Weapons, ammunition, healing salves – anything you desire, I can provide.");
+        linePrinter();
+
+    }
+
     public static void exitLine() {
-        System.out.println(" Bye. Hope to see you again soon!");
+        linePrinter();
+        System.out.println(" Good day, then!");
+        linePrinter();
+    }
+
+    public static void echo (String line) {
+        linePrinter();
+        System.out.println(line);
+        linePrinter();
     }
 
     public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        String line;
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        linePrinter();
         greeting();
-        linePrinter();
+        line = input.nextLine();
+        while(!line.equalsIgnoreCase("bye")) {
+            echo(line);
+            line = input.nextLine();
+        }
         exitLine();
-        linePrinter();
-
     }
 }
