@@ -26,7 +26,7 @@ public class Duke {
                     + "to mark your task.");
             return;
         }
-        
+
         int i = Integer.parseInt(words[1]) - 1;
         if (tasks[i].isDone()) {
             System.out.println("This task has already been marked!");
@@ -88,7 +88,7 @@ public class Duke {
         Task[] tasks = new Task[100];
         System.out.println(line);
         System.out.print("Hello! I'm Bob,\n"
-                + "your friendly neighbourhood assistant.\n"
+                + "your friendly virtual task manager.\n"
                 + "How can I help you today?\n");
         System.out.println(line);
         String input = in.nextLine();
