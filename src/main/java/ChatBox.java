@@ -32,7 +32,7 @@ public class ChatBox {
      * Get the layout of the ChatBox
      * @return The Layout of the ChatBox
      */
-    public String chatBoxGetter()
+    public String getChatBox()
     {
         String returnString = upperLine + "\n" + contends + "\n" + upperLine + "\n";
         return returnString;

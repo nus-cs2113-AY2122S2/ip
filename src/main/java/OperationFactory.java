@@ -29,7 +29,7 @@ public class OperationFactory {
             case "blah":
                 return new BlahOperation(orderName, order);
             default:
-                return new UndefinedOperation(orderName, order);
+                return new AddOperation(orderName, order);
         }
 
     }

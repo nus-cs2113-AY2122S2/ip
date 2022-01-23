@@ -11,6 +11,7 @@ abstract class Operation {
     /**
      * Initialize operation with operationName
      * @param _operationName Name of the Operation
+     * @param order Order given by User
      */
     public Operation(String _operationName, String order){
 
