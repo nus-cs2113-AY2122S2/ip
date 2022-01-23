@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Sora {
@@ -42,7 +41,7 @@ public class Sora {
     }
 
     public static void main(String[] args) {
-        // Start Sora
+        // Start Sora and components
         Sora sora = new Sora();
         TaskList taskList = new TaskList();
         sora.printGreetings();
@@ -58,7 +57,8 @@ public class Sora {
         while (!userInput.equalsIgnoreCase("bye")) {
             if (userInput.equalsIgnoreCase("list")) {
                 // Display the task list
-                System.out.println(Helper.getRandomAcknowledgement() + ", here's the list of tasks that you have given to me:");
+                System.out.println(Helper.getRandomAcknowledgement()
+                        + ", here's the list of tasks that you have given to me:");
                 System.out.println();
                 taskList.displayList();
                 System.out.println();
@@ -69,7 +69,8 @@ public class Sora {
                 boolean markSuccess = taskList.updateDoneStatus(taskNum, true);
 
                 if (markSuccess) {
-                    System.out.println(Helper.getRandomAcknowledgement() + ", I've marked this task as done:");
+                    System.out.println(Helper.getRandomAcknowledgement()
+                            + ", I've marked this task as done:");
                     System.out.println();
                     taskList.displayTask(taskNum);
                     System.out.println();
@@ -83,7 +84,8 @@ public class Sora {
                 boolean unmarkSuccess = taskList.updateDoneStatus(taskNum, false);
 
                 if (unmarkSuccess) {
-                    System.out.println(Helper.getRandomAcknowledgement() + ", I've marked this task as not done:");
+                    System.out.println(Helper.getRandomAcknowledgement()
+                            + ", I've marked this task as not done:");
                     System.out.println();
                     taskList.displayTask(taskNum);
                     System.out.println();
@@ -96,7 +98,8 @@ public class Sora {
                 boolean addSuccess = taskList.addTask(userInput);
 
                 if (addSuccess) {
-                    System.out.println(Helper.getRandomAcknowledgement() + ", I have added your text to my list:");
+                    System.out.println(Helper.getRandomAcknowledgement()
+                            + ", I have added your text to my list:");
                     System.out.println();
                     System.out.println("\t" + userInput);
                     System.out.println();

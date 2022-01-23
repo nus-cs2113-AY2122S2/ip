@@ -3,29 +3,19 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> list = new ArrayList<Task>();
 
-    // Accessors
     public ArrayList<Task> getList() {
         return this.list;
     }
 
     public boolean isEmpty() {
-        if (list.size() == 0) {
-            return true;
-        }
-
-        return false;
+        return list.size() == 0;
     }
 
     public boolean addTask(String text) {
         // Create new Task object with text
         Task newTask = new Task(text);
-        boolean addSuccess = list.add(newTask);
 
-        if (addSuccess) {
-            return true;
-        }
-
-        return false;
+        return list.add(newTask);
     }
 
     public boolean updateDoneStatus(int taskNum, boolean status) {

@@ -10,7 +10,6 @@ public class Helper {
         "Got it"
     };
 
-    // Accessors
     public static String[] getAcknowledgementWords() {
         return acknowledgementWords;
     }
@@ -38,8 +37,7 @@ public class Helper {
     protected static int getHourOfDay() {
         // Returns the hour of the day in 24-hour format. Uses the GMT+8 timezone
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
-        int hourOfDay = cal.get(Calendar.HOUR_OF_DAY);
 
-        return hourOfDay;
+        return cal.get(Calendar.HOUR_OF_DAY);
     }
 }
