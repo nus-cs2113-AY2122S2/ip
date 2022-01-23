@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
@@ -17,6 +18,16 @@ public class Duke {
 
     }
 
+    public static void printList(String[] items) {
+        linePrinter();
+
+        for (String item : items) {
+            System.out.println(item);
+        }
+
+        linePrinter();
+    }
+
     public static void exitLine() {
         linePrinter();
         System.out.println(" Good day, then!");
@@ -32,16 +43,26 @@ public class Duke {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         String line;
+        List list = new List();
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
+
         System.out.println("Hello from\n" + logo);
         greeting();
         line = input.nextLine();
         while(!line.equalsIgnoreCase("bye")) {
-            echo(line);
+            if (line.startsWith("Add")) {
+                list.addToList(line);
+                echo(line.replace("Add", "Added") + " to the cart");
+            } else if (line.equals("List")){
+                printList(list.listTheList());
+            } else {
+                echo(line);
+            }
+
             line = input.nextLine();
         }
         exitLine();
