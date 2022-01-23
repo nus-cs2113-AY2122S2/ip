@@ -1,7 +1,28 @@
 import java.util.Calendar;
+import java.util.Random;
 import java.util.TimeZone;
 
 public class Helper {
+    private static String[] acknowledgementWords = {
+        "Alright",
+        "Okay",
+        "Gotcha",
+        "Got it"
+    };
+
+    // Accessors
+    public static String[] getAcknowledgementWords() {
+        return acknowledgementWords;
+    }
+
+    protected static String getRandomAcknowledgement() {
+        // Randomly chooses one of the acknowledgement words from the array acknowledgementWords and returns it
+        Random rand = new Random();
+        int randNum = rand.nextInt(getAcknowledgementWords().length);
+
+        return getAcknowledgementWords()[randNum];
+    }
+
     protected static void printLine() {
         // Prints a line based on the default parameters
         int defaultLength = 60;

@@ -1,15 +1,7 @@
-import java.util.Calendar;
-import java.util.TimeZone;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Sora {
-    private int hourOfDay = Helper.getHourOfDay();
-
-    // Accessors of fields in Sora class
-    public int getHourOfDay() {
-        return this.hourOfDay;
-    }
-
     private void printGreetings() {
         String logo = "     _______.  ______   .______          ___      \n"
                 + "    /       | /  __  \\  |   _  \\        /   \\     \n"
@@ -23,9 +15,9 @@ public class Sora {
         Helper.printLine();
 
         // Print greetings
-        if (getHourOfDay() < 12) {
+        if (Helper.getHourOfDay() < 12) {
             System.out.print("Good morning! ");
-        } else if (getHourOfDay() < 18) {
+        } else if (Helper.getHourOfDay() < 18) {
             System.out.print("Good afternoon! ");
         } else {
             System.out.print("Good evening. ");
@@ -37,9 +29,9 @@ public class Sora {
     }
 
     public void printGoodbye() {
-        if (getHourOfDay() < 18) {
+        if (Helper.getHourOfDay() < 18) {
             System.out.println("Goodbye! Have a great day ahead (⌒▽⌒)☆");
-        } else if (getHourOfDay() < 22) {
+        } else if (Helper.getHourOfDay() < 22) {
             System.out.println("Goodbye! Have a good evening <(￣︶￣)>");
         } else {
             System.out.println("Good night, have a good rest... (－ω－) zzZ");
@@ -52,23 +44,49 @@ public class Sora {
     public static void main(String[] args) {
         // Start Sora
         Sora sora = new Sora();
+        SoraList soraList = new SoraList();
         sora.printGreetings();
 
         // Get user command
         Scanner in = new Scanner(System.in);
-        String userInput = "";
+        String userInput;
 
         System.out.print("> ");
         userInput = in.nextLine();
         Helper.printLine();
 
-        while (!userInput.toLowerCase().equals("bye")) {
+        while (!userInput.equalsIgnoreCase("bye")) {
+            if (userInput.equalsIgnoreCase("list")) {
+                System.out.println(Helper.getRandomAcknowledgement() + ", here's the list of texts that you have given to me:");
+                System.out.println();
 
-            // Echo the user input
-            System.out.println(userInput);
-            Helper.printLine();
+                // Get the list, iterate through and print it
+                ArrayList<String> currentList = soraList.getList();
+                for (int i = 0; i < currentList.size(); i += 1) {
+                    System.out.println("\t" + (i + 1) + ". " + currentList.get(i));
+                }
+
+                System.out.println();
+
+            } else {
+                // Add text to list
+                boolean addSuccess = soraList.addText(userInput);
+
+                if (addSuccess) {
+                    System.out.println(Helper.getRandomAcknowledgement() + ", I have added your text to my list:");
+                    System.out.println();
+                    System.out.println("\t" + userInput);
+                    System.out.println();
+                } else {
+                    System.out.println("Oops! Somehow I wasn't able to add your text to my list...");
+                    System.out.println("Sorry about that! (-ω-、)");
+                }
+            }
 
             // Get next user prompt
+            Helper.printLine();
+            System.out.println("What's next?");
+            Helper.printLine();
             System.out.print("> ");
             userInput = in.nextLine();
             Helper.printLine();
