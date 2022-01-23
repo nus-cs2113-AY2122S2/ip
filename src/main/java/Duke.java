@@ -16,7 +16,7 @@ public class Duke {
         System.out.println(message);
     }
 
-    public static void unmarkTask(int index){
+    public static void unMarkTask(int index){
         taskStatusList[index - 1] = false;
         String message = dashedLine + "\n" +
                 "\tOK, I've marked this task as not done yet: \n" +
@@ -80,7 +80,7 @@ public class Duke {
                 markTask(indexToMark);
             } else if(line.startsWith("unmark")){
                 int indexToUnmark = Integer.parseInt(line.substring(7));
-                unmarkTask(indexToUnmark);
+                unMarkTask(indexToUnmark);
             } else addToList(line);
             line = in.nextLine();
         }
