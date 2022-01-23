@@ -1,12 +1,12 @@
-public class userContent {
+public class UserContent {
     private String content;
     private boolean isMark;
     private int listIndex;
 
-    public userContent(){
+    public UserContent(){
         this("", -1);
     }
-    public userContent(String content, int listIndex){
+    public UserContent(String content, int listIndex){
         setContent(content);
         setUnmark();
         setListIndex(listIndex);

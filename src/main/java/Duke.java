@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
     private static String line = "____________________________________________________________\n";
-    private static userContent[] list = new userContent[100];
+    private static UserContent[] lists = new UserContent[100];
     private static int listIndex = 0;
 
     public static void greeting() {
@@ -44,26 +44,26 @@ public class Duke {
     public static void printList(){
         System.out.println("Go finish these task, NOW:");
         for(int i = 1; i <= listIndex; i++){
-            System.out.println(i + ". " + "[" + (list[i].getMark()? "X":" ") + "] " + list[i].getContent());
+            System.out.println(i + ". " + "[" + (lists[i].getMark()? "X":" ") + "] " + lists[i].getContent());
         }
     }
 
     public static void addToList(String input){
         listIndex++;
-        list[listIndex] = new userContent(input, listIndex);
+        lists[listIndex] = new UserContent(input, listIndex);
         System.out.println("Added: " + input);
     }
 
     public static void mark(String number){
         System.out.println("So you've done this task, that's great I guess? ");
-        list[Integer.parseInt(number)].setMark();
-        System.out.println(number + ". " + "[X] " + list[Integer.parseInt(number)].getContent());
+        lists[Integer.parseInt(number)].setMark();
+        System.out.println(number + ". " + "[X] " + lists[Integer.parseInt(number)].getContent());
     }
 
     public static void unmark(String number){
         System.out.println("What do you mean you've undone");
-        list[Integer.parseInt(number)].setUnmark();
-        System.out.println(number + ". " + "[ ] " + list[Integer.parseInt(number)].getContent());
+        lists[Integer.parseInt(number)].setUnmark();
+        System.out.println(number + ". " + "[ ] " + lists[Integer.parseInt(number)].getContent());
 
     }
 
