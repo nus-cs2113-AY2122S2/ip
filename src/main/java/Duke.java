@@ -1,30 +1,35 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static void printLine() {
-        System.out.println("_______________"
-                + "_______________"
-                + "_______________"
-                + "_______________");
+    private static final String[] storage = new String[100];
+    private static int num = 0;
+    private static final String line = "_______________"
+                               + "_______________"
+                               + "_______________"
+                               + "_______________";
+
+    public static void taskManager(String input) {
+        System.out.println(line);
+        storage[num++] = input;
+        System.out.println("added: " + input);
+        System.out.println(line);
     }
 
     public static void main(String[] args) {
         String input;
         Scanner in = new Scanner(System.in);
-        printLine();
+        System.out.println(line);
         System.out.print("Hello! I'm Bob,\n"
                 + "your friendly neighbourhood assistant.\n"
                 + "How can I help you today?\n");
-        printLine();
+        System.out.println(line);
         input = in.nextLine();
         while (!input.equals("bye")) {
-            printLine();
-            System.out.println(input);
-            printLine();
+            taskManager(input);
             input = in.nextLine();
         }
-        printLine();
+        System.out.println(line);
         System.out.println("Bye. Hope to see you again soon! :)");
-        printLine();
+        System.out.print(line);
     }
 }
