@@ -1,15 +1,22 @@
 public class Task {
     private String taskDescription;
-    private Boolean status;
+    private Boolean status=false;
 
     public Task(String _taskDescription){
         this.taskDescription =  _taskDescription;
     }
 
     /**
-     * @return Get the report of the task
+     * @return Get the description of the task
      */
     public String getTaskDescription(){
+        return taskDescription;
+    }
+
+    /**
+     * @return Get the report of the task
+     */
+    public String getReport(){
         if (status != true) {
             return "[ ] " + taskDescription;
         } else return "[X] " + taskDescription;

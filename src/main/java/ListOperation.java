@@ -21,7 +21,7 @@ public class ListOperation extends Operation{
                 _result += "\n";
             }
             Task _task = TaskList.get(i);
-            _result += (String.valueOf(i+1)+". "+_task.getTaskDescription());
+            _result += (String.valueOf(i+1)+". "+_task.getReport());
         }
         return _result;
     }
