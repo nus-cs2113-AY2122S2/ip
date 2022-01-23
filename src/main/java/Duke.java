@@ -12,8 +12,9 @@ public class Duke {
         String input;
         Scanner in = new Scanner(System.in);
         printLine();
-        System.out.print("Hello! I'm Bob\n" +
-                "What can I do for you?\n");
+        System.out.print("Hello! I'm Bob,\n"
+                + "your friendly neighbourhood assistant.\n"
+                + "How can I help you today?\n");
         printLine();
         input = in.nextLine();
         while (!input.equals("bye")) {
@@ -23,7 +24,7 @@ public class Duke {
             input = in.nextLine();
         }
         printLine();
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Bye. Hope to see you again soon! :)");
         printLine();
     }
 }
