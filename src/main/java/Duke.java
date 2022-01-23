@@ -27,7 +27,7 @@ public class Duke {
         System.out.println();
     }
 
-    public static void sayGoobye(String command){
+    public static void sayGoobye(){
         System.out.println("\t____________________________________________________________");
         System.out.println("\tBye. Hope to see you again soon!");
         System.out.println("\t____________________________________________________________");
@@ -53,32 +53,108 @@ public class Duke {
         System.out.println("\t____________________________________________________________");
     }
 
+    //level 3
+
+    public class Task {
+        protected String description;
+        protected boolean isDone;
+
+        public Task(String description) {
+            this.description = description;
+            this.isDone = false;
+
+            System.out.println("\t____________________________________________________________");
+            System.out.println("\tadded: " + description);
+            System.out.println("\t____________________________________________________________");
+        }
+
+        public String getStatusIcon() {
+            return (isDone ? "X" : " "); // mark done task with X
+        }
+
+        public void markAsDone(){
+            this.isDone = true;
+        }
+
+        public void markAsUnDone(){
+            this.isDone = false;
+        }
+
+        public void printTask(){
+            System.out.println("[" + getStatusIcon() + "] " + this.description);
+        }
+    }
+
+    public static void displayListWithStatus(Task[] allAbilities, int abilitiesCount){
+        System.out.println("\t____________________________________________________________");
+        System.out.println("Nice! I've marked this task as done:");
+        for(int i = 1; i <= abilitiesCount; i++){
+            System.out.print(i);
+            System.out.print(". ");
+            allAbilities[i-1].printTask();
+        }
+        System.out.println("\t____________________________________________________________");
+    }
+
     public static void main(String[] args) {
 
         String command;
         String[] abilities = new String[100];
+        Task[] allAbilities = new Task[100];
         int abilitiesCount = 0;
+        boolean notQuit = true;
 
         greeting();
-        while (true) {
+
+        while (notQuit) {
             Scanner in = new Scanner(System.in);
             command = in.nextLine();
 
-            if (command.contentEquals("bye")){
-                sayGoobye(command);
-                break;
-            }
-            else if (command.contentEquals("list")){
-                displayList(abilities, abilitiesCount); //level 2
-            }
-            else {
-                //echoCommand(command); //for level 1
-                abilities = addAbility(command, abilities, abilitiesCount); //level 2
-                abilitiesCount += 1;
+            switch (command.split(" ")[0]) {
+                case "bye": {
+                    sayGoobye();
+                    notQuit = false;
+                }
+                    break;
 
+                case "mark": {
+                    int index = Integer.parseInt(command.split(" ")[1]) - 1;
+                    Task t = allAbilities[index];
+                    t.markAsDone();
+                    System.out.println("\t____________________________________________________________");
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.print("\t\t");
+                    t.printTask();
+                    System.out.println("\t____________________________________________________________");
+                }
+                    break;
 
+                case "unmark": {
+                    int index = Integer.parseInt(command.split(" ")[1]) - 1;
+                    Task t = allAbilities[index];
+                    t.markAsUnDone();
+                    System.out.println("\t____________________________________________________________");
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.print("\t\t");
+                    t.printTask();
+                    System.out.println("\t____________________________________________________________");
+                }
+                    break;
+
+                case "list": {
+                    displayListWithStatus(allAbilities, abilitiesCount);
+                }
+                    break;
+
+                default: {
+                    Task t = new Duke().new Task(command);
+                    allAbilities[abilitiesCount] = t;
+                    abilitiesCount += 1;
+                }
+                    break;
             }
 
+            
         }
 
     }
