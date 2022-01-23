@@ -25,8 +25,8 @@ public class Task {
             currentIndex++;
         } else {
             System.out.println("Sorry! You've reached the"
-                               + "maximum amount of tasks"
-                               + "allowed on your task list");
+                    + "maximum amount of tasks"
+                    + "allowed on your task list");
 
         }
     }

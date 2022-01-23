@@ -2,24 +2,23 @@ import java.util.Scanner;
 
 public class Duke {
     private static final String line = "_______________"
-                               + "_______________"
-                               + "_______________"
-                               + "_______________";
+            + "_______________"
+            + "_______________"
+            + "_______________";
 
     public static void list(Task[] tasks) {
         int printIndex = 1;
         for (int i = 0; i < Task.getCurrentIndex(); i++) {
             System.out.println(printIndex + ". ["
-                               + tasks[i].getStatusIcon()
-                               + "] "
-                               + tasks[i].getDescription());
+                    + tasks[i].getStatusIcon()
+                    + "] " + tasks[i].getDescription());
             printIndex++;
         }
     }
 
     public static void mark(String[] words, Task[] tasks) {
         if (words.length < 2 ||
-            Integer.parseInt(words[1]) > Task.getCurrentIndex()) {
+                Integer.parseInt(words[1]) > Task.getCurrentIndex()) {
 
             System.out.println("Bzzt! \n Please"
                     + " key in a valid task number "
@@ -35,8 +34,7 @@ public class Duke {
         tasks[i].markAsDone();
         System.out.println("Nice! I've marked this task as done:\n"
                 + "  [" + tasks[i].getStatusIcon()
-                + "] "
-                + tasks[i].getDescription());
+                + "] " + tasks[i].getDescription());
     }
 
     public static void unmark(String[] words, Task[] tasks) {
@@ -58,8 +56,7 @@ public class Duke {
         System.out.println("Ok, I've marked this task as" +
                 " not done yet:\n  ["
                 + tasks[i].getStatusIcon()
-                + "] "
-                + tasks[i].getDescription());
+                + "] " + tasks[i].getDescription());
     }
 
     public static void taskManager(String input, Task[] tasks) {
