@@ -8,10 +8,22 @@ public class Duke {
                                + "_______________"
                                + "_______________";
 
+    public static void list() {
+        int index = 1;
+        for (int i = 0; i < num; i++) {
+            System.out.println(index + ". " + storage[i]);
+            index++;
+        }
+    }
+
     public static void taskManager(String input) {
         System.out.println(line);
-        storage[num++] = input;
-        System.out.println("added: " + input);
+        if (input.equals("list")) {
+            list();
+        } else {
+            storage[num++] = input;
+            System.out.println("added: " + input);
+        }
         System.out.println(line);
     }
 
