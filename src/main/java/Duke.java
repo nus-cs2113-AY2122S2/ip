@@ -3,15 +3,28 @@ import java.util.*;
 public class Duke {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+        String[] inputList = new String[100];
+        int inputAmount = 0;
 
         initialDisplay();
 
         //get reply from user and change
         String reply = input.nextLine();
+
         while(!reply.equalsIgnoreCase("BYE")){
+
+            if(reply.equalsIgnoreCase("LIST")){
+                printInputs(inputList);
+                reply = input.nextLine();
+                continue;
+            }
+            //save it into the input list
+            inputList[inputAmount++] = reply;
+
             System.out.println("____________________________________________________________");
-            System.out.println(reply);
+            System.out.println("added: "+reply);
             System.out.println("____________________________________________________________");
+
             reply = input.nextLine();
         }
 
@@ -32,4 +45,14 @@ public class Duke {
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
     }
+
+    public static void printInputs(String[] inputs){
+        System.out.println("____________________________________________________________");
+        for(int i=1;i<=inputs.length && inputs[i-1]!=null;i++){
+            System.out.println(i+". "+inputs[i-1]);
+        }
+        System.out.println("____________________________________________________________");
+    }
+
+
 }
