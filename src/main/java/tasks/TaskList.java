@@ -1,3 +1,5 @@
+package tasks;
+
 import java.util.ArrayList;
 
 /**
@@ -8,16 +10,14 @@ public class TaskList {
     private static ArrayList<Task> taskArrayList =  new ArrayList<>();
 
     /**
-     * @param _newTask The new task to be appended
+     * @param newTaskLocal The new task to be appended
      * @return The indication of the result of the addTask operation
      */
-    public static Boolean addTask (Task _newTask)
-    {
+    public static void addTask (Task newTaskLocal) {
         try {
-            TaskList.taskArrayList.add(_newTask);
-            return true;
+            TaskList.taskArrayList.add(newTaskLocal);
         } catch (Exception e) {
-            return false;
+            System.out.println(e);
         }
 
     }
@@ -25,17 +25,16 @@ public class TaskList {
     /**
      * @return The number of tasks in the list
      */
-    public static int size()
-    {
+    public static int getSize() {
         return taskArrayList.size();
     }
 
     /**
-     * @param _index The index of element/task that the get method wants to get
+     * @param indexLocal The index of element/task that the get method wants to get
      * @return The index-the element(0-based)
      */
-    public static Task get(int _index){
-        return taskArrayList.get(_index);
+    public static Task getElement(int indexLocal){
+        return taskArrayList.get(indexLocal);
     }
 
 

@@ -1,11 +1,17 @@
+import operations.*;
+import operations.OperationFactory;
+
 import java.util.Scanner;
+
+import ui.ChatBox;
+
 /**
  * Controller serves for orders
  */
 public class Controller {
     private String helloWords = " Hello! I'm Duke\n" + " What can I do for you?";
     private String exitWords = "Bye. Hope to see you again soon!";
-    private String EXIT_COMMAND = "bye";
+    private static String EXIT_COMMAND = "bye";
     ChatBox chatBox;
 
     /**
@@ -22,7 +28,7 @@ public class Controller {
      */
     public void sayHello() {
         chatBox.contendsSetter(helloWords);
-        chatBox.chatBoxPrinter();
+        chatBox.printChatBox();
     }
 
 
@@ -31,8 +37,8 @@ public class Controller {
      */
     public void sayGoodBye() {
         chatBox.contendsSetter(exitWords);
-        chatBox.chatBoxPrinter();
-        chatBox.chatBoxEnd();
+        chatBox.printChatBox();
+        chatBox.endChatBox();
     }
 
 
@@ -48,18 +54,16 @@ public class Controller {
         while(true){
             try{
                 String order = sc.nextLine();
-                operationFactory.orderSetter(order);
+                operationFactory.setOrder(order);
                 Operation operation = operationFactory.makeOperation();
-                ChatBox.chatBoxPrinter(operation.getResult());
-                if (operation.getOperationName().equals("bye")){
+                ChatBox.printChatBox(operation.getResult());
+                if (operation.getOperationName().equals(EXIT_COMMAND)){
                     break;
                 }
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
 
         }
 
