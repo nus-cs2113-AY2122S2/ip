@@ -16,7 +16,8 @@ public class Duke {
 
         while (!userInput.equals("bye")) {
             userInput = in.nextLine();
-            switch (userInput) {
+            String[] words = userInput.split(" ");
+            switch (words[0]) {
             case "list":
                 System.out.println(line);
                 listTextList(textList,count);
@@ -43,7 +44,7 @@ public class Duke {
 
     private static void listTextList(String[] textList, int count) {
         for (int i = 0;i < count;i++) {
-            System.out.println(i + ". " + textList[i]);
+            System.out.println(i + 1 + ". " + textList[i]);
         }
     }
 }
