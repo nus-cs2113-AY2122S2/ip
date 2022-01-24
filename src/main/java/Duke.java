@@ -6,17 +6,21 @@ public class Duke {
         System.out.println("Hi there! I'm Domo the chatbot.\nWhat would you like to do? " +
                 "Type a command/anything you wish!");
     }
-    public static String getCommand() {
-        Scanner scan = new Scanner(System.in);
-        return scan.nextLine();
-    }
-    public static void echoCommand() {
+    public static void parseCommand(String[] tasks, int numTasks) {
         String command = getCommand();
-        Boolean isBye = command.equals("bye");
-        while (!isBye) {
-            System.out.println("The command you typed is: " + command);
+        while (!isBye(command)) {
+            if (isList(command)) {
+                System.out.println("Command accepted! Here is what you have typed so far:");
+                for (int i = 0; i < numTasks; i++) {
+                    System.out.println((i + 1) + ". " + tasks[i]);
+                }
+                System.out.println("Type a command/anything you wish!");
+            } else {
+                System.out.println("You have typed: " + command);
+                tasks[numTasks] = command;
+                numTasks += 1;
+            }
             command = getCommand();
-            isBye = command.equals("bye");
         }
     }
     public static void exit() {
@@ -25,9 +29,21 @@ public class Duke {
         printDomo();
     }
     public static void main(String[] args) {
+        String[] tasks = new String[100];
+        int numTasks = 0;
         greet();
-        echoCommand();
+        parseCommand(tasks, numTasks);
         exit();
+    }
+    public static String getCommand() {
+        Scanner scan = new Scanner(System.in);
+        return scan.nextLine();
+    }
+    public static Boolean isBye(String command) {
+        return command.equals("bye");
+    }
+    public static Boolean isList(String command) {
+        return command.equals("list");
     }
     public static void printDomo() {
         String domoLogo = "─────────▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄─────────\n" +
