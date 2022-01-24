@@ -21,15 +21,29 @@ public class Duke {
         System.out.println("----------------------------------");
         while(in.hasNext()) {
             String input = in.nextLine();
+            String[] words = input.split(" ");
+            String command = words[0];
 
-            if (input.equals("bye")) {
+            if (command.equals("bye")) {
                 System.out.println("Have a nice day!");
                 break;
-            } else if (input.equals("list")) {
+            } else if (command.equals("list")) {
                 for (int i = 0; i < taskStore.size(); i++) {
                     Task currentTask = taskStore.get(i);
-                    System.out.println((i + 1) + ". " + currentTask.getDescription());
+                    System.out.println((i + 1) + ".[" + currentTask.getStatusIcon() + "] " + currentTask.getDescription());
                 }
+            } else if (command.equals("mark") || command.equals("unmark")) {
+                int index = Integer.parseInt(words[1]);
+                --index;
+                Task currentTask = taskStore.get(index);
+                if (command.equals("mark")) {
+                    System.out.println("Sure thing!");
+                    currentTask.setAsDone();
+                } else {
+                    System.out.println("I'm sorry to hear that..");
+                    currentTask.setAsNotDone();
+                }
+                System.out.println("\t[" + currentTask.getStatusIcon() + "] " + currentTask.getDescription());
             } else {
                 Task newTask = new Task(input);
                 taskStore.add(newTask);
