@@ -3,15 +3,6 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        /*
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        //System.out.println("Hello from\n" + logo);
-         */
-
         Scanner in = new Scanner(System.in);
         ArrayList<Task> taskStore = new ArrayList<Task>();
 
@@ -19,7 +10,8 @@ public class Duke {
         System.out.println("Hi! I'm Bim!");
         System.out.println("What can I do for you?");
         System.out.println("----------------------------------");
-        while(in.hasNext()) {
+
+        while (in.hasNext()) {
             String input = in.nextLine();
             String[] words = input.split(" ");
             String command = words[0];
@@ -33,8 +25,7 @@ public class Duke {
                     System.out.println((i + 1) + ".[" + currentTask.getStatusIcon() + "] " + currentTask.getDescription());
                 }
             } else if (command.equals("mark") || command.equals("unmark")) {
-                int index = Integer.parseInt(words[1]);
-                --index;
+                int index = Integer.parseInt(words[1]) - 1;
                 Task currentTask = taskStore.get(index);
                 if (command.equals("mark")) {
                     System.out.println("Sure thing!");
