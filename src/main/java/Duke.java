@@ -1,3 +1,4 @@
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Duke {
@@ -18,6 +19,7 @@ public class Duke {
     public static void main(String[] args) {
         displayGreeting();
         String[] taskList = new String[100];
+        String[] trackIsDoneList = new String[100];
         int taskCount = 0;
 
         String border = "_____________________________________________________";
@@ -28,12 +30,36 @@ public class Duke {
             System.out.println(border);
 
             if (userInput.equalsIgnoreCase("list")) {
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskCount; i += 1) {
-                    System.out.println(i + 1 + ". " + taskList[i]);
+                    System.out.println((i + 1) + ".[" + trackIsDoneList[i] +"] " + taskList[i]);
+                }
+            }
+            else if (userInput.toLowerCase().startsWith("unmark")) {
+                int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
+                if (taskIndex > taskCount || taskIndex <= 0) {
+                    System.out.println("Task does not exist!");
+                }
+                else {
+                    trackIsDoneList[taskIndex - 1] = " ";
+                    System.out.println("Uh oh! This task is undone:");
+                    System.out.println("[" + trackIsDoneList[taskIndex - 1] + "] " + taskList[taskIndex - 1]);
+                }
+            }
+            else if (userInput.toLowerCase().startsWith("mark")){
+                int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
+                if (taskIndex > taskCount || taskIndex <= 0) {
+                    System.out.println("Task does not exist!");
+                }
+                else {
+                    trackIsDoneList[taskIndex - 1] = "X";
+                    System.out.println("Fantastic! This task is done:");
+                    System.out.println("[" + trackIsDoneList[taskIndex - 1] + "] " + taskList[taskIndex - 1]);
                 }
             }
             else{
                 taskList[taskCount] = userInput;
+                trackIsDoneList[taskCount] = " ";
                 System.out.println("added: "+ userInput);
                 taskCount += 1;
             }
