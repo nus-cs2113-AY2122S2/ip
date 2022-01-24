@@ -13,10 +13,10 @@ public class Duke {
          */
 
         Scanner in = new Scanner(System.in);
-        ArrayList<String> textStore = new ArrayList<String>();
+        ArrayList<Task> taskStore = new ArrayList<Task>();
 
         System.out.println("----------------------------------");
-        System.out.println("Hello! I'm Bim!");
+        System.out.println("Hi! I'm Bim!");
         System.out.println("What can I do for you?");
         System.out.println("----------------------------------");
         while(in.hasNext()) {
@@ -26,11 +26,13 @@ public class Duke {
                 System.out.println("Have a nice day!");
                 break;
             } else if (input.equals("list")) {
-                for (int i = 0; i < textStore.size(); i++) {
-                    System.out.println((i + 1) + ". " + textStore.get(i));
+                for (int i = 0; i < taskStore.size(); i++) {
+                    Task currentTask = taskStore.get(i);
+                    System.out.println((i + 1) + ". " + currentTask.getDescription());
                 }
             } else {
-                textStore.add(input);
+                Task newTask = new Task(input);
+                taskStore.add(newTask);
                 System.out.println("added: " + input);
             }
 
