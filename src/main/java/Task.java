@@ -14,8 +14,8 @@ public class Task {
         return taskDescription;
     }
 
-    public void setTaskName(String newTaskDescription) {
-        taskDescription = newTaskDescription;
+    public void setTaskDescription(String taskDescription) {
+        this.taskDescription = taskDescription;
     }
 
     public static int getNumberOfTasks() {
