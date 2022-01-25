@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Duke {
     public static void main(String[] args) {
@@ -10,7 +11,7 @@ public class Duke {
         String line = "-----------------------------";
         Scanner in = new Scanner(System.in);
         String input;
-        String[] list = new String[100];
+        Task[] list = new Task[100];
         int index = 0;
 
         System.out.println("Hello from\n" + logo);
@@ -21,6 +22,7 @@ public class Duke {
 
         while (true) {
             input = in.nextLine();
+            input = input.trim();
             if (input.equalsIgnoreCase("bye")) {
                 System.out.println("Bye! Hope to see you soon :D");
                 System.out.println(line);
@@ -28,14 +30,29 @@ public class Duke {
             } else if (input.equalsIgnoreCase("list")) {
                 for (int i = 0; i < index; i++) {
                     int numbering = i + 1;
-                    System.out.println(numbering + ". " + list[i]);
+                    System.out.println(numbering + ". " + '[' + list[i].getStatusIcon() + ']' + list[i].description);
                 }
                 System.out.println(line);
-            }
-            else {
-                list[index] = input;
-                index++;
-                System.out.println("Added: " + input + System.lineSeparator() + line);
+            } else {
+                String[] words = input.split(" ");
+                if (words[0].equalsIgnoreCase("mark")) {
+                    int markIndex = Integer.parseInt(words[1]) - 1;
+                    list[markIndex].markAsDone();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println('[' + list[markIndex].getStatusIcon() + ']' + list[markIndex].description);
+                    System.out.println(line);
+                } else if (words[0].equalsIgnoreCase("unmark")) {
+                    int markIndex = Integer.parseInt(words[1]) - 1;
+                    list[markIndex].markAsUndone();
+                    System.out.println("Nice! I've unmarked this task as undone:");
+                    System.out.println('[' + list[markIndex].getStatusIcon() + ']' + list[markIndex].description);
+                    System.out.println(line);
+                } else {
+                    Task t = new Task(input);
+                    list[index] = t;
+                    index++;
+                    System.out.println("Added: " + input + System.lineSeparator() + line);
+                }
             }
         }
     }
