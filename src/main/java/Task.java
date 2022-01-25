@@ -1,6 +1,6 @@
 public class Task {
     private String description;
-    private boolean taskDone;
+    private boolean isTaskDone;
     private int taskId;
 
     private static int taskRunningCount = 1;
@@ -8,7 +8,7 @@ public class Task {
     public Task(String description) {
         this.taskId = taskRunningCount;
         this.description = description;
-        this.taskDone = false; //default when a task is created it is not done
+        this.isTaskDone = false; //default when a task is created it is not done
         taskRunningCount++;
     }
 
@@ -17,10 +17,10 @@ public class Task {
         this.description = description;
     }
     public void markAsDone() {
-        this.taskDone = true;
+        this.isTaskDone = true;
     }
     public void markAsNotDone() {
-        this.taskDone = false;
+        this.isTaskDone = false;
     }
 
     //accessor methods
@@ -28,7 +28,7 @@ public class Task {
         return description;
     }
     public String getTaskStatus() {
-        return (taskDone ? "X" : " "); //if task done mark it with X
+        return (isTaskDone ? "X" : " "); //if task done mark it with X
     }
     public int getTaskId() {
         return taskId;

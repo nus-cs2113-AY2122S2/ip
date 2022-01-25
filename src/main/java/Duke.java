@@ -4,14 +4,15 @@ import java.util.ArrayList;
 
 public class Duke {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String botLogo = "  ___                             __  \n"
+                       + "|  _  |  |   |  \\        / |     /  \\ \n"
+                       + "| | | |  |   |   \\      /  |    / _  \\ \n"
+                       + "| | | |  |   |    \\    /   |   / /_\\  \\ \n"
+                       + "| |_| |  |   |     \\  /    |  /   _    \\ \n"
+                       + "| ___ |  |__ |      \\/     | /___/ \\____\\ \n";
+        System.out.println("Hello from\n" + botLogo);
         System.out.println("-----------------------------");
-        System.out.println("Hello! I'm Olivia, your lovely personal assistant.");
+        System.out.println("Greetings! I'm Olivia, your lovely personal assistant.");
         System.out.println("What can Olivia do for you my love?");
         System.out.println("-----------------------------");
         String userInput;
@@ -50,11 +51,10 @@ public class Duke {
                 System.out.println("-----------------------------");
             }
             else {
-                Task t = new Task(userInput); //create new task
-                taskList.add(t); //append task to arraylist
+                Task task = new Task(userInput); //create new task
+                taskList.add(task); //append task to arraylist
                 System.out.println("-----------------------------");
-                System.out.print("added: ");
-                System.out.println(userInput);
+                System.out.println("added: " + userInput);
                 System.out.println("-----------------------------");
 
             }
