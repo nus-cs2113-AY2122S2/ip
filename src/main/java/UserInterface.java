@@ -49,7 +49,7 @@ public class UserInterface {
             String[] pieces = nextLine.split(" ");
             switch (pieces[0]) {
                 case "bye":
-                    exit();
+                    printGoodbye();
                     break;
                 case "list":
                     listTasks();
@@ -144,7 +144,7 @@ public class UserInterface {
     /**
      * Prints a goodbye message and returns.
      */
-    private void exit() {
+    private void printGoodbye() {
         printDivider();
         System.out.println("Goodbye. Hope to see you again soon!");
         printDivider();
