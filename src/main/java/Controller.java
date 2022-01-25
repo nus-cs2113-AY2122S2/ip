@@ -9,8 +9,8 @@ import ui.ChatBox;
  * Controller serves for orders
  */
 public class Controller {
-    private String helloWords = " Hello! I'm Duke\n" + " What can I do for you?";
-    private String exitWords = "Bye. Hope to see you again soon!";
+    private static String HELLO_WORDS = " Hello! I'm Duke\n" + " What can I do for you?";
+    private static String EXIT_WORDS = "Bye. Hope to see you again soon!";
     private static String EXIT_COMMAND = "bye";
     ChatBox chatBox;
 
@@ -27,7 +27,7 @@ public class Controller {
      *  Say hi when the controller is created
      */
     public void sayHello() {
-        chatBox.contendsSetter(helloWords);
+        chatBox.contendsSetter(HELLO_WORDS);
         chatBox.printChatBox();
     }
 
@@ -36,7 +36,7 @@ public class Controller {
      *  Say good bye before the controller end
      */
     public void sayGoodBye() {
-        chatBox.contendsSetter(exitWords);
+        chatBox.contendsSetter(EXIT_WORDS);
         chatBox.printChatBox();
         chatBox.endChatBox();
     }
