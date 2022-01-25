@@ -10,6 +10,8 @@ public class Duke {
         String line = "-----------------------------";
         Scanner in = new Scanner(System.in);
         String input;
+        String[] list = new String[100];
+        int index = 0;
 
         System.out.println("Hello from\n" + logo);
         System.out.println(line);
@@ -23,8 +25,17 @@ public class Duke {
                 System.out.println("Bye! Hope to see you soon :D");
                 System.out.println(line);
                 break;
-            } else {
-                System.out.println(input + System.lineSeparator() + line);
+            } else if (input.equalsIgnoreCase("list")) {
+                for (int i = 0; i < index; i++) {
+                    int numbering = i + 1;
+                    System.out.println(numbering + ". " + list[i]);
+                }
+                System.out.println(line);
+            }
+            else {
+                list[index] = input;
+                index++;
+                System.out.println("Added: " + input + System.lineSeparator() + line);
             }
         }
     }
