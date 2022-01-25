@@ -53,10 +53,7 @@ public class Duke {
                     break;
                 }
             }
-
-
         }while(!userInput.equals("bye"));
-
 
         System.out.println("Bye. Hope to see you again soon!");
     }
