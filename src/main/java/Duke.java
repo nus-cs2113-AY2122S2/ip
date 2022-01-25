@@ -14,11 +14,24 @@ public class Duke {
 
         Scanner input = new Scanner(System.in);
         String task = "";
+        String[] taskList = new String [100];
+        int index=0;
         while(!task.equals("bye")) {
             task = input.nextLine();
             if(!task.equals("bye")) {
                 System.out.println("    ____________________________________");
-                System.out.println("    " + task);
+                if(task.equals("list"))
+                {
+                    for(int i=0;i< taskList.length;i++) {
+                        if(taskList[i] == null) break;
+                        System.out.println("    " + (i + 1) + ". " + taskList[i]);
+                    }
+                }
+                else
+                {
+                    taskList[index++] = task;
+                    System.out.println("added: " + task);
+                }
                 System.out.println("    ____________________________________");
             }
         }
