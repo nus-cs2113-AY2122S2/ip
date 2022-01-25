@@ -3,7 +3,7 @@ import tasks.TaskList;
 public class MarkOperation extends Operation {
 
     /**
-     * Initialize operation with operationName
+     * Initializes operation with operationName
      *
      * @param operationNameLocal Name of the Operation
      * @param order          Order given by User

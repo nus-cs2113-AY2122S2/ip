@@ -13,7 +13,7 @@ public abstract class Operation {
 
 
     /**
-     * Initialize operation with operationName
+     * Initializes operation with operationName
      * @param operationNameLocal Name of the operations.Operation
      * @param order Order given by User
      */
@@ -27,7 +27,7 @@ public abstract class Operation {
 
 
     /**
-     * get the Order of the operations.Operation
+     * Gets the Order of the operations.Operation
      * @return operations.Operation with Parameters
      */
     public String getOperationName() {
@@ -44,7 +44,7 @@ public abstract class Operation {
 
 
     /**
-     *  Print the result of the operation, for the operations.Operation abstract class, just print the operation name
+     *  Prints the result of the operation, for the operations.Operation abstract class, just print the operation name
      */
     public void displayResult() {
         ChatBox.printChatBox(operationName);

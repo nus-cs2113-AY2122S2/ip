@@ -1,34 +1,60 @@
 package tasks;
 
 public class Task {
-    private String taskDescription;
-    private Boolean marked=false;
+    protected  String taskDescription;
+    protected  Boolean marked = false;
+    protected String taskType = " ";
 
-    public Task(String _taskDescription){
-        this.taskDescription =  _taskDescription;
+    /**
+     * Initializes task with task description
+     * @param taskDescription The description of the task
+     */
+    public Task(String taskDescription){
+        this.taskDescription =  taskDescription;
     }
 
     /**
-     * @return Get the description of the task
+     * Initializes task with task description and task type
+     * @param taskDescription The description of the task
+     * @param taskType The type of the task
+     */
+    public Task(String taskDescription, String taskType){
+        this.taskDescription = taskDescription;
+        this.taskType =  taskType;
+    }
+
+    public Task() {
+
+    }
+
+    /**
+     * Gets the description of the task
+     * @return The description of the task
      */
     public String getTaskDescription(){
         return taskDescription;
     }
 
+    protected String markedSign(){
+        if(marked!=true){
+            return " ";
+        }
+        else{
+            return "X";
+        }
+    }
+
     /**
-     * @return Get the report of the task
+     * Gets the report of the task
+     * @return The report of the task
      */
     public String getReport(){
-        if (marked != true) {
-            return "[ ] " + taskDescription;
-        } else {
-            return "[X] " + taskDescription;
-        }
+        return String.format("[%s][%s] %s", taskType, markedSign(), taskDescription);
     }
 
 
     /**
-     * Set the mark of a task
+     * Sets the mark of a task
      * @param isMark Boolean that is to be set
      */
     public void setMark(Boolean isMark) {

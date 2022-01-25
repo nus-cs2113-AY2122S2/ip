@@ -3,7 +3,7 @@ package operations;
 public class ByeOperation extends Operation {
 
     /**
-     * Initialize operation with operationName
+     * Initializes operation with operationName
      *
      * @param operationName Name of the Operation
      * @param  order Order given by User

@@ -3,7 +3,7 @@ package operations;
 public class BlahOperation extends Operation {
 
     /**
-     * Initialize operation with operationName
+     * Initializes operation with operationName
      *
      * @param operationNameLocal Name of the Operation
      * @param order Order given by User

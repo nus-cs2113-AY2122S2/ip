@@ -5,7 +5,7 @@ import operations.Operation;
 public class UndefinedOperation extends Operation {
 
     /**
-     * Initialize operation with operationName
+     * Initializes operation with operationName
      *
      * @param operationNameLocal Name of the operations.Operation
      * @param order Order given by user

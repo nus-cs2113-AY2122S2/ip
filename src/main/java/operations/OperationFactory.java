@@ -18,8 +18,13 @@ public class OperationFactory {
         order = orderLocal;
     }
 
+    /**
+     * Makes certain operation according to the orderName
+     * @return Certain operation
+     */
     public Operation makeOperation() {
         String orderName = order.split(" ", 2)[0];
+
         switch (orderName) {
         case "bye":
             return new ByeOperation(orderName, order);
@@ -31,6 +36,12 @@ public class OperationFactory {
             return new MarkOperation(orderName, order);
         case "unmark":
             return new UnmarkOperation(orderName, order);
+        case "todo":
+            return new ToDoAddOperation(orderName, order);
+        case "deadline":
+            return new DeadlinesAddOperation(orderName, order);
+        case "event":
+            return new EventAddOperation(orderName, order);
         default:
             return new AddOperation(orderName, order);
         }

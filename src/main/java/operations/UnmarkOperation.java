@@ -6,10 +6,10 @@ import tasks.TaskList;
 public class UnmarkOperation extends Operation {
 
     /**
-     * Initialize operation with operationName
+     * Initializes operation with operationName
      *
      * @param operationNameLocal Name of the operations.Operation
-     * @param order          Order given by User
+     * @param order  Order given by User
      */
     public UnmarkOperation(String operationNameLocal, String order) {
         super(operationNameLocal, order);

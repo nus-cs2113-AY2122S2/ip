@@ -10,6 +10,7 @@ public class TaskList {
     private static ArrayList<Task> taskArrayList =  new ArrayList<>();
 
     /**
+     * Adds tasks
      * @param newTaskLocal The new task to be appended
      * @return The indication of the result of the addTask operation
      */
