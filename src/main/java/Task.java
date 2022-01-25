@@ -5,27 +5,32 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.echoTask();
+        System.out.println("\nSuccessfully added to list:\n" + addIndentation() + getTask());
     }
+
+    public String getTask() {
+        return getStatusIcon() + " " + getDescription(); // get status of task as well as description
+    }
+
     public String getDescription() {
         return description;
     }
 
-    public void echoTask() {
-        System.out.println("Successfully added to list: " + description);
-    }
-
-    /* For Level-3
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "☑" : "☐"); // mark done task with tick
     }
 
     public void markAsDone() {
         isDone = true;
+        System.out.println("Congrats! You've completed:\n" + addIndentation() + getTask());
     }
 
     public void markAsNotDone() {
         isDone = false;
+        System.out.println("Awww, you've marked this as undone:\n" + addIndentation() + getTask());
     }
-    */
+
+    public static String addIndentation() {
+        return "    "; // adds an indentation of 4 spaces
+    }
 }
