@@ -1,21 +1,33 @@
 public class Alexis {
+    private static String[] list = new String[100];
+    private static int listCounter = 0;
 
     public static void greet() {
         System.out.println("-----------------------------------------------------");
         System.out.println("Hello! I'm Alexis, your trusty helper");
-        /*String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello I'm \n" + logo);*/
         System.out.println("What can I do for you?");
         System.out.println("-----------------------------------------------------");
     }
-
+/*
     public static void echo(String input) {
         System.out.println("-----------------------------------------------------");
         System.out.println(input);
+        System.out.println("-----------------------------------------------------");
+    }
+*/
+    public static void addToList(String input){
+        System.out.println("-----------------------------------------------------");
+        System.out.println("added :" + input);
+        list[listCounter] = input;
+        listCounter++;
+        System.out.println("-----------------------------------------------------");
+    }
+
+    public static void readList(){
+        System.out.println("-----------------------------------------------------");
+        for (int i = 0; i < listCounter; i++){
+            System.out.println((i+1) + ". " + list[i]);
+        }
         System.out.println("-----------------------------------------------------");
     }
 

@@ -8,11 +8,14 @@ public class Main {
         Alexis.greet();
         String input = in.nextLine();
         while (!input.equals("bye")) {
-            Alexis.echo(input);
+            if (!input.equals("list")) {
+                Alexis.addToList(input);
+            }else{
+                Alexis.readList();
+            }
             input = in.nextLine();
         }
         Alexis.exit();
-
 
     }
 }
