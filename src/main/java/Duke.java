@@ -1,8 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static class Task
-    {
+    public static class Task {
         String title;
         boolean isDone;
 
@@ -48,36 +47,32 @@ public class Duke {
             task = input.nextLine();
             if(!task.equals("bye")) {
                 System.out.println("    ____________________________________");
-                if(task.equals("list"))
-                {
+                if(task.equals("list")) {
                     for(int i=0;i< taskList.length;i++) {
                         if(taskList[i] == null) break;
                         System.out.println("    " + (i + 1) + ". " + "[" + taskList[i].getStatusIcon()+"] " + taskList[i].getTitle());
                     }
-                }
-
-                else if(task.contains("mark ")&& !task.contains("unmark ")) {
+                } else if(task.contains("mark ")&& !task.contains("unmark ")) {
                     task = task.replace("mark ","");
                     int i = Integer.parseInt(task)-1;
                     if(taskList[i]!=null) {
                         taskList[i].setDone(true);
-                        System.out.println("Nice! I've marked this task as done:\n  " + "[" + taskList[i].getStatusIcon() + "] " + taskList[i].getTitle());
-                    }
-                    else
+                        System.out.println("Nice! I've marked this task as done:\n  " + "[" + taskList[i].getStatusIcon() + "] "
+                                + taskList[i].getTitle());
+                    } else {
                         System.out.println("Please enter a valid task number");
-                }
-                else if(task.contains("unmark ")) {
+                    }
+                } else if(task.contains("unmark ")) {
                     task = task.replace("unmark ","");
                     int i = Integer.parseInt(task)-1;
                     if(taskList[i]!=null) {
                         taskList[i].setDone(false);
-                        System.out.println("OK, I've marked this task as not done yet:\n  " + "[" + taskList[i].getStatusIcon() + "] " + taskList[i].getTitle());
-                    }
-                    else
+                        System.out.println("OK, I've marked this task as not done yet:\n  " + "[" + taskList[i].getStatusIcon() + "] "
+                                + taskList[i].getTitle());
+                    } else {
                         System.out.println("Please enter a valid task number");
-                }
-                else
-                {
+                    }
+                } else {
                     taskList[index++] = new Task(task);
                     System.out.println("added: " + task);
                 }
