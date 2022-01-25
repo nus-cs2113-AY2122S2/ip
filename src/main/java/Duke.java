@@ -13,14 +13,29 @@ public class Duke {
         System.out.println("What can I do for you?");
         System.out.println("================================================");
 
+        String[] tasks = new String[100];
+        int i = 0;
         String userInput;
         do{
             Scanner in = new Scanner(System.in);
             userInput = in.nextLine();
-            System.out.println("================================================");
-            System.out.println(userInput);
-            System.out.println("================================================");
-        }while(!userInput.equals("bye"));
+            if(userInput.equals("bye")){
+                System.out.println("================================================");
+                break;
+            }else if(userInput.equals("list")){
+                System.out.println("================================================");
+                for(int j=0; j<i; j++){
+                    System.out.println((j+1) + ". " + tasks[j]);
+                }
+                System.out.println("================================================");
+            }else{
+                tasks[i] = userInput;
+                i++;
+                System.out.println("================================================");
+                System.out.println("added: " + userInput);
+                System.out.println("================================================");
+            }
+        }while(true);
 
 
         System.out.println("Bye. Hope to see you again soon!");
