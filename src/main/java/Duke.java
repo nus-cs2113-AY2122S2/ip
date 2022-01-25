@@ -42,10 +42,10 @@ public class Duke {
                     System.out.println('[' + list[markIndex].getStatusIcon() + ']' + list[markIndex].description);
                     System.out.println(line);
                 } else if (words[0].equalsIgnoreCase("unmark")) {
-                    int markIndex = Integer.parseInt(words[1]) - 1;
-                    list[markIndex].markAsUndone();
+                    int unmarkIndex = Integer.parseInt(words[1]) - 1;
+                    list[unmarkIndex].markAsUndone();
                     System.out.println("Nice! I've unmarked this task as undone:");
-                    System.out.println('[' + list[markIndex].getStatusIcon() + ']' + list[markIndex].description);
+                    System.out.println('[' + list[unmarkIndex].getStatusIcon() + ']' + list[unmarkIndex].description);
                     System.out.println(line);
                 } else {
                     Task t = new Task(input);
