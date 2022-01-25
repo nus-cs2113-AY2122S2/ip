@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class UserInterface {
     private Scanner uiScan;
-    private ArrayList<String> tasks;
+    private ArrayList<Task> tasks;
 
     /**
      * Constructor.
@@ -19,7 +19,7 @@ public class UserInterface {
      * Greets the user and begins the command input loop.
      */
     public void start() {
-        startup();
+        greeting();
         commandLoop();
     }
 
@@ -38,55 +38,107 @@ public class UserInterface {
     /**
      * Checks the String inputted by the user and executes the appropriate command
      * using a switch statement.
-     * @param nextLine a String containing the command inputted by the user.
+     * @param nextLine The command to be executed.
      */
     private void commandExec(String nextLine) {
         if (nextLine == null) {
-            System.out.println("NULL command!");
+            System.out.println("Error: Command is null.");
             return;
         }
-        switch (nextLine) {
-            case "bye":
-                exit();
-                break;
-            case "list":
-                printTasks();
-                break;
-            default:
-                addTask(nextLine);
+        try {
+            String[] pieces = nextLine.split(" ");
+            switch (pieces[0]) {
+                case "bye":
+                    exit();
+                    break;
+                case "list":
+                    listTasks();
+                    break;
+                case "mark":
+                    doTask(pieces[1]);
+                    break;
+                case "unmark":
+                    undoTask(pieces[1]);
+                    break;
+                default:
+                    addTask(nextLine);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
     /**
-     * Prints the command inputted by the user to stdout.
-     * @param commandInput a String containing the command inputted by the user.
-     */
-    private void echo(String commandInput) {
-        printDivider();
-        System.out.println(commandInput);
-        printDivider();
-    }
-
-    /**
-     * Stores a string in an ArrayList.
-     * @param task a String representing the task to be stored.
+     * Stores a task.
+     * @param task The description of the task.
      */
     private void addTask(String task) {
+        if (task == null) {
+            System.out.println("Error: Task to be stored is null.");
+            return;
+        }
+        try {
+            printDivider();
+            this.tasks.add(new Task(task));
+            System.out.println("added: " + task);
+            printDivider();
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Prints all tasks stored in memory by addTask(Task)
+     */
+    private void listTasks() {
         printDivider();
-        this.tasks.add(task);
-        System.out.println("added: " + task);
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 1; i <= this.tasks.size(); i++) {
+            System.out.println(i + "." + this.tasks.get(i - 1));
+        }
         printDivider();
     }
 
     /**
-     * Prints all tasks stored in memory by addTask(String)
+     * Marks the task selected by the user as done. Tasks are selected by their visual index on the list
+     * (starting from 1, not 0) and not by name.
+     * @param task The index of the task to be marked done.
      */
-    private void printTasks() {
-        printDivider();
-        for (int i = 1; i <= this.tasks.size(); i++) {
-            System.out.println(i + ". " + this.tasks.get(i - 1));
+    private void doTask(String task) {
+        if (task == null) {
+            System.out.println(("Error: Task to be done is null."));
+            return;
         }
-        printDivider();
+        try {
+            this.tasks.get(Integer.parseInt(task) - 1).doTask();
+            printDivider();
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println(this.tasks.get(Integer.parseInt(task) - 1));
+            printDivider();
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Marks the task selected by the user as undone. Tasks are selected by their visual index on the list
+     * (starting from 1, not 0) and not by name.
+     * @param task The index of the task to be marked done.
+     */
+    private void undoTask(String task) {
+        if (task == null) {
+            System.out.println("Error: Task to be undone is null.");
+            return;
+        }
+        try {
+            this.tasks.get(Integer.parseInt(task) - 1).undoTask();
+            printDivider();
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println(this.tasks.get(Integer.parseInt(task) - 1));
+            printDivider();
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
     /**
@@ -109,7 +161,7 @@ public class UserInterface {
     /**
      * Prints a greeting with divider lines.
      */
-    private void startup() {
+    private void greeting() {
         printDivider();
         System.out.println("Hello! I'm Michel.");
         System.out.println("What can I do for you?");
