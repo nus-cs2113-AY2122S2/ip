@@ -1,13 +1,15 @@
 public class Ui {
-    protected String drawLine() {
-        return "____________________________________________________________";
+    public static String drawBorder(String text) {
+        return "____________________________________________________________\n"
+                + text + "\n"
+                + "____________________________________________________________\n";
     }
 
-    protected String greet() {
+    public static String greet() {
         return "Hello! I'm Duke\n" + "What can I do for you?";
     }
 
-    protected String goodbye() {
+    public static String exit() {
         return "Bye. Hope to see you again soon!";
     }
 }

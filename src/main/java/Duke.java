@@ -1,18 +1,18 @@
+import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        Scanner sc = new Scanner(System.in);
+        String userInput = "";
 
-        Ui ui = new Ui();
+        System.out.println(Ui.drawBorder(Ui.greet()));
+        userInput = sc.nextLine().trim();
 
-        System.out.println(logo);
-        System.out.println(ui.drawLine());
-        System.out.println(ui.greet());
-        System.out.println(ui.drawLine());
-        System.out.println(ui.goodbye());
-        System.out.println(ui.drawLine());
+        while (!userInput.equals("bye")) {
+            System.out.println(Ui.drawBorder(userInput));
+            userInput = sc.nextLine().trim();
+        }
+
+        System.out.println(Ui.drawBorder(Ui.exit()));
     }
 }
