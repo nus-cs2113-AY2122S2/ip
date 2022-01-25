@@ -6,6 +6,12 @@ public class Duke {
         System.out.println("Hi there! I'm Domo the chatbot.\nWhat would you like to do?");
     }
 
+    public static void exit() {
+        printLine();
+        System.out.println("Goodbye. Hope to see you again soon!");
+        printDomo();
+    }
+
     public static void parseCommand(Task[] tasks, int numTasks) {
         String command = getCommand();
         while (!isBye(command)) {
@@ -13,7 +19,7 @@ public class Duke {
                 System.out.println("\nCommand accepted!");
                 switch(command) {
                 case "list":
-                    System.out.println("Here is what you have typed so far:");
+                    System.out.println("Here is your list so far:");
                     listTasks(tasks, numTasks);
                     break;
                 case "mark":
@@ -37,12 +43,6 @@ public class Duke {
             printBlankLine();
             command = getCommand();
         }
-    }
-
-    public static void exit() {
-        printLine();
-        System.out.println("Goodbye. Hope to see you again soon!");
-        printDomo();
     }
 
     public static void main(String[] args) {
