@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Duke, your personal terminal assistant
@@ -36,15 +36,15 @@ public class Duke {
     protected static void runDuke() {
         while(true) {
             printUserPrompt();
-            String rawCmd = getRawCommand();
-            String[] cmdTokens = parseCommand(rawCmd);
+            String rawCmd = Command.getRawCommand();
+            String[] cmdTokens = Command.parseCommand(rawCmd);
             printLineDivider();
             for(String token:cmdTokens) {
-                if(token.toLowerCase().equals("bye")) {
+                if(token.equalsIgnoreCase("bye")) {
                     return;
                 }
             }
-            runCommand(parseCommand(rawCmd));
+            Command.runCommand(cmdTokens);
             printLineDivider();
         }
     }
@@ -61,7 +61,7 @@ public class Duke {
      * Greet the user
      */
     protected static void printUserGreet() {
-        // TODO personalize the greeting information (maybe change DUKE to BECK or someting else)
+        // TODO personalize the greeting information (maybe change DUKE to BECK or something else)
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -83,64 +83,11 @@ public class Duke {
     }
 
     /**
-     *  Print {@value #userName} and prompt symbol, used before {@link #getRawCommand()}
+     *  Print {@value #userName} and prompt symbol
      */
     protected static void printUserPrompt() {
         // TODO add more style (like bash style or zsh style)
         System.out.print(userName + " > ");
     }
 
-
-    /**
-     *  Get the input string from user
-     * @return the string from user (without any changes)
-     */
-    private static String getRawCommand() {
-        Scanner sc = new Scanner(System.in);
-        String raw = sc.nextLine();
-        return raw;
-    }
-
-    /**
-     * Split the raw string from {@link #getRawCommand()} into tokens
-     * @param raw raw string from {@link #getRawCommand()}
-     * @return a string array containing tokens
-     */
-    protected static String[] parseCommand(String raw) {
-        // TODO should be able to recognize the content in "" as a whole string
-        return raw.trim().split("\\s+");
-    }
-
-
-    /**
-     * Run the corresponding command/method regarding args, default command is echo
-     * @param args a list of tokens, args[0] should be the name of the command, and the rest is the arguemnts of that command
-     */
-    protected static void runCommand(String[] args) {
-        switch (args[0]) {
-        default:
-            String[] defaultArgs = new String[args.length+1];
-            defaultArgs[0] = "echo";
-            for(int i = 1; i < defaultArgs.length; i++) {
-                defaultArgs[i] = args[i-1];
-            }
-            echo(defaultArgs);
-        }
-
-    }
-
-    /**
-     * Print every token
-     * @param args tokens to print
-     */
-    protected static void echo(String[] args) {
-        for(int i = 1; i < args.length; i++) {
-            System.out.print(args[i]);
-            if(i != args.length - 1) {
-                System.out.print(" ");
-            } else {
-                System.out.print("\n");
-            }
-        }
-    }
 }
