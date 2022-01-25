@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserInterface {
     private Scanner uiScan;
+    private ArrayList<String> tasks;
 
     /**
      * Constructor.
@@ -9,6 +11,7 @@ public class UserInterface {
      */
     public UserInterface(Scanner mainScan) {
         this.uiScan = mainScan;
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -46,8 +49,11 @@ public class UserInterface {
             case "bye":
                 exit();
                 break;
+            case "list":
+                printTasks();
+                break;
             default:
-                echo(nextLine);
+                addTask(nextLine);
         }
     }
 
@@ -56,9 +62,31 @@ public class UserInterface {
      * @param commandInput a String containing the command inputted by the user.
      */
     private void echo(String commandInput) {
-        dividerPrinter();
+        printDivider();
         System.out.println(commandInput);
-        dividerPrinter();
+        printDivider();
+    }
+
+    /**
+     * Stores a string in an ArrayList.
+     * @param task a String representing the task to be stored.
+     */
+    private void addTask(String task) {
+        printDivider();
+        this.tasks.add(task);
+        System.out.println("added: " + task);
+        printDivider();
+    }
+
+    /**
+     * Prints all tasks stored in memory by addTask(String)
+     */
+    private void printTasks() {
+        printDivider();
+        for (int i = 1; i <= this.tasks.size(); i++) {
+            System.out.println(i + ". " + this.tasks.get(i - 1));
+        }
+        printDivider();
     }
 
     /**
@@ -66,15 +94,15 @@ public class UserInterface {
      * Does not actually terminate the program.
      */
     private void exit() {
-        dividerPrinter();
+        printDivider();
         System.out.println("Goodbye. Hope to see you again soon!");
-        dividerPrinter();
+        printDivider();
     }
 
     /**
      * Prints 37 underscores to stdout to serve as a divider.
      */
-    private void dividerPrinter() {
+    private void printDivider() {
         System.out.println("_____________________________________");
     }
 
@@ -82,9 +110,9 @@ public class UserInterface {
      * Prints a greeting with divider lines.
      */
     private void startup() {
-        dividerPrinter();
+        printDivider();
         System.out.println("Hello! I'm Michel.");
         System.out.println("What can I do for you?");
-        dividerPrinter();
+        printDivider();
     }
 }
