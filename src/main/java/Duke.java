@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class Duke {
     public static void main(String[] args) {
@@ -36,16 +35,16 @@ public class Duke {
             } else {
                 String[] words = input.split(" ");
                 if (words[0].equalsIgnoreCase("mark")) {
-                    int markIndex = Integer.parseInt(words[1]) - 1;
-                    list[markIndex].markAsDone();
+                    int indexToMark = Integer.parseInt(words[1]) - 1;
+                    list[indexToMark].markAsDone();
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println('[' + list[markIndex].getStatusIcon() + ']' + list[markIndex].description);
+                    System.out.println('[' + list[indexToMark].getStatusIcon() + ']' + list[indexToMark].description);
                     System.out.println(line);
                 } else if (words[0].equalsIgnoreCase("unmark")) {
-                    int unmarkIndex = Integer.parseInt(words[1]) - 1;
-                    list[unmarkIndex].markAsUndone();
+                    int indexToUnmark = Integer.parseInt(words[1]) - 1;
+                    list[indexToUnmark].markAsUndone();
                     System.out.println("Nice! I've unmarked this task as undone:");
-                    System.out.println('[' + list[unmarkIndex].getStatusIcon() + ']' + list[unmarkIndex].description);
+                    System.out.println('[' + list[indexToUnmark].getStatusIcon() + ']' + list[indexToUnmark].description);
                     System.out.println(line);
                 } else {
                     Task t = new Task(input);
