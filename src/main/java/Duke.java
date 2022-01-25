@@ -13,29 +13,49 @@ public class Duke {
         System.out.println("What can I do for you?");
         System.out.println("================================================");
 
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int i = 0;
+        int marker;
         String userInput;
         do{
             Scanner in = new Scanner(System.in);
             userInput = in.nextLine();
-            if(userInput.equals("bye")){
-                System.out.println("================================================");
-                break;
-            }else if(userInput.equals("list")){
-                System.out.println("================================================");
-                for(int j=0; j<i; j++){
-                    System.out.println((j+1) + ". " + tasks[j]);
-                }
-                System.out.println("================================================");
+
+            if(userInput.startsWith("mark")){
+                marker = Integer.parseInt(userInput.substring(5));
+                tasks[marker-1].markAsDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(tasks[marker-1].getStatusIcon() + tasks[marker-1].getDescription());
+            }else if(userInput.startsWith("unmark")){
+                marker = Integer.parseInt(userInput.substring(7));
+                tasks[marker-1].markAsUndone();
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println(tasks[marker-1].getStatusIcon() + tasks[marker-1].getDescription());
             }else{
-                tasks[i] = userInput;
-                i++;
-                System.out.println("================================================");
-                System.out.println("added: " + userInput);
-                System.out.println("================================================");
+                switch(userInput){
+                case "bye":
+                    System.out.println("================================================");
+                    break;
+                case "list":
+                    System.out.println("================================================");
+                    System.out.println("Here are the tasks in your list:");
+                    for(int j=0; j<i; j++){
+                        System.out.println((j+1) + "." + tasks[j].getStatusIcon() + tasks[j].getDescription());
+                    }
+                    System.out.println("================================================");
+                    break;
+                default:
+                    tasks[i] = new Task(userInput);
+                    i++;
+                    System.out.println("================================================");
+                    System.out.println("added: " + userInput);
+                    System.out.println("================================================");
+                    break;
+                }
             }
-        }while(true);
+
+
+        }while(!userInput.equals("bye"));
 
 
         System.out.println("Bye. Hope to see you again soon!");
