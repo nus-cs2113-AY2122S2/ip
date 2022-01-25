@@ -143,7 +143,6 @@ public class UserInterface {
 
     /**
      * Prints a goodbye message and returns.
-     * Does not actually terminate the program.
      */
     private void exit() {
         printDivider();
