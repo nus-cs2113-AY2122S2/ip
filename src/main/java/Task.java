@@ -6,6 +6,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        currentIndex++;
     }
 
     public String getDescription() {
@@ -18,17 +19,6 @@ public class Task {
 
     public boolean isDone() {
         return isDone;
-    }
-
-    public static void increaseIndex() {
-        if (currentIndex < 100) {
-            currentIndex++;
-        } else {
-            System.out.println("Sorry! You've reached the"
-                    + "maximum amount of tasks"
-                    + "allowed on your task list");
-
-        }
     }
 
     public String getStatusIcon() {

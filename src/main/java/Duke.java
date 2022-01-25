@@ -73,9 +73,14 @@ public class Duke {
             unmark(words, tasks);
             break;
         default:
-            tasks[Task.getCurrentIndex()] = new Task(input);
-            Task.increaseIndex();
-            System.out.println("added: " + input);
+            if (Task.getCurrentIndex() < 100) {
+                tasks[Task.getCurrentIndex()] = new Task(input);
+                System.out.println("added: " + input);
+            } else {
+                System.out.println("Sorry! You've reached the"
+                        + "maximum amount of tasks"
+                        + "allowed on your task list");
+            }
         }
         System.out.println(line);
     }
