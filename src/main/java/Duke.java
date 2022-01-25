@@ -3,21 +3,29 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String userInput = "";
+        StringParser sp = new StringParser();
         TaskList taskList = new TaskList();
+        String userInput;
 
         System.out.println(Ui.drawBorder(Ui.greet()));
         userInput = sc.nextLine().trim();
+        sp.parseString(userInput);
 
-        while (!userInput.equals("bye")) {
-            if (userInput.equals("list")) {
-                System.out.println(Ui.drawBorder(taskList.toString()));
-            } else {
-                System.out.println(Ui.drawBorder(taskList.addTask(userInput)));
+        while (!sp.isExiting()) {
+            if (sp.isListingTasks()) {
+                Ui.print(Ui.drawBorder(taskList.toString()));
+            } else if (sp.isMarkingTask()) {
+                Ui.print(Ui.drawBorder(
+                        taskList.markTask(sp.getMarkedTask()[0],
+                                Integer.valueOf(sp.getMarkedTask()[1]))
+                ));
+            } else if (sp.isAddingTask()) {
+                Ui.print(Ui.drawBorder(taskList.addTask(sp.getAddedTask())));
             }
             userInput = sc.nextLine().trim();
+            sp.parseString(userInput);
         }
 
-        System.out.println(Ui.drawBorder(Ui.exit()));
+        Ui.print(Ui.drawBorder(Ui.exit()));
     }
 }

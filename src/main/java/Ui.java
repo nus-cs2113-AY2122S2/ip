@@ -5,6 +5,10 @@ public class Ui {
                 + "____________________________________________________________\n";
     }
 
+    public static void print(String text) {
+        System.out.println(text);
+    }
+
     public static String greet() {
         return "Hello! I'm Duke\n" + "What can I do for you?";
     }
