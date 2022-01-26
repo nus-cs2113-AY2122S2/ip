@@ -27,30 +27,52 @@ public class Duke {
         System.out.println(farewell);
     }
 
+    public static void displayTaskList(int listCount, Task[] taskList) {
+        String lineSeparator = "____________________________________________________________\n";
+        System.out.println(lineSeparator);
+        System.out.println("Here are the tasks in your list:");
+        if (listCount == 0) {
+            System.out.println("List is Empty!");
+        }
+
+        for(int i = 0; i < listCount; i++) {
+            System.out.println((i+1) + ". " + "[" + taskList[i].getStatusIcon() + "] " + taskList[i].getDescription());
+        }
+        System.out.println(lineSeparator);
+    }
+
     public static void main(String[] args) {
         String lineSeparator = "____________________________________________________________\n";
         displayLogo();
 
         String userInput;
-        String[] taskList = new String[100];
+        Task[] taskList = new Task[100];
         int listCount = 0;
 
         Scanner in = new Scanner(System.in);
         userInput = in.nextLine();
         while(!userInput.equalsIgnoreCase("Bye")) {
-            if (!userInput.equalsIgnoreCase("List")) {
-                taskList[listCount] = userInput.toLowerCase();
+            if (userInput.equalsIgnoreCase("List")) {
+                displayTaskList(listCount, taskList);
+            } else if (userInput.toLowerCase().startsWith("mark")) {
+                int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
+                if (taskNumber > listCount || taskNumber <= 0) {
+                    System.out.println(lineSeparator + "Task does not exist!\n" +lineSeparator);
+                }else {
+                    taskList[taskNumber-1].markAsDone(taskNumber, taskList);
+                }
+            } else if (userInput.toLowerCase().startsWith("unmark")) {
+                int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
+                if (taskNumber > listCount || taskNumber <= 0) {
+                    System.out.println(lineSeparator + "Task does not exist!\n" + lineSeparator);
+                }else {
+                    taskList[taskNumber-1].markAsUndone(taskNumber, taskList);
+                }
+            } else {
+                Task newTask = new Task(userInput.toLowerCase());
+                taskList[listCount] = newTask;
                 listCount ++;
                 System.out.println(lineSeparator + "added: " + userInput.toLowerCase() + "\n" + lineSeparator);
-            } else if (userInput.equalsIgnoreCase("List")) {
-                System.out.println(lineSeparator);
-                if (listCount == 0) {
-                    System.out.println("List is Empty!\n");
-                }
-                for(int i = 0; i < listCount; i++) {
-                    System.out.println((i+1) + ". " + taskList[i]);
-                }
-                System.out.println(lineSeparator);
             }
             userInput = in.nextLine();
         }
