@@ -1,6 +1,26 @@
 import java.util.Scanner;
 
 public class Duke {
+    public static boolean processInput(String input, ChatBot bigBob) {
+        boolean shouldExitProgram = false;
+        int taskIndex;
+        if (input.equals("bye")) {
+            bigBob.echoFarewellGreeting();
+            shouldExitProgram = true;
+        } else if (input.equals("list")) {
+            bigBob.printList();
+        } else if (input.startsWith("mark")) {
+            taskIndex = Integer.parseInt(input.substring(5, input.length())) - 1;
+            bigBob.updateTaskStatusInList(true, taskIndex);
+        } else if (input.startsWith("unmark")) {
+            taskIndex = Integer.parseInt(input.substring(7, input.length())) - 1;
+            bigBob.updateTaskStatusInList(false, taskIndex);
+        } else {
+            bigBob.addTaskToList(input);
+        }
+        return shouldExitProgram;
+    }
+
     public static void startBot(Scanner in, boolean shouldExitProgram) {
         final String HORIZONTAL_LINE = "    ------------------------------------------------------------";
         System.out.println(HORIZONTAL_LINE);
@@ -9,14 +29,7 @@ public class Duke {
         while (!shouldExitProgram) {
             String userInput = in.nextLine();
             System.out.println(HORIZONTAL_LINE);
-            if (userInput.equals("bye")) {
-                bigBob.echoFarewellGreeting();
-                shouldExitProgram = true;
-            } else if (userInput.equals("list")) {
-                bigBob.printList();
-            } else {
-                bigBob.addTaskToList(userInput);
-            }
+            shouldExitProgram = processInput(userInput, bigBob);
             System.out.println(HORIZONTAL_LINE);
         }
     }
