@@ -19,7 +19,7 @@ public class UserInterface {
      * Greets the user and begins the command input loop.
      */
     public void start() {
-        greeting();
+        printGreeting();
         commandLoop();
     }
 
@@ -48,20 +48,20 @@ public class UserInterface {
         try {
             String[] pieces = nextLine.split(" ");
             switch (pieces[0]) {
-                case "bye":
-                    printGoodbye();
-                    break;
-                case "list":
-                    listTasks();
-                    break;
-                case "mark":
-                    doTask(pieces[1]);
-                    break;
-                case "unmark":
-                    undoTask(pieces[1]);
-                    break;
-                default:
-                    addTask(nextLine);
+            case "bye":
+                printGoodbye();
+                break;
+            case "list":
+                listTasks();
+                break;
+            case "mark":
+                doTask(pieces[1]);
+                break;
+            case "unmark":
+                undoTask(pieces[1]);
+                break;
+            default:
+                addTask(nextLine);
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -160,7 +160,7 @@ public class UserInterface {
     /**
      * Prints a greeting with divider lines.
      */
-    private void greeting() {
+    private void printGreeting() {
         printDivider();
         System.out.println("Hello! I'm Michel.");
         System.out.println("What can I do for you?");
