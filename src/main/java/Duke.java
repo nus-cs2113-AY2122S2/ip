@@ -40,8 +40,7 @@ public class Duke {
         while (!line.equals("bye")) {
             if (line.equals("list")) {
                 printTaskList(taskList);
-            }
-            else {
+            } else {
                 taskList[taskIndex] = line;
                 taskIndex += 1;
                 System.out.println(division);
@@ -67,6 +66,33 @@ public class Duke {
         }
     }
 
+    public static void markTask(Task[] taskList, String markAction, int taskNumber) {
+        if (taskNumber <= 0 || (taskList[taskNumber - 1] == null)) {
+            System.out.println("Oops, there was an error retrieving the specified task.");
+        } else {
+            Task targetTask = taskList[taskNumber - 1];
+            // Mark the task as done
+            if (markAction.equals("mark")) {
+                if (targetTask.isDone == true) {
+                    System.out.println("Task is already marked as done.");
+                } else {
+                    targetTask.isDone = true;
+                    System.out.println("Nice! I've marked this task as done: ");
+                    System.out.println("   [X] " + targetTask.getTaskDescription());
+                }
+            } else { // Unmark the task
+                if (targetTask.isDone == false) {
+                    System.out.println("Task is already marked as not done yet.");
+                } else {
+                    targetTask.isDone = false;
+                    System.out.println("OK, I've marked this task as not done yet: ");
+                    System.out.println("    [ ] " + targetTask.getTaskDescription());
+                }
+            }
+        }
+    }
+
+
     public static void manageTasksWithTaskClass() {
         Task[] taskList = new Task[100];
         int taskIndex = 0;
@@ -77,50 +103,18 @@ public class Duke {
             System.out.println(division);
             if (line.equals("list")) {
                 printTaskObjects(taskList);
-            }
-            else if (line.split(" ")[0].equals("mark") || line.split(" ")[0].equals("unmark")) {
+            } else if (line.split(" ")[0].equals("mark") || line.split(" ")[0].equals("unmark")) {
                 String markAction = line.split(" ")[0];
                 int taskNumber = Integer.parseInt(line.split(" ")[1]);
-                Task targetTask;
-                try {
-                    targetTask = taskList[taskNumber - 1];
-                    // Mark the task as done
-                    if (markAction.equals("mark")) {
-                        if (targetTask.isDone == true) {
-                            System.out.println("Task is already marked as done.");
-                        }
-                        else {
-                            targetTask.isDone = true;
-                            System.out.println("Nice! I've marked this task as done: ");
-                            System.out.println("   [X] " + targetTask.getTaskDescription());
-                        }
-                    }
-                    // Unmark the task
-                    else {
-                        if (targetTask.isDone == false) {
-                            System.out.println("Task is already marked as not done yet.");
-                        }
-                        else {
-                            targetTask.isDone = false;
-                            System.out.println("OK, I've marked this task as not done yet: ");
-                            System.out.println("    [ ] " + targetTask.getTaskDescription());
-                        }
-                    }
-                }
-                catch(Exception e) {
-                    System.out.println("Oops! The specified task could not be retrieved.");
-                    System.out.println(division);
-                    line = in.nextLine();
-                    System.out.println("[BUG, NEEDS FIXING] Please enter your previous command again.");
-                }
-            }
-            else {
+                markTask(taskList, markAction, taskNumber);
+            } else {
                 taskList[taskIndex] = new Task(line);
                 taskIndex += 1;
                 System.out.println("added: " + line);
             }
             System.out.println(division);
             line = in.nextLine();
+
         }
         System.out.println(division);
         System.out.println("Bye. Hope to see you again soon!\n");
