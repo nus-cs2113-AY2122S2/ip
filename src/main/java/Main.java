@@ -15,11 +15,11 @@ public class Main {
         System.out.println("-----------------------------------------------------");
     }
 
-    public static void displayList(Task[] list, int listSize) {
+    public static void displayList(Task[] tasks, int numOfTasks) {
         System.out.println("-----------------------------------------------------");
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < listSize; i++) {
-            System.out.println((i+1) + ".[" + list[i].getStatusIcon() + "] " + list[i].returnDescription());
+        for (int i = 0; i < numOfTasks; i++) {
+            System.out.println((i+1) + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].returnDescription());
         }
         System.out.println("-----------------------------------------------------");
     }
@@ -27,30 +27,28 @@ public class Main {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
-        int listCounter = 0;
-        Task[] list = new Task[100];
+        int taskCounter = 0;
+        Task[] tasks = new Task[100];
 
         greet();
         String input = in.nextLine();
         while (!input.equals("bye")) {
 
-            String[] arrOfInput = input.split(" ");
+            String[] arrOfInputStrings = input.split(" ");
 
             if (input.equals("list")) {
-                displayList(list, listCounter);
-
-            }else if (arrOfInput[0].equals("mark")) {
-                int taskNumber = Integer.parseInt(arrOfInput[1]) - 1;
-                list[taskNumber].markAsDone();
-
-            }else if (arrOfInput[0].equals("unmark")) {
-                int taskNumber = Integer.parseInt(arrOfInput[1]) - 1;
-                list[taskNumber].markAsUndone();
-
-            }else{
-                list[listCounter] = new Task(input);
-                listCounter++;
+                displayList(tasks, taskCounter);
+            } else if (arrOfInputStrings[0].equals("mark")) {
+                int inputTaskNumber = Integer.parseInt(arrOfInputStrings[1]) - 1;
+                tasks[inputTaskNumber].markAsDone();
+            } else if (arrOfInputStrings[0].equals("unmark")) {
+                int inputTaskNumber = Integer.parseInt(arrOfInputStrings[1]) - 1;
+                tasks[inputTaskNumber].markAsUndone();
+            } else {
+                tasks[taskCounter] = new Task(input);
+                taskCounter++;
             }
+
             input = in.nextLine();
         }
         exit();
