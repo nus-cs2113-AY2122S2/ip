@@ -1,3 +1,4 @@
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Duke {
@@ -29,14 +30,30 @@ public class Duke {
     public static void main(String[] args) {
         String lineSeparator = "____________________________________________________________\n";
         displayLogo();
+
         String userInput;
+        String[] taskList = new String[100];
+        int listCount = 0;
+
         Scanner in = new Scanner(System.in);
         userInput = in.nextLine();
         while(!userInput.equalsIgnoreCase("Bye")) {
-            System.out.println(lineSeparator + userInput + "\n" + lineSeparator);
+            if (!userInput.equalsIgnoreCase("List")) {
+                taskList[listCount] = userInput.toLowerCase();
+                listCount ++;
+                System.out.println(lineSeparator + "added: " + userInput.toLowerCase() + "\n" + lineSeparator);
+            } else if (userInput.equalsIgnoreCase("List")) {
+                System.out.println(lineSeparator);
+                if (listCount == 0) {
+                    System.out.println("List is Empty!\n");
+                }
+                for(int i = 0; i < listCount; i++) {
+                    System.out.println((i+1) + ". " + taskList[i]);
+                }
+                System.out.println(lineSeparator);
+            }
             userInput = in.nextLine();
         }
         displayFarewell();
     }
-
 }
