@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
 
-    static String[] task_list = new String[100];
+    static Task[] task_list = new Task[100];
     static int task_count=0;
 
     //method prints a horizontal line.
@@ -24,19 +24,38 @@ public class Duke {
         displayLine();
     }
 
+
     //method prints task_list.
     public static void printList(){
-        for (int i=0;i<task_count;i++){
-            System.out.println(String.format("%d. ",i+1)+task_list[i]);
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < task_count; i++){
+            System.out.println(String.format("%d. ", i + 1) + task_list[i].getTaskEntry());
         }
         displayLine();
     }
 
     //method adds task to task_list.
     public static void addTaskToList(String task){
-        task_list[task_count]=task;
-        task_count++;
-        System.out.println("added: "+task);
+        Task newTask = new Task(task);                  //create a new Task object.
+        task_list[task_count] = newTask;                //add the new object to task_list.
+        task_count++;                                   //keep track of the number of tasks in task_list.
+        System.out.println("added: " + task);
+        displayLine();
+    }
+
+    //method marks task in list with taskNumber as done.
+    public static void markTaskAsDone(int taskNumber){
+        task_list[taskNumber-1].markAsDone();           //mark task with taskNumber as done.
+        System.out.println("Great Job! I've marked the following task as done:");
+        System.out.println(task_list[taskNumber-1].getTaskEntry());     //display updated task entry in list.
+        displayLine();
+    }
+
+    //method marks task in list with taskNumber as not yet done.
+    public static void unmarkTaskAsDone(int taskNumber){
+        task_list[taskNumber-1].unmarkAsDone();         //mark task with taskNumber as yet to be done.
+        System.out.println("Ok, I've marked the following task as yet to be done:");
+        System.out.println(task_list[taskNumber-1].getTaskEntry());     //display updated task entry in list.
         displayLine();
     }
 
@@ -49,12 +68,17 @@ public class Duke {
             String input = in.nextLine();
             displayLine();
 
-            //check for 'bye'. Exit if so.
-            if(input.equals("bye")) {
+            if(input.equals("bye")) {                   //check for 'bye'. Exit if so.
                 return;
             }
             else if(input.equals("list")){
                 printList();
+            }
+            else if ((input.length()>=4)&&(input.substring(0,4).equals("mark"))){       //check for mark command.
+                markTaskAsDone(Integer.parseInt(input.split(" ")[1]));
+            }
+            else if ((input.length()>=6)&&(input.substring(0,6).equals("unmark"))){     //check for unmark command.
+                unmarkTaskAsDone(Integer.parseInt(input.split(" ")[1]));
             }
             else{
                 addTaskToList(input);
@@ -70,13 +94,13 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("You are entering the\n" + logo + "\nZone...\n");
 
-        //opening sequence
+        //opening sequence.
         greeting();
 
-        //echo loop
+        //echo loop between user and Dukebot.
         echo();
 
-        //ending sequence
+        //ending sequence.
         goodbye();
     }
 }
