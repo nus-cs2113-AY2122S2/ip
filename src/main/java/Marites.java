@@ -4,8 +4,7 @@ public class Marites {
     static void printSeparator() {
         System.out.println("========================================");
     }
-    public static void main(String[] args) {
-
+    static void printIntroduction() {
         // Found in https://emojicombos.com/kaomoji
         String logo = "(งツ)ว";
 
@@ -13,6 +12,9 @@ public class Marites {
         System.out.println("Hi, I'm Marites! I've heard so many things about you!");
         System.out.println("I have a lot of stories to share, but first, how can I help you?");
         printSeparator();
+    }
+    public static void main(String[] args) {
+        printIntroduction();
 
         Scanner in = new Scanner(System.in);
         while (true) {
