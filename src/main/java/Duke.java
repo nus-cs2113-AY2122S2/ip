@@ -1,5 +1,7 @@
+import java.util.Scanner;
+
 public class Duke {
-    public static void main(String[] args) {
+    public static void displayLogo() {
         String logo = "                       ___\n"
                 +"                      / ()\\\n"
                 +"                    _|_____|_\n"
@@ -14,8 +16,27 @@ public class Duke {
                 + "Hello! I'm EM\n"
                 + "What can I do for you?\n"
                 + "____________________________________________________________\n";
-        String farewell = "Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________\n";
-        System.out.println(logo + greetings + farewell);
+        System.out.println(logo + greetings);
     }
+
+    public static void displayFarewell() {
+        String farewell = "____________________________________________________________\n"
+                + "Bye. Hope to see you again soon!\n"
+                + "____________________________________________________________\n";
+        System.out.println(farewell);
+    }
+
+    public static void main(String[] args) {
+        String lineSeparator = "____________________________________________________________\n";
+        displayLogo();
+        String userInput;
+        Scanner in = new Scanner(System.in);
+        userInput = in.nextLine();
+        while(!userInput.equalsIgnoreCase("Bye")) {
+            System.out.println(lineSeparator + userInput + "\n" + lineSeparator);
+            userInput = in.nextLine();
+        }
+        displayFarewell();
+    }
+
 }
