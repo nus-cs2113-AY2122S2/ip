@@ -1,4 +1,3 @@
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Duke {
@@ -44,11 +43,9 @@ public class Duke {
     public static void main(String[] args) {
         String lineSeparator = "____________________________________________________________\n";
         displayLogo();
-
         String userInput;
         Task[] taskList = new Task[100];
         int listCount = 0;
-
         Scanner in = new Scanner(System.in);
         userInput = in.nextLine();
         while(!userInput.equalsIgnoreCase("Bye")) {

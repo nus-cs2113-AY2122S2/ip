@@ -1,13 +1,11 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    private static int taskCount = 0;
     public String lineSeparator = "____________________________________________________________\n";
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        taskCount++;
     }
 
     public String getDescription() {
