@@ -4,4 +4,5 @@ public class Duke {
         TaskManager iWish = new TaskManager();
         iWish.startUp();
     }
+
 }
