@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -9,6 +10,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         Scanner sc = new Scanner(System.in);
+        ArrayList<String> listOfStrings = new ArrayList<>();
 
         System.out.print("____________________\n"+
                           "Hello! I'm Duke\n"+
@@ -18,11 +20,15 @@ public class Duke {
         while(!userToQuit){
             input = sc.nextLine();
             switch(input){
+                case "list":
+                    list(listOfStrings);
+                    break;
                 case "bye":
                     userToQuit = true;
                     break;
                 default:
-                    echo(input);
+                    addItem(input, listOfStrings);
+                    break;
             }
         }
 
@@ -31,7 +37,14 @@ public class Duke {
                 "____________________\n");
     }
 
-    private static void echo(String input){
-        System.out.printf("%s\n", input);
+    private static void addItem(String input, ArrayList<String> list){
+        list.add(input);
+        System.out.printf("added: %s\n", input);
+    }
+
+    private static void list(ArrayList<String> list){
+        for(int i = 0; i< list.size(); i++){
+            System.out.printf("%d. %s\n", i+1, list.get(i));
+        }
     }
 }
