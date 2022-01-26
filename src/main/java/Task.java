@@ -19,7 +19,7 @@ public class Task {
         isDone = false;
     }
 
-    public String getTaskEntry(){
+    public String getTaskEntryString(){
         return "[" + getStatusIcon() + "] " + description;
     }
 }
