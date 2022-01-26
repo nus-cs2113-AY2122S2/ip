@@ -1,9 +1,19 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
+// Functional interface for lambda expressions that produce output.
+interface Printer {
+    void print();
+}
+
 public class Marites {
     static void printSeparator() {
         System.out.println("========================================");
+    }
+    static void surroundWithSeparators(Printer p) {
+        printSeparator();
+        p.print();
+        printSeparator();
     }
     static void printIntroduction() {
         // Found in https://emojicombos.com/kaomoji
@@ -32,20 +42,20 @@ public class Marites {
             if (tokens[0].equals("bye")) {
                 break;
             } else if (input.equals("list")) {
-                printSeparator();
-                listTasks(tasks);
-                printSeparator();
+                surroundWithSeparators(() ->
+                    listTasks(tasks)
+                );
             } else {
                 tasks.add(input);
 
-                printSeparator();
-                System.out.println("added: " + input);
-                printSeparator();
+                surroundWithSeparators(() ->
+                    System.out.printf("added: %s%n", input)
+                );
             }
         }
 
-        printSeparator();
-        System.out.println("See you next time!");
-        printSeparator();
+        surroundWithSeparators(() ->
+            System.out.println("See you next time!")
+        );
     }
 }
