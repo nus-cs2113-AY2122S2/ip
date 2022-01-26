@@ -19,13 +19,14 @@ public class Duke {
             "                              \\_\\";
 
     // Global variable for list of task
-    static ArrayList<String> taskList = new ArrayList<String>();
+    static ArrayList<Task> taskList = new ArrayList<Task>();
     static int numOfTask = 0;
 
     public static void printIntro(){
         System.out.println(INTRO_LOGO);
         printBorder();
-        System.out.println(" Good Morning sir, I am DukeBot, your personal assistant! \n What can I do for you today?");
+        System.out.println(" Good Morning sir, I am DukeBot, your personal assistant! " +
+                            "\n What can I do for you today?");
         printBorder();
     }
 
@@ -46,10 +47,43 @@ public class Duke {
 
     public static void printTaskList(){
         int counter = 1;
-        for (String task : taskList){
-            System.out.println(" "+counter +". "+task);
+        for (Task task : taskList){
+            System.out.print(" "+counter +".");
+            printTask(task);
             counter++;
         }
+    }
+
+    public static void addTaskToTaskList(String taskName){
+        Task newTask = new Task(taskName);
+        taskList.add(newTask);
+        numOfTask++;
+    }
+
+    public static Task getTask(int taskNumber){
+        // -1 is to offset the counting of array list from 0
+        return taskList.get(taskNumber - 1);
+    }
+
+    public static int getTaskNumber(String input){
+        return Integer.parseInt(input.split(" ")[1]);
+    }
+
+    public static void printTask(Task task){
+        System.out.println(" ["+task.getStatusIcon()+"] "+task.getTaskName());
+    }
+
+    public static void markTask(String input, boolean doneStatus){
+        int taskNum = getTaskNumber(input);
+        Task markedTask = getTask(taskNum);
+        markedTask.setDone(doneStatus);
+
+        if (doneStatus == true){
+            System.out.println("Nice! I'v marked this task as done:");
+        }else{
+            System.out.println("Okay! I'v marked this task as not done:");
+        }
+        printTask(markedTask);
     }
 
     public static void main(String[] args) {
@@ -63,14 +97,19 @@ public class Duke {
                 printOutro();
                 System.exit(0);
                 break;
+            case "mark":
+                markTask(input, true);
+                break;
+            case "unmark":
+                markTask(input, false);
+                break;
             case "list":
                 printTaskList();
                 break;
             default:
                 printBorder();
+                addTaskToTaskList(input);
                 System.out.println(" added: "+input);
-                taskList.add(input);
-                numOfTask++;
                 printBorder();
                 break;
             }
