@@ -2,6 +2,9 @@ import java.util.Scanner;
 
 public class Duke {
 
+    static String[] task_list = new String[100];
+    static int task_count=0;
+
     //method prints a horizontal line.
     public static void displayLine(){
         System.out.println("____________________________________________________________");
@@ -9,6 +12,7 @@ public class Duke {
 
     //method prints Duke greeting.
     public static void greeting(){
+        displayLine();
         System.out.println("Hey there! Duke here!");
         System.out.println("How can I serve you today?");
         displayLine();
@@ -20,24 +24,42 @@ public class Duke {
         displayLine();
     }
 
+    //method prints task_list.
+    public static void printList(){
+        for (int i=0;i<task_count;i++){
+            System.out.println(String.format("%d. ",i+1)+task_list[i]);
+        }
+        displayLine();
+    }
+
+    //method adds task to task_list.
+    public static void addTaskToList(String task){
+        task_list[task_count]=task;
+        task_count++;
+        System.out.println("added: "+task);
+        displayLine();
+    }
+
     //method runs main echo functionality of duke.
     public static void echo(){
         Scanner in = new Scanner(System.in);
         while(true){
-            //read input.
+
+            //read input from user.
             String input = in.nextLine();
             displayLine();
 
             //check for 'bye'. Exit if so.
-            if(input.equals("bye")){
+            if(input.equals("bye")) {
                 return;
             }
-
-            //print input if not bye.
-            System.out.println(input);
-            displayLine();
+            else if(input.equals("list")){
+                printList();
+            }
+            else{
+                addTaskToList(input);
+            }
         }
-
     }
 
     public static void main(String[] args) {
@@ -49,7 +71,6 @@ public class Duke {
         System.out.println("You are entering the\n" + logo + "\nZone...\n");
 
         //opening sequence
-        displayLine();
         greeting();
 
         //echo loop
@@ -57,6 +78,5 @@ public class Duke {
 
         //ending sequence
         goodbye();
-
     }
 }
