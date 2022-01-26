@@ -9,11 +9,11 @@ public class Duke {
         System.out.println(breakLine);
     }
 
-    public static String numerateList(ArrayList<String> list) {
+    public static String numerateList(ArrayList<Task> list) {
         String output = "";
         int number = 1 ;
-        for (String item : list) {
-            output += String.format("%d. %s", number, item);
+        for (Task item : list) {
+            output += String.format("%d. %s", number, item.toString());
             if (number != list.size()) {
                 output += "\n";
             }
@@ -22,8 +22,16 @@ public class Duke {
         return output;
     }
 
+    public static void markCompleted (Task task) {
+        task.setCompleted(true);
+        printWithDivider(task.toString());
+    }
+    public static void unmarkCompleted (Task task) {
+        task.setCompleted(false);
+        printWithDivider(task.toString());
+    }
 
-    public static void main(String[] args) {
+    public static void hello() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -32,24 +40,51 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
 
         printWithDivider("Hello! I'm Duke\nWhat can I do for you?");
+    }
+
+    public static void main(String[] args) {
+
+        hello();
 
         //Level-1
         Scanner sc = new Scanner (System.in);
-
-        ArrayList<String> tasks = new ArrayList<String>();
+        ArrayList<Task> tasks = new ArrayList<Task>();
         int counter = 0;
 
         String line = sc.nextLine();
+        boolean sayByeAlready = false;
 
-        while (!line.equals("bye")){
-            if (line.equals("list")) {
-                printWithDivider(numerateList(tasks));
+
+        while (!sayByeAlready){
+
+            int divider = line.indexOf(' ');
+
+            String command = line;
+            String number = "";
+            if (divider != -1) {
+               command = line.substring(0, divider);
+               number = line.substring(divider+1);
             }
-            else {
+
+            switch(command) {
+            case "bye":
+                sayByeAlready = true;
+                break;
+            case "mark":
+                markCompleted(tasks.get(Integer.parseInt(number)-1));
+                break;
+            case "unmark":
+                unmarkCompleted(tasks.get(Integer.parseInt(number)-1));
+                break;
+            case "list" :
+                printWithDivider(numerateList(tasks));
+                break;
+            default:
                 printWithDivider("added: " + line);
-                tasks.add(line);
+                tasks.add(new Task(line));
                 counter ++;
             }
+
             line = sc.nextLine();
         }
 
