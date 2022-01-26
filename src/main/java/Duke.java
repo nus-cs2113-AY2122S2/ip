@@ -46,9 +46,10 @@ public class Duke {
                     list[taskNum - 1].setDone(true);
                 System.out.println("Nice! I've marked this task as done:\n");
             }
-            else if(input.equalsIgnoreCase("unmark")){
+            else if(input.startsWith("unmark")){
                 int taskNum = getTaskNumberArgument(input);
-                list[taskNum].setDone(false);
+                list[taskNum-1].setDone(false);
+                System.out.println("K, I've marked this task as not done yet:\n");
             }
             else {
                 Task t = new Task(input);
