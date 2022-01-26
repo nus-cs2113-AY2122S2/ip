@@ -1,66 +1,59 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static String tasks[] = new String[100];
-    private static int taskCount = 0;
 
     public static void printLine(){
-        System.out.println("-----------------------------------------");
+        System.out.println("\t" + "-----------------------------------------");
     }
 
     public static void greeting(){
-        System.out.println("Hi! This is Duke!");
-        System.out.println("I'm glad to be at your service.");
-        System.out.println("What can I help you with?");
+        String logo = "\t" + " ____        _        \n"
+                + "\t" + "|  _ \\ _   _| | _____ \n"
+                + "\t" + "| | | | | | | |/ / _ \\\n"
+                + "\t" + "| |_| | |_| |   <  __/\n"
+                + "\t" + "|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println("\t" + "Hello from\n" + logo);
+        printLine();
+
+        System.out.println("\t" + "Hi! This is Duke!");
+        System.out.println("\t" + "I'm glad to be at your service.");
+        System.out.println("\t" + "What can I help you with?");
         printLine();
     }
 
     public static void bye() {
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("\t" + "Bye. Hope to see you again soon!");
         printLine();
     }
 
-    public static void echo() {
-        Scanner in = new Scanner(System.in);
-        while(true){
-            String text = in.nextLine();
-            printLine();
-
-            if (text.toLowerCase().equals("bye")){
-                break;
-            } else if (text.equals("list")) {
-                printList();
-            } else {
-                addTask(text);
-            }
-        }
-    }
-
-    public static void addTask(String task) {
-        tasks[taskCount] = task;
-        taskCount++;
-        System.out.println("added: " + task);
+    public static void echo(String task) {
         printLine();
-    }
-
-    public static void printList(){
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println((i+1) + ". " + tasks[i]);
-        }
+        System.out.println("\t" + "added:  " + task);
+        printLine();
     }
 
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        TaskList taskList = new TaskList();
 
-        printLine();
         greeting();
 
-        echo();
+        Scanner in = new Scanner(System.in);
+        String textIn = in.nextLine();
+        while(!textIn.toLowerCase().equals("bye")){
+            if(textIn.equals("list")){
+                taskList.printTaskList();
+            } else if (textIn.startsWith("mark")) {
+                taskList.markDone(Integer.parseInt(textIn.substring(5)));
+            } else if (textIn.startsWith("unmark")) {
+                taskList.unmark(Integer.parseInt(textIn.substring(7)));
+            } else {
+                echo(textIn);
+                Task task = new Task(textIn);
+                taskList.addTask(task);
+            }
+            in = new Scanner(System.in);
+            textIn = in.nextLine();
+        }
 
         bye();
     }
