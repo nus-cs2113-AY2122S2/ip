@@ -1,10 +1,7 @@
 public class Duke {
     public static void main(String[] args) {
-        System.out.print("____________________________________________________________\n"
-                + "Hello! I'm Duke\n"
-                + "What can I do for you?\n"
-                + "____________________________________________________________\n"
-                + "Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________");
+        System.out.println("[iWish]: Hello I am iWish, what can i do for you?");
+        TaskManager iWish = new TaskManager();
+        iWish.echoInput();
     }
 }
