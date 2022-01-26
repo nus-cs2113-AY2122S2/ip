@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 public class Duke {
+    private static String tasks[] = new String[100];
+    private static int taskCount = 0;
 
     public static void printLine(){
         System.out.println("-----------------------------------------");
@@ -21,19 +23,31 @@ public class Duke {
     public static void echo() {
         Scanner in = new Scanner(System.in);
         while(true){
-            String input = in.nextLine();
+            String text = in.nextLine();
             printLine();
 
-            if (input.toLowerCase().equals("bye")){
+            if (text.toLowerCase().equals("bye")){
                 break;
-            }
-            else {
-                System.out.println("Echo: " + input);
-                printLine();
+            } else if (text.equals("list")) {
+                printList();
+            } else {
+                addTask(text);
             }
         }
     }
 
+    public static void addTask(String task) {
+        tasks[taskCount] = task;
+        taskCount++;
+        System.out.println("added: " + task);
+        printLine();
+    }
+
+    public static void printList(){
+        for (int i = 0; i < taskCount; i++) {
+            System.out.println((i+1) + ". " + tasks[i]);
+        }
+    }
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
