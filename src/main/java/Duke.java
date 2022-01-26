@@ -26,9 +26,19 @@ public class Duke {
                 printIndentLine();
                 taskList.displayTasks();
                 printIndentLine();
+            } else if (input.contains("unmark")){
+                printIndentLine();
+                int index = Integer.parseInt(input.replaceAll("\\D+","")) - 1;
+                taskList.setTaskStatus(index, false);
+                printIndentLine();
+            } else if (input.contains("mark")) {
+                printIndentLine();
+                int index = Integer.parseInt(input.replaceAll("\\D+", "")) - 1;
+                taskList.setTaskStatus(index, true);
+                printIndentLine();
             } else {
                 printIndentLine();
-                System.out.println("    " + taskList.addTask(input));
+                taskList.addTask(input);
                 printIndentLine();
             }
             input = s.nextLine();
