@@ -1,6 +1,10 @@
 import java.util.Scanner;
 
 public class Duke {
+
+    public static String[] storedUserInputs = new String[100];
+    public static int numberOfUserInputs = 0;
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -9,7 +13,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         greet();
-        echo();
+        respondToUser();
         exit();
     }
 
@@ -20,17 +24,41 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
 
-    public static void echo() {
+    public static void store(String userInput) {
+        storedUserInputs[numberOfUserInputs] = userInput;
+        numberOfUserInputs++;
+    }
+
+    public static void list() {
+        if (numberOfUserInputs == 0) {
+            System.out.println("You have not entered any tasks yet!");
+            System.out.println("____________________________________________________________");
+        } else {
+            for (int i = 0; i < numberOfUserInputs; i++) {
+                System.out.println(i+1 + ". " + storedUserInputs[i]);
+            }
+        }
+    }
+
+
+    public static void respondToUser() {
         Scanner in = new Scanner(System.in);
         String userInput = in.nextLine();
         String lowerCaseUserInput = userInput.toLowerCase();
         while (!lowerCaseUserInput.equals("bye")) {
-            System.out.println("____________________________________________________________");
-            System.out.println(userInput);
-            System.out.println("____________________________________________________________");
+            switch(lowerCaseUserInput) {
+            case "list":
+                list();
+                break;
+            default:
+                System.out.println("____________________________________________________________");
+                System.out.println("added: " + userInput);
+                store(userInput);
+                System.out.println("____________________________________________________________");
+            }
             userInput = in.nextLine();
             lowerCaseUserInput = userInput.toLowerCase();
-        };
+        }
     }
 
     public static void exit() {
