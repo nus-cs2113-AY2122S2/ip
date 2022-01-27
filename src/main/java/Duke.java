@@ -18,6 +18,7 @@ public class Duke {
     }
 
     public static void exit() {
+        System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
     }
