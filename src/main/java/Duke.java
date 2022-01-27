@@ -20,28 +20,38 @@ public class Duke {
                 printTasks(tasks);
                 break;
             case "mark":
-                if (words.length == 2) {
-                    taskNumber = Integer.parseInt(words[1]);
+                try {
+                    if (words.length == 2) {
+                        taskNumber = Integer.parseInt(words[1]);
+                    }
+                    if (taskNumber > Task.getNumOfTasks()) {
+                        System.out.println("You don't have that many tasks ><!");
+                        break;
+                    }
+                    tasks[taskNumber - 1].setDone();
+                    System.out.println("I have marked the task as done!");
+                    System.out.println(tasks[taskNumber - 1].getStatusIcon() + tasks[taskNumber - 1].getTaskDescription());
                 }
-                if (taskNumber > Task.getNumOfTasks()) {
-                    System.out.println("You don't have that many tasks ><!");
-                    break;
+                catch (Exception e) {
+                    System.out.println("Please enter a number after mark");
                 }
-                tasks[taskNumber - 1].setDone();
-                System.out.println("I have marked the task as done!");
-                System.out.println(tasks[taskNumber - 1].getStatusIcon() + tasks[taskNumber - 1].getTaskDescription());
                 break;
             case "unmark":
-                if (words.length == 2) {
-                    taskNumber = Integer.parseInt(words[1]);
+                try {
+                    if (words.length == 2) {
+                        taskNumber = Integer.parseInt(words[1]);
+                    }
+                    if (taskNumber > Task.getNumOfTasks()) {
+                        System.out.println("You don't have that many tasks ><!");
+                        break;
+                    }
+                    tasks[taskNumber - 1].setUndone();
+                    System.out.println("I have marked the task as not done!");
+                    System.out.println(tasks[taskNumber - 1].getStatusIcon() + tasks[taskNumber - 1].getTaskDescription());
                 }
-                if (taskNumber > Task.getNumOfTasks()) {
-                    System.out.println("You don't have that many tasks ><!");
-                    break;
+                catch (Exception e) {
+                    System.out.println("Please enter a number after unmark");
                 }
-                tasks[taskNumber - 1].setUndone();
-                System.out.println("I have marked the task as not done!");
-                System.out.println(tasks[taskNumber - 1].getStatusIcon() + tasks[taskNumber - 1].getTaskDescription());
                 break;
             default:
                 int numOfTasks = Task.getNumOfTasks();
