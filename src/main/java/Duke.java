@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static String[] storedUserInputs = new String[100];
+    public static Task[] storedUserInputs = new Task[100];
     public static int numberOfUserInputs = 0;
 
     public static void main(String[] args) {
@@ -25,7 +25,7 @@ public class Duke {
     }
 
     public static void store(String userInput) {
-        storedUserInputs[numberOfUserInputs] = userInput;
+        storedUserInputs[numberOfUserInputs] = new Task(userInput);
         numberOfUserInputs++;
     }
 
@@ -34,8 +34,9 @@ public class Duke {
             System.out.println("You have not entered any tasks yet!");
             System.out.println("____________________________________________________________");
         } else {
+            System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < numberOfUserInputs; i++) {
-                System.out.println(i+1 + ". " + storedUserInputs[i]);
+                System.out.println(i+1 + ".[" + storedUserInputs[i].getStatusIcon() + "] " + storedUserInputs[i].getDescription());
             }
         }
     }
@@ -46,11 +47,24 @@ public class Duke {
         String userInput = in.nextLine();
         String lowerCaseUserInput = userInput.toLowerCase();
         while (!lowerCaseUserInput.equals("bye")) {
-            switch(lowerCaseUserInput) {
-            case "list":
+            if (lowerCaseUserInput.equals("list")) {
                 list();
-                break;
-            default:
+            } else if (lowerCaseUserInput.contains("mark")) {
+                String[] splitUserInput = lowerCaseUserInput.split(" ");
+                int taskNumber = Integer.parseInt(splitUserInput[1]);
+                if (splitUserInput[0].equals("mark")) {
+                    storedUserInputs[taskNumber-1].setIsDone(true);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Nice! I've marked this task as done:");
+                } else {
+                    storedUserInputs[taskNumber-1].setIsDone(false);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("OK, I've marked this task as not done yet:");
+                }
+                System.out.println("[" + storedUserInputs[taskNumber-1].getStatusIcon() + "] " + storedUserInputs[taskNumber-1].getDescription());
+                System.out.println("____________________________________________________________");
+
+            } else {
                 System.out.println("____________________________________________________________");
                 System.out.println("added: " + userInput);
                 store(userInput);
