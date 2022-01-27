@@ -35,6 +35,7 @@ public class Duke {
         printLine();
     }
 
+
     public static void converse(Task[] list, int taskCount){
         Scanner sc = new Scanner(System.in);
         String response = sc.nextLine();
