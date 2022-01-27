@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
@@ -40,23 +39,17 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         String response = sc.nextLine();
         while (!(response.equals("bye"))){
-            switch(response){
-                case "list":
-                    listTasks(list, taskCount);
-                    break;
-                case "bye":
-                    return;
-                default:
-                    if (response.startsWith("mark")){
-                        markTask(list, taskCount, response);
-                    }
-                    else if (response.startsWith("unmark")){
-                        unMarkTask(list, taskCount, response);
-                    }
-                    else {
-                        list = addList(list, taskCount, response);
-                        taskCount++;
-                    }
+            if (response.equals("list"))
+                listTasks(list, taskCount);
+            else if (response.startsWith("mark")){
+                    markTask(list, taskCount, response);
+            }
+            else if (response.startsWith("unmark")){
+                unmarkTask(list, taskCount, response);
+            }
+            else {
+                addToList(list, taskCount, response);
+                taskCount++;
             }
             response = sc.nextLine();
         }
@@ -66,17 +59,16 @@ public class Duke {
     public static void listTasks(Task[] list, int taskCount){
         printLine();
         for (int i = 0; i < taskCount; i++){
-            System.out.println(Integer.toString(i+1) + ". [" + list[i].getStatusIcon() + "] " + list[i].description);
+            System.out.println((i+1) + ". [" + list[i].getStatusIcon() + "] " + list[i].description);
         }
         printLine();
     }
 
-    public static Task[] addList(Task[] list, int taskCount, String response){
+    public static void addToList(Task[] list, int taskCount, String response){
         printLine();
         list[taskCount] = new Task(response);
         System.out.println("added: " + response);
         printLine();
-        return list;
     }
 
     public static void markTask(Task[] list, int taskCount, String response){
@@ -84,12 +76,12 @@ public class Duke {
         String[] words = response.split(" ");
         int taskIndex = Integer.parseInt(words[1]);
         if (taskIndex > taskCount || taskIndex == 0){
-            System.out.println("Sorry, seem's like there's no such task with that index.");
+            System.out.println("Sorry, seems like there's no such task with that index.");
             printLine();
             return;
         }
         else {
-            if (list[taskIndex-1].isDone == false){
+            if (!(list[taskIndex-1].isDone)){
                 list[taskIndex-1].markAsDone();
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println("\t[" + list[taskIndex-1].getStatusIcon() + "]" + list[taskIndex-1].description);
@@ -99,20 +91,19 @@ public class Duke {
             }
         }
         printLine();
-        return;
     }
 
-    public static void unMarkTask(Task[] list, int taskCount, String response){
+    public static void unmarkTask(Task[] list, int taskCount, String response){
         printLine();
         String[] words = response.split(" ");
         int taskIndex = Integer.parseInt(words[1]);
         if (taskIndex > taskCount || taskIndex == 0){
-            System.out.println("Sorry, seem's like there's no such task with that index.");
+            System.out.println("Sorry, seems like there's no such task with that index.");
             printLine();
             return;
         }
         else {
-            if (list[taskIndex-1].isDone == true){
+            if (list[taskIndex-1].isDone){
                 list[taskIndex-1].markAsNotDone();
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("\t[" + list[taskIndex-1].getStatusIcon() + "]" + list[taskIndex-1].description);
@@ -122,6 +113,5 @@ public class Duke {
             }
         }
         printLine();
-        return;
     }
 }
