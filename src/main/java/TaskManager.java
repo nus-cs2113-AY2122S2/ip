@@ -10,9 +10,12 @@ public class TaskManager {
 
     public void start(){
         Scanner sc = new Scanner(System.in);
+        int idx;
         // Supported commands
         System.out.println("\tType \"add <task>\" to add a task");
         System.out.println("\tType \"list\" to list all tasks");
+        System.out.println("\tType \"mark <task number>\" to mark a task");
+        System.out.println("\tType \"unmark <task number>\" to unmark a task");
         System.out.println("\tType \"bye\" to exit");
         System.out.println("\t" + "-".repeat(60));
 
@@ -29,9 +32,18 @@ public class TaskManager {
             case "list":
                 listTasks();
                 break;
+            case "mark":
+                idx = sc.nextInt();
+                markTask(idx);
+                break;
+            case "unmark":
+                idx = sc.nextInt();
+                unmarkTask(idx);
+                break;
             default:
                 System.out.println("\t" + "-".repeat(60));
                 System.out.println("I cannot read this instruction. Please try again.");
+                sc.nextLine();
                 System.out.println("\t" + "-".repeat(60));
             }
             input = sc.next();
@@ -48,8 +60,11 @@ public class TaskManager {
 
     public void listTasks(){
         System.out.println("\t" + "-".repeat(60));
+        System.out.println("\tHere are the tasks in your list:");
         for(int i = 0;i < taskCount; i++){
-            System.out.println("\t " + (i + 1) + ". " + tasks[i].getDescription());
+            System.out.println("\t " + (i + 1) +
+                    ".[" + tasks[i].getStatusIcon() + "] " +
+                    tasks[i].getDescription());
         }
         if(taskCount == 0){
             System.out.println("No task recorded.");
@@ -57,4 +72,25 @@ public class TaskManager {
         System.out.println("\t" + "-".repeat(60));
     }
 
+    public void markTask(int idx){
+        idx --;
+        tasks[idx].markAsDone();
+        System.out.println("\t" + "-".repeat(60));
+        System.out.println("\tNice! I've marked this task as done:");
+        System.out.println("\t " + (idx + 1) +
+                ".[" + tasks[idx].getStatusIcon() + "] " +
+                tasks[idx].getDescription());
+        System.out.println("\t" + "-".repeat(60));
+    }
+
+    public void unmarkTask(int idx){
+        idx --;
+        tasks[idx].unmark();
+        System.out.println("\t" + "-".repeat(60));
+        System.out.println("\tOK, I've marked this task as not done yet:");
+        System.out.println("\t " + (idx + 1) +
+                ".[" + tasks[idx].getStatusIcon() + "] " +
+                tasks[idx].getDescription());
+        System.out.println("\t" + "-".repeat(60));
+    }
 }
