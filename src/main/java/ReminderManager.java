@@ -6,9 +6,9 @@ public class ReminderManager {
     private static List<Reminder> reminders = new ArrayList<Reminder>();
 
     /**
-     * Add one reminder which is concatenated of args
+     * Add all the reminders in args
      *
-     * @param args reminder to be added
+     * @param args reminders to be added
      */
     public static void add(String[] args) {
         if(!args[0].equals(args[0])) {
@@ -16,14 +16,10 @@ public class ReminderManager {
             // TODO exception handle
             return;
         }
-        String content = "";
         for(int i = 1; i < args.length; i++) {
-            content += args[i];
-            content += " ";
+            reminders.add(new Reminder(args[i]));
+            System.out.println("Added: " + args[i]);
         }
-        content = content.trim();
-        System.out.println("Added: " + content);
-        reminders.add(new Reminder(content));
     }
 
     /**
