@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class Duke {
     private static ArrayList<String> descriptions = new ArrayList<>();
+    private static ArrayList<Boolean> done = new ArrayList<>();
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -27,9 +28,22 @@ public class Duke {
                 line = in.nextLine();
                 continue;
             }
+            if (line.startsWith("mark")) {
+                int number = Integer.parseInt(line.substring(line.length() - 1));
+                markAsDone(number);
+                line = in.nextLine();
+                continue;
+            }
+            if (line.startsWith("unmark")) {
+                int number = Integer.parseInt(line.substring(line.length() - 1));
+                unmarkTask(number);
+                line = in.nextLine();
+                continue;
+            }
             System.out.println("    ____________________________________________________________");
             System.out.println("added: " + line);
             descriptions.add(line);
+            done.add(false);
             System.out.println("    ____________________________________________________________");
             line = in.nextLine();
         }
@@ -44,8 +58,34 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Here are the tasks in your list:");
         for (int i = 0; i < descriptions.size(); i++) {
-            System.out.println(i+1 + "." + descriptions.get(i));
+            if(done.get(i)) {
+                System.out.println("[X] " + descriptions.get(i));
+            }
+            else {
+                System.out.println("[ ] " + descriptions.get(i));
+            }
         }
+        System.out.println("    ____________________________________________________________");
+    }
+
+    private static void unmarkTask(int number) {
+        System.out.println("    ____________________________________________________________");
+        System.out.println("     Noted. I've marked this task as not done yet:");
+        int index = number - 1;
+        String description = descriptions.get(index);
+        done.set(index, false);
+        System.out.println("[ ] " + description);
+        System.out.println("    ____________________________________________________________");
+    }
+
+    private static void markAsDone(int number) {
+        System.out.println("    ____________________________________________________________");
+        System.out.println("     Nice! I've marked this task as done:");
+        int index = number - 1;
+        String description = descriptions.get(index);
+        done.set(index, true);
+        System.out.println("[X] " + description);
+        System.out.println("    ____________________________________________________________");
     }
 
     private static void greeting() {
