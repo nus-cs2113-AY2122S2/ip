@@ -7,20 +7,38 @@ public class Duke {
         System.out.println("What can I do for you?");
     }
 
-    public static void addList (String[] array, String message, int itemNumber) {
-        array[itemNumber] = message;
-        System.out.println("added: " + message);
+    public static void addList (Task[] array, String message, int itemNumber) {
+        Task t = new Task(message);
+        array[itemNumber] = t;
+        System.out.println("added: " + t.description);
     }
 
-    public static void listItems (String[] array, int itemNumber) {
+    public static void listItems (Task[] array, int itemNumber) {
+        System.out.println("Here are the tasks in your list: ");
         for(int i = 0; i < itemNumber; i++) {
-            System.out.println((i + 1) + ". " + array[i]);
+            System.out.println((i + 1) + ".[" + array[i].getStatusIcon() + "] " + array[i].description);
         }
     }
 
-//    public static void echo(String message) {
-//        System.out.println(message);
-//    }
+    public static void markItem (Task[] array, String message, int itemNumber) {
+        String[] splitMessage = message.split(" ");
+        String positionOfNumber = splitMessage[1];
+        int positionToMark = Integer.parseInt(positionOfNumber) - 1;
+        array[positionToMark].markAsDone();
+        System.out.println("Nice! I've marked this as done:");
+        System.out.println("[" + array[positionToMark].getStatusIcon() + "] " + array[positionToMark].description);
+    }
+
+    public static void unMarkItem(Task[] array, String message, int itemNumber) {
+        String[] splitMessage = message.split(" ");
+        String positionOfNumber = splitMessage[1];
+        int positionToUnMark = Integer.parseInt(positionOfNumber) - 1;
+        array[positionToUnMark].unMark();
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("[" + array[positionToUnMark].getStatusIcon() + "] " + array[positionToUnMark].description);
+    }
+
+
 
     public static void exits() {
         System.out.println("Bye. Hope to see you again soon!");
@@ -28,7 +46,7 @@ public class Duke {
 
     public static void main(String[] args) {
         int itemNumber = 0;
-        String[] listArray = new String[100];
+        Task[] listArray = new Task[100];
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -46,6 +64,10 @@ public class Duke {
                 isLoop = false;
             } else if (messageLowerCase.equals("list")) {
                 listItems(listArray, itemNumber);
+            } else if (messageLowerCase.contains("unmark")) {
+                unMarkItem(listArray,message,itemNumber);
+            } else if (messageLowerCase.contains("mark")) {
+                markItem(listArray,message,itemNumber);
             } else {
                 addList(listArray, message, itemNumber);
                 itemNumber++;
