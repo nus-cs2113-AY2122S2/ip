@@ -4,8 +4,8 @@ public class Eliz {
                     + "|  __|  |  |     |  |   |___  /\n"
                     + "| |__   |  |     |  |      / /  \n"
                     + "| |__|  |  |     |  |     / /  \n"
-                    + "| |__   |  |__   |  |    / /__\n";
-                    + "|____|  |_____|  |__|   |_____|\n"
+                    + "| |__   |  |__   |  |    / /__\n"
+                    + "|____|  |_____|  |__|   |_____|\n";
         System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm Eliz");
         System.out.println("What can I do for you?");
