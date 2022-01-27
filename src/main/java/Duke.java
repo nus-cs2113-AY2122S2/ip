@@ -46,8 +46,16 @@ public class Duke {
                 case "bye":
                     return;
                 default:
-                    list = addList(list, taskCount, response);
-                    taskCount++;
+                    if (response.startsWith("mark")){
+                        markTask(list, taskCount, response);
+                    }
+                    else if (response.startsWith("unmark")){
+                        unMarkTask(list, taskCount, response);
+                    }
+                    else {
+                        list = addList(list, taskCount, response);
+                        taskCount++;
+                    }
             }
             response = sc.nextLine();
         }
@@ -68,5 +76,51 @@ public class Duke {
         System.out.println("added: " + response);
         printLine();
         return list;
+    }
+
+    public static void markTask(Task[] list, int taskCount, String response){
+        printLine();
+        String[] words = response.split(" ");
+        int taskIndex = Integer.parseInt(words[1]);
+        if (taskIndex > taskCount || taskIndex == 0){
+            System.out.println("Sorry, seem's like there's no such task with that index.");
+            printLine();
+            return;
+        }
+        else {
+            if (list[taskIndex-1].isDone == false){
+                list[taskIndex-1].markAsDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("\t[" + list[taskIndex-1].getStatusIcon() + "]" + list[taskIndex-1].description);
+            }
+            else {
+                System.out.println("Hmm, you've already marked this task.");
+            }
+        }
+        printLine();
+        return;
+    }
+
+    public static void unMarkTask(Task[] list, int taskCount, String response){
+        printLine();
+        String[] words = response.split(" ");
+        int taskIndex = Integer.parseInt(words[1]);
+        if (taskIndex > taskCount || taskIndex == 0){
+            System.out.println("Sorry, seem's like there's no such task with that index.");
+            printLine();
+            return;
+        }
+        else {
+            if (list[taskIndex-1].isDone == true){
+                list[taskIndex-1].markAsNotDone();
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("\t[" + list[taskIndex-1].getStatusIcon() + "]" + list[taskIndex-1].description);
+            }
+            else {
+                System.out.println("Hmm, this task is already unmarked.");
+            }
+        }
+        printLine();
+        return;
     }
 }
