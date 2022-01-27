@@ -19,4 +19,5 @@ public class Parser {
         String line = "____________________________________________________________";
         return line + "\n" + command + "\n" + line + "\n";
     }
+
 }
