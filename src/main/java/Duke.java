@@ -2,15 +2,18 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        String greetStr = "\t____________________________________________________________\n" +
+        String greetStr = "\t" + "-".repeat(60) + "\n" +
                 "\t Hello! I'm Maahes\n" +
-                "\t What can I do for you?\n";
-        String byeStr = "\t____________________________________________________________\n" +
+                "\t What can I do for you?\n" +
+                "\t" + "-".repeat(60) + "\n";
+        String byeStr = "\t" + "-".repeat(60) + "\n" +
                 "\t Bye. Hope to see you again soon!\n" +
-                "\t____________________________________________________________";
+                "\t" + "-".repeat(60);
 
         System.out.println(greetStr);
-        echo();
+        //echo();
+        TaskManager taskManager = new TaskManager();
+        taskManager.start();
         System.out.println(byeStr);
     }
 
@@ -19,9 +22,9 @@ public class Duke {
         System.out.println("\t Type \"bye\" to exit.");
         String input = sc.nextLine();
         while(!input.equals("bye")){
-            System.out.println("\t____________________________________________________________");
+            System.out.println("\t" + "-".repeat(60));
             System.out.println("\t" + input);
-            System.out.println("\t____________________________________________________________");
+            System.out.println("\t" + "-".repeat(60));
             input = sc.nextLine();
         }
     }
