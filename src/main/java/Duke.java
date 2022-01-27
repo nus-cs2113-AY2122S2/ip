@@ -2,18 +2,8 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-/*         String greet = "____________________________________________________________\n" +
-                " Hello! I'm Duke\n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________\n";
-         System.out.println(greet);*/
-
-        printFormat(" Hello! I'm Duke\n" +
-                " What can I do for you?");
-
-/*        String bye = "____________________________________________________________\n" +
-                " Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________";*/
+        printFormat(" Hey there! I'm Duke\n" +
+                " What can I do for you? uwu");
 
         int num = 1;
         String line;
@@ -27,16 +17,17 @@ public class Duke {
             switch (line) {
             case "bye":
                 num = 0;
-                printFormat(" Bye. Hope to see you again soon!\n");
+                printFormat(" Aw, are you leaving now?\n" +
+                        " Hope to see you again soon!\n");
                 break;
             case "list":
-                System.out.println("____________________________________________________________");
+                String listAsString = "";
                 for (int k = 0; k < i; k++) {
                     Task curr = list[k];
-                    System.out.println(Integer.toString(k+1) + ". " +
-                            "[" + curr.getStatusIcon() + "] " + curr.description);
+                    listAsString += (" " + Integer.toString(k + 1) + ". " +
+                            "[" + curr.getStatusIcon() + "] " + curr.description + "\n");
+                    printFormat(listAsString);
                 }
-                System.out.println("____________________________________________________________\n");
                 break;
             default:
                 if (line.contains("unmark")) {
@@ -46,33 +37,33 @@ public class Duke {
                 } else {
                     list[i] = new Task(line);
                     i++;
-                    printFormat("added: " + line);
+                    printFormat(" added: " + line);
                 }
             }
         }
     }
 
     public static void printFormat(String s) {
-        System.out.println("____________________________________________________________\n" +
+        System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ⸙ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n" +
                 s + "\n" +
-                "____________________________________________________________");
+                "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ⸙ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
     }
 
-    public static void markStatus(Boolean mark, String line, Task[] list) {
+    public static void markStatus(Boolean shouldMark, String line, Task[] list) {
         try {
             int taskNum = Integer.parseInt(line.split(" ", 0)[1]);
             Task curr = list[taskNum - 1];
-            if (mark) {
+            if (shouldMark) {
                 curr.setDone(true);
                 printFormat(" Nice! I've marked this task as done:\n" +
-                        "[" + curr.getStatusIcon() + "] " + curr.description);
+                        " [" + curr.getStatusIcon() + "] " + curr.description);
             } else {
                 curr.setDone(false);
                 printFormat(" OK, I've marked this task as not done yet:\n" +
-                        "[" + curr.getStatusIcon() + "] " + curr.description);
+                        " [" + curr.getStatusIcon() + "] " + curr.description);
             }
-        } catch (Exception e) {
-            printFormat("Please mark / unmark a number that's in the list :')");
+        } catch (Exception exception) {
+            printFormat(" Please mark / unmark a number that's in the list :')");
         }
     }
 }
