@@ -1,5 +1,5 @@
 public class Greet {
-    private static void printDecoration(){
+    public static void printDecoration(){
         System.out.println("-----------------------------------------------------");
     }
     public static void sayHi(){
