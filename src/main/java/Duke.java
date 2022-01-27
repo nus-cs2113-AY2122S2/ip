@@ -37,6 +37,7 @@ public class Duke {
                     System.out.println("   I don't actually believe you completed a task, but I'll mark it anyway.");
                     System.out.println("     [X] " + tasks[commandNumber].getDescription());
                     System.out.println("____________________________________________________________");
+                    tasks[commandNumber].setDone(true);
                 } else {
                     System.out.println("____________________________________________________________");
                     System.out.println("   You didn't even write down that task.");
@@ -51,6 +52,7 @@ public class Duke {
                     System.out.println("   Unmarking a task; sharp as a marble, aren't we?");
                     System.out.println("     [] " + tasks[commandNumber].getDescription());
                     System.out.println("____________________________________________________________");
+                    tasks[commandNumber].setDone(false);
                 } else {
                     System.out.println("____________________________________________________________");
                     System.out.println("   You didn't even write down that task.");
