@@ -8,9 +8,9 @@ public class Duke {
     }
 
     public static void addList (Task[] array, String message, int itemNumber) {
-        Task t = new Task(message);
-        array[itemNumber] = t;
-        System.out.println("added: " + t.description);
+        Task taskItem = new Task(message);
+        array[itemNumber] = taskItem;
+        System.out.println("added: " + taskItem.description);
     }
 
     public static void listItems (Task[] array, int itemNumber) {
@@ -22,8 +22,8 @@ public class Duke {
 
     public static void markItem (Task[] array, String message, int itemNumber) {
         String[] splitMessage = message.split(" ");
-        String positionOfNumber = splitMessage[1];
-        int positionToMark = Integer.parseInt(positionOfNumber) - 1;
+        String getNumber = splitMessage[1];
+        int positionToMark = Integer.parseInt(getNumber) - 1;
         array[positionToMark].markAsDone();
         System.out.println("Nice! I've marked this as done:");
         System.out.println("[" + array[positionToMark].getStatusIcon() + "] " + array[positionToMark].description);
@@ -31,8 +31,8 @@ public class Duke {
 
     public static void unMarkItem(Task[] array, String message, int itemNumber) {
         String[] splitMessage = message.split(" ");
-        String positionOfNumber = splitMessage[1];
-        int positionToUnMark = Integer.parseInt(positionOfNumber) - 1;
+        String getNumber = splitMessage[1];
+        int positionToUnMark = Integer.parseInt(getNumber) - 1;
         array[positionToUnMark].unMark();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("[" + array[positionToUnMark].getStatusIcon() + "] " + array[positionToUnMark].description);
