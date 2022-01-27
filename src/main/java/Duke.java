@@ -9,6 +9,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         greet();
+        echo();
         exit();
     }
 
@@ -27,5 +28,19 @@ public class Duke {
         printLine();
         System.out.println("Bye. Hope to see you again soon!");
         printLine();
+    }
+
+    public static void echo(){
+        Scanner sc = new Scanner(System.in);
+
+        String response;
+        response = sc.nextLine();
+        while (!(response.equals("bye"))){
+            printLine();
+            System.out.println(response);
+            printLine();
+            response = sc.nextLine();
+        }
+        return;
     }
 }
