@@ -10,16 +10,25 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
-        String endOfSection = "\n___________________________________________________\n";
+        String endOfSection = "___________________________________________________\n";
 
-        System.out.println(logo + "\nHello! I'm Duke\nWhat can I do for you?" + endOfSection);
+        System.out.println(logo + "\nHello! I'm Duke\nWhat can I do for you?");
+        System.out.println(endOfSection);
 
         line = in.nextLine();
 
         while (!line.equals("bye")) {
-            System.out.println(line + endOfSection);
+            if (line.equals("list")) {
+                ToDoList.displayAllTasks();
+                System.out.println(endOfSection);
+            } else {
+                ToDoList tasks = new ToDoList(line);
+                System.out.println("Added: " + String.format("%s", line));
+                System.out.println(endOfSection);
+            }
             line = in.nextLine();
         }
-        System.out.println("Bye. Hope to see you again soon!" + endOfSection);
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println(endOfSection);
     }
 }
