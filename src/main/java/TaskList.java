@@ -19,12 +19,16 @@ public class TaskList {
         return tasks.size();
     }
 
+    public Task getTask(int n) {
+        return tasks.get(n - 1);
+    }
+
     @Override
     public String toString() {
         int n = tasks.size();
         String allTasks = "Tasks in your list: \n";
         for(int i = 0; i < n; i++) {
-            allTasks += String.format("%d. %s\n", i + 1, tasks.get(i));
+            allTasks += String.format("[%s] %d. %s\n", tasks.get(i).getStatusIcon(), i + 1, tasks.get(i).getDescription());
         }
         return allTasks;
     }
