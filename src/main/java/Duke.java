@@ -10,7 +10,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
 
-        String[] list = new String[100];
+        Task[] list = new Task[100];
         int taskCount = 0;
 
         greet();
@@ -35,7 +35,7 @@ public class Duke {
         printLine();
     }
 
-    public static void converse(String[] list, int taskCount){
+    public static void converse(Task[] list, int taskCount){
         Scanner sc = new Scanner(System.in);
         String response = sc.nextLine();
         while (!(response.equals("bye"))){
@@ -54,17 +54,17 @@ public class Duke {
 
     }
 
-    public static void listTasks(String[] list, int taskCount){
+    public static void listTasks(Task[] list, int taskCount){
         printLine();
         for (int i = 0; i < taskCount; i++){
-            System.out.println(Integer.toString(i+1) + ". " + list[i]);
+            System.out.println(Integer.toString(i+1) + ". [" + list[i].getStatusIcon() + "] " + list[i].description);
         }
         printLine();
     }
 
-    public static String[] addList(String[] list, int taskCount, String response){
+    public static Task[] addList(Task[] list, int taskCount, String response){
         printLine();
-        list[taskCount] = response;
+        list[taskCount] = new Task(response);
         System.out.println("added: " + response);
         printLine();
         return list;
