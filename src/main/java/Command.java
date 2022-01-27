@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Command {
     public static void greetUser(){
         PatternGenerator.generateArrows();
@@ -28,6 +30,45 @@ public class Command {
     }
 
     public static void list(){
+        PatternGenerator.generateLine();
+        System.out.println("Here are the tasks in your list.");
         Task.listTasks();
+        System.out.println("If you do not need any change to your task list, please enter \"exit\".");
+        PatternGenerator.generateLine();
+
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+        while (!input.equals("exit")){
+            modifyList(input);
+            input = sc.nextLine();
+        }
+    }
+
+    public static void modifyList(String input){
+        String[] words = input.split(" ");
+        switch (words[0]){
+        case "mark":
+            mark(Integer.parseInt(words[1]));
+            break;
+        case "unmark":
+            unmark(Integer.parseInt(words[1]));
+            break;
+        default:
+            break;
+        }
+    }
+
+    public static void mark(int index){
+        PatternGenerator.generateLine();
+        System.out.println("This task has been marked as done.");
+        Task.mark(index);
+        PatternGenerator.generateLine();
+    }
+
+    public static void unmark(int index){
+        PatternGenerator.generateLine();
+        System.out.println("This task has been marked as not done yet. Please remember to complete this task.");
+        Task.unmark(index);
+        PatternGenerator.generateLine();
     }
 }
