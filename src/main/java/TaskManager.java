@@ -9,22 +9,65 @@ public class TaskManager {
         return taskCount;
     }
 
+    public void markTask(int number){
+        Greet.printDecoration();
+        if(number > taskCount || number < 1){
+            System.out.println("Invalid Number! Let's try again...");
+        }
+        else {
+            if(tasks[number - 1].isMarked())
+            {
+                System.out.println("Err, this task is already marked...");
+            }
+            else {
+                tasks[number - 1].setMarked(true);
+                System.out.println("Nice! I've marked this task as done: ");
+                System.out.println("[X]" + ' ' + tasks[number - 1].getName());
+            }
+        }
+        Greet.printDecoration();
+    }
+
+    public void unmarkTask(int number){
+        Greet.printDecoration();
+        if(number > taskCount || number < 1){
+            System.out.println("Invalid Number! Let's try again...");
+        }
+        else {
+            if(!tasks[number - 1].isMarked()){
+                System.out.println("I cannot unmark something that was never marked...");
+            }
+            else {
+                tasks[number - 1].setMarked(false);
+                System.out.println("Okay Boss! The following task has been unmarked: ");
+                System.out.println("[ ]" + ' ' + tasks[number - 1].getName());
+            }
+        }
+        Greet.printDecoration();
+    }
+
     public void addToTasks(String taskName){
         Greet.printDecoration();
-        this.tasks[this.taskCount] = new Task(taskName);
+        tasks[taskCount] = new Task(taskName);
         System.out.println("added: " + taskName);
-        this.taskCount++;
+        taskCount++;
         Greet.printDecoration();
     }
 
     public void printTasks(){
         Greet.printDecoration();
-        if (this.taskCount == 0){
+        if (taskCount == 0){
             System.out.println("You have not added any Tasks!");
         }
         else{
-            for(int i = 0; i < this.taskCount ; i++){
-                System.out.println(i+1 + ". " + tasks[i].getName());
+            for(int i = 0; i < taskCount ; i++){
+                if(tasks[i].isMarked())
+                {
+                    System.out.println(i+1 + ". " + "[X]" + ' '  + tasks[i].getName());
+                }
+                else{
+                    System.out.println(i+1 + ". " + "[ ]" + ' '  + tasks[i].getName());
+                }
             }
         }
         Greet.printDecoration();

@@ -2,8 +2,6 @@ import java.util.Scanner;
 
 public class Duke {
 
-
-
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
         Greet.sayHi();
@@ -18,14 +16,21 @@ public class Duke {
         boolean isDone = false;
         while(!isDone){
             String taskName = reader.nextLine();
-            if(taskName.toLowerCase().equals("bye")){
+            String[] taskNameWords = taskName.trim().split(" ");
+            switch (taskNameWords[0].toLowerCase()){
+            case "list":
+                taskManager.printTasks();
+                break;
+            case "mark":
+                taskManager.markTask(Integer.parseInt(taskNameWords[1]));
+                break;
+            case "unmark":
+                taskManager.unmarkTask(Integer.parseInt(taskNameWords[1]));
+                break;
+            case "bye":
                 isDone = true;
                 break;
-            }
-            else if(taskName.toLowerCase().equals("list")){
-                taskManager.printTasks();
-            }
-            else{
+            default:
                 taskManager.addToTasks(taskName);
             }
         }
@@ -40,6 +45,9 @@ public class Duke {
             if(toRepeat.toLowerCase().equals("bye")){
                 isDone = true;
                 break;
+            }
+            else{
+                System.out.println(toRepeat);
             }
         }
     }
