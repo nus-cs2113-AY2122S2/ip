@@ -1,0 +1,18 @@
+read book
+return book
+buy bread
+list
+mark 1
+list
+mark 3
+list
+unmark 1
+list
+unmark 3
+list
+add "multiple task 1" "multiple task 2" "multiple task 3" "multiple task 4"
+mark 1 2 3 4 5 6
+list
+unmark 2 4 6
+list
+hahahahhahahahahhahahahahahahahahhaahah bye hahahahahhahahahahahahhahahahahahahaha
