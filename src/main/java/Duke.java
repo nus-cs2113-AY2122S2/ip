@@ -7,9 +7,20 @@ public class Duke {
         System.out.println("What can I do for you?");
     }
 
-    public static void echo(String message) {
-        System.out.println(message);
+    public static void addList (String[] array, String message, int itemNumber) {
+        array[itemNumber] = message;
+        System.out.println("added: " + message);
     }
+
+    public static void listItems (String[] array, int itemNumber) {
+        for(int i = 0; i < itemNumber; i++) {
+            System.out.println((i + 1) + ". " + array[i]);
+        }
+    }
+
+//    public static void echo(String message) {
+//        System.out.println(message);
+//    }
 
     public static void exits() {
         System.out.println("Bye. Hope to see you again soon!");
@@ -33,8 +44,11 @@ public class Duke {
             if (messageLowerCase.equals("bye")) {
                 exits();
                 isLoop = false;
+            } else if (messageLowerCase.equals("list")) {
+                listItems(listArray, itemNumber);
             } else {
-                echo(message);
+                addList(listArray, message, itemNumber);
+                itemNumber++;
             }
         }
     }
