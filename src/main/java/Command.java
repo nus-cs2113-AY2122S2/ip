@@ -1,36 +1,27 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Command {
-    /**
-     * Scanner to get user input
-     */
-    private static Scanner sc = new Scanner(System.in);
-    /**
-     * Store all the reminders
-     */
-    private static List<String> reminders = new ArrayList<String>();
+    /** The original user input (raw command) */
+    private final String rawCommand;
+    /** The functional unit in raw command */
+    private final String[] commandTokens;
 
-
-    /**
-     *  Get the input string from user
-     * @return the string from user (without any changes)
-     */
-    public static String getRawCommand() {
-        return sc.nextLine();
+    Command(String rawCommand) {
+        this.rawCommand = rawCommand;
+        commandTokens = parseCommand(rawCommand);
     }
 
     /**
-     * Split the raw string from {@link #getRawCommand()} into tokens,
+     * Split the raw command (a string contains space and quotes) into tokens,
      * recognizing string in quotes as a whole string. Automatically
      * add a quote at the end of the string if there is an odd number
      * of quotes.
      *
-     * @param raw raw string from {@link #getRawCommand()}
+     * @param raw raw command string
      * @return a string array containing tokens
      */
-    public static String[] parseCommand(String raw){
+    public String[] parseCommand(String raw){
         int leftIndex = 0;
         boolean inQuotes = false;
         List<String> tokens = new ArrayList<String>();
@@ -68,68 +59,18 @@ public class Command {
         return tokens.toArray(new String[0]);
     }
 
-    /**
-     * Run the corresponding command/method regarding args, default command is echo
-     * @param args a list of tokens, args[0] should be the name of the command, and the rest is the arguments of that command
-     */
-    public static void runCommand(String[] args) {
-        // TODO Maybe use something like a functor array
-        switch (args[0]) {
-        case "list":
-            list(args);
-            break;
-        default:
-            String[] defaultArgs = new String[args.length+1];
-            defaultArgs[0] = "add";
-            for(int i = 1; i < defaultArgs.length; i++) {
-                defaultArgs[i] = args[i-1];
-            }
-            add(defaultArgs);
-            break;
-        }
 
+    /**
+     * @return the original user input (raw string)
+     */
+    public String getRawCommand() {
+        return rawCommand;
     }
 
     /**
-     * Print every token
-     * @param args tokens to print
+     * @return the tokens/args
      */
-    private static void echo(String[] args) {
-        for(int i = 1; i < args.length; i++) {
-            System.out.print(args[i]);
-            if(i != args.length - 1) {
-                System.out.print(" ");
-            } else {
-                System.out.print("\n");
-            }
-        }
-    }
-
-    /**
-     * Add one reminder which is concatenated of args
-     *
-     * @param args reminder to be added
-     */
-    private static void add(String[] args) {
-        // TODO Add all the reminders in args
-        String reminder = "";
-        for(int i = 1; i < args.length; i++) {
-            reminder += args[i];
-            reminder += " ";
-        }
-        reminder = reminder.trim();
-        System.out.println("Added: " + reminder);
-        reminders.add(reminder);
-    }
-
-    /**
-     * List all the reminders
-     * @param args dump variable
-     */
-    private static void list(String[] args) {
-        // TODO args can be used to control the style of output
-        for(int i = 0; i < reminders.size(); i++) {
-            System.out.printf("%d: %s\n", i+1, reminders.get(i));
-        }
+    public String[] getCommandTokens() {
+        return commandTokens;
     }
 }

@@ -1,17 +1,14 @@
-import java.util.*;
-
 /**
  * Duke, your personal terminal assistant
  */
 public class Duke {
-    /**
-     *  How we call our guest
-     */
+    /** The appellation for the guest */
     private static String userName = "Mr/Mrs Geek";
 
     /**
-     * The main method of Duke, calling some other methods to run the entire program
-     * @param args only takes {@value #userName}
+     * The main method of Duke, do program initialization and then start running Duke
+     *
+     * @param args the appellation for the guest, should only be assigned to {@value #userName} or None
      */
     public static void main(String[] args) {
         initializeDuke(args);
@@ -21,8 +18,9 @@ public class Duke {
     }
 
     /**
-     *  Assign the arguments from {@link #main(String[])} method
-     * @param args a reference to arguments in {@link #main(String[])}
+     *  Assign the appellation since this in the only thing to initialize
+     *
+     * @param args the appellation for the guest, should only be assigned to {@value #userName} or None
      */
     private static void initializeDuke(String[] args) {
         if(args.length >= 1) {
@@ -31,42 +29,44 @@ public class Duke {
     }
 
     /**
-     * Get command from user, parse the command and then call the corresponding method
+     * Return only when user's command containing word "bye"
+     * Get command from user, parse the command and then execute the corresponding command.
      */
     protected static void runDuke() {
         while(true) {
             printUserPrompt();
-            String rawCmd = Command.getRawCommand();
-            String[] cmdTokens = Command.parseCommand(rawCmd);
+            Command command = CommandManager.getCommand();
             printLineDivider();
-            for(String token:cmdTokens) {
+            for(String token:command.getCommandTokens()) {
                 if(token.equalsIgnoreCase("bye")) {
                     return;
                 }
             }
-            Command.runCommand(cmdTokens);
+            CommandManager.runCommand(command);
             printLineDivider();
         }
     }
 
     /**
-     * Print a line Divider
+     * Print a line Divider, making the layout more clear
      */
     protected static void printLineDivider() {
-        // TODO Beautify it more, or add more styles
+        // TODO Beautify
         System.out.println("------------------------------");
     }
 
     /**
-     * Greet the user
+     * Greet the user, called right after initialization
      */
     protected static void printUserGreet() {
-        // TODO personalize the greeting information (maybe change DUKE to BECK or something else)
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+        // TODO Personalize the greeting information (maybe change DUKE to BECK or something else)
+        String logo = """
+                 ____        _       \s
+                |  _ \\ _   _| | _____\s
+                | | | | | | | |/ / _ \\
+                | |_| | |_| |   <  __/
+                |____/ \\__,_|_|\\_\\___|
+                """;
         System.out.println("Hello from\n" + logo);
         printLineDivider();
         System.out.println("Hello, I'm Duke");
@@ -75,7 +75,7 @@ public class Duke {
     }
 
     /**
-     * Say goodbye to user
+     * Say goodbye to user, called when program is ready to exit
      */
     protected static void printUserFarewell() {
         System.out.println("Bye, " + userName + ". Hope to see you soon!");
@@ -83,10 +83,10 @@ public class Duke {
     }
 
     /**
-     *  Print {@value #userName} and prompt symbol
+     *  Print {@value #userName} and prompt symbol, making the layout more clear
      */
     protected static void printUserPrompt() {
-        // TODO add more style (like bash style or zsh style)
+        // TODO add more prompt style
         System.out.print(userName + " > ");
     }
 
