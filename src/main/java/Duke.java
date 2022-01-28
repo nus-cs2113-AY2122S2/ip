@@ -1,5 +1,8 @@
+import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
+        String lineSeparator = "___________________________________\n";
         String startDuke =
                       " ____        _        \n"
                     + "|  _ \\ _   _| | _____ \n"
@@ -12,9 +15,21 @@ public class Duke {
                     + "___________________________________\n";
 
         String endDuke =
-                  "Goodbye. See you next time!\n"
+                  "___________________________________\n"
+                + "Goodbye. See you next time!\n"
                 + "___________________________________\n";
+
         System.out.println(startDuke);
-        System.out.println(endDuke);
+
+        Scanner userInput = new Scanner(System.in);
+        String line;
+        while (true) {
+            line = userInput.nextLine();
+            if ("bye".equals(line)) {
+                System.out.println(endDuke);
+                break;
+            }
+            System.out.println(lineSeparator + line + "\n" + lineSeparator);
+        }
     }
 }
