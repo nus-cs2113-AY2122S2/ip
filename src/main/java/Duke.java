@@ -19,15 +19,31 @@ public class Duke {
         System.out.println(farewell);
     }
 
-    public static void echo() {
+    public static void addList() {
         String word;
-        
+        String[] tasks = new String[100];
+        int index = 0;
+
         do {
             Scanner in = new Scanner(System.in);
             word = in.nextLine();
-            System.out.println("-------------------------------------------");
-            System.out.println(word);
-            System.out.println("-------------------------------------------");
+            if (word.equals("list")) {
+                System.out.println("-------------------------------------------");
+                System.out.println("Hemre is your list: ");
+                for (int i = 0; i < index; i++) {
+                    System.out.println("  - " + tasks[i]);
+                }
+                System.out.println("-------------------------------------------");
+            } else if (word.equals("bye")){
+                System.out.println("-------------------------------------------");
+                break;
+            } else {
+                System.out.println("-------------------------------------------");
+                System.out.println("I hamve added: " + word);
+                System.out.println("-------------------------------------------");
+                tasks[index] = word;
+                index++;
+            }
 
         } while (!word.equals("bye"));
 
@@ -36,7 +52,7 @@ public class Duke {
 
     public static void main(String[] args) {
         greet();
-        echo();
+        addList();
     }
 
 }
