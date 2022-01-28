@@ -1,6 +1,6 @@
 package bot;
 
-public class Task {
+public final class Task {
     /**
      * The actual task description.
      */
