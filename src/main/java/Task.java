@@ -1,6 +1,7 @@
 public class Task {
     protected String description;
     protected boolean isDone;
+    private String symbol = "-";
 
     public Task(String description) {
         this.description = description;
