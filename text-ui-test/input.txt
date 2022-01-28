@@ -1,0 +1,19 @@
+list
+todo get together with alice
+event alice wedding /at 24 nov 2022
+deadline prevent alice wedding /by 24 nov 2022
+todo steal alice purse
+todo steal alice phone
+mark 4
+mark 5
+list
+todo seek help from mallory
+unmark 4
+unmark 5
+list
+mark 7
+unmark 7
+event bob's birthday
+deadline prepare present
+list
+bye
