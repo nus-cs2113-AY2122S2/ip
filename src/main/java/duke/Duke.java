@@ -1,5 +1,12 @@
+package duke;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
 
 public class Duke {
     public static void main(String[] args) {
@@ -13,6 +20,7 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         String userInput = sc.nextLine();
         ArrayList<Task> store = new ArrayList<Task>();
+
         while (!userInput.equals("bye")) {
             try {
                 if (userInput.equals("list")) {

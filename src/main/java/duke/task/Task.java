@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -11,8 +13,8 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void setDone(boolean isDone){
-        if (isDone){
+    public void setDone(boolean isDone) {
+        if (isDone) {
             System.out.println("Nice! I've marked this task as done:");
             this.isDone = true;
         } else {
@@ -21,7 +23,7 @@ public class Task {
         }
     }
 
-    public String getTask(){
-       return "[" + this.getStatusIcon() + "] " + this.description; 
+    public String getTask() {
+        return "[" + this.getStatusIcon() + "] " + this.description;
     }
 }
