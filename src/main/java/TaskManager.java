@@ -51,10 +51,12 @@ public class TaskManager {
     }
 
     public void addTask(String description){
+
         tasks[taskCount++] = new Task(description);
     }
 
     public void markTaskAsDone(int idx){
+
         tasks[idx].markAsDone();
     }
 

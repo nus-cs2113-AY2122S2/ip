@@ -8,22 +8,27 @@ public class Task {
     }
 
     public String getDescription() {
+
         return description;
     }
 
     public boolean isDone() {
+
         return isDone;
     }
 
     public void setDescription(String description) {
+
         this.description = description;
     }
 
     public void markAsDone() {
+
         isDone = true;
     }
 
     public void unmark(){
+
         isDone = false;
     }
 
