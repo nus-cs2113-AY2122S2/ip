@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Duke {
     public static void main(String[] args) {
         printWelcomeMessage();
-        ArrayList<Task> taskList = new ArrayList<Task>();
+        ArrayList<Task> taskList = new ArrayList<>();
 
         Scanner sc = new Scanner(System.in);
         String userInput = sc.nextLine();
@@ -50,24 +50,24 @@ public class Duke {
 
     private static Todo getTodo(String userInput) {
         String description = userInput.split("todo")[1].trim();
-        Todo todo = new Todo(description);
-        return todo;
+        //Todo todo = new Todo(description);
+        return new Todo(description);
     }
 
     private static Event getEvent(String userInput) {
         String[] tokenArray = stringToToken(userInput,"/at");
         String duration = tokenArray[1].trim();
         String description = tokenArray[0].split("event")[1].trim();
-        Event event = new Event(description,duration);
-        return event;
+        //Event event = new Event(description,duration);
+        return new Event(description,duration);
     }
 
     private static Deadline getDeadline(String userInput) {
         String[] tokenArray = stringToToken(userInput,"/by");
         String by = tokenArray[1].trim();
         String description = tokenArray[0].split("deadline")[1].trim();
-        Deadline deadline = new Deadline(description,by);
-        return deadline;
+        //Deadline deadline = new Deadline(description,by);
+        return new Deadline(description,by);
     }
 
     private static Task getTask(String userInput,ArrayList<Task> taskList) {
@@ -77,7 +77,7 @@ public class Duke {
 
     private static int getTaskIndex(String userInput) {
         String[] tokenArray = stringToToken(userInput," ");
-        return Integer.valueOf(tokenArray[1]) - 1; //index is raw value - 1
+        return Integer.parseInt(tokenArray[1]) - 1; //index is raw value - 1
     }
 
     private static String[] stringToToken(String userInput,String delimiter) {
@@ -103,12 +103,12 @@ public class Duke {
     }
 
     private static void printWelcomeMessage() {
-        String botLogo = "  ___                             __  \n"
-                       + "|  _  |  |   |  \\        / |     /  \\ \n"
-                       + "| | | |  |   |   \\      /  |    / _  \\ \n"
-                       + "| | | |  |   |    \\    /   |   / /_\\  \\ \n"
-                       + "| |_| |  |   |     \\  /    |  /   _    \\ \n"
-                       + "| ___ |  |__ |      \\/     | /___/ \\____\\ \n";
+        String botLogo = "  ___                             __\n"
+                       + "|  _  |  |   |  \\        / |     /  \\\n"
+                       + "| | | |  |   |   \\      /  |    / _  \\\n"
+                       + "| | | |  |   |    \\    /   |   / /_\\  \\\n"
+                       + "| |_| |  |   |     \\  /    |  /   _    \\\n"
+                       + "| ___ |  |__ |      \\/     | /___/ \\____\\\n";
         System.out.println("Hello from\n" + botLogo);
         System.out.println("-----------------------------");
         System.out.println("Greetings! I'm Olivia, your lovely personal assistant.");

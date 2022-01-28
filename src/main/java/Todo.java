@@ -1,8 +1,8 @@
 public class Todo extends Task {
 
     private final static String TODO_MARKER = "[T]";
-    protected String by;
 
+    //constructor
     public Todo(String description) {
         super(description);
     }

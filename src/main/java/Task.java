@@ -1,7 +1,7 @@
 public class Task {
-    private String description;
-    private boolean isTaskDone;
-    private int taskId;
+    protected String description;
+    protected boolean isTaskDone;
+    protected int taskId;
 
     private static int taskRunningCount = 1;
     //constructors
@@ -10,13 +10,10 @@ public class Task {
         this.description = description;
         this.isTaskDone = false; //default when a task is created it is not done
         taskRunningCount++;
-        System.out.println("Got it, Olivia has added this task: ");
+        System.out.println("Got it, Olivia has added this task:");
     }
 
     //mutator methods
-    public void setDescription(String description) {
-        this.description = description;
-    }
     public void markAsDone() {
         this.isTaskDone = true;
         System.out.println("Olivia thanks you for completing the task! :)");
@@ -36,9 +33,7 @@ public class Task {
     public int getTaskId() {
         return taskId;
     }
-    public static int getTaskRunningCount() {
-        return taskRunningCount;
-    }
+
 
     @Override
     public String toString() {
