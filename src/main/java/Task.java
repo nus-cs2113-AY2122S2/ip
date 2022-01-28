@@ -10,17 +10,20 @@ public class Task {
         this.description = description;
         this.isTaskDone = false; //default when a task is created it is not done
         taskRunningCount++;
+        System.out.println("Got it, Olivia has added this task: ");
     }
 
     //mutator methods
-    public void editDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
     public void markAsDone() {
         this.isTaskDone = true;
+        System.out.println("Olivia thanks you for completing the task! :)");
     }
     public void markAsNotDone() {
         this.isTaskDone = false;
+        System.out.println("Hey!!! Please get the task done.");
     }
 
     //accessor methods
@@ -28,13 +31,18 @@ public class Task {
         return description;
     }
     public String getTaskStatus() {
-        return (isTaskDone ? "X" : " "); //if task done mark it with X
+        return (isTaskDone ? "[X] " : "[ ] "); //if task done mark it with X
     }
     public int getTaskId() {
         return taskId;
     }
     public static int getTaskRunningCount() {
         return taskRunningCount;
+    }
+
+    @Override
+    public String toString() {
+        return this.getTaskStatus() + this.getDescription();
     }
 }
 
