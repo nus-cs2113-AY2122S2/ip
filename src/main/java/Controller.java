@@ -28,17 +28,43 @@ public class Controller {
         System.exit(0);
     }
 
+    public void unmarkTask(String input){
+        String[] keywords = input.split(" ");
+        int index= Integer.parseInt(keywords[1]);
+        manager.unmarkTask(index);
+    }
+
+    public void markTask(String input){
+        String[] keywords = input.split(" ");
+        int index= Integer.parseInt(keywords[1]);
+        manager.markTask(index);
+    }
+
+    public void replyMsgPrinter(){
+        chatbox.setContent(this.replyMsg);
+        chatbox.chatboxPrinter();
+    }
+
 
 
     public void listen() {
         Scanner msg = new Scanner(System.in);
         this.recvMsg = msg.nextLine();
-        String res = this.recvMsg.toLowerCase(Locale.ROOT);
-        if(res.equals("bye")){
+        String[] keyword = this.recvMsg.toLowerCase(Locale.ROOT).split(" ");
+        switch (keyword[0]) {
+        case "bye":
             this.bye();
-        }else if(res.equals("list")) {
+            break;
+        case "list":
             this.listTask();
-        }else {
+            break;
+        case "mark":
+            this.markTask(this.recvMsg);
+            break;
+        case "unmark":
+            this.unmarkTask(this.recvMsg);
+            break;
+        default:
             this.addTask(this.recvMsg);
         }
     }
