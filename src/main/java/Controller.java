@@ -2,16 +2,19 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Controller {
-    public String hello = " Hello! I'm Duke\n What can I do for you?";
-    public String goodbye = " Bye. Hope to see you again soon!";
+    public String hello = "Hello! I'm Duke :P\nWhat can I do for you?";
+    public String goodbye = "Bye. Hope to see you again soon! ;)";
     public String recvMsg = "";
     public String replyMsg = "";
     Chatbox chatbox = new Chatbox();
+    TaskManager manager = new TaskManager();
 
-    public void echo(String input) {
-        chatbox.setContent(input);
-        this.replyMsg = input;
-        chatbox.chatboxPrinter();
+    public void addTask(String input) {
+        manager.addTask(input);
+    }
+
+    public void listTask(){
+        manager.listTask();
     }
 
     public void greet() {
@@ -25,14 +28,18 @@ public class Controller {
         System.exit(0);
     }
 
+
+
     public void listen() {
         Scanner msg = new Scanner(System.in);
         this.recvMsg = msg.nextLine();
         String res = this.recvMsg.toLowerCase(Locale.ROOT);
-        if(res.contains("bye")){
+        if(res.equals("bye")){
             this.bye();
-        }else{
-            this.echo(this.recvMsg);
+        }else if(res.equals("list")) {
+            this.listTask();
+        }else {
+            this.addTask(this.recvMsg);
         }
     }
 
