@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -13,13 +14,30 @@ public class Duke {
                 + "\nHello! I'm Dook!"
                 + "\nWhat can I do for you?"
                 + "\n____________________________________________________________");
+        String[] userInputList = new String[100];
+        int userInputIndex = 0;
         Scanner scannerInput = new Scanner(System.in);
-        while (true) {
+        boolean loopInput = true;
+        while (loopInput) {
             String userInput = scannerInput.nextLine();
-            if (userInput.equals("bye")) {
+            switch (userInput) {
+            case "bye":
+                loopInput = false;
                 break;
-            } else {
-                System.out.println(userInput);
+            case "list":
+                System.out.println("____________________________________________________________\n");
+                for (int i = 0; i<userInputIndex; i++) {
+                    System.out.println(String.valueOf(i+1)+". "+userInputList[i]);
+                }
+                System.out.println("____________________________________________________________\n");
+                break;
+            default:
+                userInputList[userInputIndex] = userInput;
+                System.out.println("____________________________________________________________"
+                        + "\nadded: " + userInput
+                        + "\n____________________________________________________________");
+                userInputIndex++;
+                break;
             }
         }
         scannerInput.close();
