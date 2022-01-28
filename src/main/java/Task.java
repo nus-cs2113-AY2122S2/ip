@@ -1,14 +1,17 @@
+/**
+ * Represents a task with task information stored as a string and a boolean for whether it is completed.
+ */
 public class Task {
     private String taskInfo;
     private boolean isDone;
 
-    public Task(String s, boolean isDone){
-        this.taskInfo = s;
-        this.isDone = isDone;
-    }
-
-    public Task(String s){
-        this(s, false);
+    /**
+     * Constructor for a new Task, assumes that the Task is not completed.
+     * @param taskInfo
+     */
+    public Task(String taskInfo){
+        this.taskInfo = taskInfo;
+        this.isDone = false;
     }
 
     public String getTaskInfo() {

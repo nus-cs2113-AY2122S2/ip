@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Duke {
 
     public static String INDENT_LINE = "____________________________________________________________";
-    public static String GREET_STRING = "     Hello! I'm Duke\n" +
+    public static String GREET_STRING = "     Hello! I'm Duke" + System.lineSeparator() +
             "     What can I do for you?";
     public static String BYE_STRING = "     Bye. Hope to see you again soon!";
 
@@ -28,11 +28,13 @@ public class Duke {
                 printIndentLine();
             } else if (input.contains("unmark")){
                 printIndentLine();
+                // Uses Regex to replace all instances of non digit characters to be parsed as int
                 int index = Integer.parseInt(input.replaceAll("\\D+","")) - 1;
                 taskList.setTaskStatus(index, false);
                 printIndentLine();
             } else if (input.contains("mark")) {
                 printIndentLine();
+                // Uses Regex to replace all instances of non digit characters to be parsed as int
                 int index = Integer.parseInt(input.replaceAll("\\D+", "")) - 1;
                 taskList.setTaskStatus(index, true);
                 printIndentLine();
