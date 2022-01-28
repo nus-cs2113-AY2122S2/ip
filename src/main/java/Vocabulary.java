@@ -10,10 +10,6 @@ public class Vocabulary {
         return word;
     }
 
-    public void setWord(String word) {
-        this.word = word;
-    }
-
     public boolean isConfirmed() {
         return this.isConfirmed;
     }
