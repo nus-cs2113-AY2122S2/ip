@@ -33,7 +33,8 @@ public class Duke {
     public static void printOutro(){
         System.out.println(OUTRO_LOGO);
         printBorder();
-        System.out.println(" I guess it's time to say good bye... \n Please come again soon!");
+        System.out.println(" I guess it's time to say good bye... " +
+                            "\n Please come again soon!");
         printBorder();
     }
 
@@ -70,7 +71,8 @@ public class Duke {
     }
 
     public static void printTask(Task task){
-        System.out.println(" ["+task.getStatusIcon()+"] "+task.getTaskName());
+        System.out.println(" ["+task.getStatusIcon()+"] "
+                            +task.getTaskName());
     }
 
     public static void markTask(String input, boolean doneStatus){
