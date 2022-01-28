@@ -20,7 +20,7 @@ public final class Command {
     /**
      * The extra arguments specified with the command.
      */
-    private final Map<String, String> artifacts;
+    private final Map<String, String> arguments;
 
     /**
      * Creates a Command object.
@@ -32,7 +32,7 @@ public final class Command {
     private Command(String command, String desc, Map<String, String> artifacts) {
         this.command = command;
         this.desc = desc;
-        this.artifacts = artifacts;
+        this.arguments = artifacts;
     }
 
     /**
@@ -42,10 +42,13 @@ public final class Command {
      * @return New Command object with parsed information.
      */
     public static Command fromString(String input) {
+        // Trim the input.
+        input = input.trim();
+
         // We first split the command with a space. This will allow us to get the first word
         // in the input. The first word will be the command that the user wants.
         String[] parsedOne = input.split(" ", 2);
-        String command = parsedOne[0];
+        String command = parsedOne[0].toLowerCase();
         // If the length of the first parsed command is not more or equal to 2, then
         // there is no description or extra arguments.
         if (parsedOne.length < 2) {
@@ -56,13 +59,13 @@ public final class Command {
         // To find out, we first split by the "/" character.
         String[] parsedTwo = parsedOne[1].split("/");
         // The first item in the list will always be the description.
-        String task = parsedTwo[0];
+        String task = parsedTwo[0].trim();
         // Then we parse the rest of the extra arguments.
         Map<String, String> extras = new HashMap<>();
         for (int i = 1; i < parsedTwo.length; i++) {
             // The first word will be the argument type.
             String[] parsedThree = parsedTwo[i].split(" ", 2);
-            extras.put(parsedThree[0], parsedThree.length == 2 ? parsedThree[1] : "");
+            extras.put(parsedThree[0].toLowerCase(), parsedThree.length == 2 ? parsedThree[1] : "");
         }
         return new Command(command, task, extras);
     }
@@ -86,11 +89,24 @@ public final class Command {
     }
 
     /**
-     * Gets the command artifacts.
+     * Get the specified argument for this argument.
      *
-     * @return Command artifacts.
+     * @param arg The argument key.
+     * @return Argument value, or NULL if not present.
      */
-    public Map<String, String> getArtifacts() {
-        return this.artifacts;
+    public String getArgument(String arg) {
+        return this.arguments.get(arg);
+    }
+
+    /**
+     * Useful for debugging purposes.
+     *
+     * @return String representation of a parsed command.
+     */
+    @Override
+    public String toString() {
+        return String.format("Command(" +
+                        "command: %s, desc: %s, arguments: %s)",
+                this.command, this.desc, this.arguments);
     }
 }
