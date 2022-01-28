@@ -22,7 +22,7 @@ public class Duke {
     static ArrayList<Task> taskList = new ArrayList<Task>();
     static int numOfTask = 0;
 
-    public static void printIntro(){
+    public static void printIntro() {
         System.out.println(INTRO_LOGO);
         printBorder();
         System.out.println(" Good Morning sir, I am DukeBot, your personal assistant! " +
@@ -30,7 +30,7 @@ public class Duke {
         printBorder();
     }
 
-    public static void printOutro(){
+    public static void printOutro() {
         System.out.println(OUTRO_LOGO);
         printBorder();
         System.out.println(" I guess it's time to say good bye... " +
@@ -46,22 +46,22 @@ public class Duke {
         return input.split(" ")[0];
     }
 
-    public static void printTaskList(){
-        int counter = 1;
+    public static void printTaskList() {
+        int taskCount = 1;
         for (Task task : taskList){
-            System.out.print(" "+counter +".");
+            System.out.print(" "+taskCount +".");
             printTask(task);
-            counter++;
+            taskCount++;
         }
     }
 
-    public static void addTaskToTaskList(String taskName){
+    public static void addTaskToTaskList(String taskName) {
         Task newTask = new Task(taskName);
         taskList.add(newTask);
         numOfTask++;
     }
 
-    public static Task getTask(int taskNumber){
+    public static Task getTask(int taskNumber) {
         // -1 is to offset the counting of array list from 0
         return taskList.get(taskNumber - 1);
     }
@@ -75,7 +75,7 @@ public class Duke {
                             +task.getTaskName());
     }
 
-    public static void markTask(String input, boolean doneStatus){
+    public static void markTask(String input, boolean doneStatus) {
         int taskNum = getTaskNumber(input);
         Task markedTask = getTask(taskNum);
         markedTask.setDone(doneStatus);
@@ -94,7 +94,7 @@ public class Duke {
             Scanner sc = new Scanner(System.in);
             String input = sc.nextLine();
             String command = getCommand(input);
-            switch (command){
+            switch (command) {
             case "bye":
                 printOutro();
                 System.exit(0);

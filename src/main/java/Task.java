@@ -2,11 +2,7 @@ public class Task {
     private String taskName;
     private boolean isDone;
 
-    public Task(){
-
-    }
-
-    public Task(String taskName){
+    public Task(String taskName) {
         this.taskName = taskName;
         this.isDone = false;
     }
@@ -27,7 +23,7 @@ public class Task {
         isDone = done;
     }
 
-    public String getStatusIcon(){
+    public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 }
