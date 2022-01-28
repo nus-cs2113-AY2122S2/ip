@@ -5,6 +5,13 @@ public class TaskFactory {
     private Boolean marked = false;
     private String taskType = "";
 
+    private static final String TODO_TASK = "todo";
+    private static final String DEADLINE_TASK = "deadline";
+    private static final String EVENT_TASK = "event";
+
+
+
+
     /**
      * Initializes the task factory
      * @param taskType
@@ -24,14 +31,14 @@ public class TaskFactory {
      */
     public Task makeTask() {
         switch (taskType) {
-        case "todo":
+        case TODO_TASK:
             return new ToDoTask(taskDescription,"T");
-        case "deadline":
+        case DEADLINE_TASK:
             String[] taskInfomation = taskDescription.split("/by");
             taskDescription = taskInfomation[0].trim();
             String dateTime = taskInfomation[1].trim();
             return new DeadlinesTask(taskDescription, "D", dateTime);
-        case "event":
+        case EVENT_TASK:
             taskInfomation = taskDescription.split("/at");
             taskDescription = taskInfomation[0].trim();
             dateTime = taskInfomation[1].trim();

@@ -9,9 +9,9 @@ import ui.ChatBox;
  * Controller serves for orders
  */
 public class Controller {
-    private static String HELLO_WORDS = " Hello! I'm Duke\n" + " What can I do for you?";
-    private static String EXIT_WORDS = "Bye. Hope to see you again soon!";
-    private static String EXIT_COMMAND = "bye";
+    private static final String HELLO_WORDS = " Hello! I'm Duke\n" + " What can I do for you?";
+    private static final String EXIT_WORDS = "Bye. Hope to see you again soon!";
+    private static final String EXIT_COMMAND = "bye";
     ChatBox chatBox;
 
     /**

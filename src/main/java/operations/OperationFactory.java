@@ -4,6 +4,16 @@ public class OperationFactory {
 
     private String order;
 
+    private static final String BYE_COMMAND = "bye";
+    private static final String LIST_COMMAND = "list";
+    private static final String MARK_COMMAND = "mark";
+    private static final String UNMARK_COMMAND = "unmark";
+    private static final String TODO_COMMAND = "todo";
+    private static final String DEADLINE_COMMAND = "deadline";
+    private static final String EVENT_COMMAND = "event";
+
+
+
     public OperationFactory(String orderLocal) {
 
         order = orderLocal;
@@ -26,21 +36,19 @@ public class OperationFactory {
         String orderName = order.split(" ", 2)[0];
 
         switch (orderName) {
-        case "bye":
+        case BYE_COMMAND:
             return new ByeOperation(orderName, order);
-        case "list":
+        case LIST_COMMAND:
             return new ListOperation(orderName, order);
-        case "blah":
-            return new BlahOperation(orderName, order);
-        case "mark":
+        case MARK_COMMAND:
             return new MarkOperation(orderName, order);
-        case "unmark":
+        case UNMARK_COMMAND:
             return new UnmarkOperation(orderName, order);
-        case "todo":
+        case TODO_COMMAND:
             return new ToDoAddOperation(orderName, order);
-        case "deadline":
+        case DEADLINE_COMMAND:
             return new DeadlinesAddOperation(orderName, order);
-        case "event":
+        case EVENT_COMMAND:
             return new EventAddOperation(orderName, order);
         default:
             return new AddOperation(orderName, order);
