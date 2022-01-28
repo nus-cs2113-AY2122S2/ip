@@ -24,8 +24,11 @@ public abstract class Task {
      *
      * @param task Task description.
      */
-    public Task(String type, String task) {
+    public Task(String type, String task) throws IllegalArgumentException {
         this.type = type;
+        if (task == null || task.isEmpty()) {
+            throw new IllegalArgumentException("Task description cannot be empty!");
+        }
         this.task = task;
     }
 
