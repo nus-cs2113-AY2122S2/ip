@@ -1,7 +1,9 @@
-import java.util.*;
+import java.util.Scanner;
+import java.util.ArrayList;
+
 public class Duke {
     public static void main(String[] args) {
-        List<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         print("Hello from JRobo! I'm your personal assistant!\n\tNice to meet you. What can I do for you?");
 
@@ -34,12 +36,10 @@ public class Duke {
     }
 
     public static void print(String s) {
-        System.out.println("\t____________________________________________________________\n\t" 
-        + s
-        + "\n\t____________________________________________________________");
+        System.out.println("\t____________________________________________________________\n\t" + s + "\n\t____________________________________________________________");
     }
 
-    public static void displayList(List<Task> tasks) {
+    public static void displayList(ArrayList<Task> tasks) {
         System.out.println("\t____________________________________________________________");
         System.out.println("\tHere are the tasks in your list:");
         int index = 1;
@@ -49,7 +49,7 @@ public class Duke {
         System.out.println("\t____________________________________________________________");
     }
 
-    public static void markTask(List<Task> tasks, String input) {
+    public static void markTask(ArrayList<Task> tasks, String input) {
         String numberString = input.substring(4).trim();
         try {
             int taskNumber = Integer.parseInt(numberString);
@@ -59,18 +59,16 @@ public class Duke {
                 return;
             }
             task.markAsDone();
-            print("Nice! I've marked this task as done:\n\t\t[" + task.getStatusIcon() + "] " + task.getDescription()); 
-            return;
-        } catch(NumberFormatException e) {
+            print("Nice! I've marked this task as done:\n\t\t[" + task.getStatusIcon() + "] "
+                    + task.getDescription());
+        } catch (NumberFormatException e) {
             print("Invalid command");
-            return;
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             print("Please enter a valid task number to mark");
-            return;
-        }  
+        }
     }
 
-    public static void unmarkTask(List<Task> tasks, String input) {
+    public static void unmarkTask(ArrayList<Task> tasks, String input) {
         String numberString = input.substring(6).trim();
         try {
             int taskNumber = Integer.parseInt(numberString);
@@ -80,14 +78,12 @@ public class Duke {
                 return;
             }
             task.markAsUndone();
-            print("Nice! I've marked this task as undone:\n\t\t[" + task.getStatusIcon() + "] " + task.getDescription()); 
-            return;
-        } catch(NumberFormatException e) {
+            print("Nice! I've marked this task as undone:\n\t\t[" + task.getStatusIcon() + "] "
+                    + task.getDescription());
+        } catch (NumberFormatException e) {
             print("Invalid command");
-            return;
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             print("Please enter a valid task number to unmark");
-            return;
-        }  
+        }
     }
 }
