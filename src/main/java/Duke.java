@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        String lineSeparator = "___________________________________\n";
+        String lineSeparator = "___________________________________";
         String startDuke =
                       " ____        _        \n"
                     + "|  _ \\ _   _| | _____ \n"
@@ -23,13 +24,28 @@ public class Duke {
 
         Scanner userInput = new Scanner(System.in);
         String line;
+        String[] taskArray = new String[100];
+        int taskCount = 0;
+
         while (true) {
             line = userInput.nextLine();
             if ("bye".equals(line)) {
                 System.out.println(endDuke);
                 break;
+            } else if ("list".equals(line)) {
+                System.out.println(lineSeparator);
+                for (int i = 0; i < taskCount; i++) {
+                    System.out.println(i+1 + ". " + taskArray[i]);
+                }
+                System.out.println(lineSeparator);
+            } else {
+                taskArray[taskCount] = line;
+                taskCount++;
+                System.out.println(lineSeparator);
+                System.out.println("Added: " + line);
+                System.out.println(lineSeparator);
             }
-            System.out.println(lineSeparator + line + "\n" + lineSeparator);
+            System.out.println();
         }
     }
 }
