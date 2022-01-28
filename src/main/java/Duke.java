@@ -1,7 +1,8 @@
 import java.util.Scanner;
 
+
 public class Duke {
-    private static String[] userList = new String [100]; //array of String to store user's list
+    private static Task[] userList = new Task[100]; //array of String to store user's list
     private static int listCount = 0; //Keeps track of number of items in list
 
     final static String horizontalLine = "____________________________________________________________\n";
@@ -20,17 +21,24 @@ public class Duke {
         } else {
             System.out.print(horizontalLine);
             for (int i = 0; i < listCount; i++) {
-                System.out.println(i+1 + ": " + userList[i]);
+                String message = i+1 + ".[" + userList[i].getStatusIcon() + "] " + userList[i].description;
+                System.out.println(message);
             }
             System.out.print(horizontalLine);
         }
     }
 
-    public static void addUserList(String task) {
-        userList[listCount] = task;
+    public static void printOneTask(int index) {
+        //This method assumes the index provided is valid
+        System.out.println("[" + userList[index].getStatusIcon() + "] " + userList[index].description);
+    }
+
+
+    public static void addUserList(String inputTask) {
+        userList[listCount] = new Task(inputTask);
         listCount++;
         System.out.println(horizontalLine
-                + "added: " + task + "\n"
+                + "added: " + inputTask + "\n"
                 + horizontalLine);
     }
 
@@ -40,18 +48,51 @@ public class Duke {
         System.out.println(OPENING_MSG);
 
         while (true) {
-            String userCommand = in.nextLine();
-            switch (userCommand) {
+            String inputLine = in.nextLine();
+            String[] userCommand = inputLine.split(" ");
+            switch (userCommand[0]) {
             case "bye": //exit command
                 System.out.println(CLOSING_MSG);
                 return;
             case "list":
                 printUserList();
                 break;
+            case "mark":
+                int index = Integer.parseInt(userCommand[1]) - 1;
+                if (index >= listCount) {
+                    System.out.println(horizontalLine
+                            + "No such task exists. Add more tasks first!\n"
+                            + horizontalLine);
+                    break;
+                }
+                Task targetTask = userList[index];
+
+                System.out.print(horizontalLine);
+                if (targetTask.markAsDone()) {
+                    System.out.println("Nice! I've marked this task as done:");
+                    printOneTask(index);
+                }
+                System.out.print(horizontalLine);
+                break;
+            case "unmark":
+                int taskIndex = Integer.parseInt(userCommand[1]) - 1;
+                if (taskIndex >= listCount) {
+                    System.out.println(horizontalLine
+                            + "No such task exists. Add more tasks first!\n"
+                            + horizontalLine);
+                    break;
+                }
+                Task specifiedTask = userList[taskIndex];
+                System.out.print(horizontalLine);
+                if (specifiedTask.markAsUndone()) {
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    printOneTask(taskIndex);
+                }
+                System.out.print(horizontalLine);
+                break;
             default:
-                addUserList(userCommand);
+                addUserList(inputLine);
             }
         }
-
     }
 }
