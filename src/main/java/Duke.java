@@ -7,36 +7,31 @@ public class Duke {
         int numCommands = 0;
         boolean isLoop = true;
 
-        System.out.println("   ____________________________________________________________");
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
+        ChatSession currChat = new ChatSession();
+        currChat.startSession();
 
         while (isLoop) {
             Scanner sc = new Scanner(System.in);
-            String command = sc.nextLine();
+            String userInput = sc.nextLine();
 
-            switch (command) {
-                case "list":
-                    System.out.println("____________________________________________________________");
-                    for (int i = 0; i < numCommands; i++) {
-                        System.out.println(String.format("%d. %s", i + 1, commandHistory[i]));
-                    }
-                    System.out.println("____________________________________________________________");
-                    break;
-                case "bye":
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Bye. Hope to see you again soon!");
-                    System.out.println("____________________________________________________________");
-                    isLoop = false;
-                    break;
-                default:
-                    commandHistory[numCommands] = command;
-                    numCommands += 1;
-
-                    System.out.println("____________________________________________________________");
-                    System.out.println(String.format("added: %s", command));
-                    System.out.println("____________________________________________________________");
+            if (userInput.startsWith("mark")) {
+                String[] userInputArr = userInput.split(" ");
+                currChat.markTaskIndex(Integer.parseInt(userInputArr[1]));
+            } else if (userInput.startsWith("unmark")) {
+                String[] userInputArr = userInput.split(" ");
+                currChat.unmarkTaskIndex(Integer.parseInt(userInputArr[1]));
+            } else {
+                switch (userInput) {
+                    case "list":
+                        currChat.printTaskList();
+                        break;
+                    case "bye":
+                        currChat.endSession();
+                        isLoop = false;
+                        break;
+                    default:
+                        currChat.addTask(userInput);
+                }
             }
         }
     }
