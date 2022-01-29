@@ -15,7 +15,7 @@ public class Duke {
             System.out.print("> ");
             String userInput = in.nextLine();
             System.out.println("------------------------------------------------------------");
-            String[] userInputTokenized = userInput.split(" ", 2);
+            String[] userInputTokenized = userInput.trim().split(" ", 2);
             switch (userInputTokenized[0]) {
             case "bye":
                 if (userInputTokenized.length == 1) {
@@ -30,23 +30,47 @@ public class Duke {
                 if (userInputTokenized.length == 1) {
                     System.out.println("Here's your to-do list:");
                     for (int i = 0; i < numSavedTasks; i++) {
-                        if (savedTasks[i].getIsDone()) {
-                            System.out.println((i + 1) + ") [✓] " + savedTasks[i].getTaskDescription());
-                        } else {
-                            System.out.println((i + 1) + ") [ ] " + savedTasks[i].getTaskDescription());
-                        }
+                        System.out.println((i + 1) + ") " + savedTasks[i]);
                     }
                 } else {
                     System.out.println("Oops, \"list\" doesn't take any arguments!");
                 }
                 break;
-            case "add":
+            case "todo":
                 if (userInputTokenized.length == 2) {
-                    savedTasks[numSavedTasks] = new Task(userInputTokenized[1]);
+                    savedTasks[numSavedTasks] = new Todo(userInputTokenized[1].trim());
+                    System.out.println("Todo added:\n\t" + savedTasks[numSavedTasks]);
                     numSavedTasks++;
-                    System.out.println("Task added: " + userInputTokenized[1]);
                 } else {
-                    System.out.println("Oops, \"add\" expected 1 argument. Try \"add (your task)\" instead.");
+                    System.out.println("Incorrect command format. Try: todo <your task>.");
+                }
+                break;
+            case "deadline":
+                if (userInputTokenized.length == 2) {
+                    String[] parsedInput = userInputTokenized[1].trim().split(" /by ", 2);
+                    if (parsedInput.length == 2) {
+                        savedTasks[numSavedTasks] = new Deadline(parsedInput[0].trim(), parsedInput[1].trim());
+                        System.out.println("Deadline added:\n\t" + savedTasks[numSavedTasks]);
+                        numSavedTasks++;
+                    } else {
+                        System.out.println("Incorrect command format. Try: deadline <your task> /by <task deadline>.");
+                    }
+                } else {
+                    System.out.println("Incorrect command format. Try: deadline <your task> /by <task deadline>.");
+                }
+                break;
+            case "event":
+                if (userInputTokenized.length == 2) {
+                    String[] parsedInput = userInputTokenized[1].trim().split(" /at ", 2);
+                    if (parsedInput.length == 2) {
+                        savedTasks[numSavedTasks] = new Event(parsedInput[0].trim(), parsedInput[1].trim());
+                        System.out.println("Deadline added:\n\t" + savedTasks[numSavedTasks]);
+                        numSavedTasks++;
+                    } else {
+                        System.out.println("Incorrect command format. Try: event <your event> /at <time>.");
+                    }
+                } else {
+                    System.out.println("Incorrect command format. Try: event <your event> /at <time>.");
                 }
                 break;
             case "mark":
@@ -58,7 +82,7 @@ public class Duke {
                         } else {
                             savedTasks[index - 1].setIsDone(true);
                             System.out.println("I've marked this task as done. Yay!");
-                            System.out.println(index + ") [✓] " + savedTasks[index - 1].getTaskDescription());
+                            System.out.println(index + ") " + savedTasks[index - 1]);
                         }
                     } else {
                         System.out.println("Oops, there's no task with that index!");
@@ -76,7 +100,7 @@ public class Duke {
                         } else {
                             savedTasks[index - 1].setIsDone(false);
                             System.out.println("I've marked this task as unfinished.");
-                            System.out.println(index + ") [ ] " + savedTasks[index - 1].getTaskDescription());
+                            System.out.println(index + ") " + savedTasks[index - 1]);
                         }
                     } else {
                         System.out.println("Oops, there's no task with that index!");

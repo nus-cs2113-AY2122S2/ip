@@ -1,6 +1,6 @@
 public class Task {
-    private String taskDescription;
-    private boolean isDone;
+    protected String taskDescription;
+    protected boolean isDone;
 
     public Task(String description) {
         this.taskDescription = description;
@@ -17,5 +17,14 @@ public class Task {
 
     public void setIsDone(boolean isDone) {
         this.isDone = isDone;
+    }
+
+    @Override
+    public String toString() {
+        if (this.isDone) {
+            return "[✓] " + this.taskDescription;
+        } else {
+            return "[ ] " + this.taskDescription;
+        }
     }
 }
