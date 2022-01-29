@@ -107,10 +107,9 @@ public class Duke {
     }
 
     private static boolean isIndexValid(int indexToUnmark) {
-        if (indexToUnmark >= MINIMUM_INDEX && indexToUnmark < index) {
-            return true;
-        }
-        return false;
+        boolean isAboveZero = indexToUnmark >= MINIMUM_INDEX;
+        boolean isBelowMaximum = indexToUnmark < index;
+        return isAboveZero && isBelowMaximum;
     }
 
     private static int getIndex(String[] words) {
@@ -150,8 +149,7 @@ public class Duke {
 
     private static String getTypeOfTask(String input) {
         String[] words = input.split(SPACEBAR);
-        String typeOfTask = words[0];
-        return typeOfTask;
+        return words[0];
     }
 
     private static void addEvent(String input) {
