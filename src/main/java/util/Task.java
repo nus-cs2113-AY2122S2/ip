@@ -2,13 +2,13 @@ package util;
 
 public class Task {
     /** Description of a task */
-    protected String description;
+    private String description;
 
     /** Completion status of a task */
-    protected boolean isDone;
+    private boolean isDone;
 
     /** Total number of tasks currently in use */
-    protected static int count = 0;
+    private static int count = 0;
 
     /**
      * Class constructor
@@ -60,7 +60,7 @@ public class Task {
     /**
      * Returns a symbol indicating if the task has been completed.
      *
-     * @return 'X' if task is completed, else blank.
+     * @return X if task is completed, else blank.
      */
     public String getStatusSymbol() {
         return (isDone() ? "X" : " ");
@@ -73,13 +73,5 @@ public class Task {
      */
     public static int getCount() {
         return count;
-    }
-
-    /**
-     * Overrides the toString function with formatted details of the task.
-     */
-    @Override
-    public String toString() {
-        return ("[" + getStatusSymbol() + "] " + getDescription());
     }
 }
