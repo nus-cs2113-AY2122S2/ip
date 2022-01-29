@@ -1,9 +1,10 @@
 import java.util.Locale;
 import java.util.Scanner;
 
-import util.Deadlines;
 import util.Task;
+import util.Deadlines;
 import util.ToDos;
+import util.Events;
 
 public class Bob {
 
@@ -118,7 +119,7 @@ public class Bob {
         case "event":
             if (commandSplit[1].contains(" /at ")) {
                 String[] descAndPeriod = commandSplit[1].split(" /at ", 2);
-                temp = new Deadlines(descAndPeriod[0], descAndPeriod[1]);
+                temp = new Events(descAndPeriod[0], descAndPeriod[1]);
             }
             else { // Incorrect input
                 isError = true;
