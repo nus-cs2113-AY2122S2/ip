@@ -11,10 +11,6 @@ public class Task {
         return this.taskName;
     }
 
-    public Boolean getMarked() {
-        return this.isMarked;
-    }
-
     public void setMark() {
         this.isMarked = true;
     }
