@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.ArrayList;
 
 public class Duke {
 
@@ -19,9 +20,7 @@ public class Duke {
                 + "\nWhat can I do for you?"
                 + "\n____________________________________________________________");
         //this setup assumes the user is being cooperative
-        String[] taskList = new String[100];
-        Boolean[] markedTaskList = new Boolean[100];
-        int userInputIndex = 0;
+        ArrayList<Task> taskList = new ArrayList<Task>();
         Scanner scannerInput = new Scanner(System.in);
         boolean loopInput = true;
         int markIndex;
@@ -39,35 +38,36 @@ public class Duke {
             case "list":
                 System.out.println("____________________________________________________________\n");
                 System.out.println("Here are the tasks in your list");
-                for (int i = 0; i<userInputIndex; i++) {
-                    String printString = String.format("%d. [%c] %s", i+1, markedTaskList[i]?'X':' ', taskList[i]);
+                for (int i = 0; i<taskList.size(); i++) {
+                    String printString = String.format("%d. [%c] %s",
+                            i+1,
+                            taskList.get(i).getStatusIcon(),
+                            taskList.get(i).getDescription());
                     System.out.println(printString);
                 }
                 System.out.println("____________________________________________________________\n");
                 break;
             case "mark":
-                markIndex = Integer.valueOf(commandMatcher.group(2).strip());
-                markedTaskList[markIndex] = true;
+                markIndex = Integer.valueOf(commandMatcher.group(2).strip())-1;
+                taskList.get(markIndex).setStatusIcon(true);
                 System.out.println("____________________________________________________________"
                         + "\nNice! I've marked this task as done:"
-                        + "\n[X] " + taskList[markIndex]
+                        + "\n[X] " + taskList.get(markIndex).getDescription()
                         + "\n____________________________________________________________");
                 break;
             case "unmark":
-                markIndex = Integer.valueOf(commandMatcher.group(2).strip());
-                markedTaskList[markIndex] = false;
+                markIndex = Integer.valueOf(commandMatcher.group(2).strip())-1;
+                taskList.get(markIndex).setStatusIcon(false);
                 System.out.println("____________________________________________________________"
                         + "\nOK, I've marked this task as not done yet:"
-                        + "\n[ ] " + taskList[markIndex]
+                        + "\n[ ] " + taskList.get(markIndex).getDescription()
                         + "\n____________________________________________________________");
                 break;
             default:
-                taskList[userInputIndex] = userInput;
-                markedTaskList[userInputIndex] = false;
+                taskList.add(new Task(userInput));
                 System.out.println("____________________________________________________________"
                         + "\nadded: " + userInput
                         + "\n____________________________________________________________");
-                userInputIndex++;
                 break;
             }
         }
