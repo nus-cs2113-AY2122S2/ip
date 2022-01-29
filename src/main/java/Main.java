@@ -19,7 +19,8 @@ public class Main {
         System.out.println("-----------------------------------------------------");
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < numOfTasks; i++) {
-            System.out.println((i+1) + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].returnDescription());
+            System.out.println((i+1) + ".[" + tasks[i].typeOfTask() + "][" + tasks[i].getStatusIcon() + "] "
+                    + tasks[i].fullDescription());
         }
         System.out.println("-----------------------------------------------------");
     }
@@ -32,21 +33,43 @@ public class Main {
 
         greet();
         String input = in.nextLine();
+        int inputTaskNumber;
+
         while (!input.equals("bye")) {
 
             String[] arrOfInputStrings = input.split(" ");
 
-            if (input.equals("list")) {
+            switch(arrOfInputStrings[0]) {
+            case "list":
                 displayList(tasks, taskCounter);
-            } else if (arrOfInputStrings[0].equals("mark")) {
-                int inputTaskNumber = Integer.parseInt(arrOfInputStrings[1]) - 1;
-                tasks[inputTaskNumber].markAsDone();
-            } else if (arrOfInputStrings[0].equals("unmark")) {
-                int inputTaskNumber = Integer.parseInt(arrOfInputStrings[1]) - 1;
-                tasks[inputTaskNumber].markAsUndone();
-            } else {
-                tasks[taskCounter] = new Task(input);
+                break;
+            case "todo":
+                tasks[taskCounter] = new Todo(input.substring(5));
                 taskCounter++;
+                break;
+            case "deadline":
+                String[] splitDeadlineDescription = input.substring(9).split(" /by ");
+                tasks[taskCounter] = new Deadline(splitDeadlineDescription[0], splitDeadlineDescription[1]);
+                taskCounter++;
+                break;
+            case "event":
+                String[] splitEventDescription = input.substring(6).split(" /at ");
+                tasks[taskCounter] = new Event(splitEventDescription[0], splitEventDescription[1]);
+                taskCounter++;
+                break;
+            case "mark":
+                inputTaskNumber = Integer.parseInt(arrOfInputStrings[1]) - 1;
+                tasks[inputTaskNumber].markAsDone();
+                break;
+            case "unmark":
+                inputTaskNumber = Integer.parseInt(arrOfInputStrings[1]) - 1;
+                tasks[inputTaskNumber].markAsUndone();
+                break;
+            default:
+                System.out.println("-----------------------------------------------------");
+                System.out.println("Invalid input\nPlease use the format: [type_of_task] [task_description]");
+                System.out.println("-----------------------------------------------------");
+                break;
             }
 
             input = in.nextLine();
