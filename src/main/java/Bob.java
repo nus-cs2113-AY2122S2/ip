@@ -48,13 +48,18 @@ public class Bob {
      * @param list a Task class list.
      */
     public static void displayList(Task[] list) {
-        int count = Task.getCount();
-
         printBorder();
-        System.out.println("\tTask list:");
-        for (int i = 0; i < count; i++) {
-            System.out.print("\t" + (i + 1) + ".");
-            System.out.println(list[i]);
+
+        int count = Task.getCount();
+        if (count > 0) {
+            System.out.println("\tTask list:");
+            for (int i = 0; i < count; i++) {
+                System.out.print("\t" + (i + 1) + ".");
+                System.out.println(list[i]);
+            }
+        }
+        else {
+            System.out.println("Currently no tasks");
         }
         printBorder();
     }
@@ -67,19 +72,19 @@ public class Bob {
      * @param doneStatus the status to be updated to.
      */
     public static void updateStatus(Task[] list, String command, boolean doneStatus) {
+        printBorder();
         if (command.split(" ").length != 2) { // Invalid input
-            System.out.println("\t! Invalid number of arguments.");
+            printError("\tInvalid number of arguments.");
             return;
         }
         int id = Integer.parseInt(command.split(" ")[1]);
         if (id > Task.getCount()) { // Invalid input
-            System.out.println("\t! Invalid task id detected.");
+            printError("\tInvalid task id detected.");
             return;
         }
         Task target = list[id - 1];
         target.setDone(doneStatus);
 
-        printBorder();
         if (doneStatus) {
             System.out.println("\tThe following task has been checked off:");
         }
@@ -91,22 +96,49 @@ public class Bob {
     }
 
     /**
-     * Creates a new task and appends it to the task list.
+     * Appends a Task to the task list.
+     *
+     * @param list   a Task class list.
+     * @param object a Task class object.
+     */
+    public static void addTaskToList(Task[] list, Task object) {
+        int index = Task.getCount() - 1;
+        list[index] = object;
+
+        System.out.println("\t" + object);
+        System.out.println("\tThere are " + Task.getCount() + " tasks now");
+    }
+
+    /**
+     * Creates a new undated task and appends it to the task list.
      *
      * @param list    a Task class list.
-     * @param command the command containing the new task to be created.
+     * @param command the details of the new undated task to be created.
      */
-    public static void addTask(Task[] list, String command) {
+    public static void addUndatedTask(Task[] list, String command) {
+        printBorder();
+
+        String[] commandSplit = command.split(" ", 2);
+        Task temp = new ToDos(commandSplit[1]);
+
+        addTaskToList(list, temp);
+        printBorder();
+    }
+
+    /**
+     * Creates a new dated task and appends it to the task list.
+     *
+     * @param list    a Task class list.
+     * @param command the details of the new dated task to be created.
+     */
+    public static void addDatedTask(Task[] list, String command) {
+        printBorder();
         Task temp = null;
         boolean isError = false;
 
         String[] commandSplit = command.split(" ", 2);
 
-        printBorder();
-        switch (commandSplit[0]){ // Creating appropriate task objects
-        case "todo":
-            temp = new ToDos(commandSplit[1]);
-            break;
+        switch (commandSplit[0]) {
         case "deadline":
             if (commandSplit[1].contains(" /by ")) {
                 String[] descAndDeadline = commandSplit[1].split(" /by ", 2);
@@ -125,18 +157,26 @@ public class Bob {
                 isError = true;
             }
             break;
+        default:
+            isError = true;
         }
 
-        if (isError) { // Handling incorrect input
-            System.out.println("\tUsage: [deadline,event] <task> [/by,/at] <date>");
-            printBorder();
+        if (isError) {
+            printError("Usage: [deadline,event] <task> [/by,/at] <date>");
             return;
         }
 
-        list[Task.getCount() - 1] = temp;
+        addTaskToList(list, temp);
+        printBorder();
+    }
 
-        System.out.println("\t" + temp);
-        System.out.println("\tThere are " + Task.getCount() + " tasks now");
+    /**
+     * Prints the stated error message at the end of command execution.
+     *
+     * @param message an Error message.
+     */
+    public static void printError(String message) {
+        System.out.println("\t" + message);
         printBorder();
     }
 
@@ -161,9 +201,11 @@ public class Bob {
                 updateStatus(list, command, false);
                 continue;
             case "todo":
+                addUndatedTask(list, command);
+                break;
             case "deadline":
             case "event":
-                addTask(list, command);
+                addDatedTask(list, command);
                 continue;
             case "bye":
                 break;
