@@ -3,13 +3,10 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        String[] commandHistory = new String[100];
-        int numCommands = 0;
-        boolean isLoop = true;
-
         ChatSession currChat = new ChatSession();
         currChat.startSession();
 
+        boolean isLoop = true;
         while (isLoop) {
             Scanner sc = new Scanner(System.in);
             String userInput = sc.nextLine();
