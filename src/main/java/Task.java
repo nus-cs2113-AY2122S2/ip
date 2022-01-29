@@ -14,12 +14,12 @@ public class Task {
     }
 
     /** Method to mark a task status as Done */
-    public void markAsDone() {
+    public void setAsDone() {
         isDone = true;
     }
 
     /**Method to mark a task status as not done */
-    public void markAsNotDone() {
+    public void setAsNotDone() {
         isDone = false;
     }
 }

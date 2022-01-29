@@ -12,22 +12,22 @@ public class Eliz {
     public static void markATask(String line, Task[] tasks) {
         char taskNumChar = line.charAt(line.length() - 1);
         int taskNumInt = Character.getNumericValue(taskNumChar);
-        tasks[taskNumInt - 1].markAsDone();
+        tasks[taskNumInt - 1].setAsDone();
         System.out.println("[X] " + tasks[taskNumInt - 1].description);
     }
 
     public static void unmarkATask(String line, Task[] tasks) {
         char taskNumChar = line.charAt(line.length() - 1);
         int taskNumInt = Character.getNumericValue(taskNumChar);
-        tasks[taskNumInt - 1].markAsNotDone();
+        tasks[taskNumInt - 1].setAsNotDone();
         System.out.println("[ ] " + tasks[taskNumInt - 1].description);
     }
 
     public static void main(String[] args) {
         /** Key Definitions */
         String line;
-        String bye = "bye";
-        String list = "list";
+        String BYE = "bye";
+        String LIST = "list";
         Task[] tasks = new Task[100]; //array of Task objects
         String logo = " ____    __       __     ______ \n"
                     + "|  __|  |  |     |  |   |___  /\n"
@@ -43,8 +43,8 @@ public class Eliz {
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
         int taskCounter = 0;
-        while (!line.equals(bye)) { //while command to end is not entered
-            if (line.equals(list)) { //check if action is to echo or print tasks
+        while (!line.equals(BYE)) { //while command to end is not entered
+            if (line.equals(LIST)) { //check if action is to echo or print tasks
                 printTasks(Arrays.copyOf(tasks, taskCounter));
             } else if (line.contains("mark")) {
                 if (line.contains("unmark")) {
