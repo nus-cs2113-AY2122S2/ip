@@ -1,16 +1,18 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
+        // Start chat session
         ChatSession currChat = new ChatSession();
         currChat.startSession();
 
         boolean isLoop = true;
         while (isLoop) {
+            // Get user input
             Scanner sc = new Scanner(System.in);
             String userInput = sc.nextLine();
 
+            // Execute user commands
             if (userInput.startsWith("mark")) {
                 String[] userInputArr = userInput.split(" ");
                 currChat.markTaskIndex(Integer.parseInt(userInputArr[1]));
@@ -28,6 +30,7 @@ public class Duke {
                         break;
                     default:
                         currChat.addTask(userInput);
+                        break;
                 }
             }
         }
