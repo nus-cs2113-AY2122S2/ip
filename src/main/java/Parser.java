@@ -1,11 +1,11 @@
-public class StringParser {
+public class Parser {
     private String input;
     private boolean isAddingTask;
     private boolean isMarkingTask;
     private boolean isListingTasks;
     private boolean isExiting;
 
-    StringParser() {
+    Parser() {
         this.input = "";
         this.isAddingTask = false;
         this.isMarkingTask = false;

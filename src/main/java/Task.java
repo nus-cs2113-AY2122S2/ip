@@ -17,6 +17,7 @@ public class Task {
         return String.format("OK, I've marked this task as not done yet:\n%s", toString());
     }
 
+    @Override
     public String toString() {
         String marking = "[ ]";
         if (isDone) {
