@@ -6,10 +6,10 @@ public class Serene {
     private static final String ERROR_MESSAGE = "Oh? I ran into an oopsie~";
     private static final int DONE = -1;
     private static final int CONTINUE = -2;
-    private static final int KEYWORD_INDEX = 0;
-    private static final int TASK_INDEX = 1;
-    private static final int DESCRIPTION_INDEX = 0;
-    private static final int OPTIONS_INDEX = 1;
+    private static final int RESPONSE_PARTITION_INDEX_KEYWORD = 0;
+    private static final int RESPONSE_PARTITION_INDEX_BODY = 1;
+    private static final int TASK_PARTITION_INDEX_DESCRIPTION = 0;
+    private static final int TASK_PARTITION_INDEX_OPTIONS = 1;
     private static Task[] taskList = new Task[TASK_LIMIT];
     private static int taskCount = 0;
     private static int statusOfSerene = CONTINUE;
@@ -21,16 +21,19 @@ public class Serene {
         printExitMessage();
     }
 
-    private static void operateSerene(Scanner in) {
-        while (statusOfSerene != DONE) {
-            String userInput = in.nextLine();
-            statusOfSerene = parseInput(userInput);
-        }
-    }
-
-    private static void printExitMessage() {
-        String exitLine = "Till next time. Hope to see you again soon~";
-        printWithPartition(exitLine);
+    private static void printWelcomeMessage() {
+        String logo = " #####  ####### ######  ####### #     # ####### \n"
+                + "#     # #       #     # #       ##    # #       \n"
+                + "#       #       #     # #       # #   # #       \n"
+                + " #####  #####   ######  #####   #  #  # #####   \n"
+                + "      # #       #   #   #       #   # # #       \n"
+                + "#     # #       #    #  #       #    ## #       \n"
+                + " #####  ####### #     # ####### #     # ####### ";
+        String greetLine = "Hello~ I'm Serene" + System.lineSeparator() + "What can I do for you?";
+        System.out.println(PARTITION_LINE);
+        System.out.println("Booting up");
+        System.out.println(logo);
+        printWithPartition(greetLine);
     }
 
     private static void printWithPartition(String input) {
@@ -39,24 +42,21 @@ public class Serene {
         System.out.println(PARTITION_LINE);
     }
 
-    private static void printResponseList() {
-        System.out.println(PARTITION_LINE);
-        System.out.println("Here is your task list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println(i+1 + "." + taskList[i]);
+    private static void operateSerene(Scanner in) {
+        while (statusOfSerene != DONE) {
+            String userInput = in.nextLine();
+            statusOfSerene = parseInput(userInput);
         }
-        System.out.println(PARTITION_LINE);
     }
 
     private static int parseInput(String userInput) {
         String[] responsePartition = userInput.split(" ", 2);
-        String keyword = responsePartition[KEYWORD_INDEX];
-        int taskIndex = 0;
-        switch(keyword) {
+        String keyword = responsePartition[RESPONSE_PARTITION_INDEX_KEYWORD];
+        switch (keyword) {
         case "bye":
             return DONE;
         case "list":
-            printResponseList();
+            printTaskList();
             break;
         case "mark":
             markTaskDone(responsePartition);
@@ -65,13 +65,13 @@ public class Serene {
             markTaskNotDone(responsePartition);
             break;
         case "todo":
-            addToDo(responsePartition[TASK_INDEX]);
+            addToDo(responsePartition[RESPONSE_PARTITION_INDEX_BODY]);
             break;
         case "event":
-            addEvent(responsePartition[TASK_INDEX]);
+            addEvent(responsePartition[RESPONSE_PARTITION_INDEX_BODY]);
             break;
         case "deadline":
-            addDeadline(responsePartition[TASK_INDEX]);
+            addDeadline(responsePartition[RESPONSE_PARTITION_INDEX_BODY]);
             break;
         default:
             System.out.println(ERROR_MESSAGE);
@@ -80,18 +80,27 @@ public class Serene {
         return CONTINUE;
     }
 
-    private static void markTaskNotDone(String[] responsePartition) {
-        int taskIndex;
-        taskIndex = Integer.parseInt(responsePartition[1]) - 1;
-        taskList[taskIndex].markNotDone();
-        printWithPartition("Sigh. Here we go again:\n" + taskList[taskIndex]);
+    private static void printTaskList() {
+        System.out.println(PARTITION_LINE);
+        System.out.println("Here is your task list:");
+        for (int i = 0; i < taskCount; i++) {
+            System.out.println((i + 1) + "." + taskList[i]);
+        }
+        System.out.println(PARTITION_LINE);
     }
 
     private static void markTaskDone(String[] responsePartition) {
         int taskIndex;
-        taskIndex = Integer.parseInt(responsePartition[1]) - 1;
+        taskIndex = Integer.parseInt(responsePartition[RESPONSE_PARTITION_INDEX_BODY]) - 1;
         taskList[taskIndex].markDone();
-        printWithPartition("Good job~ This task is now done:\n" + taskList[taskIndex]);
+        printWithPartition("Good job~ This task is now done:" + System.lineSeparator() + taskList[taskIndex]);
+    }
+
+    private static void markTaskNotDone(String[] responsePartition) {
+        int taskIndex;
+        taskIndex = Integer.parseInt(responsePartition[RESPONSE_PARTITION_INDEX_BODY]) - 1;
+        taskList[taskIndex].markNotDone();
+        printWithPartition("Sigh. Here we go again:" + System.lineSeparator() + taskList[taskIndex]);
     }
 
     private static void addToDo(String userInput) {
@@ -101,41 +110,33 @@ public class Serene {
 
     private static void addEvent(String userInput) {
         String[] taskPartition = userInput.split(" /at ");
-        Event task = new Event(taskPartition[DESCRIPTION_INDEX], taskPartition[OPTIONS_INDEX]);
+        Event task = new Event(taskPartition[TASK_PARTITION_INDEX_DESCRIPTION],
+                taskPartition[TASK_PARTITION_INDEX_OPTIONS]);
         allocateTask(task);
     }
 
     private static void addDeadline(String userInput) {
         String[] taskPartition = userInput.split(" /by ");
-        Deadline task = new Deadline(taskPartition[DESCRIPTION_INDEX], taskPartition[OPTIONS_INDEX]);
+        Deadline task = new Deadline(taskPartition[TASK_PARTITION_INDEX_DESCRIPTION],
+                taskPartition[TASK_PARTITION_INDEX_OPTIONS]);
         allocateTask(task);
     }
 
-    private static void allocateTask(Task task) {
-        taskList[taskCount] = task;
-        printAddedTask();
+    private static void allocateTask(Task inputTask) {
+        taskList[taskCount] = inputTask;
         taskCount++;
+        printAddedTask();
     }
 
     private static void printAddedTask() {
         String toPrint = "Okay, I've added this for you:" + System.lineSeparator() +
-                taskList[taskCount] + System.lineSeparator() +
-                "Now you have " + (taskCount+1) + " tasks in the list.";
+                taskList[taskCount - 1] + System.lineSeparator() +
+                "Now you have " + taskCount + " tasks in the list.";
         printWithPartition(toPrint);
     }
 
-    private static void printWelcomeMessage() {
-        String logo = " #####  ####### ######  ####### #     # ####### \n"
-                + "#     # #       #     # #       ##    # #       \n"
-                + "#       #       #     # #       # #   # #       \n"
-                + " #####  #####   ######  #####   #  #  # #####   \n"
-                + "      # #       #   #   #       #   # # #       \n"
-                + "#     # #       #    #  #       #    ## #       \n"
-                + " #####  ####### #     # ####### #     # ####### ";
-        String greetLine = "Hello~ I'm Serene\nWhat can I do for you?";
-        System.out.println(PARTITION_LINE);
-        System.out.println("Booting up" + System.lineSeparator() + logo);
-        printWithPartition(greetLine);
+    private static void printExitMessage() {
+        String exitLine = "Till next time. Hope to see you again soon~";
+        printWithPartition(exitLine);
     }
-
 }
