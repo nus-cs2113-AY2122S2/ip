@@ -48,13 +48,13 @@ public class Main {
                 taskCounter++;
                 break;
             case "deadline":
-                String[] splitDeadlineDescription = input.substring(9).split(" /by ");
-                tasks[taskCounter] = new Deadline(splitDeadlineDescription[0], splitDeadlineDescription[1]);
+                String[] deadlineDescriptionSplitArr = input.substring(9).split(" /by ");
+                tasks[taskCounter] = new Deadline(deadlineDescriptionSplitArr[0], deadlineDescriptionSplitArr[1]);
                 taskCounter++;
                 break;
             case "event":
-                String[] splitEventDescription = input.substring(6).split(" /at ");
-                tasks[taskCounter] = new Event(splitEventDescription[0], splitEventDescription[1]);
+                String[] eventDescriptionSplitArr = input.substring(6).split(" /at ");
+                tasks[taskCounter] = new Event(eventDescriptionSplitArr[0], eventDescriptionSplitArr[1]);
                 taskCounter++;
                 break;
             case "mark":
