@@ -12,20 +12,42 @@ public class TaskList {
     }
 
     /**
-     * Adds a new string as Task to the ArrayList and prints the Task added.
+     * Adds a new string as ToDo to the ArrayList and prints the Task added.
      * @param taskName
      */
-    public void addTask(String taskName){
-        Task newTask = new Task(taskName);
-        taskList.add(newTask);
-        System.out.println("Added:" + System.lineSeparator() + newTask);
+    public void addToDo(String taskName){
+        Task newToDo = new ToDo(taskName);
+        taskList.add(newToDo);
+        System.out.println("Added:" + System.lineSeparator() + "   " + newToDo);
+    }
+
+    /**
+     * Adds a new string as Deadline to the ArrayList and prints the Task added.
+     * @param taskName
+     * @param deadline
+     */
+    public void addDeadline(String taskName, String deadline){
+        Task newDeadline = new Deadline(taskName, deadline);
+        taskList.add(newDeadline);
+        System.out.println("Added:" + System.lineSeparator() + "   " + newDeadline);
+    }
+
+    /**
+     * Adds a new string as Event to the ArrayList and prints the Task added.
+     * @param taskName
+     * @param eventTime
+     */
+    public void addEvent(String taskName, String eventTime){
+        Task newEvent = new Event(taskName, eventTime);
+        taskList.add(newEvent);
+        System.out.println("Added:" + System.lineSeparator() + "   " + newEvent);
     }
 
     /**
      * Prints out the list of Tasks.
      */
     public void displayTasks(){
-        System.out.println("Here are your tasks to be completed!");
+        System.out.println("Total "+taskList.size()+ " tasks to be completed:");
         for (int i = 0; i < taskList.size(); i++){
             System.out.println((i+1)+". "+taskList.get(i));
         }
@@ -44,7 +66,7 @@ public class TaskList {
         } else {
             System.out.println("Ok, you didn't actually do the task!");
         }
-        System.out.println("  "+task);
+        System.out.println("   "+task);
     }
 
 }
