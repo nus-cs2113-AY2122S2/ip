@@ -1,4 +1,3 @@
-import java.util.Locale;
 import java.util.Scanner;
 
 import util.Task;
@@ -8,12 +7,88 @@ import util.Events;
 
 public class Bob {
 
+    // Miscellaneous Text
+    public static final String BORDER = "____________________________________________________________";
+    public static final String LOGO = ".______     ______   .______   \n"
+            + "\t|   _  \\   /  __  \\  |   _  \\  \n"
+            + "\t|  |_)  | |  |  |  | |  |_)  | \n"
+            + "\t|   _  <  |  |  |  | |   _  <  \n"
+            + "\t|  |_)  | |  `--'  | |  |_)  | \n"
+            + "\t|______/   \\______/  |______/  \n";
+
+    // Messages
+    public static final String INTRO_GREETING = "Hello! I'm Bob ʘ‿ʘ";
+    public static final String INTRO_QUESTION = "What can I do for you today?";
+    public static final String OUTRO_GOODBYE = "See you next time. /|\\(◦.◦)/|\\";
+
+    public static final String MESSAGE_TASK_LIST = "Task list:";
+    public static final String MESSAGE_NO_TASKS = "There are currently no tasks. ¯\\_(ツ)_/¯";
+    public static final String MESSAGE_TASK_MARKED = "The following task has been checked off:";
+    public static final String MESSAGE_TASK_UNMARKED = "The following task has yet to be completed:";
+    public static final String MESSAGE_TASK_COUNT = "The number of tasks amounts to: ";
+
+    public static final String MESSAGE_INVALID_ARGC = "Invalid number of arguments. ( °□°)";
+    public static final String MESSAGE_INVALID_ID = "Invalid task id. ┬┴┬┴┤ω・)";
+    public static final String MESSAGE_DEADLINE_USAGE = "Usage: deadline <task> /by <deadline>";
+    public static final String MESSAGE_EVENT_USAGE = "Usage: event <task> /at <date,time>";
+
+    // Delimiters
+    public static final String DELIMIT_COMMAND = " ";
+    public static final String DELIMIT_DEADLINE = " /by ";
+    public static final String DELIMIT_EVENT = " /at ";
+
+    // Magic numbers
+    public static final int MAX_TASK = 100;
+
+    /**
+     * Prints the message prepended by a tab.
+     *
+     * @param message Text to be printed.
+     */
+    public static void printTab(String message) {
+        System.out.print("\t" + message);
+    }
+
+    /**
+     * Prints the message prepended by a tab and appended by a new line.
+     *
+     * @param message Text to be printed.
+     */
+    public static void printlnTab(String message) {
+        System.out.println("\t" + message);
+    }
+
     /**
      * Prints a horizontal border for actions performed.
      */
     public static void printBorder() {
-        String border = "\t____________________________________________________________";
-        System.out.println(border);
+        printlnTab(BORDER);
+    }
+
+    /**
+     * Prints the stated error message at the end of command execution.
+     *
+     * @param message an Error message.
+     */
+    public static void printError(String message) {
+        printlnTab(message);
+        printBorder();
+    }
+
+    /**
+     * Takes in a command delimited by a space and parses it into 2 tokens.
+     *
+     * @param command The command to be parsed.
+     * @return A list containing the main command then its details.
+     */
+    public static String[] parseCommand(String command, String delimiter) {
+        String[] commandToken = command.split(delimiter, 2);
+        if (commandToken.length == 2) {
+            return commandToken;
+        }
+        else {
+            return new String[]{commandToken[0], null};
+        }
     }
 
     /**
@@ -21,15 +96,9 @@ public class Bob {
      */
     public static void greetings() {
         printBorder();
-        String logo = "\t.______     ______   .______   \n"
-                + "\t|   _  \\   /  __  \\  |   _  \\  \n"
-                + "\t|  |_)  | |  |  |  | |  |_)  | \n"
-                + "\t|   _  <  |  |  |  | |   _  <  \n"
-                + "\t|  |_)  | |  `--'  | |  |_)  | \n"
-                + "\t|______/   \\______/  |______/  \n\n"
-                + "\tHello! I'm Bob\n"
-                + "\tWhat can I do for you?";
-        System.out.println(logo);
+        printlnTab(LOGO);
+        printlnTab(INTRO_GREETING);
+        printlnTab(INTRO_QUESTION);
         printBorder();
     }
 
@@ -38,7 +107,7 @@ public class Bob {
      */
     public static void goodBye() {
         printBorder();
-        System.out.println("\tSee next time. /|\\(◦.◦)/|\\");
+        printlnTab(OUTRO_GOODBYE);
         printBorder();
     }
 
@@ -49,17 +118,17 @@ public class Bob {
      */
     public static void displayList(Task[] list) {
         printBorder();
-
         int count = Task.getCount();
+
         if (count > 0) {
-            System.out.println("\tTask list:");
+            printlnTab(MESSAGE_TASK_LIST);
             for (int i = 0; i < count; i++) {
-                System.out.print("\t" + (i + 1) + ".");
+                printTab((i + 1) + ".");
                 System.out.println(list[i]);
             }
         }
         else {
-            System.out.println("Currently no tasks");
+            printlnTab(MESSAGE_NO_TASKS);
         }
         printBorder();
     }
@@ -73,26 +142,29 @@ public class Bob {
      */
     public static void updateStatus(Task[] list, String command, boolean doneStatus) {
         printBorder();
-        if (command.split(" ").length != 2) { // Invalid input
-            printError("\tInvalid number of arguments.");
-            return;
-        }
-        int id = Integer.parseInt(command.split(" ")[1]);
-        if (id > Task.getCount()) { // Invalid input
-            printError("\tInvalid task id detected.");
-            return;
-        }
-        Task target = list[id - 1];
-        target.setDone(doneStatus);
+        String[] commandToken = parseCommand(command, DELIMIT_COMMAND);
 
-        if (doneStatus) {
-            System.out.println("\tThe following task has been checked off:");
+        if (commandToken[1] != null) {
+            int id = Integer.parseInt(commandToken[1]);
+            if (id > Task.getCount()) {
+                printError(MESSAGE_INVALID_ID);
+                return;
+            }
+
+            Task target = list[id - 1];
+            target.setDone(doneStatus);
+
+            if (doneStatus) {
+                printlnTab(MESSAGE_TASK_MARKED);
+            } else {
+                printlnTab(MESSAGE_TASK_UNMARKED);
+            }
+            System.out.println("\t" + target);
+            printBorder();
         }
         else {
-            System.out.println("\tThe following task has yet to be completed:");
+            printError(MESSAGE_INVALID_ARGC);
         }
-        System.out.println("\t" + target);
-        printBorder();
     }
 
     /**
@@ -106,7 +178,7 @@ public class Bob {
         list[index] = object;
 
         System.out.println("\t" + object);
-        System.out.println("\tThere are " + Task.getCount() + " tasks now");
+        printlnTab(MESSAGE_TASK_COUNT + Task.getCount());
     }
 
     /**
@@ -115,82 +187,88 @@ public class Bob {
      * @param list    a Task class list.
      * @param command the details of the new undated task to be created.
      */
-    public static void addUndatedTask(Task[] list, String command) {
+    public static void addToDosTask(Task[] list, String command) {
         printBorder();
+        String[] commandToken = parseCommand(command, DELIMIT_COMMAND);
 
-        String[] commandSplit = command.split(" ", 2);
-        Task temp = new ToDos(commandSplit[1]);
+        if (commandToken[1] != null) {
+            Task temp = new ToDos(commandToken[1]);
 
-        addTaskToList(list, temp);
-        printBorder();
+            addTaskToList(list, temp);
+            printBorder();
+        }
+        else {
+            printError(MESSAGE_INVALID_ARGC);
+        }
     }
 
     /**
-     * Creates a new dated task and appends it to the task list.
+     * Creates a new dated deadline task and appends it to the task list.
      *
      * @param list    a Task class list.
      * @param command the details of the new dated task to be created.
      */
-    public static void addDatedTask(Task[] list, String command) {
+    public static void addDeadlineTask(Task[] list, String command) {
         printBorder();
-        Task temp = null;
-        boolean isError = false;
+        String[] commandToken = parseCommand(command, DELIMIT_COMMAND);
 
-        String[] commandSplit = command.split(" ", 2);
+        if (commandToken[1] != null) {
+            String[] taskDetails = parseCommand(commandToken[1], DELIMIT_DEADLINE);
 
-        switch (commandSplit[0]) {
-        case "deadline":
-            if (commandSplit[1].contains(" /by ")) {
-                String[] descAndDeadline = commandSplit[1].split(" /by ", 2);
-                temp = new Deadlines(descAndDeadline[0], descAndDeadline[1]);
+            if (taskDetails[1] != null) {
+                Task temp = new Deadlines(taskDetails[0], taskDetails[1]);
+
+                addTaskToList(list, temp);
+                printBorder();
             }
-            else { // Incorrect input
-                isError = true;
+            else {
+                printError(MESSAGE_DEADLINE_USAGE);
             }
-            break;
-        case "event":
-            if (commandSplit[1].contains(" /at ")) {
-                String[] descAndPeriod = commandSplit[1].split(" /at ", 2);
-                temp = new Events(descAndPeriod[0], descAndPeriod[1]);
-            }
-            else { // Incorrect input
-                isError = true;
-            }
-            break;
-        default:
-            isError = true;
         }
-
-        if (isError) {
-            printError("Usage: [deadline,event] <task> [/by,/at] <date>");
-            return;
+        else {
+            printError(MESSAGE_INVALID_ARGC);
         }
-
-        addTaskToList(list, temp);
-        printBorder();
     }
 
     /**
-     * Prints the stated error message at the end of command execution.
+     * Creates a new dated event task and appends it to the task list.
      *
-     * @param message an Error message.
+     * @param list    a Task class list.
+     * @param command the details of the new dated task to be created.
      */
-    public static void printError(String message) {
-        System.out.println("\t" + message);
+    public static void addEventTask(Task[] list, String command) {
         printBorder();
+        String[] commandToken = parseCommand(command, DELIMIT_COMMAND);
+
+        if (commandToken[1] != null) {
+            String[] taskDetails = parseCommand(commandToken[1], DELIMIT_EVENT);
+
+            if (taskDetails[1] != null) {
+                Task temp = new Events(taskDetails[0], taskDetails[1]);
+
+                addTaskToList(list, temp);
+                printBorder();
+            }
+            else {
+                printError(MESSAGE_EVENT_USAGE);
+            }
+        }
+        else {
+            printError(MESSAGE_INVALID_ARGC);
+        }
     }
 
     public static void main(String[] args) {
         String command;
         Scanner in = new Scanner(System.in);
-        Task[] list = new Task[100];
+        Task[] list = new Task[MAX_TASK];
 
         greetings();
         do {
             System.out.println();
             command = in.nextLine();
 
-            switch (command.split(" ")[0]) {
+            switch (parseCommand(command, DELIMIT_COMMAND)[0]) {
             case "list":
                 displayList(list);
                 continue;
@@ -201,18 +279,20 @@ public class Bob {
                 updateStatus(list, command, false);
                 continue;
             case "todo":
-                addUndatedTask(list, command);
+                addToDosTask(list, command);
                 break;
             case "deadline":
+                addDeadlineTask(list, command);
+                continue;
             case "event":
-                addDatedTask(list, command);
+                addEventTask(list, command);
                 continue;
             case "bye":
                 break;
             default:
-                System.out.println("Sorry, I do not understand.");
+                printlnTab("Sorry, I do not understand.");
             }
-        } while (command.split(" ")[0].compareTo("bye") != 0);
+        } while (parseCommand(command, DELIMIT_COMMAND)[0].compareTo("bye") != 0);
 
         goodBye();
     }
