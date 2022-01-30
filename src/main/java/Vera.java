@@ -54,9 +54,15 @@ public class Vera {
         printWithPartition(feedback);
     }
 
-    public static String showAddTaskMessage(int currentTaskIndex) {
-        return "Got it. I've added this task:\n" + "  " + tasks[currentTaskIndex]
-                + "\nNow you have " + (currentTaskIndex + 1)  + " task(s) in the list";
+    public static String showAddTaskMessage(int currentTaskIndex, boolean isOldTaskReplaced) {
+        String keyword;
+        if (isOldTaskReplaced) {
+            keyword = "Done! ";
+        } else {
+            keyword = "Got it. ";
+        }
+        return keyword + "I've added this task:\n" + "  " + tasks[currentTaskIndex]
+                + "\nNow you have " + taskCount  + " task(s) in the list";
     }
 
     public static String list(Task[] tasks) {
@@ -79,6 +85,53 @@ public class Vera {
         return false;
     }
 
+    private static int findTaskIndex(String taskDescription) {
+        for (int i = 0; i < taskCount; i++) {
+            if (tasks[i].getDescription().equals(taskDescription)) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    public static boolean isTaskBeingReplaced() {
+        boolean isOldTaskReplaced = false;
+        printWithPartition("Oops! It seems that you've already added this task.\n"
+                + "Would you like to override the \nexisting time and/or date "
+                + "with the new input? [Y/N]");
+        while (true) {
+            String input = getUserInput();
+            if (input.equals("Y")) {
+                isOldTaskReplaced = true;
+                System.out.println("Understood. Proceeding to change \nthe "
+                        + "old task with the new one..........");
+                break;
+            } else if (input.equals("N")) {
+                break;
+            } else {
+                printWithPartition("Please confirm your choice with either Y or N");
+            }
+        }
+        return isOldTaskReplaced;
+    }
+
+    public static String handleRepeatedInputs(String taskType, String[] taskDataInput) {
+        boolean isOldTaskReplaced = isTaskBeingReplaced();
+        if (isOldTaskReplaced) {
+            int taskIndexToReplace = findTaskIndex(taskDataInput[TASK_DESCRIPTION_INDEX]);
+            if (taskType.equals("Event")) {
+                tasks[taskIndexToReplace] = new Event(taskDataInput[TASK_DESCRIPTION_INDEX],
+                        taskDataInput[TASK_DATE_INDEX]);
+            } else {
+                tasks[taskIndexToReplace] = new Deadline(taskDataInput[TASK_DESCRIPTION_INDEX],
+                        taskDataInput[TASK_DATE_INDEX]);
+            }
+
+            return showAddTaskMessage(taskIndexToReplace, true);
+        }
+        return "Okay, we'll keep it as it is.";
+    }
+
     public static String addTodo(String taskDescription) {
         if (isTaskAlreadyAdded(taskDescription)) {
             return "Oops! It seems that you've already added this task.";
@@ -86,7 +139,7 @@ public class Vera {
         if (taskCount < 100) {
             tasks[taskCount]= new Todo(taskDescription);
             taskCount++;
-            return showAddTaskMessage(taskCount - 1);
+            return showAddTaskMessage(taskCount - 1, false);
         }
         return "Sorry! You've reached the maximum amount of tasks"
                 + "allowed on your task list";
@@ -98,13 +151,13 @@ public class Vera {
         }
         String[] taskDataInput = parsedInput[TASK_CONTENT_INDEX].split("/at");
         if (isTaskAlreadyAdded(taskDataInput[TASK_DESCRIPTION_INDEX])) {
-            return "Oops! It seems that you've already added this task.";
+            return handleRepeatedInputs("Event", taskDataInput);
         }
         if (taskCount < 100) {
             tasks[taskCount] = new Event(taskDataInput[TASK_DESCRIPTION_INDEX],
                     taskDataInput[TASK_DATE_INDEX]);
             taskCount++;
-            return showAddTaskMessage(taskCount - 1);
+            return showAddTaskMessage(taskCount - 1, false);
         }
         return "Sorry! You've reached the maximum amount of tasks"
                 + "allowed on your task list";
@@ -116,22 +169,25 @@ public class Vera {
         }
         String[] taskDataInput = parsedInput[TASK_CONTENT_INDEX].split("/by");
         if (isTaskAlreadyAdded(taskDataInput[TASK_DESCRIPTION_INDEX])) {
-            return "Oops! It seems that you've already added this task.";
+            return handleRepeatedInputs("Deadline", taskDataInput);
         }
         if (taskCount < 100) {
             tasks[taskCount] = new Deadline(taskDataInput[TASK_DESCRIPTION_INDEX],
                     taskDataInput[TASK_DATE_INDEX]);
             taskCount++;
-            return showAddTaskMessage(taskCount - 1);
+            return showAddTaskMessage(taskCount - 1, false);
         }
         return "Sorry! You've reached the maximum amount of tasks"
                 + "allowed on your task list";
     }
 
     public static boolean isInvalidInput(String[] parsedInput) {
-        return (parsedInput.length < 2 ||
-                Integer.parseInt(parsedInput[MARK_INDEX]) <= 0 ||
-                Integer.parseInt(parsedInput[MARK_INDEX]) > taskCount);
+        boolean isMarkIndexMissing = parsedInput.length < 2;
+        if (isMarkIndexMissing) {
+            return true;
+        }
+        int inputMarkIndex = Integer.parseInt(parsedInput[MARK_INDEX]);
+        return inputMarkIndex <= 0 || inputMarkIndex > taskCount;
     }
     
     public static String markTask(String[] parsedInput) {
@@ -141,7 +197,7 @@ public class Vera {
                     + "to mark your task.";
         }
 
-        int taskIndexToMark = Integer.parseInt(parsedInput[1]) - 1;
+        int taskIndexToMark = Integer.parseInt(parsedInput[MARK_INDEX]) - 1;
         if (tasks[taskIndexToMark].isDone()) {
             return "This task has already been marked!";
         }
@@ -156,7 +212,7 @@ public class Vera {
                     + "to unmark your task.";
         }
 
-        int taskIndexToUnmark = Integer.parseInt(parsedInput[1]) - 1;
+        int taskIndexToUnmark = Integer.parseInt(parsedInput[MARK_INDEX]) - 1;
         if (!tasks[taskIndexToUnmark].isDone()) {
             return "This task was already unmarked!";
         }

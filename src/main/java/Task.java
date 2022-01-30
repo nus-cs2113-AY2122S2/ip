@@ -1,7 +1,6 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    protected static int currentIndex = 0;
 
     public Task(String description) {
         this.description = description;
@@ -10,10 +9,6 @@ public class Task {
 
     public String getDescription() {
         return description;
-    }
-
-    public static int getCurrentIndex() {
-        return currentIndex;
     }
 
     public boolean isDone() {
