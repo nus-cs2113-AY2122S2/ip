@@ -45,8 +45,6 @@ public class Controller {
         chatbox.chatboxPrinter();
     }
 
-
-
     public void listen() {
         Scanner msg = new Scanner(System.in);
         this.recvMsg = msg.nextLine();

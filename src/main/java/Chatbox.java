@@ -1,6 +1,6 @@
 public class Chatbox {
     private String content = "";
-    private String horizontalLine = "-------------------------------------";
+    private final String horizontalLine = "-------------------------------------";
 
     public void chatboxPrinter(){
         System.out.println(content);

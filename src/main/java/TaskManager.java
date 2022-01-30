@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 public class TaskManager {
-    private static ArrayList<Task> Tasks = new ArrayList<Task>();
+    private static final ArrayList<Task> Tasks = new ArrayList<Task>();
     Chatbox chatbox = new Chatbox();
 
     public void addTask(String name){

@@ -39,6 +39,4 @@ public class Task {
     public void taskPrinter(){
         System.out.println(listName);
     }
-
-
 }
