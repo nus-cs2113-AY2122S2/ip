@@ -23,12 +23,15 @@ public class TaskList {
         return tasks.get(n - 1);
     }
 
+    public int size() {
+        return tasks.size();
+    }
     @Override
     public String toString() {
         int n = tasks.size();
         String allTasks = "Tasks in your list: \n";
         for(int i = 0; i < n; i++) {
-            allTasks += String.format("[%s] %d. %s\n", tasks.get(i).getStatusIcon(), i + 1, tasks.get(i).getDescription());
+            allTasks += String.format("%d. %s\n", i + 1, tasks.get(i).toString());
         }
         return allTasks;
     }

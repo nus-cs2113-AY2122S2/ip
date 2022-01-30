@@ -1,7 +1,6 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -15,6 +14,10 @@ public class Task {
         return(isDone ? "X" : " ");
     }
 
+    public String getType() {
+        return "T";
+    }
+
     public void markAsDone() {
         isDone = true;
     }
@@ -25,6 +28,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", this.getStatusIcon(), this.getDescription());
+        return String.format("[%s][%s] %s\n", this.getType(), this.getStatusIcon(), this.getDescription());
     }
 }
