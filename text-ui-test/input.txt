@@ -1,0 +1,9 @@
+todo eat
+deadline have lunch /by 12pm
+event attend class /at 2pm
+list
+mark 3
+mark 2
+unmark 2
+list
+bye
