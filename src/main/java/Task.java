@@ -22,4 +22,7 @@ public class Task {
         this.name = name;
         this.marked = marked;
     }
+    public String toString(){
+        return " [ ][ ] " + getName();
+    }
 }

@@ -3,11 +3,7 @@ public class Duke {
     public static void listTasks(Task[] list, int i){
         System.out.println("____________________________________________________________");
         for (int j = 0; j < i; j++) {
-            if (list[j].getMarked()){
-                System.out.println(j + 1 + ". [X] " + list[j].getName());
-            }else{
-                System.out.println(j + 1 + ". [ ] " + list[j].getName());
-            }
+            System.out.println(Integer.toString(j + 1) + list[j]);
         }
         System.out.println("____________________________________________________________");
     }
@@ -40,8 +36,23 @@ public class Duke {
     }
     public static int addNewTask(Task[] list, int i, String line){
         list[i] = new Task(line, false);
+        String taskType = line.split(" ")[0];
+        line = line.substring(taskType.length() + 1);
+        switch (taskType){
+        case "todo":
+            list[i] = new Todo(line, false);
+            break;
+        case "deadline":
+            String[] taskNameAndDeadline = line.split(" /by ");
+            list[i] = new Deadline(taskNameAndDeadline[0], false, taskNameAndDeadline[1]);
+            break;
+        case "event":
+            String[] taskNameAndTiming = line.split(" /at ");
+            list[i] = new Event(taskNameAndTiming[0], false, taskNameAndTiming[1]);
+        }
         System.out.println("____________________________________________________________");
-        System.out.println(" added: " + line);
+        System.out.println(" added: " + list[i]);
+        System.out.println(" Total number of tasks now: " + (i + 1));
         System.out.println("____________________________________________________________");
         return i + 1;
     }
