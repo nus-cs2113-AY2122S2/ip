@@ -22,7 +22,7 @@ public class TaskManager {
             else {
                 tasks[number - 1].setMarked(true);
                 System.out.println("Nice! I've marked this task as done: ");
-                System.out.println("[X]" + ' ' + tasks[number - 1].getName());
+                System.out.println(tasks[number - 1]);
             }
         }
         Greet.printDecoration();
@@ -40,7 +40,7 @@ public class TaskManager {
             else {
                 tasks[number - 1].setMarked(false);
                 System.out.println("Okay Boss! The following task has been unmarked: ");
-                System.out.println("[ ]" + ' ' + tasks[number - 1].getName());
+                System.out.println(tasks[number - 1]);
             }
         }
         Greet.printDecoration();
@@ -48,9 +48,25 @@ public class TaskManager {
 
     public void addToTasks(String taskName){
         Greet.printDecoration();
-        tasks[taskCount] = new Task(taskName);
-        System.out.println("added: " + taskName);
+        tasks[taskCount] = new Todo(taskName);
+        System.out.println("added: " + tasks[taskCount]);
         taskCount++;
+        System.out.println("You now have " + taskCount + " tasks in the list.");
+        Greet.printDecoration();
+    }
+
+    public void addToTasks(String type, String taskName,String date){
+        Greet.printDecoration();
+        if(type == "E")
+        {
+            tasks[taskCount] = new Event(taskName,date);
+        }
+        else{
+            tasks[taskCount] = new Deadline(taskName,date);
+        }
+        System.out.println("added: " + tasks[taskCount]);
+        taskCount++;
+        System.out.println("You now have " + taskCount + " tasks in the list.");
         Greet.printDecoration();
     }
 
@@ -61,13 +77,8 @@ public class TaskManager {
         }
         else{
             for(int i = 0; i < taskCount ; i++){
-                if(tasks[i].isMarked())
-                {
-                    System.out.println(i+1 + ". " + "[X]" + ' '  + tasks[i].getName());
-                }
-                else{
-                    System.out.println(i+1 + ". " + "[ ]" + ' '  + tasks[i].getName());
-                }
+                System.out.print(i+1 + ". ");
+                System.out.println(tasks[i]);
             }
         }
         Greet.printDecoration();
