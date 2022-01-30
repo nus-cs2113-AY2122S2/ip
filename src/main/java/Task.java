@@ -6,7 +6,6 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        currentIndex++;
     }
 
     public String getDescription() {
@@ -31,5 +30,10 @@ public class Task {
 
     public void markAsUndone() {
         isDone = false;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + this.getStatusIcon() + "] " + this.getDescription();
     }
 }
