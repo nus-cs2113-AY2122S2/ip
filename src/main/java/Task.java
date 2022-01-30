@@ -22,6 +22,7 @@ public class Task {
     public void setDone() {
         isDone = true;
     }
+
     public void setNotDone() {
         isDone = false;
     }
@@ -33,11 +34,7 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.getDescription();
     }
-    /*
-    public void printTask(Integer i) {
-        System.out.println((i + 1) + ". [" + this.getStatus() + "] " +
-                "[" + this.getStatusIcon() + "] " + this.getDescription());
-    }*/
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
