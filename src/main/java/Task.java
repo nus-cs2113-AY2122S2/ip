@@ -8,20 +8,19 @@ public class Task {
     }
 
     public void setMark() {
-        this.isMarked = true;
+        isMarked = true;
     }
 
     public void unMark() {
-        this.isMarked = false;
+        isMarked = false;
     }
 
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " +
-                this.taskName;
+        return "[" + getStatusIcon() + "] " + taskName;
     }
 
     public String getStatusIcon() {
-        if (this.isMarked) {
+        if (isMarked) {
             return "X";
         } else {
             return " ";

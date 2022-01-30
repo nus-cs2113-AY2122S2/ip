@@ -8,14 +8,18 @@ public class Duke {
         Scanner input = new Scanner(System.in);
         String userInput = input.nextLine();
 
+        //main handler for receiving input
         while(!userInput.equals("bye")) {
+            //change user input into an array of tokens
             Tokenise userInputTokens = new Tokenise(userInput);
             if (userInputTokens.getIsKeyword()) {
                 switch (userInputTokens.getTokens()[0]){
                 case "list":
                     String allTasks = listTask(userLists);
                     allTasks = wrapMessage(allTasks);
-                    System.out.println(allTasks); break; case "todo":
+                    System.out.println(allTasks);
+                    break;
+                case "todo":
                     Todo newTodo = new Todo(userInput);
                     userLists = addTask(newTodo, userLists);
                     break;
@@ -55,7 +59,6 @@ public class Duke {
                 Task newTask = new Task(userInput);
                 userLists = addTask(newTask, userLists);
             }
-
             userInput = input.nextLine();
         }
 
@@ -78,6 +81,7 @@ public class Duke {
                 task.toString() + " \nNow you have " + userLists.length +
                 " tasks in the list.\n");
         System.out.println(userInput);
+
         return userLists;
     }
 
@@ -93,6 +97,7 @@ public class Duke {
         for (int i = 1; i <= tasks.length; i++) {
             allTasks = allTasks + " " + i + "." + tasks[i-1].toString();
         }
+
         return "Here are the tasks in your list:\n" + allTasks;
     }
 

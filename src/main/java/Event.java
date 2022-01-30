@@ -1,5 +1,5 @@
 public class Event extends Task {
-    protected String at = null;
+    protected String at;
 
     public Event (String taskName, String at) {
         super(taskName);
