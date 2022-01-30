@@ -1,7 +1,27 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+     /\   |  ____/ __ \| \ | |
+    /  \  | |__ | |  | |  \| |
+   / /\ \ |  __|| |  | | . ` |
+  / ____ \| |___| |__| | |\  |
+ /_/    \_\______\____/|_| \_|
+
+____________________________________________________________
+Hello! I'm AEON, your personal TO-DO list bot!
+What can I do for you?
+Task added!
+[T] [ ] borrow book
+
+Total: 1 task(s) in the list!
+1. [T] [ ] borrow book
+
+Task added!
+[D] [ ] return book  (by: Sunday)
+
+Total: 2 task(s) in the list!
+Task added!
+[E] [ ] project meeting  (at: Mon 2-4pm)
+
+Total: 3 task(s) in the list!
+Bye. Hope to see you again soon!
+____________________________________________________________
 
