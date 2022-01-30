@@ -7,10 +7,6 @@ public class Task {
         this.isMarked = false;
     }
 
-    public String getTaskName() {
-        return this.taskName;
-    }
-
     public void setMark() {
         this.isMarked = true;
     }
@@ -19,9 +15,9 @@ public class Task {
         this.isMarked = false;
     }
 
-    public String taskStatus() {
+    public String toString() {
         return "[" + this.getStatusIcon() + "] " +
-                this.getTaskName() + "\n";
+                this.taskName;
     }
 
     public String getStatusIcon() {

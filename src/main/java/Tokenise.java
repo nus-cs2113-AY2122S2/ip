@@ -1,3 +1,4 @@
+import java.util.Arrays;
 /**
  * Tokenise is to help split user input
  * into individual strings for sanitisation
@@ -12,6 +13,9 @@ public class Tokenise {
 
         switch (tokens[0]) {
         case "list":
+        case "todo":
+        case "deadline":
+        case "event":
             isKeyword = true;
             break;
         case "mark":
