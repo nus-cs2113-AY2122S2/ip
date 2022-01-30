@@ -36,12 +36,16 @@ public class Duke {
                 String[] eventTask = inputReader.extractEventTask(input);
                 taskList.addEvent(eventTask[0],eventTask[1]);
             } else {
-                System.out.println("Try again!");
+                promptAgain();
             }
             input = s.nextLine();
         }
         bye();
 
+    }
+
+    private static void promptAgain() {
+        System.out.println("Try again!");
     }
 
     private static void greet(){
