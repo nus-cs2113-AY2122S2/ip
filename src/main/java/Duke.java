@@ -18,6 +18,8 @@ public class Duke {
             "| (_| |\\ V  V /  \\ V  V /   _| | \n" +
             " \\__,_| \\_/\\_/    \\_/\\_/   (_) | \n" +
             "                              \\_\\";
+    // moved as static variable to resolve NoSuchElementException for piping input file
+    static Scanner sc = new Scanner(System.in);
 
     // Global variable for list of task
     static List<Task> taskList = new ArrayList<>();
@@ -146,7 +148,6 @@ public class Duke {
     public static void main(String[] args) {
         printIntro();
         while (true){
-            Scanner sc = new Scanner(System.in);
             String input = sc.nextLine();
             String command = getCommand(input);
             switch (command) {
