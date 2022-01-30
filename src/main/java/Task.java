@@ -1,22 +1,15 @@
 public class Task {
-    private String taskName;
+
+    private String description;
     private boolean isDone;
 
-    public Task(String taskName) {
-        this.taskName = taskName;
+    public Task(String description) {
+        this.description = description;
         this.isDone = false;
     }
 
-    public String getTaskName() {
-        return taskName;
-    }
-
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
-    }
-
-    public boolean isDone() {
-        return isDone;
+    public String getDescription() {
+        return description;
     }
 
     public void setDone(boolean done) {
@@ -25,5 +18,10 @@ public class Task {
 
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    @Override
+    public String toString(){
+        return "["+getStatusIcon()+"] "+description;
     }
 }
