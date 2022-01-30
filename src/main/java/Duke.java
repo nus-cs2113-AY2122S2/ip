@@ -2,8 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static String GREET_STRING = "Hello! I'm Duke" + System.lineSeparator() +
-            "What can I do for you?";
+    public static String GREET_STRING = "Hello! I'm Duke" + System.lineSeparator() + "What can I do for you?";
     public static String BYE_STRING = "Bye. Hope to see you again soon!";
 
     public static void main(String[] args) {
@@ -12,7 +11,7 @@ public class Duke {
         InputReader inputReader = new InputReader();
         TaskList taskList = new TaskList();
 
-        System.out.println(GREET_STRING);
+        greet();
 
         String input = s.nextLine();
 
@@ -41,10 +40,17 @@ public class Duke {
             }
             input = s.nextLine();
         }
+        bye();
 
-        System.out.println(BYE_STRING);
     }
 
+    private static void greet(){
+        System.out.println(GREET_STRING);
+    }
+
+    private static void bye(){
+        System.out.println(BYE_STRING);
+    }
 
 
 
