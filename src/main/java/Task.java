@@ -7,6 +7,9 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
+    public String getStatus() {
+        return "X";
+    }
 
     public static int getNoOfItems() {
         return noOfItems;
@@ -27,6 +30,14 @@ public class Task {
         return description;
     }
 
+    public String toString() {
+        return "[" + this.getStatusIcon() + "] " + this.getDescription();
+    }
+    /*
+    public void printTask(Integer i) {
+        System.out.println((i + 1) + ". [" + this.getStatus() + "] " +
+                "[" + this.getStatusIcon() + "] " + this.getDescription());
+    }*/
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
