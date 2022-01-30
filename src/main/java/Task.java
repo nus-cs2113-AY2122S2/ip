@@ -1,7 +1,7 @@
 public class Task {
-    private final String taskDescription;
-    private boolean isDone;
-    private static int numOfTasks = 0;
+    protected final String taskDescription;
+    protected boolean isDone;
+    protected static int numOfTasks = 0;
 
     public Task(String taskDescription) {
         this.taskDescription = taskDescription;
@@ -27,5 +27,10 @@ public class Task {
 
     public String getStatusIcon() {
         return (isDone ? "[X] " : "[ ] ");
+    }
+
+    @Override
+    public String toString() {
+        return getStatusIcon() + taskDescription;
     }
 }
