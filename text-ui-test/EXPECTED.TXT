@@ -33,7 +33,7 @@ Go do the 1 task(s)!!
 ____________________________________________________________
 ____________________________________________________________
 
-Go finish these task, NOW:
+Go finish these tasks, NOW:
 1. [T][ ] borrow book
 ____________________________________________________________
 ____________________________________________________________
@@ -56,10 +56,11 @@ Go do the 4 task(s)!!
 ____________________________________________________________
 ____________________________________________________________
 
-Did you type the task properly? Anyways it will still be placed in the list
-Done putting this in the list:
-5. [ ][ ] wronginput
-Go do the 5 task(s)!!
+Did you type the task properly? Re-enter your task
+____________________________________________________________
+____________________________________________________________
+
+Did you type the task properly? Re-enter your task
 ____________________________________________________________
 ____________________________________________________________
 
@@ -71,20 +72,11 @@ Did you type the task properly? Re-enter your task
 ____________________________________________________________
 ____________________________________________________________
 
-Did you type the task properly? Anyways it will still be placed in the list
-Done putting this in the list:
-6. [ ][ ] todont sadfsad
-Go do the 6 task(s)!!
-____________________________________________________________
-____________________________________________________________
-
-Go finish these task, NOW:
+Go finish these tasks, NOW:
 1. [T][ ] borrow book
 2. [D][ ] return book  (by: Sunday)
 3. [E][ ] project meeting  (at: Mon 2-4pm)
 4. [D][ ] do homework  (by: no idea :-p)
-5. [ ][ ] wronginput
-6. [ ][ ] todont sadfsad
 ____________________________________________________________
 ____________________________________________________________
  Bye bye! See you later!

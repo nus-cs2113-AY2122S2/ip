@@ -1,15 +1,12 @@
-public class Deadline extends UserContent {
-    private String taskName;
+public class Deadlines extends UserContent {
     protected String by;
 
-    public Deadline(String description, String by, int listIndex) {
+    public Deadlines(String description, String by, int listIndex) {
         super(description, listIndex);
+        setTaskName("D");
         this.by = by;
     }
-    @Override
-    public void setTaskName() {
-        this.taskName = "D";
-    }
+
     @Override
     public String toString() {
         return super.toString() + " (by: " + by + ")";
