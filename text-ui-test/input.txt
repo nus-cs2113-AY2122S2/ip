@@ -1,0 +1,8 @@
+todo buy groceries
+deadline do hmw /by Sunday
+event interview /at Monday
+list
+mark 0
+mark 1
+unmark 1
+bye
