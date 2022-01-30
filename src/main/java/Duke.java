@@ -18,34 +18,34 @@ public class Duke {
 
     }
 
-    public static void printList(String[] items) {
+    public static void printList(Todo[] tasks, int itemCount) {
         linePrinter();
 
-        for (String item : items) {
-            System.out.println("\t" + " " + item );
+        for (int i = 0; i < itemCount; i++) {
+            System.out.println("\t" + " " + Integer.toString(i + 1) + " " + tasks[i].toString());
         }
 
         linePrinter();
     }
 
-    public static void printMark(String markedItem) {
-        if (markedItem == null) {
-            echo("Ah...The item you choose doesn't exist on your list.");
+    public static void printMark(Todo[] tasks, int markedItem) {
+        if (tasks[markedItem] == null) {
+            echo("Ah...The task you choose doesn't exist on your list.");
         } else {
             linePrinter();
             System.out.println("\t" + " Aha! An interesting selection!");
-            System.out.println("\t" + "   " + markedItem);
+            System.out.println("\t" + "   " + tasks[markedItem].toString());
             linePrinter();
         }
     }
 
-    public static void printUnmark(String unmarkedItem) {
-        if (unmarkedItem == null) {
-            echo("Ah...The item you choose doesn't exist on your list.");
+    public static void printUnmark(Todo[] tasks, int unmarkedItem) {
+        if (tasks[unmarkedItem] == null) {
+            echo("Ah...The task you choose doesn't exist on your list.");
         } else {
             linePrinter();
-            System.out.println("\t" + " Ah, if only you had the funds...");
-            System.out.println("\t" + "   " + unmarkedItem);
+            System.out.println("\t" + " Ah...");
+            System.out.println("\t" + "   " + tasks[unmarkedItem].toString());
             linePrinter();
         }
     }
@@ -62,10 +62,37 @@ public class Duke {
         linePrinter();
     }
 
+    public static CommandType findCommandType(String line) {
+        CommandType c;
+
+        if (line.startsWith("Todo ")) {
+            c = CommandType.TODO;
+        } else if (line.startsWith("Deadline ")) {
+            c = CommandType.DEADLINE;
+        } else if (line.startsWith("Event ")) {
+            c = CommandType.EVENT;
+        } else if (line.startsWith("Mark ")) {
+            c= CommandType.MARK;
+        } else if (line.startsWith("Unmark ")){
+            c = CommandType.UNMARK;
+        } else if (line.equals("List")){
+            c = CommandType.LIST;
+        } else {
+            c = CommandType.NIL;
+        }
+
+        return c;
+    }
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         String line;
-        List list = new List();
+
+        Todo[] tasks = new Todo[100];
+        int itemCount = 0;
+
+        CommandType command;
+
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -78,19 +105,46 @@ public class Duke {
         line = input.nextLine();
 
         while(!line.equalsIgnoreCase("bye")) {
-            if (line.startsWith("Add ")) {
-                list.addToList(line);
-                echo(line.replace("Add", "Added") + " to the cart");
-            } else if (line.startsWith("Mark ")) {
-                String markedItem = list.mark(line);
-                printMark(markedItem);
-            } else if (line.startsWith("Unmark ")){
-                String unmarkedItem = list.unmark(line);
-                printUnmark(unmarkedItem);
-            } else if (line.equals("List")){
-                printList(list.listTheList());
-            } else {
+            command = findCommandType(line);
+
+            switch (command) {
+            case TODO:
+                tasks[itemCount] = new Todo(line.substring(4));
+                echo("Added " + tasks[itemCount].toString() + " to the list");
+                itemCount++;
+                break;
+            case DEADLINE:
+                String by = line.substring(line.indexOf("/by") + 4);
+                String deadline = line.substring(8, line.indexOf("/by"));
+                tasks[itemCount] = new Deadline(deadline, by);
+                echo("Added " + tasks[itemCount].toString() + " to the list");
+                itemCount++;
+                break;
+            case EVENT:
+                String at = line.substring(line.indexOf("/at") + 4);
+                String event = line.substring(5, line.indexOf("/at"));
+                tasks[itemCount] = new Event(event, at);
+                echo("Added " + tasks[itemCount].toString() + " to the list");
+                itemCount++;
+                break;
+            case MARK:
+                int markedItem = Integer.parseInt(line.substring(5)) - 1;
+                tasks[markedItem].mark();
+                printMark(tasks, markedItem);
+                break;
+            case UNMARK:
+                int unmarkedItem = Integer.parseInt(line.substring(7)) - 1;
+                tasks[unmarkedItem].unmark();
+                printUnmark(tasks, unmarkedItem);
+                break;
+            case LIST:
+                printList(tasks, itemCount);
+                break;
+            case NIL:
                 echo(line);
+                break;
+            default:
+                break;
             }
 
             line = input.nextLine();
