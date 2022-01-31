@@ -6,18 +6,15 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
-
+    public String getDescription(){
+        return description;
+    }
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
     public void setDone(boolean done) {
-        if (done){
-            isDone = true;
-        }
-        else{
-            isDone = false;
-        }
+        isDone = done;
     }
     public void printTask(){
         System.out.println("[" + this.getStatusIcon() + "] " + this.description);
