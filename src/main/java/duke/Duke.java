@@ -64,6 +64,12 @@ public class Duke {
                     Event newTask = new Event(task, at);
                     store.add(newTask);
                     printTask(newTask, store.size());
+
+                } else if (userInput.startsWith("delete")) {
+                    int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
+                    Task currentTask = store.get(taskIndex - 1);
+                    store.remove(taskIndex - 1);
+                    removeTask(currentTask, store.size());
                 } else {
                     throw new DukeException();
                 }
@@ -78,6 +84,12 @@ public class Duke {
 
     public static void printTask(Task newTask, int length) {
         System.out.println("Got it. I've added this task:");
+        System.out.println(newTask.getTask());
+        System.out.println("Now you have " + length + " tasks in the list");
+    }
+
+    public static void removeTask(Task newTask, int length) {
+        System.out.println("Noted. I've removed this task:");
         System.out.println(newTask.getTask());
         System.out.println("Now you have " + length + " tasks in the list");
     }
