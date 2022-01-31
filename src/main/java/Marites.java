@@ -8,18 +8,25 @@ public class Marites {
     /* STRING CONSTANTS */
 
     // Logo found in https://emojicombos.com/kaomoji
-    private static final String INTRO_MESSAGE = """
-            (งツ)ว
-            "Hi, I'm Marites! I've heard so many things about you!
-            "I have a lot of stories to share, but first, how can I help you?
-            """;
+    private static final String INTRO_MESSAGE = "(งツ)ว\n" +
+            "Hi, I'm Marites! I've heard so many things about you!\n" +
+            "I have a lot of stories to share, but first, how can I help you?\n";
     private static final String EXIT_MESSAGE = "See you next time!";
+    private static final String UNKNOWN_COMMAND_MESSAGE = "I didn't understand that.";
+
     private static final String COMMAND_EXIT = "bye";
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_MARK = "mark";
     private static final String COMMAND_UNMARK = "unmark";
+    private static final String COMMAND_ADD_TODO = "todo";
+    private static final String COMMAND_ADD_DEADLINE = "deadline";
+    private static final String COMMAND_ADD_EVENT = "event";
+    private static final String COMMAND_ADD_DEADLINE_TAG = "/by";
+    private static final String COMMAND_ADD_EVENT_TAG = "/at";
+
     private static final String LIST_TASK_ITEM_FORMAT_STRING = "%d. %s%n";
-    private static final String ADD_TASK_FORMAT_STRING = "added: %s%n";
+    private static final String ADD_TASK_FORMAT_STRING =
+        "Alright, task added:%n  %s%nYour list currently has %d tasks.%n";
     private static final String MARK_DONE_MESSAGE = "Good job on getting this done!";
     private static final String MARK_UNDONE_MESSAGE = "Okay, I've marked this as not yet done:";
     private static final String SET_TASK_STATUS_FORMAT_STRING = "%s%n    %s%n";
@@ -28,6 +35,7 @@ public class Marites {
 
     /** The task list being tracked by Marites. */
     private static final ArrayList<Task> tasks = new ArrayList<>();
+
 
 
     public static void main(String[] args) {
@@ -74,29 +82,42 @@ public class Marites {
     }
 
     /**
+     * Get the type of command issued.
+     * @param userInput The user's input
+     * @return The command type.
+     */
+    private static String getCommandType(String userInput) {
+        String[] tokens = userInput.split("\\s");
+        return tokens[0];
+    }
+
+    /**
      * Parses a user's command, and executes it.
      * @param userInput A line of the user's input.
      * @return Output that must be passed back to the user.
      */
     private static String processUserCommand(String userInput) {
-        String[] tokens = userInput.split("\\s");
-        if (userInput.equals(COMMAND_EXIT)) {
+        switch (getCommandType(userInput)) {
+        case COMMAND_EXIT:
             return executeExit();
-        } else if (userInput.equals(COMMAND_LIST)) {
+        case COMMAND_LIST:
             return executeListTasks();
-        } else if (tokens[0].equals(COMMAND_MARK)) {
-            return executeSetTaskStatus(tokens, true);
-        } else if (tokens[0].equals(COMMAND_UNMARK)) {
-            return executeSetTaskStatus(tokens, false);
-        } else {
+        case COMMAND_MARK:
+            return executeSetTaskStatus(userInput, true);
+        case COMMAND_UNMARK:
+            return executeSetTaskStatus(userInput, false);
+        case COMMAND_ADD_TODO:
+        case COMMAND_ADD_DEADLINE:
+        case COMMAND_ADD_EVENT:
             return executeAddTask(userInput);
+        default:
+            return UNKNOWN_COMMAND_MESSAGE;
         }
     }
 
     /*
-        The following methods take in either a
-            - String, denoting the full line of user input, or
-            - a String[], denoting the tokenized version of the user input.
+        The following methods take in a String,
+            denoting the full line of user input.
         They return a String, denoting the feedback after executing the command.
      */
 
@@ -114,23 +135,48 @@ public class Marites {
     }
 
     /**
+     * Parses an add task command given by the user.
+     * @param userInput The user's input
+     * @return A Task object representing the task
+     */
+    private static Task parseAddTask(String userInput) {
+        String[] tokens = userInput.split("\\s", 2);
+        String[] parametersSplit;
+        String commandType = tokens[0], commandParameters = tokens[1];
+        switch (commandType) {
+        case COMMAND_ADD_TODO:
+            return new Todo(commandParameters.strip());
+        case COMMAND_ADD_DEADLINE:
+            parametersSplit = commandParameters.split(COMMAND_ADD_DEADLINE_TAG);
+            return new Deadline(parametersSplit[0].strip(), parametersSplit[1].strip());
+        case COMMAND_ADD_EVENT:
+            parametersSplit = commandParameters.split(COMMAND_ADD_EVENT_TAG);
+            return new Event(parametersSplit[0].strip(), parametersSplit[1].strip());
+        default:
+            return new Task("");
+        }
+    }
+
+    /**
      * Executes an add task command.
      * @param userInput The user's input.
      * @return A feedback string with the added task.
      */
     private static String executeAddTask(String userInput) {
-        tasks.add(new Task(userInput));
-        return String.format(ADD_TASK_FORMAT_STRING, userInput);
+        Task task = parseAddTask(userInput);
+        tasks.add(task);
+        return String.format(ADD_TASK_FORMAT_STRING, task, tasks.size());
     }
 
     /**
      * Executes a set task command.
      * This can be used to both mark and unmark a task as done.
-     * @param tokens The tokenized form of the user's input.
+     * @param userInput The user's input.
      * @param isDone The new done/undone status of the task.
      * @return A feedback string with the tasks' new status.
      */
-    private static String executeSetTaskStatus(String[] tokens, boolean isDone) {
+    private static String executeSetTaskStatus(String userInput, boolean isDone) {
+        String[] tokens = userInput.split("\\s");
         int taskIndex = parseInt(tokens[1]);
         Task taskToMark = tasks.get(taskIndex - 1);
         taskToMark.setDone(isDone);
