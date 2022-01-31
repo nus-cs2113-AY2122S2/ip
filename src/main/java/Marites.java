@@ -3,21 +3,16 @@ import java.util.ArrayList;
 
 import static java.lang.Integer.parseInt;
 
-// Functional interface for lambda expressions that produce output.
-interface Printer {
-    void print();
-}
-
 public class Marites {
-    static void printSeparator() {
+
+    private static final Scanner SCANNER = new Scanner(System.in);
+    private static final ArrayList<Task> tasks = new ArrayList<>();
+
+    private static void printSeparator() {
         System.out.println("========================================");
     }
-    static void surroundWithSeparators(Printer p) {
-        printSeparator();
-        p.print();
-        printSeparator();
-    }
-    static void printIntroduction() {
+
+    private static void printIntroduction() {
         // Found in https://emojicombos.com/kaomoji
         String logo = "(งツ)ว";
 
@@ -26,53 +21,75 @@ public class Marites {
         System.out.println("I have a lot of stories to share, but first, how can I help you?");
         printSeparator();
     }
-    static void listTasks(ArrayList<Task> tasks) {
-        for (int i = 1; i <= tasks.size(); ++i) {
-            System.out.printf("%d. %s%n", i, tasks.get(i-1));
-        }
-    }
+
     public static void main(String[] args) {
         printIntroduction();
-
-        Scanner in = new Scanner(System.in);
-
-        ArrayList<Task> tasks = new ArrayList<>();
-
         while (true) {
-            String input = in.nextLine();
-            String[] tokens = input.split("\\s");
-            if (input.equals("bye")) {
-                break;
-            } else if (input.equals("list")) {
-                surroundWithSeparators(() ->
-                        listTasks(tasks)
-                );
-            } else if (tokens[0].equals("mark")) {
-                int taskIndex = parseInt(tokens[1]);
-                Task taskToMark = tasks.get(taskIndex - 1);
-                taskToMark.setDone(true);
-                surroundWithSeparators(() ->
-                    System.out.printf("Good job on getting this done!%n    %s%n", taskToMark)
-                );
-            } else if (tokens[0].equals("unmark")) {
-                int taskIndex = Integer.parseInt(tokens[1]);
-                Task taskToUnmark = tasks.get(taskIndex - 1);
-                taskToUnmark.setDone(false);
-                surroundWithSeparators(() ->
-                    System.out.printf("Okay, I've marked this as not done:%n    %s%n", taskToUnmark)
-                );
-            } else {
-                tasks.add(new Task(input));
-
-                surroundWithSeparators(() ->
-                    System.out.printf("added: %s%n", input)
-                );
-            }
-
+            String userInput = SCANNER.nextLine();
+            String commandFeedback = processUserCommand(userInput);
+            showFeedback(commandFeedback);
         }
+    }
 
-        surroundWithSeparators(() ->
-            System.out.println("See you next time!")
-        );
+    private static String processUserCommand(String userInput) {
+        String[] tokens = userInput.split("\\s");
+        if (userInput.equals("bye")) {
+            return executeExit();
+        } else if (userInput.equals("list")) {
+            return executeListTasks();
+        } else if (tokens[0].equals("mark")) {
+            return executeSetTaskStatus(tokens, true);
+        } else if (tokens[0].equals("unmark")) {
+            return executeSetTaskStatus(tokens, false);
+        } else {
+            return executeAddTask(userInput);
+        }
+    }
+
+    /*
+        The following methods take in either a
+            - String, denoting the full line of user input, or
+            - a String[], denoting the tokenized version of the user input.
+        They return a String, denoting the feedback after executing the command.
+     */
+
+    private static String executeListTasks() {
+        StringBuilder taskList = new StringBuilder();
+        for (int i = 1; i <= tasks.size(); ++i) {
+            String task = String.format("%d. %s%n", i, tasks.get(i-1));
+            taskList.append(task);
+        }
+        return taskList.toString();
+    }
+
+    private static String executeAddTask(String userInput) {
+        tasks.add(new Task(userInput));
+        return String.format("added: %s%n", userInput);
+    }
+
+    private static String executeSetTaskStatus(String[] tokens, boolean isDone) {
+        int taskIndex = parseInt(tokens[1]);
+        Task taskToMark = tasks.get(taskIndex - 1);
+        taskToMark.setDone(isDone);
+        String message = (isDone ? "Good job on getting this done!" :
+                "Okay, I've marked this as not yet done:");
+        return String.format(message + "%n    %s%n", taskToMark);
+    }
+
+    private static String executeExit() {
+        printExitMessage();
+        System.exit(0);
+        return "";
+    }
+
+    private static void printExitMessage() {
+        System.out.println("See you next time!");
+        printSeparator();
+    }
+
+    private static void showFeedback(String feedback) {
+        printSeparator();
+        System.out.print(feedback);
+        printSeparator();
     }
 }
