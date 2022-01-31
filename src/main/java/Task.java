@@ -27,6 +27,10 @@ public class Task {
         isDone = false;
     }
 
+    public void resetInput(String date) {
+        markAsUndone();
+    }
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.getDescription();

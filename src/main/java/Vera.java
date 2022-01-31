@@ -8,6 +8,14 @@ public class Vera {
             + "______________________________";
 
     private static final String INVALID_INPUT_MESSAGE = "Please key in an appropriate command";
+    private static final String ERROR_MAX_TASK_MESSAGE = "Sorry! You've reached the maximum "
+            + "amount of tasks allowed on your task list";
+    private static final String ERROR_EVENT_MISSING_INPUT_MESSAGE = "Oops! You forgot to "
+            + "add a '/at' to your 'event' command";
+    private static final String ERROR_DEADLINE_MISSING_INPUT_MESSAGE = "Oops! You forgot to"
+            + " add a '/by' to your 'deadline' command";
+    private static final String ERROR_TODO_REPEATED_INPUT_MESSAGE = "Oops! It seems that you've "
+            + "already added this task.";
 
     private static final int OPTIONS_INDEX = 0;
     private static final int MARK_INDEX = 1;
@@ -15,6 +23,10 @@ public class Vera {
     private static final int TASK_DESCRIPTION_INDEX = 0;
     private static final int TASK_DESCRIPTION_INDEX_TODO = 1;
     private static final int TASK_DATE_INDEX = 1;
+
+    public enum taskType {
+        TODO, DEADLINE, EVENT
+    }
 
     public static void initTaskManager() {
         tasks = new Task[100];
@@ -54,17 +66,6 @@ public class Vera {
         printWithPartition(feedback);
     }
 
-    public static String showAddTaskMessage(int currentTaskIndex, boolean isOldTaskReplaced) {
-        String keyword;
-        if (isOldTaskReplaced) {
-            keyword = "Done! ";
-        } else {
-            keyword = "Got it. ";
-        }
-        return keyword + "I've added this task:\n" + "  " + tasks[currentTaskIndex]
-                + "\nNow you have " + taskCount  + " task(s) in the list";
-    }
-
     public static String list(Task[] tasks) {
         int printIndex = 1;
         System.out.println(PARTITION_LINE +
@@ -85,13 +86,36 @@ public class Vera {
         return false;
     }
 
-    private static int findTaskIndex(String taskDescription) {
-        for (int i = 0; i < taskCount; i++) {
-            if (tasks[i].getDescription().equals(taskDescription)) {
-                return i;
+    public static String addToTaskList(taskType type, String[] filteredTaskContent) {
+        if (taskCount < 100) {
+            switch (type) {
+            case EVENT:
+                tasks[taskCount] = new Event(filteredTaskContent[TASK_DESCRIPTION_INDEX],
+                        filteredTaskContent[TASK_DATE_INDEX]);
+                break;
+            case DEADLINE:
+                tasks[taskCount] = new Deadline(filteredTaskContent[TASK_DESCRIPTION_INDEX],
+                        filteredTaskContent[TASK_DATE_INDEX]);
+                break;
+            default:
+                tasks[taskCount] = new Todo(filteredTaskContent[TASK_DESCRIPTION_INDEX_TODO]);
             }
+            taskCount++;
+            return "Got it. I've added this task:\n" + "  " + tasks[taskCount - 1]
+                    + "\nNow you have " + taskCount + " task(s) in the list";
         }
-        return 0;
+        return ERROR_MAX_TASK_MESSAGE;
+    }
+
+    public static String filterTodoBeforeAddingToTaskList(String[] parsedInput) {
+        if (isTaskAlreadyAdded(parsedInput[TASK_DESCRIPTION_INDEX_TODO])) {
+            return ERROR_TODO_REPEATED_INPUT_MESSAGE;
+        }
+        return addToTaskList(taskType.TODO, parsedInput);
+    }
+
+    public static String[] parseData(String data, String command) {
+        return data.split(command);
     }
 
     public static boolean isTaskBeingReplaced() {
@@ -100,7 +124,7 @@ public class Vera {
                 + "Would you like to override the \nexisting time and/or date "
                 + "with the new input? [Y/N]");
         while (true) {
-            String input = getUserInput();
+            String input = SCANNER.nextLine();
             if (input.equals("Y")) {
                 isOldTaskReplaced = true;
                 System.out.println("Understood. Proceeding to change \nthe "
@@ -115,70 +139,36 @@ public class Vera {
         return isOldTaskReplaced;
     }
 
-    public static String handleRepeatedInputs(String taskType, String[] taskDataInput) {
-        boolean isOldTaskReplaced = isTaskBeingReplaced();
-        if (isOldTaskReplaced) {
-            int taskIndexToReplace = findTaskIndex(taskDataInput[TASK_DESCRIPTION_INDEX]);
-            if (taskType.equals("Event")) {
-                tasks[taskIndexToReplace] = new Event(taskDataInput[TASK_DESCRIPTION_INDEX],
-                        taskDataInput[TASK_DATE_INDEX]);
-            } else {
-                tasks[taskIndexToReplace] = new Deadline(taskDataInput[TASK_DESCRIPTION_INDEX],
-                        taskDataInput[TASK_DATE_INDEX]);
+    public static String handleRepeatedInputs(String[] filteredTaskContent) {
+        if (isTaskBeingReplaced()) {
+            int taskIndexToReplace = 0;
+            for (int i = 0; i < taskCount; i++) {
+                if (tasks[i].getDescription().equals(filteredTaskContent[TASK_DESCRIPTION_INDEX])) {
+                    taskIndexToReplace = i;
+                    break;
+                }
             }
-
-            return showAddTaskMessage(taskIndexToReplace, true);
+            tasks[taskIndexToReplace].resetInput(filteredTaskContent[TASK_DATE_INDEX]);
+            return "Done! I've updated this task:\n" + "  " + tasks[taskIndexToReplace];
         }
         return "Okay, we'll keep it as it is.";
     }
 
-    public static String addTodo(String taskDescription) {
-        if (isTaskAlreadyAdded(taskDescription)) {
-            return "Oops! It seems that you've already added this task.";
+    public static String filterTaskBeforeAddingToTaskList(String[] parsedInput, String command) {
+        if (!parsedInput[TASK_CONTENT_INDEX].contains(command)) {
+            if (command.equals("/at")) {
+                return ERROR_EVENT_MISSING_INPUT_MESSAGE;
+            }
+            return ERROR_DEADLINE_MISSING_INPUT_MESSAGE;
         }
-        if (taskCount < 100) {
-            tasks[taskCount]= new Todo(taskDescription);
-            taskCount++;
-            return showAddTaskMessage(taskCount - 1, false);
+        String[] filteredTaskContent = parseData(parsedInput[TASK_CONTENT_INDEX], command);
+        if (isTaskAlreadyAdded(filteredTaskContent[TASK_DESCRIPTION_INDEX])) {
+            return handleRepeatedInputs(filteredTaskContent);
         }
-        return "Sorry! You've reached the maximum amount of tasks"
-                + "allowed on your task list";
-    }
-
-    public static String addEvent(String[] parsedInput) {
-        if (!parsedInput[TASK_CONTENT_INDEX].contains("/at")) {
-            return "Oops! You forgot to add a '/at' to your 'event' command";
+        if (command.equals("/at")) {
+            return addToTaskList(taskType.EVENT, filteredTaskContent);
         }
-        String[] taskDataInput = parsedInput[TASK_CONTENT_INDEX].split("/at");
-        if (isTaskAlreadyAdded(taskDataInput[TASK_DESCRIPTION_INDEX])) {
-            return handleRepeatedInputs("Event", taskDataInput);
-        }
-        if (taskCount < 100) {
-            tasks[taskCount] = new Event(taskDataInput[TASK_DESCRIPTION_INDEX],
-                    taskDataInput[TASK_DATE_INDEX]);
-            taskCount++;
-            return showAddTaskMessage(taskCount - 1, false);
-        }
-        return "Sorry! You've reached the maximum amount of tasks"
-                + "allowed on your task list";
-    }
-
-    public static String addDeadline(String[] parsedInput) {
-        if (!parsedInput[TASK_CONTENT_INDEX].contains("/by")) {
-            return "Oops! You forgot to add a '/by' to your 'deadline' command";
-        }
-        String[] taskDataInput = parsedInput[TASK_CONTENT_INDEX].split("/by");
-        if (isTaskAlreadyAdded(taskDataInput[TASK_DESCRIPTION_INDEX])) {
-            return handleRepeatedInputs("Deadline", taskDataInput);
-        }
-        if (taskCount < 100) {
-            tasks[taskCount] = new Deadline(taskDataInput[TASK_DESCRIPTION_INDEX],
-                    taskDataInput[TASK_DATE_INDEX]);
-            taskCount++;
-            return showAddTaskMessage(taskCount - 1, false);
-        }
-        return "Sorry! You've reached the maximum amount of tasks"
-                + "allowed on your task list";
+        return addToTaskList(taskType.DEADLINE, filteredTaskContent);
     }
 
     public static boolean isInvalidInput(String[] parsedInput) {
@@ -189,7 +179,7 @@ public class Vera {
         int inputMarkIndex = Integer.parseInt(parsedInput[MARK_INDEX]);
         return inputMarkIndex <= 0 || inputMarkIndex > taskCount;
     }
-    
+
     public static String markTask(String[] parsedInput) {
         if (isInvalidInput(parsedInput)) {
             return "Bzzt! \n Please"
@@ -223,7 +213,7 @@ public class Vera {
 
     public static String executeInput(String userInput) {
         String[] parsedInput = userInput.split(" ", 2);
-        switch(parsedInput[OPTIONS_INDEX]) {
+        switch (parsedInput[OPTIONS_INDEX]) {
         case "list":
             return list(tasks);
         case "mark":
@@ -231,11 +221,11 @@ public class Vera {
         case "unmark":
             return unmarkTask(parsedInput);
         case "todo":
-            return addTodo(parsedInput[TASK_DESCRIPTION_INDEX_TODO]);
+            return filterTodoBeforeAddingToTaskList(parsedInput);
         case "event":
-            return addEvent(parsedInput);
+            return filterTaskBeforeAddingToTaskList(parsedInput, "/at");
         case "deadline":
-            return addDeadline(parsedInput);
+            return filterTaskBeforeAddingToTaskList(parsedInput, "/by");
         default:
             return INVALID_INPUT_MESSAGE;
         }

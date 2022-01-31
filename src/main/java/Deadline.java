@@ -7,6 +7,12 @@ public class Deadline extends Task {
     }
 
     @Override
+    public void resetInput(String date) {
+        by = date;
+        markAsUndone();
+    }
+
+    @Override
     public String toString() {
         return "[D] " + super.toString() + "(by:" + by + ")";
     }
