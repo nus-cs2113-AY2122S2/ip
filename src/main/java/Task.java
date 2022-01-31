@@ -7,9 +7,6 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
-    public String getStatus() {
-        return "X";
-    }
 
     public static int getNoOfItems() {
         return noOfItems;

@@ -51,7 +51,7 @@ public class Aeon {
 
     private static void addEventTask(Task[] list, String[] words) {
         String[] eventDate = words[1].split("/at", 2);
-        Event e = new Event(eventDate[0], eventDate[1]);
+        Task e = new Event(eventDate[0], eventDate[1]);
         System.out.println("Task added!");
         System.out.println(e);
         addToList(list, e);
@@ -59,17 +59,17 @@ public class Aeon {
 
     private static void addDeadlineTask(Task[] list, String[] words) {
         String[] dueDate = words[1].split("/by", 2);
-        Deadline d = new Deadline(dueDate[0], dueDate[1]);
+        Task d = new Deadline(dueDate[0], dueDate[1]);
         System.out.println("Task added!");
         System.out.println(d);
         addToList(list, d);
     }
 
     private static void addTodoTask(Task[] list, String[] words) {
-        Todo todo = new Todo(words[1]);
+        Task t = new Todo(words[1]);
         System.out.println("Task added!");
-        System.out.println(todo);
-        addToList(list, todo);
+        System.out.println(t);
+        addToList(list, t);
     }
 
     private static void markTask(Task[] list, String[] words) {
