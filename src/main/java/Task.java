@@ -24,7 +24,7 @@ public class Task {
         isDone = false;
     }
 
-    //overriding method toString in Object class
+    // overriding method toString in Object class
     public String toString(){
         return "["+taskTypeSymbol+"][" + getStatusIcon() + "] " + description;
     }

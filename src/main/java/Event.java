@@ -10,6 +10,7 @@ public class Event extends Task {
         this.eventTime = eventTime;
     }
 
+    // overriding method toString in Object class.
     public String toString(){
         return super.toString()+" (at: "+eventTime+")";
     }

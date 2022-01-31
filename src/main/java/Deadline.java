@@ -10,6 +10,7 @@ public class Deadline extends Task {
         this.dueDate = dueDate;
     }
 
+    // overriding method toString in Object class
     public String toString(){
         return super.toString()+" (by: "+dueDate+")";
     }

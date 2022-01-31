@@ -12,6 +12,13 @@ public class Duke {
 
     // method prints Duke greeting.
     public static void greeting(){
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println("You are entering the\n" + logo + "\nZone...\n");
+
         displayLine();
         System.out.println("Hey there! Duke here!");
         System.out.println("How can I serve you today?");
@@ -25,7 +32,7 @@ public class Duke {
     }
 
 
-    // method prints task_list.
+    // method prints taskList.
     public static void printList(){
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++){
@@ -37,7 +44,7 @@ public class Duke {
 
     public static boolean isDeadline(String userInput){
         if(userInput.length()>=8){
-            //return true if first 8 letters of userInput spell "deadline", else false
+            // return true if first 8 letters of userInput spell "deadline", else false
             return userInput.substring(0,8).equals("deadline");
         }
         return false;
@@ -45,7 +52,7 @@ public class Duke {
 
     public static boolean isTodo(String userInput){
         if(userInput.length()>=4){
-            //return true if first 4 letters of userInput spell "todo", else false
+            // return true if first 4 letters of userInput spell "todo", else false
             return userInput.substring(0,4).equals("todo");
         }
         return false;
@@ -53,7 +60,7 @@ public class Duke {
 
     public static boolean isEvent(String userInput){
         if(userInput.length()>=5){
-            //return true if first 5 letters of userInput spell "event", else false
+            // return true if first 5 letters of userInput spell "event", else false
             return userInput.substring(0,5).equals("event");
         }
         return false;
@@ -81,6 +88,13 @@ public class Duke {
         return userInput.substring(dueDateIdx+4,userInput.length());
     }
 
+    private static void printAddedTask() {
+        System.out.println("Noted. I've added:");
+        System.out.println(taskList[taskCount-1]);
+        System.out.println("Now you have "+Integer.toString(taskCount)+" tasks in the list.");
+        displayLine();
+    }
+
     public static void addTodoToList(String todoDescription){
         //create a new Todo object.
         Todo newTodo = new Todo(todoDescription);
@@ -88,10 +102,8 @@ public class Duke {
         taskList[taskCount] = newTodo;
         //keep track of the number of tasks in taskList.
         taskCount++;
-        System.out.println("Noted. I've added:");
-        System.out.println(taskList[taskCount-1]);
-        System.out.println("Now you have "+Integer.toString(taskCount)+" tasks in the list.");
-        displayLine();
+
+        printAddedTask();
     }
 
     public static void addEventToList(String eventDescription, String eventTime){
@@ -101,10 +113,8 @@ public class Duke {
         taskList[taskCount] = newEvent;
         // keep track of the number of tasks in taskList.
         taskCount++;
-        System.out.println("Noted. I've added:");
-        System.out.println(taskList[taskCount-1]);
-        System.out.println("Now you have "+Integer.toString(taskCount)+" tasks in the list.");
-        displayLine();
+
+        printAddedTask();
     }
 
     public static void addDeadlineToList(String deadlineDescription, String dueDate){
@@ -114,10 +124,8 @@ public class Duke {
         taskList[taskCount] = newDeadline;
         // keep track of the number of tasks in taskList.
         taskCount++;
-        System.out.println("Noted. I've added:");
-        System.out.println(taskList[taskCount-1]);
-        System.out.println("Now you have "+Integer.toString(taskCount)+" tasks in the list.");
-        displayLine();
+
+        printAddedTask();
     }
 
     // method adds task to task_list.
@@ -182,23 +190,35 @@ public class Duke {
         return false;
     }
 
+    public static boolean isListCommand(String userInput){
+        // return true if command is list, else false
+        return userInput.equals("list");
+    }
+
     public static int getTaskNumber(String userInput){
         return Integer.parseInt(userInput.split(" ")[1]);
     }
 
+    private static String getUserInput() {
+        Scanner in = new Scanner(System.in);
+        String userInput = in.nextLine();
+        displayLine();
+        return userInput;
+    }
+
     // method runs main echo functionality of duke.
     public static void echo(){
-        Scanner in = new Scanner(System.in);
         while(true){
-
             //read input from user.
-            String userInput = in.nextLine();
-            displayLine();
+            String userInput = getUserInput();
 
-            if(userInput.equals("bye")) {                   // Exit if "bye" is entered by user.
+            // Check userInput for respective command.
+
+            // Exit if "bye" is entered by user.
+            if(userInput.equals("bye")) {
                 return;
             }
-            else if(userInput.equals("list")){
+            else if(isListCommand(userInput)){
                 printList();
             }
             else if (isMarkCommand(userInput)){
@@ -209,6 +229,7 @@ public class Duke {
                 int taskNumber=getTaskNumber(userInput);
                 unmarkTaskAsDone(taskNumber);
             }
+            // else it is an addition command
             else{
                 addTaskToList(userInput);
             }
@@ -216,13 +237,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("You are entering the\n" + logo + "\nZone...\n");
-
         // opening sequence.
         greeting();
 
