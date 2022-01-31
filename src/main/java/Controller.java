@@ -33,7 +33,11 @@ public class Controller {
 
 
     /**
+<<<<<<< HEAD
      *  Say good bye before the controller end
+=======
+     *  Say good bye before the controller end.
+>>>>>>> 9dada07e69461ecaf25973bf549e8fd670b8849f
      */
     public void sayGoodBye() {
         chatBox.contendsSetter(EXIT_WORDS);
@@ -43,7 +47,11 @@ public class Controller {
 
 
     /**
+<<<<<<< HEAD
      *  Listen to the i/o and pass the instruction to operationFactory
+=======
+     *  Listen to the i/o and pass the instruction to operationFactory.
+>>>>>>> 9dada07e69461ecaf25973bf549e8fd670b8849f
      */
     public void listen(){
 

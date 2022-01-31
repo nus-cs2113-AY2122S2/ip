@@ -7,7 +7,12 @@ public class EventTask extends Task{
     }
 
     /**
+<<<<<<< HEAD
      * Initializes task with task description, taskType, dateTime
+=======
+     * Initializes task with task description, taskType, dateTime.
+     *
+>>>>>>> 9dada07e69461ecaf25973bf549e8fd670b8849f
      * @param taskDescription The description of the task
      * @param taskType The type of the task
      * @param dateTime The time of the task
@@ -19,16 +24,30 @@ public class EventTask extends Task{
         this.dateTime = dateTime;
     }
 
+<<<<<<< HEAD
     /**
      * Sets dateTime
+=======
+
+    /**
+     * Sets dateTime.
+     *
+>>>>>>> 9dada07e69461ecaf25973bf549e8fd670b8849f
      * @param dateTime The time of the task
      */
     public void setDateTime(String dateTime){
         this.dateTime = dateTime;
     }
 
+<<<<<<< HEAD
     /**
      * Gets the report of the event task
+=======
+
+    /**
+     * Gets the report of the event task.
+     *
+>>>>>>> 9dada07e69461ecaf25973bf549e8fd670b8849f
      * @return The report of the event task
      */
     @Override

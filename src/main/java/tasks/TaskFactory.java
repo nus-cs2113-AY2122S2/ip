@@ -1,5 +1,12 @@
 package tasks;
 
+<<<<<<< HEAD
+=======
+import exceptions.DukeException;
+import exceptions.TodoDukeException;
+import ui.ChatBox;
+
+>>>>>>> 9dada07e69461ecaf25973bf549e8fd670b8849f
 public class TaskFactory {
     private String taskDescription;
     private Boolean marked = false;
@@ -13,7 +20,12 @@ public class TaskFactory {
 
 
     /**
+<<<<<<< HEAD
      * Initializes the task factory
+=======
+     * Initializes the task factory.
+     *
+>>>>>>> 9dada07e69461ecaf25973bf549e8fd670b8849f
      * @param taskType
      * @param taskDecription
      */
@@ -26,6 +38,7 @@ public class TaskFactory {
     }
 
     /**
+<<<<<<< HEAD
      * Makes certain task according to the taskType
      * @return Certain task
      */
@@ -33,6 +46,22 @@ public class TaskFactory {
         switch (taskType) {
         case TODO_TASK:
             return new ToDoTask(taskDescription,"T");
+=======
+     * Makes certain task according to the taskType.
+     *
+     * @return Certain task
+     */
+    public Task makeTask() throws TodoDukeException {
+        switch (taskType) {
+        case TODO_TASK:
+            try {
+                return new ToDoTask(taskDescription, "T");
+            } catch (TodoDukeException e1)
+            {
+                throw e1;
+
+            }
+>>>>>>> 9dada07e69461ecaf25973bf549e8fd670b8849f
         case DEADLINE_TASK:
             String[] taskInfomation = taskDescription.split("/by");
             taskDescription = taskInfomation[0].trim();
@@ -49,7 +78,12 @@ public class TaskFactory {
     }
 
     /**
+<<<<<<< HEAD
      * Sets the taskDescription of TaskFactory
+=======
+     * Sets the taskDescription of TaskFactory.
+     *
+>>>>>>> 9dada07e69461ecaf25973bf549e8fd670b8849f
      * @param taskDescription
      */
     public void setTaskDescription(String taskDescription) {
@@ -57,7 +91,12 @@ public class TaskFactory {
     }
 
     /**
+<<<<<<< HEAD
      * Sets the taskType of TaskFactory
+=======
+     * Sets the taskType of TaskFactory.
+     *
+>>>>>>> 9dada07e69461ecaf25973bf549e8fd670b8849f
      * @param taskType The task type
      */
     public void setTaskType(String taskType){
