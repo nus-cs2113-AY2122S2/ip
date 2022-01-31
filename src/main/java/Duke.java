@@ -7,5 +7,6 @@ public class Duke {
             + "Bye, Hope to see you again soon!\n"
             + "______________________________________________________________\n";
         System.out.println(logo);
+        
     }
 }
