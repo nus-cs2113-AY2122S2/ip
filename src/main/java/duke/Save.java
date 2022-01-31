@@ -42,9 +42,6 @@ public class Save {
             while (s.hasNext()) {
                 String currentLine = s.nextLine();
                 String[] arrayElements = currentLine.split("\\|");
-                for (String el : arrayElements) {
-                    System.out.println(el);
-                }
                 String taskType = arrayElements[0].trim();
                 Task newTask;
                 switch (taskType) {
