@@ -14,11 +14,20 @@ public class TaskList {
         return String.format("added: %s", newTask.toString());
     }
 
-    public String markTask(String markCommand, int id) {
+    public String markTask(String markCommand, String id) {
+        int index = Integer.valueOf(id) - 1;
         if (markCommand.equals("unmark")) {
-            return tasks.get(id - 1).unmarkDone();
+            return unmarkDone(index);
         }
-        return tasks.get(id - 1).markDone();
+        return markDone(index);
+    }
+
+    private String markDone(int index) {
+        return tasks.get(index).markDone();
+    }
+
+    private String unmarkDone(int index) {
+        return tasks.get(index).unmarkDone();
     }
 
     @Override

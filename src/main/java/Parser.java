@@ -21,19 +21,24 @@ public class Parser {
         isExiting = false;
     }
 
+    private String getCommand(String input) {
+        return input.split(" ")[0];
+    }
+
     public void parseString(String input) {
         reset();
-        this.input = input;
-        String[] inputArr = input.split(" ");
+        String command = getCommand(input);
 
-        if (inputArr[0].equals("bye")) {
+        if (command.equals("bye")) {
             isExiting = true;
-        } else if (inputArr[0].equals("list")) {
+        } else if (command.equals("list")) {
             isListingTasks = true;
-        } else if (inputArr[0].equals("mark") || inputArr[0].equals("unmark")) {
+        } else if (command.equals("mark") || command.equals("unmark")) {
             isMarkingTask = true;
+            this.input = input;
         } else {
             isAddingTask = true;
+            this.input = input;
         }
     }
 
@@ -60,4 +65,5 @@ public class Parser {
     public String[] getMarkedTask() {
         return input.split(" ");
     }
+
 }

@@ -6,23 +6,20 @@ public class Duke {
     private static TaskList taskList;
     private static Ui UI = new Ui();
     private static String userInput;
+    private static String output;
 
     public static void main(String[] args) {
         initDuke();
         showWelcomeMessage();
 
-        while (!parser.isExiting()) {
-            if (parser.isListingTasks()) {
-                UI.print(taskList.toString());
-            } else if (parser.isMarkingTask()) {
-                UI.print(taskList.markTask(parser.getMarkedTask()[0],
-                                Integer.valueOf(parser.getMarkedTask()[1]))
-                );
-            } else if (parser.isAddingTask()) {
-                UI.print(taskList.addTask(parser.getAddedTask()));
+        while (true) {
+            userInput = getUserInput();
+            parseUserInput(userInput);
+            if (parser.isExiting()) {
+                break;
             }
-            userInput = SCANNER.nextLine().trim();
-            parser.parseString(userInput);
+            output = executeCommand();
+            showOutput(output);
         }
 
         showExitMessage();
@@ -43,5 +40,38 @@ public class Duke {
 
     private static String getUserInput() {
         return SCANNER.nextLine().trim();
+    }
+
+    private static void parseUserInput(String input) {
+        parser.parseString(input);
+    }
+
+    private static void showOutput(String string) {
+        UI.print(string);
+    }
+
+    private static String executeCommand() {
+        String feedback = "";
+        if (parser.isListingTasks()) {
+            feedback = listTask();
+        } else if (parser.isMarkingTask()) {
+            feedback = markTask();
+        } else if (parser.isAddingTask()) {
+            feedback = addTask();
+        }
+        return feedback;
+    }
+
+    private static String listTask() {
+        return taskList.toString();
+    }
+
+    private static String addTask() {
+        return taskList.addTask(parser.getAddedTask());
+    }
+
+    private static String markTask() {
+        return taskList.markTask(parser.getMarkedTask()[0],
+                                parser.getMarkedTask()[1]);
     }
 }
