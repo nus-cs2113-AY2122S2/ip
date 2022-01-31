@@ -1,11 +1,9 @@
 package operations;
 
-<<<<<<< HEAD
-=======
+
 import exceptions.DukeException;
 import exceptions.UnknownOrderDukeException;
 
->>>>>>> 9dada07e69461ecaf25973bf549e8fd670b8849f
 public class OperationFactory {
 
     private String order;
@@ -18,11 +16,6 @@ public class OperationFactory {
     private static final String DEADLINE_COMMAND = "deadline";
     private static final String EVENT_COMMAND = "event";
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 9dada07e69461ecaf25973bf549e8fd670b8849f
     public OperationFactory(String orderLocal) {
 
         order = orderLocal;
@@ -39,16 +32,10 @@ public class OperationFactory {
 
     /**
      * Makes certain operation according to the orderName
-<<<<<<< HEAD
-     * @return Certain operation
-     */
-    public Operation makeOperation() {
-=======
      *
      * @return Certain operation
      */
     public Operation makeOperation() throws DukeException {
->>>>>>> 9dada07e69461ecaf25973bf549e8fd670b8849f
         String orderName = order.split(" ", 2)[0];
 
         switch (orderName) {
@@ -67,12 +54,8 @@ public class OperationFactory {
         case EVENT_COMMAND:
             return new EventAddOperation(orderName, order);
         default:
-<<<<<<< HEAD
-            return new AddOperation(orderName, order);
-=======
             //return new AddOperation(orderName, order);
             throw new UnknownOrderDukeException();
->>>>>>> 9dada07e69461ecaf25973bf549e8fd670b8849f
         }
     }
 

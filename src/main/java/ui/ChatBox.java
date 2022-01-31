@@ -21,11 +21,7 @@ public class ChatBox {
 
 
     /**
-<<<<<<< HEAD
-     * Set the contends of one ui.ChatBox
-=======
      * Set the contends of one ui.ChatBox.
->>>>>>> 9dada07e69461ecaf25973bf549e8fd670b8849f
      * @param contends The contends in one ui.ChatBox
      */
     public void contendsSetter(String contends) {

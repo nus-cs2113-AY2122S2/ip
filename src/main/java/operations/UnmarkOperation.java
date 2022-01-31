@@ -1,9 +1,6 @@
 package operations;
 
-<<<<<<< HEAD
-=======
 import exceptions.DukeException;
->>>>>>> 9dada07e69461ecaf25973bf549e8fd670b8849f
 import operations.Operation;
 import tasks.TaskList;
 
@@ -15,11 +12,7 @@ public class UnmarkOperation extends Operation {
      * @param operationNameLocal Name of the operations.Operation
      * @param order  Order given by User
      */
-<<<<<<< HEAD
-    public UnmarkOperation(String operationNameLocal, String order) {
-=======
     public UnmarkOperation(String operationNameLocal, String order) throws DukeException {
->>>>>>> 9dada07e69461ecaf25973bf549e8fd670b8849f
         super(operationNameLocal, order);
     }
 

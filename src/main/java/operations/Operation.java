@@ -1,9 +1,6 @@
 package operations;
 
-<<<<<<< HEAD
-=======
 import exceptions.DukeException;
->>>>>>> 9dada07e69461ecaf25973bf549e8fd670b8849f
 import ui.ChatBox;
 
 /**
@@ -21,13 +18,6 @@ public abstract class Operation {
      * @param operationNameLocal Name of the operations.Operation
      * @param order Order given by User
      */
-<<<<<<< HEAD
-    public Operation(String operationNameLocal, String order) {
-
-        this.operationName = operationNameLocal;
-        this.order = order;
-        this.result = operate();
-=======
     public Operation(String operationNameLocal, String order) throws DukeException{
         try {
             this.operationName = operationNameLocal;
@@ -38,17 +28,13 @@ public abstract class Operation {
         }
 
 
->>>>>>> 9dada07e69461ecaf25973bf549e8fd670b8849f
 
     }
 
 
     /**
      * Gets the Order of the operations.Operation
-<<<<<<< HEAD
-=======
      *
->>>>>>> 9dada07e69461ecaf25973bf549e8fd670b8849f
      * @return operations.Operation with Parameters
      */
     public String getOperationName() {
@@ -71,10 +57,6 @@ public abstract class Operation {
         ChatBox.printChatBox(operationName);
     }
 
-<<<<<<< HEAD
-    public String operate() {
-        return operationName;
-=======
     public String operate() throws DukeException {
         try {
             return operationName;
@@ -82,7 +64,6 @@ public abstract class Operation {
             throw e;
         }
 
->>>>>>> 9dada07e69461ecaf25973bf549e8fd670b8849f
     }
 
 }
