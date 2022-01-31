@@ -18,6 +18,7 @@ public class Task {
         isDone = done;
     }
 
+    @Override
     public String toString() {
         String doneIndicator = (isDone ? "[X]" : "[ ]");
         return String.format("%s %s", doneIndicator, this.description);
