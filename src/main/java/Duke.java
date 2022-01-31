@@ -50,13 +50,16 @@ public class Duke {
         while (true) {
             String inputLine = in.nextLine();
             String[] userCommand = inputLine.split(" ");
+
             switch (userCommand[0]) {
             case "bye": //exit command
                 System.out.println(CLOSING_MSG);
                 return;
+
             case "list":
                 printUserList();
                 break;
+
             case "mark":
                 int index = Integer.parseInt(userCommand[1]) - 1;
                 if (index >= listCount) {
@@ -74,6 +77,7 @@ public class Duke {
                 }
                 System.out.print(horizontalLine);
                 break;
+
             case "unmark":
                 int taskIndex = Integer.parseInt(userCommand[1]) - 1;
                 if (taskIndex >= listCount) {
@@ -90,6 +94,7 @@ public class Duke {
                 }
                 System.out.print(horizontalLine);
                 break;
+
             default:
                 addUserList(inputLine);
             }

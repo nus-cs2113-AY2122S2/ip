@@ -12,7 +12,8 @@ public class Task {
     }
 
     public boolean markAsDone() {
-        if (this.isDone == true) {
+        boolean isTaskDone = this.isDone == true;
+        if (isTaskDone) {
             System.out.println("This task is already marked as done! Did to mean to unmark it?");
             return false;
         }
@@ -22,7 +23,8 @@ public class Task {
     }
 
     public boolean markAsUndone() {
-        if (this.isDone == false) {
+        boolean isTaskUndone = this.isDone == false;
+        if (isTaskUndone) {
             System.out.println("This task is already marked as not done! Did you mean to mark it?");
             return false;
         }
