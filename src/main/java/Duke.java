@@ -9,8 +9,7 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
-        //String[] userinput = new String[100];
-        Task[] userinput = new Task[100];
+        Task[] userInput = new Task[100];
         int inputCount = 0;
         while(true) {
             String line;
@@ -19,38 +18,37 @@ public class Duke {
             if (line.equals("list")){
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < inputCount; i++) {
-                    System.out.println((i+1) + ".[" +  userinput[i].getStatusIcon() +"] "+ userinput[i].description);
+                    System.out.println((i+1) + ".[" +  userInput[i].getStatusIcon() +"] "+ userInput[i].description);
                 }
                 continue;
             }
 
             if (line.contains(" ")){
+                int valIndex = Integer.parseInt(line.substring(line.indexOf(" ") + 1));
                 if ((line.substring(0, line.indexOf(" "))).equals("mark")) {
-                    if (Integer.parseInt(line.substring(line.indexOf(" ") + 1)) <= inputCount){
-                        userinput[Integer.parseInt(line.substring(line.indexOf(" ") + 1)) - 1].markAsDone();
+                    if (valIndex <= inputCount){
+                        userInput[valIndex - 1].markAsDone();
                         System.out.println("Nice! I've marked this task as done: ");
-                        System.out.println("[" + userinput[Integer.parseInt(line.substring(line.indexOf(" ") + 1)) - 1].getStatusIcon() + "] " + userinput[Integer.parseInt(line.substring(line.indexOf(" ") + 1)) - 1].description);
-                        continue;
+                        System.out.println("[" + userInput[valIndex - 1].getStatusIcon() + "] " + userInput[valIndex - 1].description);
                     }
                     else {
                         System.out.println("Invalid Command!");
-                        continue;
                     }
+                    continue;
                 }
                 else if ((line.substring(0, line.indexOf(" "))).equals("unmark")) {
-                    if (Integer.parseInt(line.substring(line.indexOf(" ") + 1)) <= inputCount) {
-                        userinput[Integer.parseInt(line.substring(line.indexOf(" ") + 1)) - 1].markAsNotDone();
+                    if (valIndex <= inputCount) {
+                        userInput[valIndex - 1].markAsNotDone();
                         System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println("[" + userinput[Integer.parseInt(line.substring(line.indexOf(" ") + 1)) - 1].getStatusIcon() + "] " + userinput[Integer.parseInt(line.substring(line.indexOf(" ") + 1)) - 1].description);
-                        continue;
+                        System.out.println("[" + userInput[valIndex - 1].getStatusIcon() + "] " + userInput[valIndex - 1].description);
                     }
                     else {
                         System.out.println("Invalid Command!");
-                        continue;
                     }
+                    continue;
                 }
             }
-            userinput[inputCount] = new Task(line);
+            userInput[inputCount] = new Task(line);
             inputCount++;
             if (line.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
