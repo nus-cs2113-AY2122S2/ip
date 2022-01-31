@@ -17,9 +17,12 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         System.out.println("What can I do for you?");
+
+        Save previousSave = new Save("list.txt");
+        ArrayList<Task> store = previousSave.fileToStore();
+
         Scanner sc = new Scanner(System.in);
         String userInput = sc.nextLine();
-        ArrayList<Task> store = new ArrayList<Task>();
 
         while (!userInput.equals("bye")) {
             try {
@@ -73,6 +76,7 @@ public class Duke {
             userInput = sc.nextLine();
         }
         sc.close();
+        previousSave.storeToFile(store);
         System.out.println("Bye. Hope to see you again soon!");
     }
 

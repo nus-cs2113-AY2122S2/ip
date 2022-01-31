@@ -34,9 +34,6 @@ public class Save {
         }
     }
 
-    public void stringToFile() {
-    }
-
     public ArrayList<Task> fileToStore() {
         ArrayList<Task> store = new ArrayList<>();
         File f = new File(filePath);
@@ -44,19 +41,27 @@ public class Save {
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String currentLine = s.nextLine();
-                String[] arrayElements = currentLine.split("|");
-                String taskType = arrayElements[0];
+                String[] arrayElements = currentLine.split("\\|");
+                for (String el : arrayElements) {
+                    System.out.println(el);
+                }
+                String taskType = arrayElements[0].trim();
+                Task newTask;
                 switch (taskType) {
                     case "T":
-                        store.add(new ToDo(arrayElements[2].trim(), arrayElements[1].trim() == "1" ? true : false));
+                        newTask = new ToDo(arrayElements[2].trim(), arrayElements[1].trim().equals("1"));
+                        store.add(newTask);
+                        newTask.getTask();
                         break;
                     case "D":
-                        store.add(new Deadline(arrayElements[2].trim(), arrayElements[1].trim() == "1" ? true : false,
-                                arrayElements[3].trim()));
+                        newTask = new Deadline(arrayElements[2].trim(), arrayElements[1].trim().equals("1"),
+                                arrayElements[3].trim());
+                        store.add(newTask);
                         break;
                     case "E":
-                        store.add(new Event(arrayElements[2].trim(), arrayElements[1].trim() == "1" ? true : false,
-                                arrayElements[3].trim()));
+                        newTask = new Event(arrayElements[2].trim(), arrayElements[1].trim().equals("1"),
+                                arrayElements[3].trim());
+                        store.add(newTask);
                         break;
                     default:
                         break;
