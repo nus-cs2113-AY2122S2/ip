@@ -1,8 +1,6 @@
 public class Task {
 
     protected String description;
-    protected String deadline;
-    protected String event;
     protected boolean isDone;
     protected char taskType;
     protected  boolean isDeadline;

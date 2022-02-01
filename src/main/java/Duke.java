@@ -78,7 +78,8 @@ public class Duke {
             printTask = arrayToString(taskToInput);
             taskItems[itemNum] = new Task(printTask);
             taskItems[itemNum].taskType = 'T';
-            System.out.println("Got it. I've added this task:\n" + "[T][ ] " + printTask + "\nNow you have " + (itemNum + 1) +  " tasks in the list.");
+            System.out.println("Got it. I've added this task:\n" + "[T][ ] " + printTask +
+                    "\nNow you have " + (itemNum + 1) +  " tasks in the list.");
             itemNum++;
             break;
         case COMMAND_DEADLINE:
@@ -89,7 +90,8 @@ public class Duke {
             printTask = arrayToString(finalDeadlineArr);
             taskItems[itemNum] = new Task(printTask);
             taskItems[itemNum].taskType = 'D';
-            System.out.println("Got it. I've added this task:\n" + "[D][ ] " + printTask + "\nNow you have " + (itemNum + 1) +  " tasks in the list.");
+            System.out.println("Got it. I've added this task:\n" + "[D][ ] " + printTask +
+                    "\nNow you have " + (itemNum + 1) +  " tasks in the list.");
             itemNum++;
             break;
         case COMMAND_EVENT:
@@ -100,7 +102,8 @@ public class Duke {
             printTask = arrayToString(finalEventArr);
             taskItems[itemNum] = new Task(printTask);
             taskItems[itemNum].taskType = 'D';
-            System.out.println("Got it. I've added this task:\n" + "[E][ ] " + printTask + "\nNow you have " + (itemNum + 1) +  " tasks in the list.");
+            System.out.println("Got it. I've added this task:\n" + "[E][ ] " + printTask +
+                    "\nNow you have " + (itemNum + 1) +  " tasks in the list.");
             itemNum++;
             break;
         default:
