@@ -40,15 +40,15 @@ public class Duke {
             System.out.println("Sorry I do not know what that means");
             return;
         }
-        System.out.println("Got it. I've added this task: ");
+        System.out.println("Got it. I've added this task:");
         System.out.println("    "+taskList[taskIndex-1]);
         System.out.println("Now you have "+(taskIndex)+ " tasks in the list.");
     }
 
 
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
+        String logo = " ____        _\n"
+                + "|  _ \\ _   _| | _____\n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
