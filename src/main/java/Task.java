@@ -11,13 +11,16 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public String getDescription() { return description; }
+
+    public String getTypeIcon() { return "T"; }
+
     public boolean markAsDone() {
         boolean isTaskDone = this.isDone == true;
         if (isTaskDone) {
-            System.out.println("This task is already marked as done! Did to mean to unmark it?");
+            DisplayMessages.unmarkError();
             return false;
         }
-
         this.isDone = true;
         return true;
     }
@@ -25,10 +28,15 @@ public class Task {
     public boolean markAsUndone() {
         boolean isTaskUndone = this.isDone == false;
         if (isTaskUndone) {
-            System.out.println("This task is already marked as not done! Did you mean to mark it?");
+            DisplayMessages.markError();
             return false;
         }
         this.isDone = false;
         return true;
+    }
+
+    public void printItem() {
+        String message = "[" + getTypeIcon() + "]" + "[" + getStatusIcon() + "] " + getDescription();
+        System.out.println(message);
     }
 }
