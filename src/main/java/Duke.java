@@ -58,6 +58,8 @@ public class Duke {
             } else {
                 Task newTask = new Task(userInput);
                 userLists = addTask(newTask, userLists);
+                //in the case where non-keyword inputs are disallowed
+                //System.out.println("Please use a keyword for inputs");
             }
             userInput = input.nextLine();
         }

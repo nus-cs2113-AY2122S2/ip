@@ -15,6 +15,9 @@ public class Tokenise {
         case "list":
         case "todo":
         case "deadline":
+            //try catch for adding into
+            //Classes to check if date is
+            //added for the keyword
         case "event":
             isKeyword = true;
             break;
@@ -25,10 +28,11 @@ public class Tokenise {
                     Integer.parseInt(tokens[1]);
                     tokens[1] = String.valueOf(Integer.parseInt(tokens[1])-1);
                     isKeyword = true;
-                } catch (Exception e) {
-                    //this user input is not trying to mark or unmark
-                    //any previous tasks
+                } catch (NumberFormatException e) {
+                    //user did not mark with a number
+                    //currently just added as normal task
                     isKeyword = false;
+                    //System.out.println("Please use a number at the end");
                 }
             }
             break;
