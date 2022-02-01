@@ -14,27 +14,27 @@ public class Duke {
             Parse parsedInput = new Parse(line);
             if (parsedInput.getIsKeyword()) {
                 switch (parsedInput.getParsedInput()[0]) {
-                    case "list":
-                        String allTasks = "";
-                        for (int i = 0; i < tasks.size(); i++) {
-                            allTasks = allTasks + " " + (i + 1) + ". " + tasks.get(i).toString();
-                        }
-                        System.out.println(wrapText(allTasks));
-                        break;
-                    case "mark":
-                        tasks.get(Integer.parseInt(parsedInput.getParsedInput()[1]) - 1).completeTask();
-                        System.out.println(wrapText(
-                                "Marked this task as done!\n"
-                                + tasks.get(Integer.parseInt(parsedInput.getParsedInput()[1]) - 1).toString()
-                        ));
-                        break;
-                    case "unmark":
-                        tasks.get(Integer.parseInt(parsedInput.getParsedInput()[1]) - 1).revertCompletedTask();
-                        System.out.println(wrapText(
-                                "Guess you messed up huh? Reverted that task!\n"
-                                + tasks.get(Integer.parseInt(parsedInput.getParsedInput()[1]) - 1).toString()
-                        ));
-                        break;
+                case "list":
+                    String allTasks = "";
+                    for (int i = 0; i < tasks.size(); i++) {
+                        allTasks = allTasks + " " + (i + 1) + ". " + tasks.get(i).toString();
+                    }
+                    System.out.println(wrapText(allTasks));
+                    break;
+                case "mark":
+                    tasks.get(Integer.parseInt(parsedInput.getParsedInput()[1]) - 1).setCompleted();
+                    System.out.println(
+                            wrapText("Marked this task as done!\n"
+                                    + tasks.get(Integer.parseInt(parsedInput.getParsedInput()[1]) - 1).toString())
+                    );
+                    break;
+                case "unmark":
+                    tasks.get(Integer.parseInt(parsedInput.getParsedInput()[1]) - 1).revertCompleted();
+                    System.out.println(
+                            wrapText("Guess you messed up huh? Reverted that task!\n"
+                                    + tasks.get(Integer.parseInt(parsedInput.getParsedInput()[1]) - 1).toString())
+                    );
+                    break;
                 }
             } else {
                 Task newTask = new Task(line);
@@ -71,9 +71,14 @@ public class Duke {
         System.out.println(endDuke);
     }
 
+    /**
+     * Returns text wrapped between two lines for readability
+     * @param text Text to be wrapped
+     * @return Wrapped text
+     */
     public static String wrapText(String text) {
         return    "___________________________________\n"
-                + text + "\n"
+                + text + "\n"   
                 + "___________________________________\n";
     }
 }

@@ -6,17 +6,19 @@ public class Parse {
         parsedInput = line.split(" ");
 
         switch (parsedInput[0]) {
-            case "list":
+        case "list":
+            isKeyword = true;
+            break;
+        case "mark":
+            // Fallthrough
+        case "unmark":
+            if (parsedInput.length == 2) { //simple workaround for now, need better checks later
                 isKeyword = true;
-                break;
-            case "mark":
-            case "unmark":
-                if (parsedInput.length == 2) { //simple workaround for now, need better checks later
-                    isKeyword = true;
-                }
-                break;
-            default:
-                isKeyword = false;
+            }
+            break;
+        default:
+            isKeyword = false;
+            break;
         }
     }
 

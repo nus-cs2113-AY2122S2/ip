@@ -7,22 +7,22 @@ public class Task {
     }
 
     public String getTaskDescription() {
-        return this.taskDescription;
+        return taskDescription;
     }
 
     public boolean getCompletionStatus() {
-        return this.isCompleted;
+        return isCompleted;
     }
 
-    public void completeTask() {
-        this.isCompleted = true;
+    public void setCompleted() {
+        isCompleted = true;
     }
 
-    public void revertCompletedTask() {
-        this.isCompleted = false;
+    public void revertCompleted() {
+        isCompleted = false;
     }
 
     public String toString() {
-        return "[" + (isCompleted ? "X" : " ") + "] " + this.getTaskDescription() + "\n";
+        return "[" + (isCompleted ? "X" : " ") + "] " + getTaskDescription() + "\n";
     }
 }
