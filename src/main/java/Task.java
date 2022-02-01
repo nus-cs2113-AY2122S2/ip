@@ -1,18 +1,20 @@
 public class Task {
     protected String description;
-    protected boolean isDone;
+    protected boolean isMarked;
+    protected int id;
 
-    public Task(String description) {
+    public Task(String description, int id) {
         this.description = description;
-        this.isDone = false;
+        this.id = id;
+        this.isMarked = false;
     }
 
     public Task() {
-        this("");
+        this("This task has not be defined.", -1);
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isMarked ? "X" : " ");
     }
 
     public String getDescription() {
@@ -23,15 +25,28 @@ public class Task {
         this.description = description;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public boolean getIsDone() {
-        return isDone;
+        return isMarked;
     }
 
-    public void setIsDone() {
-        isDone = true;
+    public void setIsMarked() {
+        isMarked = true;
     }
 
-    public void unsetIsDone() {
-        isDone = false;
+    public void unsetIsMarked() {
+        isMarked = false;
+    }
+
+    @Override
+    public String toString() {
+        return  "[" + this.getStatusIcon() + "] " + this.getDescription();
     }
 }
