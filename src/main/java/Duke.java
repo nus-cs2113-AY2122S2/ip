@@ -1,30 +1,48 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static class Task {
-        String title;
-        boolean isDone;
+    private static Task[] taskList = new Task [100];
+    static int taskIndex=0;
 
-        public Task(String title) {
-            this.title = title;
-            this.isDone = false;
-        }
+    public static void addTask(String task)
+    {
+        // we get the type of a task from the first word of String task
 
-        public boolean isDone() {
-            return isDone;
-        }
+        int index = task.indexOf(' ');
+        //todo some task /by 12th August
+        //taskType = todo
+        String taskType = task.substring(0,index);
+        task = task.substring(index+1);
+        switch(taskType)
+        {
+        case "todo":
+            taskList[taskIndex++] = new Todo(task);
+            break;
+        case "deadline":
+            index = task.indexOf("/");
+            String by = task.substring(index+1);
+            task = task.substring(0,index-1);
 
-        public void setDone(boolean done) {
-            isDone = done;
-        }
+            index = by.indexOf(' ');
+            by = by.substring(index+1);
+            taskList[taskIndex++] = new Deadline(task,by);
+            break;
+        case "event":
+            index = task.indexOf("/");
+            String eventTime = task.substring(index+1);
+            task = task.substring(0,index-1);
 
-        public String getStatusIcon() {
-            return (isDone? "X" : " ");
+            index = eventTime.indexOf(' ');
+            eventTime = eventTime.substring(index+1);
+            taskList[taskIndex++] = new Event(task,eventTime);
+            break;
+        default:
+            System.out.println("Sorry I do not know what that means");
+            return;
         }
-
-        public String getTitle() {
-            return title;
-        }
+        System.out.println("Got it. I've added this task: ");
+        System.out.println("    "+taskList[taskIndex-1]);
+        System.out.println("Now you have "+(taskIndex)+ " tasks in the list.");
     }
 
 
@@ -41,8 +59,7 @@ public class Duke {
 
         Scanner input = new Scanner(System.in);
         String task = "";
-        Task[] taskList = new Task [100];
-        int index=0;
+
         while(!task.equals("bye")) {
             task = input.nextLine();
             if(!task.equals("bye")) {
@@ -50,15 +67,15 @@ public class Duke {
                 if(task.equals("list")) {
                     for(int i=0;i< taskList.length;i++) {
                         if(taskList[i] == null) break;
-                        System.out.println("    " + (i + 1) + ". " + "[" + taskList[i].getStatusIcon()+"] " + taskList[i].getTitle());
+                        System.out.println(taskList[i]);
                     }
                 } else if(task.contains("mark ")&& !task.contains("unmark ")) {
                     task = task.replace("mark ","");
                     int i = Integer.parseInt(task)-1;
                     if(taskList[i]!=null) {
                         taskList[i].setDone(true);
-                        System.out.println("Nice! I've marked this task as done:\n  " + "[" + taskList[i].getStatusIcon() + "] "
-                                + taskList[i].getTitle());
+                        System.out.println("Nice! I've marked this task as done:");
+                        System.out.println("    "+taskList[i]);
                     } else {
                         System.out.println("Please enter a valid task number");
                     }
@@ -67,14 +84,14 @@ public class Duke {
                     int i = Integer.parseInt(task)-1;
                     if(taskList[i]!=null) {
                         taskList[i].setDone(false);
-                        System.out.println("OK, I've marked this task as not done yet:\n  " + "[" + taskList[i].getStatusIcon() + "] "
-                                + taskList[i].getTitle());
+                        System.out.println("OK, I've marked this task as not done yet:");
+                        System.out.println("    "+taskList[i]);
+
                     } else {
                         System.out.println("Please enter a valid task number");
                     }
                 } else {
-                    taskList[index++] = new Task(task);
-                    System.out.println("added: " + task);
+                    addTask(task);
                 }
                 System.out.println("    ____________________________________");
             }
