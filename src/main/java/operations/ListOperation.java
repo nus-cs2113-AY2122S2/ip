@@ -17,17 +17,21 @@ public class ListOperation extends Operation {
     }
 
     @Override
-    public String operate() {
+    public String operate() throws DukeException{
         int sizeArray = TaskList.getSize();
         String resultLocal = "";
-        for (int i = 0; i < sizeArray; i++) {
-            if (i > 0) {
-                resultLocal += "\n";
+        try {
+            for (int i = 0; i < sizeArray; i++) {
+                if (i > 0) {
+                    resultLocal += "\n";
+                }
+                Task taskLocal = TaskList.getElement(i);
+                resultLocal += (String.valueOf(i + 1) + ". " + taskLocal.getReport());
             }
-            Task taskLocal = TaskList.getElement(i);
-            resultLocal += (String.valueOf(i + 1) + ". " + taskLocal.getReport());
+            return resultLocal;
+        } catch (DukeException e) {
+            throw e;
         }
-        return resultLocal;
     }
 
 

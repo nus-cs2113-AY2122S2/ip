@@ -14,7 +14,7 @@ public class MarkOperation extends Operation {
         super(operationNameLocal, order);
     }
 
-    @Override public String operate() {
+    @Override public String operate() throws DukeException{
         String [] orderList = order.split(" ");
         int indexLocal = Integer.parseInt(orderList[1]) - 1;
         int listSizeLocal =  TaskList.getSize();
