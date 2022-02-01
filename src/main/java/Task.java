@@ -1,6 +1,7 @@
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String icon = "Null";
 
     public Task(String description) {
         this.description = description;
@@ -17,5 +18,16 @@ public class Task {
 
     public void markAsNotDone(){
         this.isDone = false;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+    public String getBy(){
+        return "";
+    }
+
+    public String getAt() {
+        return "";
     }
 }
