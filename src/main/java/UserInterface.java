@@ -9,19 +9,11 @@ public class UserInterface {
     private final Scanner uiScan;
     private final ArrayList<Task> tasks;
 
-    /**
-     * Constructor.
-     * @param mainScan a Scanner object that reads commands from the user.
-     */
     public UserInterface(Scanner mainScan) {
         this.uiScan = mainScan;
         this.tasks = new ArrayList<>();
     }
 
-    /**
-     * Starts the UserInterface.
-     * Greets the user and begins the command input loop.
-     */
     public void start() {
         printGreeting();
         commandLoop();
@@ -97,14 +89,14 @@ public class UserInterface {
     /**
      * Constructs a subclass of Task from an ArrayList<String>.
      * @param taskStringArray the ArrayList<String> containing the user's input, split up by whitespace.
-     *                        The first element of this list should contain the type of task to be constructed.
+     *                        The first element of this list should contain the subclass of task to be constructed.
      * @return a subclass of Task determined by the first element of taskStringArray.
      */
     private Task taskBuilder(ArrayList<String> taskStringArray) {
-        String mode = taskStringArray.get(0);
+        String taskType = taskStringArray.get(0);
         ArrayList<StringBuilder> taskParts = taskSplitter(taskStringArray);
         String prepositions = String.valueOf(taskParts.get(taskParts.size() - 1));
-        switch (mode) {
+        switch (taskType) {
         case "todo":
             return new ToDo(String.valueOf(taskParts.get(0)));
         case "deadline":
@@ -120,12 +112,9 @@ public class UserInterface {
      * can be used to construct a subclass of Task. Use this in conjunction with taskBuilder to construct a
      * subclass of Task.
      * @param input ArrayList of Strings that represent the user's input split by whitespace.
-     * @return an ArrayList<StringBuilder> containing the input split by the '/' character, not including
-     *         the word containing the '/'. Each element represents a chunk of the task. The last element contains
-     *         all prepositions used in a single string.
-     *         e.g.: deadline return book /by Sunday returns the following ArrayList:
-     *         {"return book", "Sunday", "/by"}, which prints the task as follows:
-     *         read book (by: Sunday);
+     * @return an ArrayList<StringBuilder> containing the input split by the '/' character.
+     *         Each element represents a String used to construct the task.
+     *         The last element contains all prepositions used in a single string.
      *         e.g.: deadline return book /by Sunday /at library returns the following Arraylist:
      *         {"return book", "Sunday", "Library", "/by/at"}
      */
@@ -134,11 +123,6 @@ public class UserInterface {
          * inputIterator increments after each String in input is read.
          * The loop ends when inputIterator exceeds the size of the ArrayList, indicating that all
          * Strings in input have been read.
-         * inputIterator++ does two things:
-         * 1. It starts iterating from 1 instead of 0, skipping the first element which contains the Task subclass
-         * name.
-         * 2. It increments inputIterator after encountering a String starting with '/' so the nested loop can
-         * continue from the next String, preventing the outer loop from looping infinitely.
          */
         ArrayList<StringBuilder> taskParts = new ArrayList<>();
         StringBuilder prepositions = new StringBuilder();
@@ -158,7 +142,7 @@ public class UserInterface {
     }
 
     /**
-     * Prints all tasks stored in memory by addTask(Task)
+     * Prints all tasks stored in memory by addTask(Task) to stdout
      */
     private void listTasks() {
         printDivider();
