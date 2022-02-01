@@ -18,19 +18,27 @@ public class Task {
         this.taskDescription = taskDescription;
     }
 
-    public static int getNumberOfTasks() {
+    public static int getNumberOfTasks()
+    {
         return numberOfTasks;
     }
 
-    public String getStatusIcon() {
-        return (isDone ? "X" : " ");
-    }
-
-    public void markAsDone() {
+    public void markAsDone()
+    {
         isDone = true;
     }
 
-    public void markAsUndone() {
+    public void markAsUndone()
+    {
         isDone = false;
+    }
+
+    @Override
+    public String toString() {
+        if (isDone) {
+            return "[X] " + taskDescription;
+        } else {
+            return "[ ] " + taskDescription;
+        }
     }
 }
