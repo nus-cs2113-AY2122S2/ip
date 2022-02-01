@@ -10,6 +10,6 @@ public class Event extends Vocabulary {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(" + eventTime + ")";
+        return "[E]" + super.toString() + "(" + eventTime + ")";
     }
 }

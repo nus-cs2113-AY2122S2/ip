@@ -1,0 +1,10 @@
+hi
+list
+todo onomatopoeia
+deadline amenable/Sunday 4pm
+list
+mark 1
+list
+event supercalifragilisticexpialidocious/Friday 3-6pm
+list
+bye

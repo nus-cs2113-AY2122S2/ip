@@ -111,8 +111,8 @@ public class Superhero {
 
     private void printInput(String input){
         System.out.println("____________________________________________________________\n" +
-                " You have a new word to learn: " + input +
-                "\n -from your neighbourhood vocabulary superhero\n" +
+                " You have a new word to learn: " + input + "\n" +
+                " -from your neighbourhood vocabulary superhero\n" +
                 "____________________________________________________________");
     }
 
