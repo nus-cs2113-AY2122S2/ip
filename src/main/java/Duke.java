@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
+    private static Task[] tasks = new Task[100];
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -13,7 +14,6 @@ public class Duke {
         System.out.println("What can I do for you?");
         System.out.println("================================================");
 
-        Task[] tasks = new Task[100];
         int i = 0;
         int marker;
         String userInput;
@@ -35,12 +35,7 @@ public class Duke {
                     System.out.println("================================================");
                     break;
                 case "list":
-                    System.out.println("================================================");
-                    System.out.println("Here are the tasks in your list:");
-                    for(int j=0; j<i; j++){
-                        System.out.println((j+1) + "." + tasks[j].printTask());
-                    }
-                    System.out.println("================================================");
+                    listTasks(i);
                     break;
                 default:
                     System.out.println("================================================");
@@ -65,5 +60,14 @@ public class Duke {
         }else{
             return new Event(userInput.substring(6));
         }
+    }
+
+    public static void listTasks(int numOfTasks){
+        System.out.println("================================================");
+        System.out.println("Here are the tasks in your list:");
+        for(int j=0; j<numOfTasks; j++){
+            System.out.println((j+1) + "." + tasks[j].printTask());
+        }
+        System.out.println("================================================");
     }
 }
