@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Duke {
 
     static Greet greet;
+    static Scanner reader = new Scanner(System.in);
 
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
@@ -14,7 +15,6 @@ public class Duke {
 
     public static void taskLoop(TaskManager taskManager){
         greet.printDecoration();
-        Scanner reader = new Scanner(System.in);
         boolean isDone = false;
         while(!isDone){
             String command = reader.next();
@@ -51,7 +51,6 @@ public class Duke {
 
     public static void echo(){
         greet.printDecoration();
-        Scanner reader = new Scanner(System.in);
         boolean isDone = false;
         while(!isDone){
             String toRepeat = reader.nextLine();
