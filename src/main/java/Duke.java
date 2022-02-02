@@ -23,11 +23,13 @@ public class Duke {
         System.out.println(taskItem);
         System.out.println("Now you have " + (itemNumber + 1) + " tasks in the list.");
     }
-
-    public static void addDeadline(Task[]array, String message, int itemNumber) {
+    public static String[] splitLongMessage (String message, String regex) {
         String[] splitMessage = message.split(" ", 2);
         String getSecondPart = splitMessage[1];
-        String[] splitSecondPart = getSecondPart.split(" /by ", 2);
+        return getSecondPart.split(regex, 2);
+    }
+    public static void addDeadline(Task[]array, String message, int itemNumber) {
+        String[] splitSecondPart = splitLongMessage(message, " /by ");
         String getDescription = splitSecondPart[0];
         String getDate = splitSecondPart[1];
         Task taskItem = new Deadline(getDescription, getDate);
@@ -38,9 +40,7 @@ public class Duke {
     }
 
     public static void addEvent(Task[]array, String message, int itemNumber) {
-        String[] splitMessage = message.split(" ", 2);
-        String getSecondPart = splitMessage[1];
-        String[] splitSecondPart = getSecondPart.split(" /at ", 2);
+        String[] splitSecondPart = splitLongMessage(message, " /at ");
         String getDescription = splitSecondPart[0];
         String getDate = splitSecondPart[1];
         Task taskItem = new Event(getDescription, getDate);
