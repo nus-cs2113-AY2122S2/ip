@@ -1,6 +1,7 @@
 public class TaskManager {
     private Task[] tasks = new Task[100];
     private int taskCount = 0;
+    static Greet greet;
 
     public TaskManager() {
     }
@@ -10,7 +11,7 @@ public class TaskManager {
     }
 
     public void markTask(int number){
-        Greet.printDecoration();
+        greet.printDecoration();
         if(number > taskCount || number < 1){
             System.out.println("Invalid Number! Let's try again...");
         }
@@ -25,11 +26,11 @@ public class TaskManager {
                 System.out.println(tasks[number - 1]);
             }
         }
-        Greet.printDecoration();
+        greet.printDecoration();
     }
 
     public void unmarkTask(int number){
-        Greet.printDecoration();
+        greet.printDecoration();
         if(number > taskCount || number < 1){
             System.out.println("Invalid Number! Let's try again...");
         }
@@ -43,20 +44,20 @@ public class TaskManager {
                 System.out.println(tasks[number - 1]);
             }
         }
-        Greet.printDecoration();
+        greet.printDecoration();
     }
 
     public void addToTasks(String taskName){
-        Greet.printDecoration();
+        greet.printDecoration();
         tasks[taskCount] = new Todo(taskName);
         System.out.println("added: " + tasks[taskCount]);
         taskCount++;
         System.out.println("You now have " + taskCount + " tasks in the list.");
-        Greet.printDecoration();
+        greet.printDecoration();
     }
 
     public void addToTasks(String type, String taskName,String date){
-        Greet.printDecoration();
+        greet.printDecoration();
         if(type == "E")
         {
             tasks[taskCount] = new Event(taskName,date);
@@ -67,11 +68,11 @@ public class TaskManager {
         System.out.println("added: " + tasks[taskCount]);
         taskCount++;
         System.out.println("You now have " + taskCount + " tasks in the list.");
-        Greet.printDecoration();
+        greet.printDecoration();
     }
 
     public void printTasks(){
-        Greet.printDecoration();
+        greet.printDecoration();
         if (taskCount == 0){
             System.out.println("You have not added any Tasks!");
         }
@@ -81,6 +82,6 @@ public class TaskManager {
                 System.out.println(tasks[i]);
             }
         }
-        Greet.printDecoration();
+        greet.printDecoration();
     }
 }

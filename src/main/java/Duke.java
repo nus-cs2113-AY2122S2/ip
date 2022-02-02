@@ -2,16 +2,18 @@ import java.util.Scanner;
 
 public class Duke {
 
+    static Greet greet;
+
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
-        Greet.sayHi();
+        greet.sayHi();
         taskLoop(taskManager);
         //echo();
-        Greet.sayBye();
+        greet.sayBye();
     }
 
     public static void taskLoop(TaskManager taskManager){
-        Greet.printDecoration();
+        greet.printDecoration();
         Scanner reader = new Scanner(System.in);
         boolean isDone = false;
         while(!isDone){
@@ -40,15 +42,15 @@ public class Duke {
                 isDone = true;
                 break;
             default:
-                Greet.printDecoration();
+                greet.printDecoration();
                 System.out.println("Invalid Command!");
-                Greet.printDecoration();
+                greet.printDecoration();
             }
         }
     }
 
     public static void echo(){
-        Greet.printDecoration();
+        greet.printDecoration();
         Scanner reader = new Scanner(System.in);
         boolean isDone = false;
         while(!isDone){
