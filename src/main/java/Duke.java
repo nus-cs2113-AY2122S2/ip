@@ -21,15 +21,24 @@ public class Duke {
                 Scanner input1 = new Scanner(System.in);
                 String command = input1.nextLine();
                 list[i] = command;
-                if (command.equals("list")){
-                    for(int j = 0; j < i; j++ ) {
+                if (command.equals("list")) {
+                    for (int j = 0; j < i; j++) {
                         System.out.println((j + 1) + "." + "[ ]" + list[j]);
                     }
-                    if(command.equals("mark")) {
-                        String indexPositioning = command.substring(4);
-                        int index  = Integer.parseInt(indexPositioning);
+                }else if((command.substring(0,4)).equals("mark")) {
+                    command = command.replaceAll("\\s", "");
+                    String indexPositioning = command.substring(4);
+                    int index = Integer.parseInt(indexPositioning);
+                    Task t = new Task(list[index - 1]);
+                    t.markAsDone(list[index - 1]);
 
-                    }
+                }else if((command.substring(0,6)).equals("unmark")) {
+            command = command.replaceAll("\\s", "");
+            String indexPositioning = command.substring(6);
+            int index  = Integer.parseInt(indexPositioning);
+            Task t = new Task(list[index-1]);
+            t.markAsNotDone(list[index-1]);
+
                     }else if(command.equals("bye")){
                         System.out.println("Bye. Hope to see you again soon!");
                         break;
