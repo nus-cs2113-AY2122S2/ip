@@ -5,7 +5,6 @@ public class Duke {
     public static final String LINESEPARATOR = "____________________________________________________________\n";
     public static final int MAX_TASKS = 100;
     public static final Task[] taskList = new Task[MAX_TASKS];
-
     public static void displayLogo() {
         String logo = "                       ___\n"
                 + "                      / ()\\\n"
