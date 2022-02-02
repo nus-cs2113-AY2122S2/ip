@@ -11,14 +11,14 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> taskList = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         System.out.print("____________________\n"+
                           "Hello! I'm Duke\n"+
                           "What can I do for you?\n");
-        boolean userToQuit = false;
+        boolean isToQuit = false;
         String input, startOfInput;
-        while(!userToQuit){
+        while(!isToQuit){
             input = sc.nextLine();
             if(input.contains(" ")){
                 startOfInput = input.substring(0, input.indexOf(" "));
@@ -26,30 +26,30 @@ public class Duke {
                 startOfInput = input;
             }
             switch(startOfInput){
-                case "todo":
-                    addTodo(input, taskList);
-                    break;
-                case "deadline":
-                    addDeadline(input, taskList);
-                    break;
-                case "event":
-                    addEvent(input, taskList);
-                    break;
-                case "mark":
-                    mark(Integer.parseInt(input.substring(input.indexOf(" ")+1)), taskList);
-                    break;
-                case "unmark":
-                    unmark(Integer.parseInt(input.substring(input.indexOf(" ")+1)), taskList);
-                    break;
-                case "list":
-                    list(taskList);
-                    break;
-                case "bye":
-                    userToQuit = true;
-                    break;
-                default:
-                    // add default prompt
-                    break;
+            case "todo":
+                addTodo(input, tasks);
+                break;
+            case "deadline":
+                addDeadline(input, tasks);
+                break;
+            case "event":
+                addEvent(input, tasks);
+                break;
+            case "mark":
+                mark(Integer.parseInt(input.substring(input.indexOf(" ")+1)), tasks);
+                break;
+            case "unmark":
+                unmark(Integer.parseInt(input.substring(input.indexOf(" ")+1)), tasks);
+                break;
+            case "list":
+                list(tasks);
+                break;
+            case "bye":
+                isToQuit = true;
+                break;
+            default:
+                System.out.println("Not a valid command");
+                break;
             }
         }
 
