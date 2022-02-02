@@ -23,7 +23,12 @@ public class Duke {
                 list[i] = command;
                 if (command.equals("list")){
                     for(int j = 0; j < i; j++ ) {
-                        System.out.println((j + 1) + "." + list[j]);
+                        System.out.println((j + 1) + "." + "[ ]" + list[j]);
+                    }
+                    if(command.equals("mark")) {
+                        String indexPositioning = command.substring(4);
+                        int index  = Integer.parseInt(indexPositioning);
+
                     }
                     }else if(command.equals("bye")){
                         System.out.println("Bye. Hope to see you again soon!");
