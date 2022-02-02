@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class TaskManagement {
+public class TaskManager {
     public static void main(String[] args) {
         Task[] taskList = new Task[3];
         taskList[0] = new Task("read book");
