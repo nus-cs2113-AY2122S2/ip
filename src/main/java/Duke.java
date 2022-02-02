@@ -3,10 +3,7 @@ import java.util.Scanner;
 public class Duke {
     public static void linePrinter() {
         System.out.print("\t");
-        for(int i = 0; i < 70; i++) {
-            System.out.print("\u2500");
-        }
-        System.out.println("\u2500");
+        System.out.println("───────────────────────────────────────────────────────────────────────");
     }
 
     public static void greeting() {
