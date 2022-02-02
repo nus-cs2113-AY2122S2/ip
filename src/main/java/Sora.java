@@ -2,9 +2,9 @@ public class Sora {
     protected static final boolean IN_TESTING_MODE = false;
     private boolean userWantsToExit = false;
 
-    TasksManager tasksManager;
-    SoraUI soraUI = new SoraUI();
-    SoraReader soraReader;
+    private TasksManager tasksManager;
+    private SoraUI soraUI = new SoraUI();
+    private SoraReader soraReader;
 
     protected Sora() {
         // Instantiate components
@@ -21,6 +21,10 @@ public class Sora {
 
     protected void setUserWantsToExit() {
         this.userWantsToExit = true;
+    }
+
+    protected TasksManager getTasksManager() {
+        return this.tasksManager;
     }
 
     protected void startContinuousUserPrompt() {
@@ -42,58 +46,47 @@ public class Sora {
     }
 
     private void executeCommand(String userRawInput) {
-        if (userRawInput.equalsIgnoreCase(SoraUI.EXIT_COMMAND_KEYWORD)) {
-            // Set userWantsToExit to true and return to calling method
+        String userCommand = extractCommand(userRawInput);
+
+        switch (userCommand) {
+        case SoraUI.EXIT_COMMAND_KEYWORD:
             setUserWantsToExit();
-        } else if (userRawInput.equalsIgnoreCase(SoraUI.LIST_COMMAND_KEYWORD)) {
-            // Display the task list
-            soraUI.displayTaskList(tasksManager);
-        } else if (userRawInput.toLowerCase().startsWith(SoraUI.MARK_TASK_AS_DONE_COMMAND_KEYWORD)) {
-            // Obtain task number
-            int taskNum = Integer.parseInt(userRawInput.split(" ")[1]);
-            boolean markSuccess = tasksManager.updateDoneStatus(taskNum, true);
-
-            if (markSuccess) {
-                System.out.println(soraUI.getRandomAcknowledgement()
-                        + ", I've marked this task as done:");
-                System.out.println();
-                tasksManager.displayTask(taskNum);
-                System.out.println();
-            } else {
-                System.out.println("Oops, I couldn't mark that task as done.");
-                System.out.println("Sorry about that... (-ω-、)");
-            }
-        } else if (userRawInput.toLowerCase().startsWith(SoraUI.UNMARK_TASK_AS_DONE_COMMAND_KEYWORD)) {
-            // Obtain task number
-            int taskNum = Integer.parseInt(userRawInput.split(" ")[1]);
-            boolean unmarkSuccess = tasksManager.updateDoneStatus(taskNum, false);
-
-            if (unmarkSuccess) {
-                System.out.println(soraUI.getRandomAcknowledgement()
-                        + ", I've marked this task as not done:");
-                System.out.println();
-                tasksManager.displayTask(taskNum);
-                System.out.println();
-            } else {
-                System.out.println("Oops, I couldn't mark that task as not done.");
-                System.out.println("Sorry about that... (-ω-、)");
-            }
-        } else if (userRawInput.toLowerCase().startsWith(SoraUI.ADD_TODO_COMMAND_KEYWORD) ||
-                userRawInput.toLowerCase().startsWith(SoraUI.ADD_EVENT_COMMAND_KEYWORD) ||
-                userRawInput.toLowerCase().startsWith(SoraUI.ADD_DEADLINE_COMMAND_KEYWORD)){
-            // Add text to list
-            boolean addSuccess = tasksManager.addTask(userRawInput);
-
-            if (addSuccess) {
-                System.out.println(soraUI.getRandomAcknowledgement()
-                        + ", I have added your new task to my list.");
-            } else {
-                System.out.println("Oops! Somehow I wasn't able to add your text to my list...");
-                System.out.println("Sorry about that! (-ω-、)");
-            }
-        } else {
-            System.out.println("Oops! I can't understand what you've just typed...");
-            System.out.println("Could you try again?");
+            break;
+        case SoraUI.LIST_COMMAND_KEYWORD:
+            soraUI.displayTaskList(getTasksManager());
+            break;
+        case SoraUI.MARK_TASK_AS_DONE_COMMAND_KEYWORD:
+            int taskNum = getTaskNumberFromCommand(userRawInput);
+            boolean markSuccess = getTasksManager().updateDoneStatus(taskNum, true);
+            soraUI.printMarkTaskResponseMessage(markSuccess, getTasksManager(), taskNum);
+            break;
+        case SoraUI.UNMARK_TASK_AS_DONE_COMMAND_KEYWORD:
+            taskNum = getTaskNumberFromCommand(userRawInput);
+            boolean unmarkSuccess = getTasksManager().updateDoneStatus(taskNum, false);
+            soraUI.printUnmarkTaskResponseMessage(unmarkSuccess, getTasksManager(), taskNum);
+            break;
+        case SoraUI.ADD_TODO_COMMAND_KEYWORD:
+            // Fallthrough
+        case SoraUI.ADD_EVENT_COMMAND_KEYWORD:
+            // Fallthrough
+        case SoraUI.ADD_DEADLINE_COMMAND_KEYWORD:
+            boolean addSuccess = getTasksManager().addTask(userRawInput);
+            soraUI.printAddTaskResponseMessage(addSuccess, getTasksManager());
+            break;
+        default:
+            soraUI.printCommandNotUnderstood();
         }
     }
+
+    private String extractCommand(String userRawInput) {
+        String userCommand = userRawInput.toLowerCase().split(" ", 2)[0];
+        return userCommand;
+    }
+
+    private int getTaskNumberFromCommand(String userRawInput) {
+        int taskNum = Integer.parseInt(userRawInput.split(" ")[1]);
+        return taskNum;
+    }
+
+
 }

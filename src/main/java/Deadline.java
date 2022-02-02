@@ -1,10 +1,18 @@
 public class Deadline extends Task {
-    private String dueDate;
+    private static final int DEADLINE_DESCRIPTION = 0;
+    private static final int DEADLINE_DATE = 1;
     private static final String DEADLINE_CHECKBOX = "[D]";
+
+    private String dueDate;
 
     public Deadline(String description, String dueDate) {
         super(description);
         this.dueDate = dueDate;
+    }
+
+    public Deadline(String[] descriptionAndDate) {
+        super(descriptionAndDate[DEADLINE_DESCRIPTION]);
+        this.dueDate = descriptionAndDate[DEADLINE_DATE];
     }
 
     public String getDueDate() {

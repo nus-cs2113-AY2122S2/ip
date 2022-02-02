@@ -48,6 +48,32 @@ public class SoraUI {
     protected static final String UNMARK_TASK_AS_DONE_COMMAND_KEYWORD = "unmark";
 
     /**
+     * List of response messages
+     */
+    protected static final String LIST_PRE_EXECUTION_RESPONSE =
+            "%s, here's a list of tasks that you have given to me:\n";
+    protected static final String EMPTY_LIST_RESPONSE =
+            "Hmm, my list is empty at the moment...";
+
+    protected static final String ADD_TASK_SUCCESS_RESPONSE =
+            "%s, I've added your new task to my list:\n";
+    protected static final String ADD_TASK_FAILURE_RESPONSE =
+            "Oops! Somehow I wasn't able to add your task to my list...\nSorry about that! (-ω-、)";
+
+    protected static final String MARK_TASK_DONE_SUCCESS_RESPONSE =
+            "%s, I've marked this task as done:\n";
+    protected static final String MARK_TASK_DONE_FAILURE_RESPONSE =
+            "Oops, I couldn't mark that task as done.\nSorry about that... (-ω-、)";
+
+    protected static final String UNMARK_TASK_DONE_SUCCESS_RESPONSE =
+            "%s, I've marked this task as not done:\n";
+    protected static final String UNMARK_TASK_DONE_FAILURE_RESPONSE =
+            "Oops, I couldn't mark that task as not done.\nSorry about that... (-ω-、)";
+
+    protected static final String COMMAND_NOT_UNDERSTOOD_RESPONSE =
+            "Oops! I can't understand what you've just typed...\nCould you try again?";
+
+    /**
      * Prints a line on the console based on the default parameters defined in this Java class.
      */
     protected void printLine() {
@@ -139,16 +165,59 @@ public class SoraUI {
         return ACKNOWLEDGEMENT_WORDS[randNum];
     }
 
-    protected void displayTaskList(TasksManager tasksManager) {
-        // Check if the task list is empty
-        if (tasksManager.isEmpty()) {
-            System.out.println("Hmm, my list is empty at the moment...");
+    protected void printMarkTaskResponseMessage(boolean isSuccessful, TasksManager tasksManager, int taskNum) {
+        if (isSuccessful) {
+            System.out.printf(SoraUI.MARK_TASK_DONE_SUCCESS_RESPONSE, getRandomAcknowledgement());
+            System.out.println();
+            tasksManager.displayTask(taskNum);
+            System.out.println();
             return;
         }
 
-        System.out.println(getRandomAcknowledgement()
-                + ", here's a list of tasks that you have given to me:");
+        // Mark task was unsuccessful
+        System.out.println(SoraUI.MARK_TASK_DONE_FAILURE_RESPONSE);
+    }
+
+    protected void printUnmarkTaskResponseMessage(boolean isSuccessful, TasksManager tasksManager, int taskNum) {
+        if (isSuccessful) {
+            System.out.printf(SoraUI.UNMARK_TASK_DONE_SUCCESS_RESPONSE, getRandomAcknowledgement());
+            System.out.println();
+            tasksManager.displayTask(taskNum);
+            System.out.println();
+            return;
+        }
+
+        // Unmark task was unsuccessful
+        System.out.println(SoraUI.UNMARK_TASK_DONE_FAILURE_RESPONSE);
+    }
+
+    protected void printAddTaskResponseMessage(boolean isSuccessful, TasksManager tasksManager) {
+        if (isSuccessful) {
+            System.out.printf(SoraUI.ADD_TASK_SUCCESS_RESPONSE, getRandomAcknowledgement());
+            System.out.println();
+            tasksManager.displayLastAddedTask();
+            System.out.println();
+            return;
+        }
+
+        // Adding task was unsuccessful
+        System.out.println(SoraUI.ADD_TASK_FAILURE_RESPONSE);
+    }
+
+    protected void printCommandNotUnderstood() {
+        System.out.println(SoraUI.COMMAND_NOT_UNDERSTOOD_RESPONSE);
+    }
+
+    protected void displayTaskList(TasksManager tasksManager) {
+        // Check if the task list is empty
+        if (tasksManager.isEmpty()) {
+            System.out.println(EMPTY_LIST_RESPONSE);
+            return;
+        }
+
+        System.out.printf(LIST_PRE_EXECUTION_RESPONSE, getRandomAcknowledgement());
         System.out.println();
         tasksManager.displayAllTasks();
+        System.out.println();
     }
 }
