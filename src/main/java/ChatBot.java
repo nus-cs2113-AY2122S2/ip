@@ -1,6 +1,7 @@
 public class ChatBot {
     private final String BOT_NAME = "Big Bob";
-    private Task[] listOfTasks = new Task[100];
+    private final int MAXIMUM_NUMBER_OF_TASK = 100;
+    private Task[] listOfTasks = new Task[MAXIMUM_NUMBER_OF_TASK];
     private int numOfTaskInList = 0;
 
     public ChatBot() {
@@ -29,11 +30,6 @@ public class ChatBot {
         }
     }
 
-    public void printNumberOfTaskInList() {
-        System.out.println("\t Now you have " + numOfTaskInList + " tasks in the list.");
-    }
-
-
     public void addTaskToList(AddTaskCommand inputCommand) {
         String acknowledgementMessage = "\t Got it. I've added this task:\n";
         String taskName = inputCommand.getTaskName();
@@ -54,7 +50,7 @@ public class ChatBot {
         listOfTasks[numOfTaskInList] = freshTask;
         numOfTaskInList++;
         System.out.println(acknowledgementMessage);
-        printNumberOfTaskInList();
+        System.out.println("\t Now you have " + numOfTaskInList + " tasks in the list.");
     }
 
     public void updateTaskStatusInList(UpdateTaskStatusCommand newUpdateCommand) {

@@ -23,12 +23,15 @@ public class AddTaskCommand extends Command {
 
     public String extractTaskName(String userInput, TaskType type) {
         String taskName;
+        int taskNameEndingPosition;
         if (type == TaskType.EVENTS) {
             userInput = userInput.replace("event", "");
-            taskName = userInput.substring(0, userInput.indexOf("/at"));
+            taskNameEndingPosition = userInput.indexOf("/at");
+            taskName = userInput.substring(0, taskNameEndingPosition);
         } else if (type == TaskType.DEADLINES) {
             userInput = userInput.replace("deadline", "");
-            taskName = userInput.substring(0, userInput.indexOf("/by"));
+            taskNameEndingPosition = userInput.indexOf("/by");
+            taskName = userInput.substring(0, taskNameEndingPosition);
         } else {
             taskName = userInput.replace("todo", "");
         }
@@ -37,10 +40,13 @@ public class AddTaskCommand extends Command {
 
     public String extractTaskRequirement(String userInput, TaskType type) {
         String extractedRequirement = "";
+        int taskRequirementStartPosition;
         if (type == TaskType.EVENTS) {
-            extractedRequirement = userInput.substring(userInput.indexOf("/at") + 3, userInput.length());
+            taskRequirementStartPosition = userInput.indexOf("/at") + 3;
+            extractedRequirement = userInput.substring(taskRequirementStartPosition, userInput.length());
         } else if (type == TaskType.DEADLINES) {
-            extractedRequirement = userInput.substring(userInput.indexOf("/by") + 3, userInput.length());
+            taskRequirementStartPosition = userInput.indexOf("/by") + 3;
+            extractedRequirement = userInput.substring(taskRequirementStartPosition, userInput.length());
         }
         return extractedRequirement.trim();
     }

@@ -10,11 +10,13 @@ public class UpdateTaskStatusCommand extends Command {
 
     public int extractTaskIndex(String userInput, boolean isTaskDone) {
         String taskIndexStringVersion;
+        int taskIndexStartPosition;
         if (isTaskDone == true) {
-            taskIndexStringVersion = userInput.substring(5, userInput.length());
+            taskIndexStartPosition = 5;
         } else {
-            taskIndexStringVersion = userInput.substring(7, userInput.length());
+            taskIndexStartPosition = 7;
         }
+        taskIndexStringVersion = userInput.substring(taskIndexStartPosition, userInput.length());
         return Integer.parseInt(taskIndexStringVersion) - 1;
     }
 

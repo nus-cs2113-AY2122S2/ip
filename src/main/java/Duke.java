@@ -1,15 +1,18 @@
 import java.util.Scanner;
 
 public class Duke {
+    public static void printHorizontalLine(){
+        System.out.println("    ------------------------------------------------------------");
+    }
+
     public static void startBot(Scanner in, boolean shouldExitProgram) {
-        final String HORIZONTAL_LINE = "    ------------------------------------------------------------";
-        System.out.println(HORIZONTAL_LINE);
+        printHorizontalLine();
         ChatBot bigBob = new ChatBot();
-        System.out.println(HORIZONTAL_LINE);
+        printHorizontalLine();
         Command inputCommand;
         while (!shouldExitProgram) {
             String userInput = in.nextLine();
-            System.out.println(HORIZONTAL_LINE);
+            printHorizontalLine();
             inputCommand = Decoder.parseInput(userInput);
             if (inputCommand.getType() != Command.CommandType.EXITPROGRAM) {
                 bigBob.executeCommand(inputCommand);
@@ -17,7 +20,7 @@ public class Duke {
                 shouldExitProgram = true;
                 bigBob.echoFarewellGreeting();
             }
-            System.out.println(HORIZONTAL_LINE);
+            printHorizontalLine();
         }
     }
 
