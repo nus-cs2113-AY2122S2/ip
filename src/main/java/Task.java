@@ -1,6 +1,6 @@
 public class Task {
     private String name;
-    private boolean marked = false;
+    private boolean isMarked = false;
 
     public String getName() {
         return name;
@@ -11,16 +11,16 @@ public class Task {
     }
 
     public boolean getMarked() {
-        return marked;
+        return isMarked;
     }
 
     public void setMarked(boolean marked) {
-        this.marked = marked;
+        this.isMarked = marked;
     }
 
-    public Task(String name, boolean marked) {
+    public Task(String name, boolean isMarked) {
         this.name = name;
-        this.marked = marked;
+        this.isMarked = isMarked;
     }
     public String toString(){
         return " [ ][ ] " + getName();
