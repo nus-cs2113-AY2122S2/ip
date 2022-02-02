@@ -1,4 +1,4 @@
-package task;
+package tasks;
 
 /**
  * Base abstract class for storing all kinds of tasks.

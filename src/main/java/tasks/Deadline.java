@@ -1,4 +1,4 @@
-package task;
+package tasks;
 
 /**
  * Deadline task is a specialisation of the Task class that tracks

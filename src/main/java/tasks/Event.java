@@ -1,4 +1,4 @@
-package task;
+package tasks;
 
 /**
  * Event class is a specialisation of the Task class that tracks

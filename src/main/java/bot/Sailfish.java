@@ -1,9 +1,9 @@
 package bot;
 
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
 
 import java.util.ArrayList;
 import java.util.List;
