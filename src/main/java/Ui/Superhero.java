@@ -21,7 +21,7 @@ public class Superhero {
         this.printWelcomeMessage();
         do {
             input = choice.nextLine();
-            inputArray = new ArrayList<String>(Arrays.asList(input.split(" ", 2)));
+            inputArray = Parser.readTask(input);
             switch (inputArray.get(0)) {
             case "bye":
                 this.printByeMessage();
@@ -35,13 +35,13 @@ public class Superhero {
                 inputList.appendList(newTodoWord);
                 break;
             case "deadline":
-                ArrayList<String> deadlineArray = new ArrayList<String>(Arrays.asList(inputArray.get(1).split("/", 2)));
+                ArrayList<String> deadlineArray = Parser.readTaskDate(inputArray);
                 Vocabulary newDeadlineWord = new Deadline(deadlineArray.get(0), deadlineArray.get(1));
                 printInput(newDeadlineWord.getWord());
                 inputList.appendList(newDeadlineWord);
                 break;
             case "event":
-                ArrayList<String> eventArray = new ArrayList<String>(Arrays.asList(inputArray.get(1).split("/", 2)));
+                ArrayList<String> eventArray = Parser.readTaskDate(inputArray);
                 Vocabulary newEventWord = new Event(eventArray.get(0), eventArray.get(1));
                 printInput(newEventWord.getWord());
                 inputList.appendList(newEventWord);
@@ -52,11 +52,9 @@ public class Superhero {
                     inputList.getList()[index - 1].setDone(true);
                     this.printMarkMessage(index - 1);
                 } catch (NumberFormatException e){
-                    System.out.println("Second word in input is not a number!\n" +
-                            "____________________________________________________________");
+                    printNumberFormatExceptionMessage();
                 } catch (NullPointerException e){
-                    System.out.println("Your index is out of bounds!\n" +
-                            "____________________________________________________________");
+                    printNullPointerExceptionMessage();
                 }
                 break;
             case "unmark":
@@ -65,17 +63,15 @@ public class Superhero {
                     inputList.getList()[index - 1].setDone(false);
                     this.printUnmarkMessage(index - 1);
                 } catch (NumberFormatException e){
-                    System.out.println("Second word in input is not a number!\n" +
-                            "____________________________________________________________");
+                    printNumberFormatExceptionMessage();
                 } catch (NullPointerException e){
-                    System.out.println("Your index is out of bounds!\n" +
-                            "____________________________________________________________");
+                    printNullPointerExceptionMessage();
                 }
                 break;
             default:
                 printDefaultMessage();
             }
-        }while(!inputArray.get(0).equals("bye")) ;
+        } while(!inputArray.get(0).equals("bye")) ;
     }
 
     private void printWelcomeMessage(){
@@ -119,6 +115,16 @@ public class Superhero {
     private void printDefaultMessage() {
         System.out.println("____________________________________________________________\n" +
                 " Please use keyword - bye, todo, list, todo, deadline, event, mark, unmark!\n" +
+                "____________________________________________________________");
+    }
+
+    private void printNumberFormatExceptionMessage() {
+        System.out.println("Second word in input is not a number!\n" +
+                "____________________________________________________________");
+    }
+
+    private void printNullPointerExceptionMessage() {
+        System.out.println("Your index is out of bounds!\n" +
                 "____________________________________________________________");
     }
 }
