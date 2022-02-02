@@ -12,7 +12,7 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
 
-        String endOfSection = "___________________________________________________\n";
+        String endOfSection = "___________________________________________________";
 
         System.out.println(logo + "\nHello! I'm Duke\nWhat can I do for you?");
         System.out.println(endOfSection);
@@ -20,47 +20,50 @@ public class Duke {
         line = in.nextLine();
 
         while (!line.equals("bye")) {
-            if (allTasks.isEmpty()) {
-                if (!line.equals("list")) {
-                    allTasks.add(new Task(line));
-
-                    System.out.println("Added: " + String.format("%s", line));
+            System.out.println(endOfSection);
+            String[] arrOfStr = line.split(" ", 2);
+            if (arrOfStr[0].equals("list")) {
+                if (allTasks.isEmpty()) {
                     System.out.println(endOfSection);
-                }
-            } else {
-                if (line.equals("list")) {
+                } else {
+                    System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < allTasks.size(); ++i) {
-                        Task currentTask = allTasks.get(i);
-
-                        System.out.println(String.format("%d. [%s] %s", i + 1, currentTask.getStatusIcon(), currentTask.getTask()));
+                        System.out.println(String.format("%d.%s", i + 1, allTasks.get(i)));
                     }
                     System.out.println(endOfSection);
-                } else if (line.equals("mark")) {
-                    int pos = in.nextInt();
-
-                    Task currentTask = allTasks.get(pos - 1);
-                    currentTask.markAsDone();
-
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(String.format("[%s] %s", currentTask.getStatusIcon(), currentTask.getTask()));
-                    System.out.println(endOfSection);
-                    in.nextLine();
-                } else if (line.equals("unmark")) {
-                    int pos = in.nextInt();
-
-                    Task currentTask = allTasks.get(pos - 1);
-                    currentTask.unmark();
-
-                    System.out.println("Ok, I've marked this task as not done yet:");
-                    System.out.println(String.format("[%s] %s", currentTask.getStatusIcon(), currentTask.getTask()));
-                    System.out.println(endOfSection);
-                    in.nextLine();
-                } else {
-                    allTasks.add(new Task(line));
-
-                    System.out.println("Added: " + String.format("%s", line));
-                    System.out.println(endOfSection);
                 }
+            } else if (arrOfStr[0].equals("todo")) {
+                // toDo method
+                allTasks.add(new ToDo(arrOfStr[1]));
+                System.out.println(String.format("Got it. I've added this task:%n  %s%nNow you have %d tasks in the list.",
+                        allTasks.get(allTasks.size() - 1), allTasks.size()));
+                System.out.println(endOfSection);
+            } else if (arrOfStr[0].equals("deadline")) {
+                // Deadline method
+                String[] deadlineDescription = arrOfStr[1].split("/by");
+                allTasks.add(new Deadline(deadlineDescription[0], deadlineDescription[1]));
+                System.out.println(String.format("Got it. I've added this task:%n  %s%nNow you have %d tasks in the list.",
+                        allTasks.get(allTasks.size() - 1), allTasks.size()));
+                System.out.println(endOfSection);
+            } else if (arrOfStr[0].equals("event")) {
+                // Event method
+                String[] eventDescription = arrOfStr[1].split("/at");
+                allTasks.add(new Event(eventDescription[0], eventDescription[1]));
+                System.out.println(String.format("Got it. I've added this task:%n  %s%nNow you have %d tasks in the list.",
+                        allTasks.get(allTasks.size() - 1), allTasks.size()));
+                System.out.println(endOfSection);
+            } else if (arrOfStr[0].equals("mark")) {
+                allTasks.get(Integer.parseInt(arrOfStr[1]) - 1).markAsDone();
+                System.out.println(String.format("Nice! I've marked this task as done:%n%s",
+                        allTasks.get(Integer.parseInt(arrOfStr[1]) - 1)));
+                System.out.println(endOfSection);
+            } else if (arrOfStr[0].equals("unmark")) {
+                allTasks.get(Integer.parseInt(arrOfStr[1]) - 1).unmark();
+                System.out.println(String.format("Ok, I've marked this task as not done yet:%n%s",
+                        allTasks.get(Integer.parseInt(arrOfStr[1]) - 1)));
+                System.out.println(endOfSection);
+            } else {
+                System.out.println(endOfSection);
             }
             line = in.nextLine();
         }
