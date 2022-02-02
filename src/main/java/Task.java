@@ -36,8 +36,9 @@ public class Task {
         this.isCompleted = isDone;
     }
 
-    public String getTaskStatus() {
-        return (this.taskName + ": [" + getStatusIcon() + "]");
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + this.taskName;
     }
 
 }
