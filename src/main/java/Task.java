@@ -5,17 +5,19 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        System.out.println("\nSuccessfully added to list:\n" + addIndentation() + getTask());
+    }
+
+    @Override
+    public String toString() {
+        return description;
     }
 
     public void markAsDone() {
         isDone = true;
-        System.out.println("Congrats! You've completed:\n" + addIndentation() + getTask());
     }
 
     public void markAsNotDone() {
         isDone = false;
-        System.out.println("Awww, you've marked this as undone:\n" + addIndentation() + getTask());
     }
 
     public String getTask() {

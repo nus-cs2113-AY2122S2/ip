@@ -1,9 +1,18 @@
 import java.util.Scanner;
 
 public class Duke {
+    protected static Task[] tasks = new Task[100];
+    protected static int numTasks = 0;
+
+    public static void main(String[] args) {
+        greet();
+        acceptCommand();
+        exit();
+    }
+
     public static void greet() {
         printLine();
-        System.out.println("Hi there! I'm Domo the chatbot.\nWhat would you like to do?");
+        System.out.println("Hi there! I'm Domo the chat bot.\nWhat would you like to do?");
     }
 
     public static void exit() {
@@ -12,55 +21,119 @@ public class Duke {
         printDomo();
     }
 
-    public static void parseCommand(Task[] tasks, int numTasks) {
-        String command = getCommand();
-        while (!isBye(command)) {
+    public static void acceptCommand() {
+        String input = getInput();
+        while (!isBye(input)) {
+            String command = getCommand(input);
             if (isValidCommand(command)) {
-                System.out.println("\nCommand accepted!");
-                switch(command) {
-                case "list":
-                    System.out.println("Here is your list so far:");
-                    listTasks(tasks, numTasks);
-                    break;
-                case "mark":
-                    System.out.println("Which task would you like to mark as done?");
-                    listTasks(tasks,numTasks);
-                    int markChoice = getInteger();
-                    tasks[markChoice - 1].markAsDone();
-                    break;
-                case "unmark":
-                    System.out.println("Which task would you like to unmark as done?");
-                    listTasks(tasks,numTasks);
-                    int unmarkChoice = getInteger();
-                    tasks[unmarkChoice - 1].markAsNotDone();
-                    break;
-                }
+                executeCommand(input);
             } else {
-                Task t = new Task(command);
-                tasks[numTasks] = t;
-                numTasks += 1;
+                System.out.println("Not a valid command. Please try again.");
             }
-            printBlankLine();
-            command = getCommand();
+            input = getInput();
         }
     }
 
-    public static void main(String[] args) {
-        Task[] tasks = new Task[100];
-        int numTasks = 0;
-        greet();
-        parseCommand(tasks, numTasks);
-        exit();
-    }
-
-    public static void listTasks(Task[] tasks, int numTasks) {
-        for (int i = 0; i < numTasks; i++) {
-            System.out.println((i + 1) + ". " + tasks[i].getTask());
+    public static void executeCommand(String input) {
+        String command = getCommand(input);
+        System.out.println("\nCommand accepted!");
+        switch(command) {
+        case "list":
+            System.out.println("Here is your list so far:");
+            listTasks();
+            break;
+        case "mark":
+            executeMark();
+            break;
+        case "unmark":
+            executeUnmark();
+            break;
+        case "todo":
+            executeTodo(input);
+            break;
+        case "deadline":
+            executeDeadline(input);
+            break;
+        case "event":
+            executeEvent(input);
+            break;
         }
     }
 
-    public static String getCommand() {
-        System.out.println("Type a valid command (bye, list, mark, unmark) or add a task to your list:");
+    public static void executeMark() {
+        System.out.println("Which task would you like to mark as done?");
+        listTasks();
+        int index = getInteger() - 1;
+        tasks[index].markAsDone();
+        System.out.println("Congrats! You've completed:\n" + tasks[index]);
+    }
+
+    public static void executeUnmark() {
+        System.out.println("Which task would you like to unmark as done?");
+        listTasks();
+        int index = getInteger() - 1;
+        tasks[index].markAsNotDone();
+        System.out.println("Aw, you've marked this as undone:\n" + tasks[index]);
+    }
+
+    public static void executeTodo(String input) {
+        String description = getDescription(input);
+        Todo t = new Todo(description);
+        tasks[numTasks] = t;
+        numTasks += 1;
+    }
+
+    public static void executeDeadline(String input) {
+        String[] parsedCommand = parseDeadlineOrEvent(input);
+        String description = parsedCommand[0];
+        String by = parsedCommand[1];
+        Deadline t = new Deadline(description, by);
+        tasks[numTasks] = t;
+        numTasks += 1;
+    }
+
+    public static void executeEvent(String input) {
+        String[] parsedCommand = parseDeadlineOrEvent(input);
+        String description = parsedCommand[0];
+        String at = parsedCommand[1];
+        Event t = new Event(description, at);
+        tasks[numTasks] = t;
+        numTasks += 1;
+    }
+
+    public static String[] parseDeadlineOrEvent(String input) {
+        String command = getCommand(input);
+        String[] inputArray;
+        if (command.equals("deadline")) {
+            inputArray = input.split(" /by ");
+        } else {
+            inputArray = input.split(" /at ");
+        }
+        inputArray[0] = inputArray[0].substring(inputArray[0].indexOf(" "));
+        return inputArray;
+    }
+
+    public static void listTasks() {
+        if (numTasks == 0) {
+            System.out.println("You don't seem to have any tasks so far!");
+        } else {
+            for (int i = 0; i < numTasks; i++) {
+                System.out.println((i + 1) + ". " + tasks[i]);
+            }
+        }
+    }
+
+    public static String getCommand(String input) {
+        String[] arrayOfInput = input.split(" ", 0);
+        return arrayOfInput[0];
+    }
+
+    public static String getDescription(String input) {
+        return input.substring(input.indexOf(" "));
+    }
+
+    public static String getInput() {
+        System.out.println("Type a valid command (bye, list, mark, unmark, todo, deadline, event) or add a task to your list:");
         Scanner scan = new Scanner(System.in);
         return scan.nextLine();
     }
@@ -70,24 +143,37 @@ public class Duke {
         return scan.nextInt();
     }
 
-    public static Boolean isBye(String command) {
+    public static boolean isValidCommand(String command) {
+        return isList(command) || isMarkAsDone(command) || isUnmarkAsDone(command) || isTodo(command)
+                || isDeadline(command) || isEvent(command);
+    }
+
+    public static boolean isBye(String command) {
         return command.equals("bye");
     }
 
-    public static Boolean isList(String command) {
+    public static boolean isList(String command) {
         return command.equals("list");
     }
 
-    public static Boolean isMarkAsDone(String command) {
+    public static boolean isMarkAsDone(String command) {
         return command.equals("mark");
     }
 
-    public static Boolean isUnmarkAsDone(String command) {
+    public static boolean isUnmarkAsDone(String command) {
         return command.equals("unmark");
     }
 
-    public static Boolean isValidCommand(String command) {
-        return isList(command) || isMarkAsDone(command) || isUnmarkAsDone(command);
+    public static boolean isTodo(String command) {
+        return command.equals("todo");
+    }
+
+    public static boolean isDeadline(String command) {
+        return command.equals("deadline");
+    }
+
+    public static boolean isEvent(String command) {
+        return command.equals("event");
     }
 
     public static void printDomo() {
@@ -117,10 +203,6 @@ public class Duke {
                 "──────▐▒▒▒▒▒▒▒▒▌──▐▒▒▒▒▒▒▒▒▌──────\n" +
                 "───────▀▀▀▀▀▀▀▀────▀▀▀▀▀▀▀▀───────";
         System.out.println(domoLogo);
-    }
-
-    public static void printBlankLine() {
-        System.out.println("");
     }
 
     public static void printLine() {
