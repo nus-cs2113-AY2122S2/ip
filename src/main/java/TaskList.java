@@ -11,15 +11,20 @@ public class TaskList {
         this.tasks = new ArrayList<Task>();
     }
 
-    public String addTask(String taskType, String[] taskDescription) {
-        Task newTask;
+    private Task createTask(String taskType, String[] taskDescription) {
+        Task task;
         if (taskType.equals(DEADLINE)) {
-            newTask = new Deadline(taskDescription[0], taskDescription[1]);
+            task = new Deadline(taskDescription[0], taskDescription[1]);
         } else if (taskType.equals(EVENT))
-            newTask = new Event(taskDescription[0], taskDescription[1]);
+            task = new Event(taskDescription[0], taskDescription[1]);
         else {
-            newTask = new Todo(taskDescription[0]);
+            task = new Todo(taskDescription[0]);
         }
+        return task;
+    }
+
+    public String addTask(String taskType, String[] taskDescription) {
+        Task newTask = createTask(taskType, taskDescription);
         tasks.add(newTask);
         return String.format("Got it. I've added this task:\n%s\n" +
                                 "Now you have %d tasks in list.",

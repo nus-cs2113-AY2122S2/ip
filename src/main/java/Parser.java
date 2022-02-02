@@ -21,15 +21,14 @@ public class Parser {
         isExiting = false;
     }
 
-    public String getCommand() {
-        return input.split(" ")[0];
-    }
-
     public void parseString(String input) {
         reset();
         this.input = input;
         String command = getCommand();
+        setParam(command);
+    }
 
+    private void setParam(String command) {
         if (command.equals("bye")) {
             isExiting = true;
         } else if (command.equals("list")) {
@@ -37,7 +36,7 @@ public class Parser {
         } else if (command.equals("mark") || command.equals("unmark")) {
             isMarkingTask = true;
         } else if (command.equals("todo") || command.equals("event")
-                    || command.equals("deadline")) {
+                || command.equals("deadline")) {
             isAddingTask = true;
         }
     }
@@ -56,6 +55,10 @@ public class Parser {
 
     public boolean isExiting() {
         return isExiting;
+    }
+
+    public String getCommand() {
+        return input.split(" ")[0];
     }
 
     public String[] getAddedTask() {

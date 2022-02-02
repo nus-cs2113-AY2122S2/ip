@@ -13,7 +13,7 @@ public abstract class Task {
         if (this.isDone) {
             feedback = String.format("Nice! I've marked this task as done:\n%s", toString());
         } else {
-            feedback = String.format("Nice! I've marked this task as done:\n%s", toString());
+            feedback = String.format("OK, I've marked this task as not done yet:\n%s", toString());
         }
         return feedback;
     }
