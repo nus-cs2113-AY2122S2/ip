@@ -16,18 +16,11 @@ public class TaskList {
 
     public String markTask(String markCommand, String id) {
         int index = Integer.valueOf(id) - 1;
+        boolean isDone = true;
         if (markCommand.equals("unmark")) {
-            return unmarkDone(index);
+            isDone = false;
         }
-        return markDone(index);
-    }
-
-    private String markDone(int index) {
-        return tasks.get(index).markDone();
-    }
-
-    private String unmarkDone(int index) {
-        return tasks.get(index).unmarkDone();
+        return tasks.get(index).setDone(isDone);
     }
 
     @Override

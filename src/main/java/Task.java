@@ -7,14 +7,15 @@ public class Task {
         this.isDone = false;
     }
 
-    public String markDone() {
-        isDone = true;
-        return String.format("Nice! I've marked this task as done:\n%s", toString());
-    }
-
-    public String unmarkDone() {
-        isDone = false;
-        return String.format("OK, I've marked this task as not done yet:\n%s", toString());
+    public String setDone(boolean isDone) {
+        this.isDone = isDone;
+        String feedback;
+        if (this.isDone) {
+            feedback = String.format("Nice! I've marked this task as done:\n%s", toString());
+        } else {
+            feedback = String.format("Nice! I've marked this task as done:\n%s", toString());
+        }
+        return feedback;
     }
 
     @Override
