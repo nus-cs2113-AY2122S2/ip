@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class Duke {
     private static ArrayList<String> descriptions = new ArrayList<>();
     private static ArrayList<Boolean> done = new ArrayList<>();
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -58,10 +59,9 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Here are the tasks in your list:");
         for (int i = 0; i < descriptions.size(); i++) {
-            if(done.get(i)) {
+            if (done.get(i)) {
                 System.out.println("[X] " + descriptions.get(i));
-            }
-            else {
+            } else {
                 System.out.println("[ ] " + descriptions.get(i));
             }
         }
