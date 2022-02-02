@@ -2,8 +2,7 @@ import java.util.Scanner;
 
 public class Greet {
     public static void main(String[] args){
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
+
         Scanner sc = new Scanner(System.in);
 
         String[] input = new String[100];
