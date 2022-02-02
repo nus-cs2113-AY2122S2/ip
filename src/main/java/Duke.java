@@ -6,6 +6,9 @@ public class Duke {
     public static final String PRINT_MESSAGE = "list";
     public static final String MARK_MESSAGE = "mark";
     public static final String UNMARK_MESSAGE = "unmark";
+    public static final String TODO_MESSAGE = "todo";
+    public static final String DEADLINE_MESSAGE = "deadline";
+    public static final String EVENT_MESSAGE = "event";
 
     private static void printWelcomeMessage() {
         String logo = " ____        _        \n"
@@ -19,7 +22,7 @@ public class Duke {
     public static void printList(Task[] list, int listCounter) {
         for (int i = 0; i < listCounter; i++) {
             int listIndex = i + 1;
-            System.out.println(listIndex + ".[" + list[i].getStatusIcon() + "] " + list[i].description);
+            System.out.println(listIndex + "." + list[i]);
         }
     }
 
@@ -29,9 +32,29 @@ public class Duke {
         return taskIndex;
     }
 
-    public static void addList(Task[] list, int listCounter, String line) {
-        list[listCounter] = new Task(line);
-        System.out.println("added: " + line);
+    public static void addList(Task[] list, int listCounter, String userInput) {
+        String[] parsedUserInput = userInput.split(" ", 2);
+
+        if (parsedUserInput[0].equals(TODO_MESSAGE)) {
+            list[listCounter] = new ToDo(parsedUserInput[1]);
+        } else if (parsedUserInput[0].equals(DEADLINE_MESSAGE)) {
+            String[] deadlineInput = parsedUserInput[1].split("/by", 2);
+            list[listCounter] = new Deadline(deadlineInput[0], deadlineInput[1]);
+        } else if (parsedUserInput[0].equals(EVENT_MESSAGE)) {
+            String[] eventInput = parsedUserInput[1].split("/at", 2);
+            list[listCounter] = new Event(eventInput[0], eventInput[1]);
+        }
+
+        System.out.println("Got it. I've added this task:");
+        System.out.println(list[listCounter]);
+        listCounter++;
+
+        if (listCounter == 1) {
+            System.out.println("Now you have 1 task in the list");
+        } else {
+            System.out.println("Now you have " + listCounter + " tasks in the list.");
+        }
+
     }
 
     private static void acceptInput() {
