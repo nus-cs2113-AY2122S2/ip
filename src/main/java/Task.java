@@ -20,14 +20,6 @@ public class Task {
         isDone = false;
     }
 
-    public String getTask() {
-        return getStatusIcon() + " " + getDescription(); // get status of task as well as description
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
     public String getStatusIcon() {
         return (isDone ? "☑" : "☐"); // mark done task with tick
     }

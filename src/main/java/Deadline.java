@@ -5,7 +5,8 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
-        System.out.println("\nSuccessfully added to list:\n" + addIndentation() + "[D]" + getTask() + " (by: " + by + ")");
+        System.out.println("\nSuccessfully added to list:\n" + addIndentation() + "[D]" + getStatusIcon() + " "
+                + description + " (by: " + by + ")");
     }
 
     @Override

@@ -101,6 +101,7 @@ public class Duke {
         numTasks += 1;
     }
 
+    //Returns a String array with the first element as the description  and the second element as the deadline/time period
     public static String[] parseDeadlineOrEvent(String input) {
         String command = getCommand(input);
         String[] inputArray;
