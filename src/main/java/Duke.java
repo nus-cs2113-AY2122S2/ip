@@ -19,7 +19,6 @@ public class Duke {
             Scanner input1 = new Scanner(System.in);
             String command = input1.nextLine();
             System.out.println(indentation);
-            //System.out.println(command);
             if (command.equals("bye")){
                 System.out.println("Bye. Hope to see you again soon!");
             break;
