@@ -65,23 +65,36 @@ public class Eliz {
         return newEvent;
     }
 
+    public static void botIntroduction() {
+        String logo = " ____    __       __     ______ \n"
+                + "|  __|  |  |     |  |   |___  /\n"
+                + "| |__   |  |     |  |      / /  \n"
+                + "| |__|  |  |     |  |     / /  \n"
+                + "| |__   |  |__   |  |    / /___\n"
+                + "|____|  |_____|  |__|   |______|\n";
+
+        System.out.println("Hello from\n" + logo);
+        System.out.println("Hello! I'm Eliz");
+        System.out.println("What can I do for you?");
+    }
+
+    public static void markOrUnmark(String line, Task[] tasks, int taskCounter) {
+        if (line.contains("unmark")) {
+            System.out.println("OK, I've marked this task as not done yet:");
+            unmarkATask(line, Arrays.copyOf(tasks, taskCounter));
+        } else {
+            System.out.println("Nice! I've marked this task as done:");
+            markATask(line, Arrays.copyOf(tasks, taskCounter));
+        }
+    }
+
     public static void main(String[] args) {
         /** Key Definitions */
         String line;
         String BYE = "bye";
         String LIST = "list";
         Task[] tasks = new Task[100]; //array of Task objects
-        String logo = " ____    __       __     ______ \n"
-                    + "|  __|  |  |     |  |   |___  /\n"
-                    + "| |__   |  |     |  |      / /  \n"
-                    + "| |__|  |  |     |  |     / /  \n"
-                    + "| |__   |  |__   |  |    / /___\n"
-                    + "|____|  |_____|  |__|   |______|\n";
-
-        System.out.println("Hello from\n" + logo);
-        System.out.println("Hello! I'm Eliz");
-        System.out.println("What can I do for you?");
-
+        botIntroduction(); //calls the introduction of the bot
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
         int taskCounter = 0;
@@ -89,13 +102,7 @@ public class Eliz {
             if (line.equals(LIST)) { //check if action is to echo or print tasks
                 printTasks(Arrays.copyOf(tasks, taskCounter));
             } else if (line.contains("mark")) { //to check if todos are marked
-                if (line.contains("unmark")) {
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    unmarkATask(line, Arrays.copyOf(tasks, taskCounter));
-                } else {
-                    System.out.println("Nice! I've marked this task as done:");
-                    markATask(line, Arrays.copyOf(tasks, taskCounter));
-                }
+                Eliz.markOrUnmark(line, tasks, taskCounter);
             } else {
                 /** add line to todo, deadline, or event by creating the respective object */
                 Task t = createTask(line);
