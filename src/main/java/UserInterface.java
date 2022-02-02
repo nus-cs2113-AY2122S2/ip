@@ -41,10 +41,6 @@ public class UserInterface {
      * @param nextLine The command to be executed.
      */
     private void executeCommand(String nextLine) {
-        if (nextLine == null) {
-            System.out.println("Error: Command is null.");
-            return;
-        }
         try {
             ArrayList<String> pieces = new ArrayList<>(Arrays.asList(nextLine.split(" ")));
             switch (pieces.get(0)) {
@@ -66,7 +62,7 @@ public class UserInterface {
                 addTask(pieces);
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " + pieces.get(0));
+                System.out.println("Command not found: " + pieces.get(0));
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
