@@ -13,6 +13,25 @@ public class Controller {
         manager.addTask(input);
     }
 
+    public void addToDo(String input) {
+        String name = input.replace("todo", "");
+        manager.addToDo(name);
+    }
+
+    public void addDeadline(String input) {
+        String[] keywords = input.split("/by ");
+        String by = keywords[1];
+        String name = keywords[0].replace("deadline ", "");
+        manager.addDeadline(name, by);
+    }
+
+    public void addEvent(String input) {
+        String[] keywords = input.split("/at ");
+        String by = keywords[1];
+        String name = keywords[0].replace("event ", "");
+        manager.addEvent(name, by);
+    }
+
     public void listTask(){
         manager.listTask();
     }
@@ -61,6 +80,15 @@ public class Controller {
             break;
         case "unmark":
             this.unmarkTask(this.recvMsg);
+            break;
+        case "deadline":
+            this.addDeadline(this.recvMsg);
+            break;
+        case "event":
+            this.addEvent(this.recvMsg);
+            break;
+        case "todo":
+            this.addToDo(this.recvMsg);
             break;
         default:
             this.addTask(this.recvMsg);

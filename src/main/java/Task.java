@@ -2,10 +2,10 @@ public class Task {
     public String unmarkedStatus = "[ ]";
     public String markedStatus = "[X]";
     public String taskName = "";
-    public int status = 0;
+    public boolean isDone = false;
     public String listName = "";
 
-    public void setName(String name){
+    public Task(String name){
         this.taskName = name;
         setListName();
     }
@@ -15,7 +15,7 @@ public class Task {
     }
 
     public void setListName(){
-        if(status == 0){
+        if(isDone == false){
             this.listName = this.unmarkedStatus + this.taskName;
         }else{
             this.listName = this.markedStatus + this.taskName;
@@ -27,12 +27,12 @@ public class Task {
     }
 
     public void mark(){
-        this.status = 1;
+        this.isDone = true;
         this.setListName();
     }
 
     public void unmark(){
-        this.status = 0;
+        this.isDone = false;
         this.setListName();
     }
 

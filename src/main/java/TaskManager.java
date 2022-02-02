@@ -1,13 +1,40 @@
 import java.util.ArrayList;
 public class TaskManager {
     private static final ArrayList<Task> Tasks = new ArrayList<Task>();
+    private String addResponse = "Got it. I've added this task:\n";
     Chatbox chatbox = new Chatbox();
 
     public void addTask(String name){
-        Task newTask = new Task();
-        newTask.setName(name);
+        Task newTask = new Task(name);
         Tasks.add(newTask);
         chatbox.setContent("added: " + name);
+        chatbox.chatboxPrinter();
+    }
+
+    public void addDeadline(String name, String by){
+        Deadline newDeadline = new Deadline(name, by);
+        Tasks.add(newDeadline);
+        int s = Tasks.size();
+        String response = addResponse + newDeadline.getListName() + "\n" + "Now you have " + String.valueOf(s) + " tasks in your list.";
+        chatbox.setContent(response);
+        chatbox.chatboxPrinter();
+    }
+
+    public void addEvent(String name, String by){
+        Event newEvent = new Event(name, by);
+        Tasks.add(newEvent);
+        int s = Tasks.size();
+        String response = addResponse + newEvent.getListName() + "\n" + "Now you have " + String.valueOf(s) + " tasks in your list.";
+        chatbox.setContent(response);
+        chatbox.chatboxPrinter();
+    }
+
+    public void addToDo(String name){
+        ToDo newToDo = new ToDo(name);
+        Tasks.add(newToDo);
+        int s = Tasks.size();
+        String response = addResponse + newToDo.getListName() + "\n" + "Now you have " + String.valueOf(s) + " tasks in your list.";
+        chatbox.setContent(response);
         chatbox.chatboxPrinter();
     }
 
