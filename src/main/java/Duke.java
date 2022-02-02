@@ -2,9 +2,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
 
+    //fields
     private static ArrayList<Task> tasks = new ArrayList<Task>();
     private static int counter = 0;
 
+    //utility methods
     public static void printWithDivider(String stringWithinDivider) {
         String breakLine = "\t____________________________________________________________";
         System.out.println(breakLine);
@@ -12,7 +14,30 @@ public class Duke {
         System.out.println("\t" + stringWithinDivider);
         System.out.println(breakLine);
     }
+    public static ArrayList<String> processInput(String line, String delimiter) {
+        ArrayList<String> words = new ArrayList<>();
+        int divider = line.indexOf(delimiter);
 
+        words.add(line);
+
+        if (divider != -1) {
+            words.set(0, line.substring(0, divider));
+            words.add(line.substring(divider+1));
+        }
+        return words;
+    }
+
+    //command methods
+    public static void hello() {
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println("Hello from\n" + logo);
+
+        printWithDivider("Hello! I'm Duke\nWhat can I do for you?");
+    }
     public static String numerateList(ArrayList<Task> list) {
         String output = "";
         int number = 1 ;
@@ -25,36 +50,11 @@ public class Duke {
         }
         return output;
     }
-
-    public static void markCompleted (Task task) {
-        task.setCompleted(true);
-        printWithDivider(task.toString());
-    }
-    public static void unmarkCompleted (Task task) {
-        task.setCompleted(false);
-        printWithDivider(task.toString());
-    }
-
-    public static void hello() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-
-        printWithDivider("Hello! I'm Duke\nWhat can I do for you?");
-    }
-
     public static void addTask(String type, String description) {
         Task toBeAdded;
-        String taskName = description;
-        String addInfo = "";
-        int divider = description.indexOf("/");
-        if (divider != -1) {
-           taskName = description.substring(0,divider);
-           addInfo = description.substring(divider+1);
-        }
+        ArrayList<String> words = processInput(description, "/");
+        String taskName = words.get(0);
+        String addInfo = words.size() >= 2 ? words.get(1) : null;
 
         switch (type) {
         case "todo":
@@ -78,56 +78,52 @@ public class Duke {
                 + String.format("\nNow you have %d task%s in the list.", counter, counter>1 ? "s" : ""));
 
     }
+    public static void markCompleted (Task task) {
+        task.setCompleted(true);
+        printWithDivider(task.toString());
+    }
+    public static void unmarkCompleted (Task task) {
+        task.setCompleted(false);
+        printWithDivider(task.toString());
+    }
+
+    //main
+    public static void run (String line) {
+        ArrayList<String> words = processInput(line, " ");
+        String command = words.get(0);
+        String description = words.size()>= 2 ? words.get(1) : null;
+
+        switch(command) {
+        case "mark":
+            markCompleted(tasks.get(Integer.parseInt(description)-1));
+            break;
+        case "unmark":
+            unmarkCompleted(tasks.get(Integer.parseInt(description)-1));
+            break;
+        case "list" :
+            printWithDivider(numerateList(tasks));
+            break;
+        case "todo":
+        case "deadline":
+        case "event":
+            addTask(command, description);
+            break;
+        default:
+            addTask("task", line);
+        }
+    }
 
     public static void main(String[] args) {
 
         hello();
 
-        //Level-1
         Scanner sc = new Scanner (System.in);
-
-
         String line = sc.nextLine();
-        boolean sayByeAlready = false;
 
-
-        while (!sayByeAlready){
-
-            int divider = line.indexOf(' ');
-
-            String command = line;
-            String description = "";
-
-            if (divider != -1) {
-               command = line.substring(0, divider);
-               description = line.substring(divider+1);
-            }
-
-            switch(command) {
-            case "bye":
-                sayByeAlready = true;
-                break;
-            case "mark":
-                markCompleted(tasks.get(Integer.parseInt(description)-1));
-                break;
-            case "unmark":
-                unmarkCompleted(tasks.get(Integer.parseInt(description)-1));
-                break;
-            case "list" :
-                printWithDivider(numerateList(tasks));
-                break;
-            case "todo":
-            case "deadline":
-            case "event":
-                addTask(command, description);
-                break;
-            default:
-                addTask("task", line);
-            }
-
+        while (!line.equals("bye")){
+            run(line);
             line = sc.nextLine();
         }
-
         printWithDivider("Bye. Hope to see you again soon!");
 
     }
