@@ -12,6 +12,7 @@ public class Duke {
         while(!userInput.equals("bye")) {
             //change user input into an array of tokens
             Tokenise userInputTokens = new Tokenise(userInput);
+            String newUserInput = userInputTokens.removeKeyword();
             if (userInputTokens.getIsKeyword()) {
                 switch (userInputTokens.getTokens()[0]){
                 case "list":
@@ -20,21 +21,21 @@ public class Duke {
                     System.out.println(allTasks);
                     break;
                 case "todo":
-                    Todo newTodo = new Todo(userInput);
+                    Todo newTodo = new Todo(newUserInput);
                     userLists = addTask(newTodo, userLists);
                     break;
                 case "deadline":
                     //split string into the description and time
-                    String deadlineTime = userInput.substring(userInput.indexOf("/")+4);
-                    userInput = userInput.substring(0, userInput.indexOf("/"));
-                    Deadline newDeadline = new Deadline(userInput.trim(), deadlineTime);
+                    String deadlineTime = newUserInput.substring(newUserInput.indexOf("/")+4);
+                    newUserInput = newUserInput.substring(0, newUserInput.indexOf("/"));
+                    Deadline newDeadline = new Deadline(newUserInput.trim(), deadlineTime);
                     userLists = addTask(newDeadline, userLists);
                     break;
                 case "event":
                     //split string into the description and time
-                    String eventTime = userInput.substring(userInput.indexOf("/")+4);
-                    userInput = userInput.substring(0, userInput.indexOf("/"));
-                    Event newEvent = new Event(userInput, eventTime);
+                    String eventTime = newUserInput.substring(newUserInput.indexOf("/")+4);
+                    newUserInput = newUserInput.substring(0, newUserInput.indexOf("/"));
+                    Event newEvent = new Event(newUserInput, eventTime);
                     userLists = addTask(newEvent, userLists);
                     break;
                 case "mark":

@@ -48,4 +48,14 @@ public class Tokenise {
     public Boolean getIsKeyword() {
         return isKeyword;
     }
+
+    public String removeKeyword() {
+        String stringWithoutKeyword = "";
+        for (int i = 1; i < tokens.length; i++) {
+            stringWithoutKeyword = stringWithoutKeyword
+                    + " " + tokens[i];
+        }
+        return stringWithoutKeyword.trim();
+
+    }
 }
