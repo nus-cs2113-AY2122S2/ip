@@ -44,7 +44,7 @@ public class Duke {
             echo("Ah...The task you choose doesn't exist on your list.");
         } else {
             linePrinter();
-            System.out.println("\t" + " Ah...");
+            System.out.println("\t" + " Ah... What a shame!");
             System.out.println("\t" + "   " + tasks[unmarkedItem].toString());
             linePrinter();
         }
