@@ -109,7 +109,7 @@ public class UserInterface {
 
     /**
      * Splits an ArrayList<String> into an ArrayList<StringBuilder>, where each element
-     * can be used to construct a subclass of Task. Use this in conjunction with taskBuilder to construct a
+     * can be used to construct a subclass of Task. Use this in conjunction with buildTask to construct a
      * subclass of Task.
      * @param input ArrayList of Strings that represent the user's input split by whitespace.
      * @return an ArrayList<StringBuilder> containing the input split by the '/' character.
