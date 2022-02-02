@@ -16,55 +16,38 @@ public class Duke {
         System.out.println(indentation);
 
         //public static void listItems(String [100] listName) {
-            String list[]=new String[100];
-            for(int i = 0; i < 100; i++){
-                Scanner input1 = new Scanner(System.in);
-                String command = input1.nextLine();
-                list[i] = command;
-                if (command.equals("list")) {
-                    for (int j = 0; j < i; j++) {
-                        System.out.println((j + 1) + "." + "[ ]" + list[j]);
-                    }
-                }else if((command.substring(0,4)).equals("mark")) {
-                    command = command.replaceAll("\\s", "");
-                    String indexPositioning = command.substring(4);
-                    int index = Integer.parseInt(indexPositioning);
-                    Task t = new Task(list[index - 1]);
-                    t.markAsDone(list[index - 1]);
-
-                }else if((command.substring(0,6)).equals("unmark")) {
-            command = command.replaceAll("\\s", "");
-            String indexPositioning = command.substring(6);
-            int index  = Integer.parseInt(indexPositioning);
-            Task t = new Task(list[index-1]);
-            t.markAsNotDone(list[index-1]);
-
-                    }else if(command.equals("bye")){
-                        System.out.println("Bye. Hope to see you again soon!");
-                        break;
-                    }else{
-                        //continue;
-                        System.out.println("added:" + command);
-                    }
-
-                }
-                }
-            }
-        /*
-        while(true) {
+        String list[] = new String[100];
+        for (int i = 0; i < 100; i++) {
             Scanner input1 = new Scanner(System.in);
             String command = input1.nextLine();
-            System.out.println(indentation);
-            if (command.equals("bye")){
+            list[i] = command;
+            if (command.equals("list")) {
+                for (int j = 0; j < i; j++) {
+                    System.out.println((j + 1) + "." + "[ ]" + list[j]);
+                }
+            } else if ((command.substring(0, 4)).equals("mark")) {
+                command = command.replaceAll("\\s", "");
+                String indexPositioning = command.substring(4);
+                int index = Integer.parseInt(indexPositioning);
+                Task t = new Task(list[index - 1]);
+                t.markAsDone(list[index - 1]);
+
+            } else if ((command.substring(0, 6)).equals("unmark")) {
+                command = command.replaceAll("\\s", "");
+                String indexPositioning = command.substring(6);
+                int index = Integer.parseInt(indexPositioning);
+                Task t = new Task(list[index - 1]);
+                t.markAsNotDone(list[index - 1]);
+
+            } else if (command.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
-            break;
-        }else{
-                    System.out.println(command);
-                    System.out.println(indentation);
+                break;
+            } else {
+                //continue;
+                System.out.println("added:" + command);
             }
+
         }
     }
-        //System.out.println(indentation);
 }
 
-         */
