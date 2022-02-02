@@ -79,6 +79,10 @@ public class TaskManager {
         for (int i = 1; i < args.length; i++) {
             int reminderID = Integer.parseInt(args[i]);
             int arrayID = getArrayID(reminderID);
+            if(arrayID < 0 || arrayID >= tasks.size()) {
+                System.out.println("There is no " + reminderID + " reminder.");
+                continue;
+            }
             tasks.get(arrayID).setDone();
             System.out.println(tasks.get(arrayID));
         }
@@ -100,6 +104,10 @@ public class TaskManager {
         for (int i = 1; i < args.length; i++) {
             int reminderID = Integer.parseInt(args[i]);
             int arrayID = getArrayID(reminderID);
+            if(arrayID < 0 || arrayID >= tasks.size()) {
+                System.out.println("There is no " + reminderID + " reminder.");
+                continue;
+            }
             tasks.get(arrayID).clearDone();
             System.out.println(tasks.get(arrayID));
         }

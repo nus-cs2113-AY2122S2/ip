@@ -5,3 +5,269 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+------------------------------
+Hello, I'm Duke
+What can I do for you? HAOXUAN
+------------------------------
+HAOXUAN > ------------------------------
+Added: [ ] read book
+------------------------------
+HAOXUAN > ------------------------------
+Added: [ ] return book
+------------------------------
+HAOXUAN > ------------------------------
+Added: [ ] buy bread
+------------------------------
+HAOXUAN > ------------------------------
+1. [ ] read book
+2. [ ] return book
+3. [ ] buy bread
+------------------------------
+HAOXUAN > ------------------------------
+Nice! I've marked these tasks as done
+
+[X] read book
+------------------------------
+HAOXUAN > ------------------------------
+1. [X] read book
+2. [ ] return book
+3. [ ] buy bread
+------------------------------
+HAOXUAN > ------------------------------
+Nice! I've marked these tasks as done
+
+[X] buy bread
+------------------------------
+HAOXUAN > ------------------------------
+1. [X] read book
+2. [ ] return book
+3. [X] buy bread
+------------------------------
+HAOXUAN > ------------------------------
+Nice! I've marked these tasks as not done yet
+
+[ ] read book
+------------------------------
+HAOXUAN > ------------------------------
+1. [ ] read book
+2. [ ] return book
+3. [X] buy bread
+------------------------------
+HAOXUAN > ------------------------------
+Nice! I've marked these tasks as not done yet
+
+[ ] buy bread
+------------------------------
+HAOXUAN > ------------------------------
+1. [ ] read book
+2. [ ] return book
+3. [ ] buy bread
+------------------------------
+HAOXUAN > ------------------------------
+Added: [ ] multiple task 1
+Added: [ ] multiple task 2
+Added: [ ] multiple task 3
+Added: [ ] multiple task 4
+Now you have 7 task(s) in the list.
+------------------------------
+HAOXUAN > ------------------------------
+Nice! I've marked these tasks as done
+
+[X] read book
+[X] return book
+[X] buy bread
+[X] multiple task 1
+[X] multiple task 2
+[X] multiple task 3
+------------------------------
+HAOXUAN > ------------------------------
+1. [X] read book
+2. [X] return book
+3. [X] buy bread
+4. [X] multiple task 1
+5. [X] multiple task 2
+6. [X] multiple task 3
+7. [ ] multiple task 4
+------------------------------
+HAOXUAN > ------------------------------
+Nice! I've marked these tasks as not done yet
+
+[ ] return book
+[ ] multiple task 1
+[ ] multiple task 3
+------------------------------
+HAOXUAN > ------------------------------
+1. [X] read book
+2. [ ] return book
+3. [X] buy bread
+4. [ ] multiple task 1
+5. [X] multiple task 2
+6. [ ] multiple task 3
+7. [ ] multiple task 4
+------------------------------
+HAOXUAN > ------------------------------
+Added: [T][ ] multiple task 1
+Added: [T][ ] multiple task 2
+Added: [T][ ] multiple task 3
+Added: [T][ ] multipletask4
+Now you have 11 task(s) in the list.
+------------------------------
+HAOXUAN > ------------------------------
+1. [X] read book
+2. [ ] return book
+3. [X] buy bread
+4. [ ] multiple task 1
+5. [X] multiple task 2
+6. [ ] multiple task 3
+7. [ ] multiple task 4
+8. [T][ ] multiple task 1
+9. [T][ ] multiple task 2
+10. [T][ ] multiple task 3
+11. [T][ ] multipletask4
+------------------------------
+HAOXUAN > ------------------------------
+Added: [D][ ] ddl 1 (by: time for ddl1,2,3)
+Added: [D][ ] ddl2 (by: time for ddl1,2,3)
+Added: [D][ ] ddl3 (by: time for ddl1,2,3)
+Added: [D][ ] ddl4 (by: timefor4,5,6)
+Added: [D][ ] ddl5 (by: timefor4,5,6)
+Added: [D][ ] ddl5 (by: timefor4,5,6)
+Now you have 17 task(s) in the list.
+------------------------------
+HAOXUAN > ------------------------------
+1. [X] read book
+2. [ ] return book
+3. [X] buy bread
+4. [ ] multiple task 1
+5. [X] multiple task 2
+6. [ ] multiple task 3
+7. [ ] multiple task 4
+8. [T][ ] multiple task 1
+9. [T][ ] multiple task 2
+10. [T][ ] multiple task 3
+11. [T][ ] multipletask4
+12. [D][ ] ddl 1 (by: time for ddl1,2,3)
+13. [D][ ] ddl2 (by: time for ddl1,2,3)
+14. [D][ ] ddl3 (by: time for ddl1,2,3)
+15. [D][ ] ddl4 (by: timefor4,5,6)
+16. [D][ ] ddl5 (by: timefor4,5,6)
+17. [D][ ] ddl5 (by: timefor4,5,6)
+------------------------------
+HAOXUAN > ------------------------------
+Added: [E][ ] event1 (at: 1000-2200 today (1, 2, 3))
+Added: [E][ ] 2 (at: 1000-2200 today (1, 2, 3))
+Added: [E][ ] 3 (at: 1000-2200 today (1, 2, 3))
+Added: [E][ ] 4 (at: 456)
+Added: [E][ ] 5 (at: 456)
+Added: [E][ ] ddl6 (at: 456)
+Now you have 23 task(s) in the list.
+------------------------------
+HAOXUAN > ------------------------------
+1. [X] read book
+2. [ ] return book
+3. [X] buy bread
+4. [ ] multiple task 1
+5. [X] multiple task 2
+6. [ ] multiple task 3
+7. [ ] multiple task 4
+8. [T][ ] multiple task 1
+9. [T][ ] multiple task 2
+10. [T][ ] multiple task 3
+11. [T][ ] multipletask4
+12. [D][ ] ddl 1 (by: time for ddl1,2,3)
+13. [D][ ] ddl2 (by: time for ddl1,2,3)
+14. [D][ ] ddl3 (by: time for ddl1,2,3)
+15. [D][ ] ddl4 (by: timefor4,5,6)
+16. [D][ ] ddl5 (by: timefor4,5,6)
+17. [D][ ] ddl5 (by: timefor4,5,6)
+18. [E][ ] event1 (at: 1000-2200 today (1, 2, 3))
+19. [E][ ] 2 (at: 1000-2200 today (1, 2, 3))
+20. [E][ ] 3 (at: 1000-2200 today (1, 2, 3))
+21. [E][ ] 4 (at: 456)
+22. [E][ ] 5 (at: 456)
+23. [E][ ] ddl6 (at: 456)
+------------------------------
+HAOXUAN > ------------------------------
+Nice! I've marked these tasks as done
+
+[X] read book
+[X] buy bread
+[X] multiple task 2
+[X] multiple task 4
+[T][X] multiple task 2
+[T][X] multipletask4
+[D][X] ddl2 (by: time for ddl1,2,3)
+[D][X] ddl4 (by: timefor4,5,6)
+[D][X] ddl5 (by: timefor4,5,6)
+[E][X] 2 (at: 1000-2200 today (1, 2, 3))
+[E][X] 4 (at: 456)
+[E][X] ddl6 (at: 456)
+There is no 25 reminder.
+There is no 27 reminder.
+There is no 29 reminder.
+------------------------------
+HAOXUAN > ------------------------------
+1. [X] read book
+2. [ ] return book
+3. [X] buy bread
+4. [ ] multiple task 1
+5. [X] multiple task 2
+6. [ ] multiple task 3
+7. [X] multiple task 4
+8. [T][ ] multiple task 1
+9. [T][X] multiple task 2
+10. [T][ ] multiple task 3
+11. [T][X] multipletask4
+12. [D][ ] ddl 1 (by: time for ddl1,2,3)
+13. [D][X] ddl2 (by: time for ddl1,2,3)
+14. [D][ ] ddl3 (by: time for ddl1,2,3)
+15. [D][X] ddl4 (by: timefor4,5,6)
+16. [D][ ] ddl5 (by: timefor4,5,6)
+17. [D][X] ddl5 (by: timefor4,5,6)
+18. [E][ ] event1 (at: 1000-2200 today (1, 2, 3))
+19. [E][X] 2 (at: 1000-2200 today (1, 2, 3))
+20. [E][ ] 3 (at: 1000-2200 today (1, 2, 3))
+21. [E][X] 4 (at: 456)
+22. [E][ ] 5 (at: 456)
+23. [E][X] ddl6 (at: 456)
+------------------------------
+HAOXUAN > ------------------------------
+Nice! I've marked these tasks as not done yet
+
+[ ] buy bread
+[T][ ] multiple task 1
+[T][ ] multiple task 2
+[T][ ] multiple task 3
+[E][ ] 4 (at: 456)
+There is no 25 reminder.
+There is no 27 reminder.
+There is no 29 reminder.
+------------------------------
+HAOXUAN > ------------------------------
+1. [X] read book
+2. [ ] return book
+3. [ ] buy bread
+4. [ ] multiple task 1
+5. [X] multiple task 2
+6. [ ] multiple task 3
+7. [X] multiple task 4
+8. [T][ ] multiple task 1
+9. [T][ ] multiple task 2
+10. [T][ ] multiple task 3
+11. [T][X] multipletask4
+12. [D][ ] ddl 1 (by: time for ddl1,2,3)
+13. [D][X] ddl2 (by: time for ddl1,2,3)
+14. [D][ ] ddl3 (by: time for ddl1,2,3)
+15. [D][X] ddl4 (by: timefor4,5,6)
+16. [D][ ] ddl5 (by: timefor4,5,6)
+17. [D][X] ddl5 (by: timefor4,5,6)
+18. [E][ ] event1 (at: 1000-2200 today (1, 2, 3))
+19. [E][X] 2 (at: 1000-2200 today (1, 2, 3))
+20. [E][ ] 3 (at: 1000-2200 today (1, 2, 3))
+21. [E][ ] 4 (at: 456)
+22. [E][ ] 5 (at: 456)
+23. [E][X] ddl6 (at: 456)
+------------------------------
+HAOXUAN > ------------------------------
+Bye, HAOXUAN. Hope to see you soon!
+------------------------------
