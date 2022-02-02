@@ -14,4 +14,8 @@ public class Task {
     public void setStatusIcon(Boolean isDone){
         this.isDone = isDone;
     }
+    @Override
+    public String toString() {
+        return description;
+    }
 }

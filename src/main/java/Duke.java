@@ -14,6 +14,10 @@ public class Duke {
         String bye = "bye";
         String list = "list";
         String mark = "mark";
+        String todo = "todo";
+        String deadline = "deadline";
+        String event = "event";
+
         System.out.println(greet);
 
         String instruction;
@@ -25,11 +29,19 @@ public class Duke {
             instruction = in.nextLine();
 
             Task t = new Task("read book");
-            String[] arrOfStr = instruction.split(" ", 2);
+            String[] arrOfStr = instruction.split(" ", 50);
+
+            Task[] tasks = new Task[100];
+            tasks[0] = new Deadline("return book", "Monday");
+            Deadline d = new Deadline("return book", "holi");
 
             boolean isBye = instruction.equals(bye); //if true then exit
             boolean isList = instruction.equals(list);
             boolean isMark = arrOfStr[0].equals(mark);
+            boolean isTodo = arrOfStr[0].equals(todo);
+            boolean isDeadline = arrOfStr[0].equals(deadline);
+            boolean isEvent = arrOfStr[0].equals(event);
+
             instructions[i] = instruction;
             String instructionNum = "";
 
@@ -47,6 +59,18 @@ public class Duke {
                 t.setStatusIcon(true);
                 System.out.println("   [" + t.getStatusIcon() + "]" + instructions[Integer.parseInt(instructionNum) - 1]);
 
+            } else if (isTodo){
+                System.out.println("Got it. I've added this task: ");
+                System.out.print("  [T][ ] ");
+                for(int k = 1; k < arrOfStr.length; k++){
+                    System.out.print(arrOfStr[k] + " ");
+                }
+                System.out.println("");
+                System.out.println("Now you have " + tasks.length + " tasks in the list.");
+            } else if (isDeadline){
+                System.out.println("Got it. I've added this task: ");
+                d.getBy();
+                System.out.println(d);
             } else {
                 System.out.println("added: " + instruction);
             }
