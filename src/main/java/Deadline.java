@@ -1,3 +1,7 @@
+/**
+ * Represent a task with a deadline.
+ * Inherits from the Task class.
+ */
 public class Deadline extends Task {
 
     protected String by;

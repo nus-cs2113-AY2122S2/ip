@@ -1,3 +1,7 @@
+/**
+ * Represent an item to do.
+ * Inherits from the Task class.
+ */
 public class Todo extends Task{
 
     public Todo(String description) {
