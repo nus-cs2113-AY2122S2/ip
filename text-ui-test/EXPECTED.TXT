@@ -202,9 +202,9 @@ Nice! I've marked these tasks as done
 [E][X] 2 (at: 1000-2200 today (1, 2, 3))
 [E][X] 4 (at: 456)
 [E][X] ddl6 (at: 456)
-There is no 25 reminder.
-There is no 27 reminder.
-There is no 29 reminder.
+There is no 25 task.
+There is no 27 task.
+There is no 29 task.
 ------------------------------
 HAOXUAN > ------------------------------
 1. [X] read book
@@ -239,9 +239,9 @@ Nice! I've marked these tasks as not done yet
 [T][ ] multiple task 2
 [T][ ] multiple task 3
 [E][ ] 4 (at: 456)
-There is no 25 reminder.
-There is no 27 reminder.
-There is no 29 reminder.
+There is no 25 task.
+There is no 27 task.
+There is no 29 task.
 ------------------------------
 HAOXUAN > ------------------------------
 1. [X] read book

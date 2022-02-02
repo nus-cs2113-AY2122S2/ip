@@ -6,6 +6,7 @@ public class Deadline extends Task {
         this.deadlineTime = deadlineTime;
     }
 
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + getDeadlineTime() + ")";
     }

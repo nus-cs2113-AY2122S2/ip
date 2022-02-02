@@ -43,14 +43,19 @@ public class Duke {
             printUserPrompt();
             Command command = CommandManager.getCommand();
             printLineDivider();
-            for (String token : command.getCommandTokens()) {
-                if (isExiting(token)) {
-                    return;
-                }
-            }
+            if (exitIfContainExitCommand(command)) return;
             CommandManager.runCommand(command);
             printLineDivider();
         }
+    }
+
+    private static boolean exitIfContainExitCommand(Command command) {
+        for (String token : command.getCommandTokens()) {
+            if (isExiting(token)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

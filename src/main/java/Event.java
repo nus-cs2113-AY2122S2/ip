@@ -6,6 +6,7 @@ public class Event extends Task {
         this.schedule = schedule;
     }
 
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (at: " + getSchedule() + ")";
     }

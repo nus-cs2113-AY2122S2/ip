@@ -3,14 +3,14 @@ import java.util.List;
 
 public class TaskManager {
     /**
-     * list to store all reminders
+     * list to store all tasks
      */
-    private static List<Task> tasks = new ArrayList<Task>();
+    private final static List<Task> tasks = new ArrayList<>();
 
     /**
-     * Add all the reminders in args
+     * Add all the tasks in args
      *
-     * @param args reminders to be added
+     * @param args tasks to be added
      */
     public static void addTasks(String[] args) {
         if (!args[0].equals("add")) {
@@ -26,29 +26,29 @@ public class TaskManager {
     }
 
     /**
-     * Return the corresponding reminder index by its array index.
-     * By conventional reminder index == array index + 1
+     * Return the corresponding task index by its array index.
+     * By conventional task index == array index + 1
      *
-     * @param arrayID
-     * @return
+     * @param arrayID array id
+     * @return task id of corresponding array id
      */
-    private static int getReminderID(int arrayID) {
+    private static int getTaskID(int arrayID) {
         return arrayID + 1;
     }
 
     /**
-     * Return the corresponding reminder index by its array index.
-     * By conventional array index == reminder index - 1
+     * Return the corresponding task index by its array index.
+     * By conventional array index == task index - 1
      *
-     * @param reminderID
-     * @return
+     * @param taskID task id
+     * @return array id of corresponding task id
      */
-    private static int getArrayID(int reminderID) {
-        return reminderID - 1;
+    private static int getArrayID(int taskID) {
+        return taskID - 1;
     }
 
     /**
-     * List all the reminders
+     * List all the tasks
      *
      * @param args dump variable, no use
      */
@@ -60,14 +60,15 @@ public class TaskManager {
             return;
         }
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf("%d. %s\n", getReminderID(i), tasks.get(i));
+            System.out.printf("%d. %s\n", getTaskID(i), tasks.get(i));
         }
     }
 
     /**
-     * Mark every reminder whose is in args[1..n) as done
+     * Mark every task whose is in args[1..n) as done
+     * Using by > mark {task1 id} {task2 id} ...
      *
-     * @param args the name of function and those reminder ID to be marked as done
+     * @param args arguments
      */
     public static void mark(String[] args) {
         if (!args[0].equals("mark")) {
@@ -77,10 +78,10 @@ public class TaskManager {
         }
         System.out.println("Nice! I've marked these tasks as done\n");
         for (int i = 1; i < args.length; i++) {
-            int reminderID = Integer.parseInt(args[i]);
-            int arrayID = getArrayID(reminderID);
+            int taskID = Integer.parseInt(args[i]);
+            int arrayID = getArrayID(taskID);
             if(arrayID < 0 || arrayID >= tasks.size()) {
-                System.out.println("There is no " + reminderID + " reminder.");
+                System.out.println("There is no " + taskID + " task.");
                 continue;
             }
             tasks.get(arrayID).setDone();
@@ -90,9 +91,10 @@ public class TaskManager {
 
 
     /**
-     * Mark every reminder whose is in args[1..n) as not done yet
+     * Mark every task whose is in args[1..n) as not done yet.
+     * Using by > unmark {task1 id} {task2 id} ...
      *
-     * @param args the name of function and those reminder ID to be marked as not done yet
+     * @param args arguments
      */
     public static void unmark(String[] args) {
         if (!args[0].equals("unmark")) {
@@ -102,10 +104,10 @@ public class TaskManager {
         }
         System.out.println("Nice! I've marked these tasks as not done yet\n");
         for (int i = 1; i < args.length; i++) {
-            int reminderID = Integer.parseInt(args[i]);
-            int arrayID = getArrayID(reminderID);
+            int taskID = Integer.parseInt(args[i]);
+            int arrayID = getArrayID(taskID);
             if(arrayID < 0 || arrayID >= tasks.size()) {
-                System.out.println("There is no " + reminderID + " reminder.");
+                System.out.println("There is no " + taskID + " task.");
                 continue;
             }
             tasks.get(arrayID).clearDone();
@@ -114,14 +116,26 @@ public class TaskManager {
     }
 
 
+    /**
+     * @return the total number of tasks
+     */
     public static int getTaskNumber() {
         return tasks.size();
     }
 
+
+    /**
+     * Print the total number of tasks to user
+     */
     public static void printTaskNumber() {
         System.out.println("Now you have " + getTaskNumber() + " task(s) in the list.");
     }
 
+    /**
+     * Add multiple ToDoes to the task array
+     * Using by > todo {todo1 id} {todo2 id} ...
+     * @param args arguments
+     */
     public static void addToDoes(String[] args) {
         if (!args[0].equals("todo")) {
             // there must be some error
@@ -135,6 +149,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Add multiple deadlines to task array
+     * Using by > deadline {ddl 1} {ddl 2} ... /by {ddl time for 1, 2...} {adl a} {ddl b} ... /by {ddl time for a, b...} ...
+     * @param args arguments
+     */
     public static void addDeadlines(String[] args) {
         if (!args[0].equals("deadline")) {
             // there must be some error
@@ -172,6 +191,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Add multiple events to task array.
+     * Using by > event {evt 1} {evt 2} ... /at {evt time for 1, 2...} {evt a} {evt b} ... /at {evt time for a, b...} ...
+     * @param args arguments
+     */
     public static void addEvents(String[] args) {
         if (!args[0].equals("event")) {
             // there must be some error
