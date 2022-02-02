@@ -90,7 +90,7 @@ public class TaskManager {
             return;
         }
         tasks.add(task);
-        printWithSeparator("Got it. I've added this task: ", "\t" + task, "Now, you have " + Task.taskCount + " in the list.");
+        printWithSeparator("Got it. I've added this task:", "\t" + task, "Now, you have " + Task.taskCount + " in the list.");
     }
 
     public void farewellUser() {
