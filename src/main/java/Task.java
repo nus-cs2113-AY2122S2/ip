@@ -1,18 +1,22 @@
 /**
  * A basic reminder with status (done or not done yet)
  */
-public class Reminder {
-    /** The content of a reminder */
-    private final String content;
-    /** Whether this reminder is marked as done or not */
-    private final Boolean isDone;
+public class Task {
+    /**
+     * The content of a reminder
+     */
+    private String content;
+    /**
+     * Whether this reminder is marked as done or not
+     */
+    private Boolean isDone;
 
     /**
      * The only method to create a reminder by others
      *
      * @param content
      */
-    public Reminder(String content) {
+    public Task(String content) {
         this(content, false);
     }
 
@@ -22,7 +26,7 @@ public class Reminder {
      * @param content
      * @param isDone
      */
-    private Reminder(String content, boolean isDone) {
+    private Task(String content, boolean isDone) {
         this.content = content;
         this.isDone = isDone;
     }
@@ -32,8 +36,8 @@ public class Reminder {
      *
      * @return A new Reminder marked as Done with the same content
      */
-    public Reminder setDone() {
-        return new Reminder(content, true);
+    public void setDone() {
+        this.isDone = true;
     }
 
     /**
@@ -41,8 +45,8 @@ public class Reminder {
      *
      * @return A new Reminder marked as not Done yet with the same content
      */
-    public Reminder clearDone() {
-        return new Reminder(content, false);
+    public void clearDone() {
+        this.isDone = false;
     }
 
 
@@ -66,6 +70,6 @@ public class Reminder {
 
     @Override
     public String toString() {
-        return "[" + (isDone() ? "X" : " ") + "]\t" + getContent() + "\n";
+        return "[" + (isDone() ? "X" : " ") + "] " + getContent();
     }
 }

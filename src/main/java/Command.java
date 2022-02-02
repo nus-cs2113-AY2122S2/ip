@@ -2,9 +2,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Command {
-    /** The original user input (raw command) */
+    /**
+     * The original user input (raw command)
+     */
     private final String rawCommand;
-    /** The functional unit in raw command */
+    /**
+     * The functional unit in raw command
+     */
     private final String[] commandTokens;
 
     Command(String rawCommand) {
@@ -21,23 +25,23 @@ public class Command {
      * @param raw raw command string
      * @return a string array containing tokens
      */
-    public String[] parseCommand(String raw){
+    public String[] parseCommand(String raw) {
         int leftIndex = 0;
         boolean inQuotes = false;
         List<String> tokens = new ArrayList<String>();
         raw = raw.trim();
-        for(int i = 0; i < raw.length(); i++) {
-            switch(raw.charAt(i)) {
+        for (int i = 0; i < raw.length(); i++) {
+            switch (raw.charAt(i)) {
             case ' ':
-                if(inQuotes) {
+                if (inQuotes) {
                     continue;
-                } else if(leftIndex != -1) {
+                } else if (leftIndex != -1) {
                     tokens.add(raw.substring(leftIndex, i));
                     leftIndex = -1;
                 }
                 break;
             case '\"':
-                if(inQuotes) {
+                if (inQuotes) {
                     tokens.add(raw.substring(leftIndex, i));
                     leftIndex = -1;
                     inQuotes = false;
@@ -47,13 +51,13 @@ public class Command {
                 }
                 break;
             default:
-                if(!inQuotes && leftIndex == -1) {
+                if (!inQuotes && leftIndex == -1) {
                     leftIndex = i;
                 }
                 break;
             }
         }
-        if(leftIndex != -1) {
+        if (leftIndex != -1) {
             tokens.add(raw.substring(leftIndex));
         }
         return tokens.toArray(new String[0]);

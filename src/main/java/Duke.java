@@ -2,8 +2,14 @@
  * Duke, your personal terminal assistant
  */
 public class Duke {
-    /** The appellation for the guest */
+    /**
+     * The appellation for the guest
+     */
     private static String userName = "Mr/Mrs Geek";
+    /**
+     * Exit commands
+     */
+    private static String[] exitCommands = {"bye", "exit", "quit"};
 
     /**
      * The main method of Duke, do program initialization and then start running Duke
@@ -18,13 +24,13 @@ public class Duke {
     }
 
     /**
-     *  Assign the appellation since this in the only thing to initialize
+     * Assign the appellation since this in the only thing to initialize
      *
      * @param args the appellation for the guest, should only be assigned to {@value #userName} or None
      */
     private static void initializeDuke(String[] args) {
-        if(args.length >= 1) {
-            userName = args[args.length-1];
+        if (args.length >= 1) {
+            userName = args[args.length - 1];
         }
     }
 
@@ -32,13 +38,13 @@ public class Duke {
      * Return only when user's command containing word "bye"
      * Get command from user, parse the command and then execute the corresponding command.
      */
-    protected static void runDuke() {
-        while(true) {
+    private static void runDuke() {
+        while (true) {
             printUserPrompt();
             Command command = CommandManager.getCommand();
             printLineDivider();
-            for(String token:command.getCommandTokens()) {
-                if(token.equalsIgnoreCase("bye")) {
+            for (String token : command.getCommandTokens()) {
+                if (isExiting(token)) {
                     return;
                 }
             }
@@ -50,7 +56,7 @@ public class Duke {
     /**
      * Print a line Divider, making the layout more clear
      */
-    protected static void printLineDivider() {
+    private static void printLineDivider() {
         // TODO Beautify
         System.out.println("------------------------------");
     }
@@ -58,7 +64,7 @@ public class Duke {
     /**
      * Greet the user, called right after initialization
      */
-    protected static void printUserGreet() {
+    private static void printUserGreet() {
         // TODO Personalize the greeting information (maybe change DUKE to BECK or something else)
         String logo = """
                  ____        _       \s
@@ -77,17 +83,33 @@ public class Duke {
     /**
      * Say goodbye to user, called when program is ready to exit
      */
-    protected static void printUserFarewell() {
+    private static void printUserFarewell() {
         System.out.println("Bye, " + userName + ". Hope to see you soon!");
         printLineDivider();
     }
 
     /**
-     *  Print {@value #userName} and prompt symbol, making the layout more clear
+     * Print {@value #userName} and prompt symbol, making the layout more clear
      */
-    protected static void printUserPrompt() {
+    private static void printUserPrompt() {
         // TODO add more prompt style
         System.out.print(userName + " > ");
+    }
+
+
+    /**
+     * Check whether the token is contained in exit command
+     *
+     * @param token the command token to be checked
+     * @return whether the token is contained in exit command
+     */
+    private static boolean isExiting(String token) {
+        for (String str : exitCommands) {
+            if (token.equalsIgnoreCase(str)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
