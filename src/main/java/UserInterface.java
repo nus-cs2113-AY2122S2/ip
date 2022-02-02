@@ -3,6 +3,13 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class UserInterface {
+    public static final String COMMAND_EXIT = "bye";
+    public static final String COMMAND_LIST = "list";
+    public static final String COMMAND_MARK = "mark";
+    public static final String COMMAND_UNMARK = "unmark";
+    public static final String COMMAND_TODO = "todo";
+    public static final String COMMAND_DEADLINE = "deadline";
+    public static final String COMMAND_EVENT = "event";
     private final Scanner uiScan;
     private final ArrayList<Task> tasks;
 
@@ -18,14 +25,14 @@ public class UserInterface {
 
     /**
      * Reads commands from stdin and executes them using commandExec(commandInput)
-     * until the user inputs "bye", upon which the function returns.
+     * until the user inputs COMMAND_EXIT, upon which the function returns.
      */
     public void loopCommandInput() {
         String commandInput;
         do {
             commandInput = uiScan.nextLine();
             executeCommand(commandInput);
-        } while (!commandInput.equals("bye"));
+        } while (!commandInput.equals(COMMAND_EXIT));
     }
 
     /**
@@ -41,21 +48,21 @@ public class UserInterface {
         try {
             ArrayList<String> pieces = new ArrayList<>(Arrays.asList(nextLine.split(" ")));
             switch (pieces.get(0)) {
-            case "bye":
+            case COMMAND_EXIT:
                 printGoodbye();
                 break;
-            case "list":
+            case COMMAND_LIST:
                 listTasks();
                 break;
-            case "mark":
+            case COMMAND_MARK:
                 doTask(pieces.get(1));
                 break;
-            case "unmark":
+            case COMMAND_UNMARK:
                 undoTask(pieces.get(1));
                 break;
-            case "todo":
-            case "deadline":
-            case "event":
+            case COMMAND_TODO:
+            case COMMAND_DEADLINE:
+            case COMMAND_EVENT:
                 addTask(pieces);
                 break;
             default:
@@ -94,11 +101,11 @@ public class UserInterface {
         ArrayList<StringBuilder> taskParts = splitTask(taskStringArray);
         String prepositions = String.valueOf(taskParts.get(taskParts.size() - 1));
         switch (taskType) {
-        case "todo":
+        case COMMAND_TODO:
             return new ToDo(String.valueOf(taskParts.get(0)));
-        case "deadline":
+        case COMMAND_DEADLINE:
             return new Deadline(String.valueOf(taskParts.get(0)), String.valueOf(taskParts.get(1)), prepositions);
-        case "event":
+        case COMMAND_EVENT:
             return new Event(String.valueOf(taskParts.get(0)), String.valueOf(taskParts.get(1)), prepositions);
         }
         return null;
