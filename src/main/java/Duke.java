@@ -34,6 +34,17 @@ public class Duke {
         printLine();
     }
 
+    public static void guide() {
+        System.out.println("\t" + " use \"list\" to show the task list");
+        System.out.println("\t" + " use \"todo task\" to add a task without any date/time attached to it\"");
+        System.out.println("\t" + " use \"deadline task /by time\" to add a task that need to be done before a specific time/date");
+        System.out.println("\t" + " use \"event task /at time\" to add a task that tasks that start at a specific time and ends at a specific time");
+        System.out.println("\t" + " use \"mark taskIndex\" to mark that task as done");
+        System.out.println("\t" + " use \"unmark taskIndex\" to mark that task as not done");
+        System.out.println("\t" + " use \"bye\" to exit the chatbot");
+        printLine();
+    }
+
     public static void main(String[] args) {
         TaskList taskList = new TaskList();
 
@@ -63,14 +74,7 @@ public class Duke {
                 taskList.addTask(task);
                 echo(task, taskList);
             } else {
-                System.out.println("\t" + "use \"list\" to show the task list");
-                System.out.println("\t" + "use \"todo task\" to add a task without any date/time attached to it\"");
-                System.out.println("\t" + "use \"deadline task /by time\" to add a task that need to be done before a specific time/date");
-                System.out.println("\t" + "use \"event task /at time\" to add a task that tasks that start at a specific time and ends at a specific time");
-                System.out.println("\t" + "use \"mark taskIndex\" to mark that task as done");
-                System.out.println("\t" + "use \"unmark taskIndex\" to mark that task as not done");
-                System.out.println("\t" + "use \"bye\" to exit the chatbot");
-
+                guide();
             }
             in = new Scanner(System.in);
             textIn = in.nextLine();
