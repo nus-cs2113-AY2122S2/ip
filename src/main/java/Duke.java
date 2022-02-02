@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Duke {
     public static final String PURPLE_BOLD_BRIGHT = "\033[1;95m";
     public static final String RESET_COLOUR = "\033[0m";
+    public static final String PROMPT = "> ";
 
     public static final int COMMAND_INDEX = 0;
     public static final int DESCRIPTION_INDEX = 1;
@@ -28,14 +29,6 @@ public class Duke {
         System.out.println(PURPLE_BOLD_BRIGHT + logo + RESET_COLOUR);
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?" + System.lineSeparator());
-    }
-
-    public static String getInput() {
-        String input;
-        Scanner in = new Scanner(System.in);
-        input = in.nextLine();
-
-        return input;
     }
 
     public static String[] parseInput(String input) {
@@ -108,8 +101,7 @@ public class Duke {
         printAddedPrompt(newEvent);
     }
 
-    public static void executeCommand(Task[] tasks) {
-        String input = getInput();
+    public static void executeCommand(String input, Task[] tasks) {
         String[] parsedInput = parseInput(input);
 
         switch(parsedInput[COMMAND_INDEX]) {
@@ -142,11 +134,14 @@ public class Duke {
 
     public static void main(String[] args) {
         Task[] tasks = new Task[MAX_TASKS];
+        Scanner in = new Scanner(System.in);
 
         printIntro();
 
         while (true) {
-            executeCommand(tasks);
+            System.out.print(PROMPT);
+            String input = in.nextLine();
+            executeCommand(input, tasks);
         }
     }
 }
