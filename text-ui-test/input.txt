@@ -1,0 +1,17 @@
+list
+todo read book
+event meeting at library /at 3pm Mon
+list
+mark 1
+list
+deadline return book /by monday
+list
+deadline task2 /by infinite
+list
+mark 3
+list
+unmark 5
+unmark 1
+list
+bye
+
