@@ -24,7 +24,6 @@ public class InputParser {
         for (int i = 1; i < n; i++) {
             description.append(" ").append(args[i]);
         }
-
         return description.toString();
     }
 
@@ -42,7 +41,8 @@ public class InputParser {
     }
 
     public boolean isValidCommand() {
-        return !(getPrefix() == null || ((getPrefix().equals("list") || getPrefix().equals("ls")) && !getBody().equals("")));
+        return !(getPrefix() == null || ((getPrefix().equals("list") || getPrefix().equals("ls"))
+                && !getBody().equals("")));
     }
 
     public String getType() {
@@ -66,7 +66,6 @@ public class InputParser {
         if (isEvent && (getPrefix().equals("event") || getPrefix().equals("e"))) {
             return "event";
         }
-
         return "invalid";
     }
 

@@ -4,6 +4,11 @@ public class JRobo {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         TaskManager manager = new TaskManager();
+        run(scanner, manager);
+        scanner.close();
+    }
+
+    public static void run(Scanner scanner, TaskManager manager) {
         manager.welcomeUser();
         label:
         while (true) {
@@ -39,6 +44,6 @@ public class JRobo {
             }
         }
         manager.farewellUser();
-        scanner.close();
     }
+
 }
