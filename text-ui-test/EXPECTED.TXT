@@ -20,7 +20,10 @@ Could you try again?
 What's next?
 ------------------------------------------------------------
 > ------------------------------------------------------------
-Okay, I have added your new task to my list.
+Okay, I've added your new task to my list:
+
+	[T][ ] read book
+
 ------------------------------------------------------------
 What's next?
 ------------------------------------------------------------
@@ -28,11 +31,15 @@ What's next?
 Okay, here's a list of tasks that you have given to me:
 
 	1.[T][ ] read book
+
 ------------------------------------------------------------
 What's next?
 ------------------------------------------------------------
 > ------------------------------------------------------------
-Okay, I have added your new task to my list.
+Okay, I've added your new task to my list:
+
+	[D][ ] return book (due on: Sunday)
+
 ------------------------------------------------------------
 What's next?
 ------------------------------------------------------------
@@ -41,6 +48,7 @@ Okay, here's a list of tasks that you have given to me:
 
 	1.[T][ ] read book
 	2.[D][ ] return book (due on: Sunday)
+
 ------------------------------------------------------------
 What's next?
 ------------------------------------------------------------
@@ -57,11 +65,15 @@ Okay, here's a list of tasks that you have given to me:
 
 	1.[T][X] read book
 	2.[D][ ] return book (due on: Sunday)
+
 ------------------------------------------------------------
 What's next?
 ------------------------------------------------------------
 > ------------------------------------------------------------
-Okay, I have added your new task to my list.
+Okay, I've added your new task to my list:
+
+	[E][ ] project meeting (scheduled for: Mon 2-4pm)
+
 ------------------------------------------------------------
 What's next?
 ------------------------------------------------------------
@@ -71,6 +83,7 @@ Okay, here's a list of tasks that you have given to me:
 	1.[T][X] read book
 	2.[D][ ] return book (due on: Sunday)
 	3.[E][ ] project meeting (scheduled for: Mon 2-4pm)
+
 ------------------------------------------------------------
 What's next?
 ------------------------------------------------------------
@@ -96,6 +109,43 @@ Okay, here's a list of tasks that you have given to me:
 	1.[T][X] read book
 	2.[D][X] return book (due on: Sunday)
 	3.[E][X] project meeting (scheduled for: Mon 2-4pm)
+
+------------------------------------------------------------
+What's next?
+------------------------------------------------------------
+> ------------------------------------------------------------
+Okay, I've marked this task as not done:
+
+	[D][ ] return book (due on: Sunday)
+
+------------------------------------------------------------
+What's next?
+------------------------------------------------------------
+> ------------------------------------------------------------
+Okay, here's a list of tasks that you have given to me:
+
+	1.[T][X] read book
+	2.[D][ ] return book (due on: Sunday)
+	3.[E][X] project meeting (scheduled for: Mon 2-4pm)
+
+------------------------------------------------------------
+What's next?
+------------------------------------------------------------
+> ------------------------------------------------------------
+Okay, I've marked this task as not done:
+
+	[T][ ] read book
+
+------------------------------------------------------------
+What's next?
+------------------------------------------------------------
+> ------------------------------------------------------------
+Okay, here's a list of tasks that you have given to me:
+
+	1.[T][ ] read book
+	2.[D][ ] return book (due on: Sunday)
+	3.[E][X] project meeting (scheduled for: Mon 2-4pm)
+
 ------------------------------------------------------------
 What's next?
 ------------------------------------------------------------

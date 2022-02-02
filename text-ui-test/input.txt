@@ -11,4 +11,8 @@ list
 mark 3
 mark 2
 list
+unmark 2
+list
+unmark 1
+list
 bye
