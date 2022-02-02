@@ -17,8 +17,8 @@ public class Duke {
         int i = 0;
         int marker;
         String userInput;
+        Scanner in = new Scanner(System.in);
         do{
-            Scanner in = new Scanner(System.in);
             userInput = in.nextLine();
 
             if(userInput.startsWith("mark")){
