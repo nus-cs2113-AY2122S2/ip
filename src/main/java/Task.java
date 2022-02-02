@@ -5,7 +5,9 @@ public abstract class Task {
         this.description = description;
     }
 
-    abstract public String setDone(boolean isDone);
+    public String setDone(boolean isDone) {
+        return "";
+    };
 
     @Override
     public String toString() {

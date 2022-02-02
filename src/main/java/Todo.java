@@ -22,10 +22,10 @@ public class Todo extends Task {
     public String toString() {
         String marking = "[T]";
         if (isDone) {
-            marking += "[X]";
+            marking += "[X] ";
         } else {
-            marking += "[ ]";
+            marking += "[ ] ";
         }
-        return marking + " " + super.toString();
+        return marking + super.toString();
     }
 }
