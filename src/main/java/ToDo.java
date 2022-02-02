@@ -1,4 +1,4 @@
-public class Task {
+public class ToDo {
     protected String description;
     protected boolean isDone;
 
@@ -8,7 +8,7 @@ public class Task {
      * @param description Description of the task
      * @return the Task object
      */
-    public Task(String description) {
+    public ToDo(String description) {
         this.description = description;
         this.isDone = false;
     }
@@ -34,7 +34,8 @@ public class Task {
      * @return the status icon
      */
     public String getStatusIcon() {
-        String s = (isDone ? "X" : " ");
-        return s;
+        String status = (isDone ? "X" : " ");
+        String finalString = "[T][" + status + "]";
+        return finalString;
     }
 }
