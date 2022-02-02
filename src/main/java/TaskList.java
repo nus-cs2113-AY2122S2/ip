@@ -9,7 +9,7 @@ public class TaskList {
     }
 
     public String addTask(String taskDescription) {
-        Task newTask = new Task(taskDescription);
+        Task newTask = new Todo(taskDescription);
         tasks.add(newTask);
         return String.format("added: %s", newTask.toString());
     }
