@@ -14,6 +14,26 @@ public class Duke {
             Parse parsedInput = new Parse(line);
             if (parsedInput.getIsKeyword()) {
                 switch (parsedInput.getParsedInput()[0]) {
+                case "todo":
+                    line = line.substring(5);
+                    Todo newTodo = new Todo(line);
+                    tasks.add(newTodo);
+                    System.out.println(wrapText("Added to new thing to do for ya! " + line));
+                    break;
+                case "deadline":
+                    String deadlineTask = line.substring(9, line.indexOf("/") - 1);
+                    String by = line.substring(line.indexOf("/") + 4);
+                    Deadline newDeadline = new Deadline(deadlineTask, by);
+                    tasks.add(newDeadline);
+                    System.out.println(wrapText("Added to thing for ya, and ya gotta do it soon! " + deadlineTask));
+                    break;
+                case "event":
+                    String eventTask = line.substring(6, line.indexOf("/") - 1);
+                    String at = line.substring(line.indexOf("/") + 4);
+                    Event newEvent = new Event(eventTask, at);
+                    tasks.add(newEvent);
+                    System.out.println(wrapText("Added to thing for ya at some place and time! " + eventTask));
+                    break;
                 case "list":
                     String allTasks = "";
                     for (int i = 0; i < tasks.size(); i++) {
@@ -78,7 +98,7 @@ public class Duke {
      */
     public static String wrapText(String text) {
         return    "___________________________________\n"
-                + text + "\n"   
+                + text + "\n"
                 + "___________________________________\n";
     }
 }

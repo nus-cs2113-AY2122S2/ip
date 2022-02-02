@@ -6,6 +6,12 @@ public class Parse {
         parsedInput = line.split(" ");
 
         switch (parsedInput[0]) {
+        case "todo":
+            // Fallthrough
+        case "deadline":
+            // Fallthrough
+        case "event":
+            // Fallthrough
         case "list":
             isKeyword = true;
             break;

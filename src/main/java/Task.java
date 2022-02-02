@@ -23,6 +23,6 @@ public class Task {
     }
 
     public String toString() {
-        return "[" + (isCompleted ? "X" : " ") + "] " + getTaskDescription() + "\n";
+        return "[" + (isCompleted ? "X" : " ") + "] " + getTaskDescription();
     }
 }
