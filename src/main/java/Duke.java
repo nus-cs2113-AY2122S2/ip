@@ -9,11 +9,11 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         //System.out.println("Hello from\n" + logo);
-        String greet = "Hello! I'm Duke\n" +
-                "What can I do for you?\n";
+        String greet = "Hello! I'm Duke\n" + "What can I do for you?\n";
         String exit = "Bye. Hope to see you again soon!\n";
         String bye = "bye";
         String list = "list";
+        String mark = "mark";
         System.out.println(greet);
 
         String instruction;
@@ -24,14 +24,14 @@ public class Duke {
             //System.out.print("Type something: ");
             instruction = in.nextLine();
 
-            boolean isBye = instruction.equals(bye); //if true then exit
-            boolean isList = instruction.equals(list);
-            instructions[i] = instruction;
-            String instructionNum = "";
-
             Task t = new Task("read book");
             String[] arrOfStr = instruction.split(" ", 2);
 
+            boolean isBye = instruction.equals(bye); //if true then exit
+            boolean isList = instruction.equals(list);
+            boolean isMark = arrOfStr[0].equals(mark);
+            instructions[i] = instruction;
+            String instructionNum = "";
 
             if (isBye) {
                 System.out.println(exit);
@@ -39,18 +39,15 @@ public class Duke {
             } else if (isList) {
                 System.out.println("Here are the tasks in your list:");
                 for (int j = 0; j < 100 && instructions[j + 1] != null; j++) {
-                    /*if(Integer.parseInt(instructionNum) == (j + 1)){
-                        t.setStatusIcon(true);
-                    }*/
                     System.out.println((j + 1) + ". " + "[" + t.getStatusIcon() + "]" + instructions[j]);
                 }
-            } else if (arrOfStr[0] == "mark") {
+            } else if (isMark) {
                 System.out.println("Nice! I've marked this task as done:");
                 instructionNum = arrOfStr[1];
                 t.setStatusIcon(true);
+                System.out.println("   [" + t.getStatusIcon() + "]" + instructions[Integer.parseInt(instructionNum) - 1]);
 
             } else {
-                //instructions[i] = instruction;
                 System.out.println("added: " + instruction);
             }
         }
