@@ -24,13 +24,11 @@ public class Duke {
             if(userInput.startsWith("mark")){
                 marker = Integer.parseInt(userInput.substring(5));
                 tasks[marker-1].markAsDone();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(tasks[marker-1].getStatusIcon() + tasks[marker-1].getDescription());
+                System.out.println(tasks[marker-1].printTask());
             }else if(userInput.startsWith("unmark")){
                 marker = Integer.parseInt(userInput.substring(7));
                 tasks[marker-1].markAsUndone();
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(tasks[marker-1].getStatusIcon() + tasks[marker-1].getDescription());
+                System.out.println(tasks[marker-1].printTask());
             }else{
                 switch(userInput){
                 case "bye":
@@ -40,21 +38,32 @@ public class Duke {
                     System.out.println("================================================");
                     System.out.println("Here are the tasks in your list:");
                     for(int j=0; j<i; j++){
-                        System.out.println((j+1) + "." + tasks[j].getStatusIcon() + tasks[j].getDescription());
+                        System.out.println((j+1) + "." + tasks[j].printTask());
                     }
                     System.out.println("================================================");
                     break;
                 default:
-                    tasks[i] = new Task(userInput);
+                    System.out.println("================================================");
+                    tasks[i] = addTask(userInput);
+                    System.out.println(tasks[i].printTask());
+                    System.out.println("Now you have " + (i+1) + " tasks in the list.");
+                    System.out.println("================================================");
                     i++;
-                    System.out.println("================================================");
-                    System.out.println("added: " + userInput);
-                    System.out.println("================================================");
                     break;
                 }
             }
         }while(!userInput.equals("bye"));
 
         System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    public static Task addTask(String userInput) {
+        if (userInput.startsWith("todo")) {
+            return new Todo(userInput.substring(5));
+        } else if (userInput.startsWith("deadline")) {
+            return new Deadline(userInput.substring(9));
+        }else{
+            return new Event(userInput.substring(6));
+        }
     }
 }
