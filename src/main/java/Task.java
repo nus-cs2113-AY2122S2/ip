@@ -6,6 +6,13 @@ public class Task {
         task = t;
         isDone = false;
     }
+    public String toString(){
+        if(this.isDone()){
+            return ("[T][X] " + this.getTask() + "\n");
+        }else{
+            return ("[T][ ] " + this.getTask() + "\n");
+        }
+    }
 
     public String getTask() {
         return task;

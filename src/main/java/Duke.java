@@ -26,6 +26,15 @@ public class Duke {
                 startOfInput = input;
             }
             switch(startOfInput){
+                case "todo":
+                    addTodo(input, taskList);
+                    break;
+                case "deadline":
+                    addDeadline(input, taskList);
+                    break;
+                case "event":
+                    addEvent(input, taskList);
+                    break;
                 case "mark":
                     mark(Integer.parseInt(input.substring(input.indexOf(" ")+1)), taskList);
                     break;
@@ -39,7 +48,7 @@ public class Duke {
                     userToQuit = true;
                     break;
                 default:
-                    addItem(input, taskList);
+                    // add default prompt
                     break;
             }
         }
@@ -49,18 +58,43 @@ public class Duke {
                 "____________________\n");
     }
 
-    private static void addItem(String input, ArrayList<Task> list){
+    private static void addTodo(String input, ArrayList<Task> list){
         Task newTask = new Task(input);
         list.add(newTask);
-        System.out.printf("added: %s\n", input);
+        System.out.printf("Got it. I've added this task:\n" +
+                "%s" +
+                "Now you have %d in the list.\n", newTask, list.size());
+    }
+
+    private static void addDeadline(String input, ArrayList<Task> list){
+        String by = input.substring(input.indexOf("/by")+4);
+        String task = input.substring(input.indexOf(" "), input.indexOf("/by")-1);
+
+        Deadline newDeadline = new Deadline(task, by);
+        list.add(newDeadline);
+        System.out.printf("Got it. I've added this task:\n" +
+                "%s" +
+                "Now you have %d in the list.\n", newDeadline, list.size());
+    }
+
+    private static void addEvent(String input, ArrayList<Task> list){
+        String at = input.substring(input.indexOf("/at")+4);
+        String task = input.substring(input.indexOf(" "), input.indexOf("/at")-1);
+
+        Event newEvent = new Event(task, at);
+        list.add(newEvent);
+        System.out.printf("Got it. I've added this task:\n" +
+                "%s" +
+                "Now you have %d in the list.\n", newEvent, list.size());
     }
 
     private static void list(ArrayList<Task> list){
+        System.out.println("Here are the tasks in your list:");
         for(int i = 0; i< list.size(); i++){
             if(list.get(i).isDone()){
-                System.out.printf("%d.[X] %s\n", i+1, list.get(i).getTask());
+                System.out.printf("%d. %s", i+1, list.get(i).toString());
             }else{
-                System.out.printf("%d.[ ] %s\n", i+1, list.get(i).getTask());
+                System.out.printf("%d. %s", i+1, list.get(i).toString());
             }
         }
     }
