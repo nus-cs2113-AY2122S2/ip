@@ -21,16 +21,16 @@ public class Duke {
                 currChat.unmarkTaskIndex(Integer.parseInt(userInputArr[1]));
             } else {
                 switch (userInput) {
-                    case "list":
-                        currChat.printTaskList();
-                        break;
-                    case "bye":
-                        currChat.endSession();
-                        isLoop = false;
-                        break;
-                    default:
-                        currChat.addTask(userInput);
-                        break;
+                case "list":
+                    currChat.printTaskList();
+                    break;
+                case "bye":
+                    currChat.endSession();
+                    isLoop = false;
+                    break;
+                default:
+                    currChat.addTask(userInput);
+                    break;
                 }
             }
         }
