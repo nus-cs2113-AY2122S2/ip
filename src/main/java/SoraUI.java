@@ -147,7 +147,7 @@ public class SoraUI {
         }
 
         System.out.println(getRandomAcknowledgement()
-                + ", here's a list of tasks that you have given to me: ");
+                + ", here's a list of tasks that you have given to me:");
         System.out.println();
         tasksManager.displayAllTasks();
     }
