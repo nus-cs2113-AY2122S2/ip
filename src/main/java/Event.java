@@ -8,7 +8,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        String marking = "[E][ ] ";
+        String marking = "[E]";
         String dateString = String.format(" (at: %s)", date);
         return marking + super.toString() + dateString;
     }

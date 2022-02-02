@@ -67,7 +67,7 @@ public class Duke {
     }
 
     private static String addTask() {
-        return taskList.addTask(parser.getAddedTask());
+        return taskList.addTask(parser.getCommand(), parser.getAddedTask());
     }
 
     private static String markTask() {

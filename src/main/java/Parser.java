@@ -21,13 +21,14 @@ public class Parser {
         isExiting = false;
     }
 
-    private String getCommand(String input) {
+    public String getCommand() {
         return input.split(" ")[0];
     }
 
     public void parseString(String input) {
         reset();
-        String command = getCommand(input);
+        this.input = input;
+        String command = getCommand();
 
         if (command.equals("bye")) {
             isExiting = true;
@@ -35,10 +36,9 @@ public class Parser {
             isListingTasks = true;
         } else if (command.equals("mark") || command.equals("unmark")) {
             isMarkingTask = true;
-            this.input = input;
-        } else {
+        } else if (command.equals("todo") || command.equals("event")
+                    || command.equals("deadline")) {
             isAddingTask = true;
-            this.input = input;
         }
     }
 
@@ -58,12 +58,34 @@ public class Parser {
         return isExiting;
     }
 
-    public String getAddedTask() {
-        return input;
+    public String[] getAddedTask() {
+        return splitStringBySlash();
     }
 
     public String[] getMarkedTask() {
         return input.split(" ");
     }
 
+    private String[] splitStringBySlash() {
+        String[] splitInput = input.split(" ");
+        String[] splitOutput = new String[2];
+        String description = "";
+        String date = "";
+        boolean hasSlash = false;
+
+        for (int i = 1; i < splitInput.length; i++) {
+            if (splitInput[i].equals("/by") || splitInput[i].equals("/at")) {
+                hasSlash = true;
+                continue;
+            }
+            if (hasSlash) {
+                date += splitInput[i] + " ";
+            } else {
+                description += splitInput[i] + " ";
+            }
+        }
+        splitOutput[0] = description.trim();
+        splitOutput[1] = date.trim();
+        return splitOutput;
+    }
 }
