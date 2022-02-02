@@ -2,7 +2,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 public class Duke {
     private static ArrayList<String> descriptions = new ArrayList<>();
     private static ArrayList<Boolean> dones = new ArrayList<>();
@@ -113,7 +112,6 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
     }
 
-
     private static void markAsDone(int number) {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Nice! I've marked this task as done:");
@@ -142,7 +140,6 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
     }
 
-
     private static void greeting() {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Hello! I'm Duke");
@@ -151,52 +148,4 @@ public class Duke {
         System.out.println();
     }
 
-
-    private static void echo() {
-        String line;
-        Scanner in = new Scanner(System.in);
-        // get user input
-        line = in.nextLine();
-        while (!line.equals("bye")) {
-            if (line.equals("list")) {
-                showList();
-                line = in.nextLine();
-                continue;
-            }
-            if (line.startsWith("mark")) {
-                int number = Integer.parseInt(line.substring(line.length() - 1));
-                markAsDone(number);
-                line = in.nextLine();
-                continue;
-            }
-            if (line.startsWith("unmark")) {
-                int number = Integer.parseInt(line.substring(line.length() - 1));
-                unmarkTask(number);
-                line = in.nextLine();
-                continue;
-            }
-            System.out.println("    ____________________________________________________________");
-            System.out.println("added: " + line);
-            descriptions.add(line);
-            dones.add(false);
-            System.out.println("    ____________________________________________________________");
-            line = in.nextLine();
-        }
-        if (line.equals("bye")) {
-            System.out.println("    ____________________________________________________________");
-            System.out.println("     Bye. Hope to see you again soon!");
-            System.out.println("    ____________________________________________________________");
-        }
-    }
-
-
-    private static void unmarkTask(int number) {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Noted. I've marked this task as not done yet:");
-        int index = number - 1;
-        String description = descriptions.get(index);
-        dones.set(index, false);
-        System.out.println("[ ] " + description);
-        System.out.println("    ____________________________________________________________");
-    }
 }
