@@ -2,6 +2,7 @@
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String taskType;
 
     public Task(String description) {
         this.description = description;
@@ -22,4 +23,9 @@ public class Task {
     public void setAsNotDone() {
         isDone = false;
     }
+
+    public String getTaskType() {
+        return taskType;
+    }
+
 }
