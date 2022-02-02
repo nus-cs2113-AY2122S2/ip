@@ -1,6 +1,3 @@
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -16,18 +13,18 @@ public class UserInterface {
 
     public void start() {
         printGreeting();
-        commandLoop();
+        loopCommandInput();
     }
 
     /**
      * Reads commands from stdin and executes them using commandExec(commandInput)
      * until the user inputs "bye", upon which the function returns.
      */
-    public void commandLoop() {
+    public void loopCommandInput() {
         String commandInput;
         do {
             commandInput = uiScan.nextLine();
-            commandExec(commandInput);
+            executeCommand(commandInput);
         } while (!commandInput.equals("bye"));
     }
 
@@ -36,7 +33,7 @@ public class UserInterface {
      * using a switch statement.
      * @param nextLine The command to be executed.
      */
-    private void commandExec(String nextLine) {
+    private void executeCommand(String nextLine) {
         if (nextLine == null) {
             System.out.println("Error: Command is null.");
             return;
@@ -77,7 +74,7 @@ public class UserInterface {
     private void addTask(ArrayList<String> inputTasks) {
         try {
             printDivider();
-            this.tasks.add(taskBuilder(inputTasks));
+            this.tasks.add(buildTask(inputTasks));
             System.out.println("Got it. I've added this task:\n  " + this.tasks.get(this.tasks.size() - 1));
             System.out.println("Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
             printDivider();
@@ -92,9 +89,9 @@ public class UserInterface {
      *                        The first element of this list should contain the subclass of task to be constructed.
      * @return a subclass of Task determined by the first element of taskStringArray.
      */
-    private Task taskBuilder(ArrayList<String> taskStringArray) {
+    private Task buildTask(ArrayList<String> taskStringArray) {
         String taskType = taskStringArray.get(0);
-        ArrayList<StringBuilder> taskParts = taskSplitter(taskStringArray);
+        ArrayList<StringBuilder> taskParts = splitTask(taskStringArray);
         String prepositions = String.valueOf(taskParts.get(taskParts.size() - 1));
         switch (taskType) {
         case "todo":
@@ -118,7 +115,7 @@ public class UserInterface {
      *         e.g.: deadline return book /by Sunday /at library returns the following Arraylist:
      *         {"return book", "Sunday", "Library", "/by/at"}
      */
-    private ArrayList<StringBuilder> taskSplitter(ArrayList<String> input) {
+    private ArrayList<StringBuilder> splitTask(ArrayList<String> input) {
         /* taskPartsIterator increments when a String containing '/' is encountered.
          * inputIterator increments after each String in input is read.
          * The loop ends when inputIterator exceeds the size of the ArrayList, indicating that all
