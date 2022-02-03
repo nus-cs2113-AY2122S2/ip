@@ -1,11 +1,25 @@
 public class TaskManager {
+    private static final String TODO_COMMAND = "todo";
+    private static final String DEADLINE_COMMAND = "deadline";
+    private static final String EVENT_COMMAND = "event";
+
     private Task[] tasks = new Task[100];
     private int tasksCount = 0;
 
-    public void addTask(String description) {
-        tasks[tasksCount] = new Task(description);
+    public void addTask(String typeOfTask, String userInput) {
+        System.out.println(" Got it. I've added this task: ");
+        if (typeOfTask.equalsIgnoreCase(TODO_COMMAND)) {
+            tasks[tasksCount] = new ToDo(userInput.substring(userInput.indexOf(" ") + 1));
+        }
+        else if (typeOfTask.equalsIgnoreCase(DEADLINE_COMMAND)) {
+            tasks[tasksCount] = new Deadline(userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/by")), userInput.substring(userInput.indexOf("/by") + 4));
+        }
+        else if (typeOfTask.equalsIgnoreCase(EVENT_COMMAND)) {
+            tasks[tasksCount] = new Event(userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/at")), userInput.substring(userInput.indexOf("/at") + 4));
+        }
+        System.out.println(tasks[tasksCount]);
         tasksCount++;
-        System.out.println(" added: " + description);
+        System.out.println(" Now you have " + tasksCount + " tasks in the list");
     }
 
     public void markAsDone(int taskIndex) {
@@ -27,7 +41,7 @@ public class TaskManager {
     public void listTasks() {
         System.out.println(" Here are the tasks in your list:");
         for (int i = 0; i < tasksCount; i++) {
-            System.out.println(" " + (i + 1) + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].getDescription());
+            System.out.println(" " + (i + 1) + "."+ tasks[i]);
         }
     }
 }

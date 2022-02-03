@@ -52,7 +52,7 @@ public class Duke {
             }
             else if (userInput.equalsIgnoreCase(EXIT_COMMAND) == false) {
                 System.out.println(HORIZONTAL_LINE);
-                t.addTask(userInput);
+                t.addTask(firstWord, userInput);
                 System.out.println(HORIZONTAL_LINE);
             }
         } while (!userInput.equalsIgnoreCase(EXIT_COMMAND));

@@ -1,4 +1,5 @@
 public class Task {
+
     private String description;
     private boolean isDone;
 
@@ -24,5 +25,10 @@ public class Task {
     }
     public void unmarkAsNotDone() {
         isDone = false;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
     }
 }
