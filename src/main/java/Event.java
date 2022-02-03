@@ -4,10 +4,15 @@ public class Event extends Task{
     public Event(String name, String by){
         super(name);
         this.by = by;
+        setListName();
     }
 
     @Override
-    public String getListName(){
-        return "[E]" + super.getListName() + "(at: " + by + ")";
+    public void setListName(){
+        if(isDone == false){
+            this.listName = "[E]" + this.unmarkedStatus + this.taskName + "(at: " + by + ")";
+        }else{
+            this.listName = "[E]" + this.markedStatus + this.taskName + "(at: " + by + ")";
+        }
     }
 }

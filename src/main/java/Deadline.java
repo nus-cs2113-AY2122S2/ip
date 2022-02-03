@@ -4,10 +4,15 @@ public class Deadline extends Task{
     public Deadline(String name, String by){
         super(name);
         this.by = by;
+        setListName();
     }
 
     @Override
-    public String getListName(){
-        return "[D]" + super.getListName() + "(by: " + by + ")";
+    public void setListName(){
+        if(isDone == false){
+            this.listName = "[D]" + this.unmarkedStatus + this.taskName + "(by: " + by + ")";
+        }else{
+            this.listName = "[D]" + this.markedStatus + this.taskName + "(by: " + by + ")";
+        }
     }
 }

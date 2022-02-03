@@ -5,7 +5,11 @@ public class ToDo extends Task{
     }
 
     @Override
-    public String getListName(){
-        return "[T]" + super.getListName();
+    public void setListName(){
+        if(isDone == false){
+            this.listName = "[T]" + this.unmarkedStatus + this.taskName;
+        }else{
+            this.listName = "[T]" + this.markedStatus + this.taskName;
+        }
     }
 }
