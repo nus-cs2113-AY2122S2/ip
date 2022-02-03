@@ -9,7 +9,7 @@ public class Duke {
                 + " Hello! I'm Duke\n"
                 + " What can I do for you?\n"
                 + "____________________________________________________________\n";
-
+        String underscoreLine = "____________________________________________________________";
 
         System.out.println(greeting);
 
@@ -18,95 +18,97 @@ public class Duke {
             String[] commands = line.split(" ");
             int commandNumber;
             switch (commands[0]) {
-            case "bye":
-                System.out.println("____________________________________________________________");
+            case "bye": //end the program
+                System.out.println(underscoreLine);
                 System.out.println("  Bye; Don't restart me.");
                 System.out.println("____________________________________________________________\n");
                 System.exit(0);
-            case "list":
-                System.out.println("____________________________________________________________");
+            case "list": //list out all tasks
+                System.out.println(underscoreLine);
                 for (int i = 0; i < taskCounter; i++) {
                     System.out.println("   " + (i + 1) + ". " + toDos[i].getStatusIcon() + toDos[i].getDescription());
                 }
                 System.out.println("____________________________________________________________\n");
                 break;
-            case "mark":
-                line = line.substring(5, line.length());
+            case "mark": //mark a task as done
                 commandNumber = Integer.parseInt(commands[1]) - 1;
                 if (commandNumber >= 0 && commandNumber <= taskCounter) {
-                    System.out.println("____________________________________________________________");
+                    System.out.println(underscoreLine);
                     System.out.println("   I don't actually believe you completed a task, but I'll mark it anyway.");
                     System.out.println("     [X] " + toDos[commandNumber].getDescription());
-                    System.out.println("____________________________________________________________");
+                    System.out.println(underscoreLine);
                     toDos[commandNumber].setDone(true);
                 } else {
-                    System.out.println("____________________________________________________________");
+                    System.out.println(underscoreLine);
                     System.out.println("   You didn't even write down that task.");
-                    System.out.println("____________________________________________________________");
+                    System.out.println(underscoreLine);
                 }
                 break;
-            case "unmark":
-                line = line.substring(5, line.length());
+            case "unmark": //mark a task as no longer done
                 commandNumber = Integer.parseInt(commands[1]) - 1;
                 if (commandNumber >= 0 && commandNumber <= taskCounter) {
-                    System.out.println("____________________________________________________________");
+                    System.out.println(underscoreLine);
                     System.out.println("   Unmarking a task; sharp as a marble, aren't we?");
                     System.out.println("     [] " + toDos[commandNumber].getDescription());
-                    System.out.println("____________________________________________________________");
+                    System.out.println(underscoreLine);
                     toDos[commandNumber].setDone(false);
                 } else {
-                    System.out.println("____________________________________________________________");
+                    System.out.println(underscoreLine);
                     System.out.println("   You didn't even write down that task.");
-                    System.out.println("____________________________________________________________");
+                    System.out.println(underscoreLine);
                 }
                 break;
-            case "todo":
-                line = line.substring(5, line.length()); //removing the first part of the command from the description
+            case "todo": //add a todo (normal task) to the list
+                line = line.substring(5); //removing the first part of the command from the description
                 toDos[taskCounter] = new ToDo(line);
-                System.out.println("____________________________________________________________");
-                System.out.println(" Got it. I've added this task:");
-                System.out.println("   " + toDos[taskCounter].getStatusIcon() + " " + line);
+                System.out.println(underscoreLine);
+                System.out.println(" Do these tasks distract you from a glaring lack of meaning\n  in your life?" +
+                        "\nAnyway, I added" + " it to the list.");
+                System.out.printf("   %s %s%n", toDos[taskCounter].getStatusIcon(), line);
                 taskCounter++;
                 System.out.println(" There are now " + taskCounter + " tasks in the list.");
                 System.out.println("____________________________________________________________\n");
                 break;
-            case "deadline":
+            case "deadline": //add a deadline to the task list
                 int separationLocation = line.indexOf("/by"); //used to split the command
                 if (separationLocation == -1) { //checks if separationLocation exists
-                    System.out.println("Invalid command format.");
+                    System.out.println(underscoreLine);
+                    System.out.println("I'm a supercomputer, and I couldn't parse what you just typed. Impressive.");
+                    System.out.println(underscoreLine);
                     break;
                 }
                 String description = line.substring(9, separationLocation); //first half of command
-                String doBy = line.substring((separationLocation + 3), line.length());
+                String doBy = line.substring((separationLocation + 3));
                 toDos[taskCounter] = new Deadline(description, doBy);
-                System.out.println("____________________________________________________________");
-                System.out.println(" Got it. I've added this task to the list:");
-                System.out.println("   " + toDos[taskCounter].getStatusIcon() + " " + description +
-                        "(by:" + doBy + ")");
+                System.out.println(underscoreLine);
+                System.out.println(" Great, something else for you to procrastinate:");
+                System.out.printf("   %s %s(by:%s)%n", toDos[taskCounter].getStatusIcon(), description, doBy);
                 taskCounter++;
-                System.out.println(" There are now " + taskCounter + " tasks in the list.");
+                System.out.printf(" There are now %d tasks in the list.%n", taskCounter);
                 System.out.println("____________________________________________________________\n");
-
                 break;
-            case "event":
+            case "event": //add an event to the task list
                 separationLocation = line.indexOf("/at");
                 if (separationLocation == -1) {
-                    System.out.println("Invalid command format.");
+                    System.out.println(underscoreLine);
+                    System.out.println("I'm a supercomputer, and I couldn't parse what you just typed. Impressive.");
+                    System.out.println(underscoreLine);
                     break;
                 }
                 description = line.substring(6, separationLocation);
-                String doAt = line.substring((separationLocation + 3), line.length());
+                String doAt = line.substring((separationLocation + 3));
                 toDos[taskCounter] = new Event(description, doAt);
-                System.out.println("____________________________________________________________");
-                System.out.println(" Got it. I've added this task to the list:");
-                System.out.println("   " + toDos[taskCounter].getStatusIcon() + " " + description +
-                        "(at:" + doAt + ")");
+                System.out.println(underscoreLine);
+                System.out.println(" An event! Perhaps it can distract you from your self-inflicted prison:");
+                System.out.printf("   %s %s(at:%s)%n", toDos[taskCounter].getStatusIcon(), description, doAt);
                 taskCounter++;
-                System.out.println(" There are now " + taskCounter + " tasks in the list.");
+                System.out.printf(" There are now %d tasks in the list.%n", taskCounter);
                 System.out.println("____________________________________________________________\n");
                 break;
-            default:
+            default: //user formatted a command incorrectly
+                System.out.println(underscoreLine);
                 System.out.println("Can't understand your gibberish.");
+                System.out.println(underscoreLine);
             }
         }
     }

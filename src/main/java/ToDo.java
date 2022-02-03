@@ -3,10 +3,10 @@ public class ToDo {
     protected boolean isDone;
 
     /**
-     * Constructor for Task object
+     * Constructor for Todo (task) object
      *
-     * @param description Description of the task
-     * @return the Task object
+     * @param description Description of the todo
+     * @return the todo object
      */
     public ToDo(String description) {
         this.description = description;

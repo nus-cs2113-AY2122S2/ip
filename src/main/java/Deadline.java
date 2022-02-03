@@ -1,6 +1,13 @@
 public class Deadline extends ToDo {
     protected String doBy;
 
+    /**
+     * Constructor for Deadline object
+     *
+     * @param description Description of the deadline
+     * @param doBy the due date of the deadline
+     * @returns the deadline object
+     */
     public Deadline(String description, String doBy) {
         super(description);
         this.doBy = doBy;
