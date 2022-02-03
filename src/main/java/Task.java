@@ -14,6 +14,7 @@ public class Task {
     public String getDescription() {
         return description;
     }
+
     public void markAsDone() {
         isDone = true;
     }
@@ -21,6 +22,4 @@ public class Task {
     public void unmarkAsDone() {
         isDone = false;
     }
-
-
 }
