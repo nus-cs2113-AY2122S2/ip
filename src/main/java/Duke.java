@@ -16,22 +16,27 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String userInput = in.nextLine();
         String lowerCaseUserInput = userInput.toLowerCase();
-        while (!lowerCaseUserInput.equals("bye")) {
+        boolean isLastInput = detectLastInput(lowerCaseUserInput);
+        boolean isListRequest = detectListRequest(lowerCaseUserInput);
+        boolean isMarkRequest = detectMarkRequest(lowerCaseUserInput);
+        boolean isUnmarkRequest = detectUnmarkRequest(lowerCaseUserInput);
+        while (!isLastInput) {
             String[] splitUserInput = lowerCaseUserInput.split(" ");
-            if (lowerCaseUserInput.equals("list")) {
+            if (isListRequest) {
                 list();
-            } else if (lowerCaseUserInput.startsWith("mark")) {
+            } else if (isMarkRequest) {
                 int taskNumber = Integer.parseInt(splitUserInput[1]);
                 tasks[taskNumber - 1].markTaskAsDone();
                 System.out.println(tasks[taskNumber - 1]);
                 System.out.println("____________________________________________________________");
-            } else if (lowerCaseUserInput.startsWith("unmark")) {
+            } else if (isUnmarkRequest) {
                 int taskNumber = Integer.parseInt(splitUserInput[1]);
                 tasks[taskNumber - 1].markTaskAsUndone();
                 System.out.println(tasks[taskNumber - 1]);
                 System.out.println("____________________________________________________________");
             } else {
-                switch (splitUserInput[0]) {
+                String taskType = splitUserInput[0];
+                switch (taskType) {
                 case "todo":
                     addTask(new Todo(userInput));
                     break;
@@ -54,6 +59,22 @@ public class Duke {
         exit();
     }
 
+    public static boolean detectLastInput(String input) {
+        return input.equals("bye");
+    }
+
+    public static boolean detectListRequest(String input) {
+        return input.equals("list");
+    }
+
+    public static boolean detectMarkRequest(String input) {
+        return input.startsWith("mark");
+    }
+
+    public static boolean detectUnmarkRequest(String input) {
+        return input.startsWith("unmark");
+    }
+
     public static void greet() {
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Duke");
@@ -70,7 +91,7 @@ public class Duke {
     }
 
     public static void printTaskCount() {
-        System.out.println("Now you have " + taskCount + " remaining task(s) in the list.");
+        System.out.println("Now you have " + taskCount + " task(s) in the list.");
         System.out.println("____________________________________________________________");
     }
 
@@ -79,7 +100,7 @@ public class Duke {
             System.out.println("You have not entered any tasks yet!");
             System.out.println("____________________________________________________________");
         } else {
-            System.out.println("Here are the tasks in your list:");
+            System.out.println("Here are the task(s) in your list:");
             for (int i = 0; i < taskCount; i++) {
                 System.out.print((i+1) + ".");
                 System.out.println(tasks[i]);
