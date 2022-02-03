@@ -27,7 +27,13 @@ public class Task {
         this.isDone = false;
     }
 
-    public String printTask(){
+    /*public String printTask(){
+        return ("["+getStatusIcon()+"] "+description);
+    }
+     */
+
+    @Override
+    public String toString(){
         return ("["+getStatusIcon()+"] "+description);
     }
 }

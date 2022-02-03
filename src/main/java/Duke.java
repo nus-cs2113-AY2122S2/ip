@@ -15,20 +15,14 @@ public class Duke {
             if(reply.equalsIgnoreCase("LIST")){
                 taskManager.printTasks();
                 String choice = taskManager.taskChoice();
-                while(choice=="ok"){
+                while(choice=="finishedLoop"){
                     choice = taskManager.taskChoice();
                 }
                 reply = choice;
                 continue;
             }
 
-            //save it into the task list
-            Task newTask = new Task(reply);
-            taskManager.addTask(newTask);
-
-            System.out.println("____________________________________________________________");
-            System.out.println("added: "+reply);
-            System.out.println("____________________________________________________________");
+            taskManager.addTask(reply);
 
             reply = input.nextLine();
         }

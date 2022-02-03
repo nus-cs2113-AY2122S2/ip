@@ -4,15 +4,42 @@ public class TaskManager {
     protected static Task[] tasks = new Task[100];
     protected static int inputAmount = 0;
 
-    public void addTask(Task task){
-        tasks[inputAmount++] = task;
+    public static void addTask(String reply){
+        String choice = reply.split(" ")[0];
+        String newTask = reply.replace(choice+" ", "");
+        switch(choice.toUpperCase()) {
+            case "TODO":
+                ToDo todo = new ToDo(newTask);
+                tasks[inputAmount++] = todo;
+                break;
+            case "DEADLINE":
+                int startIndexforBy = newTask.indexOf("/by");
+                String by = newTask.substring(startIndexforBy + 4);
+                String newDeadline = newTask.substring(0, startIndexforBy - 1);
+                Deadline deadline = new Deadline(newDeadline, by);
+                tasks[inputAmount++] = deadline;
+                break;
+            case "EVENT":
+                int startIndexforAt = newTask.indexOf("/at");
+                String at = newTask.substring(startIndexforAt + 4);
+                String newEvent = newTask.substring(0, startIndexforAt - 1);
+                Event event = new Event(newEvent, at);
+                tasks[inputAmount++] = event;
+                break;
+        }
+        System.out.println("____________________________________________________________");
+        System.out.println("Got it. I've added this task: ");
+        System.out.println(tasks[inputAmount-1]);
+        System.out.println("Now you have " + inputAmount + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+
     }
 
     public void printTasks(){
         System.out.println("____________________________________________________________");
         System.out.println("Here are the tasks in your list:");
         for(int i=1;i<=inputAmount;i++){
-            System.out.println(i+". "+tasks[i-1].printTask());
+            System.out.println(i+". "+tasks[i-1]);
         }
         System.out.println("____________________________________________________________");
     }
@@ -30,7 +57,7 @@ public class TaskManager {
             System.out.println("____________________________________________________________");
             System.out.println("OK, I've marked this task as not done yet:");
         }
-        System.out.println(tasks[index-1].printTask());
+        System.out.println(tasks[index-1]);
         System.out.println("____________________________________________________________");
         return 1;
     }
@@ -45,13 +72,13 @@ public class TaskManager {
                 if(manageTask(index, true)==-1){
                     System.out.println("Invalid input!");
                 }
-                return "ok";
+                return "finishedLoop";
             }
             else if(words[0].equalsIgnoreCase("unmark")){
                 if(manageTask(index, false)==-1){
                     System.out.println("Invalid input!");
                 }
-                return "ok";
+                return "finishedLoop";
             }
         }
         return sentence;
