@@ -7,14 +7,15 @@ public class Duke {
         currChat.startSession();
 
         // Get user input
+        Scanner sc = new Scanner(System.in);
+        String userInput;
         String[] userInputArr;
         String userCommand;
         String[] userArguments;
         String description;
 
         while (true) {
-            Scanner sc = new Scanner(System.in);
-            String userInput = sc.nextLine();
+            userInput = sc.nextLine();
             userInputArr = userInput.split(" ", 2);
             userCommand = userInputArr[0];
 
