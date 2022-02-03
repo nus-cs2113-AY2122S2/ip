@@ -52,15 +52,14 @@ public class Command {
         PatternGenerator.generateLine();
         System.out.println("Here are the tasks in your list.");
         Task.listTasks();
-        System.out.println("If you do not need any change to your task list, please enter \"exit\".");
         PatternGenerator.generateLine();
-
-        Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
-        while (!input.equals("exit")){
-            modifyList(input);
-            input = sc.nextLine();
-        }
+//        Scanner sc = new Scanner(System.in);
+//        String input = sc.nextLine();
+//        while (!input.equals("exit")){
+//            modifyList(input);
+//            //sc.nextLine();
+//            input = sc.nextLine();
+//        }
     }
 
     public static void modifyList(String input){
