@@ -52,15 +52,21 @@ public class Eliz {
     }
 
     public static Task createDeadline(String taskType, String line) {
-        String[] splitTwoSections = line.split("/", 2);
-        String newDescription = splitTwoSections[0] + "(" + splitTwoSections[1] + ")";
+        String newDescription = line;
+        if (line.contains("/")) {
+            String[] splitTwoSections = line.split("/", 2);
+            newDescription = splitTwoSections[0] + "(" + splitTwoSections[1] + ")";
+        }
         Deadline newDeadline = new Deadline(newDescription);
         return newDeadline;
     }
 
     public static Task createEvent(String taskType, String line) {
-        String[] splitTwoSections = line.split("/", 2);
-        String newDescription = splitTwoSections[0] + "(" + splitTwoSections[1] + ")";
+        String newDescription = line;
+        if (line.contains("/")) {
+            String[] splitTwoSections = line.split("/", 2);
+            newDescription = splitTwoSections[0] + "(" + splitTwoSections[1] + ")";
+        }
         Event newEvent = new Event(newDescription);
         return newEvent;
     }
