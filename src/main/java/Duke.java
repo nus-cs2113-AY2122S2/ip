@@ -18,28 +18,27 @@ public class Duke {
                           "What can I do for you?\n");
         boolean isToQuit = false;
         String input, startOfInput;
+
         while(!isToQuit){
             input = sc.nextLine();
-            if(input.contains(" ")){
-                startOfInput = input.substring(0, input.indexOf(" "));
-            }else{
-                startOfInput = input;
-            }
-            switch(startOfInput){
+            String commandWord = getCommand(input);
+            String info = getInfo(input);
+
+            switch(commandWord){
             case "todo":
-                addTodo(input, tasks);
+                addTodo(info, tasks);
                 break;
             case "deadline":
-                addDeadline(input, tasks);
+                addDeadline(info, tasks);
                 break;
             case "event":
-                addEvent(input, tasks);
+                addEvent(info, tasks);
                 break;
             case "mark":
-                mark(Integer.parseInt(input.substring(input.indexOf(" ")+1)), tasks);
+                mark(Integer.parseInt(info), tasks);
                 break;
             case "unmark":
-                unmark(Integer.parseInt(input.substring(input.indexOf(" ")+1)), tasks);
+                unmark(Integer.parseInt(info), tasks);
                 break;
             case "list":
                 list(tasks);
@@ -58,8 +57,8 @@ public class Duke {
                 "____________________\n");
     }
 
-    private static void addTodo(String input, ArrayList<Task> list){
-        Task newTask = new Task(input);
+    private static void addTodo(String info, ArrayList<Task> list){
+        Task newTask = new Task(info);
         list.add(newTask);
         System.out.printf("Got it. I've added this task:\n" +
                 "%s" +
@@ -68,7 +67,7 @@ public class Duke {
 
     private static void addDeadline(String input, ArrayList<Task> list){
         String by = input.substring(input.indexOf("/by")+4);
-        String task = input.substring(input.indexOf(" "), input.indexOf("/by")-1);
+        String task = input.substring(0, input.indexOf("/by")-1);
 
         Deadline newDeadline = new Deadline(task, by);
         list.add(newDeadline);
@@ -79,7 +78,7 @@ public class Duke {
 
     private static void addEvent(String input, ArrayList<Task> list){
         String at = input.substring(input.indexOf("/at")+4);
-        String task = input.substring(input.indexOf(" "), input.indexOf("/at")-1);
+        String task = input.substring(0, input.indexOf("/at")-1);
 
         Event newEvent = new Event(task, at);
         list.add(newEvent);
@@ -107,5 +106,21 @@ public class Duke {
     private static void unmark(int index, ArrayList<Task> list){
         list.get(index-1).setDone(false);
         System.out.printf("OK, I've marked this task as not done yet:\n [ ] %s\n", list.get(index-1).getTask());
+    }
+
+    private static String getCommand(String input){
+        if(input.contains(" ")){
+            return input.substring(0, input.indexOf(" "));
+        }else{
+            return input;
+        }
+    }
+
+    private static String getInfo(String input){
+        if(input.contains(" ")){
+            return input.substring(input.indexOf(" ")+1);
+        }else{
+            return null;
+        }
     }
 }
