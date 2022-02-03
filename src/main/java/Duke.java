@@ -21,6 +21,7 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
+
         System.out.println("Hello from\n" + logo);
     }
 
@@ -60,7 +61,7 @@ public class Duke {
                 unmarkTask(response);
                 break;
             case "todo":
-                addToList(new Todo(detail));
+                addTask(new Todo(detail));
                 break;
             case "deadline":
                 int byIndex = detail.indexOf("/by");
@@ -68,7 +69,7 @@ public class Duke {
                 if (isByPresent) {
                     String by = detail.substring(byIndex + 3).trim();
                     String deadlineDesc = detail.substring(0, byIndex).trim();
-                    addToList(new Deadline(deadlineDesc, by));
+                    addTask(new Deadline(deadlineDesc, by));
                 } else {
                     System.out.println("Sorry, missing /by argument...");
                 }
@@ -79,7 +80,7 @@ public class Duke {
                 if (isAtPresent) {
                     String at = detail.substring(atIndex + 3).trim();
                     String eventDesc = detail.substring(0, atIndex).trim();
-                    addToList(new Event(eventDesc, at));
+                    addTask(new Event(eventDesc, at));
                 } else {
                     System.out.println("Sorry, missing /at argument...");
                 }
@@ -101,7 +102,7 @@ public class Duke {
         printLine();
     }
 
-    public static void addToList(Task task) {
+    public static void addTask(Task task) {
         printLine();
         tasks[taskCount] = task;
         System.out.println("Got it. I've added this task:");
@@ -115,39 +116,51 @@ public class Duke {
         printLine();
         String[] words = response.split(" ");
         int taskIndex = Integer.parseInt(words[1]);
-        if (taskIndex > taskCount || taskIndex == 0) {
+        boolean isNotIndex = taskIndex > taskCount || taskIndex == 0;
+        if (isNotIndex) {
             System.out.println("Sorry, seems like there's no such task with that index.");
             printLine();
             return;
         } else {
-            if (!(tasks[taskIndex - 1].isDone)) {
-                tasks[taskIndex - 1].markAsDone();
+            Task t = tasks[taskIndex - 1];
+            boolean isNotDone = !t.isDone;
+
+            if (isNotDone) {
+                t.markAsDone();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println(tasks[taskIndex - 1]);
+                System.out.println(t);
             } else {
                 System.out.println("Hmm, you've already marked this task.");
             }
         }
+
         printLine();
     }
 
     public static void unmarkTask(String response) {
         printLine();
+
         String[] words = response.split(" ");
         int taskIndex = Integer.parseInt(words[1]);
-        if (taskIndex > taskCount || taskIndex == 0) {
+        boolean isNotIndex = taskIndex > taskCount || taskIndex == 0;
+
+        if (isNotIndex) {
             System.out.println("Sorry, seems like there's no such task with that index.");
             printLine();
             return;
         } else {
-            if (tasks[taskIndex - 1].isDone) {
-                tasks[taskIndex - 1].markAsNotDone();
+            Task t = tasks[taskIndex - 1];
+            boolean isDone = t.isDone;
+
+            if (isDone) {
+                t.markAsNotDone();
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(tasks[taskIndex - 1]);
+                System.out.println(t);
             } else {
                 System.out.println("Hmm, this task is already unmarked.");
             }
         }
+
         printLine();
     }
 }
