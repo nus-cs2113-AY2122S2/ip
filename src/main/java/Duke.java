@@ -62,11 +62,26 @@ public class Duke {
         Task t = new Deadline(description, by);
         return t;
     }
+
     private static Task parseEvent(String description) {
         String[] eventBreakdown = description.split(" /at ", 2);
         description = eventBreakdown[0];
         String at = eventBreakdown[1];
         Task t = new Event(description, at);
+        return t;
+    }
+
+    private static Task parseTask(String type, String description) {
+        Task t;
+        if (type.equals("todo")) {
+            t = new Todo(description);
+        } else if (type.equals("deadline")) {
+            t = parseDeadline(description);
+        } else if (type.equals("event")) {
+            t = parseEvent(description);
+        } else {
+            throw new RuntimeException("Not a valid task type");
+        }
         return t;
     }
 
@@ -78,21 +93,12 @@ public class Duke {
     }
 
     public static void addTask(String line) {
-        Task t;
         try {
             String[] commands = line.split(" ", 2);
             String type = commands[0];
             String description = commands[1];
 
-            if (type.equals("todo")) {
-                t = new Todo(description);
-            } else if (type.equals("deadline")) {
-                t = parseDeadline(description);
-            } else if (type.equals("event")) {
-                t = parseEvent(description);
-            } else {
-                throw new java.lang.RuntimeException("Not a valid task type");
-            }
+            Task t = parseTask(type, description);
             list[taskIndex] = t;
             taskIndex++;
             printFormat("Got it. I've added this task:\n  " + t.toString() +
