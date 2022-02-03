@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class Duke {
 
@@ -18,18 +17,20 @@ public class Duke {
 
     public static void main(String[] args) {
 
-        welcomeMessage();
+        printWelcomeMessage();
         initTaskTable();
-
         while (true) {
-            String inCommand = SCANNER.nextLine();
-            executeCommand(inCommand);
+            getNewInput();
         }
-
     }
 
-    private static void executeCommand(String inCommand) {
-        String[] commandArr = inCommand.split(" ");
+    private static void getNewInput() {
+        String inputCommand = SCANNER.nextLine();
+        executeCommand(inputCommand);
+    }
+
+    private static void executeCommand(String inputCommand) {
+        String[] commandArr = inputCommand.split(" ");
         int listNum;
         switch (commandArr[0]) {
         case COMMAND_LIST:
@@ -39,7 +40,7 @@ public class Duke {
             }
             else {
                 for (int i = 0; i < itemNum; i++) {
-                    System.out.println(listNum + ".[" + taskItems[i].getTaskType() + "]" + "[" + taskItems[i].getStatusIcon() + "] " + taskItems[i].description);
+                    System.out.println(listNum + ". " + taskItems[i]);
                     listNum++;
                 }
             }
@@ -47,18 +48,18 @@ public class Duke {
         case COMMAND_MARK:
             int markNum = Integer.parseInt(commandArr[1]) - 1;
             taskItems[markNum].isDone = true;
-            System.out.println("Nice! I've marked this task as done:\n" + "[" + taskItems[markNum].taskType + "]"+ "[X] " + taskItems[markNum].description);
+            System.out.println("Nice! I've marked this task as done:\n" + taskItems[markNum]);
             break;
         case COMMAND_UNMARK:
             int unMarkNum = Integer.parseInt(commandArr[1]) - 1;
             taskItems[unMarkNum].isDone = false;
-            System.out.println("Nice! I've marked this task as not done yet:\n" + "[" + taskItems[unMarkNum].taskType + "]" + "[ ] " + taskItems[unMarkNum].description);
+            System.out.println("Nice! I've marked this task as not done yet:\n" + taskItems[unMarkNum]);
             break;
         case COMMAND_BYE:
             exitProgram();
             break;
         default:
-            addTask(inCommand);
+            addTask(inputCommand);
             break;
         }
     }
@@ -69,70 +70,34 @@ public class Duke {
     }
 
     private static void addTask(String inCommand) {
-        String[] sentenceArr = inCommand.split(" ");
-        String[] taskToInput;
-        String printTask;
+        String[] sentenceArr = inCommand.split(" ", 2);
         switch (sentenceArr[0]) {
         case COMMAND_TODO:
-            taskToInput = Arrays.copyOfRange(sentenceArr, 1, sentenceArr.length);
-            printTask = arrayToString(taskToInput);
-            taskItems[itemNum] = new Task(printTask);
-            taskItems[itemNum].taskType = 'T';
-            System.out.println("Got it. I've added this task:\n" + "[T][ ] " + printTask +
-                    "\nNow you have " + (itemNum + 1) +  " tasks in the list.");
+            taskItems[itemNum] = new ToDo(sentenceArr[1]);
+            printAcknowledgeAddMessage();
             itemNum++;
             break;
         case COMMAND_DEADLINE:
-            int getDateIndex = Arrays.asList(sentenceArr).indexOf("/by");
-            taskToInput = Arrays.copyOfRange(sentenceArr, 1, getDateIndex);
-            String[] date = Arrays.copyOfRange(sentenceArr, getDateIndex + 1, sentenceArr.length);
-            String[] finalDeadlineArr = concatArray(taskToInput, date, " (by:");
-            printTask = arrayToString(finalDeadlineArr);
-            taskItems[itemNum] = new Task(printTask);
-            taskItems[itemNum].taskType = 'D';
-            System.out.println("Got it. I've added this task:\n" + "[D][ ] " + printTask +
-                    "\nNow you have " + (itemNum + 1) +  " tasks in the list.");
+            String[] date = sentenceArr[1].split("/by", 2);
+            taskItems[itemNum] = new Deadline(date[0], date[1]);
+            printAcknowledgeAddMessage();
             itemNum++;
             break;
         case COMMAND_EVENT:
-            int getTimeIndex = Arrays.asList(sentenceArr).indexOf("/at");
-            taskToInput = Arrays.copyOfRange(sentenceArr, 1, getTimeIndex);
-            String[] timing = Arrays.copyOfRange(sentenceArr, getTimeIndex + 1, sentenceArr.length);
-            String[] finalEventArr = concatArray(taskToInput, timing, "(at:");
-            printTask = arrayToString(finalEventArr);
-            taskItems[itemNum] = new Task(printTask);
-            taskItems[itemNum].taskType = 'D';
-            System.out.println("Got it. I've added this task:\n" + "[E][ ] " + printTask +
-                    "\nNow you have " + (itemNum + 1) +  " tasks in the list.");
+            String[] finalEventArr = sentenceArr[1].split("/at", 2);
+            taskItems[itemNum] = new Event(finalEventArr[0], finalEventArr[1]);
+            printAcknowledgeAddMessage();
             itemNum++;
             break;
         default:
             System.out.println("Invalid input");
             break;
         }
-
     }
 
-    private static String[] concatArray(String[] taskToInput, String[] time, String timeFormat) {
-        int length = taskToInput.length + time.length + 2;
-        String[] finalTask = new String[length];
-        int pos = 0;
-        for (String element : taskToInput) {
-            finalTask[pos] = element;
-            pos++;
-        }
-        finalTask[pos] = timeFormat;
-        pos++;
-        for (String element : time) {
-            finalTask[pos] = element;
-            pos++;
-        }
-        finalTask[pos] = ")";
-        return finalTask;
-    }
-
-    private static String arrayToString(String[] taskToInput) {
-        return Arrays.toString(taskToInput).replace(",", "").replace("[", "").replace("]", "");
+    private static void printAcknowledgeAddMessage() {
+        System.out.println("Got it. I've added this task:\n" + taskItems[itemNum]);
+        System.out.println("Now you have " + (itemNum + 1) +  " tasks in the list.");
     }
 
     private static void initTaskTable() {
@@ -140,7 +105,7 @@ public class Duke {
         itemNum = 0;
     }
 
-    private static void welcomeMessage() {
+    private static void printWelcomeMessage() {
         System.out.println("Hello! I'm Hage");
         System.out.println("What can I do for you?");
     }
