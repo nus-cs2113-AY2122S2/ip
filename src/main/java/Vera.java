@@ -7,7 +7,7 @@ public class Vera {
     private static final String PARTITION_LINE = "______________________________"
             + "______________________________";
 
-    private static final String INVALID_INPUT_MESSAGE = "Please key in an appropriate command";
+    private static final String ERROR_INVALID_INPUT_MESSAGE = "Please key in an appropriate command";
     private static final String ERROR_MAX_TASK_MESSAGE = "Sorry! You've reached the maximum "
             + "amount of tasks allowed on your task list";
     private static final String ERROR_EVENT_MISSING_INPUT_MESSAGE = "Oops! You forgot to "
@@ -24,7 +24,7 @@ public class Vera {
     private static final int TASK_DESCRIPTION_INDEX_TODO = 1;
     private static final int TASK_DATE_INDEX = 1;
 
-    public enum taskType {
+    public enum TaskType {
         TODO, DEADLINE, EVENT
     }
 
@@ -35,8 +35,8 @@ public class Vera {
     }
 
     public static void printWithPartition(String message) {
-        System.out.println(PARTITION_LINE + System.lineSeparator() +
-                message + System.lineSeparator() + PARTITION_LINE);
+        System.out.println(PARTITION_LINE + System.lineSeparator()
+                + message + System.lineSeparator() + PARTITION_LINE);
     }
 
     public static void printExitMessage() {
@@ -66,7 +66,7 @@ public class Vera {
         printWithPartition(feedback);
     }
 
-    public static String list(Task[] tasks) {
+    public static String list() {
         int printIndex = 1;
         System.out.println(PARTITION_LINE +
                 "\nHere are the tasks in your list:");
@@ -77,16 +77,16 @@ public class Vera {
         return "A total of " + (printIndex - 1) + " item(s) have been found!";
     }
 
-    public static boolean isTaskAlreadyAdded(String taskDescription) {
+    public static boolean isTaskAlreadyAdded(String inputTaskDescription) {
         for (int i = 0; i < taskCount; i++) {
-            if (tasks[i].getDescription().equals(taskDescription)) {
+            if (tasks[i].getDescription().equalsIgnoreCase(inputTaskDescription)) {
                 return true;
             }
         }
         return false;
     }
 
-    public static String addToTaskList(taskType type, String[] filteredTaskContent) {
+    public static String addToTaskList(TaskType type, String[] filteredTaskContent) {
         if (taskCount < 100) {
             switch (type) {
             case EVENT:
@@ -111,7 +111,7 @@ public class Vera {
         if (isTaskAlreadyAdded(parsedInput[TASK_DESCRIPTION_INDEX_TODO])) {
             return ERROR_TODO_REPEATED_INPUT_MESSAGE;
         }
-        return addToTaskList(taskType.TODO, parsedInput);
+        return addToTaskList(TaskType.TODO, parsedInput);
     }
 
     public static String[] parseData(String data, String command) {
@@ -121,16 +121,16 @@ public class Vera {
     public static boolean isTaskBeingReplaced() {
         boolean isOldTaskReplaced = false;
         printWithPartition("Oops! It seems that you've already added this task.\n"
-                + "Would you like to override the \nexisting time and/or date "
+                + "Would you like to override the\nexisting time and/or date "
                 + "with the new input? [Y/N]");
         while (true) {
             String input = SCANNER.nextLine();
-            if (input.equals("Y")) {
+            if (input.equalsIgnoreCase("Y")) {
                 isOldTaskReplaced = true;
-                System.out.println("Understood. Proceeding to change \nthe "
-                        + "old task with the new one..........");
+                System.out.println(PARTITION_LINE + "\nUnderstood. Proceeding to change"
+                        + "\nthe old task with the new one..........");
                 break;
-            } else if (input.equals("N")) {
+            } else if (input.equalsIgnoreCase("N")) {
                 break;
             } else {
                 printWithPartition("Please confirm your choice with either Y or N");
@@ -143,7 +143,7 @@ public class Vera {
         if (isTaskBeingReplaced()) {
             int taskIndexToReplace = 0;
             for (int i = 0; i < taskCount; i++) {
-                if (tasks[i].getDescription().equals(filteredTaskContent[TASK_DESCRIPTION_INDEX])) {
+                if (tasks[i].getDescription().equalsIgnoreCase(filteredTaskContent[TASK_DESCRIPTION_INDEX])) {
                     taskIndexToReplace = i;
                     break;
                 }
@@ -154,21 +154,20 @@ public class Vera {
         return "Okay, we'll keep it as it is.";
     }
 
-    public static String filterTaskBeforeAddingToTaskList(String[] parsedInput, String command) {
+    public static String filterTaskBeforeAddingToTaskList(String[] parsedInput, String command, TaskType type) {
         if (!parsedInput[TASK_CONTENT_INDEX].contains(command)) {
-            if (command.equals("/at")) {
+            if (type.equals(TaskType.EVENT)) {
                 return ERROR_EVENT_MISSING_INPUT_MESSAGE;
             }
             return ERROR_DEADLINE_MISSING_INPUT_MESSAGE;
         }
+
         String[] filteredTaskContent = parseData(parsedInput[TASK_CONTENT_INDEX], command);
         if (isTaskAlreadyAdded(filteredTaskContent[TASK_DESCRIPTION_INDEX])) {
             return handleRepeatedInputs(filteredTaskContent);
         }
-        if (command.equals("/at")) {
-            return addToTaskList(taskType.EVENT, filteredTaskContent);
-        }
-        return addToTaskList(taskType.DEADLINE, filteredTaskContent);
+
+        return addToTaskList(type, filteredTaskContent);
     }
 
     public static boolean isInvalidInput(String[] parsedInput) {
@@ -182,7 +181,7 @@ public class Vera {
 
     public static String markTask(String[] parsedInput) {
         if (isInvalidInput(parsedInput)) {
-            return "Bzzt! \n Please"
+            return "Bzzt!\n Please"
                     + " key in a valid task number "
                     + "to mark your task.";
         }
@@ -197,7 +196,7 @@ public class Vera {
 
     public static String unmarkTask(String[] parsedInput) {
         if (isInvalidInput(parsedInput)) {
-            return "Bzzt! \n Please"
+            return "Bzzt!\n Please"
                     + " key in a valid task number "
                     + "to unmark your task.";
         }
@@ -213,9 +212,9 @@ public class Vera {
 
     public static String executeInput(String userInput) {
         String[] parsedInput = userInput.split(" ", 2);
-        switch (parsedInput[OPTIONS_INDEX]) {
+        switch (parsedInput[OPTIONS_INDEX].toLowerCase()) {
         case "list":
-            return list(tasks);
+            return list();
         case "mark":
             return markTask(parsedInput);
         case "unmark":
@@ -223,11 +222,11 @@ public class Vera {
         case "todo":
             return filterTodoBeforeAddingToTaskList(parsedInput);
         case "event":
-            return filterTaskBeforeAddingToTaskList(parsedInput, "/at");
+            return filterTaskBeforeAddingToTaskList(parsedInput, "/at", TaskType.EVENT);
         case "deadline":
-            return filterTaskBeforeAddingToTaskList(parsedInput, "/by");
+            return filterTaskBeforeAddingToTaskList(parsedInput, "/by", TaskType.DEADLINE);
         default:
-            return INVALID_INPUT_MESSAGE;
+            return ERROR_INVALID_INPUT_MESSAGE;
         }
     }
 
