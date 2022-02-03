@@ -29,21 +29,24 @@ public class Bao {
 
     private static void addToDo(String msg){
         String description;
-        description = msg.substring(4).trim();
+        final int TODO_LENGTH = "todo".length();
+        description = msg.substring(TODO_LENGTH).trim();
         addTask(new Todo(description));
     }
 
     private static void addDeadline(String msg){
         String description, dateTime;
-        description = msg.substring(8,msg.indexOf("/by")).trim();
-        dateTime = msg.substring(msg.indexOf("/by")+3).trim();
+        final int DEADLINE_LENGTH = "deadline".length();
+        description = msg.substring(DEADLINE_LENGTH,msg.indexOf("/by")).trim();
+        dateTime = msg.substring(msg.indexOf("/by")+"/by".length()).trim();
         addTask(new Deadline(description,dateTime));
     }
 
     private static void addEvent(String msg){
         String description, dateTime;
-        description = msg.substring(8,msg.indexOf("/at")).trim();
-        dateTime = msg.substring(msg.indexOf("/at")+3).trim();
+        final int EVENT_LENGTH = "event".length();
+        description = msg.substring(EVENT_LENGTH,msg.indexOf("/at")).trim();
+        dateTime = msg.substring(msg.indexOf("/at")+"/at".length()).trim();
         addTask(new Event(description,dateTime));
     }
 
@@ -66,11 +69,11 @@ public class Bao {
     }
 
     private static void listTasks(){
-        int x=0;
+        int i=0;
         System.out.println("______________________________________________________________________________________");
         System.out.println("Here you go:");
-        while(x<numTasks){
-            System.out.println(x+1 + ". " + tasks[x++].toString());
+        while(i<numTasks){
+            System.out.println(i+1 + ". " + tasks[i++].toString());
         }
         System.out.println("______________________________________________________________________________________");
     }
@@ -83,13 +86,13 @@ public class Bao {
 
     public static void main(String[] args) {
         String userInput;
-        String logo = "  ____       _       ___  \n" +
-                      " | __ )     / \\     / _ \\ \n" +
-                      " |  _ \\    / _ \\   | | | | \n" +
-                      " | |_) |  / ___ \\  | |_| | \n" +
+        String logo = "  ____       _       ___  " + System.lineSeparator() +
+                      " | __ )     / \\     / _ \\" + System.lineSeparator() +
+                      " |  _ \\    / _ \\   | | | |" + System.lineSeparator() +
+                      " | |_) |  / ___ \\  | |_| |" + System.lineSeparator() +
                       " |____/  /_/   \\_\\  \\___/";
 
-        System.out.println("Hello from\n" + logo);
+        System.out.println("Hello from" + System.lineSeparator() + logo);
         greet();
         userInput = in.nextLine();
         while(!userInput.equals("bye")){
