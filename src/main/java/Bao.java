@@ -1,3 +1,5 @@
+import Components.Task;
+
 import java.util.Scanner;
 
 public class Bao {
@@ -9,12 +11,6 @@ public class Bao {
         System.out.println("______________________________________________________________________________________");
         System.out.println("Hello there! Bao here!");
         System.out.println("How can I help?");
-        System.out.println("______________________________________________________________________________________");
-    }
-
-    private static void echo(String msg){
-        System.out.println("______________________________________________________________________________________");
-        System.out.println(msg);
         System.out.println("______________________________________________________________________________________");
     }
 
