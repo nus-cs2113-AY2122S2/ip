@@ -1,4 +1,7 @@
 import Components.Task;
+import Components.Todo;
+import Components.Deadline;
+import Components.Event;
 
 import java.util.Scanner;
 
@@ -14,11 +17,34 @@ public class Bao {
         System.out.println("______________________________________________________________________________________");
     }
 
-    private static void addTask(String msg){
+    private static void addTask(Task task){
         System.out.println("______________________________________________________________________________________");
-        tasks[numTasks++]=new Task(msg);
-        System.out.println("Yup yup yup, " + msg + ", annnd there we go, it's been added!");
+        tasks[numTasks++]=task;
+        System.out.println("Yup yup yup, " + System.lineSeparator() +
+                task.toString() + "," + System.lineSeparator() +
+                "annnd there we go, it's been added!" + System.lineSeparator() +
+                "You have " + numTasks + " tasks in the list.");
         System.out.println("______________________________________________________________________________________");
+    }
+
+    private static void addToDo(String msg){
+        String description;
+        description = msg.substring(4).trim();
+        addTask(new Todo(description));
+    }
+
+    private static void addDeadline(String msg){
+        String description, dateTime;
+        description = msg.substring(8,msg.indexOf("/by")).trim();
+        dateTime = msg.substring(msg.indexOf("/by")+3).trim();
+        addTask(new Deadline(description,dateTime));
+    }
+
+    private static void addEvent(String msg){
+        String description, dateTime;
+        description = msg.substring(8,msg.indexOf("/at")).trim();
+        dateTime = msg.substring(msg.indexOf("/at")+3).trim();
+        addTask(new Event(description,dateTime));
     }
 
     private static void markTask(String msg){
@@ -73,8 +99,12 @@ public class Bao {
                 markTask(userInput);
             } else if(userInput.startsWith("unmark")){
                 unmarkTask(userInput);
-            } else {
-                addTask(userInput);
+            } else if(userInput.startsWith("todo")){
+                addToDo(userInput);
+            } else if(userInput.startsWith("deadline")){
+                addDeadline(userInput);
+            } else if(userInput.startsWith("event")){
+                addEvent(userInput);
             }
             userInput = in.nextLine();
         }
