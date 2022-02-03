@@ -21,8 +21,10 @@ public class Duke {
 
         while (sc.hasNext()) {
             String input = sc.nextLine();
+
             if (input.equals("bye")) {
                 break;
+            
             } else if (input.equals("list")) {
                 System.out.println(HORIZONTAL_LINE);
                 System.out.println("Here are the tasks in your list:");
@@ -34,6 +36,7 @@ public class Duke {
                         break;
                     }
                 }
+
             } else if (input.contains("unmark ")) {
                 int markInt = Integer.parseInt(input.substring(7)) - 1;
                 list[markInt].setDone(false);
@@ -41,6 +44,7 @@ public class Duke {
                         + "OK, I've marked this task as not done yet:\n"
                         + list[markInt] + "\n"
                         + HORIZONTAL_LINE);
+
             } else if (input.contains("mark ")) {
                 int markInt = Integer.parseInt(input.substring(5)) - 1;
                 list[markInt].setDone(true);
@@ -48,14 +52,38 @@ public class Duke {
                         + "Nice! I've marked this task as done:\n"
                         + list[markInt] + "\n"
                         + HORIZONTAL_LINE);
+
             } else {
-                Task inputTask = new Task(input);
+                Task inputTask;
+                if (input.contains("todo")) {
+                    String inputString = input.substring(5);
+                    inputTask = new ToDo(inputString);
+                } else if (input.contains("deadline")) {
+                    int slashInt = input.indexOf("/");
+                    String inputString = input.substring(9, slashInt);
+                    String inputDate = input.substring(slashInt + 4);
+                    inputTask = new Deadline(inputString, inputDate);
+                } else {
+                    int slashInt = input.indexOf("/");
+                    String inputString = input.substring(6, slashInt);
+                    String inputDate = input.substring(slashInt + 4);
+                    inputTask = new Event(inputString, inputDate);
+                }
                 list[taskCounter] = inputTask;
                 taskCounter++;
                 System.out.println(HORIZONTAL_LINE + "\n"
-                        + "added: " + input + "\n"
+                        + "Got it. I've added this task:\n"
+                        + "  " + inputTask.toString() + "\n"
+                        + "Now you have " + String.valueOf(taskCounter) + " tasks in the list.\n"
                         + HORIZONTAL_LINE);
             }
+            /*
+            else {
+
+                System.out.println(HORIZONTAL_LINE + "\n"
+                        + "added: " + input + "\n"
+                        + HORIZONTAL_LINE);
+            } */
         }
 
         System.out.println(HORIZONTAL_LINE + "\n"

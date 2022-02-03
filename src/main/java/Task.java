@@ -1,30 +1,36 @@
 class Task {
 
-    public String task;
+    public String description;
     public Boolean isDone = false;
+    public String mark = " ";
 
-    Task(String task) {
-        this.task = task;
+    Task(String description) {
+        this.description = description;
     }
 
     public void setDone(Boolean isDone) {
         this.isDone = isDone;
     }
 
-    public String getTask() {
-        return this.task;
+    public String getDescription() {
+        return this.description;
     }
 
     public boolean isDone() {
         return this.isDone;
     }
 
+    public String markIsDone() {
+        if (this.isDone()) {
+            this.mark = "X";
+        } else {
+            this.mark = " ";
+        }
+        return this.mark;
+    }
+
     @Override
     public String toString() {
-        String mark = " ";
-        if (this.isDone()) {
-            mark = "X";
-        }
-        return String.format("[%s] %s", mark, task);
+        return String.format("[%s] %s", this.markIsDone(), this.description);
     }
 }
