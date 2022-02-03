@@ -20,39 +20,50 @@ public class Duke {
     }
 
     public static void addList() {
-        String word;
-        String[] tasks = new String[100];
+        int ind;
+        String command;
+        Task[] tasks = new Task[100];
         int index = 0;
-
+        String separator = "-------------------------------------------";
+        Scanner in = new Scanner(System.in);
+        command = in.nextLine();
+        String[] commands = command.split(" ");
+        System.out.println(separator);
         do {
-            Scanner in = new Scanner(System.in);
-            word = in.nextLine();
-            if (word.equals("list")) {
-                System.out.println("-------------------------------------------");
-                System.out.println("Hemre is your list: ");
+            if (command.equals("list")) {
                 for (int i = 0; i < index; i++) {
-                    System.out.println("  - " + tasks[i]);
+                    String number = String.valueOf(i + 1) + ". ";
+                    System.out.print(number);
+                    tasks[i].printTask();
                 }
-                System.out.println("-------------------------------------------");
-            } else if (word.equals("bye")){
-                System.out.println("-------------------------------------------");
-                break;
+                System.out.println(separator);
+            } else if (commands[0].equals("mark")) {
+                ind = Integer.parseInt(commands[1]) - 1;
+                tasks[ind].setDone(true);
+                System.out.println("Ok! I hamve marked the task:");
+                tasks[ind].printTask();
+            } else if (commands[0].equals("unmark")) {
+                ind = Integer.parseInt(commands[1]) - 1;
+                tasks[ind].setDone(false);
+                System.out.println("Ok! I hamve unmarked the task:");
+                tasks[ind].printTask();
             } else {
-                System.out.println("-------------------------------------------");
-                System.out.println("I hamve added: " + word);
-                System.out.println("-------------------------------------------");
-                tasks[index] = word;
-                index++;
+                Task task = new Task(command);
+                tasks[index++] = task;
+                System.out.println("I hamve added: " + command);
+                System.out.println(separator);
             }
-
-        } while (!word.equals("bye"));
-
-        farewell();
+            in = new Scanner(System.in);
+            command = in.nextLine();
+            commands = command.split(" ");
+            System.out.println(separator);
+        } while (!command.equals("bye"));
     }
 
     public static void main(String[] args) {
         greet();
         addList();
+        farewell();
     }
 
 }
