@@ -1,44 +1,72 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) {
-        printFormat(" Hey there! I'm Duke\n" +
-                " What can I do for you? uwu");
+    private static Task[] list = new Task[100];
+    private static int taskIndex = 0;
+    private static int num = 1;
 
-        int num = 1;
-        String line;
-        Scanner in = new Scanner(System.in);
+    public static void addTask(String line) {
+        try {
+            String[] commands = line.split(" ", 2);
+            String type = commands[0];
+            String description = commands[1];
+            Task t;
 
-        Task[] list = new Task[100];
-        int i = 0;
-
-        while (num == 1) {
-            line = in.nextLine();
-            switch (line) {
-            case "bye":
-                num = 0;
-                printFormat(" Aw, are you leaving now?\n" +
-                        " Hope to see you again soon!\n");
+            switch (type) {
+            case "todo":
+                t = new Todo(description);
                 break;
-            case "list":
-                String listAsString = "";
-                for (int k = 0; k < i; k++) {
-                    Task curr = list[k];
-                    listAsString += (" " + Integer.toString(k + 1) + ". " +
-                            "[" + curr.getStatusIcon() + "] " + curr.description + "\n");
-                    printFormat(listAsString);
-                }
+            case "deadline":
+                String[] deadlineBreakdown = description.split("/by", 2);
+                description = deadlineBreakdown[0];
+                String by = deadlineBreakdown[1];
+                t = new Deadline(description, by);
+                break;
+            case "event":
+                String[] eventBreakdown = description.split(" /at ", 2);
+                description = eventBreakdown[0];
+                String at = eventBreakdown[1];
+                t = new Event(description, at);
                 break;
             default:
-                if (line.contains("unmark")) {
-                    markStatus(false, line, list);
-                } else if (line.contains("mark")) {
-                    markStatus(true, line, list);
-                } else {
-                    list[i] = new Task(line);
-                    i++;
-                    printFormat(" added: " + line);
+                t = null;
+                printFormat(" Please enter a valid task type (todo / deadline / event)");
+            }
+            list[taskIndex] = t;
+            taskIndex++;
+            printFormat("Got it. I've added this task:\n  " + t.toString() +
+                    String.format("\nNow you have %d tasks in the list.", taskIndex));
+        } catch (Exception e){
+            printFormat(" Please enter with a valid task format!");
+        }
+    }
+
+    public static void parseCommands(String line) {
+        switch (line) {
+        case "bye":
+            num = 0;
+            printFormat(" Aw, are you leaving now?\n" +
+                    " Hope to see you again soon!");
+            break;
+        case "list":
+            String listAsString = "";
+            if (taskIndex == 0) {
+                printFormat("You haven't added any tasks to your list yet!");
+            } else {
+                for (int i = 0; i < taskIndex; i++) {
+                    Task curr = list[i];
+                    listAsString += (" " + Integer.toString(i + 1) + ". " + curr.toString() + "\n");
+                    printFormat("Here are the tasks in your list:\n" + listAsString);
                 }
+            }
+            break;
+        default:
+            if (line.contains("unmark")) {
+                markStatus(false, line, list);
+            } else if (line.contains("mark")) {
+                markStatus(true, line, list);
+            } else {
+                addTask(line);
             }
         }
     }
@@ -55,15 +83,26 @@ public class Duke {
             Task curr = list[taskNum - 1];
             if (shouldMark) {
                 curr.setDone(true);
-                printFormat(" Nice! I've marked this task as done:\n" +
-                        " [" + curr.getStatusIcon() + "] " + curr.description);
+                printFormat(" Nice! I've marked this task as done:\n" + curr.toString());
             } else {
                 curr.setDone(false);
-                printFormat(" OK, I've marked this task as not done yet:\n" +
-                        " [" + curr.getStatusIcon() + "] " + curr.description);
+                printFormat(" OK, I've marked this task as not done yet:\n" + curr.toString());
             }
         } catch (Exception exception) {
             printFormat(" Please mark / unmark a number that's in the list :')");
+        }
+    }
+
+    public static void main(String[] args) {
+        printFormat(" Hey there! I'm Duke\n" +
+                " What can I do for you? uwu");
+
+        String line;
+        Scanner in = new Scanner(System.in);
+
+        while (num == 1) {
+            line = in.nextLine();
+            parseCommands(line);
         }
     }
 }
