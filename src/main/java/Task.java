@@ -1,9 +1,11 @@
 public class Task {
-    protected String description;
+    protected String instruction;
+    protected String[] instructions;
+    protected int number;
     protected boolean isDone;
 
-    public Task(String description) {
-        this.description = description;
+    public Task(String instruction) {
+        this.instruction = instruction;
         this.isDone = false;
     }
 
@@ -14,8 +16,22 @@ public class Task {
     public void setStatusIcon(Boolean isDone){
         this.isDone = isDone;
     }
+    public void printStatus() {
+        System.out.print(this);
+    }
+
+    /*public void printType(){
+        if(isTodo) {
+            System.out.print("T");
+        } else if(isDeadline){
+            System.out.print("D");
+        } else if(isEvent){
+            System.out.print("E");
+        }
+    }*/
+
     @Override
     public String toString() {
-        return description;
+        return "[" + getStatusIcon() +"]";
     }
 }
