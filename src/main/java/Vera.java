@@ -45,11 +45,11 @@ public class Vera {
     }
 
     public static void printWelcomeMessage() {
-        String logo = " __     __             \n" +
-                " \\ \\   / /__ _ __ __ _ \n" +
-                "  \\ \\ / / _ \\ '__/ _` |\n" +
-                "   \\ V /  __/ | | (_| |\n" +
-                "    \\_/ \\___|_|  \\__,_|\n";
+        String logo = " __     __             \n"
+                + " \\ \\   / /__ _ __ __ _ \n"
+                + "  \\ \\ / / _ \\ '__/ _` |\n"
+                + "   \\ V /  __/ | | (_| |\n"
+                + "    \\_/ \\___|_|  \\__,_|\n";
 
         String message = logo + "\nHello! I'm Vera,\n"
                 + "your friendly virtual task manager.\n"
@@ -101,7 +101,7 @@ public class Vera {
                 tasks[taskCount] = new Todo(filteredTaskContent[TASK_DESCRIPTION_INDEX_TODO]);
             }
             taskCount++;
-            return "Got it. I've added this task:\n" + "  " + tasks[taskCount - 1]
+            return "Got it. I've added this task:\n  " + tasks[taskCount - 1]
                     + "\nNow you have " + taskCount + " task(s) in the list";
         }
         return ERROR_MAX_TASK_MESSAGE;
@@ -149,7 +149,7 @@ public class Vera {
                 }
             }
             tasks[taskIndexToReplace].resetInput(filteredTaskContent[TASK_DATE_INDEX]);
-            return "Done! I've updated this task:\n" + "  " + tasks[taskIndexToReplace];
+            return "Done! I've updated this task:\n  " + tasks[taskIndexToReplace];
         }
         return "Okay, we'll keep it as it is.";
     }
@@ -206,8 +206,8 @@ public class Vera {
             return "This task was already unmarked!";
         }
         tasks[taskIndexToUnmark].markAsUndone();
-        return "Ok, I've marked this task as" +
-                " not done yet:\n  " + tasks[taskIndexToUnmark];
+        return "Ok, I've marked this task as"
+                + " not done yet:\n  " + tasks[taskIndexToUnmark];
     }
 
     public static String executeInput(String userInput) {
