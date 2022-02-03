@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 
 public class ChatSession {
-    ArrayList<Task> taskList = new ArrayList<Task>();
+    // Store subclasses of tasks
+    ArrayList<Task> taskList;
 
     public ChatSession() {
-
+        this.taskList = new ArrayList<Task>();
     }
 
     public void startSession() {
@@ -43,7 +44,6 @@ public class ChatSession {
 
     public void markTaskIndex(int taskID) {
         String output = taskList.get(taskID - 1).markTask(); // zero-based indexing
-
         System.out.println("____________________________________________________________");
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(output);
@@ -52,10 +52,16 @@ public class ChatSession {
 
     public void unmarkTaskIndex(int taskID) {
         String output = taskList.get(taskID - 1).unmarkTask(); // zero-based indexing
-
         System.out.println("____________________________________________________________");
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(output);
+        System.out.println("____________________________________________________________");
+    }
+
+    // If the chat session receives invalid input
+    public void invalidTask() {
+        System.out.println("____________________________________________________________");
+        System.out.println("Incorrect input. Please try again.");
         System.out.println("____________________________________________________________");
     }
 }

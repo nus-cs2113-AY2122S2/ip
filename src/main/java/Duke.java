@@ -6,16 +6,23 @@ public class Duke {
         ChatSession currChat = new ChatSession();
         currChat.startSession();
 
-        boolean isLoop = true;
-        while (isLoop) {
-            // Get user input
+        // Get user input
+        String[] userInputArr;
+        String userCommand;
+        String[] userArguments;
+        String description;
+
+        while (true) {
             Scanner sc = new Scanner(System.in);
             String userInput = sc.nextLine();
-            String[] userInputArr = userInput.split(" ", 2);
-            String userCommand = userInputArr[0];
+            userInputArr = userInput.split(" ", 2);
+            userCommand = userInputArr[0];
 
-            String[] userArguments;
-            String description;
+            if (userCommand.startsWith("bye")) {
+                currChat.endSession();
+                break;
+            }
+
             // Execute user commands
             switch(userCommand) {
             case "list":
@@ -28,29 +35,25 @@ public class Duke {
             case "unmark":
                 currChat.unmarkTaskIndex(Integer.parseInt(userInputArr[1]));
                 break;
-            case "bye":
-                currChat.endSession();
-                isLoop = false;
-                break;
             case "todo":
                 currChat.addTask(new Todo(userInputArr[1]));
                 break;
             case "deadline":
+                // eg. return book /by Sunday
                 userArguments = userInputArr[1].split(" /by ", 2);
-                description = userArguments[0];
-                String by = userArguments[1];
+                description = userArguments[0]; //eg. return book
+                String by = userArguments[1]; // eg. Sunday
                 currChat.addTask(new Deadline(description, by));
                 break;
             case "event":
+                // eg. project meeting /at Mon 2-4pm
                 userArguments = userInputArr[1].split(" /at ", 2);
-                description = userArguments[0];
-                String eventTime = userArguments[1];
+                description = userArguments[0]; // eg. project meeting
+                String eventTime = userArguments[1]; // eg. Mon 2-4pm
                 currChat.addTask(new Event(description, eventTime));
                 break;
             default:
-                System.out.println("____________________________________________________________");
-                System.out.println("Incorrect input. Please try again.");
-                System.out.println("____________________________________________________________");
+                currChat.invalidTask();
                 break;
             }
         }
