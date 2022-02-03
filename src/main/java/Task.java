@@ -5,10 +5,6 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\tadded: " + description);
-        System.out.println("\t____________________________________________________________");
     }
 
     public String getStatusIcon() {
@@ -23,7 +19,8 @@ public class Task {
         this.isDone = false;
     }
 
-    public void printTask(){
-        System.out.println("[" + getStatusIcon() + "] " + this.description);
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + this.description;
     }
 }

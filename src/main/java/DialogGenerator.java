@@ -1,54 +1,46 @@
 public class DialogGenerator {
     public void printLine(){
-        System.out.println("\t____________________________________________________________");
+        System.out.println("____________________________________________________________");
     }
 
-    public void greeting(){
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println(""+logo);
-        this.printLine();
-        System.out.println("\tHello I'm Duke.");
-        System.out.println("\tWhat can I do for you?");
-        this.printLine();
-        System.out.println();
-    }
 
-    public void sayGoobye(){
+    public void sayGoobye() {
         this.printLine();
-        System.out.println("\tBye. Hope to see you again soon!");
+        System.out.println("Bye. Hope to see you again soon!");
         this.printLine();
     }
 
-    public void displayListWithStatus(Task[] allAbilities, int abilitiesCount){
+    public void displayTask(Task t, int taskCount){
         this.printLine();
-        System.out.println("Nice! I've marked this task as done:");
-        for(int i = 1; i <= abilitiesCount; i++){
-            System.out.print(i);
-            System.out.print(". ");
-            allAbilities[i-1].printTask();
+        System.out.println("Got it. I've added this task: ");
+        System.out.println(t);
+        System.out.printf("Now you have %d tasks in the list.\n", taskCount);
+        this.printLine();
+    }
+
+    public void displayListWithStatus(Task[] allTasks, int taskCount) {
+        this.printLine();
+        System.out.println("Here are the tasks in your list:");
+        for(int i = 1; i <= taskCount; i++){
+            System.out.println(i + ". " + allTasks[i-1]);
         }
         this.printLine();
     }
 
-    public void markTask(Task t){
+    public void markAndDisplayTask(Task t) {
         t.markAsDone();
         this.printLine();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.print("\t\t");
-        t.printTask();
+        System.out.println(""+t);
         this.printLine();
     }
 
-    public void unmarkTask(Task t){
+    public void unmarkAndDisplayTask(Task t) {
         t.markAsUnDone();
         this.printLine();
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.print("\t\t");
-        t.printTask();
+        System.out.println(""+t);
         this.printLine();
     }
+
 }
