@@ -25,18 +25,41 @@ public class Duke {
                 taskList[indexValue2].markTask(); 
                 
             }
+
+            else if (anyString.startsWith("todo")) {
+                String desc = anyString.substring(5);
+                taskList[arrayIndex] = new Task(desc);
+                arrayIndex++; 
+            }
+
+            else if (anyString.startsWith("deadline")){
+                int index = anyString.indexOf("/"); 
+                String desc = anyString.substring(9,index);
+                index++;
+                String by = anyString.substring(index);
+                taskList[arrayIndex] = new Deadline(desc,by); 
+                arrayIndex++;
+            }
+
+            else if (anyString.startsWith("event")){
+                int index = anyString.indexOf("/"); 
+                String desc = anyString.substring(6,index);
+                index++;
+                String by = anyString.substring(index);
+                taskList[arrayIndex] = new Event(desc,by); 
+                arrayIndex++;
+            }
             
             else if (anyString.equals("list")){
                 System.out.println("Here are the tasks in your list : ");
                 for (int i = 0; i<arrayIndex; i++) {
-                    System.out.println(i+1 + "." + taskList[i].getStatusIcon());
+                    System.out.println(i+1 + "." + taskList[i].toString());
                 }
             }
 
-            else {
-                taskList[arrayIndex] = new Task(anyString);
-                arrayIndex++; 
-            }
+        
+
+           
         }
         
            
