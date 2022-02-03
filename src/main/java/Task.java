@@ -31,16 +31,16 @@ public class Task {
         this.setIsDone(true);
         System.out.println("____________________________________________________________");
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("[" + this.getStatusIcon() + "] " + this.getDescription());
-        System.out.println("____________________________________________________________");
     }
 
     public void markTaskAsUndone() {
         this.setIsDone(false);
         System.out.println("____________________________________________________________");
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("[" + this.getStatusIcon() + "] " + this.getDescription());
-        System.out.println("____________________________________________________________");
+    }
+
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
     }
 
 }
