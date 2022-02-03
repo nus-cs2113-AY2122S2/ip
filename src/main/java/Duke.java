@@ -26,7 +26,7 @@ public class Duke {
         System.out.println();
     }
 
-    public static void manageUserInput(DialogGenerator dialog){
+    public static void manageUserInput(DialogGenerator dialog) {
         final int TASK_LENGTH = 100;
         int index;
         int taskCount = 0;
@@ -50,7 +50,7 @@ public class Duke {
                     index = Integer.parseInt(command.split(" ")[1]) - 1;
                     t = allTasks[index];
                     dialog.markAndDisplayTask(t);
-                 break;
+                    break;
 
                 case "unmark":
                     index = Integer.parseInt(command.split(" ")[1]) - 1;
@@ -77,7 +77,7 @@ public class Duke {
                     break;
 
                 case "event":
-                    t = new Event(command.split(" at/ ")[0].replace("event ",""), command.split(" /at ")[1]);
+                    t = new Event(command.split(" /at ")[0].replace("event ",""), command.split(" /at ")[1]);
                     allTasks[taskCount] = t;
                     taskCount += 1;
                     dialog.displayTask(t, taskCount);
@@ -92,5 +92,4 @@ public class Duke {
             }
         }
     }
-
 }
