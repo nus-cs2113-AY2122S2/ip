@@ -1,0 +1,9 @@
+todo read book
+deadline return book /by Sunday
+event attend CS2113T lecture /at Friday 4-6pm
+list
+mark 2
+list
+unmark 2
+list
+bye

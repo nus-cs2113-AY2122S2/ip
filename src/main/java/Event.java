@@ -1,5 +1,7 @@
 public class Event extends Task {
+
     private String at;
+
     public Event(String description, String at) {
         super(description);
         this.type = "E";
@@ -7,7 +9,6 @@ public class Event extends Task {
     }
 
     public String getAt() {
-
         return this.at;
     }
 

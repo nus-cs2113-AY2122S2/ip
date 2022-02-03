@@ -29,8 +29,8 @@ public class Task {
         return this.isDone;
     }
 
-    public void setDone(boolean done) {
-        isDone = done;
+    public void setDone(boolean isDone) {
+        isDone = isDone;
     }
 
     public String getStatusIcon(){
@@ -45,5 +45,23 @@ public class Task {
     public String toString() {
 
         return "[" + this.type + "][" + this.getStatusIcon() + "] " + this.taskName;
+    }
+
+
+    public static void printList(Task[] list, int counter) {
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < counter; i++) {
+            System.out.print(i + 1 + ".");
+            printTask(list[i]);
+        }
+        printNumberOfTasksInList(counter);
+    }
+
+    public static void printTask(Task t) {
+        System.out.println(t.toString());
+    }
+
+    public static void printNumberOfTasksInList(int taskCounter) {
+        System.out.println("Now you have " + taskCounter + " tasks in the list.");
     }
 }

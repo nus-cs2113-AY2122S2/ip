@@ -2,10 +2,8 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static Task[] list = new Task[100];
+    public static Task[] taskList = new Task[100];
     public static int taskCounter = 0;
-
-
 
     public static void printList(Task[] list, int counter) {
         System.out.println("Here are the tasks in your list:");
@@ -13,16 +11,14 @@ public class Duke {
             System.out.print(i + 1 + ".");
             printTask(list[i]);
         }
-        printNumberOfTasksInList();
+        printNumberOfTasksInList(counter);
     }
 
     public static void printTask(Task t) {
         System.out.println(t.toString());
-        //System.out.print("[" + t.getType() + "]");
-        //System.out.println("[" + t.getStatusIcon() + "] " + t.taskName);
     }
 
-    public static void printNumberOfTasksInList() {
+    public static void printNumberOfTasksInList(int taskCounter) {
         System.out.println("Now you have " + taskCounter + " tasks in the list.");
     }
 
@@ -32,14 +28,14 @@ public class Duke {
             return s;
         }
         String firstWord = s.substring(0, spaceIndex);
-        System.out.println("First Word: " + firstWord);
+        //System.out.println("First Word: " + firstWord);
         return firstWord;
     }
 
     public static String getToDoTask(String s) {
         int spaceIndex = s.indexOf(" ");
         String firstWord = s.substring(spaceIndex);
-        System.out.println("ToDo Task is: " + firstWord);
+        //System.out.println("ToDo Task is: " + firstWord);
         return firstWord.trim();
     }
 
@@ -57,6 +53,7 @@ public class Duke {
         System.out.println(deadlineDate);
         return deadlineDate.trim();
     }
+
     public static String getDeadlineTask(String input) {
         //first space
         int firstSpaceIndex = input.indexOf(" ");
@@ -66,22 +63,21 @@ public class Duke {
         return deadlineTask.trim();
     }
     public static void addToDoTask(String input){
-
         String taskDescription = getToDoTask(input);
         Todo t = new Todo(taskDescription);
-        list[taskCounter] = t;
+        taskList[taskCounter] = t;
         taskCounter++;
         System.out.println("Got it. I've added this task:");
         printTask(t);
-        printNumberOfTasksInList();
+        printNumberOfTasksInList(taskCounter);
     }
     public static void addDeadlineTask(String input){
         Deadline d = new Deadline(getDeadlineTask(input),getDeadlineDate(input));
-        list[taskCounter] = d;
+        taskList[taskCounter] = d;
         taskCounter++;
         System.out.println("Got it. I've added this task:");
         printTask(d);
-        printNumberOfTasksInList();
+        printNumberOfTasksInList(taskCounter);
     }
 
     public static String getEventTask(String input) {
@@ -89,7 +85,7 @@ public class Duke {
         int firstSpaceIndex = input.indexOf(" ");
         int byIndex = input.indexOf("/at");
         String deadlineTask = input.substring(firstSpaceIndex+1,byIndex-1);
-        System.out.println(deadlineTask);
+        //System.out.println(deadlineTask);
         return deadlineTask;
     }
 
@@ -97,54 +93,52 @@ public class Duke {
         int atIndex = input.indexOf("/at");
         int eventDateTimeIndex = input.indexOf(" ",atIndex);
         String eventDateTime = input.substring(eventDateTimeIndex + 1);
-        System.out.println(eventDateTime);
+        //System.out.println(eventDateTime);
         return eventDateTime;
     }
     public static void addEventTask(String input){
         Event e = new Event(getEventTask(input),getEventDateTime(input));
-        list[taskCounter] = e;
+        taskList[taskCounter] = e;
         taskCounter++;
         System.out.println("Got it. I've added this task:");
         printTask(e);
-        printNumberOfTasksInList();
+        printNumberOfTasksInList(taskCounter);
 
     }
     public static void markTaskAsComplete(String input){
         int taskNum = getTaskNumberArgument(input);
-        System.out.println(taskNum);
-        list[taskNum - 1].setDone(true);
-        System.out.println(list[taskNum-1].isDone());
-        printTask(list[taskNum - 1]);
+        //System.out.println(taskNum);
+        taskList[taskNum - 1].setDone(true);
+        //System.out.println(taskList[taskNum-1].isDone());
+        printTask(taskList[taskNum - 1]);
         System.out.println("Nice! I've marked this task as done:\n");
     }
 
-
-
     public static void unmarkTaskAsIncomplete(String input){
         int taskNum = getTaskNumberArgument(input);
-        System.out.println(taskNum);
-        list[taskNum - 1].setDone(false);
-        System.out.println(list[taskNum-1].isDone());
-        printTask(list[taskNum - 1]);
+        //System.out.println(taskNum);
+        taskList[taskNum - 1].setDone(false);
+        //System.out.println(taskList[taskNum-1].isDone());
+        printTask(taskList[taskNum - 1]);
         System.out.println("Ok I have marked this task as incomplete:\n");
 
     }
 
     public static void main(String[] args) {
-        String logo = " ____        _        \n" + "|  _ \\ _   _| | _____ \n" + "| | | | | | | |/ / _ \\\n" + "| |_| | |_| |   <  __/\n" + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("Hello! I'm Duke\nWhat can I do for you?");
+        printWelcomeLogo();
+        takeInputAndProcess();
+    }
 
+    private static void takeInputAndProcess() {
         String input;
         Scanner sc = new Scanner(System.in);
         input = sc.nextLine();
 
         while (!input.equalsIgnoreCase("bye")) {
-
             String command = getFirstWordOfCommand(input);
             switch (command) {
             case "list":
-                printList(list, taskCounter);
+                printList(taskList, taskCounter);
                 break;
             case "mark":
                 markTaskAsComplete(input);
@@ -165,8 +159,17 @@ public class Duke {
             input = sc.nextLine();
         }
 
-
-
         System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    private static void printWelcomeLogo() {
+        String customNameLogo = " .______.                .__    .__                                           \n" +
+                "|   \\_ |______________  |  |__ |__| _________________    _____   ____  ______\n" +
+                "|   || __ \\_  __ \\__  \\ |  |  \\|  |/     \\_  __ \\__  \\  /     \\ /  _ \\/  ___/\n" +
+                "|   || \\_\\ \\  | \\// __ \\|   Y  \\  |  Y Y  \\  | \\// __ \\|  Y Y  (  <_> )___ \\ \n" +
+                "|___||___  /__|  (____  /___|  /__|__|_|  /__|  (____  /__|_|  /\\____/____  >\n" +
+                "         \\/           \\/     \\/         \\/           \\/      \\/           \\/";
+        System.out.println("Hello from\n" + customNameLogo);
+        System.out.println("Hello! I'm Ibrahimramos, your friendly multi-racial bot\nWhat can I do for you?");
     }
 }
