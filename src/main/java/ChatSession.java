@@ -20,18 +20,21 @@ public class ChatSession {
         System.out.println("____________________________________________________________");
     }
 
-    public void addTask(String description) {
+    public void addTask(Task task) {
         // Create a new Task, append to taskList
-        Task newTask = new Task(description);
-        taskList.add(newTask);
+//        Task newTask = new Task(description);
+        taskList.add(task);
         // Return the added task
         System.out.println("____________________________________________________________");
-        System.out.println(String.format("added: %s", description));
+        System.out.println("Got it. I've added this task:");
+        System.out.println(String.format("  %s", task));
+        System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));
         System.out.println("____________________________________________________________");
     }
 
     public void printTaskList() {
         System.out.println("____________________________________________________________");
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
             System.out.println(String.format("%d. %s", i+1, taskList.get(i)));
         }
