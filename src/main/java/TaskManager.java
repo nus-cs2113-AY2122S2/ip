@@ -5,10 +5,10 @@ public class TaskManager {
     public TaskManager() {
     }
 
-    public void addTask(String description) {
-        this.tasks[this.tasksCount] = new Task(description);
+    public void addTask(Task description) {
+        this.tasks[this.tasksCount] = description;
         System.out.println("\t____________________________________________________________");
-        System.out.println("\tadded: " + this.tasks[this.tasksCount].description);
+        System.out.println("\tYepp, I have added this task\n\t" + this.tasks[this.tasksCount].description +"\n\tYou currently have " + (this.tasksCount+1) + " task in the list");
         System.out.println("\t____________________________________________________________");
         ++this.tasksCount;
     }
@@ -16,7 +16,7 @@ public class TaskManager {
     public void printTaskList() {
         System.out.println("\t____________________________________________________________");
         for (int i=0; i<tasksCount; i++) {
-            System.out.println("\t" + (i+1) + "." + this.tasks[i].getStatusIcon() + " " + this.tasks[i].getDescription());
+            System.out.println(String.format("\t%d.%s %s", i+1,this.tasks[i].getStatusIcon(), this.tasks[i].getDescription() ));
         }
         System.out.println("\t____________________________________________________________");
     }
