@@ -26,7 +26,7 @@ public class Duke {
             case "list":
                 System.out.println("____________________________________________________________");
                 for (int i = 0; i < taskCounter; i++) {
-                    System.out.println("   " + (i + 1) + toDos[i].getStatusIcon() + ". " + toDos[i].getDescription());
+                    System.out.println("   " + (i + 1) + ". " + toDos[i].getStatusIcon() + toDos[i].getDescription());
                 }
                 System.out.println("____________________________________________________________\n");
                 break;
@@ -82,7 +82,7 @@ public class Duke {
                 System.out.println("____________________________________________________________");
                 System.out.println(" Got it. I've added this task to the list:");
                 System.out.println("   " + toDos[taskCounter].getStatusIcon() + " " + description +
-                        "(by: " + doBy + ")");
+                        "(by:" + doBy + ")");
                 taskCounter++;
                 System.out.println(" There are now " + taskCounter + " tasks in the list.");
                 System.out.println("____________________________________________________________\n");
@@ -100,7 +100,7 @@ public class Duke {
                 System.out.println("____________________________________________________________");
                 System.out.println(" Got it. I've added this task to the list:");
                 System.out.println("   " + toDos[taskCounter].getStatusIcon() + " " + description +
-                        "(at: " + doAt + ")");
+                        "(at:" + doAt + ")");
                 taskCounter++;
                 System.out.println(" There are now " + taskCounter + " tasks in the list.");
                 System.out.println("____________________________________________________________\n");
