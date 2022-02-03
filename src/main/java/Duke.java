@@ -31,25 +31,27 @@ public class Duke {
         String listAsString = "";
         for (int i = 0; i < taskIndex; i++) {
             Task curr = list[i];
-            listAsString += (" " + Integer.toString(i + 1) + ". " + curr.toString() + "\n");
+            listAsString = listAsString.concat(String.format(" %d. %s\n", i + 1, curr.toString()));
         }
         printFormat("Here are the tasks in your list:\n" + listAsString);
-
     }
 
-    public static void markStatus(Boolean shouldMark, String line, Task[] list) {
+    public static void markStatus(Boolean shouldMark, String line) {
+        Task curr;
         try {
             int taskNum = Integer.parseInt(line.split(" ", 0)[1]);
-            Task curr = list[taskNum - 1];
-            if (shouldMark) {
-                curr.setDone(true);
-                printFormat("Nice! I've marked this task as done:\n  " + curr.toString());
-            } else {
-                curr.setDone(false);
-                printFormat("OK, I've marked this task as not done yet:\n  " + curr.toString());
-            }
+            curr = list[taskNum - 1];
         } catch (Exception exception) {
             printFormat("Please mark / unmark with a number that's in the list :')");
+            return;
+        }
+
+        if (shouldMark) {
+            curr.setDone(true);
+            printFormat("Nice! I've marked this task as done:\n  " + curr.toString());
+        } else {
+            curr.setDone(false);
+            printFormat("OK, I've marked this task as not done yet:\n  " + curr.toString());
         }
     }
 
@@ -76,25 +78,20 @@ public class Duke {
     }
 
     public static void addTask(String line) {
+        Task t;
         try {
             String[] commands = line.split(" ", 2);
             String type = commands[0];
             String description = commands[1];
-            Task t;
 
-            switch (type) {
-            case "todo":
+            if (type.equals("todo")) {
                 t = new Todo(description);
-                break;
-            case "deadline":
+            } else if (type.equals("deadline")) {
                 t = parseDeadline(description);
-                break;
-            case "event":
+            } else if (type.equals("event")) {
                 t = parseEvent(description);
-                break;
-            default:
-                // can set t to null because will catch this exception
-                t = null;
+            } else {
+                throw new java.lang.RuntimeException("Not a valid task type");
             }
             list[taskIndex] = t;
             taskIndex++;
@@ -111,9 +108,9 @@ public class Duke {
         } else if (line.equals("list")) {
             list();
         } else if (line.startsWith("mark")) {
-            markStatus(true, line, list);
+            markStatus(true, line);
         } else if (line.startsWith("unmark")) {
-            markStatus(false, line, list);
+            markStatus(false, line);
         } else {
             addTask(line);
         }

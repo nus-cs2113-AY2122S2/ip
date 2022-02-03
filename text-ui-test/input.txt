@@ -9,6 +9,7 @@ unmark 2
 mark 0
 invalid input
 deadline invalid format
+list
 deadline dummy /at invalid time format
 event dummy /by invalid time format
 bye
