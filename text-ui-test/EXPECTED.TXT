@@ -43,7 +43,7 @@ OK, I've marked this task as not done yet:
   [D] [ ] code quality  (by:  midnight before tutorial)
 ____________________________________________________________
 ____________________________________________________________
-Please mark / unmark a number that's in the list :')
+Please mark / unmark with a number that's in the list :')
 ____________________________________________________________
 ____________________________________________________________
 I don't understand what you want to do.
