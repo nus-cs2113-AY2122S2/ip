@@ -53,17 +53,11 @@ public class Duke {
                 String[] splitUserInput = lowerCaseUserInput.split(" ");
                 int taskNumber = Integer.parseInt(splitUserInput[1]);
                 if (splitUserInput[0].equals("mark")) {
-                    storedUserInputs[taskNumber-1].setIsDone(true);
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Nice! I've marked this task as done:");
-                } else {
-                    storedUserInputs[taskNumber-1].setIsDone(false);
-                    System.out.println("____________________________________________________________");
-                    System.out.println("OK, I've marked this task as not done yet:");
-                }
-                System.out.println("[" + storedUserInputs[taskNumber-1].getStatusIcon() + "] " + storedUserInputs[taskNumber-1].getDescription());
-                System.out.println("____________________________________________________________");
+                    storedUserInputs[taskNumber-1].markTaskAsDone();
 
+                } else {
+                    storedUserInputs[taskNumber-1].markTaskAsUndone();
+                }
             } else {
                 System.out.println("____________________________________________________________");
                 System.out.println("added: " + userInput);
