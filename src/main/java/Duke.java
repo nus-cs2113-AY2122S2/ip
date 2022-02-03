@@ -2,7 +2,9 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static Scanner sc = new Scanner(System.in);
+    private static Scanner sc = new Scanner(System.in);
+    private static String[] list = new String[100];
+    private static int stringCounter = 0;
     private static String HORIZONTAL_LINE = "____________________________________________________________";
 
     public static void main(String[] args) {
@@ -18,12 +20,24 @@ public class Duke {
                 + HORIZONTAL_LINE);
 
         while (sc.hasNext()) {
-            String input = sc.next();
+            String input = sc.nextLine();
             if (input.equals("bye")) {
                 break;
+            } else if (input.equals("list")) {
+                System.out.println(HORIZONTAL_LINE);
+                for (int i = 0; i < list.length; i++) {
+                    if (list[i] != null) {
+                        System.out.println(String.valueOf(i + 1) + ". " + list[i]);
+                    } else {
+                        System.out.println(HORIZONTAL_LINE);
+                        break;
+                    }
+                }
             } else {
+                list[stringCounter] = input;
+                stringCounter++;
                 System.out.println(HORIZONTAL_LINE + "\n"
-                        + input + "\n"
+                        + "added: " + input + "\n"
                         + HORIZONTAL_LINE);
             }
         }
