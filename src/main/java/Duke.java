@@ -11,13 +11,12 @@ public class Duke {
                 "\t" + "-".repeat(60);
 
         System.out.println(greetStr);
-        //echo();
         TaskManager taskManager = new TaskManager();
         taskManager.start();
         System.out.println(byeStr);
     }
 
-    public static void echo(){
+    public static void echo() {
         Scanner sc = new Scanner(System.in);
         System.out.println("\t Type \"bye\" to exit.");
         String input = sc.nextLine();

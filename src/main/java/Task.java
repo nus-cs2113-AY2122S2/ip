@@ -2,7 +2,7 @@ public class Task {
     private String description;
     private boolean isDone;
 
-    public Task(String description){
+    public Task(String description) {
         this.description = description;
         isDone = false;
     }
@@ -27,18 +27,18 @@ public class Task {
         isDone = true;
     }
 
-    public void unmark(){
+    public void unmark() {
 
         isDone = false;
     }
 
-    public String getStatusIcon(){
+    public String getStatusIcon() {
 
         return (isDone ? "X" : " ");
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
 }

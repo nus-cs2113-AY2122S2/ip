@@ -4,11 +4,11 @@ public class TaskManager {
     private Task[] tasks = new Task[100];
     private static int taskCount = 0;
 
-    public TaskManager(){
+    public TaskManager() {
 
     }
 
-    public void start(){
+    public void start() {
         Scanner sc = new Scanner(System.in);
         int idx;
         // Supported commands
@@ -21,10 +21,12 @@ public class TaskManager {
         System.out.println("\t" + "-".repeat(60));
 
         String option = sc.next();
-        while(!option.equals("bye")){
-            switch (option){
+        while(!option.equals("bye")) {
+            switch (option) {
             case "todo":
+                // Fallthrough
             case "deadline":
+                // Fallthrough
             case "event":
                 String taskDescription = sc.nextLine();
                 addTask(option, taskDescription);
@@ -46,17 +48,16 @@ public class TaskManager {
                 unmarkTask(idx);
                 break;
             default:
-                System.out.println("\t" + "-".repeat(60));
-                System.out.println("\t I cannot read this instruction. Please try again.");
+                displayInvalidCmd();
                 sc.nextLine();
-                System.out.println("\t" + "-".repeat(60));
+                break;
             }
             option = sc.next();
         }
     }
 
-    public void addTask(String option, String taskDescription){
-        if(option.equals("todo")){
+    public void addTask(String option, String taskDescription) {
+        if(option.equals("todo")) {
             tasks[taskCount++] = new Todo(taskDescription.trim());
             return;
         }
@@ -66,10 +67,9 @@ public class TaskManager {
         description = description.trim();
         String time = taskDescription.substring(sepIndex + 3);
         time = time.trim();
-        if(option.equals("deadline")){
+        if(option.equals("deadline")) {
             tasks[taskCount++] = new Deadline(description, time);
-        }
-        else if(option.equals("event")){
+        } else if(option.equals("event")) {
             tasks[taskCount++] = new Event(description, time);
         }
     }
@@ -77,16 +77,19 @@ public class TaskManager {
     public void listTasks(){
         System.out.println("\t" + "-".repeat(60));
         System.out.println("\t Here are the tasks in your list:");
-        for(int i = 0;i < taskCount; i++){
-            System.out.println("\t\t " + (i + 1) + "." + tasks[i].toString());
-        }
-        if(taskCount == 0){
+        if(taskCount == 0) {
             System.out.println("\t No task recorded.");
+            System.out.println("\t" + "-".repeat(60));
+            return;
+        }
+
+        for(int i = 0;i < taskCount; i++) {
+            System.out.println("\t\t " + (i + 1) + "." + tasks[i].toString());
         }
         System.out.println("\t" + "-".repeat(60));
     }
 
-    public void markTask(int idx){
+    public void markTask(int idx) {
         idx --;
         tasks[idx].markAsDone();
         System.out.println("\t" + "-".repeat(60));
@@ -95,12 +98,18 @@ public class TaskManager {
         System.out.println("\t" + "-".repeat(60));
     }
 
-    public void unmarkTask(int idx){
+    public void unmarkTask(int idx) {
         idx --;
         tasks[idx].unmark();
         System.out.println("\t" + "-".repeat(60));
         System.out.println("\t OK, I've marked this task as not done yet:");
         System.out.println("\t\t " + (idx + 1) + "." + tasks[idx].toString());
+        System.out.println("\t" + "-".repeat(60));
+    }
+
+    public void displayInvalidCmd() {
+        System.out.println("\t" + "-".repeat(60));
+        System.out.println("\t I cannot read this instruction. Please try again.");
         System.out.println("\t" + "-".repeat(60));
     }
 }
