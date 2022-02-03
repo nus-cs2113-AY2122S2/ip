@@ -3,8 +3,8 @@ import java.util.Scanner;
 public class Duke {
 
     private static Scanner sc = new Scanner(System.in);
-    private static String[] list = new String[100];
-    private static int stringCounter = 0;
+    private static Task[] list = new Task[100];
+    private static int taskCounter = 0;
     private static String HORIZONTAL_LINE = "____________________________________________________________";
 
     public static void main(String[] args) {
@@ -25,17 +25,33 @@ public class Duke {
                 break;
             } else if (input.equals("list")) {
                 System.out.println(HORIZONTAL_LINE);
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < list.length; i++) {
                     if (list[i] != null) {
-                        System.out.println(String.valueOf(i + 1) + ". " + list[i]);
+                        System.out.println(String.valueOf(i + 1) + "." + list[i]);
                     } else {
                         System.out.println(HORIZONTAL_LINE);
                         break;
                     }
                 }
+            } else if (input.contains("unmark ")) {
+                int markInt = Integer.parseInt(input.substring(7)) - 1;
+                list[markInt].setDone(false);
+                System.out.println(HORIZONTAL_LINE + "\n"
+                        + "OK, I've marked this task as not done yet:\n"
+                        + list[markInt] + "\n"
+                        + HORIZONTAL_LINE);
+            } else if (input.contains("mark ")) {
+                int markInt = Integer.parseInt(input.substring(5)) - 1;
+                list[markInt].setDone(true);
+                System.out.println(HORIZONTAL_LINE + "\n"
+                        + "Nice! I've marked this task as done:\n"
+                        + list[markInt] + "\n"
+                        + HORIZONTAL_LINE);
             } else {
-                list[stringCounter] = input;
-                stringCounter++;
+                Task inputTask = new Task(input);
+                list[taskCounter] = inputTask;
+                taskCounter++;
                 System.out.println(HORIZONTAL_LINE + "\n"
                         + "added: " + input + "\n"
                         + HORIZONTAL_LINE);
