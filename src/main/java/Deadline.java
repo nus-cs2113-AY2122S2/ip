@@ -1,3 +1,5 @@
+//Task with an additional parameter (by), with /by as an indication
+
 public class Deadline extends Task {
     protected String by;
 
@@ -6,6 +8,7 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
     }

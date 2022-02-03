@@ -9,6 +9,7 @@ public class Duke {
     public static final String TODO_MESSAGE = "todo";
     public static final String DEADLINE_MESSAGE = "deadline";
     public static final String EVENT_MESSAGE = "event";
+    public static final int MAX_TASK = 100;
 
     private static void printWelcomeMessage() {
         String logo = " ____        _        \n"
@@ -32,39 +33,43 @@ public class Duke {
         return taskIndex;
     }
 
-    public static void addList(Task[] list, int listCounter, String userInput) {
-        String[] parsedUserInput = userInput.split(" ", 2);
-
-        if (parsedUserInput[0].equals(TODO_MESSAGE)) {
-            list[listCounter] = new ToDo(parsedUserInput[1]);
-        } else if (parsedUserInput[0].equals(DEADLINE_MESSAGE)) {
-            String[] deadlineInput = parsedUserInput[1].split("/by", 2);
-            list[listCounter] = new Deadline(deadlineInput[0], deadlineInput[1]);
-        } else if (parsedUserInput[0].equals(EVENT_MESSAGE)) {
-            String[] eventInput = parsedUserInput[1].split("/at", 2);
-            list[listCounter] = new Event(eventInput[0], eventInput[1]);
-        }
-
-        System.out.println("Got it. I've added this task:");
-        System.out.println(list[listCounter]);
+    private static void printAddToList(Task[] list, int listCounter) {
+        System.out.println("Got it. I've added this task:" + System.lineSeparator() + list[listCounter]);
         listCounter++;
-
         if (listCounter == 1) {
             System.out.println("Now you have 1 task in the list");
         } else {
             System.out.println("Now you have " + listCounter + " tasks in the list.");
         }
-
     }
 
-    private static void acceptInput() {
-        Task[] list = new Task[100];
+    //Check what kind of task the user intends to add and process accordingly
+    public static void parseInput(Task[] list, int listCounter, String userInput) {
+        String[] parsedUserInputs = userInput.split(" ", 2);
+        parsedUserInputs[0].toLowerCase();
+
+        switch (parsedUserInputs[0]) {
+        case TODO_MESSAGE:
+            list[listCounter] = new ToDo(parsedUserInputs[1]);
+            break;
+        case DEADLINE_MESSAGE:
+            String[] deadlineInput = parsedUserInputs[1].split("/by", 2);
+            list[listCounter] = new Deadline(deadlineInput[0], deadlineInput[1]);
+            break;
+        case EVENT_MESSAGE:
+            String[] eventInput = parsedUserInputs[1].split("/at", 2);
+            list[listCounter] = new Event(eventInput[0], eventInput[1]);
+            break;
+        }
+
+        printAddToList(list, listCounter);
+    }
+
+    private static void processInput(String userInput, Scanner in) {
+        Task[] list = new Task[MAX_TASK];
         int listCounter = 0;
-        String userInput;
-        Scanner in = new Scanner(System.in);
-        userInput = in.nextLine();
-        while(!userInput.equals(EXIT_MESSAGE)){
-            if (userInput.equals(PRINT_MESSAGE)) {
+        while(!userInput.equalsIgnoreCase(EXIT_MESSAGE)){
+            if (userInput.equalsIgnoreCase(PRINT_MESSAGE)) {
                 printList(list, listCounter);
             } else if (userInput.startsWith(MARK_MESSAGE)) {
                 int taskIndex = getTaskIndex(userInput);
@@ -73,12 +78,18 @@ public class Duke {
                 int taskIndex = getTaskIndex(userInput);
                 list[taskIndex].markAsUndone();
             } else {
-                addList(list, listCounter, userInput);
+                parseInput(list, listCounter, userInput);
                 listCounter++;
             }
             userInput = in.nextLine();
         }
         System.out.println("Bye. Hope to see you again soon!\n");
+    }
+
+    private static void acceptInput() {
+        Scanner in = new Scanner(System.in);
+        String userInput = in.nextLine();
+        processInput(userInput, in);
     }
 
     public static void main(String[] args) {
