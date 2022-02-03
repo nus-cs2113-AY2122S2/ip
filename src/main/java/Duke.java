@@ -93,20 +93,20 @@ public class Duke {
             boolean isDone = dones.get(i);
             System.out.printf("     %d.", i + 1);
             switch (type) {
-                case "T":
-                    Todo todo = new Todo(description);
-                    System.out.println(todo.toString(isDone));
-                    break;
-                case "D":
-                    Deadline deadline = new Deadline(description, date);
-                    System.out.println(deadline.toString(isDone));
-                    break;
-                case "E":
-                    Event event = new Event(description, date);
-                    System.out.println(event.toString(isDone));
-                    break;
-                default:
-                    System.out.println("       Unknown Type");
+            case "T":
+                Todo todo = new Todo(description);
+                System.out.println(todo.toString(isDone));
+                break;
+            case "D":
+                Deadline deadline = new Deadline(description, date);
+                System.out.println(deadline.toString(isDone));
+                break;
+            case "E":
+                Event event = new Event(description, date);
+                System.out.println(event.toString(isDone));
+                break;
+            default:
+                System.out.println("       Unknown Type");
             }
         }
         System.out.println("    ____________________________________________________________");
@@ -122,20 +122,20 @@ public class Duke {
         // mark as done
         dones.set(index, true);
         switch (type) {
-            case "T":
-                Todo todo = new Todo(description);
-                System.out.println("       " + todo.toString(true));
-                break;
-            case "D":
-                Deadline deadline = new Deadline(description, date);
-                System.out.println("       " + deadline.toString(true));
-                break;
-            case "E":
-                Event event = new Event(description, date);
-                System.out.println("       " + event.toString(true));
-                break;
-            default:
-                System.out.println("       Unknown Type");
+        case "T":
+            Todo todo = new Todo(description);
+            System.out.println("       " + todo.toString(true));
+            break;
+        case "D":
+            Deadline deadline = new Deadline(description, date);
+            System.out.println("       " + deadline.toString(true));
+            break;
+        case "E":
+            Event event = new Event(description, date);
+            System.out.println("       " + event.toString(true));
+            break;
+        default:
+            System.out.println("       Unknown Type");
         }
         System.out.println("    ____________________________________________________________");
     }
