@@ -2,16 +2,7 @@ import java.util.*;
 
 public class Duke {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("=============================");
-        System.out.println("Ayo my name's Duke!");
-        System.out.println("What's up?");
-        System.out.println("=============================");
+        dukeIntro();
         ArrayList<Task> taskArray = new ArrayList<Task>();
         Scanner sc = new Scanner(System.in);
         String stringInput;
@@ -52,11 +43,26 @@ public class Duke {
                 System.out.println("=============================");
             }
         }while (!stringInput.equals("bye"));
+        dukeExit();
+
+    }
+
+    public static void dukeIntro(){
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println("Hello from\n" + logo);
+        System.out.println("=============================");
+        System.out.println("Ayo my name's Duke!");
+        System.out.println("What's up?");
+        System.out.println("=============================");
+    }
+
+    public static void dukeExit(){
         System.out.println("=============================");
         System.out.println("Cheers! See you!");
         System.out.println("=============================");
-
-
-
     }
 }
