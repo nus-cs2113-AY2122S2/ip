@@ -17,10 +17,10 @@ public class Duke {
         String userInput = in.nextLine();
         String lowerCaseUserInput = userInput.toLowerCase();
         boolean isLastInput = detectLastInput(lowerCaseUserInput);
-        boolean isListRequest = detectListRequest(lowerCaseUserInput);
-        boolean isMarkRequest = detectMarkRequest(lowerCaseUserInput);
-        boolean isUnmarkRequest = detectUnmarkRequest(lowerCaseUserInput);
         while (!isLastInput) {
+            boolean isListRequest = detectListRequest(lowerCaseUserInput);
+            boolean isMarkRequest = detectMarkRequest(lowerCaseUserInput);
+            boolean isUnmarkRequest = detectUnmarkRequest(lowerCaseUserInput);
             String[] splitUserInput = lowerCaseUserInput.split(" ");
             if (isListRequest) {
                 list();
@@ -36,17 +36,16 @@ public class Duke {
                 System.out.println("____________________________________________________________");
             } else {
                 String taskType = splitUserInput[0];
+                String taskDescription = extractDescription(userInput);
                 switch (taskType) {
                 case "todo":
-                    addTask(new Todo(userInput));
+                    addTask(new Todo(taskDescription));
                     break;
                 case "deadline":
-                    String taskDescription = extractDescription(userInput);
                     String date = extractDeadline(userInput);
                     addTask(new Deadline(taskDescription, date));
                     break;
                 case "event":
-                    taskDescription = extractDescription(userInput);
                     String duration = extractDuration(userInput);
                     addTask(new Event(taskDescription, duration));
                     break;
@@ -55,6 +54,7 @@ public class Duke {
             }
             userInput = in.nextLine();
             lowerCaseUserInput = userInput.toLowerCase();
+            isLastInput = detectLastInput(lowerCaseUserInput);
         }
         exit();
     }
@@ -119,9 +119,14 @@ public class Duke {
     }
 
     public static String extractDescription(String s) {
-        int startIndex = s. indexOf(' ');
-        int endIndex = s.indexOf('/');
-        return s.substring(startIndex+1, endIndex-1);
+        int startIndex = s.indexOf(" ");
+        int endIndex;
+        if (s.contains("/")) {
+            endIndex = s.indexOf("/")-1;
+        } else {
+            endIndex = s.length();
+        }
+        return s.substring(startIndex+1, endIndex);
     }
 
     public static void exit() {
