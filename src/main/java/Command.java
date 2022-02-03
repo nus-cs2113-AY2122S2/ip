@@ -22,11 +22,30 @@ public class Command {
         PatternGenerator.generateLine();
     }
 
-    public static void add(String s){
-        Task.addTask(s);
-        PatternGenerator.generateDoubleLines();
-        System.out.println("    Added: "+ s);
-        PatternGenerator.generateDoubleLines();
+//    public static void add(String s){
+//        Task.addTask(s);
+//        PatternGenerator.generateDoubleLines();
+//        System.out.println("    Added: "+ s);
+//        PatternGenerator.generateDoubleLines();
+//    }
+
+    public static void addTodo(String s){
+        Task todo = new Todo(s);
+        Task.addTask(todo);
+    }
+
+    public static void addDDL(String s){
+        String[] arrOfS = s.split("/");
+        Task ddl = new Deadline(arrOfS[0], arrOfS[1]);
+        Task.addTask(ddl);
+
+    }
+
+    public static void addEvent(String s){
+        String[] arrOfS = s.split("/");
+        Task event = new Event(arrOfS[0], arrOfS[1]);
+        Task.addTask(event);
+
     }
 
     public static void list(){

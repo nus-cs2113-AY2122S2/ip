@@ -10,16 +10,20 @@ public class Task {
         this.isDone = false;
     }
 
-    public static void addTask(String taskText){
-        Task newTask = new Task(taskText);
-        tasks[taskCount] = newTask;
+    public static void addTask(Task task){
+        tasks[taskCount] = task;
         taskCount++;
+        PatternGenerator.generateLine();
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task.toString());
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        PatternGenerator.generateLine();
     }
 
     public static void listTasks(){
         for(int i = 0; i < taskCount; i++){
             System.out.print(i+1);
-            System.out.println("." + "[" + tasks[i].getStatusIcon() + "]" + tasks[i].description);
+            System.out.println("." + tasks[i].toString());
         }
     }
 
@@ -43,5 +47,9 @@ public class Task {
     public static void unmark(int index){
         tasks[index-1].markAsUndone();
         System.out.println("[" + tasks[index-1].getStatusIcon() + "]" + tasks[index-1].description);
+    }
+
+    public String toString(){
+        return "[" + this.getStatusIcon() + "]" + this.description;
     }
 }

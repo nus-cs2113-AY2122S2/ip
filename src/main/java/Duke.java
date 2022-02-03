@@ -20,16 +20,25 @@ public class Duke {
         }
     }
 
-    public static void getCommand (String input){
-        switch (input) {
+    public static void getCommand(String input){
+        String[] arrOfInput = input.split(" ",2);
+        switch (arrOfInput[0]) {
         case "bye":
             Command.exit();
             break;
         case "list":
             Command.list();
             break;
+        case "todo":
+            Command.addTodo(arrOfInput[1]);
+            break;
+        case "deadline":
+            Command.addDDL(arrOfInput[1]);
+            break;
+        case "event":
+            Command.addEvent(arrOfInput[1]);
+            break;
         default:
-            Command.add(input);
             break;
         }
     }
