@@ -12,21 +12,26 @@ public class TaskManager {
         Scanner sc = new Scanner(System.in);
         int idx;
         // Supported commands
-        System.out.println("\tType \"add <task>\" to add a task");
-        System.out.println("\tType \"list\" to list all tasks");
-        System.out.println("\tType \"mark <task number>\" to mark a task");
-        System.out.println("\tType \"unmark <task number>\" to unmark a task");
-        System.out.println("\tType \"bye\" to exit");
+        System.out.println("\t Supported commands:");
+        System.out.println("\t Type \"todo/deadline/event <task>\" to add a task");
+        System.out.println("\t Type \"list\" to list all tasks");
+        System.out.println("\t Type \"mark <task number>\" to mark a task");
+        System.out.println("\t Type \"unmark <task number>\" to unmark a task");
+        System.out.println("\t Type \"bye\" to exit");
         System.out.println("\t" + "-".repeat(60));
 
-        String input = sc.next();
-        while(!input.equals("bye")){
-            switch (input){
-            case "add":
-                input = sc.nextLine();
-                addTask(input.trim());
+        String option = sc.next();
+        while(!option.equals("bye")){
+            switch (option){
+            case "todo":
+            case "deadline":
+            case "event":
+                String taskDescription = sc.nextLine();
+                addTask(option, taskDescription);
                 System.out.println("\t" + "-".repeat(60));
-                System.out.println("\t added: " + tasks[taskCount - 1].getDescription());
+                System.out.println("\t Got it. I've added this task:");
+                System.out.println("\t\t" + tasks[taskCount - 1].toString());
+                System.out.println("\t Now you have " + taskCount + " tasks in the list.");
                 System.out.println("\t" + "-".repeat(60));
                 break;
             case "list":
@@ -42,34 +47,41 @@ public class TaskManager {
                 break;
             default:
                 System.out.println("\t" + "-".repeat(60));
-                System.out.println("I cannot read this instruction. Please try again.");
+                System.out.println("\t I cannot read this instruction. Please try again.");
                 sc.nextLine();
                 System.out.println("\t" + "-".repeat(60));
             }
-            input = sc.next();
+            option = sc.next();
         }
     }
 
-    public void addTask(String description){
+    public void addTask(String option, String taskDescription){
+        if(option.equals("todo")){
+            tasks[taskCount++] = new Todo(taskDescription.trim());
+            return;
+        }
 
-        tasks[taskCount++] = new Task(description);
-    }
-
-    public void markTaskAsDone(int idx){
-
-        tasks[idx].markAsDone();
+        int sepIndex = taskDescription.indexOf("/");
+        String description = taskDescription.substring(0, sepIndex);
+        description = description.trim();
+        String time = taskDescription.substring(sepIndex + 3);
+        time = time.trim();
+        if(option.equals("deadline")){
+            tasks[taskCount++] = new Deadline(description, time);
+        }
+        else if(option.equals("event")){
+            tasks[taskCount++] = new Event(description, time);
+        }
     }
 
     public void listTasks(){
         System.out.println("\t" + "-".repeat(60));
-        System.out.println("\tHere are the tasks in your list:");
+        System.out.println("\t Here are the tasks in your list:");
         for(int i = 0;i < taskCount; i++){
-            System.out.println("\t " + (i + 1) +
-                    ".[" + tasks[i].getStatusIcon() + "] " +
-                    tasks[i].getDescription());
+            System.out.println("\t\t " + (i + 1) + "." + tasks[i].toString());
         }
         if(taskCount == 0){
-            System.out.println("No task recorded.");
+            System.out.println("\t No task recorded.");
         }
         System.out.println("\t" + "-".repeat(60));
     }
@@ -78,10 +90,8 @@ public class TaskManager {
         idx --;
         tasks[idx].markAsDone();
         System.out.println("\t" + "-".repeat(60));
-        System.out.println("\tNice! I've marked this task as done:");
-        System.out.println("\t " + (idx + 1) +
-                ".[" + tasks[idx].getStatusIcon() + "] " +
-                tasks[idx].getDescription());
+        System.out.println("\t Nice! I've marked this task as done:");
+        System.out.println("\t\t " + (idx + 1) + "." + tasks[idx].toString());
         System.out.println("\t" + "-".repeat(60));
     }
 
@@ -89,10 +99,8 @@ public class TaskManager {
         idx --;
         tasks[idx].unmark();
         System.out.println("\t" + "-".repeat(60));
-        System.out.println("\tOK, I've marked this task as not done yet:");
-        System.out.println("\t " + (idx + 1) +
-                ".[" + tasks[idx].getStatusIcon() + "] " +
-                tasks[idx].getDescription());
+        System.out.println("\t OK, I've marked this task as not done yet:");
+        System.out.println("\t\t " + (idx + 1) + "." + tasks[idx].toString());
         System.out.println("\t" + "-".repeat(60));
     }
 }
