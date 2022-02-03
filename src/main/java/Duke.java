@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Duke {
     private static Task[] list = new Task[100];
     private static int taskIndex = 0;
-    private static int num = 1;
+    private static Boolean willExit = false;
 
     public static void addTask(String line) {
         try {
@@ -29,22 +29,25 @@ public class Duke {
                 t = new Event(description, at);
                 break;
             default:
+                // can set t to null because will catch this exception
                 t = null;
-                printFormat(" Please enter a valid task type (todo / deadline / event)");
             }
             list[taskIndex] = t;
             taskIndex++;
             printFormat("Got it. I've added this task:\n  " + t.toString() +
                     String.format("\nNow you have %d tasks in the list.", taskIndex));
         } catch (Exception e){
-            printFormat(" Please enter with a valid task format!");
+            printFormat("I don't understand what you want to do.\n" +
+                    "Maybe you could try the following commands:\n" +
+                    "  - list: list out existing tasks\n" +
+                    "  - etc.");
         }
     }
 
     public static void parseCommands(String line) {
         switch (line) {
         case "bye":
-            num = 0;
+            willExit = true;
             printFormat(" Aw, are you leaving now?\n" +
                     " Hope to see you again soon!");
             break;
@@ -56,8 +59,8 @@ public class Duke {
                 for (int i = 0; i < taskIndex; i++) {
                     Task curr = list[i];
                     listAsString += (" " + Integer.toString(i + 1) + ". " + curr.toString() + "\n");
-                    printFormat("Here are the tasks in your list:\n" + listAsString);
                 }
+                printFormat("Here are the tasks in your list:\n" + listAsString);
             }
             break;
         default:
@@ -72,9 +75,9 @@ public class Duke {
     }
 
     public static void printFormat(String s) {
-        System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ⸙ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n" +
+        System.out.println("____________________________________________________________\n" +
                 s + "\n" +
-                "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ⸙ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
+                "____________________________________________________________");
     }
 
     public static void markStatus(Boolean shouldMark, String line, Task[] list) {
@@ -83,13 +86,13 @@ public class Duke {
             Task curr = list[taskNum - 1];
             if (shouldMark) {
                 curr.setDone(true);
-                printFormat(" Nice! I've marked this task as done:\n" + curr.toString());
+                printFormat("Nice! I've marked this task as done:\n  " + curr.toString());
             } else {
                 curr.setDone(false);
-                printFormat(" OK, I've marked this task as not done yet:\n" + curr.toString());
+                printFormat("OK, I've marked this task as not done yet:\n  " + curr.toString());
             }
         } catch (Exception exception) {
-            printFormat(" Please mark / unmark a number that's in the list :')");
+            printFormat("Please mark / unmark a number that's in the list :')");
         }
     }
 
@@ -100,7 +103,7 @@ public class Duke {
         String line;
         Scanner in = new Scanner(System.in);
 
-        while (num == 1) {
+        while (!willExit) {
             line = in.nextLine();
             parseCommands(line);
         }

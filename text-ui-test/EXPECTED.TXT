@@ -1,7 +1,75 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+____________________________________________________________
+ Hey there! I'm Duke
+ What can I do for you? uwu
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [T] [ ] finish iP
+Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [D] [ ] code quality  (by:  midnight before tutorial)
+Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+ 1. [T] [ ] finish iP
+ 2. [D] [ ] code quality  (by:  midnight before tutorial)
 
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [D] [ ] tP meeting (at: 7-8pm)
+Now you have 3 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Nice! I've marked this task as done:
+  [D] [X] tP meeting (at: 7-8pm)
+____________________________________________________________
+____________________________________________________________
+Nice! I've marked this task as done:
+  [D] [X] code quality  (by:  midnight before tutorial)
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+ 1. [T] [ ] finish iP
+ 2. [D] [X] code quality  (by:  midnight before tutorial)
+ 3. [D] [X] tP meeting (at: 7-8pm)
+
+____________________________________________________________
+____________________________________________________________
+OK, I've marked this task as not done yet:
+  [D] [ ] code quality  (by:  midnight before tutorial)
+____________________________________________________________
+____________________________________________________________
+Please mark / unmark a number that's in the list :')
+____________________________________________________________
+____________________________________________________________
+I don't understand what you want to do.
+Maybe you could try the following commands:
+  - list: list out existing tasks
+  - etc.
+____________________________________________________________
+____________________________________________________________
+I don't understand what you want to do.
+Maybe you could try the following commands:
+  - list: list out existing tasks
+  - etc.
+____________________________________________________________
+____________________________________________________________
+I don't understand what you want to do.
+Maybe you could try the following commands:
+  - list: list out existing tasks
+  - etc.
+____________________________________________________________
+____________________________________________________________
+I don't understand what you want to do.
+Maybe you could try the following commands:
+  - list: list out existing tasks
+  - etc.
+____________________________________________________________
+____________________________________________________________
+ Aw, are you leaving now?
+ Hope to see you again soon!
+____________________________________________________________

@@ -1,0 +1,14 @@
+todo finish iP
+deadline code quality /by midnight before tutorial
+list
+event tP meeting /at 7-8pm
+mark 3
+mark 2
+list
+unmark 2
+mark 0
+invalid input
+deadline invalid format
+deadline dummy /at invalid time format
+event dummy /by invalid time format
+bye
