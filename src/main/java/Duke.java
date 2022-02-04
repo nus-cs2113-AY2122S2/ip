@@ -6,6 +6,8 @@ public class Duke {
     static int idx = 0;
     static String[] list = new String[100];
     static boolean[] marked = new boolean[100];
+    static String[] importance = new String[100];
+    static Task[] tasks = new Task[100];
 
     public static void main(String[] args) {
         Arrays.fill(marked, Boolean.FALSE);
@@ -22,74 +24,113 @@ public class Duke {
         String ans = "";
 
         String command = "";
-        int separator;
+        String time = "";
+        int commandSeparator;
+        int timeSeparator;
         int index;
-        while (true) {
+        boolean loopInput = true;
+        while (loopInput) {
             ans = input.nextLine();
-            separator = ans.indexOf(' ');
-            if (separator == -1) {
+            commandSeparator = ans.indexOf(' ');
+            if (commandSeparator == -1) {
                 command = ans;
             } else {
-                command = ans.substring(0, separator);
+                command = ans.substring(0, commandSeparator);
             }
-            if (command.equals("bye")) {
+            timeSeparator = ans.indexOf('/');
+            switch (command) {
+            case "bye":
+                loopInput = false;
                 break;
-            } else if (command.equals("list")) {
+            case "list":
                 System.out.println("    _________________________________________");
                 System.out.println("    Here the task you've written m'lord:");
-                printList();
+                printTasks();
                 System.out.println("    _________________________________________\n");
-            } else if (command.equals("mark")) {
-                ans = ans.substring((separator == -1) ? 0 : separator + 1);
+                break;
+            case "mark":
+                ans = ans.substring(commandSeparator + 1);
                 index = Integer.parseInt(ans) - 1;
                 mark(index);
                 System.out.println("    _________________________________________");
                 System.out.println("    I've marked the task as done m'lord:");
-                printList();
+                printTasks();
                 System.out.println("    _________________________________________\n");
-            } else if (command.equals("unmark")) {
-                ans = ans.substring((separator == -1) ? 0 : separator + 1);
+                break;
+            case "unmark":
+                ans = ans.substring(commandSeparator + 1);
                 index = Integer.parseInt(ans) - 1;
                 unmark(index);
                 System.out.println("    _________________________________________");
                 System.out.println("    I've revert the task to active m'lord:");
-                printList();
+                printTasks();
                 System.out.println("    _________________________________________\n");
-            } else {
+                break;
+            case "todo":
+                ans = ans.substring(commandSeparator + 1);
                 System.out.println("    _________________________________________");
-                add(ans);
-                System.out.println("     added: " + ans);
+                addTask(ans, 'T', time);
+                System.out.println("     added: " + tasks[idx - 1]);
+                System.out.println("     there are currently " + idx + " tasks ");
                 System.out.println("    _________________________________________\n");
+                break;
+            case "deadline":
+                // timeSeparator = (timeSeparator == -1 ? ans.length() : timeSeparator);
+                if (timeSeparator == -1) {
+                    time = "";
+                } else {
+                    time = ans.substring(timeSeparator + 4);
+                }
+                ans = ans.substring(commandSeparator + 1, timeSeparator);
+                System.out.println("    _________________________________________");
+                addTask(ans, 'D', time);
+                System.out.println("     added: " + tasks[idx - 1]);
+                System.out.println("     there are currently " + idx + " tasks ");
+                System.out.println("    _________________________________________\n");
+                break;
+            case "event":
+                // timeSeparator = (timeSeparator == -1 ? ans.length() : timeSeparator);
+                if (timeSeparator == -1) {
+                    time = "";
+                } else {
+                    time = ans.substring(timeSeparator + 4);
+                }
+                ans = ans.substring(commandSeparator + 1, timeSeparator);
+                System.out.println("    _________________________________________");
+                addTask(ans, 'E', time);
+                System.out.println("     added: " + tasks[idx - 1]);
+                System.out.println("     there are currently " + idx + " tasks ");
+                System.out.println("    _________________________________________\n");
+                break;
+            default:
+                loopInput = false;
+                break;
             }
         }
+
         System.out.println("    _________________________________________");
         System.out.println("    Bye. Hope to see you again soon!");
         System.out.println("    _________________________________________");
         input.close();
     }
 
-    public static void add(String s) {
-        list[idx] = s;
+    public static void addTask(String desc, char type, String time) {
+        tasks[idx] = new Task(desc, false, type, time);
         idx++;
     }
 
     public static void mark(int i) {
-        marked[i] = true;
+        tasks[i].setIsDone(true);
     }
 
     public static void unmark(int i) {
-        marked[i] = false;
+        tasks[i].setIsDone(false);
     }
 
-    public static void printList() {
-        String marker = "";
+    public static void printTasks() {
         for (int i = 0; i < idx; i++) {
-            if (marked[i]) {
-                marker = "X";
-            } else {
-                marker = " ";
-            }
-            System.out.println("    " + (i + 1) + " [" + marker + "] " + list[i]);
+            System.out.println("    " + (i + 1) + " " + tasks[i]);
         }
     }
+
 }
