@@ -2,13 +2,37 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Controller {
-    public String hello = "Hello! I'm Duke :P\nWhat can I do for you?";
-    public String goodbye = "Bye. Hope to see you again soon! ;)";
-    public String recvMsg = "";
-    public String replyMsg = "";
+    protected String HELLO_WORDS = "Hello! I'm Duke :P\nWhat can I do for you?";
+    protected String GOODBYE_WORDS = "Bye. Hope to see you again soon! ;)";
+    protected String recvMsg = "";
+    protected String replyMsg = "";
     Chatbox chatbox = new Chatbox();
     TaskManager manager = new TaskManager();
+    OperationAnalyst analyst;
 
+    public void greet() {
+        chatbox.setContent(HELLO_WORDS);
+        chatbox.chatboxPrinter();
+    }
+
+    public void bye() {
+        chatbox.setContent(GOODBYE_WORDS);
+        chatbox.chatboxPrinter();
+        System.exit(0);
+    }
+
+    public void unmarkTask(){
+        //String[] keywords = input.split(" ");
+        int index= Integer.parseInt(analyst.taskName);
+        manager.unmarkTask(index);
+    }
+
+    public void markTask(){
+        //String[] keywords = input.split(" ");
+        int index= Integer.parseInt(analyst.taskName);
+        manager.markTask(index);
+    }
+    /*
     public void addTask(String input) {
         manager.addTask(input);
     }
@@ -22,41 +46,27 @@ public class Controller {
         String[] keywords = input.split("/by ");
         String by = keywords[1];
         String name = keywords[0].replace("deadline ", "");
-        manager.addDeadline(name, by);
+        manager.addDeadline(analyst.taskName, analyst.time);
     }
 
     public void addEvent(String input) {
-        String[] keywords = input.split("/at ");
-        String by = keywords[1];
-        String name = keywords[0].replace("event ", "");
-        manager.addEvent(name, by);
+        manager.addEvent(analyst.taskName, analyst.time);
     }
 
     public void listTask(){
         manager.listTask();
     }
 
+
     public void greet() {
-        chatbox.setContent(hello);
+        chatbox.setContent(HELLO_WORDS);
         chatbox.chatboxPrinter();
     }
 
     public void bye() {
-        chatbox.setContent(goodbye);
+        chatbox.setContent(GOODBYE_WORDS);
         chatbox.chatboxPrinter();
         System.exit(0);
-    }
-
-    public void unmarkTask(String input){
-        String[] keywords = input.split(" ");
-        int index= Integer.parseInt(keywords[1]);
-        manager.unmarkTask(index);
-    }
-
-    public void markTask(String input){
-        String[] keywords = input.split(" ");
-        int index= Integer.parseInt(keywords[1]);
-        manager.markTask(index);
     }
 
     public void replyMsgPrinter(){
@@ -64,35 +74,40 @@ public class Controller {
         chatbox.chatboxPrinter();
     }
 
+     */
+
     public void listen() {
         Scanner msg = new Scanner(System.in);
         this.recvMsg = msg.nextLine();
-        String[] keyword = this.recvMsg.toLowerCase(Locale.ROOT).split(" ");
-        switch (keyword[0]) {
+        analyst = new OperationAnalyst(this.recvMsg);
+        String command = analyst.getCommand();
+        //String[] keyword = this.recvMsg.toLowerCase(Locale.ROOT).split(" ");
+        switch (command) {
         case "bye":
             this.bye();
             break;
         case "list":
-            this.listTask();
+            manager.listTask();
             break;
         case "mark":
-            this.markTask(this.recvMsg);
+            this.markTask();
             break;
         case "unmark":
-            this.unmarkTask(this.recvMsg);
+            this.unmarkTask();
             break;
         case "deadline":
-            this.addDeadline(this.recvMsg);
+            manager.addDeadline(analyst.taskName, analyst.time);
             break;
         case "event":
-            this.addEvent(this.recvMsg);
+            manager.addEvent(analyst.taskName, analyst.time);
             break;
         case "todo":
-            this.addToDo(this.recvMsg);
+            manager.addToDo(analyst.taskName);
             break;
         default:
-            this.addTask(this.recvMsg);
+            manager.addTask(analyst.taskName);
         }
     }
+
 
 }

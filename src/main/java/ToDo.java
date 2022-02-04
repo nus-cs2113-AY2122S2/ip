@@ -6,7 +6,7 @@ public class ToDo extends Task{
 
     @Override
     public void setListName(){
-        if(isDone == false){
+        if(!isDone){
             this.listName = "[T]" + this.unmarkedStatus + this.taskName;
         }else{
             this.listName = "[T]" + this.markedStatus + this.taskName;

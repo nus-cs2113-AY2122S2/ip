@@ -1,44 +1,65 @@
 import java.util.ArrayList;
 public class TaskManager {
     private static final ArrayList<Task> Tasks = new ArrayList<Task>();
-    private String addResponse = "Got it. I've added this task:\n";
+    protected String ADD_RES = "Got it. I've added this task:\n";
     Chatbox chatbox = new Chatbox();
 
-    public void addTask(String name){
+    /**
+     * Adds a general task in the list
+     * @param name refers to the name of the task
+     */
+    public void addTask(String name) {
         Task newTask = new Task(name);
         Tasks.add(newTask);
         chatbox.setContent("added: " + name);
         chatbox.chatboxPrinter();
     }
 
-    public void addDeadline(String name, String by){
+    /**
+     * Adds a deadline task to the list
+     * @param name refers to the name of the task
+     * @param by refers to the deadline of the task
+     */
+    public void addDeadline(String name, String by) {
         Deadline newDeadline = new Deadline(name, by);
         Tasks.add(newDeadline);
         int s = Tasks.size();
-        String response = addResponse + newDeadline.getListName() + "\n" + "Now you have " + String.valueOf(s) + " tasks in your list.";
+        String response = ADD_RES + newDeadline.getListName() + "\n" + "Now you have " + String.valueOf(s) + " tasks in your list.";
         chatbox.setContent(response);
         chatbox.chatboxPrinter();
     }
 
-    public void addEvent(String name, String by){
-        Event newEvent = new Event(name, by);
+    /**
+     * Adds an event task to the list
+     * @param name refers to the name of the task
+     * @param at refers to the happening time of the event
+     */
+    public void addEvent(String name, String at) {
+        Event newEvent = new Event(name, at);
         Tasks.add(newEvent);
         int s = Tasks.size();
-        String response = addResponse + newEvent.getListName() + "\n" + "Now you have " + String.valueOf(s) + " tasks in your list.";
+        String response = ADD_RES + newEvent.getListName() + "\n" + "Now you have " + String.valueOf(s) + " tasks in your list.";
         chatbox.setContent(response);
         chatbox.chatboxPrinter();
     }
 
-    public void addToDo(String name){
+    /**
+     * Adds a todo task to the list
+     * @param name refers to the name of the todo task
+     */
+    public void addToDo(String name) {
         ToDo newToDo = new ToDo(name);
         Tasks.add(newToDo);
         int s = Tasks.size();
-        String response = addResponse + newToDo.getListName() + "\n" + "Now you have " + String.valueOf(s) + " tasks in your list.";
+        String response = ADD_RES + newToDo.getListName() + "\n" + "Now you have " + String.valueOf(s) + " tasks in your list.";
         chatbox.setContent(response);
         chatbox.chatboxPrinter();
     }
 
-    public void listTask(){
+    /**
+     * Lists all tasks in the list with adding time order
+     */
+    public void listTask() {
         String content = "Here are the tasks in your list:\n";
         if(Tasks.size() == 0){
             content = "Sorry, there's no task in the list :(";
@@ -56,13 +77,17 @@ public class TaskManager {
         chatbox.chatboxPrinter();
     }
 
-    public void markTask(int n){
+    /**
+     * Marks specific task in the list as done
+     * @param n refers to the index of the task in adding time order
+     */
+    public void markTask(int n) {
         System.out.println(n);
         String content = "";
-        if(n < 1 || n > Tasks.size()){
+        if(n < 1 || n > Tasks.size()) {
+            //Beyonds boundaries
             content = "Sorry, I could not find the task :/";
         }else {
-            //System.out.println(n);
             Tasks.get(n - 1).mark();
             content = "Nice! I've marked this task as done:\n" + Tasks.get(n - 1).listName;
         }
@@ -70,9 +95,14 @@ public class TaskManager {
         chatbox.chatboxPrinter();
     }
 
-    public void unmarkTask(int n){
+    /**
+     * Unmarks specific task in the list as undone
+     * @param n refers to the index of the task in adding time order
+     */
+    public void unmarkTask(int n) {
         String content = "";
         if(n < 1 || n > Tasks.size()){
+            // Beyonds boundaries
             content = "Sorry, I could not find the task :/";
         }else {
             Tasks.get(n - 1).unmark();

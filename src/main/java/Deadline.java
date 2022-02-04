@@ -1,5 +1,5 @@
 public class Deadline extends Task{
-    public String by;
+    protected String by;
 
     public Deadline(String name, String by){
         super(name);
@@ -9,7 +9,7 @@ public class Deadline extends Task{
 
     @Override
     public void setListName(){
-        if(isDone == false){
+        if(!isDone){
             this.listName = "[D]" + this.unmarkedStatus + this.taskName + "(by: " + by + ")";
         }else{
             this.listName = "[D]" + this.markedStatus + this.taskName + "(by: " + by + ")";

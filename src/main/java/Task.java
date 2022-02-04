@@ -1,9 +1,9 @@
 public class Task {
-    public String unmarkedStatus = "[ ]";
-    public String markedStatus = "[X]";
-    public String taskName = "";
-    public boolean isDone = false;
-    public String listName = "";
+    protected String unmarkedStatus = "[ ]";
+    protected String markedStatus = "[X]";
+    protected String taskName = "";
+    protected boolean isDone = false;
+    protected String listName = "";
 
     public Task(String name){
         this.taskName = name;
