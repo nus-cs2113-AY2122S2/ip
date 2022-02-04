@@ -25,8 +25,7 @@ public class Vocabulary {
         String mark;
             if (isDone()) {
                 mark = "X";
-            }
-            else {
+            } else {
                 mark = " ";
             }
         return "[" + mark + "] " + word;

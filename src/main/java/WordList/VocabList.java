@@ -3,16 +3,18 @@ package WordList;
 public class VocabList {
     private Vocabulary[] vList = new Vocabulary[100];
     private int listLength = 0;
+    private final String dottedLine = "____________________________________________________________";
+    private final String tildeLine = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
 
     public void appendList(Vocabulary input){
         vList[listLength] = input;
         listLength++;
-        System.out.println("You've just stored \"" + input + "\" in your list!");
-        System.out.println("____________________________________________________________");
+        System.out.println("You've just stored \"" + input + "\" in your list!\n" +
+                dottedLine);
     }
 
     public void printList(){
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println(tildeLine);
         if (listLength == 0) {
             System.out.println(" You have not input any words yet!");
         }
@@ -22,9 +24,9 @@ public class VocabList {
                 System.out.println(vList[i].toString());
             }
         }
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println(tildeLine);
     }
-    public Vocabulary[] getList(){
+    public Vocabulary[] getList() {
         return vList;
     }
 }

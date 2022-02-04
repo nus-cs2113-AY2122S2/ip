@@ -12,6 +12,7 @@ import WordList.Event;
 
 public class Superhero {
 
+    private final String dottedLine = "____________________________________________________________";
     VocabList inputList = new VocabList();
     Scanner choice = new Scanner(System.in);
     String input;
@@ -51,9 +52,9 @@ public class Superhero {
                     int index = Integer.parseInt(inputArray.get(1));
                     inputList.getList()[index - 1].setDone(true);
                     this.printMarkMessage(index - 1);
-                } catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     printNumberFormatExceptionMessage();
-                } catch (NullPointerException e){
+                } catch (NullPointerException e) {
                     printNullPointerExceptionMessage();
                 }
                 break;
@@ -62,9 +63,9 @@ public class Superhero {
                     int index = Integer.parseInt(inputArray.get(1));
                     inputList.getList()[index - 1].setDone(false);
                     this.printUnmarkMessage(index - 1);
-                } catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     printNumberFormatExceptionMessage();
-                } catch (NullPointerException e){
+                } catch (NullPointerException e) {
                     printNullPointerExceptionMessage();
                 }
                 break;
@@ -74,57 +75,57 @@ public class Superhero {
         } while(!inputArray.get(0).equals("bye")) ;
     }
 
-    private void printWelcomeMessage(){
-        System.out.println("____________________________________________________________\n" +
+    private void printWelcomeMessage() {
+        System.out.println(dottedLine + "\n" +
                 " *Flies in*\n" +
                 " Hello! I'm your friendly neighbourhood vocabulary superhero!\n" +
                 " Come spelling bee tell me what words/phrases you know?\n" +
-                "____________________________________________________________");
+                dottedLine);
     }
 
-    private void printByeMessage(){
-        System.out.println("____________________________________________________________\n" +
+    private void printByeMessage() {
+        System.out.println(dottedLine + "\n" +
                 " Bye. I'm off saving people's vocabulary again!\n" +
                 " *Flies away*\n" +
-                "____________________________________________________________");
+                dottedLine);
     }
 
-    private void printMarkMessage(int index){
-        System.out.println("____________________________________________________________\n" +
+    private void printMarkMessage(int index) {
+        System.out.println(dottedLine + "\n" +
                 " We've just confirmed you have understood this word:\n" +
                 " [x] " + inputList.getList()[index].getWord() + "\n" +
                 " Now go learn more new words!\n" +
-                "____________________________________________________________");
+                dottedLine);
     }
 
-    private void printUnmarkMessage(int index){
-        System.out.println("____________________________________________________________\n" +
+    private void printUnmarkMessage(int index) {
+        System.out.println(dottedLine + "\n" +
                 " We've just confirmed you forgot this word:\n" +
                 " [ ] " + inputList.getList()[index].getWord() + "\n" +
                 " What happened???\n" +
-                "____________________________________________________________");
+                dottedLine);
     }
 
-    private void printInput(String input){
-        System.out.println("____________________________________________________________\n" +
+    private void printInput(String input) {
+        System.out.println(dottedLine + "\n" +
                 " You have a new word to learn: " + input + "\n" +
                 " -from your neighbourhood vocabulary superhero\n" +
-                "____________________________________________________________");
+                dottedLine);
     }
 
     private void printDefaultMessage() {
-        System.out.println("____________________________________________________________\n" +
+        System.out.println(dottedLine + "\n" +
                 " Please use keyword - bye, todo, list, todo, deadline, event, mark, unmark!\n" +
-                "____________________________________________________________");
+                dottedLine);
     }
 
     private void printNumberFormatExceptionMessage() {
         System.out.println("Second word in input is not a number!\n" +
-                "____________________________________________________________");
+                dottedLine);
     }
 
     private void printNullPointerExceptionMessage() {
         System.out.println("Your index is out of bounds!\n" +
-                "____________________________________________________________");
+                dottedLine);
     }
 }
