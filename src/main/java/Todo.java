@@ -6,7 +6,7 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        String marking = "[T]";
-        return marking + super.toString();
+        String taskLabel = "[T]";
+        return taskLabel + super.toString();
     }
 }

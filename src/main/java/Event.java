@@ -8,8 +8,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        String marking = "[E]";
+        String taskLabel = "[E]";
         String dateString = String.format(" (at: %s)", date);
-        return marking + super.toString() + dateString;
+        return taskLabel + super.toString() + dateString;
     }
 }

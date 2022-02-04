@@ -18,14 +18,16 @@ public abstract class Task {
         return feedback;
     }
 
+    private String getDoneLabel() {
+        String label = "[ ]";
+        if (isDone) {
+            label = "[X]";
+        }
+        return label;
+    }
+
     @Override
     public String toString() {
-        String marking;
-        if (isDone) {
-            marking = "[X] ";
-        } else {
-            marking = "[ ] ";
-        }
-        return marking + description;
+        return getDoneLabel() + description;
     }
 }

@@ -8,8 +8,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        String marking = "[D]";
+        String taskLabel = "[D]";
         String dateString = String.format(" (by: %s)", date);
-        return marking + super.toString() + dateString;
+        return taskLabel + super.toString() + dateString;
     }
 }

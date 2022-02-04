@@ -15,9 +15,9 @@ public class TaskList {
         Task task;
         if (taskType.equals(DEADLINE)) {
             task = new Deadline(taskDescription[0], taskDescription[1]);
-        } else if (taskType.equals(EVENT))
+        } else if (taskType.equals(EVENT)) {
             task = new Event(taskDescription[0], taskDescription[1]);
-        else {
+        } else {
             task = new Todo(taskDescription[0]);
         }
         return task;

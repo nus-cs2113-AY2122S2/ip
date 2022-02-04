@@ -1,3 +1,5 @@
+import java.util.Locale;
+
 public class Parser {
     private String input;
     private boolean isAddingTask;
@@ -58,7 +60,7 @@ public class Parser {
     }
 
     public String getCommand() {
-        return input.split(" ")[0];
+        return input.split(" ")[0].trim().toLowerCase();
     }
 
     public String[] getAddedTask() {
@@ -87,6 +89,7 @@ public class Parser {
                 description += splitInput[i] + " ";
             }
         }
+
         splitOutput[0] = description.trim();
         splitOutput[1] = date.trim();
         return splitOutput;
