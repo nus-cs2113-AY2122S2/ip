@@ -1,6 +1,9 @@
 import java.util.Scanner;
 
 public class Duke {
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
         Task[] tasks = new Task[100];
         int index = 0;
@@ -35,6 +38,10 @@ public class Duke {
         }
     }
 
+    /**
+     * @param echo
+     * @param tasks
+     */
     public static void markTask(String echo, Task[] tasks) {
         System.out.println("Nice! I've marked this task as done: ");
         int indexOfSpace = echo.indexOf(" ");
@@ -44,6 +51,10 @@ public class Duke {
         System.out.println("." + tasks[indexOfTask - 1].getStatusIcon() + tasks[indexOfTask - 1]);
     }
 
+    /**
+     * @param echo
+     * @param tasks
+     */
     public static void unMarkTask(String echo, Task[] tasks) {
         System.out.println("OK, I've marked this task as not done yet:");
         int indexOfSpace = echo.indexOf(" ");
@@ -53,12 +64,21 @@ public class Duke {
         System.out.println("." + tasks[indexOfTask - 1].getStatusIcon() + tasks[indexOfTask - 1]);
     }
 
+
+    /**
+     * @param task
+     * @param tasks
+     * @param index
+     */
     public static void addTask(Task task, Task[] tasks, int index) {
         tasks[index] = task;
         System.out.println("added: " + task);
     }
 
-
+    /**
+     * @param tasks
+     * @param index
+     */
     public static void printTasks(Task[] tasks, int index) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < index; i++) {
