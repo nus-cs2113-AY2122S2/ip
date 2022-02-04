@@ -1,4 +1,4 @@
-package task;
+package tasks;
 
 /**
  * Base abstract class for storing all kinds of tasks.
@@ -12,7 +12,7 @@ public abstract class Task {
     /**
      * The actual task description.
      */
-    public final String task;
+    public final String taskDescription;
 
     /**
      * Checks whether the item is done.
@@ -22,14 +22,14 @@ public abstract class Task {
     /**
      * Creates a Task object.
      *
-     * @param task Task description.
+     * @param taskDescription Task description.
      */
-    public Task(String type, String task) throws IllegalArgumentException {
+    public Task(String type, String taskDescription) throws IllegalArgumentException {
         this.type = type;
-        if (task == null || task.isEmpty()) {
+        if (taskDescription == null || taskDescription.isEmpty()) {
             throw new IllegalArgumentException("Task description cannot be empty!");
         }
-        this.task = task;
+        this.taskDescription = taskDescription;
     }
 
     /**
@@ -43,6 +43,6 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s][%s] %s", this.type, this.isDone ? "X" : " ", this.task);
+        return String.format("[%s][%s] %s", this.type, this.isDone ? "X" : " ", this.taskDescription);
     }
 }

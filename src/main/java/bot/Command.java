@@ -5,6 +5,8 @@ import java.util.Map;
 
 /**
  * Command class is concerned with parsing the input from the user.
+ *
+ * Note that this class is not in fact responsible for the bot's individual commands (list command, todo command).
  */
 public final class Command {
     /**

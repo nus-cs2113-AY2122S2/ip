@@ -1,4 +1,4 @@
-package task;
+package tasks;
 
 /**
  * Deadline task is a specialisation of the Task class that tracks
@@ -13,24 +13,24 @@ public final class Deadline extends Task {
     /**
      * When the deadline is.
      */
-    public String by;
+    public String completeBy;
 
     /**
      * Creates a new Deadline.
      *
      * @param task The task to complete.
-     * @param by   When the task is due by.
+     * @param completeBy   When the task is due by.
      */
-    public Deadline(String task, String by) {
+    public Deadline(String task, String completeBy) {
         super("D", task);
-        if (by == null) {
+        if (completeBy == null) {
             throw new IllegalArgumentException(String.format("No `%s` argument specified!", REQ_ARG));
         }
-        this.by = by;
+        this.completeBy = completeBy;
     }
 
     @Override
     public String toString() {
-        return String.format("%s (by: %s)", super.toString(), this.by);
+        return String.format("%s (by: %s)", super.toString(), this.completeBy);
     }
 }

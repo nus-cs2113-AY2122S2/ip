@@ -1,4 +1,4 @@
-package task;
+package tasks;
 
 /**
  * Event class is a specialisation of the Task class that tracks
@@ -13,24 +13,24 @@ public final class Event extends Task {
     /**
      * When the event will take place.
      */
-    public String at;
+    public String occursAt;
 
     /**
      * Creates a new Event object.
      *
      * @param event Event description.
-     * @param at    When the event will take place.
+     * @param occursAt    When the event will take place.
      */
-    public Event(String event, String at) throws IllegalArgumentException {
+    public Event(String event, String occursAt) throws IllegalArgumentException {
         super("E", event);
-        if (at == null) {
+        if (occursAt == null) {
             throw new IllegalArgumentException(String.format("No `%s` argument specified!", REQ_ARG));
         }
-        this.at = at;
+        this.occursAt = occursAt;
     }
 
     @Override
     public String toString() {
-        return String.format("%s (at: %s)", super.toString(), this.at);
+        return String.format("%s (at: %s)", super.toString(), this.occursAt);
     }
 }
