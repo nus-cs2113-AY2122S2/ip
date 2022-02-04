@@ -1,6 +1,6 @@
 package superhero;
 
-import superhero.Ui.Superhero;
+import superhero.ui.Superhero;
 
 public class Main {
     public static void main(String[] args) {

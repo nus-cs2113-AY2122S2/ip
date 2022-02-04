@@ -1,4 +1,4 @@
-package superhero.WordList;
+package superhero.wordlist;
 
 public class ToLearn extends Vocabulary {
     public ToLearn(String word) {

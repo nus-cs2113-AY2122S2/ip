@@ -1,4 +1,4 @@
-package superhero.Ui;
+package superhero.ui;
 import java.util.ArrayList;
 import java.util.Arrays;
 

@@ -1,13 +1,13 @@
-package superhero.Ui;
+package superhero.ui;
 
 import java.util.Scanner;
 import java.util.ArrayList;
 
-import superhero.WordList.ToLearn;
-import superhero.WordList.VocabList;
-import superhero.WordList.Vocabulary;
-import superhero.WordList.Deadline;
-import superhero.WordList.Event;
+import superhero.wordlist.ToLearn;
+import superhero.wordlist.VocabList;
+import superhero.wordlist.Vocabulary;
+import superhero.wordlist.Deadline;
+import superhero.wordlist.Event;
 
 public class Superhero {
 

@@ -1,4 +1,4 @@
-package superhero.WordList;
+package superhero.wordlist;
 
 public class Deadline extends Vocabulary {
     private String date;

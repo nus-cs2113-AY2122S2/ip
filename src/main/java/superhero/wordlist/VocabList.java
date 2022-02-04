@@ -1,4 +1,4 @@
-package superhero.WordList;
+package superhero.wordlist;
 
 public class VocabList {
     private Vocabulary[] vList = new Vocabulary[100];
