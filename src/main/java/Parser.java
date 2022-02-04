@@ -1,5 +1,3 @@
-import java.util.Locale;
-
 public class Parser {
     private String input;
     private String errorMessage;
@@ -71,6 +69,10 @@ public class Parser {
                     || command.equals("deadline")) {
             //
         }
+    }
+
+    public boolean isValidInput() {
+        return isValidInput;
     }
 
     public boolean isAddingTask() {

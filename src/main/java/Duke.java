@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Duke {
     private static Scanner SCANNER = new Scanner(System.in);
     private static Parser parser;
-    private static TaskList taskList;
+    private static TaskManager taskManager;
     private static Ui UI = new Ui();
     private static String userInput;
     private static String output;
@@ -18,7 +18,11 @@ public class Duke {
             if (parser.isExiting()) {
                 break;
             }
-            output = executeCommand();
+            if (parser.isValidInput()) {
+                output = parser.getErrorMessage();
+            } else {
+                output = executeCommand();
+            }
             showOutput(output);
         }
 
@@ -27,7 +31,7 @@ public class Duke {
 
     private static void initDuke() {
         parser = new Parser();
-        taskList = new TaskList();
+        taskManager = new TaskManager();
     }
 
     private static void showWelcomeMessage() {
@@ -63,15 +67,15 @@ public class Duke {
     }
 
     private static String listTask() {
-        return taskList.toString();
+        return taskManager.listTask();
     }
 
     private static String addTask() {
-        return taskList.addTask(parser.getCommand(), parser.getAddedTask());
+        return taskManager.addTask(parser.getCommand(), parser.getAddedTask());
     }
 
     private static String markTask() {
-        return taskList.markTask(parser.getMarkedTask()[0],
+        return taskManager.markTask(parser.getMarkedTask()[0],
                                 parser.getMarkedTask()[1]);
     }
 }

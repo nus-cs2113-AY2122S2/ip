@@ -3,42 +3,23 @@ import java.util.ArrayList;
 
 public class TaskList {
     private List<Task> tasks;
-    private static String TODO = "todo";
-    private static String DEADLINE = "deadline";
-    private static String EVENT = "event";
 
     public TaskList() {
         this.tasks = new ArrayList<Task>();
     }
 
-    private Task createTask(String taskType, String[] taskDescription) {
-        Task task;
-        if (taskType.equals(DEADLINE)) {
-            task = new Deadline(taskDescription[0], taskDescription[1]);
-        } else if (taskType.equals(EVENT)) {
-            task = new Event(taskDescription[0], taskDescription[1]);
-        } else {
-            task = new Todo(taskDescription[0]);
-        }
-        return task;
+    public Task getTask(int index) {
+        return tasks.get(index);
     }
 
-    public String addTask(String taskType, String[] taskDescription) {
-        Task newTask = createTask(taskType, taskDescription);
-        tasks.add(newTask);
-        return String.format("Got it. I've added this task:\n%s\n" +
-                                "Now you have %d tasks in list.",
-                                newTask.toString(), tasks.size());
+    public void addTask(Task task) {
+        tasks.add(task);
     }
 
-    public String markTask(String markCommand, String id) {
-        int index = Integer.valueOf(id) - 1;
-        boolean isDone = true;
-        if (markCommand.equals("unmark")) {
-            isDone = false;
-        }
-        return tasks.get(index).setDone(isDone);
+    public int getSize() {
+        return tasks.size();
     }
+
 
     @Override
     public String toString() {
