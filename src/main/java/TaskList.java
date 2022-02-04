@@ -78,7 +78,7 @@ public class TaskList {
     }
 
     public static void printTaskListUpdate(Task newTask) {
-        System.out.println("Got it!. I've added this task: ");
+        System.out.println("Got it!. I've added this task:");
         System.out.println(newTask);
         System.out.println("Now you have " +numOfTask +" tasks in the list.");
     }

@@ -9,10 +9,10 @@ public class UI {
             "\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-' ";
     final static String OUTRO_LOGO = "                               __\n" +
             "                            _ / /\n" +
-            "  __ ___      ____      __ (_) | \n" +
-            " / _` \\ \\ /\\ / /\\ \\ /\\ / /   | | \n" +
-            "| (_| |\\ V  V /  \\ V  V /   _| | \n" +
-            " \\__,_| \\_/\\_/    \\_/\\_/   (_) | \n" +
+            "  __ ___      ____      __ (_) |\n" +
+            " / _` \\ \\ /\\ / /\\ \\ /\\ / /   | |\n" +
+            "| (_| |\\ V  V /  \\ V  V /   _| |\n" +
+            " \\__,_| \\_/\\_/    \\_/\\_/   (_) |\n" +
             "                              \\_\\";
 
     public static void printIntro() {
@@ -26,7 +26,7 @@ public class UI {
     public static void printOutro() {
         System.out.println(OUTRO_LOGO);
         printBorder();
-        System.out.println(" I guess it's time to say good bye... " +
+        System.out.println(" I guess it's time to say good bye..." +
                 "\n Please come again soon!");
         printBorder();
     }

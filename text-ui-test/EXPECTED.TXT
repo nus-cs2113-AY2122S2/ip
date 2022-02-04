@@ -26,11 +26,13 @@ __________________________________________________
  1.[T][ ] read book
  2.[D][ ] return book (by: Sunday)
  3.[E][ ] attend CS2113T lecture (at: Friday 4-6pm)
+1
 Nice! I'v marked this task as done:
 [T][X] read book
  1.[T][X] read book
  2.[D][ ] return book (by: Sunday)
  3.[E][ ] attend CS2113T lecture (at: Friday 4-6pm)
+1
 Okay! I'v marked this task as not done:
 [T][ ] read book
  1.[T][ ] read book
