@@ -1,4 +1,5 @@
 import java.lang.*;
+import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
@@ -8,6 +9,14 @@ public class Duke {
         String horiLine = "____________________________________________________________\n";
 
         System.out.println(horiLine + greeting + horiLine);
+
+        Scanner task = new Scanner(System.in);
+        String command = task.nextLine();
+        while(!command.equals("bye")){
+            System.out.println(horiLine + command+ System.lineSeparator() + horiLine);
+            command = task.nextLine();
+        }
+
         System.out.println(horiLine + ending + horiLine);
 
 
