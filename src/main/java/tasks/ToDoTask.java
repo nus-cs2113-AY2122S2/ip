@@ -13,7 +13,7 @@ public class ToDoTask extends Task {
      */
     public ToDoTask(String taskDescription, String taskType) throws TodoDukeException {
         super(taskDescription, taskType);
-        if (taskDescription.length()==0){
+        if (taskDescription.length() == 0) {
             throw new TodoDukeException();
         }
     }

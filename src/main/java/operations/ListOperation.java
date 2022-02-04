@@ -1,7 +1,9 @@
 package operations;
+
 import exceptions.DukeException;
 import tasks.TaskList;
 import tasks.Task;
+
 public class ListOperation extends Operation {
 
 
@@ -17,7 +19,7 @@ public class ListOperation extends Operation {
     }
 
     @Override
-    public String operate() throws DukeException{
+    public String operate() throws DukeException {
         int sizeArray = TaskList.getSize();
         String resultLocal = "";
         try {

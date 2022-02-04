@@ -1,7 +1,8 @@
 package tasks;
 
-public class EventTask extends Task{
+public class EventTask extends Task {
     private String dateTime;
+
     public EventTask(String taskDescription, String taskType) {
         super(taskDescription, taskType);
     }
@@ -13,7 +14,7 @@ public class EventTask extends Task{
      * @param taskType The type of the task
      * @param dateTime The time of the task
      */
-    public EventTask(String taskDescription, String taskType,String dateTime){
+    public EventTask(String taskDescription, String taskType, String dateTime) {
         super();
         this.taskDescription = taskDescription;
         this.taskType = taskType;
@@ -26,7 +27,7 @@ public class EventTask extends Task{
      *
      * @param dateTime The time of the task
      */
-    public void setDateTime(String dateTime){
+    public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
     }
 
@@ -37,7 +38,7 @@ public class EventTask extends Task{
      * @return The report of the event task
      */
     @Override
-    public String getReport(){
+    public String getReport() {
         return String.format("[%s][%s] %s (at: %s)", taskType, markedSign(), taskDescription, dateTime);
     }
 

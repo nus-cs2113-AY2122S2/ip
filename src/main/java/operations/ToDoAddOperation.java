@@ -5,7 +5,7 @@ import exceptions.TodoDukeException;
 import tasks.Task;
 import tasks.TaskFactory;
 
-public class ToDoAddOperation extends AddOperation{
+public class ToDoAddOperation extends AddOperation {
 
     /**
      * Initializes operation with operationName.
@@ -27,18 +27,18 @@ public class ToDoAddOperation extends AddOperation{
     protected Task makeTask(String taskDescription) throws DukeException {
         // the "todo" is not included
         String taskType;
-        try{
-            taskType = taskDescription.split(" " , 2)[0];
-            taskDescription = taskDescription.split(" " ,2)[1];
+        try {
+            taskType = taskDescription.split(" ", 2)[0];
+            taskDescription = taskDescription.split(" ", 2)[1];
 
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new TodoDukeException();
         }
-        TaskFactory taskFactory = new TaskFactory(taskType , taskDescription);
-        try{
+        TaskFactory taskFactory = new TaskFactory(taskType, taskDescription);
+        try {
             Task newTask = taskFactory.makeTask();
             return newTask;
-        } catch (DukeException e){
+        } catch (DukeException e) {
             throw e;
         }
 

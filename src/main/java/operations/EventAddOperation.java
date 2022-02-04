@@ -4,7 +4,7 @@ import exceptions.DukeException;
 import tasks.Task;
 import tasks.TaskFactory;
 
-public class EventAddOperation extends AddOperation{
+public class EventAddOperation extends AddOperation {
 
     /**
      * Initializes operation with operationName
@@ -22,7 +22,7 @@ public class EventAddOperation extends AddOperation{
      * @return The new event task
      */
     @Override
-    protected Task makeTask(String taskDescription) throws DukeException{
+    protected Task makeTask(String taskDescription) throws DukeException {
         // the "todo" is not included
         String taskType = taskDescription.split(" ", 2)[0];
         taskDescription = taskDescription.split(" ", 2)[1];
@@ -30,8 +30,7 @@ public class EventAddOperation extends AddOperation{
             TaskFactory taskFactory = new TaskFactory(taskType, taskDescription);
             Task newTask = taskFactory.makeTask();
             return newTask;
-        } catch(DukeException e)
-        {
+        } catch (DukeException e) {
             throw e;
         }
     }

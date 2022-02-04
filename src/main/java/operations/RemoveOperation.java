@@ -4,7 +4,8 @@ import exceptions.DukeException;
 import exceptions.LossIndexDukeException;
 import tasks.TaskList;
 import tasks.Task;
-public class RemoveOperation extends Operation{
+
+public class RemoveOperation extends Operation {
 
     /**
      * Initializes operation with operationName
@@ -16,24 +17,24 @@ public class RemoveOperation extends Operation{
     }
 
     @Override
-    public String operate() throws DukeException{
+    public String operate() throws DukeException {
         int indexLocal;
-        try{
-            String [] orderListLocal = order.split(" ");
-            indexLocal = Integer.parseInt(orderListLocal[1])-1;
-        } catch(Exception e) {
+        try {
+            String[] orderListLocal = order.split(" ");
+            indexLocal = Integer.parseInt(orderListLocal[1]) - 1;
+        } catch (Exception e) {
             throw new LossIndexDukeException();
         }
         Task targetTask;
         int newSize;
-        try{
+        try {
             targetTask = TaskList.getElement(indexLocal);
             TaskList.removeElement(indexLocal);
             newSize = TaskList.getSize();
         } catch (DukeException e) {
             throw e;
         }
-        return String.format("Noted. I've removed this task: \n%s\nNow you have %d tasks in the list.",targetTask.getReport(),newSize);
+        return String.format("Noted. I've removed this task: \n%s\nNow you have %d tasks in the list.", targetTask.getReport(), newSize);
     }
 
 }

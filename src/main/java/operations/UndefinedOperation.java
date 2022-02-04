@@ -11,8 +11,8 @@ public class UndefinedOperation extends Operation {
      * @param operationNameLocal Name of the operations.Operation
      * @param order Order given by user
      */
-    public UndefinedOperation(String operationNameLocal , String order) throws DukeException {
-        super(operationNameLocal , order);
+    public UndefinedOperation(String operationNameLocal, String order) throws DukeException {
+        super(operationNameLocal, order);
         result = "Oops, I'm not sure what you mean.";
     }
 

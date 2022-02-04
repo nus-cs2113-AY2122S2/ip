@@ -1,8 +1,8 @@
 package tasks;
 
 public class Task {
-    protected  String taskDescription;
-    protected  Boolean marked = false;
+    protected String taskDescription;
+    protected Boolean marked = false;
     protected String taskType = " ";
 
     /**
@@ -10,8 +10,8 @@ public class Task {
      *
      * @param taskDescription The description of the task
      */
-    public Task(String taskDescription){
-        this.taskDescription =  taskDescription;
+    public Task(String taskDescription) {
+        this.taskDescription = taskDescription;
     }
 
     /**
@@ -20,9 +20,9 @@ public class Task {
      * @param taskDescription The description of the task
      * @param taskType The type of the task
      */
-    public Task(String taskDescription, String taskType){
+    public Task(String taskDescription, String taskType) {
         this.taskDescription = taskDescription;
-        this.taskType =  taskType;
+        this.taskType = taskType;
     }
 
     public Task() {
@@ -35,7 +35,7 @@ public class Task {
      *
      * @return The description of the task
      */
-    public String getTaskDescription(){
+    public String getTaskDescription() {
         return taskDescription;
     }
 
@@ -45,11 +45,11 @@ public class Task {
      *
      * @return markedSign
      */
-    protected String markedSign(){
-        if(marked!=true){
+    protected String markedSign() {
+        if (marked != true) {
             return " ";
         }
-        else{
+        else {
             return "X";
         }
     }
@@ -60,7 +60,7 @@ public class Task {
      *
      * @return The report of the task
      */
-    public String getReport(){
+    public String getReport() {
         return String.format("[%s][%s] %s", taskType, markedSign(), taskDescription);
     }
 
@@ -70,7 +70,7 @@ public class Task {
      * @param isMark Boolean that is to be set
      */
     public void setMark(Boolean isMark) {
-       marked = isMark;
+        marked = isMark;
     }
 
 }

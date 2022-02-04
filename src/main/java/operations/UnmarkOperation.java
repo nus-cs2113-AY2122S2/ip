@@ -17,8 +17,8 @@ public class UnmarkOperation extends Operation {
     }
 
     @Override public String operate() throws DukeException{
-        String [] orderListLocal = order.split(" ");
-        int indexLocal = Integer.parseInt(orderListLocal[1])-1;
+        String[] orderListLocal = order.split(" ");
+        int indexLocal = Integer.parseInt(orderListLocal[1]) - 1;
         int listSize =  TaskList.getSize();
         try{
             TaskList.getElement(indexLocal).setMark(false);

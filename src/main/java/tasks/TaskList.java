@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * In charge of the global task list.
  */
 public class TaskList {
-    private static ArrayList<Task> taskArrayList =  new ArrayList<>();
+    private static ArrayList<Task> taskArrayList = new ArrayList<>();
 
     /**
      * Adds tasks.
@@ -17,7 +17,7 @@ public class TaskList {
      * @param newTaskLocal The new task to be appended
      * @return The indication of the result of the addTask operation
      */
-    public static void addTask (Task newTaskLocal) {
+    public static void addTask(Task newTaskLocal) {
         try {
             TaskList.taskArrayList.add(newTaskLocal);
         } catch (Exception e) {
@@ -42,7 +42,7 @@ public class TaskList {
         try {
             Task targetTask = taskArrayList.get(indexLocal);
             return targetTask;
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new TaskListDukeException();
         }
     }
@@ -53,9 +53,9 @@ public class TaskList {
      * @throws DukeException Indicate the out of range exception
      */
     public static void removeElement(int indexLocal) throws DukeException {
-        try{
+        try {
             taskArrayList.remove(indexLocal);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new TaskListDukeException();
         }
     }
