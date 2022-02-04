@@ -1,14 +1,13 @@
-package Ui;
+package superhero.Ui;
 
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import WordList.ToLearn;
-import WordList.VocabList;
-import WordList.Vocabulary;
-import WordList.Deadline;
-import WordList.Event;
+import superhero.WordList.ToLearn;
+import superhero.WordList.VocabList;
+import superhero.WordList.Vocabulary;
+import superhero.WordList.Deadline;
+import superhero.WordList.Event;
 
 public class Superhero {
 
@@ -134,7 +133,7 @@ public class Superhero {
      * Method to print message when user input does not contain keyword
      */
     private void printDefaultMessage() {
-        System.out.println(" Please use keyword - bye, todo, list, todo, deadline, event, mark, unmark!\n" +
+        System.out.println(" Please use keyword - bye, list, tolearn, deadline, event, mark, unmark!\n" +
                 dottedLine);
     }
 

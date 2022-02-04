@@ -1,7 +1,7 @@
-package WordList;
+package superhero.WordList;
 
 public class ToLearn extends Vocabulary {
-    public ToLearn(String word){
+    public ToLearn(String word) {
         super(word);
     }
 
