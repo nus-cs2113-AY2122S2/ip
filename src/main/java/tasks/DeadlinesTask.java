@@ -1,11 +1,10 @@
 package tasks;
 
+import java.util.HashMap;
+
 public class DeadlinesTask extends Task {
     private String dateTime;
-
-    public DeadlinesTask(String taskDescription, String taskType) {
-        super(taskDescription, taskType);
-    }
+    private static final String DATE_TIME_FIELD = "dateTime";
 
     /**
      * Initializes deadline task with task description and task type and dateTime
@@ -15,10 +14,17 @@ public class DeadlinesTask extends Task {
      * @param dateTime
      */
     public DeadlinesTask(String taskDescription, String taskType, String dateTime) {
-        super();
-        this.taskDescription = taskDescription;
-        this.taskType = taskType;
+        super(taskDescription, taskType);
         this.dateTime = dateTime;
+    }
+
+    /**
+     * Initializes deadline task with compressed object
+     * @param compressedObject Compressed object that contains all model information for initialize that task
+     */
+    public DeadlinesTask(HashMap<String, Object> compressedObject) {
+        super( compressedObject);
+        dateTime = (String) compressedObject.get(DATE_TIME_FIELD);
     }
 
     /**
@@ -38,5 +44,16 @@ public class DeadlinesTask extends Task {
     @Override
     public String getReport() {
         return String.format("[%s][%s] %s (by: %s)", taskType, markedSign(), taskDescription, dateTime);
+    }
+
+    /**
+     * Compresses the task objects into a map objects
+     * @return A compressed object that can initialize the model task again
+     */
+    @Override
+    public HashMap<String, Object> compress() {
+        HashMap<String, Object> compressedObject = super.compress();
+        compressedObject.put(DATE_TIME_FIELD, dateTime);
+        return compressedObject;
     }
 }
