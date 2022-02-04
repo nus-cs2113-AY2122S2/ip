@@ -10,7 +10,7 @@ public class Duke {
             + "What can I do for you?\n"
             + "______________________________________________________________";
         System.out.println(greetings);
-        String echo = greetings;
+        String echo;
 
         Scanner sc = new Scanner(System.in);
 
@@ -22,7 +22,11 @@ public class Duke {
                 System.out.println("----------------------------------------------------------------\n");
                 break;
             } else if (echo.equals("list")){
-                printTasks(tasks);
+                printTasks(tasks, index);
+            } else if (echo.substring(0, (echo.indexOf(" "))).equals("mark")) {
+                markTask(echo, tasks);
+            } else if (echo.substring(0, (echo.indexOf(" "))).equals("unmark")) {
+                unMarkTask(echo, tasks);
             } else {
                 addTask(new Task(echo), tasks, index);
                 index++;
@@ -31,14 +35,36 @@ public class Duke {
         }
     }
 
+    public static void markTask(String echo, Task[] tasks) {
+        System.out.println("Nice! I've marked this task as done: ");
+        int indexOfSpace = echo.indexOf(" ");
+        int indexOfTask = Integer.parseInt(echo.substring(indexOfSpace + 1));
+        tasks[indexOfTask - 1] = tasks[indexOfTask - 1].markDone();
+        System.out.print(indexOfTask);
+        System.out.println("." + tasks[indexOfTask - 1].getStatusIcon() + tasks[indexOfTask - 1]);
+    }
+
+    public static void unMarkTask(String echo, Task[] tasks) {
+        System.out.println("OK, I've marked this task as not done yet:");
+        int indexOfSpace = echo.indexOf(" ");
+        int indexOfTask = Integer.parseInt(echo.substring(indexOfSpace + 1));
+        tasks[indexOfTask - 1] = tasks[indexOfTask - 1].markUndone();
+        System.out.print(indexOfTask);
+        System.out.println("." + tasks[indexOfTask - 1].getStatusIcon() + tasks[indexOfTask - 1]);
+    }
+
     public static void addTask(Task task, Task[] tasks, int index) {
         tasks[index] = task;
         System.out.println("added: " + task);
     }
 
-    public static void printTasks(Task[] tasks) {
-        for (int i = 0; i < tasks.length; i++) {
-            System.out.println(tasks);
+
+    public static void printTasks(Task[] tasks, int index) {
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < index; i++) {
+            System.out.print(i + 1);
+            System.out.println("." + tasks[i].getStatusIcon() + tasks[i]);
         }
     }
+
 }
