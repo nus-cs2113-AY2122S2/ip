@@ -2,6 +2,8 @@ import java.util.Locale;
 
 public class Parser {
     private String input;
+    private String errorMessage;
+    private boolean isValidInput;
     private boolean isAddingTask;
     private boolean isMarkingTask;
     private boolean isListingTasks;
@@ -9,6 +11,8 @@ public class Parser {
 
     Parser() {
         this.input = "";
+        this.errorMessage = "";
+        this.isValidInput = true;
         this.isAddingTask = false;
         this.isMarkingTask = false;
         this.isListingTasks = false;
@@ -17,6 +21,8 @@ public class Parser {
 
     private void reset() {
         input = "";
+        isValidInput = true;
+        errorMessage = "";
         isAddingTask = false;
         isMarkingTask = false;
         isListingTasks = false;
@@ -28,6 +34,11 @@ public class Parser {
         this.input = input;
         String command = getCommand();
         setParam(command);
+        if (isValidInput) {
+            setInvalidCommand();
+        } else {
+            checkInputIsValid(command);
+        }
     }
 
     private void setParam(String command) {
@@ -40,6 +51,25 @@ public class Parser {
         } else if (command.equals("todo") || command.equals("event")
                 || command.equals("deadline")) {
             isAddingTask = true;
+        } else {
+            isValidInput = false;
+        }
+    }
+
+    private void setInvalidCommand() {
+        errorMessage = "Invalid Command";
+    }
+
+    private void checkInputIsValid(String command) {
+        if (command.equals("bye")) {
+            //
+        } else if (command.equals("list")) {
+            //
+        } else if (command.equals("mark") || command.equals("unmark")) {
+            //
+        } else if (command.equals("todo") || command.equals("event")
+                    || command.equals("deadline")) {
+            //
         }
     }
 
@@ -61,6 +91,10 @@ public class Parser {
 
     public String getCommand() {
         return input.split(" ")[0].trim().toLowerCase();
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
     public String[] getAddedTask() {
