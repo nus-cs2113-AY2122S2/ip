@@ -182,7 +182,7 @@ public final class Sailfish {
 
         // Remove this task.
         this.tasks.remove(task);
-        System.out.printf("Noted. I've removed this task:\n%s\n" +
+        System.out.printf("Noted. I've removed this task:\n\t%s\n" +
                 "Now you have %d tasks in the list.\n", task, this.tasks.size());
     }
 
