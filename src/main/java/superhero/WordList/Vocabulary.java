@@ -1,4 +1,4 @@
-package WordList;
+package superhero.WordList;
 
 public class Vocabulary {
     private String word;

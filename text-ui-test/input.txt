@@ -1,6 +1,6 @@
 hi
 list
-todo onomatopoeia
+tolearn onomatopoeia
 deadline amenable/Sunday 4pm
 list
 mark 1

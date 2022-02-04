@@ -1,4 +1,4 @@
-package WordList;
+package superhero.WordList;
 
 public class Event extends Vocabulary {
     private String eventTime;
