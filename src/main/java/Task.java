@@ -7,9 +7,10 @@ public class Task {
 
     /**
      * Constructor for a new Task, assumes that the Task is not completed.
+     *
      * @param taskInfo
      */
-    public Task(String taskInfo){
+    public Task(String taskInfo) {
         this.taskInfo = taskInfo;
         this.isDone = false;
     }
@@ -27,15 +28,15 @@ public class Task {
     }
 
     public void setDone(boolean done) {
-        isDone = done;
+        this.isDone = done;
     }
 
     @Override
     public String toString() {
         String completion = " ";
-        if (isDone){
+        if (isDone) {
             completion = "X";
         }
-        return "["+completion+"] "+taskInfo;
+        return "[" + completion + "] " + taskInfo;
     }
 }

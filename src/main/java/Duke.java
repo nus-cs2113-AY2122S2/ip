@@ -31,10 +31,10 @@ public class Duke {
                 taskList.addToDo(toDoTask);
             } else if (input.startsWith("deadline")) {
                 String[] deadlineTask = inputReader.extractDeadlineTask(input);
-                taskList.addDeadline(deadlineTask[0],deadlineTask[1]);
+                taskList.addDeadline(deadlineTask[0], deadlineTask[1]);
             } else if (input.startsWith("event")) {
                 String[] eventTask = inputReader.extractEventTask(input);
-                taskList.addEvent(eventTask[0],eventTask[1]);
+                taskList.addEvent(eventTask[0], eventTask[1]);
             } else {
                 promptAgain();
             }
@@ -48,14 +48,13 @@ public class Duke {
         System.out.println("Try again!");
     }
 
-    private static void greet(){
+    private static void greet() {
         System.out.println(GREET_STRING);
     }
 
-    private static void bye(){
+    private static void bye() {
         System.out.println(BYE_STRING);
     }
-
 
 
 }

@@ -1,7 +1,7 @@
 public class Deadline extends Task {
     private String dueTime;
 
-    public Deadline(String taskInfo, String dueTime){
+    public Deadline(String taskInfo, String dueTime) {
         super(taskInfo);
         this.dueTime = dueTime;
     }
@@ -9,10 +9,10 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String completion = " ";
-        if (super.isDone()){
+        if (super.isDone()) {
             completion = "X";
         }
-        return "[D]["+completion+"] "+super.getTaskInfo()+"(by: "+dueTime+")";
+        return "[D][" + completion + "] " + super.getTaskInfo() + "(by: " + dueTime + ")";
     }
 
 }
