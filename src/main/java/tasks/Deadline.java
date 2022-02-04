@@ -18,15 +18,31 @@ public final class Deadline extends Task {
     /**
      * Creates a new Deadline.
      *
-     * @param task The task to complete.
-     * @param completeBy   When the task is due by.
+     * @param task       The task to complete.
+     * @param isDone     Whether the task is done.
+     * @param completeBy When the task is due by.
      */
-    public Deadline(String task, String completeBy) {
-        super("D", task);
+    public Deadline(String task, boolean isDone, String completeBy) {
+        super("D", isDone, task);
         if (completeBy == null) {
             throw new IllegalArgumentException(String.format("No `%s` argument specified!", REQ_ARG));
         }
         this.completeBy = completeBy;
+    }
+
+    /**
+     * Attempts to unmarshal a storage-friendly parts string into a Deadline object.
+     *
+     * @param parts A storage-friendly string split into parts.
+     * @return Parsed Deadline object.
+     */
+    public static Deadline unMarshal(String[] parts) {
+        return new Deadline(parts[2], Boolean.parseBoolean(parts[1]), parts[3]);
+    }
+
+    @Override
+    public String marshal() {
+        return String.format("%s | %s", super.marshal(), this.completeBy);
     }
 
     @Override

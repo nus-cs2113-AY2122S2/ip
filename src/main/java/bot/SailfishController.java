@@ -5,6 +5,7 @@ import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -29,7 +30,7 @@ public final class SailfishController {
     /**
      * Creates the bot.
      */
-    public SailfishController() {
+    public SailfishController() throws IOException {
         this.scanner = new Scanner(System.in);
         this.manager = new SailfishManager();
     }
@@ -38,8 +39,10 @@ public final class SailfishController {
      * Makes the bot take control of the application.
      * <p>
      * This method shows the welcome message and then waits for input.
+     *
+     * @throws IOException Error saving data.
      */
-    public void takeControl() {
+    public void takeControl() throws IOException {
         // Prints the welcome text.
         this.printWelcome();
 
@@ -62,7 +65,7 @@ public final class SailfishController {
                 this.unMark(command);
                 break;
             case "bye": // Exit the app.
-                System.out.println("Farewell, sailor!");
+                this.bye();
                 return;
             default: // By default, we assume that the user is using a command that adds a task.
                 this.addTask(command);
@@ -147,6 +150,16 @@ public final class SailfishController {
     }
 
     /**
+     * Exit the application.
+     *
+     * @throws IOException Error saving data.
+     */
+    private void bye() throws IOException {
+        System.out.println("Farewell, sailor!");
+        this.manager.saveData();
+    }
+
+    /**
      * Add a new task.
      *
      * @param command Command object containing parsed information.
@@ -157,13 +170,13 @@ public final class SailfishController {
         try {
             switch (command.getCommand()) {
             case "todo":
-                newTask = new Todo(command.getDesc());
+                newTask = new Todo(command.getDesc(), false);
                 break;
             case "deadline":
-                newTask = new Deadline(command.getDesc(), command.getArgument(Deadline.REQ_ARG));
+                newTask = new Deadline(command.getDesc(), false, command.getArgument(Deadline.REQ_ARG));
                 break;
             case "event":
-                newTask = new Event(command.getDesc(), command.getArgument(Event.REQ_ARG));
+                newTask = new Event(command.getDesc(), false, command.getArgument(Event.REQ_ARG));
                 break;
             default:
                 throw new IllegalArgumentException("Unknown command!");
