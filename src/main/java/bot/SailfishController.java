@@ -5,14 +5,12 @@ import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
  * The bot.
  */
-public final class Sailfish {
+public final class SailfishController {
     /**
      * The width for the screen.
      */
@@ -26,14 +24,14 @@ public final class Sailfish {
     /**
      * The list of tasks stored by the bot.
      */
-    private final List<Task> tasks;
+    private final SailfishManager manager;
 
     /**
      * Creates the bot.
      */
-    public Sailfish() {
+    public SailfishController() {
         this.scanner = new Scanner(System.in);
-        this.tasks = new ArrayList<>();
+        this.manager = new SailfishManager();
     }
 
     /**
@@ -88,25 +86,10 @@ public final class Sailfish {
     }
 
     /**
-     * Helper method to get a task at a particular index.
-     *
-     * @param command Command object containing parsed information.
-     * @return Task object.
-     * @throws NumberFormatException For invalid index.
-     */
-    private Task getTask(Command command) throws NumberFormatException {
-        int index = Integer.parseInt(command.getDesc()) - 1;
-        if (index < 0 || index >= this.tasks.size()) {
-            throw new NumberFormatException("Please specify a integer for the index and range!");
-        }
-        return this.tasks.get(index);
-    }
-
-    /**
      * List all stored tasks.
      */
     private void list() {
-        if (this.tasks.size() == 0) {
+        if (this.manager.getNumTasks() == 0) {
             System.out.println("No tasks!");
             return;
         }
@@ -115,8 +98,8 @@ public final class Sailfish {
         builder.append("Here are the tasks in your list:\n");
 
         // Add each task.
-        for (int i = 0; i < this.tasks.size(); i++) {
-            builder.append(String.format("%d. %s\n", i + 1, this.tasks.get(i)));
+        for (int i = 0; i < this.manager.getNumTasks(); i++) {
+            builder.append(String.format("%d. %s\n", i + 1, this.manager.getTask(i)));
         }
         builder.deleteCharAt(builder.length() - 1);  // Remove last newline.
 
@@ -133,7 +116,7 @@ public final class Sailfish {
         // Get the index of the task to mark.
         Task task;
         try {
-            task = this.getTask(command);
+            task = this.manager.getTask(command);
         } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
             return;
@@ -152,7 +135,7 @@ public final class Sailfish {
     private void unMark(Command command) {
         Task task;
         try {
-            task = this.getTask(command);
+            task = this.manager.getTask(command);
         } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
             return;
@@ -191,8 +174,8 @@ public final class Sailfish {
         }
 
         // Really add it now!
-        this.tasks.add(newTask);
+        this.manager.addTask(newTask);
         System.out.printf("Got it. I've added this task:\n\t%s\n" +
-                "Now you have %d tasks in the list.\n", newTask, this.tasks.size());
+                "Now you have %d tasks in the list.\n", newTask, this.manager.getNumTasks());
     }
 }
