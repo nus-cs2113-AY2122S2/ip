@@ -1,11 +1,11 @@
 public class Event extends Task {
-    private String at;
+    private String eventDate;
 
     public String getTypeIcon() { return "E"; }
 
     public Event(String eventDescription, String eventTime) {
         super(eventDescription);
-        this.at = eventTime;
+        this.eventDate = eventTime;
     }
 
     public void printItem() {
@@ -13,7 +13,9 @@ public class Event extends Task {
         System.out.println(message);
     }
 
-    public String getEventDate() { return at; }
+    public String getEventDate() {
+        return eventDate;
+    }
 
     public String getDescription() {
         String message = super.getDescription() + " (at: " + getEventDate() + ")";

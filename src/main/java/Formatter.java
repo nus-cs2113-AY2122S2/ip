@@ -23,8 +23,25 @@ public class Formatter {
         return -1;
     }
 
-    public static void inputHandler() {
-        Scanner in = new Scanner(System.in);
+    /**
+     * Returns index of task specified by user
+     * Returns -1 if the index is invalid or out of range
+     *
+     * @param userCommand String array of userCommand
+     */
+    public static int getTaskIndex(String[] userCommand) {
+        int taskIndex = Integer.parseInt(userCommand[1]) - 1;
+        if (taskIndex >= UserList.getListSize()) {
+            return -1;
+        }
+        return taskIndex;
+    }
+
+    public static boolean checkValidIndex(int index) {
+        return index != -1;
+    }
+
+    public static void inputHandler(Scanner in) {
         String inputLine = in.nextLine();
         String[] userCommand = inputLine.split(" ");
         int taskIndex = -1;
@@ -44,20 +61,20 @@ public class Formatter {
             break;
 
         case "mark":
-            taskIndex = Integer.parseInt(userCommand[1]) - 1;
-            if (taskIndex >= UserList.getListSize()) {
-                DisplayMessages.outOfBounds();
-            } else {
+            taskIndex = getTaskIndex(userCommand);
+            if (checkValidIndex(taskIndex)) {
                 UserList.markTask(taskIndex);
+            } else {
+                DisplayMessages.outOfBounds();
             }
             break;
 
         case "unmark":
-            taskIndex = Integer.parseInt(userCommand[1]) - 1;
-            if (taskIndex >= UserList.getListSize()) {
-                DisplayMessages.outOfBounds();
-            } else {
+            taskIndex = getTaskIndex(userCommand);
+            if (checkValidIndex(taskIndex)) {
                 UserList.unmarkTask(taskIndex);
+            } else {
+                DisplayMessages.outOfBounds();
             }
             break;
 

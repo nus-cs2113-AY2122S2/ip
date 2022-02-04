@@ -1,11 +1,13 @@
 public class Deadline extends Task{
-    private String by;
+    private String deadlineDate;
 
-    public String getTypeIcon() { return "D"; }
+    public String getTypeIcon() {
+        return "D";
+    }
 
     public Deadline(String taskDescription, String deadline) {
         super(taskDescription);
-        this.by = deadline;
+        this.deadlineDate = deadline;
     }
 
     public void printItem() {
@@ -13,7 +15,9 @@ public class Deadline extends Task{
         System.out.println(message);
     }
 
-    public String getDeadlineDate() { return by; }
+    public String getDeadlineDate() {
+        return deadlineDate;
+    }
 
     public String getDescription() {
         String message = super.getDescription() + " (by: " + getDeadlineDate() + ")";

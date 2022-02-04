@@ -1,5 +1,6 @@
 public class DisplayMessages {
     final static String HORIZONTAL_LINE = "____________________________________________________________\n";
+    final static String SOFT_BREAK = "============================================================\n";
 
     public static void horizontalLine() {
         System.out.print(HORIZONTAL_LINE);
@@ -23,23 +24,50 @@ public class DisplayMessages {
 
 
     public static void startingMessage() {
-        String message = HORIZONTAL_LINE
-                + "Hello! I'm Duke\n"
-                + "What can I do for you?\n"
+        String message =
+                  " _    _      _                          \n"
+                + "| |  | |    | |                         \n"
+                + "| |  | | ___| | ___ ___  _ __ ___   ___ \n"
+                + "| |/\\| |/ _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\\n"
+                + "\\  /\\  /  __/ | (_| (_) | | | | | |  __/\n"
+                + " \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___\n"
+                + " _            ___                  _     \n"
+                + "| |          |_  |                (_)    \n"
+                + "| |_ ___       | | __ _ _ ____   ___ ___ \n"
+                + "| __/ _ \\      | |/ _` | '__\\ \\ / / / __|\n"
+                + "| || (_) | /\\__/ / (_| | |   \\ V /| \\__ \\\n"
+                + " \\__\\___/  \\____/ \\__,_|_|    \\_/ |_|___/\n"
+                + "How can I help you today?\n"
                 + HORIZONTAL_LINE;
 
         System.out.println(message);
     }
 
     public static void closingMessage() {
-        String message = HORIZONTAL_LINE + " Bye. Hope to see you again soon!\n"
+        String message = HORIZONTAL_LINE
+                + "______            _ \n"
+                + "| ___ \\          | |\n"
+                + "| |_/ /_   _  ___| |\n"
+                + "| ___ \\ | | |/ _ \\ |\n"
+                + "| |_/ / |_| |  __/_|\n"
+                + "\\____/ \\__, |\\___(_)\n"
+                + "        __/ |       \n"
+                + "       |___/        \n"
+                + "______                      _                   _                           \n"
+                + "| ___ \\                    (_)                 | |                          \n"
+                + "| |_/ /____      _____ _ __ _ _ __   __ _    __| | _____      ___ __        \n"
+                + "|  __/ _ \\ \\ /\\ / / _ \\ '__| | '_ \\ / _` |  / _` |/ _ \\ \\ /\\ / / '_ \\       \n"
+                + "| | | (_) \\ V  V /  __/ |  | | | | | (_| | | (_| | (_) \\ V  V /| | | |_ _ _ \n"
+                + "\\_|  \\___/ \\_/\\_/ \\___|_|  |_|_| |_|\\__, |  \\__,_|\\___/ \\_/\\_/ |_| |_(_|_|_)\n"
+                + "                                     __/ |                                  \n"
+                + "                                    |___/                                   \n"
                 + HORIZONTAL_LINE;
         System.out.println(message);
     }
 
     public static void emptyList() {
         String message = HORIZONTAL_LINE
-                    + "Your list is currently empty. Add some items to your list first.\n"
+                    + "Your list is currently empty. Try adding some items to your list first.\n"
                     + HORIZONTAL_LINE;
         System.out.println(message);
     }
