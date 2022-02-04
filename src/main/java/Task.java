@@ -27,8 +27,8 @@ public class Task {
         return isDone;
     }
 
-    public void setDone(boolean done) {
-        this.isDone = done;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     @Override
