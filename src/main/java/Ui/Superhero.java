@@ -12,12 +12,17 @@ import WordList.Event;
 
 public class Superhero {
 
-    private final String dottedLine = "____________________________________________________________";
+    private final String dottedLine = "________________________________________________________________________________";
     VocabList inputList = new VocabList();
     Scanner choice = new Scanner(System.in);
     String input;
     ArrayList<String> inputArray;
 
+    /**
+     * This method is the main method for the Superhero class
+     * and it is responsible for displaying messages (by calling other methods)
+     * and receiving input from user
+     */
     public void startVocabCheck() {
         this.printWelcomeMessage();
         do {
@@ -30,22 +35,34 @@ public class Superhero {
             case "list":
                 inputList.printList();
                 break;
-            case "todo":
-                Vocabulary newTodoWord = new ToLearn(inputArray.get(1));
-                printInput(newTodoWord.getWord());
-                inputList.appendList(newTodoWord);
+            case "tolearn":
+                try {
+                    Vocabulary newTolearnWord = new ToLearn(inputArray.get(1));
+                    printInput(newTolearnWord.getWord());
+                    inputList.appendList(newTolearnWord);
+                } catch (IndexOutOfBoundsException e) {
+                    printIndexOutOfBoundsExceptionMessage("tolearn");
+                }
                 break;
             case "deadline":
-                ArrayList<String> deadlineArray = Parser.readTaskDate(inputArray);
-                Vocabulary newDeadlineWord = new Deadline(deadlineArray.get(0), deadlineArray.get(1));
-                printInput(newDeadlineWord.getWord());
-                inputList.appendList(newDeadlineWord);
+                try {
+                    ArrayList<String> deadlineArray = Parser.readTaskDate(inputArray);
+                    Vocabulary newDeadlineWord = new Deadline(deadlineArray.get(0), deadlineArray.get(1));
+                    printInput(newDeadlineWord.getWord());
+                    inputList.appendList(newDeadlineWord);
+                } catch (IndexOutOfBoundsException e) {
+                    printIndexOutOfBoundsExceptionMessage("deadline");
+                }
                 break;
             case "event":
-                ArrayList<String> eventArray = Parser.readTaskDate(inputArray);
-                Vocabulary newEventWord = new Event(eventArray.get(0), eventArray.get(1));
-                printInput(newEventWord.getWord());
-                inputList.appendList(newEventWord);
+                try {
+                    ArrayList<String> eventArray = Parser.readTaskDate(inputArray);
+                    Vocabulary newEventWord = new Event(eventArray.get(0), eventArray.get(1));
+                    printInput(newEventWord.getWord());
+                    inputList.appendList(newEventWord);
+                } catch (IndexOutOfBoundsException e) {
+                    printIndexOutOfBoundsExceptionMessage("event");
+                }
                 break;
             case "mark":
                 try {
@@ -72,7 +89,7 @@ public class Superhero {
             default:
                 printDefaultMessage();
             }
-        } while(!inputArray.get(0).equals("bye")) ;
+        } while(!inputArray.get(0).equals("bye"));
     }
 
     private void printWelcomeMessage() {
@@ -113,19 +130,42 @@ public class Superhero {
                 dottedLine);
     }
 
+    /**
+     * Method to print message when user input does not contain keyword
+     */
     private void printDefaultMessage() {
-        System.out.println(dottedLine + "\n" +
-                " Please use keyword - bye, todo, list, todo, deadline, event, mark, unmark!\n" +
+        System.out.println(" Please use keyword - bye, todo, list, todo, deadline, event, mark, unmark!\n" +
                 dottedLine);
     }
 
+    /**
+     * Method to print message when user wants to mark/unmark a vocabulary but the second word is not a number
+     */
     private void printNumberFormatExceptionMessage() {
         System.out.println("Second word in input is not a number!\n" +
                 dottedLine);
     }
 
+    /**
+     * Method to print message when user inputs index of vocabulary that does not exist
+     */
     private void printNullPointerExceptionMessage() {
-        System.out.println("Your index is out of bounds!\n" +
+        System.out.println("There is no word with this index in the list!\n" +
                 dottedLine);
+    }
+
+    /**
+     * Method to print message when user has missing fields when adding a vocabulary
+     * @param taskName Type of task is needed to identify what message to print
+     */
+    public void printIndexOutOfBoundsExceptionMessage(String taskName){
+        if (taskName.equals("tolearn")) {
+            System.out.println("Wrong format! Format should be as such: tolearn (vocab)\n" +
+                    dottedLine);
+        }
+        else {
+            System.out.println("Wrong format! Format should be as such: " + taskName + " (vocab)/(time)\n" +
+                    dottedLine);
+        }
     }
 }

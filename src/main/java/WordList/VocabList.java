@@ -3,8 +3,8 @@ package WordList;
 public class VocabList {
     private Vocabulary[] vList = new Vocabulary[100];
     private int listLength = 0;
-    private final String dottedLine = "____________________________________________________________";
-    private final String tildeLine = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+    private final String dottedLine = "________________________________________________________________________________";
+    private final String tildeLine = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
 
     public void appendList(Vocabulary input){
         vList[listLength] = input;
