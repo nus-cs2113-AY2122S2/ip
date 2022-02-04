@@ -18,7 +18,7 @@ public abstract class Operation {
      * @param operationNameLocal Name of the operations.Operation
      * @param order Order given by User
      */
-    public Operation(String operationNameLocal, String order) throws DukeException{
+    public Operation(String operationNameLocal, String order) throws DukeException {
         try {
             this.operationName = operationNameLocal;
             this.order = order;
@@ -26,7 +26,6 @@ public abstract class Operation {
         } catch (DukeException e) {
             throw e;
         }
-
 
 
     }

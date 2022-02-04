@@ -14,20 +14,18 @@ public class TaskFactory {
     private static final String EVENT_TASK = "event";
 
 
-
-
     /**
      * Initializes the task factory.
      *
      * @param taskType
      * @param taskDecription
      */
-    public TaskFactory(String taskType, String taskDecription){
+    public TaskFactory(String taskType, String taskDecription) {
         this.taskDescription = taskDecription;
         this.taskType = taskType;
     }
 
-    public TaskFactory(){
+    public TaskFactory() {
     }
 
     /**
@@ -40,8 +38,7 @@ public class TaskFactory {
         case TODO_TASK:
             try {
                 return new ToDoTask(taskDescription, "T");
-            } catch (TodoDukeException e1)
-            {
+            } catch (TodoDukeException e1) {
                 throw e1;
 
             }
@@ -74,7 +71,7 @@ public class TaskFactory {
      *
      * @param taskType The task type
      */
-    public void setTaskType(String taskType){
+    public void setTaskType(String taskType) {
         this.taskType = taskType;
     }
 }

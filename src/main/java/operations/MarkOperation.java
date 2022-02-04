@@ -1,6 +1,8 @@
 package operations;
+
 import exceptions.DukeException;
 import tasks.TaskList;
+
 public class MarkOperation extends Operation {
 
     /**
@@ -14,13 +16,15 @@ public class MarkOperation extends Operation {
         super(operationNameLocal, order);
     }
 
-    @Override public String operate() {
-        String [] orderList = order.split(" ");
+    @Override
+    public String operate() {
+        String[] orderList = order.split(" ");
         int indexLocal = Integer.parseInt(orderList[1]) - 1;
-        int listSizeLocal =  TaskList.getSize();
+        int listSizeLocal = TaskList.getSize();
         if (indexLocal >= listSizeLocal) {
             return "Woops! fail to mark this task: \n   tasks.Task index out of range";
-        } else {
+        }
+        else {
             TaskList.getElement(indexLocal).setMark(true);
             return "Nice! I've marked this task as done: \n " + TaskList.getElement(indexLocal).getReport();
         }

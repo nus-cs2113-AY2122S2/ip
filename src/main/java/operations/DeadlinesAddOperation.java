@@ -21,7 +21,7 @@ public class DeadlinesAddOperation extends AddOperation {
      * @return A new DeadlineTask
      */
     @Override
-    protected Task makeTask(String taskDescription) throws DukeException{
+    protected Task makeTask(String taskDescription) throws DukeException {
         // the "todo" is not included
         String taskType = taskDescription.split(" ", 2)[0];
         taskDescription = taskDescription.split(" ", 2)[1];

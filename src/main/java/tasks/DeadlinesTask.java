@@ -1,9 +1,10 @@
 package tasks;
 
-public class DeadlinesTask extends Task{
+public class DeadlinesTask extends Task {
     private String dateTime;
-    public DeadlinesTask(String taskDescription , String taskType) {
-        super(taskDescription , taskType);
+
+    public DeadlinesTask(String taskDescription, String taskType) {
+        super(taskDescription, taskType);
     }
 
     /**
@@ -13,7 +14,7 @@ public class DeadlinesTask extends Task{
      * @param taskType
      * @param dateTime
      */
-    public DeadlinesTask(String taskDescription , String taskType,String dateTime){
+    public DeadlinesTask(String taskDescription, String taskType, String dateTime) {
         super();
         this.taskDescription = taskDescription;
         this.taskType = taskType;
@@ -25,7 +26,7 @@ public class DeadlinesTask extends Task{
      *
      * @param dateTime
      */
-    public void setDateTime(String dateTime){
+    public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
     }
 
@@ -35,7 +36,7 @@ public class DeadlinesTask extends Task{
      * @return The report of the task
      */
     @Override
-    public String getReport(){
-        return String.format("[%s][%s] %s (by: %s)" , taskType , markedSign() , taskDescription , dateTime);
+    public String getReport() {
+        return String.format("[%s][%s] %s (by: %s)", taskType, markedSign(), taskDescription, dateTime);
     }
 }

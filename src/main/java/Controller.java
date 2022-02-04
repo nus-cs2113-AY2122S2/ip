@@ -1,4 +1,4 @@
-import operations.*;
+import operations.Operation;
 import operations.OperationFactory;
 
 import java.util.Scanner;
@@ -17,8 +17,7 @@ public class Controller {
     /**
      *   Initialize an controller
      */
-    public Controller()
-    {
+    public Controller() {
         chatBox = new ChatBox();
         sayHello();
     }
@@ -45,19 +44,19 @@ public class Controller {
     /**
      *  Listen to the i/o and pass the instruction to operationFactory.
      */
-    public void listen(){
+    public void listen() {
 
         Scanner sc = new Scanner(System.in);
 
         OperationFactory operationFactory = new OperationFactory();
 
-        while(true){
-            try{
+        while (true) {
+            try {
                 String order = sc.nextLine();
                 operationFactory.setOrder(order);
                 Operation operation = operationFactory.makeOperation();
                 ChatBox.printChatBox(operation.getResult());
-                if (operation.getOperationName().equals(EXIT_COMMAND)){
+                if (operation.getOperationName().equals(EXIT_COMMAND)) {
                     break;
                 }
 

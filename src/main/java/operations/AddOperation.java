@@ -24,7 +24,7 @@ public class AddOperation extends Operation {
      */
     protected Task makeTask(String taskDescription) throws DukeException {
         TaskFactory taskFactory = new TaskFactory("", taskDescription);
-        try{
+        try {
             Task newTask = taskFactory.makeTask();
             return newTask;
         } catch (DukeException e) {
