@@ -107,6 +107,7 @@ public class Duke {
      * Attempts to add the specified task to the task list.
      * @param t task to be added
      * @param successMessage message to be displayed on success
+     * @return command feedback
      */
     private static String addTask(Task t, String successMessage) {
         try {
@@ -120,6 +121,8 @@ public class Duke {
 
     /**
      * Invokes the correct command function based on the command string inputted by the user.
+     * @param input user input, as an array {requested_command, command_args}
+     * @return output from running requested_command with command_args
      */
     private static String parseCommand(String[] input) {
         final String command = input[0];
@@ -146,6 +149,8 @@ public class Duke {
 
     /**
      * Request to exit the program.
+     * @param args command arguments
+     * @return command feedback
      */
     private static String byeCommand(String args) {
         try {
@@ -161,6 +166,8 @@ public class Duke {
 
     /**
      * Lists all saved tasks.
+     * @param args command arguments
+     * @return command feedback
      */
     private static String listCommand(String args) {
         try {
@@ -182,6 +189,8 @@ public class Duke {
 
     /**
      * Adds a new to-do task.
+     * @param args command arguments
+     * @return command feedback
      */
     private static String todoCommand(String args) {
         try {
@@ -197,6 +206,8 @@ public class Duke {
 
     /**
      * Adds a new deadline task. Parsing of the deadline separator occurs in the function body.
+     * @param args command arguments
+     * @return command feedback
      */
     private static String deadlineCommand(String args) {
         try {
@@ -215,6 +226,8 @@ public class Duke {
 
     /**
      * Adds a new event task. Parsing of the event separator occurs in the function body.
+     * @param args command arguments
+     * @return command feedback
      */
     private static String eventCommand(String args) {
         try {
@@ -233,6 +246,8 @@ public class Duke {
 
     /**
      * Marks the specified task as completed.
+     * @param args command arguments
+     * @return command feedback
      */
     private static String markCommand(String args) {
         try {
@@ -254,6 +269,8 @@ public class Duke {
     }
     /**
      * Marks the specified task as incomplete.
+     * @param args command arguments
+     * @return command feedback
      */
     private static String unmarkCommand(String args) {
         try {
