@@ -1,4 +1,8 @@
 import java.util.Scanner;
+import aeon.task.Task;
+import aeon.task.Event;
+import aeon.task.Todo;
+import aeon.task.Deadline;
 
 public class Aeon {
 
@@ -111,10 +115,10 @@ public class Aeon {
     }
 
     private static void printListOfTasks(Task[] list) {
-        if (list.length == 0) {
+        Integer noOfItems = Task.getNoOfItems();
+        if (noOfItems == 0) {
             System.out.println("No tasks!");
         }
-        Integer noOfItems = Task.getNoOfItems();
         for (int index = 0; index < noOfItems; index++) {
             System.out.println(index + 1 + ". " + list[index]);
         }
