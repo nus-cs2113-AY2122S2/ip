@@ -1,3 +1,14 @@
+package vera;
+
+import vera.exception.CommandMissingException;
+import vera.exception.InputEmptyException;
+import vera.exception.InputRepeatedException;
+import vera.exception.MaxTaskException;
+import vera.task.Deadline;
+import vera.task.Event;
+import vera.task.Task;
+import vera.task.Todo;
+
 import java.util.Scanner;
 
 public class Vera {
