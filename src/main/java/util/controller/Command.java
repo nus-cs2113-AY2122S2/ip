@@ -10,12 +10,12 @@ public class Command {
 
     // Miscellaneous Text
     public static final String BORDER = "____________________________________________________________";
-    public static final String LOGO = ".______     ______   .______   \n"
-            + "\t|   _  \\   /  __  \\  |   _  \\  \n"
-            + "\t|  |_)  | |  |  |  | |  |_)  | \n"
-            + "\t|   _  <  |  |  |  | |   _  <  \n"
-            + "\t|  |_)  | |  `--'  | |  |_)  | \n"
-            + "\t|______/   \\______/  |______/  \n";
+    public static final String LOGO = ".______     ______   .______\n"
+            + "\t|   _  \\   /  __  \\  |   _  \\\n"
+            + "\t|  |_)  | |  |  |  | |  |_)  |\n"
+            + "\t|   _  <  |  |  |  | |   _  <\n"
+            + "\t|  |_)  | |  `--'  | |  |_)  |\n"
+            + "\t|______/   \\______/  |______/\n";
 
     // Messages
     public static final String INTRO_GREETING = "Hello! I'm Bob ʘ‿ʘ";
@@ -31,7 +31,7 @@ public class Command {
     public static final String MESSAGE_INVALID_COMMAND = "Sorry, I do not understand.";
     public static final String MESSAGE_INVALID_ARGC = "Invalid number of arguments. ( °□°)";
     public static final String MESSAGE_INVALID_ID_NUMBER = "Invalid task id. ┬┴┬┴┤ω・)";
-    public static final String MESSAGE_INVALID_ID_FORMAT = "The task id needs to be a number! (╯°□°）╯︵ ┻━┻";
+    public static final String MESSAGE_INVALID_ID_FORMAT = "The task id needs to be a number! (╯°□°）╯︵";
     public static final String MESSAGE_DEADLINE_USAGE = "Usage: deadline <task> /by <deadline>";
     public static final String MESSAGE_EVENT_USAGE = "Usage: event <task> /at <date,time>";
     public static final String MESSAGE_TASK_LIMIT_REACHED = "No more tasks can be created :(";
@@ -257,6 +257,7 @@ public class Command {
         printBorder();
         if (Task.getCount() >= MAX_TASK) {
             printError(MESSAGE_TASK_LIMIT_REACHED);
+            return;
         }
         String[] commandToken = parseCommand(command, DELIMIT_COMMAND);
 
