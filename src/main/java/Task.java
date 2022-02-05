@@ -8,7 +8,7 @@ public class Task {
     }
 
     public String toString() {
-        return "[T]" + (isDone ? "[X]"+ this.description : "[ ]"+ this.description); // mark done task with X
+        return (isDone ? "[X]"+ this.description : "[ ]"+ this.description); // mark done task with X
     }
 
     public void markTask() { 
