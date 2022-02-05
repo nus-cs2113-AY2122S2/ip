@@ -12,21 +12,16 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public String getStatus(){
-        return String.format("[%s] %s",this.getStatusIcon(),this.description);
+    public String getStatus() {
+        return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
 
-    public void markDone(){
+    public void markDone() {
         this.isDone = true;
     }
 
-    public void unmarkDone(){
+    public void unmarkDone() {
         this.isDone = false;
     }
 
-//    public void printStatus(){
-//        System.out.println();
-//    }
-
-    //...
 }
