@@ -63,7 +63,10 @@ public class Task {
      * @return 'X' if task is completed, else blank.
      */
     public String getStatusSymbol() {
-        return (isDone() ? "X" : " ");
+        if (isDone()) {
+            return "X";
+        }
+        return " ";
     }
 
     /**
