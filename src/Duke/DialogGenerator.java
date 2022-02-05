@@ -1,3 +1,5 @@
+import tasks.*;
+
 public class DialogGenerator {
 
     public void printLine() {
@@ -40,6 +42,30 @@ public class DialogGenerator {
         this.printLine();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(t);
+        this.printLine();
+    }
+
+    public void raiseExceptionInDeadline(){
+        this.printLine();
+        System.out.println(" ☹ OOPS!!! The description or by of a deadline cannot be empty.");
+        this.printLine();
+    }
+
+    public void raiseExceptionInEvent(){
+        this.printLine();
+        System.out.println(" ☹ OOPS!!! The description or at of an event cannot be empty.");
+        this.printLine();
+    }
+
+    public void raiseExceptionInTodo(){
+        this.printLine();
+        System.out.println(" ☹ OOPS!!! The description of a todo cannot be empty.");
+        this.printLine();
+    }
+
+    public void raiseExceptionInCommand(){
+        this.printLine();
+        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-()");
         this.printLine();
     }
 }
