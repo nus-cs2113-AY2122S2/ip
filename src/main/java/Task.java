@@ -19,12 +19,12 @@ public class Task {
         this.isDone = isDone;
     }
 
-    public Task markDone() {
-        return new Task(description, true);
+    public void markDone() {
+        this.isDone = true;
     }
 
-    public Task markUndone() {
-        return new Task(description);
+    public void markUndone() {
+        this.isDone = false;
     }
 
     public String getStatusIcon() {
@@ -33,6 +33,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return description;
+        return getStatusIcon() + description;
     }
 }
