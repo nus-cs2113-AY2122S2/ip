@@ -1,3 +1,6 @@
+package duke.event;
+import duke.task.Task;
+
 public class Event extends Task {
     private String time;
     private String symbol = "E";

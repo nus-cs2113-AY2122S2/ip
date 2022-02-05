@@ -1,3 +1,7 @@
+package duke.deadline;
+
+import duke.task.Task;
+
 public class Deadline extends Task {
     private final String time;
     private final String symbol = "D";

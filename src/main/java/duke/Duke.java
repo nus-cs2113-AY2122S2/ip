@@ -1,3 +1,13 @@
+package duke;
+
+
+import duke.cmds.Cmds;
+import duke.deadline.Deadline;
+import duke.duke_exception.DukeException;
+import duke.event.Event;
+import duke.event.ToDo;
+import duke.task.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
