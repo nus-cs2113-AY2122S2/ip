@@ -18,8 +18,13 @@ public class Duke {
     private static final String UNMARK_CMD = "unmark";
     private static final String LIST_CMD = "list";
     private static final String ADD_CMD = "add";
+    private static final String DELETE_CMD = "delete";
 
     private static List<Task> toDoList = new ArrayList<Task>();
+
+    private static Integer getTodoListSize(){
+        return toDoList.size();
+    }
 
     private static void listToDo(List<Task> tdList) {
         System.out.println("Here are the tasks in your list:");
@@ -103,7 +108,30 @@ public class Duke {
         System.out.println("Got it. I've added this task: ");
         toDoList.add(newTask);
         System.out.println(newTask.getStatus());
-        System.out.println(String.format("Now you have %d tasks in the list.", toDoList.size()));
+        System.out.println(String.format("Now you have %d tasks in the list.", getTodoListSize()));
+    }
+
+    public static void handleDelete(String input, String[] cmd) throws DukeException {
+        if (cmd.length < 2) {
+            throw new DukeException("☹ OOPS!!! I'm sorry, but delete requires an index");
+        }
+        int idx = 0;
+        try {
+            idx = Integer.parseInt(cmd[1]) - 1;
+        } catch (NumberFormatException e) {
+            System.out.println("OOPS, param provided is NOT an integer");
+        }
+        Task removed = null;
+        try {
+            removed = toDoList.remove(idx);
+            System.out.println(String.format("Noted. I've removed this task"));
+            System.out.println(String.format("%s", removed.getStatus()));
+            System.out.println(String.format("Now you have %d tasks in the list", getTodoListSize()));
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(String.format("OOPS, %d exceed your list of size %d", idx, getTodoListSize()));
+        }
+
+
     }
 
     public static void main(String[] args) throws DukeException {
@@ -119,7 +147,7 @@ public class Duke {
             }
             if (main_cmd.equals("bye")) {
                 break;
-            } else if (main_cmd.equals("list")) {
+            } else if (main_cmd.equals(LIST_CMD)) {
                 listToDo(toDoList);
             } else if (main_cmd.equals(MARK_CMD)) {
                 updateMark(MARK_CMD, cmd);
@@ -127,6 +155,9 @@ public class Duke {
                 updateMark(UNMARK_CMD, cmd);
             } else if (main_cmd.equals(ADD_CMD)) {
                 handleAdd(input, main_cmd);
+            } else if (main_cmd.equals(DELETE_CMD)) {
+                handleDelete(input,cmd);
+
             } else {
                 handleAdd(input, main_cmd);
                 //throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
