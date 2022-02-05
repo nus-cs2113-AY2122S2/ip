@@ -1,3 +1,7 @@
+
+package duke.event;
+import duke.task.Task;
+
 public class ToDo extends Task {
 
     private String symbol = "T";
