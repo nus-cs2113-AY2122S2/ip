@@ -13,9 +13,11 @@ public class Duke {
 
     private static Task[] taskItems;
     private static int itemNum;
+    private static String[] dateArray;
+    private static String[] eventArray;
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
 
         printWelcomeMessage();
         initTaskTable();
@@ -24,12 +26,12 @@ public class Duke {
         }
     }
 
-    private static void getNewInput() {
+    private static void getNewInput() throws DukeException {
         String inputCommand = SCANNER.nextLine();
         executeCommand(inputCommand);
     }
 
-    private static void executeCommand(String inputCommand) {
+    private static void executeCommand(String inputCommand) throws DukeException {
         String[] commandArr = inputCommand.split(" ");
         int listNum;
         switch (commandArr[0]) {
@@ -69,28 +71,51 @@ public class Duke {
         System.exit(0);
     }
 
-    private static void addTask(String inCommand) {
+    private static void addTask(String inCommand) throws DukeException {
         String[] sentenceArr = inCommand.split(" ", 2);
         switch (sentenceArr[0]) {
         case COMMAND_TODO:
-            taskItems[itemNum] = new ToDo(sentenceArr[1]);
-            printAcknowledgeAddMessage();
-            itemNum++;
+            try {
+                taskItems[itemNum] = new ToDo(sentenceArr[1]);
+                printAcknowledgeAddMessage();
+                itemNum++;
+            } catch (IndexOutOfBoundsException todoEmpty) {
+                System.out.println("OOPS!!! The description of todo cannot be empty.");
+            }
             break;
         case COMMAND_DEADLINE:
-            String[] date = sentenceArr[1].split("/by", 2);
-            taskItems[itemNum] = new Deadline(date[0], date[1]);
-            printAcknowledgeAddMessage();
-            itemNum++;
+
+            try {
+                dateArray = sentenceArr[1].split("/by", 2);
+                if (dateArray[1].length() == 0 || dateArray[0].length() == 0) {
+                    throw new DukeException();
+                }
+                taskItems[itemNum] = new Deadline(dateArray[0], dateArray[1]);
+                printAcknowledgeAddMessage();
+                itemNum++;
+            } catch (ArrayIndexOutOfBoundsException deadlineEmpty) {
+                System.out.println("OOPS!!! The description and date of deadline cannot be empty.");
+            } catch (DukeException invalidDateInput) {
+                System.out.println("Invalid deadline input! Please try again.");
+            }
             break;
         case COMMAND_EVENT:
-            String[] finalEventArr = sentenceArr[1].split("/at", 2);
-            taskItems[itemNum] = new Event(finalEventArr[0], finalEventArr[1]);
-            printAcknowledgeAddMessage();
-            itemNum++;
+            try {
+                eventArray = sentenceArr[1].split("/at", 2);
+                if (eventArray[1].length() == 0 || eventArray[0].length() == 0) {
+                    throw new DukeException();
+                }
+                taskItems[itemNum] = new Event(eventArray[0], eventArray[1]);
+                printAcknowledgeAddMessage();
+                itemNum++;
+            } catch (ArrayIndexOutOfBoundsException deadlineEmpty) {
+                System.out.println("OOPS!!! The description and time of event cannot be empty.");
+            } catch (DukeException invalidEventInput) {
+                System.out.println("Invalid event input! Please try again.");
+            }
             break;
         default:
-            System.out.println("Invalid input");
+            System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
             break;
         }
     }
