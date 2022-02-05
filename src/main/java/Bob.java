@@ -29,7 +29,8 @@ public class Bob {
 
     public static final String MESSAGE_INVALID_COMMAND = "Sorry, I do not understand.";
     public static final String MESSAGE_INVALID_ARGC = "Invalid number of arguments. ( °□°)";
-    public static final String MESSAGE_INVALID_ID = "Invalid task id. ┬┴┬┴┤ω・)";
+    public static final String MESSAGE_INVALID_ID_NUMBER = "Invalid task id. ┬┴┬┴┤ω・)";
+    public static final String MESSAGE_INVALID_ID_FORMAT = "The task id needs to be a number! (╯°□°）╯︵ ┻━┻";
     public static final String MESSAGE_DEADLINE_USAGE = "Usage: deadline <task> /by <deadline>";
     public static final String MESSAGE_EVENT_USAGE = "Usage: event <task> /at <date,time>";
     public static final String MESSAGE_TASK_LIMIT_REACHED = "No more tasks can be created :(";
@@ -149,34 +150,36 @@ public class Bob {
     /**
      * Updates the completion status of an indicated task.
      *
-     * @param list       a Task class list.
-     * @param command    the command containing the task id to be updated.
-     * @param doneStatus the status to be updated to.
+     * @param list    a Task class list.
+     * @param command the command containing the task id to be updated.
+     * @param isDone  the status to be updated to.
      */
-    public static void updateStatus(Task[] list, String command, boolean doneStatus) {
+    public static void updateStatus(Task[] list, String command, boolean isDone) {
         printBorder();
         String[] commandToken = parseCommand(command, DELIMIT_COMMAND);
 
-        if (commandToken[1] != null) {
-            // NumberFormatException
+        if (commandToken[1] == null) {
+            printError(MESSAGE_INVALID_ARGC);
+            return;
+        }
+        try {
             int id = Integer.parseInt(commandToken[1]);
             if (id > Task.getCount() || id <= 0) {
-                printError(MESSAGE_INVALID_ID);
+                printError(MESSAGE_INVALID_ID_NUMBER);
                 return;
             }
-
             Task target = list[id - 1];
-            target.setDone(doneStatus);
+            target.setDone(isDone);
 
-            if (doneStatus) {
+            if (isDone) {
                 printlnTab(MESSAGE_TASK_MARKED);
             } else {
                 printlnTab(MESSAGE_TASK_UNMARKED);
             }
             System.out.println("\t" + target);
             printBorder();
-        } else {
-            printError(MESSAGE_INVALID_ARGC);
+        } catch (NumberFormatException e) {
+            printError(MESSAGE_INVALID_ID_FORMAT);
         }
     }
 
@@ -251,27 +254,26 @@ public class Bob {
      */
     public static void addNewValidTask(Task[] list, String command) {
         printBorder();
-        if (Task.getCount() < MAX_TASK) {
-            String[] commandToken = parseCommand(command, DELIMIT_COMMAND);
+        if (Task.getCount() >= MAX_TASK) {
+            printError(MESSAGE_TASK_LIMIT_REACHED);
+        }
+        String[] commandToken = parseCommand(command, DELIMIT_COMMAND);
 
-            // check that command details are not empty
-            if (commandToken[1] != null) {
-                switch (commandToken[0]) {
-                case "todo":
-                    addToDosTask(list, commandToken[1]);
-                    break;
-                case "deadline":
-                    addDeadlineTask(list, commandToken[1]);
-                    break;
-                case "event":
-                    addEventTask(list, commandToken[1]);
-                    break;
-                }
-            } else {
-                printError(MESSAGE_INVALID_ARGC);
+        // check that command details are not empty
+        if (commandToken[1] != null) {
+            switch (commandToken[0]) {
+            case "todo":
+                addToDosTask(list, commandToken[1]);
+                break;
+            case "deadline":
+                addDeadlineTask(list, commandToken[1]);
+                break;
+            case "event":
+                addEventTask(list, commandToken[1]);
+                break;
             }
         } else {
-            printError(MESSAGE_TASK_LIMIT_REACHED);
+            printError(MESSAGE_INVALID_ARGC);
         }
     }
 
