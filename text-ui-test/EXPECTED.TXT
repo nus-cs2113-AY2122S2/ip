@@ -13,7 +13,7 @@ Incorrect command format for todo.
 Usage: "todo <your task>"
 ------------------------------------------------------------
 > ------------------------------------------------------------
-Todo successfully added:
+duke.task.Todo successfully added:
 	 TODO: [ ] task 1
 ------------------------------------------------------------
 > ------------------------------------------------------------
@@ -29,7 +29,7 @@ Incorrect command format for deadline.
 Usage: "deadline <your task> /by <task deadline>"
 ------------------------------------------------------------
 > ------------------------------------------------------------
-Deadline successfully added:
+duke.task.Deadline successfully added:
 	  DUE: [ ] task 2 (by: due date)
 ------------------------------------------------------------
 > ------------------------------------------------------------
@@ -45,7 +45,7 @@ Incorrect command format for event.
 Usage: "event <your event> /at <time>"
 ------------------------------------------------------------
 > ------------------------------------------------------------
-Event successfully added:
+duke.task.Event successfully added:
 	EVENT: [ ] task 3 (at: time)
 ------------------------------------------------------------
 > ------------------------------------------------------------

@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Task {
     public static final String INDICATOR_MARKED = "[✓]";
     public static final String INDICATOR_UNMARKED = "[ ]";
