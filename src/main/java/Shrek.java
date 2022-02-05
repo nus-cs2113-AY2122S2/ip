@@ -9,7 +9,9 @@ public class Shrek {
     private static final int INDEX_OF_TASK_NAME = 1;
     private static final int INDEX_OF_TASK_COMMAND = 0;
     private static final int INDEX_OF_TASK_INPUT = 1;
+    private static final int NUMBER_OF_TERMS_IN_SPLIT = 2;
     public static final String NEW_LINE = System.lineSeparator();
+    private static int errorCount = 0;
 
     public static void printGreeting() {
         String logo = "███████╗██╗  ██╗██████╗ ███████╗██╗  ██╗\n" +
@@ -52,27 +54,42 @@ public class Shrek {
         }
     }
 
-    public static void addToList(String input, String taskName) {
+    public static void addDeadlineOrEventToList(String input, String taskTimeReference)
+            throws InvalidCommandException {
         String[] chunkOfInput;
+        try {
+            chunkOfInput = input.split(taskTimeReference);
+            if (chunkOfInput.length > NUMBER_OF_TERMS_IN_SPLIT) {
+                throw new InvalidCommandException("Did you add in more than one \"" + taskTimeReference + "\"?", errorCount);
+            } else if (chunkOfInput.length < NUMBER_OF_TERMS_IN_SPLIT) {
+                throw new InvalidCommandException("Did you forget to add in the time?", errorCount);
+            }
+            if (taskTimeReference.equals("/at ")) {
+                lists[listIndex] = new Events(chunkOfInput[INDEX_OF_TASK_CONTENT],
+                        chunkOfInput[INDEX_OF_TASK_NAME], listIndex);
+            } else {
+                lists[listIndex] = new Deadlines(chunkOfInput[INDEX_OF_TASK_CONTENT],
+                        chunkOfInput[INDEX_OF_TASK_NAME], listIndex);
+            }
+        } catch (ArrayIndexOutOfBoundsException err) {
+            if (!input.contains(taskTimeReference)) {
+                throw new InvalidCommandException("Did you forget \"" + taskTimeReference + "\"?", errorCount);
+            }
+        }
+    }
+
+    public static void addToList(String input, String taskName) {
         boolean isSuccessful = true;
         switch (taskName) {
         case "todo":
             lists[listIndex] = new ToDo(input, listIndex);
             break;
         case "deadline":
-            if (input.contains("/by ")) {
-                chunkOfInput = input.split("/by ", 2);
-                lists[listIndex] = new Deadlines(chunkOfInput[INDEX_OF_TASK_CONTENT],
-                        chunkOfInput[INDEX_OF_TASK_NAME], listIndex);
-                break;
-            }
+            addDeadlineOrEventToList(input, "/by ");
+            break;
         case "event":
-            if (input.contains("/at ")) {
-                chunkOfInput = input.split("/at ", 2);
-                lists[listIndex] = new Events(chunkOfInput[INDEX_OF_TASK_CONTENT],
-                        chunkOfInput[INDEX_OF_TASK_NAME], listIndex);
-                break;
-            }
+            addDeadlineOrEventToList(input, "/at ");
+            break;
         default:
             System.out.println("Did you type the task properly? Re-enter your task");
             isSuccessful = false;
@@ -85,45 +102,58 @@ public class Shrek {
         }
     }
 
-    public static void markTask(String indexOfList) {
+    public static void markTask(String indexOfList) throws InvalidCommandException {
+        try {
+            lists[Integer.parseInt(indexOfList)].setMark();
+        } catch (NumberFormatException e) {
+            throw new InvalidCommandException("Input of mark must be a number!", errorCount);
+        }
         System.out.println("So you've done this task, that's great I guess?");
-        lists[Integer.parseInt(indexOfList)].setMark();
         System.out.println(lists[Integer.parseInt(indexOfList)]);
     }
 
-    public static void unmarkTask(String indexOfList) {
+    public static void unmarkTask(String indexOfList) throws InvalidCommandException {
+        try {
+            lists[Integer.parseInt(indexOfList)].setUnmark();
+        } catch (NumberFormatException e) {
+            throw new InvalidCommandException("Input of unmark must be a number!", errorCount);
+        }
         System.out.println("What do you mean you've undone");
-        lists[Integer.parseInt(indexOfList)].setUnmark();
         System.out.println(lists[Integer.parseInt(indexOfList)]);
     }
 
-    public static void takeInput(String userInput) {
-        System.out.println(LINE);
-        String[] words = userInput.split(" ", 2);//edit l8r
-        switch (words[INDEX_OF_TASK_COMMAND]) {
-        case "list":
-            printList();
-            break;
-        case "unmark":
-            unmarkTask(words[INDEX_OF_TASK_INPUT]);
-            break;
-        case "mark":
-            markTask(words[INDEX_OF_TASK_INPUT]);
-            break;
-        case "todo":
-            addToList(words[INDEX_OF_TASK_INPUT], "todo");
-            break;
-        case "deadline":
-            addToList(words[INDEX_OF_TASK_INPUT], "deadline");
-            break;
-        case "event":
-            addToList(words[INDEX_OF_TASK_INPUT], "event");
-            break;
-        case "":
-            System.out.println("Type something ya prick");
-            break;
-        default:
-            addToList(userInput, "");
+    public static void takeInput(String userInput) throws InvalidCommandException {
+        try {
+            System.out.println(LINE);
+            String[] words = userInput.split(" ", NUMBER_OF_TERMS_IN_SPLIT);
+            if (words[INDEX_OF_TASK_COMMAND].equals("list")) {
+                printList();
+                System.out.print(LINE);
+                return;
+            } else if (words.length < NUMBER_OF_TERMS_IN_SPLIT) {
+                throw new InvalidCommandException("Missing input after the command!", errorCount);
+            }
+            switch (words[INDEX_OF_TASK_COMMAND]) {
+            case "unmark":
+                unmarkTask(words[INDEX_OF_TASK_INPUT]);
+                break;
+            case "mark":
+                markTask(words[INDEX_OF_TASK_INPUT]);
+                break;
+            case "todo":
+                addToList(words[INDEX_OF_TASK_INPUT], "todo");
+                break;
+            case "deadline":
+                addToList(words[INDEX_OF_TASK_INPUT], "deadline");
+                break;
+            case "event":
+                addToList(words[INDEX_OF_TASK_INPUT], "event");
+                break;
+            default:
+                throw new InvalidCommandException("Input a command from the list", errorCount);
+            }
+        } catch (InvalidCommandException err) {
+            errorCount++;
         }
         System.out.print(LINE);
     }
