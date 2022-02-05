@@ -7,6 +7,7 @@ public class Duke {
     private static final String MARK_CMD = "mark";
     private static final String UNMARK_CMD = "unmark";
     private static final String LIST_CMD = "list";
+    private static final String ADD_CMD = "add";
 
     private static List<Task> toDoList = new ArrayList<Task>();
 
@@ -47,7 +48,7 @@ public class Duke {
     }
 
     public static Task addTodo(String params) throws DukeException {
-        if (params.length() == 0) {
+        if (params.strip().length() == 0) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
         Task newTask = new ToDo(params);
@@ -55,7 +56,7 @@ public class Duke {
     }
 
     public static Task addDeadline(String params) throws DukeException {
-        if (params.length() == 0) {
+        if (params.strip().length() == 0) {
             throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
         }
         String[] params2 = params.split("/");
@@ -66,7 +67,7 @@ public class Duke {
     }
 
     public static Task addEvent(String params) throws DukeException {
-        if (params.length() == 0) {
+        if (params.strip().length() == 0) {
             throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
         }
         String[] params2 = params.split("/");
@@ -77,7 +78,7 @@ public class Duke {
     }
 
     public static void handleAdd(String input, String main_cmd) throws DukeException {
-        System.out.println("Got it. I've added this task: ");
+
         Task newTask;
         String params = input.substring(main_cmd.length());
         if (main_cmd.equals("todo")) {
@@ -89,6 +90,7 @@ public class Duke {
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+        System.out.println("Got it. I've added this task: ");
         toDoList.add(newTask);
         System.out.println(newTask.getStatus());
         System.out.println(String.format("Now you have %d tasks in the list.", toDoList.size()));
@@ -113,8 +115,11 @@ public class Duke {
                 updateMark(MARK_CMD, cmd);
             } else if (main_cmd.equals(UNMARK_CMD)) {
                 updateMark(UNMARK_CMD, cmd);
+            } else if (main_cmd.equals(ADD_CMD)) {
+                handleAdd(input, main_cmd);
             } else {
                 handleAdd(input, main_cmd);
+                //throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         }
         printBye();
