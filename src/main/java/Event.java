@@ -1,16 +1,16 @@
-public class Event extends Task{
+public class Event extends Task {
     private String time;
     private String symbol = "E";
-    public Event(String description, String time){
+
+    public Event(String description, String time) {
         super(description);
         this.time = time.substring(2);
     }
 
 
-
     @Override
-    public String getStatus(){
+    public String getStatus() {
         String taskStr = super.getStatus();
-        return String.format("[%s]%s (at: %s)",this.symbol,taskStr, this.time);
+        return String.format("[%s]%s (at: %s)", this.symbol, taskStr, this.time);
     }
 }
