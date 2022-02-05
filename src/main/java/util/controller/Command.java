@@ -5,6 +5,7 @@ import util.tasks.Task;
 import util.tasks.Deadlines;
 import util.tasks.ToDos;
 import util.tasks.Events;
+import util.exception.BobInvalidIdException;
 
 public class Command {
 
@@ -42,7 +43,8 @@ public class Command {
     public static final String DELIMIT_EVENT = " /at ";
 
     // Magic numbers
-    public static final int MAX_TASK = 100;
+    public static final int MIN_TASK_ID = 1;
+    public static final int MAX_TASK_ID = 100;
     public static final int TOKEN_LENGTH = 2;
 
     /**
@@ -118,6 +120,32 @@ public class Command {
     }
 
     /**
+     * Parses an integer string to its integer equivalent.
+     *
+     * @param text the integer to be formatted.
+     * @return an integer formatted text.
+     * @throws NumberFormatException if text is not an integer.
+     */
+    public static int stringToInt(String text) throws NumberFormatException {
+        return Integer.parseInt(text);
+    }
+
+    /**
+     * Throws an exception if the given task id is not currently in use.
+     *
+     * @param id The task id to be checked for validity
+     * @throws BobInvalidIdException if id is not currently in use.
+     */
+    public static void isValidCurrentId(int id) throws BobInvalidIdException {
+        if (id >= MIN_TASK_ID && id <= MAX_TASK_ID) {
+            if (id <= Task.getCount()) {
+                return;
+            }
+        }
+        throw new BobInvalidIdException();
+    }
+    
+    /**
      * Prints the formatted actual id of a task.
      *
      * @param id the id to be formatted.
@@ -164,11 +192,8 @@ public class Command {
             return;
         }
         try {
-            int id = Integer.parseInt(commandToken[1]);
-            if (id > Task.getCount() || id <= 0) {
-                printError(MESSAGE_INVALID_ID_NUMBER);
-                return;
-            }
+            int id = stringToInt(commandToken[1]);
+            isValidCurrentId(id);
             Task target = list[id - 1];
             target.setDone(isDone);
 
@@ -181,6 +206,8 @@ public class Command {
             printBorder();
         } catch (NumberFormatException e) {
             printError(MESSAGE_INVALID_ID_FORMAT);
+        } catch (BobInvalidIdException e) {
+            printError(MESSAGE_INVALID_ID_NUMBER);
         }
     }
 
@@ -255,7 +282,7 @@ public class Command {
      */
     public static void addNewValidTask(Task[] list, String command) {
         printBorder();
-        if (Task.getCount() >= MAX_TASK) {
+        if (Task.getCount() >= MAX_TASK_ID) {
             printError(MESSAGE_TASK_LIMIT_REACHED);
             return;
         }
@@ -284,7 +311,7 @@ public class Command {
      */
     public static void listenAndExecuteCommands() {
         Scanner in = new Scanner(System.in);
-        Task[] list = new Task[MAX_TASK];
+        Task[] list = new Task[MAX_TASK_ID];
 
         String command;
         do {
