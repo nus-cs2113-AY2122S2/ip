@@ -39,7 +39,7 @@ public class Duke {
             System.out.println("Nice! I've marked this task as done: ");
             toDoList.get(idx).markDone();
         } else {
-            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println("OK, I've marked this task as not done yet: ");
             toDoList.get(idx).unmarkDone();
         }
         System.out.println(toDoList.get(idx).getStatus());
