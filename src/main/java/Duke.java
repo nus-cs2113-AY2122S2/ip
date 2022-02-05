@@ -17,9 +17,10 @@ public class Duke {
 
         Scanner sc = new Scanner(System.in);
 
-        
+
         while(true) {
             echo = sc.nextLine();
+
             if (echo.equals("list")) {
                 printTasks(tasks, index);
                 continue;
@@ -32,32 +33,38 @@ public class Duke {
             String curTask = echo.substring(0, (echo.indexOf(" ")));
             //add StringIndexOutOfBoundsException here
 
-
             System.out.println("----------------------------------------------------------------");
 
             if (curTask.equals("mark")) {
-                markTask(echo, tasks);
+                System.out.println("Nice! I've marked this task as done: ");
+                //add an exception here to catch isDone == true;
+                changeTaskStatus(echo, tasks);
                 continue;
             } else if (curTask.equals("unmark")) {
-                unMarkTask(echo, tasks);
+                System.out.println("OK, I've marked this task as not done yet:");
+                //add an exception here to catch isDone == false;
+                changeTaskStatus(echo, tasks);
                 continue;
             } else if (curTask.equals("deadline")) {
                 addDeadline(echo, tasks, index);
-                index++;
             } else if (curTask.equals("event")) {
                 addEvent(echo, tasks, index);
-                index++;
             } else if (curTask.equals("todo")) {
                 addTodo(echo, tasks, index);
-                index++;
             }
 
+            index++;
             System.out.print("Now you have ");
             System.out.println(index + " tasks in the list.");
             System.out.println("----------------------------------------------------------------");
         }
     }
 
+    /**
+     * @param echo
+     * @param tasks
+     * @param index
+     */
     public static void addTodo(String echo, Task[] tasks, int index) {
         System.out.println("Got it. I've added this task:  ");
         String description = echo.substring(echo.indexOf(" ") + 1);
@@ -66,6 +73,12 @@ public class Duke {
         System.out.println(tasks[index]);
     }
 
+
+    /**
+     * @param echo
+     * @param tasks
+     * @param index
+     */
     public static void addEvent(String echo, Task[] tasks, int index) {
         System.out.println("Got it. I've added this task:  ");
         String event = echo.substring(echo.indexOf("/") + 4);
@@ -75,6 +88,12 @@ public class Duke {
         System.out.println(tasks[index]);
     }
 
+
+    /**
+     * @param echo
+     * @param tasks
+     * @param index
+     */
     public static void addDeadline(String echo, Task[] tasks, int index) {
         System.out.println("Got it. I've added this task:  ");
         String deadline = echo.substring(echo.indexOf("/") + 4);
@@ -85,30 +104,14 @@ public class Duke {
     }
 
 
-
-
     /**
      * @param echo
      * @param tasks
      */
-    public static void markTask(String echo, Task[] tasks) {
-        System.out.println("Nice! I've marked this task as done: ");
+    public static void changeTaskStatus(String echo, Task[] tasks) {
         int indexOfSpace = echo.indexOf(" ");
         int indexOfTask = Integer.parseInt(echo.substring(indexOfSpace + 1));
-        tasks[indexOfTask - 1].markDone();
-        System.out.print(indexOfTask);
-        System.out.println("." + tasks[indexOfTask - 1]);
-    }
-
-    /**
-     * @param echo
-     * @param tasks
-     */
-    public static void unMarkTask(String echo, Task[] tasks) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        int indexOfSpace = echo.indexOf(" ");
-        int indexOfTask = Integer.parseInt(echo.substring(indexOfSpace + 1));
-        tasks[indexOfTask - 1].markUndone();
+        tasks[indexOfTask - 1].changeStatus();
         System.out.print(indexOfTask);
         System.out.println("." + tasks[indexOfTask - 1]);
     }

@@ -10,22 +10,10 @@ public class Task {
         this.isDone = false;
     }
 
-    /**
-     * @param description
-     * @param isDone
-     */
-    public Task(String description, boolean isDone) {
-        this.description = description;
-        this.isDone = isDone;
+    public void changeStatus() {
+        this.isDone = !this.isDone;
     }
 
-    public void markDone() {
-        this.isDone = true;
-    }
-
-    public void markUndone() {
-        this.isDone = false;
-    }
 
     public String getStatusIcon() {
         return ("[" + (isDone ? "X" : " ") + "] "); // mark done task with X
