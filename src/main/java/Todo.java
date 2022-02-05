@@ -6,11 +6,9 @@ public class Todo extends Task{
 
     @Override
     public String toString(){
-        if(isMarked)
-        {
+        if (isMarked) {
             return "[T][X] " + name;
-        }
-        else{
+        } else {
             return "[T][ ] " + name;
         }
     }

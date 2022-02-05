@@ -20,11 +20,9 @@ public class Task {
 
     @Override
     public String toString(){
-        if(isMarked)
-        {
+        if (isMarked) {
             return "[U][X] " + name;
-        }
-        else{
+        } else {
             return "[U][ ] " + name;
         }
     }

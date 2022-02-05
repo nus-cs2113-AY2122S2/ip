@@ -16,10 +16,10 @@ public class Duke {
     public static void taskLoop(TaskManager taskManager){
         greet.printDecoration();
         boolean isDone = false;
-        while(!isDone){
+        while (!isDone) {
             String command = reader.next();
             String taskName = reader.nextLine();
-            switch (command){
+            switch (command) {
             case "todo":
                 taskManager.addToTasks(taskName);
                 break;
@@ -52,13 +52,12 @@ public class Duke {
     public static void echo(){
         greet.printDecoration();
         boolean isDone = false;
-        while(!isDone){
+        while (!isDone) {
             String toRepeat = reader.nextLine();
-            if(toRepeat.toLowerCase().equals("bye")){
+            if (toRepeat.toLowerCase().equals("bye")) {
                 isDone = true;
                 break;
-            }
-            else{
+            } else {
                 System.out.println(toRepeat);
             }
         }

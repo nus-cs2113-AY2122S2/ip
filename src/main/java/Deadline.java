@@ -17,11 +17,9 @@ public class Deadline extends Todo{
 
     @Override
     public String toString(){
-        if(isMarked)
-        {
+        if (isMarked) {
             return "[D][X] " + name + " by:(" + endDate + ")";
-        }
-        else{
+        } else {
             return "[D][ ] " + name + " by:(" + endDate + ")";
         }
     }
