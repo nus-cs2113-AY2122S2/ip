@@ -5,8 +5,8 @@ public class Event extends Task {
         super(description);
         this.eventDate = eventDate;
     }
-
+    @Override
     public String toString() {
-        return "[E] " + super.toString() + " (at:" + eventDate + ")\n";
+        return "[E] " + super.toString() + " (at: " + eventDate + ")\n";
     }
 }

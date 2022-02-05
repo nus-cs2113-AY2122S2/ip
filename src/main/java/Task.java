@@ -16,12 +16,8 @@ public class Task {
         Task.noOfItems = noOfItems;
     }
 
-    public void setDone() {
-        isDone = true;
-    }
-
-    public void setNotDone() {
-        isDone = false;
+    public void setDoneStatus(boolean isDone) {
+        this.isDone = isDone;
     }
 
     public String getDescription() {

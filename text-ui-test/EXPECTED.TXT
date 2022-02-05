@@ -9,19 +9,27 @@ ____________________________________________________________
 Hello! I'm AEON, your personal TO-DO list bot!
 What can I do for you?
 Task added!
-[T] [ ] borrow book
+[T] [ ] yithien: Answer CS2113 quiz Monday 9pm
 
 Total: 1 task(s) in the list!
-1. [T] [ ] borrow book
-
 Task added!
-[D] [ ] return book  (by: Sunday)
+[D] [ ] weekly CS2113 quiz (by: Monday 9pm)
 
 Total: 2 task(s) in the list!
+1. [T] [ ] yithien: Answer CS2113 quiz Monday 9pm
+
+2. [D] [ ] weekly CS2113 quiz (by: Monday 9pm)
+
 Task added!
-[E] [ ] project meeting  (at: Mon 2-4pm)
+[E] [ ] CS2113 lecture (at: Friday 4 to 6pm)
 
 Total: 3 task(s) in the list!
-Bye. Hope to see you again soon!
-____________________________________________________________
+Congrats on completing this task!:
+[T] [X] yithien: Answer CS2113 quiz Monday 9pm
+
+1. [T] [X] yithien: Answer CS2113 quiz Monday 9pm
+
+2. [D] [ ] weekly CS2113 quiz (by: Monday 9pm)
+
+3. [E] [ ] CS2113 lecture (at: Friday 4 to 6pm)
 
