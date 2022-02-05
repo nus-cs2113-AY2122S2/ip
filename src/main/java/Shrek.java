@@ -99,7 +99,7 @@ public class Shrek {
 
     public static void takeInput(String userInput) {
         System.out.println(LINE);
-        String[] words = userInput.split(" ", 2);
+        String[] words = userInput.split(" ", 2);//edit l8r
         switch (words[INDEX_OF_TASK_COMMAND]) {
         case "list":
             printList();
