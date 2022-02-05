@@ -50,15 +50,28 @@ public class Duke {
     }
 
     public static void updateMark(String isMark, String[] cmd) {
-        int idx = Integer.parseInt(cmd[1]) - 1;
-        if (isMark.equals(MARK_CMD)) {
-            System.out.println("Nice! I've marked this task as done: ");
-            toDoList.get(idx).markDone();
-        } else {
-            System.out.println("OK, I've marked this task as not done yet: ");
-            toDoList.get(idx).unmarkDone();
+        int idx;
+        try{
+            idx = Integer.parseInt(cmd[1]) - 1;
+        } catch (NumberFormatException e){
+            System.out.println("OOPS, param provided is NOT an integer");
+            return;
         }
-        System.out.println(toDoList.get(idx).getStatus());
+
+        try {
+            if (isMark.equals(MARK_CMD)) {
+                System.out.println("Nice! I've marked this task as done: ");
+                toDoList.get(idx).markDone();
+            } else {
+                System.out.println("OK, I've marked this task as not done yet: ");
+                toDoList.get(idx).unmarkDone();
+            }
+            System.out.println(toDoList.get(idx).getStatus());
+        } catch (IndexOutOfBoundsException e){
+            System.out.println(String.format("OOPS, %d exceed your list of size %d", idx, getTodoListSize()));
+            return;
+        }
+
 
     }
 
