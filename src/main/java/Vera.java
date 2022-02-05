@@ -7,15 +7,19 @@ public class Vera {
     private static final String PARTITION_LINE = "______________________________"
             + "______________________________";
 
-    private static final String ERROR_INVALID_INPUT_MESSAGE = "Please key in an appropriate command";
+    private static final String HELP_MESSAGE = "For more information, please enter the 'help' command.";
+    private static final String ERROR_INVALID_INPUT_MESSAGE = "Please key in an appropriate command.\n"
+            + HELP_MESSAGE;
     private static final String ERROR_MAX_TASK_MESSAGE = "Sorry! You've reached the maximum "
-            + "amount of tasks allowed on your task list";
-    private static final String ERROR_EVENT_MISSING_INPUT_MESSAGE = "Oops! You forgot to "
-            + "add a '/at' to your 'event' command";
-    private static final String ERROR_DEADLINE_MISSING_INPUT_MESSAGE = "Oops! You forgot to"
-            + " add a '/by' to your 'deadline' command";
+            + "amount of tasks allowed on your task list.";
+    private static final String ERROR_EVENT_MISSING_COMMAND_MESSAGE = "Oops! You forgot to "
+            + "add a '/at' to your 'event' command.";
+    private static final String ERROR_DEADLINE_MISSING_COMMAND_MESSAGE = "Oops! You forgot to"
+            + " add a '/by' to your 'deadline' command.";
     private static final String ERROR_TODO_REPEATED_INPUT_MESSAGE = "Oops! It seems that you've "
             + "already added this task.";
+    private static final String HELP_MESSAGE_SPECIFIC_COMMAND = "\n\nFor more information on "
+            + "the command you wish to execute,\nenter 'help <command>' e.g. help todo";
 
     private static final int OPTIONS_INDEX = 0;
     private static final int MARK_INDEX = 1;
@@ -86,36 +90,69 @@ public class Vera {
         return false;
     }
 
-    public static String addToTaskList(TaskType type, String[] filteredTaskContent) {
-        if (taskCount < 100) {
-            switch (type) {
-            case EVENT:
-                tasks[taskCount] = new Event(filteredTaskContent[TASK_DESCRIPTION_INDEX],
-                        filteredTaskContent[TASK_DATE_INDEX]);
-                break;
-            case DEADLINE:
-                tasks[taskCount] = new Deadline(filteredTaskContent[TASK_DESCRIPTION_INDEX],
-                        filteredTaskContent[TASK_DATE_INDEX]);
-                break;
-            default:
-                tasks[taskCount] = new Todo(filteredTaskContent[TASK_DESCRIPTION_INDEX_TODO]);
-            }
-            taskCount++;
-            return "Got it. I've added this task:\n  " + tasks[taskCount - 1]
-                    + "\nNow you have " + taskCount + " task(s) in the list";
+    public static String printMissingInputMessage(String input, TaskType type) {
+        return "☹ Oops! The " + input + " of a " + type + " cannot be empty."
+                + HELP_MESSAGE_SPECIFIC_COMMAND;
+    }
+
+    public static String addTodo(String[] parsedInput) throws InputEmptyException,
+            InputRepeatedException, MaxTaskException {
+        if (taskCount >= 100) {
+            throw new MaxTaskException();
         }
-        return ERROR_MAX_TASK_MESSAGE;
+        if (parsedInput[TASK_DESCRIPTION_INDEX_TODO].isBlank()) {
+            throw new InputEmptyException();
+        }
+        if (isTaskAlreadyAdded(parsedInput[TASK_DESCRIPTION_INDEX_TODO])) {
+            throw new InputRepeatedException();
+        }
+        tasks[taskCount] = new Todo(parsedInput[TASK_DESCRIPTION_INDEX_TODO]);
+        taskCount++;
+        return "Got it. I've added this task:\n  " + tasks[taskCount - 1]
+                + "\nNow you have " + taskCount + " task(s) in the list.";
     }
 
     public static String filterTodoBeforeAddingToTaskList(String[] parsedInput) {
-        if (isTaskAlreadyAdded(parsedInput[TASK_DESCRIPTION_INDEX_TODO])) {
+        try {
+            return addTodo(parsedInput);
+        } catch (ArrayIndexOutOfBoundsException | InputEmptyException e) {
+            return printMissingInputMessage("description", TaskType.TODO);
+        } catch (InputRepeatedException e) {
             return ERROR_TODO_REPEATED_INPUT_MESSAGE;
+        } catch (MaxTaskException e) {
+            return ERROR_MAX_TASK_MESSAGE;
         }
-        return addToTaskList(TaskType.TODO, parsedInput);
     }
 
-    public static String[] parseData(String data, String command) {
-        return data.split(command);
+    public static String addEventOrDeadline(TaskType type, String[] parsedInput, String command)
+            throws InputEmptyException, InputRepeatedException, MaxTaskException, CommandMissingException {
+        if (taskCount >= 100) {
+            throw new MaxTaskException();
+        }
+        if (parsedInput[TASK_CONTENT_INDEX].isBlank()) {
+            throw new InputEmptyException();
+        }
+        if (!parsedInput[TASK_CONTENT_INDEX].contains(command)) {
+            throw new CommandMissingException();
+        }
+        String[] filteredTaskContent = parsedInput[TASK_CONTENT_INDEX].split(command, 2);
+        if (filteredTaskContent[TASK_DESCRIPTION_INDEX].isBlank() ||
+                filteredTaskContent[TASK_DATE_INDEX].isBlank()) {
+            throw new InputEmptyException();
+        }
+        if (isTaskAlreadyAdded(filteredTaskContent[TASK_DESCRIPTION_INDEX])) {
+            throw new InputRepeatedException();
+        }
+        if (type.equals(TaskType.EVENT)) {
+            tasks[taskCount] = new Event(filteredTaskContent[TASK_DESCRIPTION_INDEX],
+                    filteredTaskContent[TASK_DATE_INDEX]);
+        } else {
+            tasks[taskCount] = new Deadline(filteredTaskContent[TASK_DESCRIPTION_INDEX],
+                    filteredTaskContent[TASK_DATE_INDEX]);
+        }
+        taskCount++;
+        return "Got it. I've added this task:\n  " + tasks[taskCount - 1]
+                + "\nNow you have " + taskCount + " task(s) in the list.";
     }
 
     public static boolean isTaskBeingReplaced() {
@@ -130,11 +167,11 @@ public class Vera {
                 System.out.println(PARTITION_LINE + "\nUnderstood. Proceeding to change"
                         + "\nthe old task with the new one..........");
                 break;
-            } else if (input.equalsIgnoreCase("N")) {
-                break;
-            } else {
-                printWithPartition("Please confirm your choice with either Y or N");
             }
+            if (input.equalsIgnoreCase("N")) {
+                break;
+            }
+            printWithPartition("Please confirm your choice with either Y or N.");
         }
         return isOldTaskReplaced;
     }
@@ -154,20 +191,25 @@ public class Vera {
         return "Okay, we'll keep it as it is.";
     }
 
+    public static String[] parseData(String data, String keyword, int limit) {
+        return data.split(keyword, limit);
+    }
+
     public static String filterTaskBeforeAddingToTaskList(String[] parsedInput, String command, TaskType type) {
-        if (!parsedInput[TASK_CONTENT_INDEX].contains(command)) {
+        try {
+            return addEventOrDeadline(type, parsedInput, command);
+        } catch (ArrayIndexOutOfBoundsException | InputEmptyException e) {
+            return printMissingInputMessage("description and date\n", type);
+        } catch (InputRepeatedException e) {
+            return handleRepeatedInputs(parseData(parsedInput[TASK_CONTENT_INDEX], command, 2));
+        } catch (MaxTaskException e) {
+            return ERROR_MAX_TASK_MESSAGE;
+        } catch (CommandMissingException e) {
             if (type.equals(TaskType.EVENT)) {
-                return ERROR_EVENT_MISSING_INPUT_MESSAGE;
+                return ERROR_EVENT_MISSING_COMMAND_MESSAGE + HELP_MESSAGE_SPECIFIC_COMMAND;
             }
-            return ERROR_DEADLINE_MISSING_INPUT_MESSAGE;
+            return ERROR_DEADLINE_MISSING_COMMAND_MESSAGE + HELP_MESSAGE_SPECIFIC_COMMAND;
         }
-
-        String[] filteredTaskContent = parseData(parsedInput[TASK_CONTENT_INDEX], command);
-        if (isTaskAlreadyAdded(filteredTaskContent[TASK_DESCRIPTION_INDEX])) {
-            return handleRepeatedInputs(filteredTaskContent);
-        }
-
-        return addToTaskList(type, filteredTaskContent);
     }
 
     public static boolean isInvalidInput(String[] parsedInput) {
@@ -181,9 +223,9 @@ public class Vera {
 
     public static String markTask(String[] parsedInput) {
         if (isInvalidInput(parsedInput)) {
-            return "Bzzt!\n Please"
+            return "Bzzt!\nPlease"
                     + " key in a valid task number "
-                    + "to mark your task.";
+                    + "to mark your task." + HELP_MESSAGE_SPECIFIC_COMMAND;
         }
 
         int taskIndexToMark = Integer.parseInt(parsedInput[MARK_INDEX]) - 1;
@@ -196,9 +238,9 @@ public class Vera {
 
     public static String unmarkTask(String[] parsedInput) {
         if (isInvalidInput(parsedInput)) {
-            return "Bzzt!\n Please"
+            return "Bzzt!\nPlease"
                     + " key in a valid task number "
-                    + "to unmark your task.";
+                    + "to unmark your task." + HELP_MESSAGE_SPECIFIC_COMMAND;
         }
 
         int taskIndexToUnmark = Integer.parseInt(parsedInput[MARK_INDEX]) - 1;
@@ -210,8 +252,12 @@ public class Vera {
                 + " not done yet:\n  " + tasks[taskIndexToUnmark];
     }
 
+    public static String filterHelpCommand() {
+        return "Will update this list soon! Come back next time!";
+    }
+
     public static String executeInput(String userInput) {
-        String[] parsedInput = userInput.split(" ", 2);
+        String[] parsedInput = parseData(userInput, " ", 2);
         switch (parsedInput[OPTIONS_INDEX].toLowerCase()) {
         case "list":
             return list();
@@ -225,6 +271,8 @@ public class Vera {
             return filterTaskBeforeAddingToTaskList(parsedInput, "/at", TaskType.EVENT);
         case "deadline":
             return filterTaskBeforeAddingToTaskList(parsedInput, "/by", TaskType.DEADLINE);
+        case "help":
+            return filterHelpCommand();
         default:
             return ERROR_INVALID_INPUT_MESSAGE;
         }

@@ -12,12 +12,12 @@ ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
   [T] [ ] read book
-Now you have 1 task(s) in the list
+Now you have 1 task(s) in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
   [D] [ ] return book (by: June 6th)
-Now you have 2 task(s) in the list
+Now you have 2 task(s) in the list.
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
@@ -26,20 +26,26 @@ ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
   [E] [ ] project meeting (at: Aug 6th 2-4pm)
-Now you have 3 task(s) in the list
+Now you have 3 task(s) in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
   [T] [ ] join sports club
-Now you have 4 task(s) in the list
+Now you have 4 task(s) in the list.
 ____________________________________________________________
 ____________________________________________________________
 Bzzt!
- Please key in a valid task number to mark your task.
+Please key in a valid task number to mark your task.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
 Bzzt!
- Please key in a valid task number to unmark your task.
+Please key in a valid task number to unmark your task.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
@@ -48,7 +54,7 @@ ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
   [T] [ ] borrow book
-Now you have 5 task(s) in the list
+Now you have 5 task(s) in the list.
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
@@ -86,18 +92,96 @@ Would you like to override the
 existing time and/or date with the new input? [Y/N]
 ____________________________________________________________
 ____________________________________________________________
-Please confirm your choice with either Y or N
+Please confirm your choice with either Y or N.
 ____________________________________________________________
 ____________________________________________________________
 Okay, we'll keep it as it is.
 ____________________________________________________________
 ____________________________________________________________
 Bzzt!
- Please key in a valid task number to mark your task.
+Please key in a valid task number to mark your task.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
 Bzzt!
- Please key in a valid task number to mark your task.
+Please key in a valid task number to mark your task.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+☹ Oops! The description of a TODO cannot be empty.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+☹ Oops! The description of a TODO cannot be empty.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+☹ Oops! The description and date
+ of a DEADLINE cannot be empty.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+☹ Oops! The description and date
+ of a DEADLINE cannot be empty.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+☹ Oops! The description and date
+ of a EVENT cannot be empty.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+☹ Oops! The description and date
+ of a EVENT cannot be empty.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+☹ Oops! The description and date
+ of a EVENT cannot be empty.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+Oops! You forgot to add a '/by' to your 'deadline' command.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+Oops! You forgot to add a '/by' to your 'deadline' command.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+Oops! You forgot to add a '/by' to your 'deadline' command.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+☹ Oops! The description and date
+ of a DEADLINE cannot be empty.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon! :)

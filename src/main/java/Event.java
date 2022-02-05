@@ -9,7 +9,6 @@ public class Event extends Task {
     @Override
     public void resetInput(String date) {
         at = date;
-        markAsUndone();
     }
 
     @Override

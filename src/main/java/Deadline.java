@@ -9,7 +9,6 @@ public class Deadline extends Task {
     @Override
     public void resetInput(String date) {
         by = date;
-        markAsUndone();
     }
 
     @Override
