@@ -13,6 +13,7 @@ public class Duke {
     public static final String MESSAGE_NO_TASKS = "You don't have any tasks!";
     public static final String MESSAGE_INCORRECT_COMMAND_FORMAT = "Incorrect command format for %s." + LS
                                                                     + "Usage: \"%s\"";
+    public static final String MESSAGE_ITEMIZED_TASK = "%d) %s";
     public static final String MESSAGE_TODO_ADDED = "Todo successfully added:" + LS + "\t%s";
     public static final String MESSAGE_DEADLINE_ADDED = "Deadline successfully added:" + LS + "\t%s";
     public static final String MESSAGE_EVENT_ADDED = "Event successfully added:" + LS + "\t%s";
@@ -106,18 +107,22 @@ public class Duke {
      * Attempts to add the specified task to the task list.
      * @param t task to be added
      * @param successMessage message to be displayed on success
+     * @return command feedback
      */
     private static String addTask(Task t, String successMessage) {
-        if (numSavedTasks < MAX_TASKS) {
+        try {
             savedTasks[numSavedTasks] = t;
             numSavedTasks++;
             return String.format(successMessage, t);
+        } catch (IndexOutOfBoundsException e) {
+            return MESSAGE_TOO_MANY_TASKS;
         }
-        return MESSAGE_TOO_MANY_TASKS;
     }
 
     /**
      * Invokes the correct command function based on the command string inputted by the user.
+     * @param input user input, as an array {requested_command, command_args}
+     * @return output from running requested_command with command_args
      */
     private static String parseCommand(String[] input) {
         final String command = input[0];
@@ -144,116 +149,145 @@ public class Duke {
 
     /**
      * Request to exit the program.
+     * @param args command arguments
+     * @return command feedback
      */
     private static String byeCommand(String args) {
-        if (args.equals("")) {
+        try {
+            if (!args.equals("")) {
+                throw new InvalidCommandFormatException();
+            }
             isExitRequested = true;
             return MESSAGE_GOODBYE;
+        } catch (InvalidCommandFormatException e) {
+            return invalidCommandError(COMMAND_BYE, USAGE_BYE);
         }
-        return invalidCommandError(COMMAND_BYE, USAGE_BYE);
     }
 
     /**
      * Lists all saved tasks.
+     * @param args command arguments
+     * @return command feedback
      */
     private static String listCommand(String args) {
-        if (args.equals("")) {
+        try {
+            if (!args.equals("")) {
+                throw new InvalidCommandFormatException();
+            }
             if (numSavedTasks == 0) {
                 return MESSAGE_NO_TASKS;
             }
             String result = MESSAGE_SHOW_TASKS;
             for (int i = 0; i < numSavedTasks; i++) {
-                result += LS + (i+1) + ") " + savedTasks[i];
+                result += LS + String.format(MESSAGE_ITEMIZED_TASK, i + 1, savedTasks[i]);
             }
             return result;
+        } catch (InvalidCommandFormatException e) {
+            return invalidCommandError(COMMAND_LIST, USAGE_LIST);
         }
-        return invalidCommandError(COMMAND_LIST, USAGE_LIST);
     }
 
     /**
      * Adds a new to-do task.
+     * @param args command arguments
+     * @return command feedback
      */
     private static String todoCommand(String args) {
-        if (!args.equals("")) {
+        try {
+            if (args.equals("")) {
+                throw new InvalidCommandFormatException();
+            }
             Todo newTodo = new Todo(args.trim());
             return addTask(newTodo, MESSAGE_TODO_ADDED);
+        } catch (InvalidCommandFormatException e) {
+            return invalidCommandError(COMMAND_TODO, USAGE_TODO);
         }
-        return invalidCommandError(COMMAND_TODO, USAGE_TODO);
     }
 
     /**
      * Adds a new deadline task. Parsing of the deadline separator occurs in the function body.
+     * @param args command arguments
+     * @return command feedback
      */
     private static String deadlineCommand(String args) {
-        if (!args.equals("")) {
+        try {
             String[] parsedArgs = args.trim().split(DEADLINE_SEPARATOR, 2);
-            if (parsedArgs.length == 2) {
-                final String taskDescription = parsedArgs[0].trim();
-                final String taskDeadline = parsedArgs[1].trim();
-                Deadline newDeadline = new Deadline(taskDescription, taskDeadline);
-                return addTask(newDeadline, MESSAGE_DEADLINE_ADDED);
+            if (parsedArgs.length != 2) {
+                throw new InvalidCommandFormatException();
             }
+            final String taskDescription = parsedArgs[0].trim();
+            final String taskDeadline = parsedArgs[1].trim();
+            Deadline newDeadline = new Deadline(taskDescription, taskDeadline);
+            return addTask(newDeadline, MESSAGE_DEADLINE_ADDED);
+        } catch (InvalidCommandFormatException e) {
             return invalidCommandError(COMMAND_DEADLINE, USAGE_DEADLINE);
         }
-        return invalidCommandError(COMMAND_DEADLINE, USAGE_DEADLINE);
     }
 
     /**
      * Adds a new event task. Parsing of the event separator occurs in the function body.
+     * @param args command arguments
+     * @return command feedback
      */
     private static String eventCommand(String args) {
-        if (!args.equals("")) {
+        try {
             String[] parsedArgs = args.trim().split(EVENT_SEPARATOR, 2);
-            if (parsedArgs.length == 2) {
-                final String eventDescription = parsedArgs[0].trim();
-                final String eventTime = parsedArgs[1].trim();
-                Event newEvent = new Event(eventDescription, eventTime);
-                return addTask(newEvent, MESSAGE_EVENT_ADDED);
+            if (parsedArgs.length != 2) {
+                throw new InvalidCommandFormatException();
             }
+            final String eventDescription = parsedArgs[0].trim();
+            final String eventTime = parsedArgs[1].trim();
+            Event newEvent = new Event(eventDescription, eventTime);
+            return addTask(newEvent, MESSAGE_EVENT_ADDED);
+        } catch (InvalidCommandFormatException e) {
             return invalidCommandError(COMMAND_EVENT, USAGE_EVENT);
         }
-        return invalidCommandError(COMMAND_EVENT, USAGE_EVENT);
     }
 
     /**
      * Marks the specified task as completed.
+     * @param args command arguments
+     * @return command feedback
      */
     private static String markCommand(String args) {
         try {
             int index = Integer.parseInt(args);
-            if (index > 0 && index <= numSavedTasks) {
-                if (savedTasks[index - 1].getIsDone()) {
-                    return MESSAGE_TASK_ALREADY_MARKED;
-                } else {
-                    savedTasks[index - 1].setIsDone(true);
-                    return String.format(MESSAGE_TASK_MARKED, index, savedTasks[index-1]);
-                }
-            } else {
-                return MESSAGE_NO_SUCH_INDEX;
+            if (index < 1 || index > numSavedTasks) {
+                throw new IndexOutOfBoundsException();
             }
-        } catch (Exception e) {
+            if (savedTasks[index - 1].getIsDone()) {
+                return MESSAGE_TASK_ALREADY_MARKED;
+            } else {
+                savedTasks[index - 1].setIsDone(true);
+                return String.format(MESSAGE_TASK_MARKED, index, savedTasks[index-1]);
+            }
+        } catch (NumberFormatException e) {
             return invalidCommandError(COMMAND_MARK, USAGE_MARK);
+        } catch (IndexOutOfBoundsException e) {
+            return MESSAGE_NO_SUCH_INDEX;
         }
     }
     /**
      * Marks the specified task as incomplete.
+     * @param args command arguments
+     * @return command feedback
      */
     private static String unmarkCommand(String args) {
         try {
             int index = Integer.parseInt(args);
-            if (index > 0 && index <= numSavedTasks) {
-                if (savedTasks[index - 1].getIsDone()) {
-                    savedTasks[index - 1].setIsDone(false);
-                    return String.format(MESSAGE_TASK_UNMARKED, index, savedTasks[index-1]);
-
-                } else {
-                    return MESSAGE_TASK_ALREADY_UNMARKED;
-                }
-            } else {
-                return MESSAGE_NO_SUCH_INDEX;
+            if (index < 1 || index > numSavedTasks) {
+                throw new IndexOutOfBoundsException();
             }
-        } catch (Exception e) {
+            if (savedTasks[index - 1].getIsDone()) {
+                savedTasks[index - 1].setIsDone(false);
+                return String.format(MESSAGE_TASK_UNMARKED, index, savedTasks[index-1]);
+            } else {
+                return MESSAGE_TASK_ALREADY_UNMARKED;
+            }
+        } catch (NumberFormatException e) {
             return invalidCommandError(COMMAND_UNMARK, USAGE_UNMARK);
+        } catch (IndexOutOfBoundsException e) {
+            return MESSAGE_NO_SUCH_INDEX;
         }
     }
 }
