@@ -123,8 +123,8 @@ public class Shrek {
     }
 
     public static void takeInput(String userInput) throws InvalidCommandException {
+        System.out.println(LINE);
         try {
-            System.out.println(LINE);
             String[] words = userInput.split(" ", NUMBER_OF_TERMS_IN_SPLIT);
             if (words[INDEX_OF_TASK_COMMAND].equals("list")) {
                 printList();
