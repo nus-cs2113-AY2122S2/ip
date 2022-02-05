@@ -1,4 +1,4 @@
-package util;
+package util.tasks;
 
 public class Events extends Task {
     /** Period of a task */

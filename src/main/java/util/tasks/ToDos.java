@@ -1,4 +1,4 @@
-package util;
+package util.tasks;
 
 public class ToDos extends Task {
     /**
