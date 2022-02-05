@@ -1,9 +1,12 @@
 package tasks;
-
+import java.util.HashMap;
 public class Task {
     protected String taskDescription;
     protected Boolean marked = false;
     protected String taskType = " ";
+    private static final String TASK_DESCRIPTION_FIELD = "taskDescription";
+    private static final String MARKED_FIELD = "marked";
+    private static final String TASK_TYPE = "taskType";
 
     /**
      * Initializes task with task description.
@@ -25,8 +28,14 @@ public class Task {
         this.taskType = taskType;
     }
 
-    public Task() {
-
+    /**
+     * Constructs a task objects with compressedObject
+     * @param compressedObject Compressed object that contains all model information for initialize that task
+     */
+    public Task( HashMap<String, Object> compressedObject ) {
+        taskDescription = (String) compressedObject.get(TASK_DESCRIPTION_FIELD);
+        marked = (Boolean) compressedObject.get(MARKED_FIELD);
+        taskType = (String) compressedObject.get(TASK_TYPE);
     }
 
 
@@ -71,6 +80,18 @@ public class Task {
      */
     public void setMark(Boolean isMark) {
         marked = isMark;
+    }
+
+    /**
+     * Compresses the task objects into a map objects
+     * @return A compressed object that can initialize the model task again
+     */
+    public HashMap<String, Object> compress(){
+        HashMap<String, Object> compressedObject = new HashMap<>();
+        compressedObject.put(TASK_DESCRIPTION_FIELD, taskDescription);
+        compressedObject.put(MARKED_FIELD, marked);
+        compressedObject.put(TASK_TYPE, taskType);
+        return compressedObject;
     }
 
 }

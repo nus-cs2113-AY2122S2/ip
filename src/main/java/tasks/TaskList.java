@@ -3,13 +3,27 @@ package tasks;
 import exceptions.DukeException;
 import exceptions.TaskListDukeException;
 
+import dao.TaskFileDAO;
+import exceptions.DukeException;
+
 import java.util.ArrayList;
 
 /**
  * In charge of the global task list.
  */
 public class TaskList {
-    private static ArrayList<Task> taskArrayList = new ArrayList<>();
+    private static ArrayList<Task> taskArrayList;
+    private static final String TASK_DAO_BASE_PATH = "data";
+    private static final String TASK_DAO_FILE_NAME = "tasks.txt";
+    private static TaskFileDAO taskFileDao;
+    public TaskList() throws DukeException {
+        try {
+            taskFileDao = new TaskFileDAO(TASK_DAO_BASE_PATH,TASK_DAO_FILE_NAME);
+            taskArrayList = taskFileDao.readTasks();
+        } catch (DukeException e) {
+            taskArrayList = new ArrayList<>();
+        }
+    }
 
     /**
      * Adds tasks.
@@ -60,5 +74,8 @@ public class TaskList {
         }
     }
 
+    public static void save() throws DukeException{
+        taskFileDao.writeTasks(taskArrayList);
+    }
 
 }

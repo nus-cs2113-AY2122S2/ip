@@ -2,6 +2,8 @@ package tasks;
 
 import exceptions.TodoDukeException;
 
+import java.util.HashMap;
+
 public class ToDoTask extends Task {
 
 
@@ -17,6 +19,16 @@ public class ToDoTask extends Task {
             throw new TodoDukeException();
         }
     }
+
+    /**
+     * Initializes a todo task with compressed object
+     * @param compressedObject Compressed object that contains all model information for initialize that task
+     */
+    public ToDoTask(HashMap<String, Object> compressedObject) {
+        super( compressedObject);
+    }
+
+
 
 
 }
