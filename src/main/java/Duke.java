@@ -3,49 +3,44 @@ import java.util.Scanner;
 public class Duke {
 
     static Task[] taskList = new Task[100];
-    static Boolean[] taskStatusList = new Boolean [100];
     static int currentCount = 0;
-    static String dashedLine = "\t____________________________________________________________";
+    final static String DASHED_LINE = "\t____________________________________________________________";
 
     public static void markTask(int index){
-        taskStatusList[index - 1] = true;
-        String message = dashedLine + "\n" +
+        taskList[index - 1].setDone(true);
+        String message = DASHED_LINE + "\n" +
                 "\t Nice! I've marked this task as done: \n" +
-                "\t \t [X] " + taskList[index - 1].task + "\n" +
-                dashedLine ;
+                "\t \t" + taskList[index - 1].toString() + "\n" +
+                DASHED_LINE;
         System.out.println(message);
     }
 
     public static void unMarkTask(int index){
-        taskStatusList[index - 1] = false;
-        String message = dashedLine + "\n" +
+        taskList[index - 1].setDone(false);
+        String message = DASHED_LINE + "\n" +
                 "\tOK, I've marked this task as not done yet: \n" +
-                "\t \t [ ] " + taskList[index - 1].task + "\n" +
-                dashedLine ;
+                "\t \t" + taskList[index - 1].toString() + "\n" +
+                DASHED_LINE;
         System.out.println(message);
     }
 
-    public static void addToList(String line){
-        taskList[currentCount] = new Task(line);
-        taskStatusList[currentCount] = false;
-        currentCount += 1;
-        String message = dashedLine + "\n" +
-                "\t" + "added:" + line + "\n" +
-                dashedLine;
+    public static void printAddedItem(Task task){
+        String message = DASHED_LINE + "\n" +
+                "\t Got it. I've added this task:" + "\n" +
+                "\t \t" + task.toString() + "\n" +
+                "\t Now you have " + currentCount +
+                " tasks in the list." + "\n" +
+                DASHED_LINE;
         System.out.println(message);
     }
 
     public static void printList(){
-        System.out.print(dashedLine);
+        System.out.print(DASHED_LINE);
         for (int j = 0; j < currentCount; j++){
-            String indicator;
-            if (taskStatusList[j]){
-                indicator = "[X]";
-            } else indicator = "[ ]";
             System.out.print("\n");
-            System.out.print("\t" + (j+1) + "." + indicator + " " + taskList[j].task);
+            System.out.print("\t" + (j+1) + "." + taskList[j].toString());
         }
-        System.out.println("\n" + dashedLine);
+        System.out.println("\n" + DASHED_LINE);
     }
 
     public static void main(String[] args) {
@@ -59,18 +54,19 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
 
-        String greeting = dashedLine + "\n" +
+        String greeting = DASHED_LINE + "\n" +
                 "\t Hello! I'm Duke\n" +
                 "\t What can I do for you?\n" +
-                dashedLine;
+                DASHED_LINE;
 
-        String bye = dashedLine + "\n" +
+        String bye = DASHED_LINE + "\n" +
                 "\t Bye. Hope to see you again soon!\n" +
-                dashedLine;
+                DASHED_LINE;
 
         System.out.println(greeting);
 
         line = in.nextLine();
+
 
         while (!line.contains("bye")){
             if (line.equals("list")){
@@ -81,7 +77,29 @@ public class Duke {
             } else if(line.startsWith("unmark")){
                 int indexToUnmark = Integer.parseInt(line.substring(7));
                 unMarkTask(indexToUnmark);
-            } else addToList(line);
+            } else if (line.startsWith("todo")){
+                String todoDescription = line.substring(4);
+                Todo task = new Todo(todoDescription);
+                taskList[currentCount] = task;
+                currentCount += 1;
+                printAddedItem(task);
+            } else if (line.startsWith("deadline")){
+                int byIndex = line.indexOf("/by");
+                String deadlineDescription = line.substring(8, byIndex - 1);
+                String by = line.substring(byIndex + 3);
+                Deadline task = new Deadline(deadlineDescription, by);
+                taskList[currentCount] = task;
+                currentCount += 1;
+                printAddedItem(task);
+            } else if (line.startsWith("event")){
+                int atIndex = line.indexOf("/at");
+                String eventDescription = line.substring(5, atIndex - 1);
+                String at = line.substring(atIndex + 3);
+                Event task = new Event(eventDescription, at);
+                taskList[currentCount] = task;
+                currentCount += 1;
+                printAddedItem(task);
+            }
             line = in.nextLine();
         }
 
