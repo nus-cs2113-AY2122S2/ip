@@ -17,6 +17,7 @@ public class Duke {
 
         Scanner sc = new Scanner(System.in);
 
+        
         while(true) {
             echo = sc.nextLine();
             if (echo.equals("list")) {
