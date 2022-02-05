@@ -1,3 +1,8 @@
+package duke;
+
+import duke.exception.*;
+import duke.task.*;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -14,9 +19,9 @@ public class Duke {
     public static final String MESSAGE_INCORRECT_COMMAND_FORMAT = "Incorrect command format for %s." + LS
                                                                     + "Usage: \"%s\"";
     public static final String MESSAGE_ITEMIZED_TASK = "%d) %s";
-    public static final String MESSAGE_TODO_ADDED = "Todo successfully added:" + LS + "\t%s";
-    public static final String MESSAGE_DEADLINE_ADDED = "Deadline successfully added:" + LS + "\t%s";
-    public static final String MESSAGE_EVENT_ADDED = "Event successfully added:" + LS + "\t%s";
+    public static final String MESSAGE_TODO_ADDED = "duke.tasks.Todo successfully added:" + LS + "\t%s";
+    public static final String MESSAGE_DEADLINE_ADDED = "duke.tasks.Deadline successfully added:" + LS + "\t%s";
+    public static final String MESSAGE_EVENT_ADDED = "duke.tasks.Event successfully added:" + LS + "\t%s";
     public static final String MESSAGE_UNKNOWN_COMMAND = "I don't understand that command...";
     public static final String MESSAGE_TOO_MANY_TASKS = "I can't remember that many tasks...";
     public static final String MESSAGE_NO_SUCH_INDEX = "There's no task with that index...";
