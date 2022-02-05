@@ -1,3 +1,6 @@
+package aeon.task;
+import aeon.task.Task;
+
 public class Deadline extends Task {
 
     protected String by;
