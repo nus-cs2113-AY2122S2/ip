@@ -1,4 +1,7 @@
 public class Task {
+    public static final String INDICATOR_MARKED = "[✓]";
+    public static final String INDICATOR_UNMARKED = "[ ]";
+
     protected String taskDescription;
     protected boolean isDone;
 
@@ -22,9 +25,9 @@ public class Task {
     @Override
     public String toString() {
         if (this.isDone) {
-            return "[✓] " + this.taskDescription;
+            return INDICATOR_MARKED + " " + this.taskDescription;
         } else {
-            return "[ ] " + this.taskDescription;
+            return INDICATOR_UNMARKED + " " + this.taskDescription;
         }
     }
 }
