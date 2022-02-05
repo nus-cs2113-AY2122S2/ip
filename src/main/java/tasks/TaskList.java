@@ -1,5 +1,8 @@
 package tasks;
 
+import exceptions.DukeException;
+import exceptions.TaskListDukeException;
+
 import java.util.ArrayList;
 
 /**
@@ -35,8 +38,26 @@ public class TaskList {
      * @param indexLocal The index of element/task that the get method wants to get
      * @return The index-the element(0-based)
      */
-    public static Task getElement(int indexLocal) {
-        return taskArrayList.get(indexLocal);
+    public static Task getElement(int indexLocal) throws DukeException {
+        try {
+            Task targetTask = taskArrayList.get(indexLocal);
+            return targetTask;
+        } catch (Exception e) {
+            throw new TaskListDukeException();
+        }
+    }
+
+    /**
+     * Remove indexLocal'th element of the tasklist.
+     * @param indexLocal The index of task to be removed
+     * @throws DukeException Indicate the out of range exception
+     */
+    public static void removeElement(int indexLocal) throws DukeException {
+        try {
+            taskArrayList.remove(indexLocal);
+        } catch (Exception e) {
+            throw new TaskListDukeException();
+        }
     }
 
 

@@ -15,6 +15,7 @@ public class OperationFactory {
     private static final String TODO_COMMAND = "todo";
     private static final String DEADLINE_COMMAND = "deadline";
     private static final String EVENT_COMMAND = "event";
+    private static final String DELETE_COMMAND = "delete";
 
     public OperationFactory(String orderLocal) {
 
@@ -53,6 +54,8 @@ public class OperationFactory {
             return new DeadlinesAddOperation(orderName, order);
         case EVENT_COMMAND:
             return new EventAddOperation(orderName, order);
+        case DELETE_COMMAND:
+            return new RemoveOperation(orderName, order);
         default:
             //return new AddOperation(orderName, order);
             throw new UnknownOrderDukeException();
