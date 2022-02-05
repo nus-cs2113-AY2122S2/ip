@@ -1,8 +1,6 @@
-todo buy groceries
-deadline do hmw /by Sunday
-event interview /at Monday
+todo Mohamed Sharif: Answer CS2113 tutorial questions
+deadline weekly CS2113 quiz /by Monday 9pm
 list
-mark 0
+event CS2113 lecture /at Friday 4 to 6pm
 mark 1
-unmark 1
-bye
+list

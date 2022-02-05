@@ -4,30 +4,22 @@ What can I do for you?
 
 -----------------------------------------------------
 -----------------------------------------------------
-added: [T][ ]  buy groceries
+added: [T][ ]  Mohamed Sharif: Answer CS2113 tutorial questions
 You now have 1 tasks in the list.
 -----------------------------------------------------
 -----------------------------------------------------
-added: [D][ ] do hmw by:(Sunday)
+added: [D][ ] weekly CS2113 quiz by:(Monday 9pm)
 You now have 2 tasks in the list.
 -----------------------------------------------------
 -----------------------------------------------------
-added: [E][ ] interview at:(Monday)
+1. [T][ ]  Mohamed Sharif: Answer CS2113 tutorial questions
+2. [D][ ] weekly CS2113 quiz by:(Monday 9pm)
+-----------------------------------------------------
+-----------------------------------------------------
+added: [E][ ] CS2113 lecture at:(Friday 4 to 6pm)
 You now have 3 tasks in the list.
 -----------------------------------------------------
 -----------------------------------------------------
-1. [T][ ]  buy groceries
-2. [D][ ] do hmw by:(Sunday)
-3. [E][ ] interview at:(Monday)
------------------------------------------------------
------------------------------------------------------
-Invalid Number! Let's try again...
------------------------------------------------------
------------------------------------------------------
 Nice! I've marked this task as done:
-[T][X]  buy groceries
------------------------------------------------------
------------------------------------------------------
-Okay Boss! The following task has been unmarked:
-[T][ ]  buy groceries
+[T][X]  Mohamed Sharif: Answer CS2113 tutorial questions
 -----------------------------------------------------
