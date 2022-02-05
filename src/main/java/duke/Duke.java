@@ -7,11 +7,22 @@ import duke.duke_exception.DukeException;
 import duke.event.Event;
 import duke.event.ToDo;
 import duke.task.Task;
+import netscape.javascript.JSObject;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 public class Duke {
     private static final String MARK_CMD = "mark";
@@ -19,10 +30,80 @@ public class Duke {
     private static final String LIST_CMD = "list";
     private static final String ADD_CMD = "add";
     private static final String DELETE_CMD = "delete";
+    private static final String OUT_DIR = "output";    // Honestly create a config file or smth
+    private static final Boolean isDebugMode = false;
+    private static final String SAVE_PATH = String.format("%s/%s", OUT_DIR, "SAVE.json");
 
     private static List<Task> toDoList = new ArrayList<Task>();
 
-    private static Integer getTodoListSize(){
+    private static void serializeTaskList() {
+        JSONArray toStore = new JSONArray();
+        for (Task task : toDoList) {
+            toStore.add(task.serialize());
+        }
+        String storeStr = toStore.toString();
+        System.out.println(toStore);
+        Path dir = Paths.get(OUT_DIR);
+//        File f = new File(OUT_DIR);
+        if (!Files.exists(dir)) {   //createTempDirectory
+            try {
+                Files.createDirectory(Path.of(OUT_DIR));
+            } catch (IOException e) {
+                System.err.println("Failed to create directory!" + e.getMessage());
+            }
+        }
+//        String filePath = String.format("%s/%s", OUT_DIR, "SAVE.json");
+        try {
+            FileWriter fw = new FileWriter(SAVE_PATH);
+            fw.write(storeStr);
+            fw.close();
+        } catch (IOException e) {
+            System.err.println("Failed to write to save file!" + e.getMessage());
+        }
+    }
+
+    private static void loadTaskList() {
+        String saveStr = "";
+        try {
+            FileReader fr = new FileReader(SAVE_PATH);
+            int i;
+            while ((i=fr.read()) != -1){
+                saveStr += ((char)i);
+            }
+            System.out.println(saveStr);
+            fr.close();
+        } catch (IOException e){
+            System.err.println("Failed to open save file!" + e.getMessage());
+            return;
+        }
+        // ATTEMPTING PARSE
+
+        JSONArray ja = (JSONArray) JSONValue.parse(saveStr);
+//        Object[] ja = ((JSONArray) JSONValue.parse(saveStr)).toArray();
+//        for (int i = 0; i < ja.length; i++){
+//            Object curItem = ja[i];
+//            toDoList.add(new Task())
+//        }
+        for(Object o: ja){
+            if ( o instanceof JSONObject) {
+                JSONObject jo = (JSONObject)o;
+                String type = (String)jo.get("type");
+                System.out.println("type: " + type);
+                Task toAdd = null;
+                if (type.equals("TODO")) {
+                    toAdd = new ToDo((String)jo.get("description"));
+                } else if (type.equals("DEADLINE")) {
+                    toAdd = new Deadline((String)jo.get("description"),(String)jo.get("time"));
+                } else {
+                    toAdd = new Event((String)jo.get("description"),(String)jo.get("time"));
+                }
+                toDoList.add(toAdd);
+            }
+        }
+
+    }
+
+    private static Integer getTodoListSize() {
         return toDoList.size();
     }
 
@@ -51,9 +132,9 @@ public class Duke {
 
     public static void updateMark(String isMark, String[] cmd) {
         int idx;
-        try{
+        try {
             idx = Integer.parseInt(cmd[1]) - 1;
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             System.out.println("OOPS, param provided is NOT an integer");
             return;
         }
@@ -67,7 +148,7 @@ public class Duke {
                 toDoList.get(idx).unmarkDone();
             }
             System.out.println(toDoList.get(idx).getStatus());
-        } catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             System.out.println(String.format("OOPS, %d exceed your list of size %d", idx, getTodoListSize()));
             return;
         }
@@ -149,6 +230,7 @@ public class Duke {
 
     public static void main(String[] args) throws DukeException {
         printHello();
+        loadTaskList();
         Scanner in = new Scanner(System.in);
         while (true) {
             String input = in.nextLine();
@@ -169,13 +251,14 @@ public class Duke {
             } else if (main_cmd.equals(ADD_CMD)) {
                 handleAdd(input, main_cmd);
             } else if (main_cmd.equals(DELETE_CMD)) {
-                handleDelete(input,cmd);
+                handleDelete(input, cmd);
 
             } else {
                 handleAdd(input, main_cmd);
                 //throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         }
+        serializeTaskList();
         printBye();
     }
 }

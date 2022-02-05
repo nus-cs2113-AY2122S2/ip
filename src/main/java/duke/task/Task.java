@@ -1,9 +1,12 @@
 package duke.task;
 
+import org.json.simple.JSONObject;
+
 public class Task {
     protected String description;
     protected boolean isDone;
-    private String symbol = "-";
+    private String TYPE = "TASK";
+    private final String symbol = "-";
 
     public Task(String description) {
         this.description = description;
@@ -27,5 +30,11 @@ public class Task {
     }
 
 
-
+    public JSONObject serialize() {
+        JSONObject task = new JSONObject();
+        task.put("type", this.TYPE);
+        task.put("description",this.description);
+        task.put("isDone",this.isDone);
+        return task;
+    }
 }
