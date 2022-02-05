@@ -14,23 +14,46 @@ public class Aeon {
                 printListOfTasks(list);
                 break;
             case("unmark"):
-                unmarkTask(list, words);
+                try {
+                    unmarkTask(list, words);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Task not found! Perhaps try listing out the available tasks first...");
+                }
                 break;
             case("mark"):
-                markTask(list, words);
+                try {
+                    markTask(list, words);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Task not found! Perhaps try listing out the available tasks first...");
+                }
                 break;
             case("todo"):
-                addTodoTask(list, words);
+                try {
+                    addTodoTask(list, words);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Description of TODO cannot be empty!!!");
+                }
                 break;
             case("deadline"):
-                addDeadlineTask(list, words);
+                try {
+                    addDeadlineTask(list, words);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Please try again in this format: deadline /by <date>");
+                }
                 break;
             case("event"):
-                addEventTask(list, words);
+                try {
+                    addEventTask(list, words);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Please try again in this format: event /at <date>");
+                }
                 break;
             default:
-                Task t = new Task(response);
-                addToList(list, t);
+                try {
+                    throw new AeonException();
+                } catch (AeonException e) {
+                    System.out.println("Not sure what you were trying to do...");
+                }
                 break;
             }
             response = in.nextLine();
@@ -49,46 +72,50 @@ public class Aeon {
         System.out.println("____________________________________________________________\n");
     }
 
-    private static void addEventTask(Task[] list, String[] words) {
-        String[] eventDate = words[1].split("/at", 2);
-        Task e = new Event(eventDate[0], eventDate[1]);
+    private static void addEventTask(Task[] list, String[] words) throws IndexOutOfBoundsException{
+        String[] eventDate = words[1].split(" /at ", 2);
+        Task e = new Event(eventDate[0].trim(), eventDate[1].trim());
         System.out.println("Task added!");
         System.out.println(e);
         addToList(list, e);
     }
 
-    private static void addDeadlineTask(Task[] list, String[] words) {
-        String[] dueDate = words[1].split("/by", 2);
-        Task d = new Deadline(dueDate[0], dueDate[1]);
+    private static void addDeadlineTask(Task[] list, String[] words) throws IndexOutOfBoundsException {
+        String[] dueDate = words[1].split(" /by ", 2);
+        Task d = new Deadline(dueDate[0].trim(), dueDate[1].trim());
         System.out.println("Task added!");
         System.out.println(d);
         addToList(list, d);
     }
 
-    private static void addTodoTask(Task[] list, String[] words) {
+    private static void addTodoTask(Task[] list, String[] words) throws IndexOutOfBoundsException {
         Task t = new Todo(words[1]);
         System.out.println("Task added!");
         System.out.println(t);
         addToList(list, t);
     }
 
-    private static void markTask(Task[] list, String[] words) {
+    private static void markTask(Task[] list, String[] words) throws IndexOutOfBoundsException {
         int index;
         index = Integer.parseInt(words[1]);
-        list[index - 1].setDone();
+        list[index - 1].setDoneStatus(true);
         System.out.println("Congrats on completing this task!:");
         System.out.println(list[index - 1]);
     }
 
-    private static void unmarkTask(Task[] list, String[] words) {
+    private static void unmarkTask(Task[] list, String[] words) throws IndexOutOfBoundsException{
         int index = Integer.parseInt(words[1]);
-        list[index - 1].setNotDone();
-        System.out.println("Alright, marked as undone!:\n");
+        list[index - 1].setDoneStatus(false);
+        System.out.println("Alright, marked as undone!:");
         System.out.println(list[index - 1]);
     }
 
     private static void printListOfTasks(Task[] list) {
-        for (int index = 0; index < Task.getNoOfItems(); index++) {
+        if (list.length == 0) {
+            System.out.println("No tasks!");
+        }
+        Integer noOfItems = Task.getNoOfItems();
+        for (int index = 0; index < noOfItems; index++) {
             System.out.println(index + 1 + ". " + list[index]);
         }
     }

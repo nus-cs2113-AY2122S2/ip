@@ -1,5 +1,6 @@
-todo borrow book
+todo yithien: Answer CS2113 quiz Monday 9pm
+deadline weekly CS2113 quiz /by Monday 9pm
 list
-deadline return book /by Sunday
-event project meeting /at Mon 2-4pm
-bye
+event CS2113 lecture /at Friday 4 to 6pm
+mark 1
+list
