@@ -17,4 +17,15 @@ d
 n
 mark 0
 mark -1
+todo
+todo
+deadline
+deadline
+event
+event
+event /at
+deadline return book
+deadline return book by Sunday
+deadline Sunday
+deadline /by
 bye
