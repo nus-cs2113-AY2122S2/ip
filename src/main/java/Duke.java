@@ -22,16 +22,19 @@ public class Duke {
             if (echo.equals("list")) {
                 printTasks(tasks, index);
                 continue;
-            }
-
-            String curTask = echo.substring(0, (echo.indexOf(" ")));
-
-            System.out.println("----------------------------------------------------------------");
-            if(echo.equals("bye")) {
+            } else if(echo.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println("----------------------------------------------------------------\n");
                 break;
-            } else if (curTask.equals("mark")) {
+            }
+
+            String curTask = echo.substring(0, (echo.indexOf(" ")));
+            //add StringIndexOutOfBoundsException here
+
+
+            System.out.println("----------------------------------------------------------------");
+
+            if (curTask.equals("mark")) {
                 markTask(echo, tasks);
                 continue;
             } else if (curTask.equals("unmark")) {
