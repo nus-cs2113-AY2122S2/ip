@@ -19,6 +19,38 @@ public class Vera {
             + "______________________________";
 
     private static final String HELP_MESSAGE = "For more information, please enter the 'help' command.";
+    private static final String HELP_MESSAGE_SPECIFIC_COMMAND = "\n\nFor more information on "
+            + "the command you wish to execute,\nenter 'help <command>' e.g. help todo";
+    private static final String HELP_MESSAGE_LIST_COMMAND = "List: Displays a list of tasks "
+            +"added and shows \nwhether or not certain tasks are marked.";
+    private static final String HELP_MESSAGE_MARK_COMMAND = "Mark: Marks a task as done. "
+            + "\nTo mark a specific task, please enter 'mark <list_index>'.\n\n Here, "
+            + "'list_index' denotes the index of a task \n based on the task list under the command 'list'\n"
+            + "\nE.g., 'mark 1' marks the first task in the task list as done";
+    private static final String HELP_MESSAGE_UNMARK_COMMAND = "Unmark: Marks a task as undone."
+            + "\nTo unmark a specific task, please enter 'unmark <list_index>'.\n\n Here, "
+            + "'list_index' denotes the index of a task \n based on the task list under the command 'list'\n"
+            + "\nE.g., 'unmark 3' unmarks the third task in the task list";
+    private static final String HELP_MESSAGE_TODO_COMMAND = "Todo: Adds a 'todo' task into the task list."
+            + "\nA 'todo' contains only a task description. \n\nTo add other features to your task, "
+            + "such as date and time, \nuse either 'deadline' or 'event'\n\nTo execute the command, \n"
+            + "enter 'todo <task_description>', e.g. todo read book";
+    private static final String HELP_MESSAGE_DEADLINE_COMMAND = "Deadline: Adds a 'deadline' task "
+            + "into the task list. \nA 'deadline' contains both a task description \nand a date "
+            + "to finish the task by.\n\nTo execute the command,\nenter 'deadline <task_description> "
+            + "/by <task_date>'.\nE.g. deadline return book /by Sunday";
+    private static final String HELP_MESSAGE_EVENT_COMMAND = "Event: Adds an 'event' task into the task list.\n"
+            + "An 'event' contains both a task description \nand a date "
+            + "of when the event will happen. \n\nTo execute the command,\n"
+            + "enter 'event <task_description> /at <task_date>'.\n"
+            + "E.g. event project meeting /at 6th Aug 2-4pm";
+    private static final String HELP_MESSAGE_QUICK_START_COMMAND = "Command quick start guide:\n1) List: list\n"
+            + "2) Mark: mark <list_index>\n"
+            + "3) Unmark: unmark <list_index>\n"
+            + "4) Todo: todo <task_description>\n"
+            + "5) Deadline: deadline <task_description> /by <task_date>\n"
+            + "6) Event: event <task_description> /at <task_date>";
+
     private static final String ERROR_INVALID_INPUT_MESSAGE = "Please key in an appropriate command.\n"
             + HELP_MESSAGE;
     private static final String ERROR_MAX_TASK_MESSAGE = "Sorry! You've reached the maximum "
@@ -29,8 +61,7 @@ public class Vera {
             + " add a '/by' to your 'deadline' command.";
     private static final String ERROR_TODO_REPEATED_INPUT_MESSAGE = "Oops! It seems that you've "
             + "already added this task.";
-    private static final String HELP_MESSAGE_SPECIFIC_COMMAND = "\n\nFor more information on "
-            + "the command you wish to execute,\nenter 'help <command>' e.g. help todo";
+
 
     private static final int OPTIONS_INDEX = 0;
     private static final int MARK_INDEX = 1;
@@ -38,6 +69,7 @@ public class Vera {
     private static final int TASK_DESCRIPTION_INDEX = 0;
     private static final int TASK_DESCRIPTION_INDEX_TODO = 1;
     private static final int TASK_DATE_INDEX = 1;
+    private static final int HELP_OPTIONS_INDEX = 1;
 
     public enum TaskType {
         TODO, DEADLINE, EVENT
@@ -263,8 +295,45 @@ public class Vera {
                 + " not done yet:\n  " + tasks[taskIndexToUnmark];
     }
 
-    public static String filterHelpCommand() {
-        return "Will update this list soon! Come back next time!";
+    public static String showHelpList() {
+        System.out.println(PARTITION_LINE + "\nHere is a list of commands available:");
+        String[] helpCommands = {"list", "mark", "unmark", "todo", "deadline", "event"};
+        for (String helpCommand : helpCommands) {
+            System.out.println(PARTITION_LINE + System.lineSeparator()
+                    + showSpecificHelpCommand(helpCommand));
+        }
+        return "For a quick summary of what commands to execute, \n"
+                + "enter 'help quick start'";
+    }
+
+    public static String showSpecificHelpCommand(String parsedInput) {
+        switch(parsedInput.toLowerCase()) {
+        case "list":
+            return HELP_MESSAGE_LIST_COMMAND;
+        case "mark":
+            return HELP_MESSAGE_MARK_COMMAND;
+        case "unmark":
+            return HELP_MESSAGE_UNMARK_COMMAND;
+        case "todo":
+            return HELP_MESSAGE_TODO_COMMAND;
+        case "deadline":
+            return HELP_MESSAGE_DEADLINE_COMMAND;
+        case "event":
+            return HELP_MESSAGE_EVENT_COMMAND;
+        case "quick start":
+            return HELP_MESSAGE_QUICK_START_COMMAND + HELP_MESSAGE_SPECIFIC_COMMAND;
+        default:
+            return showHelpList();
+        }
+    }
+
+    public static String filterHelpCommand(String userInput) {
+        try {
+            String[] parsedInput = parseData(userInput, " ", 2);
+            return showSpecificHelpCommand(parsedInput[HELP_OPTIONS_INDEX]);
+        } catch (IndexOutOfBoundsException e) {
+            return showHelpList();
+        }
     }
 
     public static String executeInput(String userInput) {
@@ -283,7 +352,7 @@ public class Vera {
         case "deadline":
             return filterTaskBeforeAddingToTaskList(parsedInput, "/by", TaskType.DEADLINE);
         case "help":
-            return filterHelpCommand();
+            return filterHelpCommand(userInput);
         default:
             return ERROR_INVALID_INPUT_MESSAGE;
         }
