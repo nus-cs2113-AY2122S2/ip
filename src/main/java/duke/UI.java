@@ -1,3 +1,5 @@
+package duke;
+
 public class UI {
     // String assets for Dukebot GUI
     final static String BORDER = "__________________________________________________";
