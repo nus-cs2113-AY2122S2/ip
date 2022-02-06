@@ -1,3 +1,5 @@
+import duke.exception.IncompleteCommandException;
+
 /**
  *
  */

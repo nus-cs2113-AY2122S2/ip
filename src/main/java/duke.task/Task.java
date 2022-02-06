@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * Represents a task with task information stored as a string and a boolean for whether it is completed.
  */

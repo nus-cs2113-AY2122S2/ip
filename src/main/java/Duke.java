@@ -1,3 +1,6 @@
+import duke.exception.IncompleteCommandException;
+import duke.task.TaskList;
+
 import java.util.Scanner;
 
 public class Duke {
