@@ -1,8 +1,7 @@
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
 
-public class Duke {
+public class Bim {
     private static final Scanner in = new Scanner(System.in);
     private static final ArrayList<Task> taskStore = new ArrayList<Task>();
 
