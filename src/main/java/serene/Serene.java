@@ -1,4 +1,10 @@
-import java.lang.reflect.Array;
+package serene;
+
+import serene.task.Deadline;
+import serene.task.Event;
+import serene.task.Task;
+import serene.task.ToDo;
+
 import java.util.Scanner;
 
 public class Serene {
