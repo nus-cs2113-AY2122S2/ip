@@ -2,71 +2,56 @@ import java.util.Scanner;
 import java.util.Arrays;
 
 public class Duke {
-    public static void main(String[] args) {
-        welcomeMessage();
-        Task[] userLists = new Task[] {};
+    public static void userInterface() throws DukeException {
+        Task[] userLists = new Task[]{};
         Scanner input = new Scanner(System.in);
         String userInput = input.nextLine();
 
         //main handler for receiving input
-        while(!userInput.equals("bye")) {
-            //change user input into an array of tokens
+        while (!userInput.equals("bye")) {
             Tokenise userInputTokens = new Tokenise(userInput);
-            String newUserInput = userInputTokens.removeKeyword();
-            if (userInputTokens.getIsKeyword()) {
-                switch (userInputTokens.getTokens()[0]){
-                case "list":
-                    String allTasks = listTask(userLists);
-                    allTasks = wrapMessage(allTasks);
-                    System.out.println(allTasks);
-                    break;
-                case "todo":
-                    Todo newTodo = new Todo(newUserInput);
-                    userLists = addTask(newTodo, userLists);
-                    break;
-                case "deadline":
-                    //split string into the description and time
-                    String deadlineTime = newUserInput.substring(newUserInput.indexOf("/")+4);
-                    newUserInput = newUserInput.substring(0, newUserInput.indexOf("/"));
-                    Deadline newDeadline = new Deadline(newUserInput.trim(), deadlineTime);
-                    userLists = addTask(newDeadline, userLists);
-                    break;
-                case "event":
-                    //split string into the description and time
-                    String eventTime = newUserInput.substring(newUserInput.indexOf("/")+4);
-                    newUserInput = newUserInput.substring(0, newUserInput.indexOf("/"));
-                    Event newEvent = new Event(newUserInput, eventTime);
-                    userLists = addTask(newEvent, userLists);
-                    break;
-                case "mark":
-                    userLists[Integer.parseInt(userInputTokens.getTokens()[1])].setMark();
-                    System.out.println(
-                            wrapMessage("Nice! I've marked this task as done:\n" +
-                                    userLists[Integer.parseInt(
-                                            userInputTokens.getTokens()[1])].toString()
-                            ));
-                    break;
-                case "unmark":
-                    userLists[Integer.parseInt(userInputTokens.getTokens()[1])].unMark();
-                    System.out.println(
-                            wrapMessage("OK, I've marked this task as not done yet:\n" +
-                                    userLists[Integer.parseInt(
-                                            userInputTokens.getTokens()[1])].toString()
-                            ));
-                    break;
-                default:
-                }
-            } else {
-                Task newTask = new Task(userInput);
-                userLists = addTask(newTask, userLists);
-                //in the case where non-keyword inputs are disallowed
-                //System.out.println("Please use a keyword for inputs");
+            //change user input into an array of tokens
+            switch (userInputTokens.getTokens()[0]) {
+            case "list":
+                String allTasks = listTask(userLists);
+                allTasks = wrapMessage(allTasks);
+                System.out.println(allTasks);
+                break;
+            case "todo":
+                Todo newTodo = new Todo(userInputTokens.getDescription());
+                userLists = addTask(newTodo, userLists);
+                break;
+            case "deadline":
+                Deadline newDeadline = new Deadline(
+                        userInputTokens.getDescription(),
+                        userInputTokens.getTime());
+                userLists = addTask(newDeadline, userLists);
+                break;
+            case "event":
+                //find index in user input tokens which contains the time separator
+                Event newEvent = new Event(
+                        userInputTokens.getDescription(),
+                        userInputTokens.getTime());
+                userLists = addTask(newEvent, userLists);
+                break;
+            case "mark":
+                userLists[userInputTokens.getMarkIndex()].setMark();
+                System.out.println(
+                        wrapMessage("Nice! I've marked this task as done:\n" +
+                                    userLists[userInputTokens.getMarkIndex()].toString()
+                        ));
+                break;
+            case "unmark":
+                userLists[userInputTokens.getMarkIndex()].unMark();
+                System.out.println(
+                        wrapMessage("OK, I've marked this task as not done yet:\n" +
+                                    userLists[userInputTokens.getMarkIndex()].toString()
+                        ));
+                break;
+            default:
             }
             userInput = input.nextLine();
         }
-
-        //end of program
-        byeMessage();
     }
 
     /**
@@ -80,9 +65,11 @@ public class Duke {
     public static Task[] addTask (Task task, Task[] userLists) {
         userLists = Arrays.copyOf(userLists, userLists.length + 1);
         userLists[userLists.length - 1] = task;
-        String userInput = wrapMessage("Got it. I've added this task:\n " +
-                task.toString() + " \nNow you have " + userLists.length +
-                " tasks in the list.\n");
+        String userInput = wrapMessage(
+                String.format("Got it. I've added this task:\n" +
+                              " %s \n" +
+                              "Now you have %d tasks in the list",
+                task.toString(), userLists.length));
         System.out.println(userInput);
 
         return userLists;
@@ -105,10 +92,8 @@ public class Duke {
     }
 
     public static String wrapMessage(String message) {
-        message = "____________________________________________________________\n"+
-                message +
-                "____________________________________________________________\n";
-
+        String divider = "____________________________________________________________\n";
+        message = String.format("%s %s%s", divider, message, divider);
         return message;
     }
 
@@ -125,5 +110,11 @@ public class Duke {
                 " Bye. Hope to see you again soon!\n" +
                 "____________________________________________________________\n";
         System.out.println(goodBye);
+    }
+
+    public static void main(String[] args) throws DukeException {
+        welcomeMessage();
+        userInterface();
+        byeMessage();
     }
 }

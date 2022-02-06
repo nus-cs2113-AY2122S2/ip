@@ -1,10 +1,9 @@
 public class Task {
-    private String taskName;
     private Boolean isMarked = false;
+    private String taskName;
 
     public Task(String taskName) {
         this.taskName = taskName;
-        this.isMarked = false;
     }
 
     public void setMark() {
