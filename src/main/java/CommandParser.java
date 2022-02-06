@@ -34,10 +34,17 @@ public class CommandParser {
         return dateTime.trim();
     }
 
-    public static String getToDoTaskDescription(String input) {
-        int firstSpaceIndex = input.indexOf(" ");
-        // +1 to exclude " "
-        String description = input.substring(firstSpaceIndex + 1);
-        return description.trim();
+    public static String getToDoTaskDescription(String input) throws DukeException {
+        if (input.contains(" ")) {
+            int firstSpaceIndex = input.indexOf(" ");
+            // +1 to exclude " "
+            String description = input.substring(firstSpaceIndex + 1).trim();
+            // check if it is just spaces and no words for the todo_task description
+            if (description.isEmpty()){
+                throw new DukeException("Oops! The description of a todo cannot be empty!");
+            }
+            return description;
+        }
+        throw new DukeException("Oops! The description of a todo cannot be empty!");
     }
 }

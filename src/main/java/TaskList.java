@@ -52,8 +52,15 @@ public class TaskList {
     }
 
     public static Todo createTodoTask(String input) {
-        String todoDescription = CommandParser.getToDoTaskDescription(input);
-        return new Todo(todoDescription);
+        Todo newTodoTask = null;
+        try {
+            String todoDescription = CommandParser.getToDoTaskDescription(input);
+            newTodoTask = new Todo(todoDescription);
+        } catch (DukeException dukeError) {
+            System.out.println(dukeError);
+            return null;
+        }
+        return newTodoTask;
     }
 
     public static void addTaskToTaskList(String input, String type) {
@@ -72,9 +79,11 @@ public class TaskList {
             System.out.println("Invalid type of task given!");
             return;
         }
-        listOfTask.add(newTask);
-        numOfTask++;
-        printTaskListUpdate(newTask);
+        if (newTask != null) {
+            listOfTask.add(newTask);
+            numOfTask++;
+            printTaskListUpdate(newTask);
+        }
     }
 
     public static void printTaskListUpdate(Task newTask) {
@@ -84,11 +93,8 @@ public class TaskList {
     }
 
     public static void printTaskList() {
-        int taskCount = 1;
-        for (Task task : listOfTask) {
-            System.out.print(" "+taskCount +".");
-            System.out.println(task);
-            taskCount++;
+        for (int i = 0 ; i < numOfTask; i++) {
+            System.out.print(" " +(i + 1) +"." + listOfTask.get(i));
         }
     }
 }
