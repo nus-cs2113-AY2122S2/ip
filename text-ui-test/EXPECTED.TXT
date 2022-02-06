@@ -37,30 +37,14 @@ Good job~ This task is now done:
 [T][X] Try to crash this system
 ____________________________________________________________
 ____________________________________________________________
-Good job~ This task is now done:
-[E][X] Crash this system (at: Some weird timing you'll never know like 13pm)
-____________________________________________________________
-____________________________________________________________
-Good job~ This task is now done:
-[D][X] Crash Serene (by: The end of this damn semester who knows 40th June)
-____________________________________________________________
-____________________________________________________________
 Here is your task list:
 1.[T][X] Try to crash this system
-2.[E][X] Crash this system (at: Some weird timing you'll never know like 13pm)
-3.[D][X] Crash Serene (by: The end of this damn semester who knows 40th June)
+2.[E][ ] Crash this system (at: Some weird timing you'll never know like 13pm)
+3.[D][ ] Crash Serene (by: The end of this damn semester who knows 40th June)
 ____________________________________________________________
 ____________________________________________________________
 Sigh. Here we go again:
 [T][ ] Try to crash this system
-____________________________________________________________
-____________________________________________________________
-Sigh. Here we go again:
-[E][ ] Crash this system (at: Some weird timing you'll never know like 13pm)
-____________________________________________________________
-____________________________________________________________
-Sigh. Here we go again:
-[D][ ] Crash Serene (by: The end of this damn semester who knows 40th June)
 ____________________________________________________________
 ____________________________________________________________
 Here is your task list:
