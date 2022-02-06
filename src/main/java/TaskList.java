@@ -10,7 +10,7 @@ public class TaskList {
         return listOfTask.get(taskNumber - 1);
     }
 
-    public static int getTaskNumberFromInput(String input) throws IndexOutOfBoundsException {
+    public static int getTaskNumberFromInput(String input) throws IndexOutOfBoundsException, NumberFormatException {
         int index = Integer.parseInt(input.split(" ")[1]);
         // check to see if an index of < 0 was given
         if (index <= 0 || index > numOfTask) {
@@ -33,7 +33,9 @@ public class TaskList {
             }
             System.out.println(markedTask);
         } catch (IndexOutOfBoundsException idxError) {
-            System.out.println(idxError);
+            System.out.println("Invalid task number to be marked!");
+        } catch (NumberFormatException numFormError) {
+            System.out.println("Please enter a number to mark task.");
         }
     }
 
@@ -87,7 +89,7 @@ public class TaskList {
 
     public static void addTaskToTaskList(String input, String type) {
         Task newTask = null;
-        switch (type){
+        switch (type.toLowerCase()){
         case "deadline":
             newTask = createDeadlineTask(input);
             break;
@@ -116,6 +118,9 @@ public class TaskList {
     }
 
     public static void printTaskList() {
+        if (numOfTask == 0) {
+            System.out.println("No task available!");
+        }
         for (int i = 0 ; i < numOfTask; i++) {
             System.out.println(" " +(i + 1) +"." + listOfTask.get(i));
         }

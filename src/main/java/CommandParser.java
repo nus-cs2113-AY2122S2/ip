@@ -1,7 +1,7 @@
 public class CommandParser {
 
     public static String getCommand(String input) {
-        return input.split(" ")[0];
+        return input.split(" ")[0].toLowerCase();
     }
 
     public static String getDeadlineTaskDescription(String input) throws DukeException, StringIndexOutOfBoundsException {
