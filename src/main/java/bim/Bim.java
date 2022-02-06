@@ -1,3 +1,10 @@
+package bim;
+
+import bim.task.Deadline;
+import bim.task.Event;
+import bim.task.Task;
+import bim.task.ToDo;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,7 +32,6 @@ public class Bim {
     private static final String OP_ADD_DEADLINE = "deadline";
     private static final String OP_ADD_TODO = "todo";
     private static final String OP_ADD_EVENT = "event";
-    private static final String OP_ADD_TASK = "task";
     private static final String OP_EXIT_PROGRAM = "bye";
     private static final String OP_LIST_TASK = "list";
 
@@ -40,7 +46,7 @@ public class Bim {
     public static void readInput() {
         while (in.hasNextLine()) {
             String input = in.nextLine();
-            String[] words = input.split(" ", EXPECTED_ARG_NUMBER);
+            String[] words = input.split(" ", 2);
             String command = words[0].toLowerCase();
             String commandArg = (words.length > 1) ? words[1] : "";
             try {
