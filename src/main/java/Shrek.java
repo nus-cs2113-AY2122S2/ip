@@ -60,9 +60,10 @@ public class Shrek {
         try {
             chunkOfInput = input.split(taskTimeReference);
             if (chunkOfInput.length > NUMBER_OF_TERMS_IN_SPLIT) {
-                throw new InvalidCommandException("Did you add in more than one \"" + taskTimeReference + "\"?", errorCount);
-            } else if (chunkOfInput.length < NUMBER_OF_TERMS_IN_SPLIT) {
-                throw new InvalidCommandException("Did you forget to add in the time?", errorCount);
+                throw new InvalidCommandException("Did you add in more than one \""
+                        + taskTimeReference + "\"?", errorCount);
+            } else if (chunkOfInput[INDEX_OF_TASK_CONTENT].equals("") || chunkOfInput[INDEX_OF_TASK_NAME].equals("")) {
+                throw new InvalidCommandException("Did you forget to add in the time or task?", errorCount);
             }
             if (taskTimeReference.equals("/at ")) {
                 lists[listIndex] = new Events(chunkOfInput[INDEX_OF_TASK_CONTENT],
@@ -75,11 +76,12 @@ public class Shrek {
             if (!input.contains(taskTimeReference)) {
                 throw new InvalidCommandException("Did you forget \"" + taskTimeReference + "\"?", errorCount);
             }
+            throw new InvalidCommandException("Did you forget to add in the time or task?", errorCount);
         }
     }
 
     public static void addToList(String input, String taskName) {
-        boolean isSuccessful = true;
+        boolean isTaskRanSuccessful = true;
         switch (taskName) {
         case "todo":
             lists[listIndex] = new ToDo(input, listIndex);
@@ -92,9 +94,9 @@ public class Shrek {
             break;
         default:
             System.out.println("Did you type the task properly? Re-enter your task");
-            isSuccessful = false;
+            isTaskRanSuccessful = false;
         }
-        if (isSuccessful) {
+        if (isTaskRanSuccessful) {
             System.out.println("Done putting this in the list:");
             System.out.println(lists[listIndex]);
             System.out.println("Go do the " + listIndex + " task(s)!!");
