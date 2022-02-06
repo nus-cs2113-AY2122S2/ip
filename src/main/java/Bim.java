@@ -7,7 +7,9 @@ public class Bim {
 
     private static final String EMPTY_TASKLIST = "404 Not Found";
     private static final String ERROR_INDEX = "Invalid index!";
-    private static final String ERROR_COMMAND = "Error in command!";
+    private static final String ERROR_COMMAND = "I didn't understand that!";
+    private static final String ERROR_COMMAND_ARG = "Check your arguments!";
+
 
     private static final String MESSAGE_GREETING_1 = "Hi! I'm Bim!";
     private static final String MESSAGE_GREETING_2 = "What can I do for you?";
@@ -15,8 +17,8 @@ public class Bim {
     private static final String MESSAGE_MARK_TASK = "Okie Dokie!";
     private static final String MESSAGE_UNMARK_TASK = "Oh no! Anyways..";
 
-    private static final String DELIMITER_EVENT = "/at ";
-    private static final String DELIMITER_DEADLINE = "/by ";
+    private static final String DELIMITER_EVENT = " /at ";
+    private static final String DELIMITER_DEADLINE = " /by ";
 
     private static final String OP_MARK = "mark";
     private static final String OP_UNMARK = "unmark";
@@ -27,7 +29,8 @@ public class Bim {
     private static final String OP_EXIT_PROGRAM = "bye";
     private static final String OP_LIST_TASK = "list";
 
-    public static final String LINE_SEPARATOR = "----------------------------------";
+    private static final String LINE_SEPARATOR = "----------------------------------";
+    private static final int EXPECTED_ARG_NUMBER = 2;
 
     public static void main(String[] args) {
         printWelcomeMessage();
@@ -37,18 +40,19 @@ public class Bim {
     public static void readInput() {
         while (in.hasNextLine()) {
             String input = in.nextLine();
-            String[] words = input.split(" ", 2);
+            String[] words = input.split(" ", EXPECTED_ARG_NUMBER);
             String command = words[0].toLowerCase();
-            String commandArg = "";
-            if (words.length > 1) {
-                commandArg = words[1];
+            String commandArg = (words.length > 1) ? words[1] : "";
+            try {
+                handleCommand(command, commandArg);
+            } catch (BimException exception) {
+                System.out.println(ERROR_COMMAND);
             }
-            handleCommand(command, commandArg);
             System.out.println(LINE_SEPARATOR);
         }
     }
 
-    private static void handleCommand(String command, String commandArg) {
+    private static void handleCommand(String command, String commandArg) throws BimException {
         switch (command) {
         case OP_EXIT_PROGRAM:
             exitProgram();
@@ -72,8 +76,7 @@ public class Bim {
             addEvent(commandArg);
             break;
         default:
-            addTask(command);
-            break;
+            throw new BimException();
         }
     }
 
@@ -112,6 +115,10 @@ public class Bim {
     }
 
     private static void addToDo(String commandArg) {
+        if (!isValidArgument(commandArg)) {
+            System.out.println(ERROR_COMMAND_ARG);
+            return;
+        }
         ToDo newToDo = new ToDo(commandArg);
         taskStore.add(newToDo);
         printAddMessage(OP_ADD_TODO);
@@ -119,10 +126,10 @@ public class Bim {
 
     private static void addDeadline(String commandArg) {
         if (!isValidArgument(DELIMITER_DEADLINE, commandArg)) {
-            System.out.println(ERROR_COMMAND);
+            System.out.println(ERROR_COMMAND_ARG);
             return;
         }
-        String[] parsedTokens = parseArgument(DELIMITER_DEADLINE, commandArg);
+        String[] parsedTokens = commandArg.split(DELIMITER_DEADLINE);
         String deadlineDescription = parsedTokens[0];
         String deadlineDate = parsedTokens[1];
         Deadline newDeadline = new Deadline(deadlineDescription, deadlineDate);
@@ -132,10 +139,10 @@ public class Bim {
 
     private static void addEvent(String commandArg) {
         if (!isValidArgument(DELIMITER_EVENT, commandArg)) {
-            System.out.println(ERROR_COMMAND);
+            System.out.println(ERROR_COMMAND_ARG);
             return;
         }
-        String[] parsedTokens = parseArgument(DELIMITER_EVENT, commandArg);
+        String[] parsedTokens = commandArg.split(DELIMITER_EVENT);
         String eventDescription = parsedTokens[0];
         String eventDate = parsedTokens[1];
         Event newEvent = new Event(eventDescription, eventDate);
@@ -150,11 +157,17 @@ public class Bim {
     }
 
     private static boolean isValidArgument(String delimiter, String commandArg) {
-        return commandArg.contains(delimiter);
+        if (commandArg.contains(delimiter)) {
+            String[] arguments = commandArg.split(delimiter);
+            if (arguments.length == EXPECTED_ARG_NUMBER) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    private static String[] parseArgument(String delimiter, String commandArg) {
-        return commandArg.split(delimiter);
+    private static boolean isValidArgument(String commandArg) {
+        return !commandArg.isEmpty();
     }
 
     private static boolean isValidIndex(int index) {
