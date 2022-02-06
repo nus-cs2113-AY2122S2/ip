@@ -46,9 +46,18 @@ public class TaskList {
     }
 
     public static Event createEventTask(String input) {
-        String eventDescription = CommandParser.getEventTaskDescription(input);
-        String dueDate = CommandParser.getEventDateTime(input);
-        return new Event(eventDescription, dueDate);
+        Event newEventTask = null;
+        try {
+            String eventDescription = CommandParser.getEventTaskDescription(input);
+            String dueDate = CommandParser.getEventDateTime(input);
+            newEventTask = new Event(eventDescription, dueDate);
+        } catch (DukeException dukeError) {
+            System.out.println(dukeError);
+            return null;
+        } catch (StringIndexOutOfBoundsException idxError) {
+            System.out.println("Please check your command and formatting again!");
+        }
+        return newEventTask;
     }
 
     public static Todo createTodoTask(String input) {
@@ -59,12 +68,15 @@ public class TaskList {
         } catch (DukeException dukeError) {
             System.out.println(dukeError);
             return null;
+        } catch (StringIndexOutOfBoundsException idxError) {
+            System.out.println("Please check your command and formatting again!");
+            return null;
         }
         return newTodoTask;
     }
 
     public static void addTaskToTaskList(String input, String type) {
-        Task newTask;
+        Task newTask = null;
         switch (type){
         case "deadline":
             newTask = createDeadlineTask(input);
@@ -94,7 +106,7 @@ public class TaskList {
 
     public static void printTaskList() {
         for (int i = 0 ; i < numOfTask; i++) {
-            System.out.print(" " +(i + 1) +"." + listOfTask.get(i));
+            System.out.println(" " +(i + 1) +"." + listOfTask.get(i));
         }
     }
 }
