@@ -40,9 +40,19 @@ public class TaskList {
     }
 
     public static Deadline createDeadlineTask(String input) {
-        String deadlineDescription = CommandParser.getDeadlineTaskDescription(input);
-        String dueDateTime = CommandParser.getDeadlineDate(input);
-        return new Deadline(deadlineDescription, dueDateTime);
+        Deadline newDeadlineTask = null;
+        try {
+            String deadlineDescription = CommandParser.getDeadlineTaskDescription(input);
+            String dueDateTime = CommandParser.getDeadlineDate(input);
+            newDeadlineTask = new Deadline(deadlineDescription, dueDateTime);
+        } catch (DukeException dukeError) {
+            System.out.println(dukeError);
+            return null;
+        } catch (StringIndexOutOfBoundsException idxError) {
+            System.out.println("Please check your command and formatting again!");
+        }
+
+        return newDeadlineTask;
     }
 
     public static Event createEventTask(String input) {
@@ -57,6 +67,7 @@ public class TaskList {
         } catch (StringIndexOutOfBoundsException idxError) {
             System.out.println("Please check your command and formatting again!");
         }
+
         return newEventTask;
     }
 
@@ -72,6 +83,7 @@ public class TaskList {
             System.out.println("Please check your command and formatting again!");
             return null;
         }
+
         return newTodoTask;
     }
 
@@ -91,6 +103,7 @@ public class TaskList {
             System.out.println("Invalid type of task given!");
             return;
         }
+
         if (newTask != null) {
             listOfTask.add(newTask);
             numOfTask++;
