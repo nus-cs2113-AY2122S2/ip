@@ -9,35 +9,62 @@ __________________________________________________
  What can I do for you today?
 __________________________________________________
 __________________________________________________
+DukeException: Oops! The description of a todo task cannot be empty!
+__________________________________________________
+__________________________________________________
+DukeException: Oops! The description of a todo task cannot be empty!
+__________________________________________________
+__________________________________________________
 Got it!. I've added this task:
-[T][ ] read book
+[T][ ] test1
 Now you have 1 tasks in the list.
 __________________________________________________
+ 1.[T][ ] test1
+__________________________________________________
+DukeException: Oops! It seems that you left out the /at in your command!
+__________________________________________________
+__________________________________________________
+DukeException: Oops! It seems that you left out the /at in your command!
+__________________________________________________
+__________________________________________________
+Please check your command and formatting again!
+__________________________________________________
+__________________________________________________
+Please check your command and formatting again!
+__________________________________________________
+__________________________________________________
+Please check your command and formatting again!
+__________________________________________________
 __________________________________________________
 Got it!. I've added this task:
-[D][ ] return book (by: Sunday)
+[E][ ] test2 (at: test2)
 Now you have 2 tasks in the list.
 __________________________________________________
+ 1.[T][ ] test1
+ 2.[E][ ] test2 (at: test2)
 __________________________________________________
-Got it!. I've added this task:
-[E][ ] attend CS2113T lecture (at: Friday 4-6pm)
-Now you have 3 tasks in the list.
+DukeException: Oops! It seems that you left out the /by in your command!
 __________________________________________________
- 1.[T][ ] read book
- 2.[D][ ] return book (by: Sunday)
- 3.[E][ ] attend CS2113T lecture (at: Friday 4-6pm)
-1
-Nice! I'v marked this task as done:
-[T][X] read book
- 1.[T][X] read book
- 2.[D][ ] return book (by: Sunday)
- 3.[E][ ] attend CS2113T lecture (at: Friday 4-6pm)
-1
-Okay! I'v marked this task as not done:
-[T][ ] read book
- 1.[T][ ] read book
- 2.[D][ ] return book (by: Sunday)
- 3.[E][ ] attend CS2113T lecture (at: Friday 4-6pm)
+__________________________________________________
+DukeException: Oops! It seems that you left out the /by in your command!
+__________________________________________________
+__________________________________________________
+Please check your command and formatting again!
+__________________________________________________
+__________________________________________________
+Please check your command and formatting again!
+__________________________________________________
+__________________________________________________
+Please check your command and formatting again!
+__________________________________________________
+__________________________________________________
+DukeException: Oops! It seems that you left out the /by in your command!
+__________________________________________________
+ 1.[T][ ] test1
+ 2.[E][ ] test2 (at: test2)
+Invalid task number to be marked!
+Please enter a number to mark task.
+Invalid task number to be marked!
                                __
                             _ / /
   __ ___      ____      __ (_) |

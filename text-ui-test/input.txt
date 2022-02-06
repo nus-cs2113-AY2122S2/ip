@@ -1,9 +1,22 @@
-todo read book
-deadline return book /by Sunday
-event attend CS2113T lecture /at Friday 4-6pm
+todo
+todo
+todo test1
 list
-mark 1
+event
+event
+event /at
+event something /at
+event /at some time
+event test2 /at test2
 list
-unmark 1
+deadline
+deadline
+deadline /by
+deadline something /by
+deadline /by some time
+deadline test3 /at test3
 list
+mark -1
+mark pen
+mark 3
 bye
