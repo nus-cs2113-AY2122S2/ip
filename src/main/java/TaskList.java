@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * Manages an ArrayList of Tasks.
+ * Manages an ArrayList of Tasks. Tasks can have an associated deadline, event or nothing at all.
  */
 public class TaskList {
 
