@@ -25,15 +25,14 @@ New todo added!
 There are 5 task(s) in the list
 ----------------------------------
 Okie Dokie!
-	[T][X] steal alice purse
-----------------------------------
-Okie Dokie!
 	[T][X] steal alice phone
+----------------------------------
+Invalid index!
 ----------------------------------
 1.[T][ ] get together with alice
 2.[E][ ] alice wedding (at: 24 nov 2022)
 3.[D][ ] prevent alice wedding (by: 24 nov 2022)
-4.[T][X] steal alice purse
+4.[T][ ] steal alice purse
 5.[T][X] steal alice phone
 ----------------------------------
 New todo added!
@@ -41,10 +40,10 @@ New todo added!
 There are 6 task(s) in the list
 ----------------------------------
 Oh no! Anyways..
-	[T][ ] steal alice purse
+	[T][ ] steal alice phone
 ----------------------------------
 Oh no! Anyways..
-	[T][ ] steal alice phone
+	[T][ ] seek help from mallory
 ----------------------------------
 1.[T][ ] get together with alice
 2.[E][ ] alice wedding (at: 24 nov 2022)
@@ -52,6 +51,8 @@ Oh no! Anyways..
 4.[T][ ] steal alice purse
 5.[T][ ] steal alice phone
 6.[T][ ] seek help from mallory
+----------------------------------
+Invalid index!
 ----------------------------------
 Invalid index!
 ----------------------------------

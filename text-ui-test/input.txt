@@ -13,6 +13,7 @@ unmark 5
 list
 mark 7
 unmark 7
+unmark notanumber
 event bob's birthday
 deadline prepare present
 list
