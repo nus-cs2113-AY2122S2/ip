@@ -24,9 +24,10 @@ public class Duke {
 
         greet();
 
-        String input = s.nextLine();
-
         while (true) {
+
+            String input = s.nextLine();
+
             if (input.equals("bye")) {
                 break;
             } else if (input.equals("list")) {
@@ -60,7 +61,6 @@ public class Duke {
                 promptAgain();
                 promptCommandList();
             }
-            input = s.nextLine();
         }
         bye();
 
