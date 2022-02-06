@@ -1,3 +1,4 @@
+package duke.exceptions;
 import javax.swing.*;
 
 public class ChangeStatusException extends Exception {
