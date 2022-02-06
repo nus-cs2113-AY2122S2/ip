@@ -1,3 +1,5 @@
+package bim.task;
+
 public class Event extends Task {
     protected String date;
 
