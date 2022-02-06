@@ -9,10 +9,10 @@ __________________________________________________
  What can I do for you today?
 __________________________________________________
 __________________________________________________
-DukeException: Oops! The description of a todo task cannot be empty!
+duke.DukeException: Oops! The description of a todo task cannot be empty!
 __________________________________________________
 __________________________________________________
-DukeException: Oops! The description of a todo task cannot be empty!
+duke.DukeException: Oops! The description of a todo task cannot be empty!
 __________________________________________________
 __________________________________________________
 Got it!. I've added this task:
@@ -21,10 +21,10 @@ Now you have 1 tasks in the list.
 __________________________________________________
  1.[T][ ] test1
 __________________________________________________
-DukeException: Oops! It seems that you left out the /at in your command!
+duke.DukeException: Oops! It seems that you left out the /at in your command!
 __________________________________________________
 __________________________________________________
-DukeException: Oops! It seems that you left out the /at in your command!
+duke.DukeException: Oops! It seems that you left out the /at in your command!
 __________________________________________________
 __________________________________________________
 Please check your command and formatting again!
@@ -43,13 +43,10 @@ __________________________________________________
  1.[T][ ] test1
  2.[E][ ] test2 (at: test2)
 __________________________________________________
-DukeException: Oops! It seems that you left out the /by in your command!
+duke.DukeException: Oops! It seems that you left out the /by in your command!
 __________________________________________________
 __________________________________________________
-DukeException: Oops! It seems that you left out the /by in your command!
-__________________________________________________
-__________________________________________________
-Please check your command and formatting again!
+duke.DukeException: Oops! It seems that you left out the /by in your command!
 __________________________________________________
 __________________________________________________
 Please check your command and formatting again!
@@ -58,7 +55,10 @@ __________________________________________________
 Please check your command and formatting again!
 __________________________________________________
 __________________________________________________
-DukeException: Oops! It seems that you left out the /by in your command!
+Please check your command and formatting again!
+__________________________________________________
+__________________________________________________
+duke.DukeException: Oops! It seems that you left out the /by in your command!
 __________________________________________________
  1.[T][ ] test1
  2.[E][ ] test2 (at: test2)

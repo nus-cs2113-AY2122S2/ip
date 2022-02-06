@@ -1,3 +1,5 @@
+package duke;
+
 public class CommandParser {
 
     public static String getCommand(String input) {
