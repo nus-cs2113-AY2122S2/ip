@@ -30,7 +30,7 @@ public class Duke {
 
         while (true) {
 
-            String input = s.nextLine();
+            String input = s.nextLine().trim();
 
             if (input.equals("bye")) {
                 break;
