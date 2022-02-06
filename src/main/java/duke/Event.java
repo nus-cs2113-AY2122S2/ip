@@ -1,3 +1,5 @@
+package duke;
+
 public class Event extends Todo {
     public String taskKind = "[E]";
     protected String at;

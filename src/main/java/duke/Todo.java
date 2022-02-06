@@ -1,3 +1,5 @@
+package duke;
+
 public class Todo extends Task {
     public String taskKind = "[T]";
     protected boolean isDone = false;

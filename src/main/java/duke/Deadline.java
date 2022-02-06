@@ -1,3 +1,5 @@
+package duke;
+
 public class Deadline extends Todo {
     public String taskKind = "[D]";
     protected String by;

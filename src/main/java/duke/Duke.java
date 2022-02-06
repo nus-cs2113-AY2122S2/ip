@@ -1,4 +1,4 @@
-
+package duke;
 
 import java.util.Scanner;
 
@@ -45,6 +45,22 @@ public class Duke {
         System.out.println("\n" + DASHED_LINE);
     }
 
+    private static void printIllegalKeyword(){
+        String message = DASHED_LINE + "\n" +
+                "\t You typed an illegal keyword." + "\n" +
+                "\t I have no idea what you are trying to say. :(" + "\n" +
+                DASHED_LINE;
+        System.out.println(message);
+    }
+
+    private static void printIllegalDescription(){
+        String message = DASHED_LINE + "\n" +
+                "\t You did not add any description." + "\n" +
+                "\t I can't do much. Try again!" + "\n" +
+                DASHED_LINE;
+        System.out.println(message);
+    }
+
 
 
     public static void main(String[] args) {
@@ -77,10 +93,10 @@ public class Duke {
                 processLine(line);
 
             } catch (IllegalKeyword e){
-                System.out.println("What are you saying?");
+                printIllegalKeyword();
 
             } catch (IllegalDescription e){
-                System.out.println("No description added.");
+                printIllegalDescription();
             }
             
             line = in.nextLine();
