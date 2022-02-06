@@ -1,5 +1,13 @@
 public class DukeException extends Exception {
-    public DukeException(String errorMessage) {
+    private final String description;
+
+    public DukeException(String errorMessage, String description) {
         super(errorMessage);
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return description;
     }
 }
