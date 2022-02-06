@@ -104,7 +104,7 @@ public class Bim {
     }
 
     private static void modifyTask(String mode, String commandArg) {
-        int index = Integer.parseInt(commandArg) - 1;
+        int index = tryParseIndex(commandArg);
         if (!isValidIndex(index)) {
             System.out.println(ERROR_INDEX);
             return;
@@ -168,8 +168,18 @@ public class Bim {
         return !commandArg.isEmpty();
     }
 
+    private static int tryParseIndex(String commandArg) {
+        int index = -1;
+        try {
+            index = Integer.parseInt(commandArg);
+        } catch (NumberFormatException exception) {
+            return index;
+        }
+        return index;
+    }
+
     private static boolean isValidIndex(int index) {
-        return index < taskStore.size();
+        return index < taskStore.size() && index >= 0;
     }
 
     private static void printWelcomeMessage() {
