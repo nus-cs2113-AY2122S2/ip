@@ -150,18 +150,10 @@ public class Bim {
         printAddMessage(OP_ADD_EVENT);
     }
 
-    private static void addTask(String commandArg) {
-        Task newTask = new Task(commandArg);
-        taskStore.add(newTask);
-        printAddMessage(OP_ADD_TASK);
-    }
-
     private static boolean isValidArgument(String delimiter, String commandArg) {
         if (commandArg.contains(delimiter)) {
             String[] arguments = commandArg.split(delimiter);
-            if (arguments.length == EXPECTED_ARG_NUMBER) {
-                return true;
-            }
+            return arguments.length == EXPECTED_ARG_NUMBER;
         }
         return false;
     }
