@@ -5,7 +5,7 @@ public class Deadline extends Task{
         this.deadline = deadline;
     }
 
-    public String getDeadline() {
+    public String getDeadline(){
         return deadline;
     }
 

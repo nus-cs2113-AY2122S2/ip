@@ -5,7 +5,7 @@ public class Event extends Task{
         this.eventTime = eventTime;
     }
 
-    public String getEventTime() {
+    public String getEventTime(){
         return eventTime;
     }
 
