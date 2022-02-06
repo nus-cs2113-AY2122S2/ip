@@ -56,6 +56,11 @@ public class InputReader {
         return returnString;
     }
 
+    /**
+     * Iterates through String array to trim all whitespace.
+     * @param input
+     * @return String[] with whitespace trimmed
+     */
     public String[] trimAll(String[] input){
         for (int i = 0; i < input.length; i++){
             input[i] = input[i].trim();
@@ -63,6 +68,11 @@ public class InputReader {
         return input;
     }
 
+    /**
+     * Ensures that after whitespace is trimmed, there is no empty String left
+     * @param input
+     * @return boolean if there is any empty string
+     */
     public boolean checkNotEmpty(String[] input){
         for (int i = 0; i < input.length; i++){
             if (input[i].equals("")){
