@@ -4,7 +4,14 @@ public class Duke {
 
     private static String GREET_STRING = "Hello! I'm Duke" + System.lineSeparator() + "What can I do for you?";
     private static String BYE_STRING = "Bye. Hope to see you again soon!";
-    private static String PROMPT_GENERIC = "I don't understand what you are saying. Perhaps try again?";
+    private static String PROMPT_GENERIC_INVALID_COMMAND = "I don't understand what you are saying. Perhaps try one of the following?";
+    private static String PROMPT_ALL_FEATURES = "Recognised Commands:" + System.lineSeparator() +
+            "'list'     | show you all your tasks" + System.lineSeparator() +
+            "'mark'     | mark tasks by index once completed" + System.lineSeparator() +
+            "'unmark'   | unmark tasks by index to undo 'mark'" + System.lineSeparator() +
+            "'todo'     | create general task" + System.lineSeparator() +
+            "'deadline' | create task with deadline: include '/by' for deadline" + System.lineSeparator() +
+            "'event'    | create task as event: include '/at' for the date/time";
 
     public static void main(String[] args) {
 
@@ -46,7 +53,8 @@ public class Duke {
     }
 
     private static void promptAgain() {
-        System.out.println(PROMPT_GENERIC);
+        System.out.println(PROMPT_GENERIC_INVALID_COMMAND);
+        System.out.println(PROMPT_ALL_FEATURES);
     }
 
     private static void greet() {
