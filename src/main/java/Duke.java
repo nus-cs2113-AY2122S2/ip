@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import duke.task.*;
+import duke.exceptions.*;
 
 public class Duke {
 
@@ -80,11 +82,9 @@ public class Duke {
         }
     }
 
-
     public static void addTodo(String echo, Task[] tasks, int index) {
         String description = echo.substring(echo.indexOf(" ") + 1);
         tasks[index] = new Todo(description);
-
         System.out.println("Got it. I've added this task:  ");
         System.out.println(tasks[index]);
     }
