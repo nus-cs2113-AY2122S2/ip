@@ -22,8 +22,12 @@ public class InputReader {
      * @param input
      * @return input less "todo " substring
      */
-    public String extractToDoTask(String input) {
-        return input.replace("todo ", "");
+    public String extractToDoTask(String input) throws IncompleteCommandException {
+        String returnString = input.replace("todo ", "").trim();
+        if (returnString.equals("")){
+            throw new IncompleteCommandException();
+        }
+        return returnString;
     }
 
     /**
