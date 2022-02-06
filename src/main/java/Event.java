@@ -1,4 +1,4 @@
-public class Event extends Task{
+public class Event extends Task {
     protected String date;
 
     public Event(String description, String date) {
@@ -16,6 +16,6 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(at: " + date + ")";
+        return "[E]" + super.toString() + " (at: " + date + ")";
     }
 }
