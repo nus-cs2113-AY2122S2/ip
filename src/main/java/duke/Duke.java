@@ -1,3 +1,10 @@
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -49,12 +56,12 @@ public class Duke {
             break;
         case COMMAND_MARK:
             int markNum = Integer.parseInt(commandArr[1]) - 1;
-            taskItems[markNum].isDone = true;
+            taskItems[markNum].setDone(true);
             System.out.println("Nice! I've marked this task as done:\n" + taskItems[markNum]);
             break;
         case COMMAND_UNMARK:
             int unMarkNum = Integer.parseInt(commandArr[1]) - 1;
-            taskItems[unMarkNum].isDone = false;
+            taskItems[unMarkNum].setDone(false);
             System.out.println("Nice! I've marked this task as not done yet:\n" + taskItems[unMarkNum]);
             break;
         case COMMAND_BYE:
