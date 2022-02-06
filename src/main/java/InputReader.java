@@ -33,9 +33,12 @@ public class InputReader {
      * @param input
      * @return String array of task and deadline, size 2
      */
-    public String[] extractDeadlineTask(String input) {
-        String temp = input.replace("deadline ", "");
-        return temp.split("/by ");
+    public String[] extractDeadlineTask(String input) throws IncompleteCommandException {
+        String[] returnString = trimAll(input.replace("deadline ", "").split("/by"));
+        if (returnString.length != 2 || checkNotEmpty(returnString)) {
+            throw new IncompleteCommandException();
+        }
+        return returnString;
     }
 
     /**
@@ -45,9 +48,28 @@ public class InputReader {
      * @param input
      * @return String array of task and event time, size 2
      */
-    public String[] extractEventTask(String input) {
-        String temp = input.replace("event ", "");
-        return temp.split("/at ");
+    public String[] extractEventTask(String input) throws IncompleteCommandException {
+        String[] returnString = trimAll(input.replace("event ", "").split("/at"));
+        if (returnString.length != 2 || checkNotEmpty(returnString)) {
+            throw new IncompleteCommandException();
+        }
+        return returnString;
+    }
+
+    public String[] trimAll(String[] input){
+        for (int i = 0; i < input.length; i++){
+            input[i] = input[i].trim();
+        }
+        return input;
+    }
+
+    public boolean checkNotEmpty(String[] input){
+        for (int i = 0; i < input.length; i++){
+            if (input[i].equals("")){
+                return true;
+            }
+        }
+        return false;
     }
 
 }

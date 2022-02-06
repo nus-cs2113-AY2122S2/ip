@@ -2,16 +2,19 @@ import java.util.Scanner;
 
 public class Duke {
 
-    private static String GREET_STRING = "Hello! I'm Duke" + System.lineSeparator() + "What can I do for you?";
-    private static String BYE_STRING = "Bye. Hope to see you again soon!";
-    private static String PROMPT_GENERIC_INVALID_COMMAND = "I don't understand what you are saying. Perhaps try one of the following?";
-    private static String PROMPT_ALL_FEATURES = "Recognised Commands:" + System.lineSeparator() +
+    private static final String GREET_STRING = "Hello! I'm Duke" + System.lineSeparator() + "What can I do for you?";
+    private static final String BYE_STRING = "Bye. Hope to see you again soon!";
+    private static final String PROMPT_GENERIC_INVALID_COMMAND = "I don't understand what you are saying. Please follow this syntax:";
+    private static final String PROMPT_ALL_FEATURES = "Recognised Commands:" + System.lineSeparator() +
             "'list'     | show you all your tasks" + System.lineSeparator() +
             "'mark'     | mark tasks by index once completed" + System.lineSeparator() +
             "'unmark'   | unmark tasks by index to undo 'mark'" + System.lineSeparator() +
             "'todo'     | create general task" + System.lineSeparator() +
             "'deadline' | create task with deadline: include '/by' for deadline" + System.lineSeparator() +
-            "'event'    | create task as event: include '/at' for the date/time";
+            "'event'    | create task as event: include '/at' for the date/time" + System.lineSeparator() +
+            "'bye'      | exit Duke";
+    private static final String PROMPT_CORRECT_DEADLINE = "example: `deadline Rush CS2113 Assignment /by today`";
+    private static final String PROMPT_CORRECT_EVENT = "example: `event Watch CS2113 Lecture /at 4-6pm on Friday`";
 
     public static void main(String[] args) {
 
@@ -38,13 +41,24 @@ public class Duke {
                 String toDoTask = inputReader.extractToDoTask(input);
                 taskList.addToDo(toDoTask);
             } else if (input.startsWith("deadline")) {
-                String[] deadlineTask = inputReader.extractDeadlineTask(input);
-                taskList.addDeadline(deadlineTask[0], deadlineTask[1]);
+                try {
+                    String[] deadlineTask = inputReader.extractDeadlineTask(input);
+                    taskList.addDeadline(deadlineTask[0], deadlineTask[1]);
+                } catch (IncompleteCommandException e) {
+                    promptAgain();
+                    promptDeadline();
+                }
             } else if (input.startsWith("event")) {
-                String[] eventTask = inputReader.extractEventTask(input);
-                taskList.addEvent(eventTask[0], eventTask[1]);
+                try {
+                    String[] eventTask = inputReader.extractEventTask(input);
+                    taskList.addEvent(eventTask[0], eventTask[1]);
+                } catch (IncompleteCommandException e) {
+                    promptAgain();
+                    promptEvent();
+                }
             } else {
                 promptAgain();
+                promptCommandList();
             }
             input = s.nextLine();
         }
@@ -52,9 +66,20 @@ public class Duke {
 
     }
 
+    private static void promptCommandList() {
+        System.out.println(PROMPT_ALL_FEATURES);
+    }
+
+    private static void promptDeadline() {
+        System.out.println(PROMPT_CORRECT_DEADLINE);
+    }
+
+    private static void promptEvent() {
+        System.out.println(PROMPT_CORRECT_EVENT);
+    }
+
     private static void promptAgain() {
         System.out.println(PROMPT_GENERIC_INVALID_COMMAND);
-        System.out.println(PROMPT_ALL_FEATURES);
     }
 
     private static void greet() {
