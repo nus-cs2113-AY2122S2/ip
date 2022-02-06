@@ -14,7 +14,7 @@ public class Duke implements DukeConstants {
 
     }
 
-    public static void printList(Todo[] tasks, int itemCount) {
+    public static void printList(Task[] tasks, int itemCount) {
         linePrinter();
 
         for (int i = 0; i < itemCount; i++) {
@@ -24,7 +24,7 @@ public class Duke implements DukeConstants {
         linePrinter();
     }
 
-    public static void printMark(Todo[] tasks, int markedItem) {
+    public static void printMark(Task[] tasks, int markedItem) {
         if (tasks[markedItem] == null) {
             echo(ITEM_NOT_EXIST_MSG);
         } else {
@@ -35,7 +35,7 @@ public class Duke implements DukeConstants {
         }
     }
 
-    public static void printUnmark(Todo[] tasks, int unmarkedItem) {
+    public static void printUnmark(Task[] tasks, int unmarkedItem) {
         if (tasks[unmarkedItem] == null) {
             echo(ITEM_NOT_EXIST_MSG);
         } else {
@@ -84,7 +84,7 @@ public class Duke implements DukeConstants {
         Scanner input = new Scanner(System.in);
         String line;
 
-        Todo[] tasks = new Todo[MAX_NUM_OF_TASKS];
+        Task[] tasks = new Todo[MAX_NUM_OF_TASKS];
         int itemCount = 0;
 
         CommandType command;
