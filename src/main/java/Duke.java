@@ -15,6 +15,7 @@ public class Duke {
             "'bye'      | exit Duke";
     private static final String PROMPT_CORRECT_DEADLINE = "example: `deadline Rush CS2113 Assignment /by today`";
     private static final String PROMPT_CORRECT_EVENT = "example: `event Watch CS2113 Lecture /at 4-6pm on Friday`";
+    private static final String PROMPT_CORRECT_TODO = "example: `todo Make sure that the user knows I need some text here!`";
 
     public static void main(String[] args) {
 
@@ -39,8 +40,13 @@ public class Duke {
                 int index = inputReader.extractTaskIndexNo(input);
                 taskList.setTaskStatus(index, true);
             } else if (input.startsWith("todo")) {
-                String toDoTask = inputReader.extractToDoTask(input);
-                taskList.addToDo(toDoTask);
+                try {
+                    String toDoTask = inputReader.extractToDoTask(input);
+                    taskList.addToDo(toDoTask);
+                } catch (IncompleteCommandException e){
+                    promptAgain();
+                    promptToDo();
+                }
             } else if (input.startsWith("deadline")) {
                 try {
                     String[] deadlineTask = inputReader.extractDeadlineTask(input);
@@ -64,6 +70,10 @@ public class Duke {
         }
         bye();
 
+    }
+
+    private static void promptToDo() {
+        System.out.println(PROMPT_CORRECT_TODO);
     }
 
     private static void promptCommandList() {
