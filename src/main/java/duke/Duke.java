@@ -1,3 +1,7 @@
+package duke;
+
+import duke.exception.DukeException;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -7,7 +11,7 @@ public class Duke {
     private static TaskList tasklist = new TaskList();
     private static Command command;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         String line = "____________________________________________________________\n";
         System.out.println(ui.printLogo());
         System.out.println(ui.greet());
