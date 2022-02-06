@@ -31,7 +31,7 @@ public class InputReader {
      * splits into task name and deadline.
      *
      * @param input
-     * @return String array of task and deadline
+     * @return String array of task and deadline, size 2
      */
     public String[] extractDeadlineTask(String input) {
         String temp = input.replace("deadline ", "");
@@ -43,7 +43,7 @@ public class InputReader {
      * splits into task name and event time.
      *
      * @param input
-     * @return String array of task and event time
+     * @return String array of task and event time, size 2
      */
     public String[] extractEventTask(String input) {
         String temp = input.replace("event ", "");
