@@ -12,7 +12,7 @@ public class Parser {
             entry("list", Pattern.compile("(.?)")),
             entry("mark", Pattern.compile("(\\d+)")),
             entry("unmark", Pattern.compile("(\\d+)")),
-            entry("todo", Pattern.compile("(\\S+)")),
+            entry("todo", Pattern.compile("(.+)")),
             entry("deadline", Pattern.compile("(.*)\\/by\\s(.*)")),
             entry("event", Pattern.compile("(.*)\\/at\\s(.*)")));
 
@@ -32,7 +32,7 @@ public class Parser {
     }
 
     /**
-     * Parse user input.
+     * Parse user input, returns a boolean indicating success or failure
      * Sets userCommand to the command in userInput
      * Sets argumentList on the arguments passed through userInput
      * argumentList is built based off userCommand

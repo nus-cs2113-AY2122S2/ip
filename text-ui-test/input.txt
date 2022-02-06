@@ -1,0 +1,19 @@
+todo asdasd
+todo asdasd /by test
+todo asdasd /at test
+deadline asdasd
+deadline asdasd /at test
+deadline asdasd /by test
+event asdasd
+event asdasdasd /at test
+event asdasd /by test
+list
+mark 5
+list
+unmark 4
+list
+mark 4
+list
+unmark 4
+list
+bye
