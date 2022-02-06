@@ -1,4 +1,6 @@
-public class Events extends UserContent{
+package shrek.task;
+
+public class Events extends UserContent {
     protected String at;
 
     public Events(String description, String at, int listIndex) {

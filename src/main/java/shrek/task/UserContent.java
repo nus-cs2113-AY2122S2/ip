@@ -1,3 +1,5 @@
+package shrek.task;
+
 public class UserContent {
     private String content;
     private boolean isMark;
@@ -26,6 +28,7 @@ public class UserContent {
     public void setMark() {
         isMark = true;
     }
+
     public void setUnmark() {
         isMark = false;
     }

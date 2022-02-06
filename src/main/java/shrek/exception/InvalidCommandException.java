@@ -1,3 +1,5 @@
+package shrek.exception;
+
 public class InvalidCommandException extends RuntimeException {
     public InvalidCommandException(String errorMessage, int errorCount) {
         if (errorCount < 3) {

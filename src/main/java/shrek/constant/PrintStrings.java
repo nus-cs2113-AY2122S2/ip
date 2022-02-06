@@ -1,3 +1,5 @@
+package shrek.constant;
+
 public class PrintStrings {
     private PrintStrings() {
     }

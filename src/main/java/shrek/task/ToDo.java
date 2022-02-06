@@ -1,3 +1,5 @@
+package shrek.task;
+
 public class ToDo extends UserContent {
 
     public ToDo(String description, int listIndex) {

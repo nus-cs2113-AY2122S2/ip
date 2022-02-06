@@ -1,3 +1,5 @@
+package shrek.task;
+
 public class Deadlines extends UserContent {
     protected String by;
 

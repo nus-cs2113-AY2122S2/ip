@@ -1,3 +1,12 @@
+package shrek;
+
+import shrek.task.UserContent;
+import shrek.task.Deadlines;
+import shrek.task.Events;
+import shrek.task.ToDo;
+import shrek.constant.PrintStrings;
+import shrek.exception.InvalidCommandException;
+
 import java.util.Scanner;
 
 public class Shrek {
@@ -12,6 +21,10 @@ public class Shrek {
     private static final int NUMBER_OF_TERMS_IN_SPLIT = 2;
     public static final String NEW_LINE = System.lineSeparator();
     private static int errorCount = 0;
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
+    public static final String ANSI_RESET = "\u001B[0m";
 
     public static void printGreeting() {
         String logo = "███████╗██╗  ██╗██████╗ ███████╗██╗  ██╗\n" +
@@ -37,9 +50,11 @@ public class Shrek {
                 "⠀⠀⠀⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀ \n" +
                 "⠀⠀⠀⠀⠀⠀⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀ \n" +
                 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠻⠿⠿⠿⠿⠛⠉";
-        String greet = " Oh! Hello there! I'm Shrek" + NEW_LINE + " What can I do for you?";
+        String greet = " Oh! Hello there! I'm shrek.Shrek" + NEW_LINE + " What can I do for you?";
         System.out.print(LINE);
-        System.out.println(logo + NEW_LINE + shrekLogo + NEW_LINE + LINE + greet);
+        System.out.println(ANSI_GREEN  + logo + NEW_LINE);
+        System.out.println(shrekLogo + NEW_LINE + ANSI_RESET);
+        System.out.println(LINE + greet);
     }
 
     public static void printGoodbye() {
