@@ -8,11 +8,10 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        String completion = " ";
-        if (super.isDone()) {
-            completion = "X";
-        }
-        return "[E][" + completion + "] " + super.getTaskInfo() + "(at: " + eventTime + ")";
+        // ternary operator adapted from John McMonigle https://github.com/nus-cs2113-AY2122S2/ip/pull/56
+        // rewrote return statement based on Clarence Chua Ying How's implementation https://github.com/nus-cs2113-AY2122S2/ip/pull/84
+        String completion = (super.isDone() ? "X" : " ");
+        return String.format("[E] [%s] %s (at: %s)", completion, super.getTaskInfo(), eventTime);
     }
 
 }

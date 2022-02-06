@@ -2,8 +2,8 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static String GREET_STRING = "Hello! I'm Duke" + System.lineSeparator() + "What can I do for you?";
-    public static String BYE_STRING = "Bye. Hope to see you again soon!";
+    private static String GREET_STRING = "Hello! I'm Duke" + System.lineSeparator() + "What can I do for you?";
+    private static String BYE_STRING = "Bye. Hope to see you again soon!";
 
     public static void main(String[] args) {
 

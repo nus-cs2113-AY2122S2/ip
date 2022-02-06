@@ -33,10 +33,9 @@ public class Task {
 
     @Override
     public String toString() {
-        String completion = " ";
-        if (isDone) {
-            completion = "X";
-        }
-        return "[" + completion + "] " + taskInfo;
+        // ternary operator adapted from John McMonigle https://github.com/nus-cs2113-AY2122S2/ip/pull/56
+        // rewrote return statement based on Clarence Chua Ying How's implementation https://github.com/nus-cs2113-AY2122S2/ip/pull/84
+        String completion = (isDone ? "X" : " ");
+        return String.format("[%s] %s", completion, taskInfo);
     }
 }
