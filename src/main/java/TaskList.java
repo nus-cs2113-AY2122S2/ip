@@ -10,33 +10,31 @@ public class TaskList {
         return listOfTask.get(taskNumber - 1);
     }
 
-    public static int getTaskNumberFromInput(String input) {
+    public static int getTaskNumberFromInput(String input) throws IndexOutOfBoundsException {
         int index = Integer.parseInt(input.split(" ")[1]);
         // check to see if an index of < 0 was given
-        System.out.println(index);
-        if (index < 0 || index > numOfTask) {
-            // -1 to indicate error
-            System.out.println("Invalid Task to be marked!");
-            return -1;
+        if (index <= 0 || index > numOfTask) {
+            throw new IndexOutOfBoundsException("Invalid task to be marked!");
         }
         return index;
     }
 
     public static void markTask(String input, String taskStatus) {
-        int taskNumber = getTaskNumberFromInput(input);
-        if (taskNumber == -1) {
-            return;
+        try {
+            int taskNumber = getTaskNumberFromInput(input);
+            // true if it is "mark", set to false if it's not "mark"
+            boolean isTaskDone = taskStatus.equalsIgnoreCase("mark");
+            Task markedTask = getTaskFromListOfTask(taskNumber);
+            markedTask.setDone(isTaskDone);
+            if (isTaskDone) {
+                System.out.println("Nice! I'v marked this task as done:");
+            } else {
+                System.out.println("Okay! I'v marked this task as not done:");
+            }
+            System.out.println(markedTask);
+        } catch (IndexOutOfBoundsException idxError) {
+            System.out.println(idxError);
         }
-        // true if it is "mark", set to false if it's not "mark"
-        boolean isTaskDone = taskStatus.equalsIgnoreCase("mark");
-        Task markedTask = getTaskFromListOfTask(taskNumber);
-        markedTask.setDone(isTaskDone);
-        if (isTaskDone) {
-            System.out.println("Nice! I'v marked this task as done:");
-        } else {
-            System.out.println("Okay! I'v marked this task as not done:");
-        }
-        System.out.println(markedTask);
     }
 
     public static Deadline createDeadlineTask(String input) {
