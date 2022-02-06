@@ -4,6 +4,7 @@ public class Duke {
 
     private static String GREET_STRING = "Hello! I'm Duke" + System.lineSeparator() + "What can I do for you?";
     private static String BYE_STRING = "Bye. Hope to see you again soon!";
+    private static String PROMPT_GENERIC = "I don't understand what you are saying. Perhaps try again?";
 
     public static void main(String[] args) {
 
@@ -45,7 +46,7 @@ public class Duke {
     }
 
     private static void promptAgain() {
-        System.out.println("Try again!");
+        System.out.println(PROMPT_GENERIC);
     }
 
     private static void greet() {
