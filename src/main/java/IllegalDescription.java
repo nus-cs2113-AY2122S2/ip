@@ -1,2 +1,2 @@
-package PACKAGE_NAME;public class IllegalDescription {
+public class IllegalDescription extends Exception {
 }

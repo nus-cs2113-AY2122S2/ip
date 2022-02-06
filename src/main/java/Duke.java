@@ -6,7 +6,7 @@ public class Duke {
     static int currentCount = 0;
     final static String DASHED_LINE = "\t____________________________________________________________";
 
-    public static void markTask(int index){
+    private static void markTask(int index){
         taskList[index - 1].setDone(true);
         String message = DASHED_LINE + "\n" +
                 "\t Nice! I've marked this task as done: \n" +
@@ -15,7 +15,7 @@ public class Duke {
         System.out.println(message);
     }
 
-    public static void unMarkTask(int index){
+    private static void unMarkTask(int index){
         taskList[index - 1].setDone(false);
         String message = DASHED_LINE + "\n" +
                 "\tOK, I've marked this task as not done yet: \n" +
@@ -24,7 +24,7 @@ public class Duke {
         System.out.println(message);
     }
 
-    public static void printAddedItem(Task task){
+    private static void printAddedItem(Task task){
         String message = DASHED_LINE + "\n" +
                 "\t Got it. I've added this task:" + "\n" +
                 "\t \t" + task.toString() + "\n" +
@@ -34,7 +34,7 @@ public class Duke {
         System.out.println(message);
     }
 
-    public static void printList(){
+    private static void printList(){
         System.out.print(DASHED_LINE);
         for (int j = 0; j < currentCount; j++){
             System.out.print("\n");
@@ -42,6 +42,8 @@ public class Duke {
         }
         System.out.println("\n" + DASHED_LINE);
     }
+
+
 
     public static void main(String[] args) {
         String line;
@@ -69,40 +71,61 @@ public class Duke {
 
 
         while (!line.contains("bye")){
-            if (line.equals("list")){
-                printList();
-            } else if (line.startsWith("mark")){
-                int indexToMark = Integer.parseInt(line.substring(5));
-                markTask(indexToMark);
-            } else if(line.startsWith("unmark")){
-                int indexToUnmark = Integer.parseInt(line.substring(7));
-                unMarkTask(indexToUnmark);
-            } else if (line.startsWith("todo")){
-                String todoDescription = line.substring(4);
-                Todo task = new Todo(todoDescription);
-                taskList[currentCount] = task;
-                currentCount += 1;
-                printAddedItem(task);
-            } else if (line.startsWith("deadline")){
-                int byIndex = line.indexOf("/by");
-                String deadlineDescription = line.substring(8, byIndex - 1);
-                String by = line.substring(byIndex + 3);
-                Deadline task = new Deadline(deadlineDescription, by);
-                taskList[currentCount] = task;
-                currentCount += 1;
-                printAddedItem(task);
-            } else if (line.startsWith("event")){
-                int atIndex = line.indexOf("/at");
-                String eventDescription = line.substring(5, atIndex - 1);
-                String at = line.substring(atIndex + 3);
-                Event task = new Event(eventDescription, at);
-                taskList[currentCount] = task;
-                currentCount += 1;
-                printAddedItem(task);
+            try{
+                processLine(line);
+
+            } catch (IllegalKeyword e){
+                System.out.println("What are you saying?");
+
+            } catch (IllegalDescription e){
+                System.out.println("No description added.");
             }
+            
             line = in.nextLine();
         }
-
         System.out.print(bye);
+    }
+
+    private static void processLine(String line) throws IllegalKeyword, IllegalDescription {
+        if (line.equals("list")){
+            printList();
+        } else if (line.startsWith("mark")){
+            int indexToMark = Integer.parseInt(line.substring(5));
+            markTask(indexToMark);
+        } else if(line.startsWith("unmark")){
+            int indexToUnmark = Integer.parseInt(line.substring(7));
+            unMarkTask(indexToUnmark);
+        } else if (line.startsWith("todo")){
+            if (line.length() < 5){
+                throw new IllegalDescription();
+            }
+            String todoDescription = line.substring(4);
+            Todo task = new Todo(todoDescription);
+            taskList[currentCount] = task;
+            currentCount += 1;
+            printAddedItem(task);
+        } else if (line.startsWith("deadline")){
+            if (line.length() < 9 || !line.contains("/by")){
+                throw new IllegalDescription();
+            }
+            int byIndex = line.indexOf("/by");
+            String deadlineDescription = line.substring(8, byIndex - 1);
+            String by = line.substring(byIndex + 3);
+            Deadline task = new Deadline(deadlineDescription, by);
+            taskList[currentCount] = task;
+            currentCount += 1;
+            printAddedItem(task);
+        } else if (line.startsWith("event")){
+            if (line.length() < 6 || !line.contains("/at")){
+                throw new IllegalDescription();
+            }
+            int atIndex = line.indexOf("/at");
+            String eventDescription = line.substring(5, atIndex - 1);
+            String at = line.substring(atIndex + 3);
+            Event task = new Event(eventDescription, at);
+            taskList[currentCount] = task;
+            currentCount += 1;
+            printAddedItem(task);
+        } else throw new IllegalKeyword();
     }
 }
