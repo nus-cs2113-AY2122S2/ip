@@ -1,12 +1,11 @@
-public class Todo {
-    public String typeOfTask;
-    public String taskStatus;
-    public String task;
+public class Todo extends Task {
+    protected String typeOfTask;
+    protected String taskStatus;
 
     public Todo(String task) {
+        super(task);
         this.typeOfTask = "[T]";
         this.taskStatus = "[ ]";
-        this.task = task.trim();
     }
 
     public void mark() {

@@ -1,31 +1,6 @@
 import java.util.Scanner;
 
-public class Duke {
-    public static final String HORIZONTAL_LINE = "───────────────────────────────────────────────────────────────────────";
-    public static final String GREETING_MSG_01 = " I have been waiting for you, Mister Winters.";
-    public static final String GREETING_MSG_02 = " Forgive my manners, call me the Duke. Now to business.";
-    public static final String ITEM_NOT_EXIST_MSG = "Ah...The task you choose doesn't exist on your list.";
-    public  static final String MARKED_MSG = " Aha! An interesting selection!";
-    public  static final String UNMARKED_MSG = " Ah... What a shame!";
-    public static final String GOODBYE_MSG = " Good day, then!";
-
-    public static final String ADD_TODO_CMD = "Todo ";
-    public static final String ADD_DEADLINE_CMD = "Deadline ";
-    public static final String ADD_EVENT_CMD = "Event ";
-    public static final String MARK_TASK_CMD = "Mark ";
-    public static final String UNMARK_TASK_CMD = "Unmark ";
-    public static final String LIST_TASKS_CMD = "List ";
-    public static final String DEADLINE_OF_TASK_CMD = "/by";
-    public static final String DURATION_OF_EVENT_CMD = "/at";
-
-    public static final int MAX_NUM_OF_TASKS = 100;
-    public static final int TODO_TASK_INDEX = 4;
-    public static final int DEADLINE_TASK_INDEX = 8;
-    public static final int EVENT_TASK_INDEX = 5;
-    public static final int TIME_INDEX = 4;
-    public static final int MARKED_ITEM_INDEX = 5;
-    public static final int UNMARKED_ITEM_INDEX = 7;
-
+public class Duke implements DukeConstants {
     public static void linePrinter() {
         System.out.print("\t");
         System.out.println(HORIZONTAL_LINE);
@@ -114,13 +89,7 @@ public class Duke {
 
         CommandType command;
 
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-
-        System.out.println("Hello from\n" + logo);
+        System.out.println("Hello from\n" + LOGO);
 
         printGreeting();
         line = input.nextLine();

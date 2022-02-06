@@ -1,0 +1,32 @@
+public interface DukeConstants {
+    String LOGO = " ____        _        \n"
+            + "|  _ \\ _   _| | _____ \n"
+            + "| | | | | | | |/ / _ \\\n"
+            + "| |_| | |_| |   <  __/\n"
+            + "|____/ \\__,_|_|\\_\\___|\n";
+
+    String HORIZONTAL_LINE = "───────────────────────────────────────────────────────────────────────";
+    String GREETING_MSG_01 = " I have been waiting for you, Mister Winters.";
+    String GREETING_MSG_02 = " Forgive my manners, call me the Duke. Now to business.";
+    String ITEM_NOT_EXIST_MSG = "Ah...The task you choose doesn't exist on your list.";
+    String MARKED_MSG = " Aha! An interesting selection!";
+    String UNMARKED_MSG = " Ah... What a shame!";
+    String GOODBYE_MSG = " Good day, then!";
+
+    String ADD_TODO_CMD = "Todo ";
+    String ADD_DEADLINE_CMD = "Deadline ";
+    String ADD_EVENT_CMD = "Event ";
+    String MARK_TASK_CMD = "Mark ";
+    String UNMARK_TASK_CMD = "Unmark ";
+    String LIST_TASKS_CMD = "List ";
+    String DEADLINE_OF_TASK_CMD = "/by";
+    String DURATION_OF_EVENT_CMD = "/at";
+
+    int MAX_NUM_OF_TASKS = 100;
+    int TODO_TASK_INDEX = 4;
+    int DEADLINE_TASK_INDEX = 8;
+    int EVENT_TASK_INDEX = 5;
+    int TIME_INDEX = 4;
+    int MARKED_ITEM_INDEX = 5;
+    int UNMARKED_ITEM_INDEX = 7;
+}
