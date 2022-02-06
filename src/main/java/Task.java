@@ -8,7 +8,7 @@ public class Task {
     /**
      * Constructor for a new Task, assumes that the Task is not completed.
      *
-     * @param taskInfo
+     * @param String representing taskInfo
      */
     public Task(String taskInfo) {
         this.taskInfo = taskInfo;
