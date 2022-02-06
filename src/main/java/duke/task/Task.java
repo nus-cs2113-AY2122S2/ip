@@ -1,11 +1,13 @@
-public class Task {
+package duke.task;
+
+public abstract class Task {
     protected String description;
     protected boolean isMarked;
-    protected int id;
+    protected int taskNumber;
 
-    public Task(String description, int id) {
+    public Task(String description, int taskNumber) {
         this.description = description;
-        this.id = id;
+        this.taskNumber = taskNumber;
         this.isMarked = false;
     }
 
@@ -25,12 +27,12 @@ public class Task {
         this.description = description;
     }
 
-    public int getId() {
-        return id;
+    public int getTaskNumber() {
+        return taskNumber;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setTaskNumber(int taskNumber) {
+        this.taskNumber = taskNumber;
     }
 
     public boolean getIsDone() {
@@ -47,6 +49,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return  "[" + this.getStatusIcon() + "] " + this.getDescription();
+        return  "[" + this.getStatusIcon() + "]" + this.getDescription();
     }
 }
