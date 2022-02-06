@@ -1,3 +1,4 @@
+package aeon;
 
 import static aeon.controller.Command.CommandProcessor;
 

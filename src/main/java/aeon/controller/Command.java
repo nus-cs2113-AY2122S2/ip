@@ -4,7 +4,6 @@ import aeon.task.Task;
 import aeon.task.Event;
 import aeon.task.Todo;
 import aeon.task.Deadline;
-import aeon.exception.AeonException;
 
 public class Command {
 
