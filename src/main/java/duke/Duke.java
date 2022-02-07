@@ -1,4 +1,14 @@
-import java.util.Locale;
+package duke;
+
+import duke.exception.DukeEmptyDescriptionException;
+import duke.exception.DukeMaxTaskException;
+import duke.exception.DukeMissingTimeSeparator;
+import duke.exception.DukeTaskOutOfRangeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.util.Scanner;
 
 public class Duke {

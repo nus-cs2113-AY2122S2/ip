@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Event extends Task {
     protected String timing;
     protected static final String EVENT_SYMBOL = "E";

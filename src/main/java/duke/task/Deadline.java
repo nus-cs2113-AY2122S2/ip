@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Deadline extends Task {
     protected String by;
     protected static final String DEADLINE_SYMBOL = "D";
