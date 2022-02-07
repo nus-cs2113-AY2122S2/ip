@@ -7,11 +7,7 @@ public class Event extends Task{
     }
 
     public String toString(){
-        if(this.isDone()){
-            return ("[E][X] " + this.getTask() + " (at: " + this.getAt() +")\n");
-        }else{
-            return ("[E][ ] " + this.getTask() + " (at: " + this.getAt() +")\n");
-        }
+        return ("[E][" + getStatusIcon() + "] " + getDescription() + " (at: " + getAt() +")\n");
     }
 
     public String getAt() {

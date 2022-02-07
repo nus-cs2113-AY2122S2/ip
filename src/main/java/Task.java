@@ -1,25 +1,27 @@
 public class Task {
-    private String task;
+    private String description;
     private boolean isDone;
 
     public Task(String t){
-        task = t;
+        description = t;
         isDone = false;
     }
+
+    @Override
     public String toString(){
-        if(this.isDone()){
-            return ("[T][X] " + this.getTask() + "\n");
-        }else{
-            return ("[T][ ] " + this.getTask() + "\n");
-        }
+        return ("[T][" + getStatusIcon() + "] " + getDescription() + "\n");
     }
 
-    public String getTask() {
-        return task;
+    public String getStatusIcon(){
+        return isDone()? "X":" ";
     }
 
-    public void setTask(String task) {
-        this.task = task;
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public boolean isDone() {

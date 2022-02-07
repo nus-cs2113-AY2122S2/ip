@@ -6,12 +6,9 @@ public class Deadline extends Task{
         this.by = by;
     }
 
+    @Override
     public String toString(){
-        if(this.isDone()){
-            return ("[D][X] " + this.getTask() + " (by: " + this.getBy() +")\n");
-        }else{
-            return ("[D][ ] " + this.getTask() + " (by: " + this.getBy() +")\n");
-        }
+        return ("[D][" + getStatusIcon() + "] " + getDescription() + " (by: " + getBy() +")\n");
     }
 
     public String getBy() {

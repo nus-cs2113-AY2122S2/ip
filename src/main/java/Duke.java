@@ -17,7 +17,7 @@ public class Duke {
                           "Hello! I'm Duke\n"+
                           "What can I do for you?\n");
         boolean isToQuit = false;
-        String input, startOfInput;
+        String input;
 
         while(!isToQuit){
             input = sc.nextLine();
@@ -90,22 +90,18 @@ public class Duke {
     private static void list(ArrayList<Task> list){
         System.out.println("Here are the tasks in your list:");
         for(int i = 0; i< list.size(); i++){
-            if(list.get(i).isDone()){
-                System.out.printf("%d. %s", i+1, list.get(i).toString());
-            }else{
-                System.out.printf("%d. %s", i+1, list.get(i).toString());
-            }
+            System.out.printf("%d. %s", i+1, list.get(i).toString());
         }
     }
 
     private static void mark(int index, ArrayList<Task> list){
         list.get(index-1).setDone(true);
-        System.out.printf("Nice! I've marked this task as done:\n [X] %s\n", list.get(index-1).getTask());
+        System.out.printf("Nice! I've marked this task as done:\n [X] %s\n", list.get(index-1).getDescription());
     }
 
     private static void unmark(int index, ArrayList<Task> list){
         list.get(index-1).setDone(false);
-        System.out.printf("OK, I've marked this task as not done yet:\n [ ] %s\n", list.get(index-1).getTask());
+        System.out.printf("OK, I've marked this task as not done yet:\n [ ] %s\n", list.get(index-1).getDescription());
     }
 
     private static String getCommand(String input){
