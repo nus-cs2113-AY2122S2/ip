@@ -48,34 +48,40 @@ public class Sora {
     private void executeCommand(String userRawInput) {
         String userCommand = extractCommand(userRawInput);
 
-        switch (userCommand) {
-        case SoraUI.EXIT_COMMAND_KEYWORD:
-            setUserExit();
-            break;
-        case SoraUI.LIST_COMMAND_KEYWORD:
-            soraUI.displayTaskList(getTasksManager());
-            break;
-        case SoraUI.MARK_TASK_AS_DONE_COMMAND_KEYWORD:
-            int taskNum = getTaskNumberFromCommand(userRawInput);
-            boolean markSuccess = getTasksManager().updateDoneStatus(taskNum, true);
-            soraUI.printMarkTaskResponseMessage(markSuccess, getTasksManager(), taskNum);
-            break;
-        case SoraUI.UNMARK_TASK_AS_DONE_COMMAND_KEYWORD:
-            taskNum = getTaskNumberFromCommand(userRawInput);
-            boolean unmarkSuccess = getTasksManager().updateDoneStatus(taskNum, false);
-            soraUI.printUnmarkTaskResponseMessage(unmarkSuccess, getTasksManager(), taskNum);
-            break;
-        case SoraUI.ADD_TODO_COMMAND_KEYWORD:
-            // Fallthrough
-        case SoraUI.ADD_EVENT_COMMAND_KEYWORD:
-            // Fallthrough
-        case SoraUI.ADD_DEADLINE_COMMAND_KEYWORD:
-            boolean addSuccess = getTasksManager().addTask(userRawInput);
-            soraUI.printAddTaskResponseMessage(addSuccess, getTasksManager());
-            break;
-        default:
-            soraUI.printCommandNotUnderstood();
+        try {
+            switch (userCommand) {
+            case SoraUI.EXIT_COMMAND_KEYWORD:
+                setUserExit();
+                break;
+            case SoraUI.LIST_COMMAND_KEYWORD:
+                soraUI.displayTaskList(getTasksManager());
+                break;
+            case SoraUI.MARK_TASK_AS_DONE_COMMAND_KEYWORD:
+                int taskNum = getTaskNumberFromCommand(userRawInput);
+                boolean markSuccess = getTasksManager().updateDoneStatus(taskNum, true);
+                soraUI.printMarkTaskResponseMessage(markSuccess, getTasksManager(), taskNum);
+                break;
+            case SoraUI.UNMARK_TASK_AS_DONE_COMMAND_KEYWORD:
+                taskNum = getTaskNumberFromCommand(userRawInput);
+                boolean unmarkSuccess = getTasksManager().updateDoneStatus(taskNum, false);
+                soraUI.printUnmarkTaskResponseMessage(unmarkSuccess, getTasksManager(), taskNum);
+                break;
+            case SoraUI.ADD_TODO_COMMAND_KEYWORD:
+                // Fallthrough
+            case SoraUI.ADD_EVENT_COMMAND_KEYWORD:
+                // Fallthrough
+            case SoraUI.ADD_DEADLINE_COMMAND_KEYWORD:
+                boolean addSuccess = getTasksManager().addTask(userRawInput);
+                soraUI.printAddTaskResponseMessage(addSuccess, getTasksManager());
+                break;
+            default:
+                throw new InvalidCommandException(InvalidCommandException.NO_SUCH_COMMAND_MSG);
+            }
+        } catch (InvalidCommandException e) {
+            // TODO: Create method to handle exception
+            handleInvalidCommandException(e);
         }
+
     }
 
     private String extractCommand(String userRawInput) {
@@ -88,5 +94,7 @@ public class Sora {
         return taskNum;
     }
 
+    private void handleInvalidCommandException(InvalidCommandException e) {
 
+    }
 }
