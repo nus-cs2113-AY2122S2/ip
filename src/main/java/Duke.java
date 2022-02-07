@@ -3,8 +3,8 @@ import java.util.Scanner;
 
 public class Duke {
 
-    protected static final int MAX_TASKS = 100;
-    protected static final String BORDER_DECORATION = "_____________________________________________________";
+    public static final int MAX_TASKS = 100;
+    public static final String BORDER_DECORATION = "_____________________________________________________";
     private static Task[] taskLists = new Task[MAX_TASKS];
 
     public static void displayGreeting() {
@@ -23,28 +23,28 @@ public class Duke {
         }
     }
 
-    public static String removeCommandTypeFromUserInput(String userInput) {
-        String[] arrayOfTaskStrings = userInput.split(" ");
-        String getStringAfterCommandType = "";
-        for (int i = 1; i < arrayOfTaskStrings.length; i++) {
-            getStringAfterCommandType += arrayOfTaskStrings[i] + " ";
-        }
-        return getStringAfterCommandType;
-    }
-
     public static void addTask(String userInput) {
-        String extractedTaskDescription = removeCommandTypeFromUserInput(userInput);
-        Task newTask = new Todo(extractedTaskDescription);
+        String[] arrayOfTaskStrings = userInput.split(" ");
+        String extractTaskDescription = "";
+        for (int i = 1; i < arrayOfTaskStrings.length; i++) {
+            extractTaskDescription += arrayOfTaskStrings[i] + " ";
+        }
+
+        Task newTask = new Todo(extractTaskDescription);
         taskLists[Task.getNumberOfTasks() - 1] = newTask;
         System.out.println("Task added:\n\t" + newTask.toString());
         System.out.println("Now you have " + Task.getNumberOfTasks() + " tasks in your list!");
     }
 
     public static void addTaskWithTime(String userInput, String stringSeparator) {
-        String extractedStringsWithoutCommand = removeCommandTypeFromUserInput(userInput);
-        String extractTaskDescription = extractedStringsWithoutCommand.split(stringSeparator)[0];
-        String extractTaskDeadlineTime = extractedStringsWithoutCommand.split(stringSeparator)[1];
+        String[] arrayOfTaskStrings = userInput.split(" ");
+        String extractStringsWithoutCommand = "";
+        for (int i = 1; i < arrayOfTaskStrings.length; i++) {
+            extractStringsWithoutCommand += arrayOfTaskStrings[i] + " ";
+        }
 
+        String extractTaskDescription = extractStringsWithoutCommand.split(stringSeparator)[0];
+        String extractTaskDeadlineTime = extractStringsWithoutCommand.split(stringSeparator)[1];
         Task newTask;
         if (stringSeparator.equals("/by ")) {
             newTask = new Deadline(extractTaskDescription, extractTaskDeadlineTime);
