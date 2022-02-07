@@ -7,7 +7,12 @@ public class Event extends Task{
             super(description);
             this.at = at;
         }
-        public String getTask() {
+
+    public Event(String trim, boolean equals, String trim1) {
+        super();
+    }
+
+    public String getTask() {
             return "[E]" + super.getTask() + " (at: " + at + ")";
         }
 }

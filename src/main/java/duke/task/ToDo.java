@@ -5,6 +5,10 @@ public class ToDo extends Task {
         super(description);
     }
 
+    public ToDo(String trim, boolean equals) {
+        super();
+    }
+
     public String getTask() {
         return "[T]" + super.getTask();
     }

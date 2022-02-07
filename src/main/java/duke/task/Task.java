@@ -9,6 +9,11 @@ public class Task {
         this.descrition=descrition;
         this.isDone=false;
     }
+
+    public Task() {
+
+    }
+
     public String getStatusIcon(){
         return (isDone ? "X" : " ");
     }
