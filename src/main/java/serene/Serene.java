@@ -13,7 +13,8 @@ public class Serene {
     private static final String INPUT_ERROR_MESSAGE = "Uhm... I'm afraid I don't know what you mean by that :/";
     private static final String INVALID_NUM_ERROR_MESSAGE = "Please enter a valid task number ;-;";
     private static final String EMPTY_DESC_ERROR_MESSAGE = "Hey! Don't try to make me record nothing for fun :<";
-    private static final String EMPTY_TIME_ERROR_MESSAGE = "No time input? Please remember your /by or /at~";
+    private static final String EMPTY_BY_ERROR_MESSAGE = "No time input? Please remember your /by~";
+    private static final String EMPTY_AT_ERROR_MESSAGE = "No time input? Please remember your /at~";
     private static final int DONE = -1;
     private static final int CONTINUE = -2;
     private static final int RESPONSE_INDEX_KEYWORD = 0;
@@ -173,6 +174,10 @@ public class Serene {
         String[] taskPartition;
         try {
             String description = responsePartition[RESPONSE_INDEX_BODY];
+            if (!isValidDescription(description)) {
+                printWithPartition(EMPTY_DESC_ERROR_MESSAGE);
+                return;
+            }
             taskPartition = description.split(" /at ");
         } catch (ArrayIndexOutOfBoundsException e) {
             printWithPartition(EMPTY_DESC_ERROR_MESSAGE);
@@ -182,7 +187,7 @@ public class Serene {
             Event task = new Event(taskPartition[TASK_INDEX_DESCRIPTION], taskPartition[TASK_INDEX_OPTIONS]);
             allocateTask(task);
         } catch (ArrayIndexOutOfBoundsException e) {
-            printWithPartition(EMPTY_TIME_ERROR_MESSAGE);
+            printWithPartition(EMPTY_AT_ERROR_MESSAGE);
         }
     }
 
@@ -191,6 +196,10 @@ public class Serene {
         String[] taskPartition;
         try {
             String description = responsePartition[RESPONSE_INDEX_BODY];
+            if (!isValidDescription(description)) {
+                printWithPartition(EMPTY_DESC_ERROR_MESSAGE);
+                return;
+            }
             taskPartition = description.split(" /by ");
         } catch (ArrayIndexOutOfBoundsException e) {
             printWithPartition(EMPTY_DESC_ERROR_MESSAGE);
@@ -200,8 +209,13 @@ public class Serene {
             Deadline task = new Deadline(taskPartition[TASK_INDEX_DESCRIPTION], taskPartition[TASK_INDEX_OPTIONS]);
             allocateTask(task);
         } catch (ArrayIndexOutOfBoundsException e) {
-            printWithPartition(EMPTY_TIME_ERROR_MESSAGE);
+            printWithPartition(EMPTY_BY_ERROR_MESSAGE);
         }
+    }
+
+    private static boolean isValidDescription(String userInput) {
+        String firstWord = userInput.split(" ", 2)[TASK_INDEX_DESCRIPTION];
+        return !firstWord.strip().equals("") && !firstWord.contains("/at") && !firstWord.contains("/by");
     }
 
     private static void allocateTask(Task inputTask) {

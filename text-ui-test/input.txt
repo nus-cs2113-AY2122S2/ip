@@ -5,10 +5,15 @@ list
 unrecognised input
 deadline
 deadline No deadline~
+deadline Use at /at 1234
+event No at~
+event Ust by /by 1234
 mark 1
 mark e
+mark -1
 list
 unmark 1
 unmark e
+unmark -1
 list
 bye
