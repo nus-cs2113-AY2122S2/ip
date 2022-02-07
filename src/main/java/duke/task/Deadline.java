@@ -7,6 +7,10 @@ public class Deadline extends Task{
         this.by = by;
     }
 
+    public Deadline(String trim, boolean equals, String trim1) {
+        super();
+    }
+
     public String getTask() {
         return "[D]" + super.getTask() + " (by: " + by + ")";
     }
