@@ -20,22 +20,22 @@ public class Boba {
 
         // Scanner is how commands are inputted
         Scanner scan = new Scanner(System.in);
-        String input = scan.nextLine();
-        Command operation = Command.getCommand(input);
-        String[] arguments = parseInput(operation, input);
+        Command operation = Command.NONE;
 
         // Keep going until the user enters 'bye'
-        while (operation != Command.EXIT) {
-            if (checkNull(arguments)) {
-                // Valid command was inputted but not correctly
-                botResponse(TaskManager.giveInvalidCommand(operation));
-            } else {
+        do {
+            try {
+                String input = scan.nextLine();
+                operation = Command.getCommand(input);
+                String[] arguments = parseInput(operation, input);
                 botResponse(TaskManager.run(operation, arguments));
+            } catch (BobaException e) {
+                ArrayList<String> responses = new ArrayList<>();
+                responses.add(e.getMessage());
+                botResponse(responses);
             }
-            input = scan.nextLine();
-            operation = Command.getCommand(input);
-            arguments = parseInput(operation, input);
-        }
+
+        } while(operation != Command.EXIT);
         sayGoodbye();
     }
 
@@ -67,7 +67,7 @@ public class Boba {
      * @param input Input by the user given to the bot
      * @return The arguments
      */
-    private static String[] parseInput(Command operation, String input) {
+    private static String[] parseInput(Command operation, String input) throws BobaException{
         String[] arguments = new String[SECTION_LIMIT];
         switch (operation) {
         case DEADLINE:
@@ -76,8 +76,7 @@ public class Boba {
             // both follow the same convention of using a slash command
             int slashIndex = input.indexOf("/");
             if (slashIndex == -1) {
-                // improper use of commands as no slash command is present
-                break;
+                throw new BobaException("Slash command is required");
             }
             arguments[1] = input.substring(input.indexOf(" ", slashIndex) + 1);
             input = input.substring(0, slashIndex - 1);
@@ -86,32 +85,13 @@ public class Boba {
         case UNMARK:
             int spaceIndex = input.indexOf(" ");
             if (spaceIndex == -1) {
-                // improper use of commands as there needs to an argument following
-                break;
+                throw new BobaException("Please also provide the proper arguments");
             }
             arguments[0] = input.substring(spaceIndex + 1);
         default:
-            // Only valid commands reach this point
-            // The arguments will have null if they are not valid commands
-            arguments[0] = arguments[0] == null ? "valid" : arguments[0];
-            arguments[1] = arguments[1] == null ? "valid" : arguments[1];
+            // do nothing. default has no arguments, only the command
         }
         return arguments;
-    }
-
-    /**
-     * Check if any of the arguments are null.
-     * If there is, it is not a valid command
-     * @param arguments The arguments following the command
-     * @return A boolean if there is a null present
-     */
-    private static boolean checkNull(String[] arguments) {
-        for (String argument : arguments) {
-            if (argument == null) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**

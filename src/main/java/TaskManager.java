@@ -11,34 +11,42 @@ public class TaskManager {
     private static Task[] taskList = new Task[100];
 
     public static ArrayList<String> run(Command operation, String[] arguments) {
-        switch (operation) {
-        case LIST:
-            return getAllTasks();
-        case MARK:
-            return markTask(true, arguments[0], operation);
-        case UNMARK:
-            return markTask(false, arguments[0], operation);
-        case TODO:
-            return addTask(new Todo(arguments[0]));
-        case DEADLINE:
-            return addTask(new Deadline(arguments[0], arguments[1]));
-        case EVENT:
-            return addTask(new Event(arguments[0], arguments[1]));
-        case HELP:
-            return getHelpOptions();
-        case NONE:
-        default:
-            return giveInvalidCommand(operation);
+        try {
+            switch (operation) {
+            case LIST:
+                return getAllTasks();
+            case MARK:
+                return markTask(true, arguments[0]);
+            case UNMARK:
+                return markTask(false, arguments[0]);
+            case TODO:
+                return addTask(new Todo(arguments[0]));
+            case DEADLINE:
+                return addTask(new Deadline(arguments[0], arguments[1]));
+            case EVENT:
+                return addTask(new Event(arguments[0], arguments[1]));
+            case HELP:
+                return getHelpOptions();
+            case NONE:
+            default:
+                ArrayList<String> responses = new ArrayList<>();
+                responses.add("Invalid Command. Please try again");
+                return responses;
+            }
+        } catch (BobaException e) {
+            ArrayList<String> errors = new ArrayList<>();
+            errors.add(e.getMessage());
+            return errors;
         }
     }
 
     /**
      * @return Return the current list of tasks.
      */
-    private static ArrayList<String> getAllTasks() {
+    private static ArrayList<String> getAllTasks() throws BobaException{
         ArrayList<String> responses = new ArrayList<>();
         if (taskCount == 0){
-            responses.add("The list empty!");
+            throw new BobaException("The list empty!");
         }
         for (int i = 0; i < taskCount; i++) {
             responses.add(i + 1 + ". " + taskList[i]);
@@ -50,15 +58,14 @@ public class TaskManager {
      * Marks a task as complete or incomplete.
      * @param isDone Whether task is completed
      * @param taskIndex Index of the task we want to mark
-     * @param operation The current command being used
      * @return Response for confirmation of marking task
      */
-    private static ArrayList<String> markTask(boolean isDone, String taskIndex, Command operation) {
+    private static ArrayList<String> markTask(boolean isDone, String taskIndex) throws BobaException {
         // The task list is 1 base indexing while the array itself is 0 base indexing
         int index = Integer.parseInt(taskIndex) - 1;
         if (index < 0 || index >= taskCount) {
             // Marking outside the range is not allowed
-            return giveInvalidCommand(operation);
+            throw new BobaException("Sorry! You can't mark there");
         }
         ArrayList<String> responses = new ArrayList<>();
         Task selectedTask = taskList[index];
@@ -79,11 +86,10 @@ public class TaskManager {
      * @param newTask The new task to be added to the list
      * @return Response for adding a task
      */
-    private static ArrayList<String> addTask(Task newTask) {
+    private static ArrayList<String> addTask(Task newTask) throws BobaException{
         ArrayList<String> responses = new ArrayList<>();
         if (taskCount == TASK_LIMIT) {
-            responses.add("The list if full!");
-            responses.add("Task could not be added.");
+            throw new BobaException("The list is full!\nTask could not be added");
         } else {
             taskList[taskCount] = newTask;
             taskCount++;
@@ -112,32 +118,4 @@ public class TaskManager {
         responses.add("\t8. help");
         return responses;
     }
-
-    /**
-     * Activates when input is outside the expected behavior.
-     * Prints that something wrong occurred. Sometimes based on the given command.
-     * @param operation The current command being used
-     * @return Response for invalid command
-     */
-    protected static ArrayList<String> giveInvalidCommand(Command operation) {
-        ArrayList<String> responses = new ArrayList<>();
-        responses.add("Invalid Command. Please try again.");
-        // Provide a bit more insight on what may have gone wrong based on command entered.
-        switch (operation) {
-        case TODO:
-            responses.add("Description is required");
-            break;
-        case DEADLINE:
-            responses.add("Remember to include the /by command!");
-            break;
-        case EVENT:
-            responses.add("Remember to include the /at command!");
-            break;
-        case MARK:
-        case UNMARK:
-            responses.add("Make sure to include a valid number");
-        }
-        return responses;
-    }
-
 }
