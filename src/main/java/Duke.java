@@ -23,8 +23,16 @@ public class Duke {
         }
     }
 
-    public static void addTask(String userInput) {
+    public static void addTask(String userInput) throws DukeEmptyDescriptionException, DukeMaxTaskException {
+        if (Task.getNumberOfTasks() >= MAX_TASKS) {
+            throw new DukeMaxTaskException();
+        }
+
         String[] arrayOfTaskStrings = userInput.split(" ");
+        if (arrayOfTaskStrings.length <= 1) {
+            throw new DukeEmptyDescriptionException();
+        }
+
         String extractTaskDescription = "";
         for (int i = 1; i < arrayOfTaskStrings.length; i++) {
             extractTaskDescription += arrayOfTaskStrings[i] + " ";
@@ -36,11 +44,23 @@ public class Duke {
         System.out.println("Now you have " + Task.getNumberOfTasks() + " tasks in your list!");
     }
 
-    public static void addTaskWithTime(String userInput, String stringSeparator) {
+    public static void addTaskWithTime(String userInput, String stringSeparator) throws DukeEmptyDescriptionException, DukeMaxTaskException, DukeMissingTimeSeparator {
+        if (Task.getNumberOfTasks() >= MAX_TASKS) {
+            throw new DukeMaxTaskException();
+        }
+
         String[] arrayOfTaskStrings = userInput.split(" ");
+        if (arrayOfTaskStrings.length <= 1) {
+            throw new DukeEmptyDescriptionException();
+        }
+
         String extractStringsWithoutCommand = "";
         for (int i = 1; i < arrayOfTaskStrings.length; i++) {
             extractStringsWithoutCommand += arrayOfTaskStrings[i] + " ";
+        }
+
+        if ((extractStringsWithoutCommand.split(stringSeparator).length) <= 1) {
+            throw new DukeMissingTimeSeparator();
         }
 
         String extractTaskDescription = extractStringsWithoutCommand.split(stringSeparator)[0];
@@ -59,24 +79,30 @@ public class Duke {
 
     public static boolean isWithinTaskRange(int taskNumber) {
         if (taskNumber > Task.getNumberOfTasks() || taskNumber <= 0) {
-            System.out.println("Task does not exist!");
             return false;
         }
         return true;
     }
 
-    public static void markTask(boolean isMarked, String userInput) {
-        int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
-        if (isWithinTaskRange(taskNumber)) {
-            if (isMarked) {
-                taskLists[taskNumber - 1].markAsDone();
-                System.out.println("Fantastic! This task is done:");
-            } else {
-                taskLists[taskNumber - 1].markAsUndone();
-                System.out.println("Uh oh! This task is undone:");
-            }
-            System.out.println(taskLists[taskNumber - 1].toString());
+    public static void markTask(boolean isMarked, String userInput) throws DukeEmptyDescriptionException, NumberFormatException, DukeTaskOutOfRangeException {
+        if ((userInput.split(" ")).length <= 1) {
+            throw new DukeEmptyDescriptionException();
         }
+
+        int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
+        if (!isWithinTaskRange(taskNumber)) {
+            throw new DukeTaskOutOfRangeException();
+        }
+
+        if (isMarked) {
+            taskLists[taskNumber - 1].markAsDone();
+            System.out.println("Fantastic! This task is done:");
+        } else {
+            taskLists[taskNumber - 1].markAsUndone();
+            System.out.println("Uh oh! This task is undone:");
+        }
+        System.out.println(taskLists[taskNumber - 1].toString());
+
     }
 
     private static void printExit() {
@@ -99,22 +125,60 @@ public class Duke {
                 printList();
                 break;
             case "todo":
-                addTask(userInput);
+                try {
+                    addTask(userInput);
+                } catch (DukeEmptyDescriptionException e) {
+                    System.out.println("OOPS! The description of a todo cannot be empty!");
+                } catch (DukeMaxTaskException e) {
+                    System.out.println("OOPS! You have reached the max number of tasks!");
+                }
                 break;
             case "deadline":
-                addTaskWithTime(userInput, "/by ");
+                try {
+                    addTaskWithTime(userInput, "/by ");
+                } catch (DukeEmptyDescriptionException e) {
+                    System.out.println("OOPS! The description of a deadline cannot be empty!");
+                } catch (DukeMaxTaskException e) {
+                    System.out.println("OOPS! You have reached the max number of tasks!");
+                } catch (DukeMissingTimeSeparator e) {
+                    System.out.println("OOPS! You did not include '/by' in your command!");
+                }
                 break;
             case "event":
-                addTaskWithTime(userInput,"/at ");
+                try {
+                    addTaskWithTime(userInput,"/at ");
+                } catch (DukeEmptyDescriptionException e) {
+                    System.out.println("OOPS! The description of a event cannot be empty!");
+                } catch (DukeMaxTaskException e) {
+                    System.out.println("OOPS! You have reached the max number of tasks!");
+                } catch (DukeMissingTimeSeparator e) {
+                    System.out.println("OOPS! You did not include '/at' in your command!");
+                }
                 break;
             case "unmark":
-                markTask(false, userInput);
+                try {
+                    markTask(false, userInput);
+                } catch (DukeEmptyDescriptionException e) {
+                    System.out.println("OOPS! Please add the list number you want to unmark!");
+                } catch (NumberFormatException e) {
+                    System.out.println("OOPS! Specify a number for the list to unmark!");
+                } catch (DukeTaskOutOfRangeException e) {
+                    System.out.println("Task does not exist!");
+                }
                 break;
             case "mark":
-                markTask(true, userInput);
+                try {
+                    markTask(true, userInput);
+                } catch (DukeEmptyDescriptionException e) {
+                    System.out.println("OOPS! Please add the list number you want to mark!");
+                } catch (NumberFormatException e) {
+                    System.out.println("OOPS! Specify a number for the list to mark!");
+                } catch (DukeTaskOutOfRangeException e) {
+                    System.out.println("Task does not exist!");
+                }
                 break;
             default:
-                System.out.println("Invalid command.");
+                System.out.println("I'm sorry, but I don't know what that means :(");
             }
             System.out.println(BORDER_DECORATION);
             userInput = in.nextLine();
