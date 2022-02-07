@@ -12,16 +12,19 @@ public class TaskManager {
      *
      * @param args tasks to be added
      */
-    public static void addTasks(String[] args) {
-        if (!args[0].equals("add")) {
-            // there must be some error
-            // TODO exception handle
-            return;
-        }
+    public static void addTasks(String[] args) throws DukeException {
+        throwIfArgsIsNotValid(args, "task");
         for (int i = 1; i < args.length; i++) {
             Task task = new Task(args[i]);
             tasks.add(task);
             System.out.println("Added: " + task);
+        }
+    }
+
+
+    private static void throwIfArgsIsNotValid(String[] args, String functionName) throws DukeException {
+        if (args.length <= 1) {
+            throw new DukeException("☹ OOPS!!! The description of a " + functionName + " cannot be empty.");
         }
     }
 
@@ -52,13 +55,8 @@ public class TaskManager {
      *
      * @param args dump variable, no use
      */
-    public static void listTasks(String[] args) {
+    public static void listTasks(String[] args) throws DukeException {
         // TODO args can be used to control the style of output
-        if (!args[0].equals("list")) {
-            // there must be some error
-            // TODO exception handle
-            return;
-        }
         for (int i = 0; i < tasks.size(); i++) {
             System.out.printf("%d. %s\n", getTaskID(i), tasks.get(i));
         }
@@ -70,13 +68,8 @@ public class TaskManager {
      *
      * @param args arguments
      */
-    public static void mark(String[] args) {
-        if (!args[0].equals("mark")) {
-            // there must be some error
-            // TODO exception handle
-            return;
-        }
-        System.out.println("Nice! I've marked these tasks as done\n");
+    public static void mark(String[] args) throws DukeException {
+        throwIfArgsIsNotValid(args, "mark");
         for (int i = 1; i < args.length; i++) {
             int taskID = Integer.parseInt(args[i]);
             int arrayID = getArrayID(taskID);
@@ -87,6 +80,7 @@ public class TaskManager {
             tasks.get(arrayID).setDone();
             System.out.println(tasks.get(arrayID));
         }
+        System.out.println("Nice! I've marked those valid tasks as done\n");
     }
 
 
@@ -96,12 +90,8 @@ public class TaskManager {
      *
      * @param args arguments
      */
-    public static void unmark(String[] args) {
-        if (!args[0].equals("unmark")) {
-            // there must be some error
-            // TODO exception handle
-            return;
-        }
+    public static void unmark(String[] args) throws DukeException {
+        throwIfArgsIsNotValid(args, "unmark");
         System.out.println("Nice! I've marked these tasks as not done yet\n");
         for (int i = 1; i < args.length; i++) {
             int taskID = Integer.parseInt(args[i]);
@@ -137,12 +127,8 @@ public class TaskManager {
      *
      * @param args arguments
      */
-    public static void addToDoes(String[] args) {
-        if (!args[0].equals("todo")) {
-            // there must be some error
-            // TODO exception handle
-            return;
-        }
+    public static void addToDoes(String[] args) throws DukeException {
+        throwIfArgsIsNotValid(args, "todo");
         for (int i = 1; i < args.length; i++) {
             ToDo todo = new ToDo((args[i]));
             tasks.add(todo);
@@ -156,12 +142,8 @@ public class TaskManager {
      *
      * @param args arguments
      */
-    public static void addDeadlines(String[] args) {
-        if (!args[0].equals("deadline")) {
-            // there must be some error
-            // TODO exception handle
-            return;
-        }
+    public static void addDeadlines(String[] args) throws DukeException {
+        throwIfArgsIsNotValid(args, "deadline");
         List<String> contents = new ArrayList<>();
         String deadlineTime;
         for (int i = 1; i < args.length; i++) {
@@ -199,12 +181,8 @@ public class TaskManager {
      *
      * @param args arguments
      */
-    public static void addEvents(String[] args) {
-        if (!args[0].equals("event")) {
-            // there must be some error
-            // TODO exception handle
-            return;
-        }
+    public static void addEvents(String[] args) throws DukeException {
+        throwIfArgsIsNotValid(args, "event");
         List<String> contents = new ArrayList<>();
         String schedule;
         for (int i = 1; i < args.length; i++) {

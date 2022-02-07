@@ -7,6 +7,15 @@ public class CommandManager {
      */
     private static Scanner sc = new Scanner(System.in);
 
+    private final static String CMD_ADD = "add";
+    private final static String CMD_MARK = "mark";
+    private final static String CMD_UNMARK = "unmark";
+    private final static String CMD_LIST = "list";
+    private final static String CMD_DEADLINE = "deadline";
+    private final static String CMD_EVENT = "event";
+    private final static String CMD_TODO = "todo";
+    private final static String CMD_ECHO = "echo";
+
     /**
      * Get the input string (raw command) from user
      *
@@ -27,41 +36,98 @@ public class CommandManager {
         String[] args = command.getCommandTokens();
         // TODO Maybe use something like a function pointer array in C
         switch (args[0]) {
-        case "add":
-            TaskManager.addTasks(args);
-            TaskManager.printTaskNumber();
+        case CMD_ADD:
+            addAndHandleException(args);
             break;
-        case "mark":
-            TaskManager.mark(args);
+        case CMD_MARK:
+            markAndHandleException(args);
             break;
-        case "unmark":
-            TaskManager.unmark(args);
+        case CMD_UNMARK:
+            unmarkAndHandleException(args);
             break;
-        case "list":
-            TaskManager.listTasks(args);
+        case CMD_LIST:
+            listAndHandleException(args);
             break;
-        case "deadline":
-            TaskManager.addDeadlines(args);
-            TaskManager.printTaskNumber();
+        case CMD_DEADLINE:
+            addDeadlineAndHandleException(args);
             break;
-        case "event":
-            TaskManager.addEvents(args);
-            TaskManager.printTaskNumber();
+        case CMD_EVENT:
+            addEventAndHandleException(args);
             break;
-        case "todo":
-            TaskManager.addToDoes(args);
-            TaskManager.printTaskNumber();
-        case "echo":
+        case CMD_TODO:
+            addTodoAndHandleException(args);
+        case CMD_ECHO:
             echo(args);
             break;
         default:
-            String[] defaultArgs = new String[2];
-            defaultArgs[0] = "add";
-            defaultArgs[1] = command.getRawCommand();
-            TaskManager.addTasks(defaultArgs);
+            defaultCmd(command);
             break;
         }
 
+    }
+
+    private static void defaultCmd(Command command) {
+        System.out.println("Sorry I don't understand this sentence:\n\t\t" + command.getRawCommand() + "\n");
+    }
+
+    private static void addTodoAndHandleException(String[] args) {
+        try {
+            TaskManager.addToDoes(args);
+            TaskManager.printTaskNumber();
+        } catch (DukeException exception) {
+            System.out.println(exception);
+        }
+    }
+
+    private static void addEventAndHandleException(String[] args) {
+        try {
+            TaskManager.addEvents(args);
+            TaskManager.printTaskNumber();
+        } catch (DukeException exception) {
+            System.out.println(exception);
+        }
+    }
+
+    private static void addDeadlineAndHandleException(String[] args) {
+        try {
+            TaskManager.addDeadlines(args);
+            TaskManager.printTaskNumber();
+        } catch (DukeException exception) {
+            System.out.println(exception);
+        }
+    }
+
+    private static void listAndHandleException(String[] args) {
+        try {
+            TaskManager.listTasks(args);
+        } catch (DukeException exception) {
+            System.out.println(exception);
+        }
+    }
+
+    private static void unmarkAndHandleException(String[] args) {
+        try {
+            TaskManager.unmark(args);
+        } catch (DukeException exception) {
+            System.out.println(exception);
+        }
+    }
+
+    private static void markAndHandleException(String[] args) {
+        try {
+            TaskManager.mark(args);
+        } catch (DukeException exception) {
+            System.out.println(exception);
+        }
+    }
+
+    private static void addAndHandleException(String[] args) {
+        try {
+            TaskManager.addTasks(args);
+            TaskManager.printTaskNumber();
+        } catch (DukeException exception) {
+            System.out.println(exception);
+        }
     }
 
     /**
