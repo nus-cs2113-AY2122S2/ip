@@ -28,7 +28,7 @@ public class Parser {
             if (initialParse.length < 2) {
                 throw new DukeException("The description of a todo cannot be empty.");
             }
-            description = initialParse[1].trim();
+            description = command.split("todo")[1].trim();
             return new AddCommand(new ToDo(description));
         case "deadline":
             processedString = command.split("/by");
