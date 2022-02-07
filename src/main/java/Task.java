@@ -1,6 +1,8 @@
 public class Task {
     protected String taskDescription;
     protected boolean isDone;
+    protected static final String MARKED_TASK_SYMBOL = "X";
+    protected static final String UNMARKED_TASK_SYMBOL = " ";
 
     private static int numberOfTasks = 0;
 
@@ -18,27 +20,24 @@ public class Task {
         this.taskDescription = taskDescription;
     }
 
-    public static int getNumberOfTasks()
-    {
+    public static int getNumberOfTasks() {
         return numberOfTasks;
     }
 
-    public void markAsDone()
-    {
+    public void markAsDone() {
         isDone = true;
     }
 
-    public void markAsUndone()
-    {
+    public void markAsUndone() {
         isDone = false;
     }
 
     @Override
     public String toString() {
         if (isDone) {
-            return "[X] " + taskDescription;
+            return "[" +MARKED_TASK_SYMBOL+ "] " + taskDescription;
         } else {
-            return "[ ] " + taskDescription;
+            return "[" +UNMARKED_TASK_SYMBOL+ "] " + taskDescription;
         }
     }
 }

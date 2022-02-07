@@ -1,5 +1,6 @@
 public class Event extends Task {
     protected String timing;
+    protected static final String EVENT_SYMBOL = "E";
 
     public Event(String description, String timing) {
         super(description);
@@ -8,6 +9,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + timing + ")";
+        return "["+EVENT_SYMBOL+"]" + super.toString() + " (at: " + timing + ")";
     }
 }
