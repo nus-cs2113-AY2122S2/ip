@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 public class TaskManager {
     private static final ArrayList<Task> Tasks = new ArrayList<Task>();
+    //response of adding
     protected String ADD_RES = "Got it. I've added this task:\n";
     Chatbox chatbox = new Chatbox();
 
@@ -24,7 +25,8 @@ public class TaskManager {
         Deadline newDeadline = new Deadline(name, by);
         Tasks.add(newDeadline);
         int s = Tasks.size();
-        String response = ADD_RES + newDeadline.getListName() + "\n" + "Now you have " + String.valueOf(s) + " tasks in your list.";
+        String response = ADD_RES + newDeadline.getListName() +
+                "\n" + "Now you have " + String.valueOf(s) + " tasks in your list.";
         chatbox.setContent(response);
         chatbox.chatboxPrinter();
     }
@@ -38,7 +40,8 @@ public class TaskManager {
         Event newEvent = new Event(name, at);
         Tasks.add(newEvent);
         int s = Tasks.size();
-        String response = ADD_RES + newEvent.getListName() + "\n" + "Now you have " + String.valueOf(s) + " tasks in your list.";
+        String response = ADD_RES + newEvent.getListName() +
+                "\n" + "Now you have " + String.valueOf(s) + " tasks in your list.";
         chatbox.setContent(response);
         chatbox.chatboxPrinter();
     }
@@ -51,7 +54,8 @@ public class TaskManager {
         ToDo newToDo = new ToDo(name);
         Tasks.add(newToDo);
         int s = Tasks.size();
-        String response = ADD_RES + newToDo.getListName() + "\n" + "Now you have " + String.valueOf(s) + " tasks in your list.";
+        String response = ADD_RES + newToDo.getListName() + "\n" +
+                "Now you have " + String.valueOf(s) + " tasks in your list.";
         chatbox.setContent(response);
         chatbox.chatboxPrinter();
     }

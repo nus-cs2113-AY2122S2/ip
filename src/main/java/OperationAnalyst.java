@@ -44,8 +44,6 @@ public class OperationAnalyst {
             this.taskName = rawInput.replace("todo ", "");
             break;
         case "mark":
-            this.taskName = this.keywords[1];
-            break;
         case "unmark":
             this.taskName = this.keywords[1];
             break;
