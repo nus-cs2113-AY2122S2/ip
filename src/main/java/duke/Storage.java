@@ -12,10 +12,10 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
-public class Save {
+public class Storage {
     private String filePath;
 
-    public Save(String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 
@@ -45,23 +45,23 @@ public class Save {
                 String taskType = arrayElements[0].trim();
                 Task newTask;
                 switch (taskType) {
-                    case "T":
-                        newTask = new ToDo(arrayElements[2].trim(), arrayElements[1].trim().equals("1"));
-                        store.add(newTask);
-                        newTask.getTask();
-                        break;
-                    case "D":
-                        newTask = new Deadline(arrayElements[2].trim(), arrayElements[1].trim().equals("1"),
-                                arrayElements[3].trim());
-                        store.add(newTask);
-                        break;
-                    case "E":
-                        newTask = new Event(arrayElements[2].trim(), arrayElements[1].trim().equals("1"),
-                                arrayElements[3].trim());
-                        store.add(newTask);
-                        break;
-                    default:
-                        break;
+                case "T":
+                    newTask = new ToDo(arrayElements[2].trim(), arrayElements[1].trim().equals("1"));
+                    store.add(newTask);
+                    newTask.getTask();
+                    break;
+                case "D":
+                    newTask = new Deadline(arrayElements[2].trim(), arrayElements[1].trim().equals("1"),
+                            arrayElements[3].trim());
+                    store.add(newTask);
+                    break;
+                case "E":
+                    newTask = new Event(arrayElements[2].trim(), arrayElements[1].trim().equals("1"),
+                            arrayElements[3].trim());
+                    store.add(newTask);
+                    break;
+                default:
+                    break;
                 }
             }
             return store;

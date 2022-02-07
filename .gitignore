@@ -20,3 +20,7 @@ text-ui-test/EXPECTED-UNIX.TXT
 list.txt
 
 /*.jar
+
+.vscode
+
+eclipse-formatter.xml
