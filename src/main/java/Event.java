@@ -1,4 +1,4 @@
-public class Event extends Deadline{
+public class Event extends Deadline {
     private String start;
 
     public Event(String description, String by, String start) {
@@ -10,7 +10,12 @@ public class Event extends Deadline{
         this.start = start;
     }
 
-    public void printTask(){
-        System.out.println("[E][" + super.getStatusIcon() + "] " + super.description + " (start: " + this.start + ", end: " + super.getBy() + ")");
+    public String toString(){
+        return "[" + super.getStatusIcon() + "] " + super.description + " (start: " + this.start + ", end: " + super.getBy() + ")";
+    }
+
+
+    public void printTask() {
+        System.out.println("[E]" + toString());
     }
 }

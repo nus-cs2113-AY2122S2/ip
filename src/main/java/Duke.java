@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Duke {
     static Task[] tasks = new Task[100];
     static int numTasks = 0;
+
     public static void main(String[] args) {
         System.out.println("Hello! I'm KaiKai.");
         System.out.println("What can I do for you?");
@@ -61,8 +62,7 @@ public class Duke {
                     System.out.println("Uh oh, please enter a valid number!");
                 }
                 System.out.println("______________________________________");
-            }
-            else{
+            } else {
                 System.out.println("Sorry, I don't recognise that command. Please try again!");
                 System.out.println("______________________________________");
             }
@@ -71,40 +71,67 @@ public class Duke {
         System.out.println("Bye! Hope to see you again!");
     }
 
-    public static void printTasks(){
-        for (int i=0; i<numTasks; i++){
-            System.out.print((i+1) + ". ");
+    public static void printTasks() {
+        for (int i = 0; i < numTasks; i++) {
+            System.out.print((i + 1) + ". ");
             tasks[i].printTask();
         }
     }
 
-    public static void addTodo(){
+    public static void addTodo() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Okie, what should I call the task?");
         String str = sc.nextLine();
-        tasks[numTasks] = new Todo(str);
-        numTasks++;
-        System.out.println("Added!");
+        if (!str.isEmpty()){
+            tasks[numTasks] = new Todo(str);
+            numTasks++;
+            System.out.println("Added!");
+        }
+        else{
+            System.out.println("Oops! The description of a Todo cannot be empty.");
+        }
     }
-    public static void addDeadline(){
+
+    public static void addDeadline() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Okie, what should I call the task?");
         String str = sc.nextLine();
+        if (str.isEmpty()){
+            System.out.println("Oops! The description of a Deadline cannot be empty.");
+            return;
+        }
         System.out.println("Okie, when is this due by?");
         String by = sc.nextLine();
-        tasks[numTasks] = new Deadline(str,by);
+        if (by.isEmpty()){
+            System.out.println("Oops! The due date of a Deadline cannot be empty.");
+            return;
+        }
+        tasks[numTasks] = new Deadline(str, by);
         numTasks++;
         System.out.println("Added!");
     }
-    public static void addEvent(){
+
+    public static void addEvent() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Okie, what should I call the task?");
         String str = sc.nextLine();
+        if (str.isEmpty()){
+            System.out.println("Oops! The description of a Deadline cannot be empty.");
+            return;
+        }
         System.out.println("Okie, when does the event start?");
         String start = sc.nextLine();
+        if (start.isEmpty()){
+            System.out.println("Oops! The start date of a Deadline cannot be empty.");
+            return;
+        }
         System.out.println("Okie, when does the event end?");
         String by = sc.nextLine();
-        tasks[numTasks] = new Event(str,by, start);
+        if (by.isEmpty()){
+            System.out.println("Oops! The due date of a Deadline cannot be empty.");
+            return;
+        }
+        tasks[numTasks] = new Event(str, by, start);
         numTasks++;
         System.out.println("Added!");
     }
