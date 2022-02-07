@@ -76,10 +76,10 @@ _____________________________________________________
 OOPS! The description of a event cannot be empty!
 _____________________________________________________
 _____________________________________________________
-OOPS! You did not include '/by' in your command!
+OOPS! You did not include '/by ' in your command!
 _____________________________________________________
 _____________________________________________________
-OOPS! You did not include '/at' in your command!
+OOPS! You did not include '/at ' in your command!
 _____________________________________________________
 _____________________________________________________
 Bye. Hope to see you again soon!
