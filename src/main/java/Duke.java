@@ -3,8 +3,8 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static final int MAX_TASKS = 100;
-    public static final String BORDER_DECORATION = "_____________________________________________________";
+    protected static final int MAX_TASKS = 100;
+    protected static final String BORDER_DECORATION = "_____________________________________________________";
     private static Task[] taskLists = new Task[MAX_TASKS];
 
     public static void displayGreeting() {
