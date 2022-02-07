@@ -21,6 +21,7 @@ public class Shrek {
     private static final int NUMBER_OF_TERMS_IN_SPLIT = 2;
     public static final String NEW_LINE = System.lineSeparator();
     private static int errorCount = 0;
+    private static final String[] listOfCommands = {"todo", "deadline", "event", "mark", "unmark"};
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
@@ -50,9 +51,9 @@ public class Shrek {
                 "⠀⠀⠀⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀ \n" +
                 "⠀⠀⠀⠀⠀⠀⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀ \n" +
                 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠻⠿⠿⠿⠿⠛⠉";
-        String greet = " Oh! Hello there! I'm shrek.Shrek" + NEW_LINE + " What can I do for you?";
+        String greet = " Oh! Hello there! I'm Shrek" + NEW_LINE + " What can I do for you?";
         System.out.print(LINE);
-        System.out.println(ANSI_GREEN  + logo + NEW_LINE);
+        System.out.println(ANSI_GREEN + logo + NEW_LINE);
         System.out.println(shrekLogo + NEW_LINE + ANSI_RESET);
         System.out.println(LINE + greet);
     }
@@ -67,6 +68,15 @@ public class Shrek {
         for (int i = 1; i < listIndex; i++) {
             System.out.println(lists[i]);
         }
+    }
+
+    public static boolean isCommandInList(String input) {
+        for (String str : listOfCommands) {
+            if (str.equals(input)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static void addDeadlineOrEventToList(String input, String taskTimeReference)
@@ -121,21 +131,38 @@ public class Shrek {
 
     public static void markTask(String indexOfList) throws InvalidCommandException {
         try {
-            lists[Integer.parseInt(indexOfList)].setMark();
+            if (!lists[Integer.parseInt(indexOfList)].getMark()) {
+                lists[Integer.parseInt(indexOfList)].setMark();
+                System.out.println("So you've done this task, that's great I guess?");
+            } else {
+                System.out.println("You have done this task already!");
+            }
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Input of mark must be a number!", errorCount);
+        } catch (NullPointerException e) {
+            throw new InvalidCommandException("You do not have that many items in the list!", errorCount);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidCommandException("Please enter a number from 1 to 100", errorCount);
         }
-        System.out.println("So you've done this task, that's great I guess?");
+
         System.out.println(lists[Integer.parseInt(indexOfList)]);
     }
 
     public static void unmarkTask(String indexOfList) throws InvalidCommandException {
         try {
-            lists[Integer.parseInt(indexOfList)].setUnmark();
+            if (lists[Integer.parseInt(indexOfList)].getMark()) {
+                System.out.println("What do you mean you've undone");
+                lists[Integer.parseInt(indexOfList)].setUnmark();
+            } else {
+                System.out.println("How can you undo something you've never did?");
+            }
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Input of unmark must be a number!", errorCount);
+        } catch (NullPointerException e) {
+            throw new InvalidCommandException("You do not have that many items in the list!", errorCount);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidCommandException("Please enter a number from 1 to 100", errorCount);
         }
-        System.out.println("What do you mean you've undone");
         System.out.println(lists[Integer.parseInt(indexOfList)]);
     }
 
@@ -147,6 +174,8 @@ public class Shrek {
                 printList();
                 System.out.print(LINE);
                 return;
+            } else if (!isCommandInList(words[INDEX_OF_TASK_COMMAND])) {
+                throw new InvalidCommandException("Input a command from the list", errorCount);
             } else if (words.length < NUMBER_OF_TERMS_IN_SPLIT) {
                 throw new InvalidCommandException("Missing input after the command!", errorCount);
             }
@@ -167,7 +196,7 @@ public class Shrek {
                 addToList(words[INDEX_OF_TASK_INPUT], "event");
                 break;
             default:
-                throw new InvalidCommandException("Input a command from the list", errorCount);
+                throw new InvalidCommandException("How did you get here?", errorCount);
             }
         } catch (InvalidCommandException err) {
             errorCount++;
