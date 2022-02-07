@@ -61,6 +61,7 @@ public class Serene {
     }
 
     private static int parseInput(String userInput) {
+        // Split keyword from the rest of the input
         String[] responsePartition = userInput.split(" ", 2);
         String keyword = responsePartition[RESPONSE_INDEX_KEYWORD];
         int operationState = CONTINUE;
@@ -94,12 +95,15 @@ public class Serene {
 
     private static void markTaskDone(String[] userInput) {
         try {
+            // Extract index of task to mark
             String inputNumber = userInput[RESPONSE_INDEX_BODY];
             int taskIndex = Integer.parseInt(inputNumber) - 1;
+            // Validation of provided index
             if (!isWithinRange(taskIndex)) {
                 printWithPartition(INVALID_NUM_ERROR_MESSAGE);
                 return;
             }
+            // Checking if task has not already been marked
             if (!taskList[taskIndex].isDone()) {
                 taskList[taskIndex].markDone();
                 printWithPartition("Good job~ This task is now done:" + System.lineSeparator() +
@@ -116,12 +120,15 @@ public class Serene {
 
     private static void markTaskNotDone(String[] userInput) {
         try {
+            // Extract index of task to unmark
             String inputNumber = userInput[RESPONSE_INDEX_BODY];
             int taskIndex = Integer.parseInt(inputNumber) - 1;
+            // Validation of provided index
             if (!isWithinRange(taskIndex)) {
                 printWithPartition(INVALID_NUM_ERROR_MESSAGE);
                 return;
             }
+            // Checking if task has already been marked
             if (taskList[taskIndex].isDone()) {
                 taskList[taskIndex].markNotDone();
                 printWithPartition("Sigh. Here we go again:" + System.lineSeparator() +
@@ -141,6 +148,7 @@ public class Serene {
     }
 
     private static void addTask(String userInput) {
+        // Extracting which type of task does the user want to add
         String[] responsePartition = userInput.split(" ", 2);
         String keyword = responsePartition[RESPONSE_INDEX_KEYWORD];
         switch (keyword) {
@@ -174,6 +182,7 @@ public class Serene {
         String[] taskPartition;
         try {
             String description = responsePartition[RESPONSE_INDEX_BODY];
+            // Checking if a valid description has been provided
             if (!isValidDescription(description)) {
                 printWithPartition(EMPTY_DESC_ERROR_MESSAGE);
                 return;
@@ -196,6 +205,7 @@ public class Serene {
         String[] taskPartition;
         try {
             String description = responsePartition[RESPONSE_INDEX_BODY];
+            // Checking if a valid description has been provided
             if (!isValidDescription(description)) {
                 printWithPartition(EMPTY_DESC_ERROR_MESSAGE);
                 return;
