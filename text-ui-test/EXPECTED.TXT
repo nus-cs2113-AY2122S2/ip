@@ -10,263 +10,240 @@ Hello, I'm Duke
 What can I do for you? HAOXUAN
 ------------------------------
 HAOXUAN > ------------------------------
-Added: [ ] read book
-------------------------------
-HAOXUAN > ------------------------------
-Added: [ ] return book
-------------------------------
-HAOXUAN > ------------------------------
-Added: [ ] buy bread
-------------------------------
-HAOXUAN > ------------------------------
-1. [ ] read book
-2. [ ] return book
-3. [ ] buy bread
-------------------------------
-HAOXUAN > ------------------------------
-Nice! I've marked these tasks as done
+Sorry I don't understand this sentence:
+		Do you understand this?
 
-[X] read book
 ------------------------------
 HAOXUAN > ------------------------------
-1. [X] read book
-2. [ ] return book
-3. [ ] buy bread
-------------------------------
-HAOXUAN > ------------------------------
-Nice! I've marked these tasks as done
+Sorry I don't understand this sentence:
+		Of course, you cannot understand this.
 
-[X] buy bread
 ------------------------------
 HAOXUAN > ------------------------------
-1. [X] read book
-2. [ ] return book
-3. [X] buy bread
+Sorry I don't understand this sentence:
+		Because I didn't program you.
+
+------------------------------
+HAOXUAN > ------------------------------
+Sorry I don't understand this sentence:
+		But you will understand those.
+
+------------------------------
+HAOXUAN > ------------------------------
+Sorry I don't understand this sentence:
+		Now I will add multiple tasks
+
+------------------------------
+HAOXUAN > ------------------------------
+Added: [ ] multiple task1   
+Added: [ ] multiple_task2
+Added: [ ]     multiple task3
+Added: [ ] multiple    task4
+Now you have 4 task(s) in the list.
+------------------------------
+HAOXUAN > ------------------------------
+Sorry I don't understand this sentence:
+		Now I will finish task 1 and 4
+
+------------------------------
+HAOXUAN > ------------------------------
+[X] multiple task1   
+[X] multiple    task4
+Nice! I've marked those valid tasks as done
+
+------------------------------
+HAOXUAN > ------------------------------
+Sorry I don't understand this sentence:
+		Now I will try to finish task5, which is not created.
+
+------------------------------
+HAOXUAN > ------------------------------
+There is no 5 task.
+Nice! I've marked those valid tasks as done
+
+------------------------------
+HAOXUAN > ------------------------------
+Sorry I don't understand this sentence:
+		Now show me all the tasks.
+
+------------------------------
+HAOXUAN > ------------------------------
+1. [X] multiple task1   
+2. [ ] multiple_task2
+3. [ ]     multiple task3
+4. [X] multiple    task4
+------------------------------
+HAOXUAN > ------------------------------
+Sorry I don't understand this sentence:
+		I lied to you, I didn't finish task4, so unmark
+
 ------------------------------
 HAOXUAN > ------------------------------
 Nice! I've marked these tasks as not done yet
 
-[ ] read book
+[ ] multiple    task4
 ------------------------------
 HAOXUAN > ------------------------------
-1. [ ] read book
-2. [ ] return book
-3. [X] buy bread
-------------------------------
-HAOXUAN > ------------------------------
-Nice! I've marked these tasks as not done yet
+Sorry I don't understand this sentence:
+		Show me all the tasks again
 
-[ ] buy bread
 ------------------------------
 HAOXUAN > ------------------------------
-1. [ ] read book
-2. [ ] return book
-3. [ ] buy bread
+1. [X] multiple task1   
+2. [ ] multiple_task2
+3. [ ]     multiple task3
+4. [ ] multiple    task4
 ------------------------------
 HAOXUAN > ------------------------------
-Added: [ ] multiple task 1
-Added: [ ] multiple task 2
-Added: [ ] multiple task 3
-Added: [ ] multiple task 4
-Now you have 7 task(s) in the list.
-------------------------------
-HAOXUAN > ------------------------------
-Nice! I've marked these tasks as done
+Sorry I don't understand this sentence:
+		Now I will add multiple todoes
 
-[X] read book
-[X] return book
-[X] buy bread
-[X] multiple task 1
-[X] multiple task 2
-[X] multiple task 3
 ------------------------------
 HAOXUAN > ------------------------------
-1. [X] read book
-2. [X] return book
-3. [X] buy bread
-4. [X] multiple task 1
-5. [X] multiple task 2
-6. [X] multiple task 3
-7. [ ] multiple task 4
+Added: [T][ ]    multiple todo1
+Added: [T][ ] multiple_todo2
+Added: [T][ ]     multiple todo3
+Added: [T][ ] multiple       todo4
+Now you have 8 task(s) in the list.
 ------------------------------
 HAOXUAN > ------------------------------
-Nice! I've marked these tasks as not done yet
+1. [X] multiple task1   
+2. [ ] multiple_task2
+3. [ ]     multiple task3
+4. [ ] multiple    task4
+5. [T][ ]    multiple todo1
+6. [T][ ] multiple_todo2
+7. [T][ ]     multiple todo3
+8. [T][ ] multiple       todo4
+------------------------------
+HAOXUAN > ------------------------------
+Sorry I don't understand this sentence:
+		Now I will add multiple deadlines
 
-[ ] return book
-[ ] multiple task 1
-[ ] multiple task 3
 ------------------------------
 HAOXUAN > ------------------------------
-1. [X] read book
-2. [ ] return book
-3. [X] buy bread
-4. [ ] multiple task 1
-5. [X] multiple task 2
-6. [ ] multiple task 3
-7. [ ] multiple task 4
-------------------------------
-HAOXUAN > ------------------------------
-Added: [T][ ] multiple task 1
-Added: [T][ ] multiple task 2
-Added: [T][ ] multiple task 3
-Added: [T][ ] multipletask4
-Now you have 11 task(s) in the list.
-------------------------------
-HAOXUAN > ------------------------------
-1. [X] read book
-2. [ ] return book
-3. [X] buy bread
-4. [ ] multiple task 1
-5. [X] multiple task 2
-6. [ ] multiple task 3
-7. [ ] multiple task 4
-8. [T][ ] multiple task 1
-9. [T][ ] multiple task 2
-10. [T][ ] multiple task 3
-11. [T][ ] multipletask4
-------------------------------
-HAOXUAN > ------------------------------
-Added: [D][ ] ddl 1 (by: time for ddl1,2,3)
-Added: [D][ ] ddl2 (by: time for ddl1,2,3)
+Added: [D][ ]   ddl  1  (by: time for ddl1,2,3)
+Added: [D][ ] d d l 2 (by: time for ddl1,2,3)
 Added: [D][ ] ddl3 (by: time for ddl1,2,3)
-Added: [D][ ] ddl4 (by: timefor4,5,6)
+Added: [D][ ] d d l 4 (by: timefor4,5,6)
 Added: [D][ ] ddl5 (by: timefor4,5,6)
-Added: [D][ ] ddl5 (by: timefor4,5,6)
-Now you have 17 task(s) in the list.
+Added: [D][ ] ddl6 (by: timefor4,5,6)
+Now you have 14 task(s) in the list.
 ------------------------------
 HAOXUAN > ------------------------------
-1. [X] read book
-2. [ ] return book
-3. [X] buy bread
-4. [ ] multiple task 1
-5. [X] multiple task 2
-6. [ ] multiple task 3
-7. [ ] multiple task 4
-8. [T][ ] multiple task 1
-9. [T][ ] multiple task 2
-10. [T][ ] multiple task 3
-11. [T][ ] multipletask4
-12. [D][ ] ddl 1 (by: time for ddl1,2,3)
-13. [D][ ] ddl2 (by: time for ddl1,2,3)
-14. [D][ ] ddl3 (by: time for ddl1,2,3)
-15. [D][ ] ddl4 (by: timefor4,5,6)
-16. [D][ ] ddl5 (by: timefor4,5,6)
-17. [D][ ] ddl5 (by: timefor4,5,6)
+1. [X] multiple task1   
+2. [ ] multiple_task2
+3. [ ]     multiple task3
+4. [ ] multiple    task4
+5. [T][ ]    multiple todo1
+6. [T][ ] multiple_todo2
+7. [T][ ]     multiple todo3
+8. [T][ ] multiple       todo4
+9. [D][ ]   ddl  1  (by: time for ddl1,2,3)
+10. [D][ ] d d l 2 (by: time for ddl1,2,3)
+11. [D][ ] ddl3 (by: time for ddl1,2,3)
+12. [D][ ] d d l 4 (by: timefor4,5,6)
+13. [D][ ] ddl5 (by: timefor4,5,6)
+14. [D][ ] ddl6 (by: timefor4,5,6)
 ------------------------------
 HAOXUAN > ------------------------------
-Added: [E][ ] event1 (at: 1000-2200 today (1, 2, 3))
-Added: [E][ ] 2 (at: 1000-2200 today (1, 2, 3))
-Added: [E][ ] 3 (at: 1000-2200 today (1, 2, 3))
-Added: [E][ ] 4 (at: 456)
-Added: [E][ ] 5 (at: 456)
-Added: [E][ ] ddl6 (at: 456)
-Now you have 23 task(s) in the list.
-------------------------------
-HAOXUAN > ------------------------------
-1. [X] read book
-2. [ ] return book
-3. [X] buy bread
-4. [ ] multiple task 1
-5. [X] multiple task 2
-6. [ ] multiple task 3
-7. [ ] multiple task 4
-8. [T][ ] multiple task 1
-9. [T][ ] multiple task 2
-10. [T][ ] multiple task 3
-11. [T][ ] multipletask4
-12. [D][ ] ddl 1 (by: time for ddl1,2,3)
-13. [D][ ] ddl2 (by: time for ddl1,2,3)
-14. [D][ ] ddl3 (by: time for ddl1,2,3)
-15. [D][ ] ddl4 (by: timefor4,5,6)
-16. [D][ ] ddl5 (by: timefor4,5,6)
-17. [D][ ] ddl5 (by: timefor4,5,6)
-18. [E][ ] event1 (at: 1000-2200 today (1, 2, 3))
-19. [E][ ] 2 (at: 1000-2200 today (1, 2, 3))
-20. [E][ ] 3 (at: 1000-2200 today (1, 2, 3))
-21. [E][ ] 4 (at: 456)
-22. [E][ ] 5 (at: 456)
-23. [E][ ] ddl6 (at: 456)
-------------------------------
-HAOXUAN > ------------------------------
-Nice! I've marked these tasks as done
+Sorry I don't understand this sentence:
+		Now I will add multiple events
 
-[X] read book
-[X] buy bread
-[X] multiple task 2
-[X] multiple task 4
-[T][X] multiple task 2
-[T][X] multipletask4
-[D][X] ddl2 (by: time for ddl1,2,3)
-[D][X] ddl4 (by: timefor4,5,6)
+------------------------------
+HAOXUAN > ------------------------------
+Added: [E][ ] event1 (at: duration for event 1, 2, 3)
+Added: [E][ ] event2 (at: duration for event 1, 2, 3)
+Added: [E][ ]   ev ent  3   (at: duration for event 1, 2, 3)
+Added: [E][ ] event4 (at: duration_for_event_4,5,6)
+Added: [E][ ] event5 (at: duration_for_event_4,5,6)
+Added: [E][ ] ddl6 (at: duration_for_event_4,5,6)
+Now you have 20 task(s) in the list.
+------------------------------
+HAOXUAN > ------------------------------
+Sorry I don't understand this sentence:
+		Now I will mark and unmark random tasks/todoes/ddls/events
+
+------------------------------
+HAOXUAN > ------------------------------
+[X] multiple task1   
+[X]     multiple task3
+[T][X]    multiple todo1
+[T][X]     multiple todo3
+[D][X]   ddl  1  (by: time for ddl1,2,3)
+[D][X] ddl3 (by: time for ddl1,2,3)
 [D][X] ddl5 (by: timefor4,5,6)
-[E][X] 2 (at: 1000-2200 today (1, 2, 3))
-[E][X] 4 (at: 456)
-[E][X] ddl6 (at: 456)
+[E][X] event1 (at: duration for event 1, 2, 3)
+[E][X]   ev ent  3   (at: duration for event 1, 2, 3)
+[E][X] event5 (at: duration_for_event_4,5,6)
+There is no 21 task.
+There is no 23 task.
 There is no 25 task.
 There is no 27 task.
 There is no 29 task.
+Nice! I've marked those valid tasks as done
+
 ------------------------------
 HAOXUAN > ------------------------------
-1. [X] read book
-2. [ ] return book
-3. [X] buy bread
-4. [ ] multiple task 1
-5. [X] multiple task 2
-6. [ ] multiple task 3
-7. [X] multiple task 4
-8. [T][ ] multiple task 1
-9. [T][X] multiple task 2
-10. [T][ ] multiple task 3
-11. [T][X] multipletask4
-12. [D][ ] ddl 1 (by: time for ddl1,2,3)
-13. [D][X] ddl2 (by: time for ddl1,2,3)
-14. [D][ ] ddl3 (by: time for ddl1,2,3)
-15. [D][X] ddl4 (by: timefor4,5,6)
-16. [D][ ] ddl5 (by: timefor4,5,6)
-17. [D][X] ddl5 (by: timefor4,5,6)
-18. [E][ ] event1 (at: 1000-2200 today (1, 2, 3))
-19. [E][X] 2 (at: 1000-2200 today (1, 2, 3))
-20. [E][ ] 3 (at: 1000-2200 today (1, 2, 3))
-21. [E][X] 4 (at: 456)
-22. [E][ ] 5 (at: 456)
-23. [E][X] ddl6 (at: 456)
+1. [X] multiple task1   
+2. [ ] multiple_task2
+3. [X]     multiple task3
+4. [ ] multiple    task4
+5. [T][X]    multiple todo1
+6. [T][ ] multiple_todo2
+7. [T][X]     multiple todo3
+8. [T][ ] multiple       todo4
+9. [D][X]   ddl  1  (by: time for ddl1,2,3)
+10. [D][ ] d d l 2 (by: time for ddl1,2,3)
+11. [D][X] ddl3 (by: time for ddl1,2,3)
+12. [D][ ] d d l 4 (by: timefor4,5,6)
+13. [D][X] ddl5 (by: timefor4,5,6)
+14. [D][ ] ddl6 (by: timefor4,5,6)
+15. [E][X] event1 (at: duration for event 1, 2, 3)
+16. [E][ ] event2 (at: duration for event 1, 2, 3)
+17. [E][X]   ev ent  3   (at: duration for event 1, 2, 3)
+18. [E][ ] event4 (at: duration_for_event_4,5,6)
+19. [E][X] event5 (at: duration_for_event_4,5,6)
+20. [E][ ] ddl6 (at: duration_for_event_4,5,6)
 ------------------------------
 HAOXUAN > ------------------------------
 Nice! I've marked these tasks as not done yet
 
-[ ] buy bread
-[T][ ] multiple task 1
-[T][ ] multiple task 2
-[T][ ] multiple task 3
-[E][ ] 4 (at: 456)
+[ ]     multiple task3
+[T][ ] multiple       todo4
+[D][ ]   ddl  1  (by: time for ddl1,2,3)
+[D][ ] d d l 2 (by: time for ddl1,2,3)
+There is no 21 task.
 There is no 25 task.
 There is no 27 task.
 There is no 29 task.
 ------------------------------
 HAOXUAN > ------------------------------
-1. [X] read book
-2. [ ] return book
-3. [ ] buy bread
-4. [ ] multiple task 1
-5. [X] multiple task 2
-6. [ ] multiple task 3
-7. [X] multiple task 4
-8. [T][ ] multiple task 1
-9. [T][ ] multiple task 2
-10. [T][ ] multiple task 3
-11. [T][X] multipletask4
-12. [D][ ] ddl 1 (by: time for ddl1,2,3)
-13. [D][X] ddl2 (by: time for ddl1,2,3)
-14. [D][ ] ddl3 (by: time for ddl1,2,3)
-15. [D][X] ddl4 (by: timefor4,5,6)
-16. [D][ ] ddl5 (by: timefor4,5,6)
-17. [D][X] ddl5 (by: timefor4,5,6)
-18. [E][ ] event1 (at: 1000-2200 today (1, 2, 3))
-19. [E][X] 2 (at: 1000-2200 today (1, 2, 3))
-20. [E][ ] 3 (at: 1000-2200 today (1, 2, 3))
-21. [E][ ] 4 (at: 456)
-22. [E][ ] 5 (at: 456)
-23. [E][X] ddl6 (at: 456)
+1. [X] multiple task1   
+2. [ ] multiple_task2
+3. [ ]     multiple task3
+4. [ ] multiple    task4
+5. [T][X]    multiple todo1
+6. [T][ ] multiple_todo2
+7. [T][X]     multiple todo3
+8. [T][ ] multiple       todo4
+9. [D][ ]   ddl  1  (by: time for ddl1,2,3)
+10. [D][ ] d d l 2 (by: time for ddl1,2,3)
+11. [D][X] ddl3 (by: time for ddl1,2,3)
+12. [D][ ] d d l 4 (by: timefor4,5,6)
+13. [D][X] ddl5 (by: timefor4,5,6)
+14. [D][ ] ddl6 (by: timefor4,5,6)
+15. [E][X] event1 (at: duration for event 1, 2, 3)
+16. [E][ ] event2 (at: duration for event 1, 2, 3)
+17. [E][X]   ev ent  3   (at: duration for event 1, 2, 3)
+18. [E][ ] event4 (at: duration_for_event_4,5,6)
+19. [E][X] event5 (at: duration_for_event_4,5,6)
+20. [E][ ] ddl6 (at: duration_for_event_4,5,6)
+------------------------------
+HAOXUAN > ------------------------------
+Sorry I don't understand this sentence:
+		Nice, if you are clever enough, you will recognize my next sentence and terminate
+
 ------------------------------
 HAOXUAN > ------------------------------
 Bye, HAOXUAN. Hope to see you soon!
