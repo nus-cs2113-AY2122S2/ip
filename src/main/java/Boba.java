@@ -21,7 +21,7 @@ public class Boba {
         // Scanner is how commands are inputted
         Scanner scan = new Scanner(System.in);
         String input = scan.nextLine();
-        Command operation = getCommand(input);
+        Command operation = Command.getCommand(input);
         String[] arguments = parseInput(operation, input);
 
         // Keep going until the user enters 'bye'
@@ -33,7 +33,7 @@ public class Boba {
                 botResponse(TaskManager.run(operation, arguments));
             }
             input = scan.nextLine();
-            operation = getCommand(input);
+            operation = Command.getCommand(input);
             arguments = parseInput(operation, input);
         }
         sayGoodbye();
@@ -58,38 +58,6 @@ public class Boba {
         ArrayList<String> responses = new ArrayList<>();
         responses.add("Bye. Hope to see you again soon!");
         botResponse(responses);
-    }
-
-    /**
-     * Determine what command user is using, and return the enum version.
-     * If the command is not valid, the default version is returned.
-     * @param input Input by the user given to the bot
-     * @return The Command that is being used
-     */
-    private static Command getCommand(String input) {
-        // ternary operation for one word commands
-        int index = input.indexOf(" ");
-        String command = index == -1 ? input : input.substring(0, index) ;
-        switch (command) {
-        case ("bye"):
-            return Command.EXIT;
-        case ("list"):
-            return Command.LIST;
-        case ("todo"):
-            return Command.TODO;
-        case ("deadline"):
-            return Command.DEADLINE;
-        case ("event"):
-            return Command.EVENT;
-        case ("mark"):
-            return Command.MARK;
-        case ("unmark"):
-            return Command.UNMARK;
-        case ("help"):
-            return Command.HELP;
-        default:
-            return Command.NONE;
-        }
     }
 
     /**
