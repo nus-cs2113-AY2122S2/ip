@@ -2,6 +2,7 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Controller {
+    //greeting msg and exit msg
     protected String HELLO_WORDS = "Hello! I'm Duke :P\nWhat can I do for you?";
     protected String GOODBYE_WORDS = "Bye. Hope to see you again soon! ;)";
     protected String recvMsg = "";
@@ -10,78 +11,47 @@ public class Controller {
     TaskManager manager = new TaskManager();
     OperationAnalyst analyst;
 
+    /**
+     * Prints greeting msg
+     */
     public void greet() {
         chatbox.setContent(HELLO_WORDS);
         chatbox.chatboxPrinter();
     }
 
+    /**
+     * Prints goodbye msg and exits
+     */
     public void bye() {
         chatbox.setContent(GOODBYE_WORDS);
         chatbox.chatboxPrinter();
         System.exit(0);
     }
 
+    /**
+     * Unmarks task in the list
+     */
     public void unmarkTask(){
-        //String[] keywords = input.split(" ");
         int index= Integer.parseInt(analyst.taskName);
         manager.unmarkTask(index);
     }
 
+    /**
+     * Marks task in the list
+     */
     public void markTask(){
-        //String[] keywords = input.split(" ");
         int index= Integer.parseInt(analyst.taskName);
         manager.markTask(index);
     }
-    /*
-    public void addTask(String input) {
-        manager.addTask(input);
-    }
 
-    public void addToDo(String input) {
-        String name = input.replace("todo", "");
-        manager.addToDo(name);
-    }
-
-    public void addDeadline(String input) {
-        String[] keywords = input.split("/by ");
-        String by = keywords[1];
-        String name = keywords[0].replace("deadline ", "");
-        manager.addDeadline(analyst.taskName, analyst.time);
-    }
-
-    public void addEvent(String input) {
-        manager.addEvent(analyst.taskName, analyst.time);
-    }
-
-    public void listTask(){
-        manager.listTask();
-    }
-
-
-    public void greet() {
-        chatbox.setContent(HELLO_WORDS);
-        chatbox.chatboxPrinter();
-    }
-
-    public void bye() {
-        chatbox.setContent(GOODBYE_WORDS);
-        chatbox.chatboxPrinter();
-        System.exit(0);
-    }
-
-    public void replyMsgPrinter(){
-        chatbox.setContent(this.replyMsg);
-        chatbox.chatboxPrinter();
-    }
-
+    /**
+     * Listen the instruction and operate during the session
      */
-
     public void listen() {
         Scanner msg = new Scanner(System.in);
         this.recvMsg = msg.nextLine();
         analyst = new OperationAnalyst(this.recvMsg);
         String command = analyst.getCommand();
-        //String[] keyword = this.recvMsg.toLowerCase(Locale.ROOT).split(" ");
         switch (command) {
         case "bye":
             this.bye();
