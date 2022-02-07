@@ -23,8 +23,12 @@ public class Duke {
         }
     }
 
-    public static void addTask(String userInput) {
+    public static void addTask(String userInput) throws DukeException {
         String[] arrayOfTaskStrings = userInput.split(" ");
+        if (arrayOfTaskStrings.length <= 1) {
+            throw new DukeException();
+        }
+
         String extractTaskDescription = "";
         for (int i = 1; i < arrayOfTaskStrings.length; i++) {
             extractTaskDescription += arrayOfTaskStrings[i] + " ";
@@ -36,8 +40,12 @@ public class Duke {
         System.out.println("Now you have " + Task.getNumberOfTasks() + " tasks in your list!");
     }
 
-    public static void addTaskWithTime(String userInput, String stringSeparator) {
+    public static void addTaskWithTime(String userInput, String stringSeparator) throws DukeException {
         String[] arrayOfTaskStrings = userInput.split(" ");
+        if (arrayOfTaskStrings.length <= 1) {
+            throw new DukeException();
+        }
+
         String extractStringsWithoutCommand = "";
         for (int i = 1; i < arrayOfTaskStrings.length; i++) {
             extractStringsWithoutCommand += arrayOfTaskStrings[i] + " ";
@@ -65,7 +73,13 @@ public class Duke {
         return true;
     }
 
-    public static void markTask(boolean isMarked, String userInput) {
+    public static void markTask(boolean isMarked, String userInput) throws DukeException {
+        if ((userInput.split(" ")).length <= 1) {
+            throw new DukeException();
+        }
+
+        //add exception for strings input
+
         int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
         if (isWithinTaskRange(taskNumber)) {
             if (isMarked) {
@@ -99,22 +113,42 @@ public class Duke {
                 printList();
                 break;
             case "todo":
-                addTask(userInput);
+                try {
+                    addTask(userInput);
+                } catch (DukeException e) {
+                    System.out.println("OOPS! The description of a todo cannot be empty!");
+                }
                 break;
             case "deadline":
-                addTaskWithTime(userInput, "/by ");
+                try {
+                    addTaskWithTime(userInput, "/by ");
+                } catch (DukeException e) {
+                    System.out.println("OOPS! The description of a deadline cannot be empty!");
+                }
                 break;
             case "event":
-                addTaskWithTime(userInput,"/at ");
+                try {
+                    addTaskWithTime(userInput,"/at ");
+                } catch (DukeException e) {
+                    System.out.println("OOPS! The description of a event cannot be empty!");
+                }
                 break;
             case "unmark":
-                markTask(false, userInput);
+                try {
+                    markTask(false, userInput);
+                } catch (DukeException e) {
+                    System.out.println("OOPS! Please add the list number you want to unmark!");
+                }
                 break;
             case "mark":
-                markTask(true, userInput);
+                try {
+                    markTask(true, userInput);
+                } catch (DukeException e) {
+                    System.out.println("OOPS! Please add the list number you want to mark!");
+                }
                 break;
             default:
-                System.out.println("Invalid command.");
+                System.out.println("I'm sorry, but I don't know what that means :(");
             }
             System.out.println(BORDER_DECORATION);
             userInput = in.nextLine();
