@@ -1,6 +1,6 @@
+package duke;
+
 import java.util.Scanner;
-
-
 public class Duke {
     public static void main(String[] args) throws IndexOutOfBoundsException{
         System.out.println("---------------------");
