@@ -24,7 +24,6 @@ public class Duke {
     }
 
     public static void addTask(String userInput) throws DukeEmptyDescriptionException, DukeMaxTaskException {
-
         if (Task.getNumberOfTasks() >= MAX_TASKS) {
             throw new DukeMaxTaskException();
         }
@@ -76,28 +75,30 @@ public class Duke {
 
     public static boolean isWithinTaskRange(int taskNumber) {
         if (taskNumber > Task.getNumberOfTasks() || taskNumber <= 0) {
-            System.out.println("Task does not exist!");
             return false;
         }
         return true;
     }
 
-    public static void markTask(boolean isMarked, String userInput) throws DukeEmptyDescriptionException, NumberFormatException {
+    public static void markTask(boolean isMarked, String userInput) throws DukeEmptyDescriptionException, NumberFormatException, DukeTaskOutOfRangeException {
         if ((userInput.split(" ")).length <= 1) {
             throw new DukeEmptyDescriptionException();
         }
 
         int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
-        if (isWithinTaskRange(taskNumber)) {
-            if (isMarked) {
-                taskLists[taskNumber - 1].markAsDone();
-                System.out.println("Fantastic! This task is done:");
-            } else {
-                taskLists[taskNumber - 1].markAsUndone();
-                System.out.println("Uh oh! This task is undone:");
-            }
-            System.out.println(taskLists[taskNumber - 1].toString());
+        if (!isWithinTaskRange(taskNumber)) {
+            throw new DukeTaskOutOfRangeException();
         }
+
+        if (isMarked) {
+            taskLists[taskNumber - 1].markAsDone();
+            System.out.println("Fantastic! This task is done:");
+        } else {
+            taskLists[taskNumber - 1].markAsUndone();
+            System.out.println("Uh oh! This task is undone:");
+        }
+        System.out.println(taskLists[taskNumber - 1].toString());
+
     }
 
     private static void printExit() {
@@ -153,6 +154,8 @@ public class Duke {
                     System.out.println("OOPS! Please add the list number you want to unmark!");
                 } catch (NumberFormatException e) {
                     System.out.println("OOPS! Specify a number for the list to unmark!");
+                } catch (DukeTaskOutOfRangeException e) {
+                    System.out.println("Task does not exist!");
                 }
                 break;
             case "mark":
@@ -162,6 +165,8 @@ public class Duke {
                     System.out.println("OOPS! Please add the list number you want to mark!");
                 } catch (NumberFormatException e) {
                     System.out.println("OOPS! Specify a number for the list to mark!");
+                } catch (DukeTaskOutOfRangeException e) {
+                    System.out.println("Task does not exist!");
                 }
                 break;
             default:
