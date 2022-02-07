@@ -11,6 +11,7 @@ public class Task {
     /**
      * Creates a new Task with the given description.
      * The task initially set to not completed
+     * @param description A description of the task
      */
     public Task(String description) {
         this.description = description;
@@ -31,6 +32,9 @@ public class Task {
         isDone = false;
     }
 
+    /**
+     * @return String representation of Task class
+     */
     @Override
     public String toString() {
         String marked = isDone ? "[X] " : "[ ] ";
