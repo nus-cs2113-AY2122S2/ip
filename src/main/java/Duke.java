@@ -44,7 +44,7 @@ public class Duke {
         System.out.println("Now you have " + Task.getNumberOfTasks() + " tasks in your list!");
     }
 
-    public static void addTaskWithTime(String userInput, String stringSeparator) throws DukeEmptyDescriptionException, DukeMaxTaskException {
+    public static void addTaskWithTime(String userInput, String stringSeparator) throws DukeEmptyDescriptionException, DukeMaxTaskException, DukeMissingTimeSeparator {
         if (Task.getNumberOfTasks() >= MAX_TASKS) {
             throw new DukeMaxTaskException();
         }
@@ -57,6 +57,10 @@ public class Duke {
         String extractStringsWithoutCommand = "";
         for (int i = 1; i < arrayOfTaskStrings.length; i++) {
             extractStringsWithoutCommand += arrayOfTaskStrings[i] + " ";
+        }
+
+        if ((extractStringsWithoutCommand.split(stringSeparator).length) <= 1) {
+            throw new DukeMissingTimeSeparator();
         }
 
         String extractTaskDescription = extractStringsWithoutCommand.split(stringSeparator)[0];
@@ -136,6 +140,8 @@ public class Duke {
                     System.out.println("OOPS! The description of a deadline cannot be empty!");
                 } catch (DukeMaxTaskException e) {
                     System.out.println("OOPS! You have reached the max number of tasks!");
+                } catch (DukeMissingTimeSeparator e) {
+                    System.out.println("OOPS! You did not include '/by' in your command!");
                 }
                 break;
             case "event":
@@ -145,6 +151,8 @@ public class Duke {
                     System.out.println("OOPS! The description of a event cannot be empty!");
                 } catch (DukeMaxTaskException e) {
                     System.out.println("OOPS! You have reached the max number of tasks!");
+                } catch (DukeMissingTimeSeparator e) {
+                    System.out.println("OOPS! You did not include '/at' in your command!");
                 }
                 break;
             case "unmark":
