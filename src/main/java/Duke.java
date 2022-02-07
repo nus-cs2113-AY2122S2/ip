@@ -42,7 +42,7 @@ public class Duke {
                 }else if (input.startsWith("todo")) {
                     try {
                         if (input.split("todo").length <= 1) {
-                            throw new duke.DukeException();
+                            throw new duke.DukeException("OOPS todo cannot be empty");
                         }
                         String task = input.split("todo")[1].trim();
                         ToDo newTask = new ToDo(task);
@@ -67,7 +67,7 @@ public class Duke {
                     list.add(newTask);
                     printTask(newTask, list.size());
                 } else {
-                    throw new duke.DukeException();
+                    throw new duke.DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-()");
                 }
                 System.out.println("______________________________________");
                 input = sc.nextLine();

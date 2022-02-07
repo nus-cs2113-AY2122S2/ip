@@ -15,6 +15,7 @@ import java.util.Scanner;
 
 public class save {
     private String filePath;
+    private Object save;
 
     public save(String filePath) {
         this.filePath = filePath;
@@ -63,9 +64,9 @@ public class save {
                         break;
                 }
             }
-            return store;
+            return (ArrayList<Task>) save;
         } catch (FileNotFoundException e) {
-            return save;
+            return (ArrayList<Task>) save;
         }
     }
 }
