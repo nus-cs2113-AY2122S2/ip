@@ -1,0 +1,11 @@
+list
+deadline CS2113 Quiz /by Friday 4pm
+event MA2101 Quiz /at Feb 15th
+todo Homework
+list
+mark 1
+mark 2
+list
+unmark 2
+list
+bye
