@@ -91,8 +91,20 @@ public class Duke {
         if(!info.contains("/by")){
             throw new DukeInsufficientInfoException();
         }
-        String by = info.substring(info.indexOf("/by")+4);
-        String task = info.substring(0, info.indexOf("/by")-1);
+
+        String by, task;
+        try{
+            by = info.substring(info.indexOf("/by")+4);
+        }catch (StringIndexOutOfBoundsException e){
+            System.out.println("/by field is empty");
+            return;
+        }
+        try{
+            task = info.substring(0, info.indexOf("/by")-1);
+        }catch (StringIndexOutOfBoundsException e){
+            System.out.println("description field is empty");
+            return;
+        }
 
         Deadline newDeadline = new Deadline(task, by);
         list.add(newDeadline);
@@ -108,8 +120,19 @@ public class Duke {
         if(!info.contains("/at")){
             throw new DukeInsufficientInfoException();
         }
-        String at = info.substring(info.indexOf("/at")+4);
-        String task = info.substring(0, info.indexOf("/at")-1);
+        String at, task;
+        try{
+            at = info.substring(info.indexOf("/at")+4);
+        }catch (StringIndexOutOfBoundsException e){
+            System.out.println("/at field is empty");
+            return;
+        }
+        try{
+            task = info.substring(0, info.indexOf("/at")-1);
+        }catch (StringIndexOutOfBoundsException e){
+            System.out.println("description field is empty");
+            return;
+        }
 
         Event newEvent = new Event(task, at);
         list.add(newEvent);
