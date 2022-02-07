@@ -80,7 +80,7 @@ public class TaskManager {
         for (int i = 1; i < args.length; i++) {
             int taskID = Integer.parseInt(args[i]);
             int arrayID = getArrayID(taskID);
-            if(arrayID < 0 || arrayID >= tasks.size()) {
+            if (arrayID < 0 || arrayID >= tasks.size()) {
                 System.out.println("There is no " + taskID + " task.");
                 continue;
             }
@@ -106,7 +106,7 @@ public class TaskManager {
         for (int i = 1; i < args.length; i++) {
             int taskID = Integer.parseInt(args[i]);
             int arrayID = getArrayID(taskID);
-            if(arrayID < 0 || arrayID >= tasks.size()) {
+            if (arrayID < 0 || arrayID >= tasks.size()) {
                 System.out.println("There is no " + taskID + " task.");
                 continue;
             }
@@ -134,6 +134,7 @@ public class TaskManager {
     /**
      * Add multiple ToDoes to the task array
      * Using by > todo {todo1 id} {todo2 id} ...
+     *
      * @param args arguments
      */
     public static void addToDoes(String[] args) {
@@ -152,6 +153,7 @@ public class TaskManager {
     /**
      * Add multiple deadlines to task array
      * Using by > deadline {ddl 1} {ddl 2} ... /by {ddl time for 1, 2...} {adl a} {ddl b} ... /by {ddl time for a, b...} ...
+     *
      * @param args arguments
      */
     public static void addDeadlines(String[] args) {
@@ -177,7 +179,7 @@ public class TaskManager {
         if (!contents.isEmpty()) {
             System.out.print("Deadline adding failed (no corresponding deadline time):\n");
             for (int i = 0; i < contents.size(); i++) {
-                System.out.print((i+1) + ". "+ contents.get(i) + "\t");
+                System.out.print((i + 1) + ". " + contents.get(i) + "\t");
             }
             System.out.println();
         }
@@ -194,6 +196,7 @@ public class TaskManager {
     /**
      * Add multiple events to task array.
      * Using by > event {evt 1} {evt 2} ... /at {evt time for 1, 2...} {evt a} {evt b} ... /at {evt time for a, b...} ...
+     *
      * @param args arguments
      */
     public static void addEvents(String[] args) {
@@ -219,7 +222,7 @@ public class TaskManager {
         if (!contents.isEmpty()) {
             System.out.print("Event adding failed (no corresponding schedule time):\n");
             for (int i = 0; i < contents.size(); i++) {
-                System.out.print((i+1) + ". "+ contents.get(i) + "\t");
+                System.out.print((i + 1) + ". " + contents.get(i) + "\t");
             }
             System.out.println();
         }

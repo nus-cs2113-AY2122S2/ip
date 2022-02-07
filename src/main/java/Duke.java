@@ -43,7 +43,9 @@ public class Duke {
             printUserPrompt();
             Command command = CommandManager.getCommand();
             printLineDivider();
-            if (exitIfContainExitCommand(command)) return;
+            if (exitIfContainExitCommand(command)) {
+                return;
+            }
             CommandManager.runCommand(command);
             printLineDivider();
         }

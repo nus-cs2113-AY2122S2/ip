@@ -6,10 +6,6 @@ public class CommandManager {
      * Scanner to get user input
      */
     private static Scanner sc = new Scanner(System.in);
-    /**
-     * Manage the reminder function
-     */
-    private static TaskManager TaskManager;
 
     /**
      * Get the input string (raw command) from user
