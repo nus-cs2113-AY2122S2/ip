@@ -26,19 +26,35 @@ public class Duke {
 
             switch(commandWord){
             case "todo":
-                addTodo(info, tasks);
+                try{
+                    addTodo(info, tasks);
+                }catch (DukeEmptyStringException e){
+                    System.out.println("Task cannot be empty");
+                }
                 break;
             case "deadline":
-                addDeadline(info, tasks);
+                try{
+                    addDeadline(info, tasks);
+                }catch (DukeEmptyStringException e){
+                    System.out.println("Task cannot be empty");
+                }catch (DukeInsufficientInfoException f){
+                    System.out.println("Deadline should have /by field");
+                }
                 break;
             case "event":
-                addEvent(info, tasks);
+                try{
+                    addEvent(info, tasks);
+                }catch (DukeEmptyStringException e){
+                    System.out.println("Task cannot be empty");
+                }catch (DukeInsufficientInfoException f){
+                    System.out.println("Event should have /at field");
+                }
                 break;
             case "mark":
-                mark(Integer.parseInt(info), tasks);
+                mark(info, tasks);
                 break;
             case "unmark":
-                unmark(Integer.parseInt(info), tasks);
+                unmark(info, tasks);
                 break;
             case "list":
                 list(tasks);
@@ -57,7 +73,10 @@ public class Duke {
                 "____________________\n");
     }
 
-    private static void addTodo(String info, ArrayList<Task> list){
+    private static void addTodo(String info, ArrayList<Task> list) throws DukeEmptyStringException{
+        if(info == null){
+            throw new DukeEmptyStringException();
+        }
         Task newTask = new Task(info);
         list.add(newTask);
         System.out.printf("Got it. I've added this task:\n" +
@@ -65,9 +84,27 @@ public class Duke {
                 "Now you have %d in the list.\n", newTask, list.size());
     }
 
-    private static void addDeadline(String input, ArrayList<Task> list){
-        String by = input.substring(input.indexOf("/by")+4);
-        String task = input.substring(0, input.indexOf("/by")-1);
+    private static void addDeadline(String info, ArrayList<Task> list) throws DukeEmptyStringException, DukeInsufficientInfoException{
+        if(info == null){
+            throw new DukeEmptyStringException();
+        }
+        if(!info.contains("/by")){
+            throw new DukeInsufficientInfoException();
+        }
+
+        String by, task;
+        try{
+            by = info.substring(info.indexOf("/by")+4);
+        }catch (StringIndexOutOfBoundsException e){
+            System.out.println("/by field is empty");
+            return;
+        }
+        try{
+            task = info.substring(0, info.indexOf("/by")-1);
+        }catch (StringIndexOutOfBoundsException e){
+            System.out.println("description field is empty");
+            return;
+        }
 
         Deadline newDeadline = new Deadline(task, by);
         list.add(newDeadline);
@@ -76,9 +113,26 @@ public class Duke {
                 "Now you have %d in the list.\n", newDeadline, list.size());
     }
 
-    private static void addEvent(String input, ArrayList<Task> list){
-        String at = input.substring(input.indexOf("/at")+4);
-        String task = input.substring(0, input.indexOf("/at")-1);
+    private static void addEvent(String info, ArrayList<Task> list) throws DukeEmptyStringException, DukeInsufficientInfoException{
+        if(info == null){
+            throw new DukeEmptyStringException();
+        }
+        if(!info.contains("/at")){
+            throw new DukeInsufficientInfoException();
+        }
+        String at, task;
+        try{
+            at = info.substring(info.indexOf("/at")+4);
+        }catch (StringIndexOutOfBoundsException e){
+            System.out.println("/at field is empty");
+            return;
+        }
+        try{
+            task = info.substring(0, info.indexOf("/at")-1);
+        }catch (StringIndexOutOfBoundsException e){
+            System.out.println("description field is empty");
+            return;
+        }
 
         Event newEvent = new Event(task, at);
         list.add(newEvent);
@@ -94,13 +148,38 @@ public class Duke {
         }
     }
 
-    private static void mark(int index, ArrayList<Task> list){
-        list.get(index-1).setDone(true);
+    private static void mark(String info, ArrayList<Task> list){
+        int index;
+        try{
+            index = Integer.parseInt(info);
+        } catch (NumberFormatException e){
+            System.out.println("Mark should be followed by a number");
+            return;
+        }
+        try{
+            list.get(index-1).setDone(true);
+        }catch (IndexOutOfBoundsException f){
+            System.out.println("This task does not exist");
+            return;
+        }
         System.out.printf("Nice! I've marked this task as done:\n [X] %s\n", list.get(index-1).getDescription());
     }
 
-    private static void unmark(int index, ArrayList<Task> list){
-        list.get(index-1).setDone(false);
+    private static void unmark(String info, ArrayList<Task> list){
+        int index;
+        try{
+            index = Integer.parseInt(info);
+        } catch (NumberFormatException e){
+            System.out.println("Unmark should be followed by a number");
+            return;
+        }
+
+        try{
+            list.get(index-1).setDone(false);
+        }catch (IndexOutOfBoundsException f){
+            System.out.println("This task does not exist");
+            return;
+        }
         System.out.printf("OK, I've marked this task as not done yet:\n [ ] %s\n", list.get(index-1).getDescription());
     }
 
