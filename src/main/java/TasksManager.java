@@ -33,27 +33,27 @@ public class TasksManager {
 
     public boolean addTask(String text) {
         // Create new Task object with text
-        boolean taskAddedSuccessfully;
+        boolean isTaskAdded;
         String taskType = extractTaskType(text);
 
         switch (taskType) {
         case SoraUI.ADD_TODO_COMMAND_KEYWORD:
             String todoDescription = removeCommandKeyword(text);
-            taskAddedSuccessfully = list.add(new Todo(todoDescription));
+            isTaskAdded = list.add(new Todo(todoDescription));
             break;
         case SoraUI.ADD_EVENT_COMMAND_KEYWORD:
             String[] eventDescriptionAndDate = extractDescriptionAndDate(text, SoraUI.ADD_EVENT_OPTION_KEYWORD);
-            taskAddedSuccessfully = list.add(new Event(eventDescriptionAndDate));
+            isTaskAdded = list.add(new Event(eventDescriptionAndDate));
             break;
         case SoraUI.ADD_DEADLINE_COMMAND_KEYWORD:
             String[] deadlineDescriptionAndDate = extractDescriptionAndDate(text, SoraUI.ADD_DEADLINE_OPTION_KEYWORD);
-            taskAddedSuccessfully = list.add(new Deadline(deadlineDescriptionAndDate));
+            isTaskAdded = list.add(new Deadline(deadlineDescriptionAndDate));
             break;
         default:
-            taskAddedSuccessfully = false;
+            isTaskAdded = false;
         }
 
-        if (taskAddedSuccessfully) {
+        if (isTaskAdded) {
             incrementNumberOfTasks();
             return true;
         }
@@ -88,17 +88,12 @@ public class TasksManager {
             return false;
         }
 
-        // Iterate through the task list to find the task
-        for (int i = 0; i < getList().size(); i += 1) {
-            if (i == taskNum - 1) {
-                // Task found, mark as desired status
-                getList().get(i).setDone(status);
-                return true;
-            }
-        }
+        // Calculate index number of task in the ArrayList
+        int indexNum = taskNum - 1;
 
-        // Failed to find task
-        return false;
+        // Update the task status
+        getList().get(indexNum).setDone(status);
+        return true;
     }
 
     public void displayTask(int taskNum) {

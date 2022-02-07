@@ -1,6 +1,8 @@
 public class Deadline extends Task {
+    // Index values of the task details when reading in from the String array argument in the constructor
     private static final int DEADLINE_DESCRIPTION = 0;
     private static final int DEADLINE_DATE = 1;
+
     private static final String DEADLINE_CHECKBOX = "[D]";
 
     private String dueDate;

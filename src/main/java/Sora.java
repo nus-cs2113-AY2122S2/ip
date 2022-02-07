@@ -1,6 +1,6 @@
 public class Sora {
-    protected static final boolean IN_TESTING_MODE = false;
-    private boolean userWantsToExit = false;
+    protected static final boolean IN_TESTING_MODE = true;
+    private boolean isUserExiting = false;
 
     private TasksManager tasksManager;
     private SoraUI soraUI = new SoraUI();
@@ -16,11 +16,11 @@ public class Sora {
     }
 
     protected boolean doesUserWantsToExit() {
-        return this.userWantsToExit;
+        return this.isUserExiting;
     }
 
-    protected void setUserWantsToExit() {
-        this.userWantsToExit = true;
+    protected void setUserExit() {
+        this.isUserExiting = true;
     }
 
     protected TasksManager getTasksManager() {
@@ -50,7 +50,7 @@ public class Sora {
 
         switch (userCommand) {
         case SoraUI.EXIT_COMMAND_KEYWORD:
-            setUserWantsToExit();
+            setUserExit();
             break;
         case SoraUI.LIST_COMMAND_KEYWORD:
             soraUI.displayTaskList(getTasksManager());

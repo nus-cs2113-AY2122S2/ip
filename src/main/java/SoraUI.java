@@ -82,11 +82,17 @@ public class SoraUI {
     }
 
     /**
-     * Prints a line on the console based on the arguments given to this method.
+     * Prints a line on the console based on the specified length and the character/symbol to use
      */
     protected void printLine(int lineLen, String character) {
-        // Prints a line based on the specified length and the character/symbol to use
-        System.out.println(String.format("%" + lineLen + "s", " ").replaceAll(" ", character));
+        // Generate a line of whitespaces
+        String lineOfWhitespaces = String.format("%" + lineLen + "s", " ");
+
+        // Replace each whitespace with the specified character
+        String lineOfChars = lineOfWhitespaces.replaceAll(" ", character);
+
+        // Finally, print out the line of characters
+        System.out.println(lineOfChars);
     }
 
     /**
