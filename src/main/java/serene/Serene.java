@@ -11,6 +11,7 @@ public class Serene {
     public static final int TASK_LIMIT = 100;
     private static final String PARTITION_LINE = "____________________________________________________________";
     private static final String INPUT_ERROR_MESSAGE = "Uhm... I'm afraid I don't know what you mean by that :/";
+    private static final String INVALID_NUM_ERROR_MESSAGE = "Please enter a valid task number ;-;";
     private static final String EMPTY_DESC_ERROR_MESSAGE = "Hey! Don't try to make me record nothing for fun :<";
     private static final String EMPTY_TIME_ERROR_MESSAGE = "No time input? Please remember your /by or /at~";
     private static final int DONE = -1;
@@ -70,10 +71,10 @@ public class Serene {
             printTaskList();
             break;
         case "mark":
-            markTaskDone(responsePartition[RESPONSE_INDEX_BODY]);
+            markTaskDone(responsePartition);
             break;
         case "unmark":
-            markTaskNotDone(responsePartition[RESPONSE_INDEX_BODY]);
+            markTaskNotDone(responsePartition);
             break;
         default:
             addTask(userInput);
@@ -90,24 +91,52 @@ public class Serene {
         System.out.println(PARTITION_LINE);
     }
 
-    private static void markTaskDone(String inputNumber) {
+    private static void markTaskDone(String[] userInput) {
         try {
+            String inputNumber = userInput[RESPONSE_INDEX_BODY];
             int taskIndex = Integer.parseInt(inputNumber) - 1;
-            taskList[taskIndex].markDone();
-            printWithPartition("Good job~ This task is now done:" + System.lineSeparator() + taskList[taskIndex]);
-        } catch (NumberFormatException e) {
-            printWithPartition(INPUT_ERROR_MESSAGE);
+            if (!isWithinRange(taskIndex)) {
+                printWithPartition(INVALID_NUM_ERROR_MESSAGE);
+                return;
+            }
+            if (!taskList[taskIndex].isDone()) {
+                taskList[taskIndex].markDone();
+                printWithPartition("Good job~ This task is now done:" + System.lineSeparator() +
+                        taskList[taskIndex]);
+            }
+            else {
+                printWithPartition("Huh? Didn't you complete this already?" + System.lineSeparator() +
+                        taskList[taskIndex]);
+            }
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            printWithPartition(INVALID_NUM_ERROR_MESSAGE);
         }
     }
 
-    private static void markTaskNotDone(String inputNumber) {
+    private static void markTaskNotDone(String[] userInput) {
         try {
+            String inputNumber = userInput[RESPONSE_INDEX_BODY];
             int taskIndex = Integer.parseInt(inputNumber) - 1;
-            taskList[taskIndex].markNotDone();
-            printWithPartition("Sigh. Here we go again:" + System.lineSeparator() + taskList[taskIndex]);
-        } catch (NumberFormatException e) {
-            printWithPartition(INPUT_ERROR_MESSAGE);
+            if (!isWithinRange(taskIndex)) {
+                printWithPartition(INVALID_NUM_ERROR_MESSAGE);
+                return;
+            }
+            if (taskList[taskIndex].isDone()) {
+                taskList[taskIndex].markNotDone();
+                printWithPartition("Sigh. Here we go again:" + System.lineSeparator() +
+                        taskList[taskIndex]);
+            }
+            else {
+                printWithPartition("Bruh. You never completed this in the first place." + System.lineSeparator() +
+                        taskList[taskIndex]);
+            }
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            printWithPartition(INVALID_NUM_ERROR_MESSAGE);
         }
+    }
+
+    private static boolean isWithinRange(int taskIndex) {
+        return taskIndex >= 0 && taskIndex <= taskCount - 1;
     }
 
     private static void addTask(String userInput) {
@@ -196,7 +225,6 @@ public class Serene {
     }
 
     private static void printExitMessage() {
-        String exitLine = "Till next time. Hope to see you again soon~";
-        printWithPartition(exitLine);
+        printWithPartition("Till next time. Hope to see you again soon~");
     }
 }

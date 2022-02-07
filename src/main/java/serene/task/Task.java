@@ -1,6 +1,6 @@
 package serene.task;
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -13,8 +13,8 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    public String getDescription() {
-        return description;
+    public boolean isDone() {
+        return isDone;
     }
 
     public void markDone() {
