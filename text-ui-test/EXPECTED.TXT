@@ -20,13 +20,14 @@ Task added:
 Now you have 2 tasks in your list!
 _____________________________________________________
 _____________________________________________________
-1.[T][ ] read book 
-2.[D][ ] return book  (by: June 6th )
-_____________________________________________________
-_____________________________________________________
 Task added:
 	[E][ ] project meeting  (at: Aug 6th 2-4pm )
 Now you have 3 tasks in your list!
+_____________________________________________________
+_____________________________________________________
+1.[T][ ] read book 
+2.[D][ ] return book  (by: June 6th )
+3.[E][ ] project meeting  (at: Aug 6th 2-4pm )
 _____________________________________________________
 _____________________________________________________
 Task added:
@@ -40,125 +41,45 @@ _____________________________________________________
 4.[T][ ] join sports club 
 _____________________________________________________
 _____________________________________________________
-Task added:
-	[T][ ] borrow book 
-Now you have 5 tasks in your list!
+Fantastic! This task is done:
+[T][X] read book 
+_____________________________________________________
+_____________________________________________________
+1.[T][X] read book 
+2.[D][ ] return book  (by: June 6th )
+3.[E][ ] project meeting  (at: Aug 6th 2-4pm )
+4.[T][ ] join sports club 
+_____________________________________________________
+_____________________________________________________
+Uh oh! This task is undone:
+[T][ ] read book 
 _____________________________________________________
 _____________________________________________________
 1.[T][ ] read book 
 2.[D][ ] return book  (by: June 6th )
 3.[E][ ] project meeting  (at: Aug 6th 2-4pm )
 4.[T][ ] join sports club 
-5.[T][ ] borrow book 
-_____________________________________________________
-_____________________________________________________
-Fantastic! This task is done:
-[T][X] read book 
-_____________________________________________________
-_____________________________________________________
-Fantastic! This task is done:
-[T][X] join sports club 
-_____________________________________________________
-_____________________________________________________
-1.[T][X] read book 
-2.[D][ ] return book  (by: June 6th )
-3.[E][ ] project meeting  (at: Aug 6th 2-4pm )
-4.[T][X] join sports club 
-5.[T][ ] borrow book 
-_____________________________________________________
-_____________________________________________________
-Task added:
-	[D][ ] return book  (by: Sunday )
-Now you have 6 tasks in your list!
-_____________________________________________________
-_____________________________________________________
-1.[T][X] read book 
-2.[D][ ] return book  (by: June 6th )
-3.[E][ ] project meeting  (at: Aug 6th 2-4pm )
-4.[T][X] join sports club 
-5.[T][ ] borrow book 
-6.[D][ ] return book  (by: Sunday )
-_____________________________________________________
-_____________________________________________________
-Task added:
-	[E][ ] project meeting  (at: Mon 2-4pm )
-Now you have 7 tasks in your list!
-_____________________________________________________
-_____________________________________________________
-1.[T][X] read book 
-2.[D][ ] return book  (by: June 6th )
-3.[E][ ] project meeting  (at: Aug 6th 2-4pm )
-4.[T][X] join sports club 
-5.[T][ ] borrow book 
-6.[D][ ] return book  (by: Sunday )
-7.[E][ ] project meeting  (at: Mon 2-4pm )
-_____________________________________________________
-_____________________________________________________
-Fantastic! This task is done:
-[D][X] return book  (by: June 6th )
-_____________________________________________________
-_____________________________________________________
-1.[T][X] read book 
-2.[D][X] return book  (by: June 6th )
-3.[E][ ] project meeting  (at: Aug 6th 2-4pm )
-4.[T][X] join sports club 
-5.[T][ ] borrow book 
-6.[D][ ] return book  (by: Sunday )
-7.[E][ ] project meeting  (at: Mon 2-4pm )
-_____________________________________________________
-_____________________________________________________
-Uh oh! This task is undone:
-[T][ ] join sports club 
-_____________________________________________________
-_____________________________________________________
-1.[T][X] read book 
-2.[D][X] return book  (by: June 6th )
-3.[E][ ] project meeting  (at: Aug 6th 2-4pm )
-4.[T][ ] join sports club 
-5.[T][ ] borrow book 
-6.[D][ ] return book  (by: Sunday )
-7.[E][ ] project meeting  (at: Mon 2-4pm )
-_____________________________________________________
-_____________________________________________________
-Fantastic! This task is done:
-[E][X] project meeting  (at: Aug 6th 2-4pm )
-_____________________________________________________
-_____________________________________________________
-Fantastic! This task is done:
-[T][X] join sports club 
-_____________________________________________________
-_____________________________________________________
-Fantastic! This task is done:
-[T][X] borrow book 
-_____________________________________________________
-_____________________________________________________
-1.[T][X] read book 
-2.[D][X] return book  (by: June 6th )
-3.[E][X] project meeting  (at: Aug 6th 2-4pm )
-4.[T][X] join sports club 
-5.[T][X] borrow book 
-6.[D][ ] return book  (by: Sunday )
-7.[E][ ] project meeting  (at: Mon 2-4pm )
-_____________________________________________________
-_____________________________________________________
-Fantastic! This task is done:
-[D][X] return book  (by: Sunday )
 _____________________________________________________
 _____________________________________________________
 Task does not exist!
 _____________________________________________________
 _____________________________________________________
-Fantastic! This task is done:
-[E][X] project meeting  (at: Mon 2-4pm )
+Task does not exist!
 _____________________________________________________
 _____________________________________________________
-1.[T][X] read book 
-2.[D][X] return book  (by: June 6th )
-3.[E][X] project meeting  (at: Aug 6th 2-4pm )
-4.[T][X] join sports club 
-5.[T][X] borrow book 
-6.[D][X] return book  (by: Sunday )
-7.[E][X] project meeting  (at: Mon 2-4pm )
+OOPS! The description of a todo cannot be empty!
+_____________________________________________________
+_____________________________________________________
+OOPS! The description of a deadline cannot be empty!
+_____________________________________________________
+_____________________________________________________
+OOPS! The description of a event cannot be empty!
+_____________________________________________________
+_____________________________________________________
+OOPS! You did not include '/by' in your command!
+_____________________________________________________
+_____________________________________________________
+OOPS! You did not include '/at' in your command!
 _____________________________________________________
 _____________________________________________________
 Bye. Hope to see you again soon!
