@@ -23,10 +23,14 @@ public class Duke {
         }
     }
 
-    public static void addTask(String userInput) throws DukeException {
+    public static void addTask(String userInput) throws DukeEmptyDescriptionException, DukeMaxTaskException {
+        if (taskLists.length >= MAX_TASKS) {
+            throw new DukeMaxTaskException();
+        }
+
         String[] arrayOfTaskStrings = userInput.split(" ");
         if (arrayOfTaskStrings.length <= 1) {
-            throw new DukeException();
+            throw new DukeEmptyDescriptionException();
         }
 
         String extractTaskDescription = "";
@@ -40,10 +44,14 @@ public class Duke {
         System.out.println("Now you have " + Task.getNumberOfTasks() + " tasks in your list!");
     }
 
-    public static void addTaskWithTime(String userInput, String stringSeparator) throws DukeException {
+    public static void addTaskWithTime(String userInput, String stringSeparator) throws DukeEmptyDescriptionException, DukeMaxTaskException {
+        if (taskLists.length >= MAX_TASKS) {
+            throw new DukeMaxTaskException();
+        }
+
         String[] arrayOfTaskStrings = userInput.split(" ");
         if (arrayOfTaskStrings.length <= 1) {
-            throw new DukeException();
+            throw new DukeEmptyDescriptionException();
         }
 
         String extractStringsWithoutCommand = "";
@@ -73,9 +81,9 @@ public class Duke {
         return true;
     }
 
-    public static void markTask(boolean isMarked, String userInput) throws DukeException {
+    public static void markTask(boolean isMarked, String userInput) throws DukeEmptyDescriptionException {
         if ((userInput.split(" ")).length <= 1) {
-            throw new DukeException();
+            throw new DukeEmptyDescriptionException();
         }
 
         //add exception for strings input
@@ -115,35 +123,41 @@ public class Duke {
             case "todo":
                 try {
                     addTask(userInput);
-                } catch (DukeException e) {
+                } catch (DukeEmptyDescriptionException e) {
                     System.out.println("OOPS! The description of a todo cannot be empty!");
+                } catch (DukeMaxTaskException e) {
+                    System.out.println("OOPS! You have reached the max number of tasks!");
                 }
                 break;
             case "deadline":
                 try {
                     addTaskWithTime(userInput, "/by ");
-                } catch (DukeException e) {
+                } catch (DukeEmptyDescriptionException e) {
                     System.out.println("OOPS! The description of a deadline cannot be empty!");
+                } catch (DukeMaxTaskException e) {
+                    System.out.println("OOPS! You have reached the max number of tasks!");
                 }
                 break;
             case "event":
                 try {
                     addTaskWithTime(userInput,"/at ");
-                } catch (DukeException e) {
+                } catch (DukeEmptyDescriptionException e) {
                     System.out.println("OOPS! The description of a event cannot be empty!");
+                } catch (DukeMaxTaskException e) {
+                    System.out.println("OOPS! You have reached the max number of tasks!");
                 }
                 break;
             case "unmark":
                 try {
                     markTask(false, userInput);
-                } catch (DukeException e) {
+                } catch (DukeEmptyDescriptionException e) {
                     System.out.println("OOPS! Please add the list number you want to unmark!");
                 }
                 break;
             case "mark":
                 try {
                     markTask(true, userInput);
-                } catch (DukeException e) {
+                } catch (DukeEmptyDescriptionException e) {
                     System.out.println("OOPS! Please add the list number you want to mark!");
                 }
                 break;
