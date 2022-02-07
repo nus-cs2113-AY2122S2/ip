@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -28,11 +27,9 @@ public class Boba {
                 String input = scan.nextLine();
                 operation = Command.getCommand(input);
                 String[] arguments = parseInput(operation, input);
-                botResponse(TaskManager.run(operation, arguments));
+                TaskManager.run(operation, arguments);
             } catch (BobaException e) {
-                ArrayList<String> responses = new ArrayList<>();
-                responses.add(e.getMessage());
-                botResponse(responses);
+                BobaResponse.printThis(e.getMessage());
             }
 
         } while(operation != Command.EXIT);
@@ -43,21 +40,18 @@ public class Boba {
      * The initial response the bot gives starting up
      */
     private static void giveIntroduction() {
-        ArrayList<String> responses = new ArrayList<>();
-        responses.add("Hello! I'm Boba.");
-        responses.add("I am a bot 'tasked' to manage your tasks");
-        responses.add("What can I do for you?");
-        responses.add("Type 'help' to get the list commands I response to");
-        botResponse(responses);
+        BobaResponse.addResponse("Hello! I'm Boba.");
+        BobaResponse.addResponse("I am a bot 'tasked' to manage your tasks");
+        BobaResponse.addResponse("What can I do for you?");
+        BobaResponse.addResponse("Type 'help' to get the list commands I response to");
+        BobaResponse.printResponse();
     }
 
     /**
      * The final response after saying bye
      */
     private static void sayGoodbye() {
-        ArrayList<String> responses = new ArrayList<>();
-        responses.add("Bye. Hope to see you again soon!");
-        botResponse(responses);
+        BobaResponse.printThis("Bye. Hope to see you again soon!");
     }
 
     /**
@@ -92,17 +86,5 @@ public class Boba {
             // do nothing. default has no arguments, only the command
         }
         return arguments;
-    }
-
-    /**
-     * The response the bot gives based on the input by the user.
-     * @param responses Collection of all the lines the bot responds with
-     */
-    private static void botResponse(ArrayList<String> responses) {
-        System.out.println("............................................................");
-        for (String response : responses) {
-            System.out.println("\t" + response);
-        }
-        System.out.println("............................................................");
     }
 }

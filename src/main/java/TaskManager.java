@@ -10,48 +10,50 @@ public class TaskManager {
     /** The list of tasks. Limited to 100 */
     private static Task[] taskList = new Task[100];
 
-    public static ArrayList<String> run(Command operation, String[] arguments) {
+    public static void run(Command operation, String[] arguments) {
         try {
             switch (operation) {
             case LIST:
-                return getAllTasks();
+                printAllTasks();
+                break;
             case MARK:
-                return markTask(true, arguments[0]);
+                markTask(true, arguments[0]);
+                break;
             case UNMARK:
-                return markTask(false, arguments[0]);
+                markTask(false, arguments[0]);
+                break;
             case TODO:
-                return addTask(new Todo(arguments[0]));
+                addTask(new Todo(arguments[0]));
+                break;
             case DEADLINE:
-                return addTask(new Deadline(arguments[0], arguments[1]));
+                addTask(new Deadline(arguments[0], arguments[1]));
+                break;
             case EVENT:
-                return addTask(new Event(arguments[0], arguments[1]));
+                addTask(new Event(arguments[0], arguments[1]));
+                break;
             case HELP:
-                return getHelpOptions();
+                printHelpOptions();
+                break;
             case NONE:
             default:
-                ArrayList<String> responses = new ArrayList<>();
-                responses.add("Invalid Command. Please try again");
-                return responses;
+                BobaResponse.printThis("Invalid Command. Please try again");
             }
         } catch (BobaException e) {
-            ArrayList<String> errors = new ArrayList<>();
-            errors.add(e.getMessage());
-            return errors;
+            BobaResponse.printThis(e.getMessage());
         }
     }
 
     /**
      * @return Return the current list of tasks.
      */
-    private static ArrayList<String> getAllTasks() throws BobaException{
-        ArrayList<String> responses = new ArrayList<>();
+    private static void printAllTasks() throws BobaException{
         if (taskCount == 0){
             throw new BobaException("The list empty!");
         }
         for (int i = 0; i < taskCount; i++) {
-            responses.add(i + 1 + ". " + taskList[i]);
+            BobaResponse.addResponse(i + 1 + ". " + taskList[i]);
         }
-        return responses;
+        BobaResponse.printResponse();
     }
 
     /**
@@ -60,24 +62,23 @@ public class TaskManager {
      * @param taskIndex Index of the task we want to mark
      * @return Response for confirmation of marking task
      */
-    private static ArrayList<String> markTask(boolean isDone, String taskIndex) throws BobaException {
+    private static void markTask(boolean isDone, String taskIndex) throws BobaException {
         // The task list is 1 base indexing while the array itself is 0 base indexing
         int index = Integer.parseInt(taskIndex) - 1;
         if (index < 0 || index >= taskCount) {
             // Marking outside the range is not allowed
             throw new BobaException("Sorry! You can't mark there");
         }
-        ArrayList<String> responses = new ArrayList<>();
         Task selectedTask = taskList[index];
         if (isDone) {
             selectedTask.markAsDone();
-            responses.add("Beep boop! I've marked this task as done:");
+            BobaResponse.addResponse("Beep boop! I've marked this task as done:");
         } else {
             selectedTask.markAsNotDone();
-            responses.add("Boop beep! I've marked this task as not done:");
+            BobaResponse.addResponse("Boop beep! I've marked this task as not done:");
         }
-        responses.add(selectedTask.toString());
-        return responses;
+        BobaResponse.addResponse(selectedTask.toString());
+        BobaResponse.printResponse();
     }
 
     /**
@@ -86,18 +87,17 @@ public class TaskManager {
      * @param newTask The new task to be added to the list
      * @return Response for adding a task
      */
-    private static ArrayList<String> addTask(Task newTask) throws BobaException{
-        ArrayList<String> responses = new ArrayList<>();
+    private static void addTask(Task newTask) throws BobaException{
         if (taskCount == TASK_LIMIT) {
             throw new BobaException("The list is full!\nTask could not be added");
         } else {
             taskList[taskCount] = newTask;
             taskCount++;
-            responses.add("Got it. I've added this task:");
-            responses.add("\t" + newTask.toString());
-            responses.add("Now you have " + taskCount + " tasks in your list.");
+            BobaResponse.addResponse("Got it. I've added this task:");
+            BobaResponse.addResponse("\t" + newTask.toString());
+            BobaResponse.addResponse("Now you have " + taskCount + " tasks in your list.");
         }
-        return responses;
+        BobaResponse.printResponse();
     }
 
     /**
@@ -105,17 +105,16 @@ public class TaskManager {
      * Activates when user enters <code>help</code>
      * @return All available help options
      */
-    private static ArrayList<String> getHelpOptions() {
-        ArrayList<String> responses = new ArrayList<>();
-        responses.add("Here are all the possible commands:");
-        responses.add("\t1. bye");
-        responses.add("\t2. list");
-        responses.add("\t3. todo <description>");
-        responses.add("\t4. deadline <description> /by <time>");
-        responses.add("\t5. event <description> /at <time>");
-        responses.add("\t6. mark <number>");
-        responses.add("\t7. unmark <number>");
-        responses.add("\t8. help");
-        return responses;
+    private static void printHelpOptions() {
+        BobaResponse.addResponse("Here are all the possible commands:");
+        BobaResponse.addResponse("\t1. bye");
+        BobaResponse.addResponse("\t2. list");
+        BobaResponse.addResponse("\t3. todo <description>");
+        BobaResponse.addResponse("\t4. deadline <description> /by <time>");
+        BobaResponse.addResponse("\t5. event <description> /at <time>");
+        BobaResponse.addResponse("\t6. mark <number>");
+        BobaResponse.addResponse("\t7. unmark <number>");
+        BobaResponse.addResponse("\t8. help");
+        BobaResponse.printResponse();
     }
 }
