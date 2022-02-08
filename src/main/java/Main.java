@@ -1,28 +1,81 @@
 import java.util.Scanner;
 
 public class Main {
+    //Constant(s) used in multiple classes
+    public static final String BORDER_LINE = "-------------------------------------------------------------";
+
+    //Constants used in this Main class
+    public static final String GREETING_MESSAGE = "Hello! I'm Alexis, your trusty helper!\n"
+            + "What can I do for you?\n\nHint: You may use these commands to navigate around:\n"
+            + "[list] [todo] [deadline] [event] [mark] [unmark] [bye]";
+    public static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!";
+    public static final String DISPLAY_TASK_MESSAGE = "Here are the tasks in your list:";
+    public static final String EMPTY_LIST_MESSAGE = "Your list is empty. You have no tasks now.";
+    public static final String INVALID_INPUT_MESSAGE = "Invalid input\n"
+            + "Please use the format: [type_of_task] [task_description]";
+
+    //Constants used in the Task class
+    public static final String ADD_NEW_TASK_MESSAGE = "Got it! I've added this task:";
+    public static final String MARK_AS_DONE_MESSAGE = "Great! I've marked this task as done:";
+    public static final String MARK_AS_UNDONE_MESSAGE = "Ok. I've marked this task as not done yet:";
 
     public static void greet() {
-        System.out.println("-----------------------------------------------------");
-        System.out.println("Hello! I'm Alexis, your trusty helper");
-        System.out.println("What can I do for you?");
-        System.out.println("-----------------------------------------------------");
+        System.out.println(BORDER_LINE);
+        System.out.println(GREETING_MESSAGE);
+        System.out.println(BORDER_LINE);
     }
 
     public static void exit() {
-        System.out.println("-----------------------------------------------------");
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("-----------------------------------------------------");
+        System.out.println(BORDER_LINE);
+        System.out.println(GOODBYE_MESSAGE);
+        System.out.println(BORDER_LINE);
+    }
+
+    private static void invalid_input() {
+        System.out.println(BORDER_LINE);
+        System.out.println(INVALID_INPUT_MESSAGE);
+        System.out.println(BORDER_LINE);
     }
 
     public static void displayList(Task[] tasks, int numOfTasks) {
-        System.out.println("-----------------------------------------------------");
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < numOfTasks; i++) {
-            System.out.println((i+1) + ".[" + tasks[i].typeOfTask() + "][" + tasks[i].getStatusIcon() + "] "
-                    + tasks[i].fullDescription());
+        System.out.println(BORDER_LINE);
+        if (numOfTasks > 0) {
+            System.out.println(DISPLAY_TASK_MESSAGE);
+            for (int i = 0; i < numOfTasks; i++) {
+                System.out.println((i + 1) + ".[" + tasks[i].typeOfTask() + "]["
+                        + tasks[i].getStatusIcon() + "] " + tasks[i].getFullDescription());
+            }
+        } else {
+            System.out.println(EMPTY_LIST_MESSAGE);
         }
-        System.out.println("-----------------------------------------------------");
+        System.out.println(BORDER_LINE);
+    }
+
+    public static int todo(Task[] tasks, int numOfTasks, String input) {
+        tasks[numOfTasks] = new Todo(input.substring(5));
+        return numOfTasks + 1;
+    }
+
+    public static int deadline(Task[] tasks, int numOfTasks, String input) {
+        String[] deadlineDescriptionSplitArr = input.substring(9).split(" /by ");
+        tasks[numOfTasks] = new Deadline(deadlineDescriptionSplitArr[0], deadlineDescriptionSplitArr[1]);
+        return numOfTasks + 1;
+    }
+
+    public static int event(Task[] tasks, int numOfTasks, String input) {
+        String[] eventDescriptionSplitArr = input.substring(6).split(" /at ");
+        tasks[numOfTasks] = new Event(eventDescriptionSplitArr[0], eventDescriptionSplitArr[1]);
+        return numOfTasks + 1;
+    }
+
+    public static void mark(Task[] tasks, String[] arrOfInputStrings) {
+        int inputTaskNumber = Integer.parseInt(arrOfInputStrings[1]) - 1;
+        tasks[inputTaskNumber].markAsDone();
+    }
+
+    public static void unmark(Task[] tasks, String[] arrOfInputStrings) {
+        int inputTaskNumber = Integer.parseInt(arrOfInputStrings[1]) - 1;
+        tasks[inputTaskNumber].markAsUndone();
     }
 
     public static void main(String[] args) {
@@ -33,7 +86,6 @@ public class Main {
 
         greet();
         String input = in.nextLine();
-        int inputTaskNumber;
 
         while (!input.equals("bye")) {
 
@@ -44,31 +96,22 @@ public class Main {
                 displayList(tasks, taskCounter);
                 break;
             case "todo":
-                tasks[taskCounter] = new Todo(input.substring(5));
-                taskCounter++;
+                taskCounter = todo(tasks, taskCounter, input);
                 break;
             case "deadline":
-                String[] deadlineDescriptionSplitArr = input.substring(9).split(" /by ");
-                tasks[taskCounter] = new Deadline(deadlineDescriptionSplitArr[0], deadlineDescriptionSplitArr[1]);
-                taskCounter++;
+                taskCounter = deadline(tasks, taskCounter, input);
                 break;
             case "event":
-                String[] eventDescriptionSplitArr = input.substring(6).split(" /at ");
-                tasks[taskCounter] = new Event(eventDescriptionSplitArr[0], eventDescriptionSplitArr[1]);
-                taskCounter++;
+                taskCounter = event(tasks, taskCounter, input);
                 break;
             case "mark":
-                inputTaskNumber = Integer.parseInt(arrOfInputStrings[1]) - 1;
-                tasks[inputTaskNumber].markAsDone();
+                mark(tasks, arrOfInputStrings);
                 break;
             case "unmark":
-                inputTaskNumber = Integer.parseInt(arrOfInputStrings[1]) - 1;
-                tasks[inputTaskNumber].markAsUndone();
+                unmark(tasks, arrOfInputStrings);
                 break;
             default:
-                System.out.println("-----------------------------------------------------");
-                System.out.println("Invalid input\nPlease use the format: [type_of_task] [task_description]");
-                System.out.println("-----------------------------------------------------");
+                invalid_input();
                 break;
             }
 
@@ -77,4 +120,5 @@ public class Main {
         exit();
 
     }
+
 }

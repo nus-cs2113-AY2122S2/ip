@@ -1,8 +1,9 @@
-todo eat
-deadline have lunch /by 12pm
-event attend class /at 2pm
 list
-mark 3
+todo walk the dog
+deadline complete CS2113T quiz /by Thursday 9am
+event attend internship briefing /at Friday 12pm
+list
+mark 1
 mark 2
 unmark 2
 list

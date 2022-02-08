@@ -3,6 +3,25 @@ public class Task {
     protected String timing;
     protected boolean isDone;
 
+    public char typeOfTask() {
+        return '@';
+    }
+
+    public String getStatusIcon() {
+        return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    public String getFullDescription() {
+        return description;
+    }
+
+    public void addNewTask() {
+        System.out.println(Main.BORDER_LINE);
+        System.out.println(Main.ADD_NEW_TASK_MESSAGE);
+        System.out.println("  [" + typeOfTask() + "][" + getStatusIcon() + "] " + getFullDescription());
+        System.out.println(Main.BORDER_LINE);
+    }
+
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -16,39 +35,21 @@ public class Task {
         addNewTask();
     }
 
-    public char typeOfTask() {
-        return '@';
-    }
-
-    public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
-    }
-
-    public String fullDescription() {
-        return description;
-    }
-
-    public void addNewTask() {
-        System.out.println("-----------------------------------------------------");
-        System.out.println("Got it! I've added this task:");
-        System.out.println("  [" + typeOfTask() + "][" + getStatusIcon() + "] " + fullDescription());
-        System.out.println("-----------------------------------------------------");
-    }
-
     public void markAsDone() {
         this.isDone = true;
-        System.out.println("-----------------------------------------------------");
-        System.out.println("Great! I've marked this task as done:");
-        System.out.println("  [" + typeOfTask() + "][" + getStatusIcon() + "] " + fullDescription());
-        System.out.println("-----------------------------------------------------");
+        System.out.println(Main.BORDER_LINE);
+        System.out.println(Main.MARK_AS_DONE_MESSAGE);
+        System.out.println("  [" + typeOfTask() + "][" + getStatusIcon() + "] " + getFullDescription());
+        System.out.println(Main.BORDER_LINE);
+
     }
 
     public void markAsUndone() {
         this.isDone = false;
-        System.out.println("-----------------------------------------------------");
-        System.out.println("Ok. I've marked this task as not done yet:");
-        System.out.println("  [" + typeOfTask() + "][" + getStatusIcon() + "] " + fullDescription());
-        System.out.println("-----------------------------------------------------");
+        System.out.println(Main.BORDER_LINE);
+        System.out.println(Main.MARK_AS_UNDONE_MESSAGE);
+        System.out.println("  [" + typeOfTask() + "][" + getStatusIcon() + "] " + getFullDescription());
+        System.out.println(Main.BORDER_LINE);
     }
 
 }

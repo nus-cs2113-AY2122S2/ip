@@ -6,11 +6,11 @@ public class Deadline extends Task {
 
     @Override
     public char typeOfTask() {
-        return 'D';
+        return 'D';             //D represents Deadline
     }
 
     @Override
-    public String fullDescription() {
+    public String getFullDescription() {
         return description + " (by: " + timing + ")";
     }
 }

@@ -6,6 +6,6 @@ public class Todo extends Task {
 
     @Override
     public char typeOfTask() {
-        return 'T';
+        return 'T';             //T represents Task
     }
 }

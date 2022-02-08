@@ -6,11 +6,11 @@ public class Event extends Task {
 
     @Override
     public char typeOfTask() {
-        return 'E';
+        return 'E';             //E represents Event
     }
 
     @Override
-    public String fullDescription() {
+    public String getFullDescription() {
         return description + " (at: " + timing + ")";
     }
 }
