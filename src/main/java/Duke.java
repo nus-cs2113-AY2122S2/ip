@@ -21,12 +21,14 @@ public class Duke {
                 break;
             } else if(task.equals("list")) {
                 listTasks();
-            } else if(task.contains("mark ")&& !task.contains("unmark ")) {
+            } else if(task.startsWith("mark ")) {
                 markTask(task);
-            } else if(task.contains("unmark ")) {
+            } else if(task.startsWith("unmark ")) {
                 unmarkTask(task);
-            } else {
+            } else if(task.startsWith("todo") || task.startsWith("deadline") || task.startsWith("event")) {
                 addTask(task);
+            } else {
+                System.out.println("    Sorry I do not know what that means!");
             }
             System.out.println("    ____________________________________");
         }
@@ -60,51 +62,72 @@ public class Duke {
     }
 
     public static void markTask(String task) {
-        task = task.replace("mark ","");
-        int i = Integer.parseInt(task)-1;
-        if(taskList[i]!=null) {
-            taskList[i].setDone(true);
-            System.out.println("    Nice! I've marked this task as done:");
-            System.out.println("    "+taskList[i]);
-        } else {
-            System.out.println("    Please enter a valid task number");
+        try {
+            task = task.replace("mark ", "");
+            int i = Integer.parseInt(task) - 1;
+            if (taskList[i] != null) {
+                taskList[i].setDone(true);
+                System.out.println("    Nice! I've marked this task as done:");
+                System.out.println("    " + taskList[i]);
+            } else {
+                System.out.println("    Please enter a valid task number");
+            }
+        } catch (IndexOutOfBoundsException e) {
+            if(taskIndex==0) {
+                System.out.println("    OOPS there are no tasks in the list");
+            } else {
+                System.out.println("    OOPS there are only " + taskIndex + " tasks in the list");
+            }
         }
     }
 
     public static void unmarkTask(String task) {
-        task = task.replace("unmark ","");
-        int i = Integer.parseInt(task)-1;
-        if(taskList[i]!=null) {
-            taskList[i].setDone(false);
-            System.out.println("    OK, I've marked this task as not done yet:");
-            System.out.println("        "+taskList[i]);
+        try {
+            task = task.replace("unmark ","");
+            int i = Integer.parseInt(task)-1;
+            if(taskList[i]!=null) {
+                taskList[i].setDone(false);
+                System.out.println("    OK, I've marked this task as not done yet:");
+                System.out.println("        "+taskList[i]);
 
-        } else {
-            System.out.println("    Please enter a valid task number");
+            } else {
+                System.out.println("    Please enter a valid task number");
+            }
+        } catch (IndexOutOfBoundsException e) {
+            if(taskIndex==0) {
+                System.out.println("    OOPS there are no tasks in the list");
+            } else {
+                System.out.println("    OOPS there are only " + taskIndex + " tasks in the list");
+            }
         }
+
     }
 
     public static void addTask(String task) {
-        int index = task.indexOf(' ');
-        String taskType = task.substring(0,index);
-        task = task.substring(index+1);
-        switch(taskType) {
-        case "todo":
-            addAsTodo(task);
-            break;
-        case "deadline":
-            addAsDeadline(task);
-            break;
-        case "event":
-            addAsEvent(task);
-            break;
-        default:
-            System.out.println("    Sorry I do not know what that means");
-            return;
+        try {
+            int index = task.indexOf(' ');
+            String taskType = task.substring(0, index);
+            task = task.substring(index + 1);
+            switch (taskType) {
+            case "todo":
+                addAsTodo(task);
+                break;
+            case "deadline":
+                addAsDeadline(task);
+                break;
+            case "event":
+                addAsEvent(task);
+                break;
+            default:
+                System.out.println("    Sorry I do not know what that means");
+                return;
+            }
+            System.out.println("    Got it. I've added this task:");
+            System.out.println("        " + taskList[taskIndex - 1]);
+            System.out.println("    Now you have " + (taskIndex) + " tasks in the list.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("    OOPS!!! The decription of a "+task+" cannot be empty");
         }
-        System.out.println("    Got it. I've added this task:");
-        System.out.println("        "+taskList[taskIndex-1]);
-        System.out.println("    Now you have "+(taskIndex)+ " tasks in the list.");
     }
 
     private static void addAsTodo(String task) {
