@@ -1,3 +1,10 @@
+import duke.exception.MissingDateException;
+import duke.exception.MissingDescriptionException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
 import java.util.Scanner;
 
 public class Duke {
