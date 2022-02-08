@@ -1,19 +1,19 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    protected static int numTask = 0;
+    protected static int taskNum = 0;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        numTask++;
+        taskNum++;
     }
 
-    public static int getNumTask() {
-        return numTask;
+    public static int getTaskNum() {
+        return taskNum;
     }
 
-    public void printInfo() {
+    public void printDescription() {
         if (isDone) {
             System.out.println("[X] " + description);
         } else {
