@@ -72,6 +72,8 @@ public class SoraUI {
 
     protected static final String COMMAND_NOT_UNDERSTOOD_RESPONSE =
             "Oops! I can't understand what you've just typed...\nCould you try again?";
+    protected static final String TODO_MISSING_DESCRIPTION_RESPONSE =
+            "Hmmm, seems like you didn't give me a description for your\ntodo... Could you try again? (⌒_⌒;)";
 
     /**
      * Prints a line on the console based on the default parameters defined in this Java class.
@@ -210,10 +212,6 @@ public class SoraUI {
         System.out.println(SoraUI.ADD_TASK_FAILURE_RESPONSE);
     }
 
-    protected void printCommandNotUnderstood() {
-        System.out.println(SoraUI.COMMAND_NOT_UNDERSTOOD_RESPONSE);
-    }
-
     protected void displayTaskList(TasksManager tasksManager) {
         // Check if the task list is empty
         if (tasksManager.isEmpty()) {
@@ -225,5 +223,13 @@ public class SoraUI {
         System.out.println();
         tasksManager.displayAllTasks();
         System.out.println();
+    }
+
+    protected void printCommandNotUnderstood() {
+        System.out.println(SoraUI.COMMAND_NOT_UNDERSTOOD_RESPONSE);
+    }
+
+    protected void printTodoMissingDescription() {
+        System.out.println(SoraUI.TODO_MISSING_DESCRIPTION_RESPONSE);
     }
 }

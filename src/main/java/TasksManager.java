@@ -31,27 +31,34 @@ public class TasksManager {
         this.numberOfTasks += 1;
     }
 
-    public boolean addTask(String text) {
+    public boolean addTask(String text) throws InvalidCommandException {
         // Create new Task object with text
         boolean isTaskAdded;
         String taskType = extractTaskType(text);
 
-        switch (taskType) {
-        case SoraUI.ADD_TODO_COMMAND_KEYWORD:
-            String todoDescription = removeCommandKeyword(text);
-            isTaskAdded = list.add(new Todo(todoDescription));
-            break;
-        case SoraUI.ADD_EVENT_COMMAND_KEYWORD:
-            String[] eventDescriptionAndDate = extractDescriptionAndDate(text, SoraUI.ADD_EVENT_OPTION_KEYWORD);
-            isTaskAdded = list.add(new Event(eventDescriptionAndDate));
-            break;
-        case SoraUI.ADD_DEADLINE_COMMAND_KEYWORD:
-            String[] deadlineDescriptionAndDate = extractDescriptionAndDate(text, SoraUI.ADD_DEADLINE_OPTION_KEYWORD);
-            isTaskAdded = list.add(new Deadline(deadlineDescriptionAndDate));
-            break;
-        default:
-            isTaskAdded = false;
+        try {
+            switch (taskType) {
+            case SoraUI.ADD_TODO_COMMAND_KEYWORD:
+                checkTodoCommand(text);
+                String todoDescription = removeCommandKeyword(text);
+                isTaskAdded = list.add(new Todo(todoDescription));
+                break;
+            case SoraUI.ADD_EVENT_COMMAND_KEYWORD:
+                String[] eventDescriptionAndDate = extractDescriptionAndDate(text, SoraUI.ADD_EVENT_OPTION_KEYWORD);
+                isTaskAdded = list.add(new Event(eventDescriptionAndDate));
+                break;
+            case SoraUI.ADD_DEADLINE_COMMAND_KEYWORD:
+                String[] deadlineDescriptionAndDate = extractDescriptionAndDate(text, SoraUI.ADD_DEADLINE_OPTION_KEYWORD);
+                isTaskAdded = list.add(new Deadline(deadlineDescriptionAndDate));
+                break;
+            default:
+                isTaskAdded = false;
+            }
+        } catch (InvalidCommandException e) {
+            // Rethrow it to caller method
+            throw e;
         }
+
 
         if (isTaskAdded) {
             incrementNumberOfTasks();
@@ -59,6 +66,17 @@ public class TasksManager {
         }
 
         return false;
+    }
+
+    private void checkTodoCommand(String todoCommand) throws InvalidCommandException {
+        // Check if command has a description
+        String[] commandAndDescription = todoCommand.split(" ", 2);
+
+        if (commandAndDescription.length < 2) {
+            throw new InvalidCommandException(InvalidCommandException.TODO_NO_DESCRIPTION);
+        }
+
+        // Checks are complete, the command is okay. Method will return to caller.
     }
 
     private String extractTaskType(String text) {
