@@ -6,6 +6,8 @@ public class SoraReader {
     Scanner reader = new Scanner(System.in);
 
     protected String getUserInput() {
-        return reader.nextLine();
+        String userInput = reader.nextLine();
+        String userInputTrimmed = userInput.trim();
+        return userInputTrimmed;
     }
 }
