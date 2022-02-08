@@ -1,33 +1,31 @@
 public class Parser {
-    private String input;
     private String command;
+    private String description;
     private boolean isExiting;
 
     Parser() {
-        this.input = "";
         this.command = "";
+        this.description = "";
         this.isExiting = false;
     }
 
     private void reset() {
-        input = "";
         command = "";
+        description = "";
         isExiting = false;
     }
 
     public void parseString(String userInput) {
         reset();
-        input = userInput;
-        setCommand();
-        setParam(command);
+        setParam(userInput);
     }
 
-    public void setCommand() {
-        this.command = input.split(" ")[0].trim().toLowerCase();
-        // throw command invalid exception
-    }
-
-    private void setParam(String command) {
+    private void setParam(String input) {
+        int spaceIndex = input.trim().indexOf(" ");
+        command = input.split(" ")[0].trim().toLowerCase();
+        if (spaceIndex != -1) {
+            description = input.substring(spaceIndex + 1).trim();
+        }
         if (command.equals("bye")) {
             isExiting = true;
         }
@@ -45,20 +43,25 @@ public class Parser {
         return splitStringBySlash();
     }
 
-    public int getTaskId() {
-        return Integer.parseInt(input.split(" ")[1]);
-        //task id not integer
-        //no task id
+    public int getTaskId() throws DukeException {
+        if (description.isEmpty()) {
+            throw new DukeException(Ui.emptyDescription(command));
+        }
+        try {
+            return Integer.parseInt(description);
+        } catch (NumberFormatException e) {
+            throw new DukeException(Ui.taskIdInWrongFormat());
+        }
     }
 
     private String[] splitStringBySlash() {
-        String[] splitInput = input.split(" ");
+        String[] splitInput = description.split(" ");
         String[] splitOutput = new String[2];
-        String description = "";
+        String taskDescription = "";
         String date = "";
         boolean hasSlash = false;
 
-        for (int i = 1; i < splitInput.length; i++) {
+        for (int i = 0; i < splitInput.length; i++) {
             if (splitInput[i].equals("/by") || splitInput[i].equals("/at")) {
                 hasSlash = true;
                 continue;
@@ -66,11 +69,11 @@ public class Parser {
             if (hasSlash) {
                 date += splitInput[i] + " ";
             } else {
-                description += splitInput[i] + " ";
+                taskDescription += splitInput[i] + " ";
             }
         }
 
-        splitOutput[0] = description.trim();
+        splitOutput[0] = taskDescription.trim();
         splitOutput[1] = date.trim();
         return splitOutput;
     }

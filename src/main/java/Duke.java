@@ -59,23 +59,27 @@ public class Duke {
     private static String executeCommand() {
         String feedback = "";
         String command = parser.getCommand();
-        if (command.equals(LIST_COMMAND)) {
+        switch (command) {
+        case LIST_COMMAND:
             feedback = listTask();
-        }
-        if (command.equals(MARK_COMMAND)) {
-            feedback = markTask();
-        }
-        if (command.equals(UNMARK_COMMAND)) {
-            feedback = unmarkTask();
-        }
-        if (command.equals(TODO_COMMAND)) {
+            break;
+        case MARK_COMMAND:
+            feedback = markTask(true);
+            break;
+        case UNMARK_COMMAND:
+            feedback = markTask(false);
+            break;
+        case TODO_COMMAND:
             feedback = addTodo();
-        }
-        if (command.equals(DEADLINE_COMMAND)) {
+            break;
+        case DEADLINE_COMMAND:
             feedback = addDeadline();
-        }
-        if (command.equals(EVENT_COMMAND)) {
+            break;
+        case EVENT_COMMAND:
             feedback = addEvent();
+            break;
+        default:
+            //invalid command
         }
         return feedback;
     }
@@ -86,21 +90,27 @@ public class Duke {
 
     private static String addTodo() {
         return taskManager.addTodo(parser.getTaskDescription());
+        // no task description
+        // duplicate
     }
 
     private static String addDeadline() {
         return taskManager.addDeadline(parser.getTaskDescription());
+        // incomplete input
+        // no /by no date no task
     }
 
     private static String addEvent() {
         return taskManager.addEvent(parser.getTaskDescription());
+        // incomplete input
+        // no /by no date no task
     }
 
-    private static String markTask() {
-        return taskManager.markTask(parser.getTaskId());
-    }
-
-    private static String unmarkTask() {
-        return taskManager.unmarkTask(parser.getTaskId());
+    private static String markTask(boolean isDone) {
+        try {
+            return taskManager.markTask(parser.getTaskId(), isDone);
+        } catch (DukeException e) {
+            return e.toString();
+        }
     }
 }
