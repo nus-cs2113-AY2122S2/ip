@@ -100,6 +100,10 @@ public class Duke {
         default:
             throw new DukeException("I don't understand what you want to do, big sad :(");
         }
+
+        if (description.equals("")) {
+            throw new DukeException("Please provide a task description!");
+        }
         return t;
     }
 
@@ -107,15 +111,16 @@ public class Duke {
         try {
             String[] commands = line.split(" ", 2);
             String type = commands[0];
-            String description = commands[1];
+            String description = "";
+            if (commands.length > 1) {
+                description = commands[1];
+            }
 
             Task t = parseTask(type, description);
             list[taskIndex] = t;
             taskIndex++;
             printFormat("Got it. I've added this task:\n  " + t +
                     String.format("\nNow you have %d tasks in the list.", taskIndex));
-        } catch (IndexOutOfBoundsException e){
-            printFormat("Please provide a task type and description!");
         } catch (DukeException e) {
             printFormat(e.msg);
         }
