@@ -21,6 +21,18 @@ public class SoraExceptionHandler {
         case InvalidCommandException.TODO_NO_DESCRIPTION:
             soraUI.printTodoMissingDescription();
             break;
+        case InvalidCommandException.EVENT_MISSING_FLAG:
+            soraUI.printEventMissingFlag();
+            break;
+        case InvalidCommandException.EVENT_NO_DESCRIPTION:
+            soraUI.printEventMissingDescription();
+            break;
+        case InvalidCommandException.EVENT_NO_PERIOD:
+            soraUI.printEventMissingPeriod();
+            break;
+        case InvalidCommandException.EVENT_INVALID_FLAGS:
+            soraUI.printEventInvalidFlags();
+            break;
         }
     }
 }

@@ -8,11 +8,17 @@ public class InvalidCommandException extends Exception {
      * List of pre-defined error messages
      */
     public static final String NO_SUCH_COMMAND_MSG = "no such command";
-    public static final String TODO_NO_DESCRIPTION = "no description for todo command";
-    public static final String EVENT_INVALID_FLAG = "flag used for event command was invalid";
+
+    public static final String TODO_NO_DESCRIPTION = "no description for todo command was found";
+
+    public static final String EVENT_NO_DESCRIPTION = "no description for event command was found";
     public static final String EVENT_MISSING_FLAG = "required flag for event command was not found";
-    public static final String DEADLINE_INVALID_FLAG = "flag used for deadline command was invalid";
+    public static final String EVENT_NO_PERIOD = "no period for event command was found";
+    public static final String EVENT_INVALID_FLAGS = "usage of flags in this command was invalid";
+
+    public static final String DEADLINE_NO_DESCRIPTION = "no description for deadline command was found";
     public static final String DEADLINE_MISSING_FLAG = "required flag for deadline command was not found";
+    public static final String DEADLINE_NO_DUE_DATE = "no due date for deadline command was found";
 
     private String expectedValue;
     private String receivedValue;

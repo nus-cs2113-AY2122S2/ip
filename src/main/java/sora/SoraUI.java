@@ -22,13 +22,24 @@ public class SoraUI {
     protected static final String PROMPT_SYMBOL = ">";
 
     /**
-     * Different acknowledgement words for Sora's neutral replies
+     * Different positive acknowledgement words for Sora's neutral replies
      */
-    protected static final String[] ACKNOWLEDGEMENT_WORDS = {
+    protected static final String[] POSITIVE_ACKNOWLEDGEMENT_WORDS = {
             "Okay",
             "Alright",
             "Gotcha",
             "Got it"
+    };
+
+    /**
+     * Different negative acknowledgement words for Sora's replies on errors
+     */
+    protected static final String[] NEGATIVE_ACKNOWLEDGEMENT_WORDS = {
+            "Hmm",
+            "Oh no",
+            "Ah",
+            "Dang",
+            "Oops"
     };
 
     /**
@@ -46,11 +57,19 @@ public class SoraUI {
 
     public static final String ADD_TODO_COMMAND_KEYWORD = "todo";
     public static final String ADD_EVENT_COMMAND_KEYWORD = "event";
-    public static final String ADD_EVENT_OPTION_KEYWORD = "/at";
+    public static final String ADD_EVENT_FLAG_KEYWORD = "/at";
     public static final String ADD_DEADLINE_COMMAND_KEYWORD = "deadline";
-    public static final String ADD_DEADLINE_OPTION_KEYWORD = "/by";
+    public static final String ADD_DEADLINE_FLAG_KEYWORD = "/by";
     public static final String MARK_TASK_AS_DONE_COMMAND_KEYWORD = "mark";
     public static final String UNMARK_TASK_AS_DONE_COMMAND_KEYWORD = "unmark";
+
+    /**
+     * List of flag keywords (for command validation)
+     */
+    public static final String[] LIST_OF_FLAG_KEYWORDS = {
+            ADD_EVENT_FLAG_KEYWORD,
+            ADD_DEADLINE_FLAG_KEYWORD
+    };
 
     /**
      * List of response messages
@@ -58,27 +77,37 @@ public class SoraUI {
     protected static final String LIST_PRE_EXECUTION_RESPONSE =
             "%s, here's a list of tasks that you have given to me:\n";
     protected static final String EMPTY_LIST_RESPONSE =
-            "Hmm, my list is empty at the moment...";
+            "%s, my list is empty at the moment...\n";
 
     protected static final String ADD_TASK_SUCCESS_RESPONSE =
             "%s, I've added your new task to my list:\n";
     protected static final String ADD_TASK_FAILURE_RESPONSE =
-            "Oops! Somehow I wasn't able to add your task to my list...\nSorry about that! (-ω-、)";
+            "%s, somehow I wasn't able to add your task to my list...\nSorry about that! (-ω-、)\n";
 
     protected static final String MARK_TASK_DONE_SUCCESS_RESPONSE =
             "%s, I've marked this task as done:\n";
     protected static final String MARK_TASK_DONE_FAILURE_RESPONSE =
-            "Oops, I couldn't mark that task as done.\nSorry about that... (-ω-、)";
+            "%s, I couldn't mark that task as done.\nSorry about that... (-ω-、)\n";
 
     protected static final String UNMARK_TASK_DONE_SUCCESS_RESPONSE =
             "%s, I've marked this task as not done:\n";
     protected static final String UNMARK_TASK_DONE_FAILURE_RESPONSE =
-            "Oops, I couldn't mark that task as not done.\nSorry about that... (-ω-、)";
+            "%s, I couldn't mark that task as not done.\nSorry about that... (-ω-、)\n";
 
     protected static final String COMMAND_NOT_UNDERSTOOD_RESPONSE =
-            "Oops! I can't understand what you've just typed...\nCould you try again?";
+            "%s, I can't understand what you've just typed...\nCould you try again?\n";
+
     protected static final String TODO_MISSING_DESCRIPTION_RESPONSE =
-            "Hmmm, seems like you didn't give me a description for your\ntodo... Could you try again? (⌒_⌒;)";
+            "%s, seems like you didn't give me a description for your\ntodo... Could you try again? (⌒_⌒;)\n";
+
+    protected static final String EVENT_MISSING_FLAG_RESPONSE =
+            "%s, I couldn't find the proper flag required for the\nevent command... Could you try again? (⌒_⌒;)\n";
+    protected static final String EVENT_NO_DESCRIPTION_RESPONSE =
+            "%s, seems like you didn't give me a description for your\nevent... Could you try again? (⌒_⌒;)\n";
+    protected static final String EVENT_NO_PERIOD_RESPONSE =
+            "%s, seems like you didn't give me a date for your event...\nCould you try again? (⌒_⌒;)\n";
+    protected static final String EVENT_INVALID_FLAGS =
+            "%s, the flags used in your event command is invalid...\nCould you try again? (⌒_⌒;)\n";
 
     /**
      * Prints a line on the console based on the default parameters defined in this Java class.
@@ -160,27 +189,44 @@ public class SoraUI {
     }
 
     /**
-     * Randomly chooses one of the acknowledgement words from the array acknowledgementWords and returns it.
+     * Randomly chooses one of the positive acknowledgement words from the array POSITIVE_ACKNOWLEDGEMENT_WORDS
+     * and returns it.
+     *
      * @return A string containing a randomly chosen acknowledgement word
      */
-    protected String getRandomAcknowledgement() {
+    protected String getRandomPositiveAcknowledgement() {
         /**
          * If Sora.IN_TESTING_MODE is set to true, do not choose a random acknowledgement word
-         * and pick the first word in ACKNOWLEDGEMENT_WORDS
+         * and pick the first word in POSITIVE_ACKNOWLEDGEMENT_WORDS
          */
         if (Sora.IN_TESTING_MODE) {
-            return ACKNOWLEDGEMENT_WORDS[0];
+            return POSITIVE_ACKNOWLEDGEMENT_WORDS[0];
         }
 
         Random rand = new Random();
-        int randNum = rand.nextInt(ACKNOWLEDGEMENT_WORDS.length);
+        int randNum = rand.nextInt(POSITIVE_ACKNOWLEDGEMENT_WORDS.length);
 
-        return ACKNOWLEDGEMENT_WORDS[randNum];
+        return POSITIVE_ACKNOWLEDGEMENT_WORDS[randNum];
+    }
+
+    protected String getRandomNegativeAcknowledgement() {
+        /**
+         * If Sora.IN_TESTING_MODE is set to true, do not choose a random acknowledgement word
+         * and pick the first word in NEGATIVE_ACKNOWLEDGEMENT_WORDS
+         */
+        if (Sora.IN_TESTING_MODE) {
+            return NEGATIVE_ACKNOWLEDGEMENT_WORDS[0];
+        }
+
+        Random rand = new Random();
+        int randNum = rand.nextInt(NEGATIVE_ACKNOWLEDGEMENT_WORDS.length);
+
+        return NEGATIVE_ACKNOWLEDGEMENT_WORDS[randNum];
     }
 
     protected void printMarkTaskResponseMessage(boolean isSuccessful, TasksManager tasksManager, int taskNum) {
         if (isSuccessful) {
-            System.out.printf(SoraUI.MARK_TASK_DONE_SUCCESS_RESPONSE, getRandomAcknowledgement());
+            System.out.printf(SoraUI.MARK_TASK_DONE_SUCCESS_RESPONSE, getRandomPositiveAcknowledgement());
             System.out.println();
             tasksManager.displayTask(taskNum);
             System.out.println();
@@ -188,12 +234,12 @@ public class SoraUI {
         }
 
         // Mark task was unsuccessful
-        System.out.println(SoraUI.MARK_TASK_DONE_FAILURE_RESPONSE);
+        System.out.printf(SoraUI.MARK_TASK_DONE_FAILURE_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
     protected void printUnmarkTaskResponseMessage(boolean isSuccessful, TasksManager tasksManager, int taskNum) {
         if (isSuccessful) {
-            System.out.printf(SoraUI.UNMARK_TASK_DONE_SUCCESS_RESPONSE, getRandomAcknowledgement());
+            System.out.printf(SoraUI.UNMARK_TASK_DONE_SUCCESS_RESPONSE, getRandomPositiveAcknowledgement());
             System.out.println();
             tasksManager.displayTask(taskNum);
             System.out.println();
@@ -201,12 +247,12 @@ public class SoraUI {
         }
 
         // Unmark task was unsuccessful
-        System.out.println(SoraUI.UNMARK_TASK_DONE_FAILURE_RESPONSE);
+        System.out.printf(SoraUI.UNMARK_TASK_DONE_FAILURE_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
     protected void printAddTaskResponseMessage(boolean isSuccessful, TasksManager tasksManager) {
         if (isSuccessful) {
-            System.out.printf(SoraUI.ADD_TASK_SUCCESS_RESPONSE, getRandomAcknowledgement());
+            System.out.printf(SoraUI.ADD_TASK_SUCCESS_RESPONSE, getRandomPositiveAcknowledgement());
             System.out.println();
             tasksManager.displayLastAddedTask();
             System.out.println();
@@ -214,27 +260,43 @@ public class SoraUI {
         }
 
         // Adding task was unsuccessful
-        System.out.println(SoraUI.ADD_TASK_FAILURE_RESPONSE);
+        System.out.printf(SoraUI.ADD_TASK_FAILURE_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
     protected void displayTaskList(TasksManager tasksManager) {
         // Check if the task list is empty
         if (tasksManager.isEmpty()) {
-            System.out.println(EMPTY_LIST_RESPONSE);
+            System.out.printf(EMPTY_LIST_RESPONSE, getRandomNegativeAcknowledgement());
             return;
         }
 
-        System.out.printf(LIST_PRE_EXECUTION_RESPONSE, getRandomAcknowledgement());
+        System.out.printf(LIST_PRE_EXECUTION_RESPONSE, getRandomPositiveAcknowledgement());
         System.out.println();
         tasksManager.displayAllTasks();
         System.out.println();
     }
 
     protected void printCommandNotUnderstood() {
-        System.out.println(SoraUI.COMMAND_NOT_UNDERSTOOD_RESPONSE);
+        System.out.printf(SoraUI.COMMAND_NOT_UNDERSTOOD_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
     protected void printTodoMissingDescription() {
-        System.out.println(SoraUI.TODO_MISSING_DESCRIPTION_RESPONSE);
+        System.out.printf(SoraUI.TODO_MISSING_DESCRIPTION_RESPONSE, getRandomNegativeAcknowledgement());
+    }
+
+    public void printEventMissingFlag() {
+        System.out.printf(SoraUI.EVENT_MISSING_FLAG_RESPONSE, getRandomNegativeAcknowledgement());
+    }
+
+    public void printEventMissingDescription() {
+        System.out.printf(SoraUI.EVENT_NO_DESCRIPTION_RESPONSE, getRandomNegativeAcknowledgement());
+    }
+
+    public void printEventMissingPeriod() {
+        System.out.printf(SoraUI.EVENT_NO_PERIOD_RESPONSE, getRandomNegativeAcknowledgement());
+    }
+
+    public void printEventInvalidFlags() {
+        System.out.printf(SoraUI.EVENT_INVALID_FLAGS, getRandomNegativeAcknowledgement());
     }
 }

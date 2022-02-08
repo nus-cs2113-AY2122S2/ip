@@ -10,4 +10,40 @@ public class Helper {
 
         return cal.get(Calendar.HOUR_OF_DAY);
     }
+
+    /**
+     * (WIP) Will include words that contains the keyword.
+     *
+     * @param stringText
+     * @param keyword
+     * @return Returns true if more than one occurrence of keyword is found in stringText. False otherwise.
+     */
+    public static boolean checkMultipleOccurrences(String stringText, String keyword) {
+        int lastIndexOfString = stringText.length() - 1;
+        int currentCursorIndex = 0;
+        int occurrencesFound = 0;
+
+        while (currentCursorIndex <= lastIndexOfString) {
+            int indexOfNextOccurrence = stringText.indexOf(keyword, currentCursorIndex);
+
+            if (indexOfNextOccurrence != -1) {
+                String substring = stringText.substring(indexOfNextOccurrence, indexOfNextOccurrence + keyword.length());
+                if (substring.equals(keyword)) {
+                    // Occurrence of keyword found
+                    occurrencesFound += 1;
+                }
+            } else {
+                break;
+            }
+
+            if (occurrencesFound > 1) {
+                // More than one occurrence of the keyword found
+                return true;
+            }
+
+            currentCursorIndex = indexOfNextOccurrence + keyword.length();
+        }
+
+        return false;
+    }
 }
