@@ -18,15 +18,15 @@ Waiting for your input
 Deadline added!
 Here are the tasks in your list:
 1. [T][ ] borrow book
-2. [D][ ] return book (by: friday)
+2. [D][ ] return book (by: Friday)
 You have 2 task(s) on the list.
 
 Waiting for your input
 Event added!
 Here are the tasks in your list:
 1. [T][ ] borrow book
-2. [D][ ] return book (by: friday)
-3. [E][ ] project meeting (at: mon 2-4pm)
+2. [D][ ] return book (by: Friday)
+3. [E][ ] project meeting (at: Mon 2-4pm)
 You have 3 task(s) on the list.
 
 Waiting for your input
@@ -36,8 +36,8 @@ I have marked the task as done!
 Waiting for your input
 Here are the tasks in your list:
 1. [T][X] borrow book
-2. [D][ ] return book (by: friday)
-3. [E][ ] project meeting (at: mon 2-4pm)
+2. [D][ ] return book (by: Friday)
+3. [E][ ] project meeting (at: Mon 2-4pm)
 You have 3 task(s) on the list.
 
 Waiting for your input
