@@ -1,3 +1,5 @@
+package sora;
+
 import java.util.Scanner;
 
 public class SoraReader {

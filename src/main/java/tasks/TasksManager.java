@@ -1,3 +1,8 @@
+package tasks;
+
+import sora.SoraUI;
+import sora.InvalidCommandException;
+
 import java.util.ArrayList;
 
 public class TasksManager {

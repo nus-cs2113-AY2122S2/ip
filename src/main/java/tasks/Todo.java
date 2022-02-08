@@ -1,3 +1,5 @@
+package tasks;
+
 public class Todo extends Task {
     private static final String TODO_CHECKBOX = "[T]";
 
