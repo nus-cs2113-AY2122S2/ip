@@ -41,6 +41,12 @@ public class Duke {
             case "bye":
                 isDone = true;
                 break;
+            case "help":
+                greet.printDecoration();
+                System.out.println("Sorry, I am still trying to get my things together and learn new things.\n" +
+                        "I will update this portion as soon as I learn what I should be doing.");
+                greet.printDecoration();
+                break;
             default:
                 greet.printDecoration();
                 System.out.println("Invalid Command!");
