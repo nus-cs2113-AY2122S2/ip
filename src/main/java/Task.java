@@ -25,6 +25,6 @@ public class Task {
     }
 
     public static String addIndentation() {
-        return "    "; // adds an indentation of 4 spaces
+        return "    "; // adds an indentation of 4 spaces for aesthetic purposes
     }
 }

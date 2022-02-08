@@ -1,6 +1,54 @@
 import java.util.Scanner;
 
 public class Duke {
+
+    //Messages
+    public static final String MESSAGE_WELCOME = "Hi there! I'm Domo the chat bot.\nWhat would you like to do?";
+    public static final String MESSAGE_BYE = "Goodbye. Hope to see you again soon!";
+    public static final String MESSAGE_LIST = "Here is your list so far:";
+    public static final String MESSAGE_NO_TASKS = "You don't seem to have any tasks so far!";
+    public static final String MESSAGE_INSTRUCTION = "Type a valid command (bye, list, mark, unmark, todo, deadline, event) or add a task to your list:";
+    public static final String MESSAGE_MARK_SUCCESS = "Congrats! You've completed:\n";
+    public static final String MESSAGE_UNMARK_SUCCESS = "Aw, you've marked this as undone:\n";
+
+
+    //Commands
+    public static final String COMMAND_BYE = "bye";
+    public static final String COMMAND_LIST = "list";
+    public static final String COMMAND_MARK = "mark";
+    public static final String COMMAND_UNMARK = "unmark";
+    public static final String COMMAND_TODO = "todo";
+    public static final String COMMAND_DEADLINE = "deadline";
+    public static final String COMMAND_EVENT = "event";
+
+    //Errors
+    public static final String ERROR_NO_INPUT = "Hmmmm... you didn't type anything. Please try again using a valid command!";
+    public static final String ERROR_NOT_VALID_COMMAND = "Sorry, command is not recognised. Please try again using a valid command!";
+
+
+    //Misc text
+    protected static final String BANNER = "─────────▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄─────────\n" +
+            "───────▄▀▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▀▄───────\n" +
+            "──────▐▒▒▒███▒▒▒▒▒▒▒▒███▒▒▒▌──────\n" +
+            "▄▄────▐▒▒▒███▒▒▒▒▒▒▒▒███▒▒▒▌────▄▄\n" +
+            "▌▒▀▄──▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▌──▄▀▒▐\n" +
+            "▌▒▒▒▀▄█▒▒▒▄▀▄▄▀▀▄▄▀▀▄▄▀▄▒▒▒█▄▀▒▒▒▐\n" +
+            "▀▄▒▒▒▒▐▒▒▐▓▓▓▓▓▓▓▓▓▓▓▓▓▓▌▒▒▌▒▒▒▒▄▀\n" +
+            "──▀▄▒▒▐▒▒▐▓▓▓▓▓▓▓▓▓▓▓▓▓▓▌▒▒▌▒▒▄▀──\n" +
+            "────▀▄▐▒▒▐▓▓▓▓▓▓▓▓▓▓▓▓▓▓▌▒▒▌▄▀────\n" +
+            "──────█▒▒▐▄▀▄▀▀▄▄▀▀▄▄▀▀▄▌▒▒█──────\n" +
+            "──────▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▌──────\n" +
+            "──────▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▌──────\n" +
+            "──────▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▌──────\n" +
+            "──────▐▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▌──────\n" +
+            "──────▐▒▒▓▓▓▓▒▒▒▒▒▒▒▒▓▓▓▓▒▒▌──────\n" +
+            "──────▐▒▒▒▒▒▒▓▓▄▀▀▄▓▓▒▒▒▒▒▒▌──────\n" +
+            "──────▐▒▒▒▒▒▒▒▒▌──▐▒▒▒▒▒▒▒▒▌──────\n" +
+            "──────▐▒▒▒▒▒▒▒▒▌──▐▒▒▒▒▒▒▒▒▌──────\n" +
+            "──────▐▒▒▒▒▒▒▒▒▌──▐▒▒▒▒▒▒▒▒▌──────\n" +
+            "───────▀▀▀▀▀▀▀▀────▀▀▀▀▀▀▀▀───────";
+    public static final String SEPARATOR = "───────────────────────────────────";
+
     protected static Task[] tasks = new Task[100];
     protected static int numTasks = 0;
 
@@ -12,12 +60,12 @@ public class Duke {
 
     public static void greet() {
         printLine();
-        System.out.println("Hi there! I'm Domo the chat bot.\nWhat would you like to do?");
+        System.out.println(MESSAGE_WELCOME);
     }
 
     public static void exit() {
         printLine();
-        System.out.println("Goodbye. Hope to see you again soon!");
+        System.out.println(MESSAGE_BYE);
         printDomo();
     }
 
@@ -25,7 +73,6 @@ public class Duke {
         String input = getInput();
         while (!isBye(input)) {
             try {
-                checkIfValidCommand(input);
                 executeCommand(input);
             } catch (DukeException error){
                 System.out.println(error.getMessage());
@@ -34,61 +81,54 @@ public class Duke {
         }
     }
 
-    public static void checkIfValidCommand(String input) throws DukeException {
-        if (!isValidCommand(input)) {
-            if (input.length() == 0) {
-                throw new DukeException("Hmmm... you didn't type anything. Please try again using a valid command!");
-            } else {
-                throw new DukeException("Sorry, command is not recognised. Please try again using a valid command!");
-            }
+    public static void executeCommand(String input) throws DukeException{
+        if (input.length() == 0) {
+            throw new DukeException(ERROR_NO_INPUT);
         }
-    }
-
-    public static void executeCommand(String input) {
         String command = getCommand(input);
-        System.out.println("\nCommand accepted!");
         switch(command) {
-        case "list":
-            System.out.println("Here is your list so far:");
+        case COMMAND_LIST:
+            System.out.println(MESSAGE_LIST);
             listTasks();
             break;
-        case "mark":
-            executeMark();
+        case COMMAND_MARK:
+            executeMark(input);
             break;
-        case "unmark":
-            executeUnmark();
+        case COMMAND_UNMARK:
+            executeUnmark(input);
             break;
-        case "todo":
+        case COMMAND_TODO:
             executeTodo(input);
             break;
-        case "deadline":
+        case COMMAND_DEADLINE:
             executeDeadline(input);
             break;
-        case "event":
+        case COMMAND_EVENT:
             executeEvent(input);
             break;
+        default:
+            throw new DukeException(ERROR_NOT_VALID_COMMAND);
         }
     }
 
-    public static void executeMark() {
-        System.out.println("Which task would you like to mark as done?");
-        listTasks();
-        int index = getInteger() - 1;
-        tasks[index].markAsDone();
-        System.out.println("Congrats! You've completed:\n" + tasks[index]);
+    public static void executeMark(String input) {
+        String taskNumber = parseMarkOrUnmark(input);
+        int taskIndex = Integer.parseInt(taskNumber) - 1;
+        tasks[taskIndex].markAsDone();
+        System.out.println(MESSAGE_MARK_SUCCESS + tasks[taskIndex]);
     }
 
-    public static void executeUnmark() {
-        System.out.println("Which task would you like to unmark as done?");
-        listTasks();
-        int index = getInteger() - 1;
-        tasks[index].markAsNotDone();
-        System.out.println("Aw, you've marked this as undone:\n" + tasks[index]);
+    public static void executeUnmark(String input) {
+        String taskNumber = parseMarkOrUnmark(input);
+        int taskIndex = Integer.parseInt(taskNumber) - 1;
+        tasks[taskIndex].markAsNotDone();
+        System.out.println(MESSAGE_UNMARK_SUCCESS + tasks[taskIndex]);
     }
 
     public static void executeTodo(String input) {
         String description = getDescription(input);
         Todo t = new Todo(description);
+        t.printAddToListMessage();
         tasks[numTasks] = t;
         numTasks += 1;
     }
@@ -98,6 +138,7 @@ public class Duke {
         String description = parsedCommand[0];
         String by = parsedCommand[1];
         Deadline t = new Deadline(description, by);
+        t.printAddToListMessage();
         tasks[numTasks] = t;
         numTasks += 1;
     }
@@ -107,15 +148,16 @@ public class Duke {
         String description = parsedCommand[0];
         String at = parsedCommand[1];
         Event t = new Event(description, at);
+        t.printAddToListMessage();
         tasks[numTasks] = t;
         numTasks += 1;
     }
 
-    //Returns a String array with the first element as the description  and the second element as the deadline/time period
+    //Returns a String array with the first element as the description and the second element as the deadline/time period
     public static String[] parseDeadlineOrEvent(String input) {
         String command = getCommand(input);
         String[] inputArray;
-        if (command.equals("deadline")) {
+        if (command.equals(COMMAND_DEADLINE)) {
             inputArray = input.split(" /by ");
         } else {
             inputArray = input.split(" /at ");
@@ -124,9 +166,15 @@ public class Duke {
         return inputArray;
     }
 
+    //Returns a String representing the integer of the chosen task
+    public static String parseMarkOrUnmark(String input) {
+        String[] inputArray = input.split(" ");
+        return inputArray[1];
+    }
+
     public static void listTasks() {
         if (numTasks == 0) {
-            System.out.println("You don't seem to have any tasks so far!");
+            System.out.println(MESSAGE_NO_TASKS);
         } else {
             for (int i = 0; i < numTasks; i++) {
                 System.out.println((i + 1) + ". " + tasks[i]);
@@ -144,79 +192,20 @@ public class Duke {
     }
 
     public static String getInput() {
-        System.out.println("Type a valid command (bye, list, mark, unmark, todo, deadline, event) or add a task to your list:");
+        System.out.println(MESSAGE_INSTRUCTION);
         Scanner scan = new Scanner(System.in);
         return scan.nextLine();
     }
 
-    public static int getInteger() {
-        Scanner scan = new Scanner(System.in);
-        return scan.nextInt();
-    }
-
-    public static boolean isValidCommand(String command) {
-        return isList(command) || isMarkAsDone(command) || isUnmarkAsDone(command) || isTodo(command)
-                || isDeadline(command) || isEvent(command);
-    }
-
     public static boolean isBye(String command) {
-        return command.equals("bye");
-    }
-
-    public static boolean isList(String command) {
-        return command.equals("list");
-    }
-
-    public static boolean isMarkAsDone(String command) {
-        return command.equals("mark");
-    }
-
-    public static boolean isUnmarkAsDone(String command) {
-        return command.equals("unmark");
-    }
-
-    public static boolean isTodo(String command) {
-        return command.equals("todo");
-    }
-
-    public static boolean isDeadline(String command) {
-        return command.equals("deadline");
-    }
-
-    public static boolean isEvent(String command) {
-        return command.equals("event");
+        return command.equals(COMMAND_BYE);
     }
 
     public static void printDomo() {
-        String domoLogo = "─────────▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄─────────\n" +
-                "───────▄▀▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▀▄───────\n" +
-                "──────▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▌──────\n" +
-                "──────▐▒▒▒███▒▒▒▒▒▒▒▒███▒▒▒▌──────\n" +
-                "▄▄────▐▒▒▒███▒▒▒▒▒▒▒▒███▒▒▒▌────▄▄\n" +
-                "▌▒▀▄──▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▌──▄▀▒▐\n" +
-                "▌▒▒▒▀▄█▒▒▒▄▀▄▄▀▀▄▄▀▀▄▄▀▄▒▒▒█▄▀▒▒▒▐\n" +
-                "▀▄▒▒▒▒▐▒▒▐▓▓▓▓▓▓▓▓▓▓▓▓▓▓▌▒▒▌▒▒▒▒▄▀\n" +
-                "──▀▄▒▒▐▒▒▐▓▓▓▓▓▓▓▓▓▓▓▓▓▓▌▒▒▌▒▒▄▀──\n" +
-                "────▀▄▐▒▒▐▓▓▓▓▓▓▓▓▓▓▓▓▓▓▌▒▒▌▄▀────\n" +
-                "──────█▒▒▐▄▀▄▀▀▄▄▀▀▄▄▀▀▄▌▒▒█──────\n" +
-                "──────▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▌──────\n" +
-                "──────▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▌──────\n" +
-                "──────▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▌──────\n" +
-                "──────▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▌──────\n" +
-                "──────▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▌──────\n" +
-                "──────▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▌──────\n" +
-                "──────▐▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▌──────\n" +
-                "──────▐▒▒▓▓▓▓▒▒▒▒▒▒▒▒▓▓▓▓▒▒▌──────\n" +
-                "──────▐▒▒▒▒▒▒▓▓▄▀▀▄▓▓▒▒▒▒▒▒▌──────\n" +
-                "──────▐▒▒▒▒▒▒▒▒▌──▐▒▒▒▒▒▒▒▒▌──────\n" +
-                "──────▐▒▒▒▒▒▒▒▒▌──▐▒▒▒▒▒▒▒▒▌──────\n" +
-                "──────▐▒▒▒▒▒▒▒▒▌──▐▒▒▒▒▒▒▒▒▌──────\n" +
-                "──────▐▒▒▒▒▒▒▒▒▌──▐▒▒▒▒▒▒▒▒▌──────\n" +
-                "───────▀▀▀▀▀▀▀▀────▀▀▀▀▀▀▀▀───────";
-        System.out.println(domoLogo);
+        System.out.println(BANNER);
     }
 
     public static void printLine() {
-        System.out.println("───────────────────────────────────");
+        System.out.println(SEPARATOR);
     }
 }
