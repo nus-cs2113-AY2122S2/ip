@@ -15,20 +15,20 @@ public class Duke {
         System.out.println("================================================");
 
         int i = 0;
-        int marker;
+        int taskStartIndex;
         String userInput;
         Scanner in = new Scanner(System.in);
         do{
             userInput = in.nextLine();
 
             if(userInput.startsWith("mark")){
-                marker = Integer.parseInt(userInput.substring(5));
-                tasks[marker-1].markAsDone();
-                System.out.println(tasks[marker-1].printTask());
+                taskStartIndex = Integer.parseInt(userInput.substring(5));
+                tasks[taskStartIndex-1].markAsDone();
+                System.out.println(tasks[taskStartIndex-1].printTask());
             }else if(userInput.startsWith("unmark")){
-                marker = Integer.parseInt(userInput.substring(7));
-                tasks[marker-1].markAsUndone();
-                System.out.println(tasks[marker-1].printTask());
+                taskStartIndex = Integer.parseInt(userInput.substring(7));
+                tasks[taskStartIndex-1].markAsUndone();
+                System.out.println(tasks[taskStartIndex-1].printTask());
             }else{
                 switch(userInput){
                 case "bye":
@@ -39,11 +39,15 @@ public class Duke {
                     break;
                 default:
                     System.out.println("================================================");
-                    tasks[i] = addTask(userInput);
-                    System.out.println(tasks[i].printTask());
-                    System.out.println("Now you have " + (i+1) + " tasks in the list.");
+                    try {
+                        tasks[i] = addTask(userInput);
+                        System.out.println(tasks[i].printTask());
+                        System.out.println("Now you have " + (i+1) + " tasks in the list.");
+                        i++;
+                    } catch (NullPointerException e) {
+                        System.out.println("Please try again!");
+                    }
                     System.out.println("================================================");
-                    i++;
                     break;
                 }
             }
@@ -52,13 +56,38 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public static Task addTask(String userInput) {
+    public static Task addTask(String userInput){
         if (userInput.startsWith("todo")) {
-            return new Todo(userInput.substring(5));
+            try{
+                checkEmptyDescription(userInput.substring(5));
+                return new Todo(userInput.substring(5));
+            }catch(EmptyDescriptionException | StringIndexOutOfBoundsException e){
+                System.out.println("OOPS!!! The description of a todo cannot be empty.");
+            }
         } else if (userInput.startsWith("deadline")) {
-            return new Deadline(userInput.substring(9));
+            try{
+                checkEmptyDescription(userInput.substring(5));
+                return new Deadline(userInput.substring(9));
+            }catch(EmptyDescriptionException | StringIndexOutOfBoundsException e){
+                System.out.println("OOPS!!! The description of a todo cannot be empty.");
+            }
+        }else if (userInput.startsWith("event")){
+            try{
+                checkEmptyDescription(userInput.substring(5));
+                return new Event(userInput.substring(6));
+            }catch(EmptyDescriptionException | StringIndexOutOfBoundsException e){
+                System.out.println("OOPS!!! The description of a todo cannot be empty.");
+            }
         }else{
-            return new Event(userInput.substring(6));
+            System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+
+        return null;
+    }
+
+    public static void checkEmptyDescription(String description) throws EmptyDescriptionException{
+        if(description.isBlank()){
+            throw new EmptyDescriptionException();
         }
     }
 
