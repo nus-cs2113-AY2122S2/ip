@@ -128,15 +128,70 @@ public class Duke {
         printAddedTask();
     }
 
+    public static boolean isInvalidTodo(String todo){
+        int lengthOfTodoDescription = todo.length() - 5;
+        return (lengthOfTodoDescription<=0);
+    }
+
+    public static boolean isInvalidEvent(String event){
+        int lengthOfEventDescription = event.length() - 6;
+        if (lengthOfEventDescription<=0){
+            return true;
+        }
+        // invalid format
+        if(event.indexOf("/")==-1){
+            return true;
+        }
+
+        String[] eventTimeSplit = event.substring(event.indexOf("/"),event.length()).split(" ");
+
+        // invalid format or event time is not specified.
+        if(eventTimeSplit.length<2 || !(eventTimeSplit[0].equals("/at"))){
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isInvalidDeadline(String deadline){
+        int lengthOfDeadlineDescription = deadline.length() - 9;
+        if (lengthOfDeadlineDescription<=0){
+            return true;
+        }
+        // invalid format
+        if(deadline.indexOf("/")==-1){
+            return true;
+        }
+
+        String[] dueDateSplit = deadline.substring(deadline.indexOf("/"),deadline.length()).split(" ");
+
+        // invalid format or due date is not specified.
+        if(dueDateSplit.length<2||!(dueDateSplit[0].equals("/by"))){
+            return true;
+        }
+        return false;
+    }
+
     // method adds task to task_list.
     public static void addTaskToList(String userInput){
         if(isTodo(userInput)){
+            if (isInvalidTodo(userInput)){
+                System.out.println("OOPS! The description for todo cannot be empty.");
+                displayLine();
+                return;
+            }
+
             String todoDescription = getTodoFromUserInput(userInput);
 
             // add Todo task to List
             addTodoToList(todoDescription);
         }
         else if(isEvent(userInput)){
+            if(isInvalidEvent(userInput)){
+                System.out.println("OOPS! Either the description or event time or both are empty for this event. Please try again.");
+                displayLine();
+                return;
+            }
+
             int eventTimeIdx = userInput.indexOf("/");
             String eventDescription = getEventFromUserInput(userInput,eventTimeIdx);
             String eventTime = getEventTimeFromUserInput(userInput,eventTimeIdx);
@@ -145,6 +200,12 @@ public class Duke {
             addEventToList(eventDescription,eventTime);
         }
         else if(isDeadline(userInput)){
+            if(isInvalidDeadline(userInput)){
+                System.out.println("OOPS! Either the description or due date or both are empty for this deadline. Please try again.");
+                displayLine();
+                return;
+            }
+
             int dueDateIdx = userInput.indexOf("/");
             String deadlineDescription = getDeadlineFromUserInput(userInput,dueDateIdx);
             String dueDate = getDueDateFromUserInput(userInput,dueDateIdx);
@@ -152,6 +213,7 @@ public class Duke {
             // add Deadline task to List
             addDeadlineToList(deadlineDescription,dueDate);
         }
+
         // If not a recognizable command, inform user
         else{
             System.out.println("OOPS! I'm sorry but I don't know what you mean :(");
