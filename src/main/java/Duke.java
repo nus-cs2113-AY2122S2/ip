@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static Task[] list = new Task[100];
+    private static final Task[] list = new Task[100];
     private static int taskIndex = 0;
     private static Boolean willExit = false;
 
@@ -40,9 +40,15 @@ public class Duke {
         Task curr;
         try {
             int taskNum = Integer.parseInt(line.split(" ", 0)[1]);
+            if (taskNum > taskIndex) {
+                throw new DukeException("Please mark / unmark with a number that's in the list :')");
+            }
             curr = list[taskNum - 1];
-        } catch (Exception exception) {
-            printFormat("Please mark / unmark with a number that's in the list :')");
+        } catch (IndexOutOfBoundsException e) {
+            printFormat("Please mark / unmark with a valid number :')");
+            return;
+        } catch (DukeException e) {
+            printFormat(e.msg);
             return;
         }
 
@@ -55,21 +61,31 @@ public class Duke {
         }
     }
 
-    private static Task parseDeadline(String description) {
-        String[] deadlineBreakdown = description.split("/by", 2);
-        description = deadlineBreakdown[0];
-        String by = deadlineBreakdown[1];
+    private static Task parseDeadline(String description) throws DukeException {
+        String by;
+        try {
+            String[] deadlineBreakdown = description.split("/by ", 2);
+            description = deadlineBreakdown[0];
+            by = deadlineBreakdown[1];
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("You need to provide a time for your deadline (e.g. /by 7am)");
+        }
         return new Deadline(description, by);
     }
 
-    private static Task parseEvent(String description) {
-        String[] eventBreakdown = description.split(" /at ", 2);
-        description = eventBreakdown[0];
-        String at = eventBreakdown[1];
+    private static Task parseEvent(String description) throws DukeException {
+        String at;
+        try {
+            String[] eventBreakdown = description.split(" /at ", 2);
+            description = eventBreakdown[0];
+            at = eventBreakdown[1];
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("You need to provide a time for your event (e.g. /at 2-4pm)");
+        }
         return new Event(description, at);
     }
 
-    private static Task parseTask(String type, String description) {
+    private static Task parseTask(String type, String description) throws DukeException {
         Task t;
         switch (type) {
         case "todo":
@@ -82,16 +98,9 @@ public class Duke {
             t = parseEvent(description);
             break;
         default:
-            throw new RuntimeException("Not a valid task type");
+            throw new DukeException("I don't understand what you want to do, big sad :(");
         }
         return t;
-    }
-
-    public static void invalidTask() {
-        printFormat("I don't understand what you want to do.\n" +
-                "Maybe you could try the following commands:\n" +
-                "  - list: list out existing tasks\n" +
-                "  - etc.");
     }
 
     public static void addTask(String line) {
@@ -105,8 +114,10 @@ public class Duke {
             taskIndex++;
             printFormat("Got it. I've added this task:\n  " + t +
                     String.format("\nNow you have %d tasks in the list.", taskIndex));
-        } catch (Exception e){
-            invalidTask();
+        } catch (IndexOutOfBoundsException e){
+            printFormat("Please provide a task type and description!");
+        } catch (DukeException e) {
+            printFormat(e.msg);
         }
     }
 
