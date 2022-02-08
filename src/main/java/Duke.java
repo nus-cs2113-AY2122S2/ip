@@ -7,88 +7,109 @@ public class Duke {
         do {
             System.out.println("Waiting for your input");
             line = in.nextLine();
-            String[] words = line.toLowerCase().split(" ", 2);
+            String[] words = line.split(" ", 2);
             String command = words[0];
-            int taskNumber = 0;
-            int numOfTasks = Task.getNumOfTasks();
 
             switch (command) {
             case "list":
                 printTasks(tasks);
                 break;
             case "mark":
-                markTask(tasks, words, taskNumber);
+                markTask(tasks, words);
                 break;
             case "unmark":
-                unmarkTask(tasks, words, taskNumber);
+                unmarkTask(tasks, words);
                 break;
             case "todo":
-                try {
-                    tasks[numOfTasks] = new ToDo(words[1]);
-                    System.out.println("Todo added!");
-                    printTasks(tasks);
-                } catch (ArrayIndexOutOfBoundsException oobe) {
-                    System.out.println("Please use the correct format. e.g. todo <description>");
-                }
+                addToDo(tasks, words);
                 break;
             case "deadline":
-                try {
-                    tasks[numOfTasks] = new Deadline(extractDescription(words[1]), extractDate(words[1]));
-                    System.out.println("Deadline added!");
-                    printTasks(tasks);
-                } catch (ArrayIndexOutOfBoundsException oobe) {
-                    System.out.println("Please use the correct format. e.g. deadline <description> /by <date>");
-                }
+                addDeadline(tasks, words);
                 break;
             case "event":
-                try {
-                    tasks[numOfTasks] = new Event(extractDescription(words[1]), extractDate(words[1]));
-                    System.out.println("Event added!");
-                    printTasks(tasks);
-                } catch (ArrayIndexOutOfBoundsException oobe) {
-                    System.out.println("Please use the correct format. e.g. event <description> /at <date>");
-                }
+                addEvent(tasks, words);
+                break;
+            case "help":
+                printHelp();
                 break;
             default:
                 if (!line.equalsIgnoreCase("bye")) {
-                    tasks[numOfTasks] = new Task(line);
-                    System.out.println("Task added!");
-                    printTasks(tasks);
+                    System.out.println("Sorry, I did not understand that command. Input help to find out more");
                 }
                 break;
             }
         } while ((!line.equalsIgnoreCase("bye")) && Task.getNumOfTasks() < 100);
     }
 
-    private static void unmarkTask(Task[] tasks, String[] words, int taskNumber) {
+    private static void addEvent(Task[] tasks, String[] words) {
+        int numOfTasks = Task.getNumOfTasks();
         try {
-            if (words.length == 2) {
-                taskNumber = Integer.parseInt(words[1]);
-            }
+            String description = extractDescription(words);
+            String at = extractDate(words);
+            tasks[numOfTasks] = new Event(description, at);
+            System.out.println("Event added!");
+            printTasks(tasks);
+        } catch (MissingDescriptionException e) {
+            System.out.println("Description cannot be empty. Correct format: event <description> /at <date>");
+        } catch (MissingDateException e) {
+            System.out.println("Date cannot be empty. Correct format: deadline <description> /by <date>");
+        }
+    }
+
+    private static void addDeadline(Task[] tasks, String[] words) {
+        int numOfTasks = Task.getNumOfTasks();
+        try {
+            String description = extractDescription(words);
+            String by = extractDate(words);
+            tasks[numOfTasks] = new Deadline(description, by);
+            System.out.println("Deadline added!");
+            printTasks(tasks);
+        } catch (MissingDescriptionException e) {
+            System.out.println("Description cannot be empty. Correct format: deadline <description> /by <date>");
+        } catch (MissingDateException e) {
+            System.out.println("Date cannot be empty. Correct format: deadline <description> /by <date>");
+        }
+    }
+
+    private static void addToDo(Task[] tasks, String[] words) {
+        int numOfTasks = Task.getNumOfTasks();
+        try {
+            String description = extractDescription(words);
+            tasks[numOfTasks] = new ToDo(description);
+            System.out.println("Todo added!");
+            printTasks(tasks);
+        } catch (MissingDescriptionException e) {
+            System.out.println("Description cannot be empty. Correct format: todo <description>");
+        }
+    }
+
+    private static void unmarkTask(Task[] tasks, String[] unmarkTaskParameters) {
+        try {
+            int taskNumber = Integer.parseInt(unmarkTaskParameters[1]);
+            int taskIndex = taskNumber - 1;
             if (taskNumber > Task.getNumOfTasks()) {
                 System.out.println("You don't have that many tasks ><!");
                 return;
             }
-            tasks[taskNumber - 1].setUndone();
+            tasks[taskIndex].setUndone();
             System.out.println("I have marked the task as not done!");
-            System.out.println(tasks[taskNumber - 1].getStatusIcon() + tasks[taskNumber - 1].getTaskDescription() + "\n");
+            System.out.println(tasks[taskIndex].getStatusIcon() + tasks[taskIndex].getTaskDescription() + "\n");
         } catch (NumberFormatException nfe) {
             System.out.println("Please enter a number after unmark");
         }
     }
 
-    private static void markTask(Task[] tasks, String[] words, int taskNumber) {
+    private static void markTask(Task[] tasks, String[] markTaskParameters) {
         try {
-            if (words.length == 2) {
-                taskNumber = Integer.parseInt(words[1]);
-            }
+            int taskNumber = Integer.parseInt(markTaskParameters[1]);
+            int taskIndex = taskNumber - 1;
             if (taskNumber > Task.getNumOfTasks()) {
                 System.out.println("You don't have that many tasks ><!");
                 return;
             }
-            tasks[taskNumber - 1].setDone();
+            tasks[taskIndex].setDone();
             System.out.println("I have marked the task as done!");
-            System.out.println(tasks[taskNumber - 1].getStatusIcon() + tasks[taskNumber - 1].getTaskDescription() + "\n");
+            System.out.println(tasks[taskIndex].getStatusIcon() + tasks[taskIndex].getTaskDescription() + "\n");
         } catch (NumberFormatException nfe) {
             System.out.println("Please enter a number after mark");
         }
@@ -108,16 +129,35 @@ public class Duke {
                 + "What can I do for you?\n"
                 + "____________________________________________________________");
     }
-
-    private static String extractDescription(String input) {
-        String[] words = input.split("/", 2);
-        return words[0];
+    
+    private static String extractDescription(String[] words) throws MissingDescriptionException {
+        if (words.length < 2) {
+            throw new MissingDescriptionException();
+        }
+        String[] parameters = words[1].split(" /", 2);
+        if (parameters[0].isBlank()) {
+            throw new MissingDescriptionException();
+        }
+        return parameters[0];
     }
 
-    private static String extractDate(String input) {
-        String[] words = input.split("/", 2);
-        words = words[1].split(" ", 2);
-        return words[1];
+    private static String extractDate(String[] words) throws MissingDateException {
+        String[] parameters = words[1].split(" /", 2);
+        parameters = parameters[1].split(" ", 2);
+        if (parameters.length < 2 || parameters[1].isBlank()) {
+            throw new MissingDateException();
+        }
+        return parameters[1];
+    }
+
+    private static void printHelp() {
+        System.out.println("Here are the list of commands:");
+        System.out.println("list: Lists current tasks.");
+        System.out.println("mark: Marks task as done. (e.g. mark <task number>)\n"
+                + "unmark: Marks task as not done. (e.g. unmark <task number>)");
+        System.out.println("todo: adds a todo. (e.g. todo <description>)");
+        System.out.println("deadline: adds a deadline. (e.g. deadline <description> /by <date>)");
+        System.out.println("event: adds an event. (e.g. event <description> /at <date>)");
     }
 
     public static void main(String[] args) {
@@ -127,5 +167,4 @@ public class Duke {
         parseInput(in, tasks);
         System.out.println("Goodbye, see you next time!");
     }
-
 }
