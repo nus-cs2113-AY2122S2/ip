@@ -1,3 +1,11 @@
+package taskitems;
+
+import taskitems.exceptions.IllegalInputException;
+import taskitems.task.Deadline;
+import taskitems.task.Event;
+import taskitems.task.Task;
+import taskitems.task.Todo;
+
 public class TaskManager {
     private Task[] tasks = new Task[100];
     private int taskCount = 0;
@@ -26,7 +34,7 @@ public class TaskManager {
 
     }
 
-    public void unmarkTask(int number) throws IllegalInputException{
+    public void unmarkTask(int number) throws IllegalInputException {
         greet.printDecoration();
         if(number > taskCount || number < 1){
             throw new IllegalInputException();
@@ -41,7 +49,7 @@ public class TaskManager {
         greet.printDecoration();
     }
 
-    public void addToTasks(String taskName) throws IllegalInputException{
+    public void addToTasks(String taskName) throws IllegalInputException {
         if (taskName.equals("")) {
             throw new IllegalInputException();
         }
