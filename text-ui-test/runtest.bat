@@ -7,7 +7,7 @@ REM delete output from previous run
 if exist ACTUAL.TXT del ACTUAL.TXT
 
 REM compile the code into the bin folder
-javac  -cp ..\src\main\java -encoding UTF-8 -Xlint:none -d ..\bin ..\src\main\java\*.java
+javac  -cp ..\src\main\java -encoding UTF-8 -Xlint:none -d ..\bin ..\src\main\java\*.java ..\src\main\java\sora\*.java ..\src\main\java\tasks\*.java ..\src\main\java\util\*.java
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********
     exit /b 1

@@ -1,3 +1,8 @@
+package sora;
+
+import tasks.TasksManager;
+import util.Helper;
+
 import java.util.Random;
 
 public class SoraUI {
@@ -35,17 +40,17 @@ public class SoraUI {
     /**
      * List of command keywords
      */
-    protected static final String EXIT_COMMAND_KEYWORD = "bye";
+    public static final String EXIT_COMMAND_KEYWORD = "bye";
 
-    protected static final String LIST_COMMAND_KEYWORD = "list";
+    public static final String LIST_COMMAND_KEYWORD = "list";
 
-    protected static final String ADD_TODO_COMMAND_KEYWORD = "todo";
-    protected static final String ADD_EVENT_COMMAND_KEYWORD = "event";
-    protected static final String ADD_EVENT_OPTION_KEYWORD = "/at";
-    protected static final String ADD_DEADLINE_COMMAND_KEYWORD = "deadline";
-    protected static final String ADD_DEADLINE_OPTION_KEYWORD = "/by";
-    protected static final String MARK_TASK_AS_DONE_COMMAND_KEYWORD = "mark";
-    protected static final String UNMARK_TASK_AS_DONE_COMMAND_KEYWORD = "unmark";
+    public static final String ADD_TODO_COMMAND_KEYWORD = "todo";
+    public static final String ADD_EVENT_COMMAND_KEYWORD = "event";
+    public static final String ADD_EVENT_OPTION_KEYWORD = "/at";
+    public static final String ADD_DEADLINE_COMMAND_KEYWORD = "deadline";
+    public static final String ADD_DEADLINE_OPTION_KEYWORD = "/by";
+    public static final String MARK_TASK_AS_DONE_COMMAND_KEYWORD = "mark";
+    public static final String UNMARK_TASK_AS_DONE_COMMAND_KEYWORD = "unmark";
 
     /**
      * List of response messages

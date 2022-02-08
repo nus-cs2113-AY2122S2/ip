@@ -1,3 +1,7 @@
+package sora;
+
+import tasks.TasksManager;
+
 /**
  * Main 'brains' of Sora. Focuses on taking in user input and passing commands
  * to Sora's relevant components.
@@ -15,7 +19,7 @@ public class Sora {
     private SoraReader soraReader;
     private SoraExceptionHandler exceptionHandler;
 
-    protected Sora() {
+    public Sora() {
         // Instantiate components
         soraUI = new SoraUI();
         tasksManager = new TasksManager();
@@ -38,7 +42,7 @@ public class Sora {
         return this.tasksManager;
     }
 
-    protected void startContinuousUserPrompt() {
+    public void startContinuousUserPrompt() {
         boolean isFirstPrompt = true;
 
         while (!doesUserWantsToExit()) {
