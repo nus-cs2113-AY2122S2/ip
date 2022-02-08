@@ -1,3 +1,5 @@
+package Duke;
+
 /**
  * Duke, your personal terminal assistant
  */

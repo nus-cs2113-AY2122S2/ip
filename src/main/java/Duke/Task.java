@@ -1,3 +1,5 @@
+package Duke;
+
 /**
  * A basic reminder with status (done or not done yet)
  */
