@@ -19,7 +19,7 @@ public class Task {
         return isDone;
     }
 
-    public void setIsDone(boolean isDone) {
+    public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
 
@@ -28,13 +28,13 @@ public class Task {
     }
 
     public void markTaskAsDone() {
-        this.setIsDone(true);
+        this.setDone(true);
         System.out.println("____________________________________________________________");
         System.out.println("Nice! I've marked this task as done:");
     }
 
     public void markTaskAsUndone() {
-        this.setIsDone(false);
+        this.setDone(false);
         System.out.println("____________________________________________________________");
         System.out.println("OK, I've marked this task as not done yet:");
     }
