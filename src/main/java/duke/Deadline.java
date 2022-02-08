@@ -1,8 +1,10 @@
-public class Event extends Task{
-    public Event(String description){
+package duke;
+
+public class Deadline extends Task{
+    public Deadline(String description){
         super(description);
         this.description = addInDate(description);
-        symbol = "[E]";
+        symbol = "[D]";
     }
 
     public String addInDate(String task){
@@ -12,6 +14,6 @@ public class Event extends Task{
         description = task.substring(0,marker);
         date = task.substring(marker+3);
 
-        return description + " (at: " + date + ")";
+        return description + " (by: " + date + ")";
     }
 }
