@@ -7,27 +7,20 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public String setDone(boolean isDone) {
+    public void setDone(boolean isDone) {
         this.isDone = isDone;
-        String feedback;
-        if (this.isDone) {
-            feedback = String.format("Nice! I've marked this task as done:\n%s", toString());
-        } else {
-            feedback = String.format("OK, I've marked this task as not done yet:\n%s", toString());
-        }
-        return feedback;
     }
 
-    private String getDoneLabel() {
-        String label = "[ ]";
+    private String getDoneIcon() {
+        String icon = "[ ] ";
         if (isDone) {
-            label = "[X]";
+            icon = "[X] ";
         }
-        return label;
+        return icon;
     }
 
     @Override
     public String toString() {
-        return getDoneLabel() + description;
+        return getDoneIcon() + description;
     }
 }

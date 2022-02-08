@@ -3,10 +3,16 @@ import java.util.Scanner;
 public class Duke {
     private static Scanner SCANNER = new Scanner(System.in);
     private static Parser parser;
-    private static TaskList taskList;
-    private static Ui UI = new Ui();
+    private static TaskManager taskManager;
     private static String userInput;
     private static String output;
+
+    private static final String LIST_COMMAND = "list";
+    private static final String MARK_COMMAND = "mark";
+    private static final String UNMARK_COMMAND = "unmark";
+    private static final String TODO_COMMAND = "todo";
+    private static final String DEADLINE_COMMAND = "deadline";
+    private static final String EVENT_COMMAND = "event";
 
     public static void main(String[] args) {
         initDuke();
@@ -18,8 +24,12 @@ public class Duke {
             if (parser.isExiting()) {
                 break;
             }
-            output = executeCommand();
-            showOutput(output);
+            try {
+                output = executeCommand();
+                showOutput(output);
+            } catch (DukeException e) {
+                showOutput(e.toString());
+            }
         }
 
         showExitMessage();
@@ -27,15 +37,19 @@ public class Duke {
 
     private static void initDuke() {
         parser = new Parser();
-        taskList = new TaskList();
+        taskManager = new TaskManager();
+    }
+
+    private static void showOutput(String string) {
+        Ui.print(string);
     }
 
     private static void showWelcomeMessage() {
-        UI.print("Hello! I'm Duke\n" + "What can I do for you?");
+        showOutput(Ui.welcomeMessage());
     }
 
     private static void showExitMessage() {
-        UI.print("Bye. Hope to see you again soon!");
+        showOutput(Ui.exitMessage());
     }
 
     private static String getUserInput() {
@@ -46,32 +60,52 @@ public class Duke {
         parser.parseString(input);
     }
 
-    private static void showOutput(String string) {
-        UI.print(string);
-    }
-
-    private static String executeCommand() {
+    private static String executeCommand() throws DukeException {
         String feedback = "";
-        if (parser.isListingTasks()) {
+        String command = parser.getCommand();
+        switch (command) {
+        case LIST_COMMAND:
             feedback = listTask();
-        } else if (parser.isMarkingTask()) {
-            feedback = markTask();
-        } else if (parser.isAddingTask()) {
-            feedback = addTask();
+            break;
+        case MARK_COMMAND:
+            feedback = markTask(true);
+            break;
+        case UNMARK_COMMAND:
+            feedback = markTask(false);
+            break;
+        case TODO_COMMAND:
+            feedback = addTodo();
+            break;
+        case DEADLINE_COMMAND:
+            feedback = addDeadline();
+            break;
+        case EVENT_COMMAND:
+            feedback = addEvent();
+            break;
+        default:
+            throw new DukeException(Ui.invalidInput());
         }
         return feedback;
     }
 
     private static String listTask() {
-        return taskList.toString();
+        return taskManager.listTask();
     }
 
-    private static String addTask() {
-        return taskList.addTask(parser.getCommand(), parser.getAddedTask());
+    private static String addTodo() throws DukeException {
+        return taskManager.addTodo(parser.getTaskDescription());
+        // duplicate (future task)
     }
 
-    private static String markTask() {
-        return taskList.markTask(parser.getMarkedTask()[0],
-                                parser.getMarkedTask()[1]);
+    private static String addDeadline() throws DukeException {
+        return taskManager.addDeadline(parser.getTaskDescription());
+    }
+
+    private static String addEvent() throws DukeException {
+        return taskManager.addEvent(parser.getTaskDescription());
+    }
+
+    private static String markTask(boolean isDone) throws DukeException {
+        return taskManager.markTask(parser.getTaskId(), isDone);
     }
 }
