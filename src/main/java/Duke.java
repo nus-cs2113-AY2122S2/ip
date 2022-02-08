@@ -7,6 +7,13 @@ public class Duke {
     private static String userInput;
     private static String output;
 
+    private static final String LIST_COMMAND = "list";
+    private static final String MARK_COMMAND = "mark";
+    private static final String UNMARK_COMMAND = "unmark";
+    private static final String TODO_COMMAND = "todo";
+    private static final String DEADLINE_COMMAND = "deadline";
+    private static final String EVENT_COMMAND = "event";
+
     public static void main(String[] args) {
         initDuke();
         showWelcomeMessage();
@@ -29,12 +36,16 @@ public class Duke {
         taskManager = new TaskManager();
     }
 
+    private static void showOutput(String string) {
+        Ui.print(string);
+    }
+
     private static void showWelcomeMessage() {
-        Ui.print("Hello! I'm Duke\n" + "What can I do for you?");
+        showOutput(Ui.welcomeMessage());
     }
 
     private static void showExitMessage() {
-        Ui.print("Bye. Hope to see you again soon!");
+        showOutput(Ui.exitMessage());
     }
 
     private static String getUserInput() {
@@ -45,18 +56,26 @@ public class Duke {
         parser.parseString(input);
     }
 
-    private static void showOutput(String string) {
-        Ui.print(string);
-    }
-
     private static String executeCommand() {
         String feedback = "";
-        if (parser.isListingTasks()) {
+        String command = parser.getCommand();
+        if (command.equals(LIST_COMMAND)) {
             feedback = listTask();
-        } else if (parser.isMarkingTask()) {
+        }
+        if (command.equals(MARK_COMMAND)) {
             feedback = markTask();
-        } else if (parser.isAddingTask()) {
-            feedback = addTask();
+        }
+        if (command.equals(UNMARK_COMMAND)) {
+            feedback = unmarkTask();
+        }
+        if (command.equals(TODO_COMMAND)) {
+            feedback = addTodo();
+        }
+        if (command.equals(DEADLINE_COMMAND)) {
+            feedback = addDeadline();
+        }
+        if (command.equals(EVENT_COMMAND)) {
+            feedback = addEvent();
         }
         return feedback;
     }
@@ -65,12 +84,23 @@ public class Duke {
         return taskManager.listTask();
     }
 
-    private static String addTask() {
-        return taskManager.addTask(parser.getCommand(), parser.getAddedTask());
+    private static String addTodo() {
+        return taskManager.addTodo(parser.getTaskDescription());
+    }
+
+    private static String addDeadline() {
+        return taskManager.addDeadline(parser.getTaskDescription());
+    }
+
+    private static String addEvent() {
+        return taskManager.addEvent(parser.getTaskDescription());
     }
 
     private static String markTask() {
-        return taskManager.markTask(parser.getMarkedTask()[0],
-                                parser.getMarkedTask()[1]);//modify
+        return taskManager.markTask(parser.getTaskId());
+    }
+
+    private static String unmarkTask() {
+        return taskManager.unmarkTask(parser.getTaskId());
     }
 }

@@ -1,56 +1,36 @@
 public class Parser {
     private String input;
-    private boolean isAddingTask;
-    private boolean isMarkingTask;
-    private boolean isListingTasks;
+    private String command;
     private boolean isExiting;
 
     Parser() {
         this.input = "";
-        this.isAddingTask = false;
-        this.isMarkingTask = false;
-        this.isListingTasks = false;
+        this.command = "";
         this.isExiting = false;
     }
 
     private void reset() {
         input = "";
-        isAddingTask = false;
-        isMarkingTask = false;
-        isListingTasks = false;
+        command = "";
         isExiting = false;
     }
 
-    public void parseString(String input) {
+    public void parseString(String userInput) {
         reset();
-        this.input = input;
-        String command = getCommand();
+        input = userInput;
+        setCommand();
         setParam(command);
+    }
+
+    public void setCommand() {
+        this.command = input.split(" ")[0].trim().toLowerCase();
+        // throw command invalid exception
     }
 
     private void setParam(String command) {
         if (command.equals("bye")) {
             isExiting = true;
-        } else if (command.equals("list")) {
-            isListingTasks = true;
-        } else if (command.equals("mark") || command.equals("unmark")) {
-            isMarkingTask = true;
-        } else if (command.equals("todo") || command.equals("event")
-                || command.equals("deadline")) {
-            isAddingTask = true;
         }
-    }
-
-    public boolean isAddingTask() {
-        return isAddingTask;
-    }
-
-    public boolean isMarkingTask() {
-        return isMarkingTask;
-    }
-
-    public boolean isListingTasks() {
-        return isListingTasks;
     }
 
     public boolean isExiting() {
@@ -58,15 +38,17 @@ public class Parser {
     }
 
     public String getCommand() {
-        return input.split(" ")[0].trim().toLowerCase();
+        return command;
     }
 
-    public String[] getAddedTask() {
+    public String[] getTaskDescription() {
         return splitStringBySlash();
     }
 
-    public String[] getMarkedTask() {
-        return input.split(" ");
+    public int getTaskId() {
+        return Integer.parseInt(input.split(" ")[1]);
+        //task id not integer
+        //no task id
     }
 
     private String[] splitStringBySlash() {

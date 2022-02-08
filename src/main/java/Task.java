@@ -12,9 +12,9 @@ public abstract class Task {
     }
 
     private String getDoneIcon() {
-        String icon = "[ ]";
+        String icon = "[ ] ";
         if (isDone) {
-            icon = "[X]";
+            icon = "[X] ";
         }
         return icon;
     }
