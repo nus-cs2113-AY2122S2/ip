@@ -45,11 +45,10 @@ ____________________________________________________________
 This task is already marked as done! Did to mean to unmark it?
 ____________________________________________________________
 ____________________________________________________________
-OK, I've marked this task as not done yet:
-[D][ ] return book (by: June 6th)
+This task is already marked as done! Did to mean to unmark it?
 ____________________________________________________________
 ____________________________________________________________
-This task is already marked as not done! Did you mean to mark it?
+This task is already marked as done! Did to mean to unmark it?
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
@@ -61,7 +60,7 @@ ____________________________________________________________
 
 ____________________________________________________________
 1.[T][X] read book
-2.[D][ ] return book (by: June 6th)
+2.[D][X] return book (by: June 6th)
 3.[E][ ] project meeting (at: Aug 6th 2-4pm)
 4.[T][X] join sports club
 5.[T][ ] borrow book

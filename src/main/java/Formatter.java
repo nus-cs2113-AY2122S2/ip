@@ -37,8 +37,72 @@ public class Formatter {
         return taskIndex;
     }
 
-    public static boolean checkValidIndex(int index) {
+    protected static boolean isValidIndex(int index) {
         return index != -1;
+    }
+
+    protected static boolean isValidCommand(int numOfArgs) {
+        return numOfArgs > 1;
+    }
+    protected static void markCommand(String[] userCommand) throws JarvisException {
+        int taskIndex = getTaskIndex(userCommand);
+        if (isValidIndex(taskIndex)) {
+            UserList.markTask(taskIndex);
+        } else {
+            throw new JarvisException();
+        }
+    }
+
+    protected static void unmarkCommand(String[] userCommand) throws JarvisException {
+        int taskIndex = getTaskIndex(userCommand);
+        if (isValidIndex(taskIndex)) {
+            UserList.markTask(taskIndex);
+        } else {
+            throw new JarvisException();
+        }
+    }
+
+    protected static void todoCommand(String[] userCommand) throws JarvisException {
+        int numOfArgs = userCommand.length;
+        if (isValidCommand(numOfArgs)) {
+            String taskDescription = parseUserInput(userCommand, 1, numOfArgs);
+            Task newTask = new Task(taskDescription);
+            UserList.insertTask(newTask);
+        } else {
+           throw new JarvisException();
+        }
+    }
+
+    protected static void deadlineCommand(String[] userCommand) throws JarvisException {
+        int indexOfBy = indexOf(userCommand, "/by");
+        int numOfArgs = userCommand.length;
+        boolean isValidIndex = indexOfBy > 1;
+        boolean hasSufficientArgs = numOfArgs >= 4;
+
+        if (isValidIndex && hasSufficientArgs) {
+            String deadlineDescription = parseUserInput(userCommand, 1, indexOfBy);
+            String deadlineDate = parseUserInput(userCommand, indexOfBy + 1, numOfArgs);
+            Deadline newDeadline = new Deadline(deadlineDescription, deadlineDate);
+            UserList.insertTask(newDeadline);
+        } else {
+            throw new JarvisException();
+        }
+    }
+
+    protected static void eventCommand(String[] userCommand) throws JarvisException {
+        int indexOfAt = indexOf(userCommand, "/at");
+        int numOfArgs = userCommand.length;
+        boolean isValidIndex = indexOfAt > 1;
+        boolean hasSufficientArgs = numOfArgs >= 4;
+
+        if (isValidIndex && hasSufficientArgs) {
+            String eventDescription = parseUserInput(userCommand, 1, indexOfAt);
+            String eventDate = parseUserInput(userCommand, indexOfAt + 1, numOfArgs);
+            Event newEvent = new Event(eventDescription, eventDate);
+            UserList.insertTask(newEvent);
+        } else {
+            throw new JarvisException();
+        }
     }
 
     public static void inputHandler(Scanner in) {
@@ -61,64 +125,41 @@ public class Formatter {
             break;
 
         case "mark":
-            taskIndex = getTaskIndex(userCommand);
-            if (checkValidIndex(taskIndex)) {
-                UserList.markTask(taskIndex);
-            } else {
+            try {
+                markCommand(userCommand);
+            } catch (JarvisException e) {
                 DisplayMessages.outOfBounds();
             }
             break;
 
         case "unmark":
-            taskIndex = getTaskIndex(userCommand);
-            if (checkValidIndex(taskIndex)) {
-                UserList.unmarkTask(taskIndex);
-            } else {
+            try {
+                unmarkCommand(userCommand);
+            } catch (JarvisException e) {
                 DisplayMessages.outOfBounds();
             }
             break;
 
         case "todo":
-            if (numOfArgs > 1) {
-                isValidCommand = true;
-            }
-            if (isValidCommand) {
-                taskDescription = parseUserInput(userCommand, 1, numOfArgs);
-                Task newTask = new Task(taskDescription);
-                UserList.insertTask(newTask);
-            } else {
+            try {
+                todoCommand(userCommand);
+            } catch(JarvisException e) {
                 DisplayMessages.invalidInput();
             }
             break;
 
         case "deadline":
-            int indexOfBy = indexOf(userCommand, "/by");
-            isValidIndex = indexOfBy > 1;
-            if (numOfArgs >= 4 && isValidIndex) {
-                isValidCommand = true;
-            }
-            if (isValidCommand) {
-                String deadlineDescription = parseUserInput(userCommand, 1, indexOfBy);
-                String deadlineDate = parseUserInput(userCommand, indexOfBy + 1, numOfArgs);
-                Deadline newDeadline = new Deadline(deadlineDescription, deadlineDate);
-                UserList.insertTask(newDeadline);
-            } else {
+            try {
+                deadlineCommand(userCommand);
+            } catch(JarvisException e) {
                 DisplayMessages.invalidInput();
             }
             break;
 
         case "event":
-            int indexOfAt = indexOf(userCommand, "/at");
-            isValidIndex = indexOfAt > 1;
-            if (numOfArgs >= 4 && isValidIndex) {
-                isValidCommand = true;
-            }
-            if (isValidCommand) {
-                String eventDescription = parseUserInput(userCommand, 1, indexOfAt);
-                String eventDate = parseUserInput(userCommand, indexOfAt + 1, numOfArgs);
-                Event newEvent = new Event(eventDescription, eventDate);
-                UserList.insertTask(newEvent);
-            } else {
+            try {
+                eventCommand(userCommand);
+            } catch (JarvisException e) {
                 DisplayMessages.invalidInput();
             }
             break;
