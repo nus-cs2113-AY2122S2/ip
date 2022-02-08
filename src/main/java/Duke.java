@@ -31,7 +31,7 @@ public class Duke {
         String listAsString = "";
         for (int i = 0; i < taskIndex; i++) {
             Task curr = list[i];
-            listAsString = listAsString.concat(String.format(" %d. %s\n", i + 1, curr.toString()));
+            listAsString = listAsString.concat(String.format(" %d. %s\n", i + 1, curr));
         }
         printFormat("Here are the tasks in your list:\n" + listAsString);
     }
@@ -48,10 +48,10 @@ public class Duke {
 
         if (shouldMark) {
             curr.setDone(true);
-            printFormat("Nice! I've marked this task as done:\n  " + curr.toString());
+            printFormat("Nice! I've marked this task as done:\n  " + curr);
         } else {
             curr.setDone(false);
-            printFormat("OK, I've marked this task as not done yet:\n  " + curr.toString());
+            printFormat("OK, I've marked this task as not done yet:\n  " + curr);
         }
     }
 
@@ -59,27 +59,29 @@ public class Duke {
         String[] deadlineBreakdown = description.split("/by", 2);
         description = deadlineBreakdown[0];
         String by = deadlineBreakdown[1];
-        Task t = new Deadline(description, by);
-        return t;
+        return new Deadline(description, by);
     }
 
     private static Task parseEvent(String description) {
         String[] eventBreakdown = description.split(" /at ", 2);
         description = eventBreakdown[0];
         String at = eventBreakdown[1];
-        Task t = new Event(description, at);
-        return t;
+        return new Event(description, at);
     }
 
     private static Task parseTask(String type, String description) {
         Task t;
-        if (type.equals("todo")) {
+        switch (type) {
+        case "todo":
             t = new Todo(description);
-        } else if (type.equals("deadline")) {
+            break;
+        case "deadline":
             t = parseDeadline(description);
-        } else if (type.equals("event")) {
+            break;
+        case "event":
             t = parseEvent(description);
-        } else {
+            break;
+        default:
             throw new RuntimeException("Not a valid task type");
         }
         return t;
@@ -101,7 +103,7 @@ public class Duke {
             Task t = parseTask(type, description);
             list[taskIndex] = t;
             taskIndex++;
-            printFormat("Got it. I've added this task:\n  " + t.toString() +
+            printFormat("Got it. I've added this task:\n  " + t +
                     String.format("\nNow you have %d tasks in the list.", taskIndex));
         } catch (Exception e){
             invalidTask();
