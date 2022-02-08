@@ -20,13 +20,25 @@ public class TaskManager {
         return addTask(task);
     }
 
-    public String addDeadline(String[] taskDescription) {
-        Task task = new Deadline(taskDescription[0], taskDescription[1]);
+    public String addDeadline(String[] taskDescription) throws DukeException {
+        if (!taskDescription[1].equals("/by")) {
+            throw new DukeException(Ui.inputInWrongFormat());
+        }
+        if (taskDescription[2].isEmpty()) {
+            throw new DukeException(Ui.missingDate());
+        }
+        Task task = new Deadline(taskDescription[0], taskDescription[3]);
         return addTask(task);
     }
 
-    public String addEvent(String[] taskDescription) {
-        Task task = new Event(taskDescription[0], taskDescription[1]);
+    public String addEvent(String[] taskDescription) throws DukeException {
+        if (!taskDescription[1].equals("/at")) {
+            throw new DukeException(Ui.inputInWrongFormat());
+        }
+        if (taskDescription[2].isEmpty()) {
+            throw new DukeException(Ui.missingDate());
+        }
+        Task task = new Event(taskDescription[0], taskDescription[3]);
         return addTask(task);
     }
 

@@ -24,8 +24,12 @@ public class Duke {
             if (parser.isExiting()) {
                 break;
             }
-            output = executeCommand();
-            showOutput(output);
+            try {
+                output = executeCommand();
+                showOutput(output);
+            } catch (DukeException e) {
+                showOutput(e.toString());
+            }
         }
 
         showExitMessage();
@@ -56,7 +60,7 @@ public class Duke {
         parser.parseString(input);
     }
 
-    private static String executeCommand() {
+    private static String executeCommand() throws DukeException {
         String feedback = "";
         String command = parser.getCommand();
         switch (command) {
@@ -79,7 +83,7 @@ public class Duke {
             feedback = addEvent();
             break;
         default:
-            //invalid command
+            throw new DukeException(Ui.invalidInput());
         }
         return feedback;
     }
@@ -88,29 +92,20 @@ public class Duke {
         return taskManager.listTask();
     }
 
-    private static String addTodo() {
+    private static String addTodo() throws DukeException {
         return taskManager.addTodo(parser.getTaskDescription());
-        // no task description
-        // duplicate
+        // duplicate (future task)
     }
 
-    private static String addDeadline() {
+    private static String addDeadline() throws DukeException {
         return taskManager.addDeadline(parser.getTaskDescription());
-        // incomplete input
-        // no /by no date no task
     }
 
-    private static String addEvent() {
+    private static String addEvent() throws DukeException {
         return taskManager.addEvent(parser.getTaskDescription());
-        // incomplete input
-        // no /by no date no task
     }
 
-    private static String markTask(boolean isDone) {
-        try {
-            return taskManager.markTask(parser.getTaskId(), isDone);
-        } catch (DukeException e) {
-            return e.toString();
-        }
+    private static String markTask(boolean isDone) throws DukeException {
+        return taskManager.markTask(parser.getTaskId(), isDone);
     }
 }

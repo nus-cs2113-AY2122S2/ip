@@ -39,13 +39,17 @@ public class Parser {
         return command;
     }
 
-    public String[] getTaskDescription() {
-        return splitStringBySlash();
+    public String[] getTaskDescription() throws DukeException {
+        String[] splitDescription = splitStringBySlash(description);
+        if (splitDescription[0].isEmpty()) {
+            throw new DukeException(Ui.missingDescription(command));
+        }
+        return splitDescription;
     }
 
     public int getTaskId() throws DukeException {
         if (description.isEmpty()) {
-            throw new DukeException(Ui.emptyDescription(command));
+            throw new DukeException(Ui.missingDescription(command));
         }
         try {
             return Integer.parseInt(description);
@@ -54,15 +58,17 @@ public class Parser {
         }
     }
 
-    private String[] splitStringBySlash() {
-        String[] splitInput = description.split(" ");
-        String[] splitOutput = new String[2];
+    private String[] splitStringBySlash(String input) {
+        String[] splitInput = input.split(" ");
+        String[] splitOutput = new String[3];
         String taskDescription = "";
+        String op = "";
         String date = "";
         boolean hasSlash = false;
 
         for (int i = 0; i < splitInput.length; i++) {
             if (splitInput[i].equals("/by") || splitInput[i].equals("/at")) {
+                op = splitInput[i];
                 hasSlash = true;
                 continue;
             }
@@ -74,7 +80,8 @@ public class Parser {
         }
 
         splitOutput[0] = taskDescription.trim();
-        splitOutput[1] = date.trim();
+        splitOutput[1] = op.trim();
+        splitOutput[2] = date.trim();
         return splitOutput;
     }
 }

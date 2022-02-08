@@ -1,4 +1,7 @@
 public class Ui {
+    public static final String ANSI_REST = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+
     private static String drawBorder(String text) {
         return "____________________________________________________________\n"
                 + text + "\n"
@@ -32,15 +35,31 @@ public class Ui {
     }
 
     // Exception Messages
-    public static String emptyDescription(String command) {
-        return String.format("The description of %s cannot be empty!", command);
+    private static String errorFormatting(String message) {
+        return ANSI_RED + message + ANSI_REST;
+    }
+
+    public static String missingDescription(String command) {
+        return errorFormatting(String.format("The description of %s cannot be empty!", command));
+    }
+
+    public static String inputInWrongFormat() {
+        return errorFormatting(String.format("The input is in the wrong format!"));
+    }
+
+    public static String missingDate() {
+        return errorFormatting(String.format("The date/time is missing!"));
     }
 
     public static String taskIdOutOfBound(int taskId) {
-        return String.format("Task with ID %d does not exist!", taskId);
+        return errorFormatting(String.format("Task %d does not exist!", taskId));
     }
 
     public static String taskIdInWrongFormat() {
-        return String.format("The task ID has to be a number!");
+        return errorFormatting(String.format("The task ID has to be a number!"));
+    }
+
+    public static  String invalidInput() {
+        return errorFormatting(String.format("Invalid input!"));
     }
 }
