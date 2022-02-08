@@ -56,6 +56,12 @@ public class Duke {
 
 
     /**
+     * Helper for extractTaskInfo
+     * Determines if a particular string is
+     */
+
+
+    /**
      * Helper for addTask
      * Extracts information about Task object from line of user input
      * Reports information in array of Strings
@@ -83,7 +89,7 @@ public class Duke {
             }
             additionalInfo = inputLine.substring(inputLine.indexOf("/by") + 4);
             // If the task has an empty deadline, throw a DukeException
-            if (additionalInfo.isEmpty()) {
+            if (additionalInfo.trim().isEmpty()) {
                 throw new DukeException("OOPS!!! Type of task deadline must not have an empty deadline.");
             }
             additionalInfoIndex = inputLine.indexOf("/by");
@@ -94,7 +100,7 @@ public class Duke {
             }
             additionalInfo = inputLine.substring(inputLine.indexOf("/at") + 4);
             // If the task has an empty time, throw a DukeException
-            if (additionalInfo.isEmpty()) {
+            if (additionalInfo.trim().isEmpty()) {
                 throw new DukeException("OOPS! Task of type event must not have an empty time.");
             }
             additionalInfoIndex = inputLine.indexOf("/at");
@@ -104,19 +110,13 @@ public class Duke {
 
         // Extract the description
         // If the description is empty, throw a DukeException
-        if (type.length() == inputLine.length()) {
+        try {
+            description = inputLine.substring(type.length(), additionalInfoIndex);
+        } catch (StringIndexOutOfBoundsException e) {
             throw new DukeException("OOPS!!! The description of a " + type + " cannot be empty.");
-        } else {
-            if (type.equals("todo")) {
-                description = inputLine.substring(type.length() + 1);
-            } else if (type.equals("deadline") || type.equals("event")) {
-                description = inputLine.substring(type.length() + 1, additionalInfoIndex - 1);
-            } else { // No task type specified; the entire line is the task description
-                description = inputLine;
-            }
-            if (description.isEmpty()) {
-                throw new DukeException("OOPS!!! The description of a " + type + " cannot be empty.");
-            }
+        }
+        if (description.trim().isEmpty()) {
+            throw new DukeException("OOPS!!! The description of a " + type + " cannot be empty.");
         }
 
         return new String[] { type, description, additionalInfo };
