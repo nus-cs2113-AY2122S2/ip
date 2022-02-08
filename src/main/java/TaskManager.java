@@ -23,15 +23,14 @@ public class TaskManager {
     public String markTask(String markCommand, String id) {
         int index = Integer.parseInt(id) - 1;
         boolean isDone = markCommand.equals("mark");
-        return taskList.getTask(index).setDone(isDone);
+        taskList.getTask(index).setDone(isDone);
+        return Ui.markTaskMsg(taskList.getTask(index), isDone);
     }
 
     public String addTask(String taskType, String[] taskDescription) {
         Task task = createTask(taskType, taskDescription);
         taskList.addTask(task);
-        return String.format("Got it. I've added this task:\n%s\n" +
-                        "Now you have %d tasks in list.",
-                        task, taskList.getSize());
+        return Ui.addTaskMsg(task, taskList.getSize());
     }
 
     public String listTask() {

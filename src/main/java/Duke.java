@@ -4,7 +4,6 @@ public class Duke {
     private static Scanner SCANNER = new Scanner(System.in);
     private static Parser parser;
     private static TaskManager taskManager;
-    private static Ui UI = new Ui();
     private static String userInput;
     private static String output;
 
@@ -18,11 +17,7 @@ public class Duke {
             if (parser.isExiting()) {
                 break;
             }
-            if (parser.isValidInput()) {
-                output = parser.getErrorMessage();
-            } else {
-                output = executeCommand();
-            }
+            output = executeCommand();
             showOutput(output);
         }
 
@@ -35,11 +30,11 @@ public class Duke {
     }
 
     private static void showWelcomeMessage() {
-        UI.print("Hello! I'm Duke\n" + "What can I do for you?");
+        Ui.print("Hello! I'm Duke\n" + "What can I do for you?");
     }
 
     private static void showExitMessage() {
-        UI.print("Bye. Hope to see you again soon!");
+        Ui.print("Bye. Hope to see you again soon!");
     }
 
     private static String getUserInput() {
@@ -51,7 +46,7 @@ public class Duke {
     }
 
     private static void showOutput(String string) {
-        UI.print(string);
+        Ui.print(string);
     }
 
     private static String executeCommand() {
@@ -76,6 +71,6 @@ public class Duke {
 
     private static String markTask() {
         return taskManager.markTask(parser.getMarkedTask()[0],
-                                parser.getMarkedTask()[1]);
+                                parser.getMarkedTask()[1]);//modify
     }
 }
