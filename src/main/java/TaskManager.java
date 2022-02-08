@@ -5,11 +5,20 @@ public class TaskManager {
     private final String BOT_NAME = "[iWish]: ";
     public Task[] taskList = new Task[MAX_TASK];
     public int trackList = 0;
-    private final int TODO_WORD_COUNT = 5;
-    private final int DEADLINE_WORD_COUNT = 9;
-    private final int EVENT_WORD_COUNT = 6;
     private final char INDICATE_DEADLINE = '~';
     private final char INDICATE_EVENT = '@';
+
+    public boolean handleTaskCommand(String userInput) throws DukeWrongCommandException {
+        if ((userInput.contains("todo:"))) {
+            return addTodo(userInput);
+        } else if ((userInput.contains("deadline:"))) {
+            return addDeadline(userInput);
+        } else if ((userInput.contains("event:"))) {
+            return addEvent(userInput);
+        } else {
+            throw new DukeWrongCommandException();
+        }
+    }
 
     public void startUp() {
         String userInput = "";
@@ -27,13 +36,14 @@ public class TaskManager {
                 untickTask(userInput);
             } else if (userInput.contains("tick")) {
                 tickTaskCompleted(userInput, true);
-            } else if ((userInput.contains("todo:"))) {
-                hasAddedTask = addTodo(userInput);
-            } else if ((userInput.contains("deadline:"))) {
-                hasAddedTask = addDeadline(userInput);
-            } else if ((userInput.contains("event:"))) {
-                hasAddedTask = addEvent(userInput);
+            } else {
+                try {
+                    hasAddedTask = handleTaskCommand(userInput);
+                } catch (DukeWrongCommandException e) {
+                    System.out.println(BOT_NAME + "Not able to understand your wishes.");
+                }
             }
+
             if (hasAddedTask) {
                 printNumberOfWish();
             }
@@ -48,21 +58,30 @@ public class TaskManager {
         System.out.println("Now you have " + trackList + " wish(es) in the list.");
     }
 
-    public String deriveDescription (String input, int wordCountOfTask) {
-        String description = input.substring(input.indexOf("todo:") + wordCountOfTask);
+    public String deriveDescription(String input, String command) throws DukeEmptyStringException {
+        String description = input.substring(input.indexOf(command) + command.length());
         description = description.trim();
+        if (description.isEmpty()) {
+            throw new DukeEmptyStringException();
+        }
         return description;
     }
 
-    public String deriveTimeDate (String input, char indication) {
+    public String deriveTimeDate(String input, char indication) {
         String storeTimeDate = input.substring(input.indexOf(indication) + 1);
         storeTimeDate = storeTimeDate.trim();
-        return  storeTimeDate;
+        return storeTimeDate;
     }
 
     private boolean addEvent(String userInput) {
         boolean hasAddedTask;
-        String description = deriveDescription(userInput, EVENT_WORD_COUNT);
+        String description = "";
+        try {
+            description = deriveDescription(userInput, "event:");
+        } catch (DukeEmptyStringException e) {
+            System.out.println(BOT_NAME + "The description for event: cannot be empty");
+            return false;
+        }
         String at = deriveTimeDate(description, INDICATE_EVENT);
         description = description.substring(0, description.indexOf("@"));
         taskList[trackList] = new Event(description, at);
@@ -74,7 +93,13 @@ public class TaskManager {
 
     private boolean addDeadline(String userInput) {
         boolean hasAddedTask;
-        String description = deriveDescription(userInput, DEADLINE_WORD_COUNT);
+        String description = "";
+        try {
+            description = deriveDescription(userInput, "deadline:");
+        } catch (DukeEmptyStringException e) {
+            System.out.println(BOT_NAME + "The description for deadline: cannot be empty");
+            return false;
+        }
         String by = deriveTimeDate(description, INDICATE_DEADLINE);
         description = description.substring(0, description.indexOf("~"));
         taskList[trackList] = new Deadline(description, by);
@@ -86,7 +111,13 @@ public class TaskManager {
 
     private boolean addTodo(String userInput) {
         boolean hasAddedTask;
-        String description = deriveDescription(userInput, TODO_WORD_COUNT);
+        String description = "";
+        try {
+            description = deriveDescription(userInput, "todo:");
+        } catch (DukeEmptyStringException e) {
+            System.out.println(BOT_NAME + "The description for todo: cannot be empty");
+            return false;
+        }
         taskList[trackList] = new Todo(description);
         trackList++;
         System.out.println(BOT_NAME + " noting down your wish -> " + taskList[trackList - 1]);
