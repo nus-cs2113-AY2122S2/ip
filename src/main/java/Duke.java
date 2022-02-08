@@ -1,3 +1,5 @@
+import duke.DukeException;
+import duke.save;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -16,6 +18,9 @@ public class Duke {
         System.out.println("Hello I'm \n" + logo);
         System.out.println("What can I do for you?");
         System.out.println("______________________________________");
+        save lastSave = new save("list.txt");
+        ArrayList<Task> store = lastSave.fileToStore();
+
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
         ArrayList<Task> list = new ArrayList<Task>();
@@ -39,7 +44,7 @@ public class Duke {
                     Task currentTask = list.get(taskIndex - 1);
                     currentTask.setDone(false);
                     System.out.println(currentTask.getTask());
-                }else if (input.startsWith("todo")) {
+                } else if (input.startsWith("todo")) {
                     try {
                         if (input.split("todo").length <= 1) {
                             throw new duke.DukeException("OOPS todo cannot be empty");
@@ -51,31 +56,44 @@ public class Duke {
                     } catch (duke.DukeException e) {
                         System.out.println("The description of a todo cannot be empty.");
                     }
-                    } else if (input.startsWith("deadline")) {
+                } else if (input.startsWith("deadline")) {
                     String[] processedString = input.split("/by");
                     String by = processedString[1].trim();
                     String task = processedString[0].split("deadline")[1].trim();
                     Deadline newTask = new Deadline(task, by);
                     list.add(newTask);
                     printTask(newTask, list.size());
-                    }
-                    else if (input.startsWith("event")) {
+                } else if (input.startsWith("event")) {
                     String[] processedString = input.split("/at");
                     String at = processedString[1].trim();
                     String task = processedString[0].split("event")[1].trim();
                     Event newTask = new Event(task, at);
                     list.add(newTask);
                     printTask(newTask, list.size());
+                } else if (input.startsWith("complete") || input.startsWith("delete")) {
+                    int taskNumber = Integer.parseInt(input.split("")[1]);
+                    Task cur = store.get(taskNumber - 1);
+                    store.remove(taskNumber - 1);
+                    removeTask(cur, store.size());
                 } else {
-                    throw new duke.DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-()");
+                    throw new DukeException();
+                }
+            }   catch (DukeException e)
+                {
+                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-()");
                 }
                 System.out.println("______________________________________");
                 input = sc.nextLine();
-                } catch (duke.DukeException e) {
-            System.out.println("I'm sorry, but I don't know what that means");
-         }
-            }
+        }
+        sc.close();
+        lastSave.storeToFile(store);
         System.out.println("Bye! Hope to see you again!");
+    }
+
+    private static void removeTask(Task cur, int size) {
+        System.out.println("I've removed the task: ");
+        System.out.println(cur.getTask());
+        System.out.println("Now you have "+size+" tasks remaining on your list.");
     }
 
     public static void printTask(Task newTask, int length) {

@@ -15,11 +15,11 @@ import java.util.Scanner;
 
 public class save {
     private String filePath;
-    private Object save;
 
     public save(String filePath) {
         this.filePath = filePath;
     }
+
 
     public void storeToFile(ArrayList<Task> store) {
         String text = "";
@@ -64,9 +64,9 @@ public class save {
                         break;
                 }
             }
-            return (ArrayList<Task>) save;
+            return store;
         } catch (FileNotFoundException e) {
-            return (ArrayList<Task>) save;
+            return store;
         }
     }
 }
