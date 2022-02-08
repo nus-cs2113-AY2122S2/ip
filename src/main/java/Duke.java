@@ -16,7 +16,9 @@ public class Duke {
     public static final String UNMARK_MESSAGE = "unmark";
     public static final String TODO_MESSAGE = "todo";
     public static final String DEADLINE_MESSAGE = "deadline";
+    public static final String DEADLINE_INDICATOR = " /by ";
     public static final String EVENT_MESSAGE = "event";
+    public static final String EVENT_INDICATOR = " /at ";
     public static final String WRONG_FORMAT_MESSAGE = "OOPS!!! One or more parameters are missing. The correct format is:\n"
                                                     + "todo [description]\n"
                                                     + "deadline [description] /by [deadline]\n"
@@ -30,7 +32,6 @@ public class Duke {
                                                    + "> mark [Task#]\n"
                                                    + "> unmark [Task#]\n"
                                                    + "> bye";
-
 
     public static void printList(Task[] list, int listCounter) {
         if (listCounter == 0) {
@@ -78,6 +79,13 @@ public class Duke {
         }
     }
 
+    public static String[] parseAdditionalParameters (String parsedUserInput, String indicator) {
+        String[] additionalParameters = parsedUserInput.split(indicator, 2);
+        additionalParameters[0] = additionalParameters[0].trim();
+        additionalParameters[1] = additionalParameters[1].trim();
+        return additionalParameters;
+    }
+
     private static void printAddToList(Task[] list, int listCounter) {
         System.out.println("Got it. I've added this task:" + System.lineSeparator() + list[listCounter]);
         listCounter++;
@@ -89,33 +97,33 @@ public class Duke {
     }
 
     //Check what kind of task the user intends to add and process accordingly
-    public static void parseInput(Task[] list, int listCounter, String userInput) throws DukeWrongInputException, DukeWrongFormatException {
+    public static void parseInput(Task[] list, int listCounter, String userInput) throws DukeException {
         String[] parsedUserInputs = userInput.split(" ", 2);
         parsedUserInputs[0] = parsedUserInputs[0].toLowerCase();
 
         switch (parsedUserInputs[0]) {
         case TODO_MESSAGE:
             if (parsedUserInputs[1].length() == 0) {
-                throw new DukeWrongFormatException();
+                throw new IndexOutOfBoundsException();
             }
             list[listCounter] = new ToDo(parsedUserInputs[1]);
             break;
         case DEADLINE_MESSAGE:
-            String[] deadlineInput = parsedUserInputs[1].split(" /by ", 2);
+            String[] deadlineInput = parseAdditionalParameters(parsedUserInputs[1], DEADLINE_INDICATOR);
             if (deadlineInput[0].length() == 0 || deadlineInput[1].length() == 0){
-                throw new DukeWrongFormatException();
+                throw new IndexOutOfBoundsException();
             }
             list[listCounter] = new Deadline(deadlineInput[0], deadlineInput[1]);
             break;
         case EVENT_MESSAGE:
-            String[] eventInput = parsedUserInputs[1].split(" /at ", 2);
+            String[] eventInput = parseAdditionalParameters(parsedUserInputs[1], EVENT_INDICATOR);
             if (eventInput[0].length() == 0 || eventInput[1].length() == 0){
-                throw new DukeWrongFormatException();
+                throw new IndexOutOfBoundsException();
             }
             list[listCounter] = new Event(eventInput[0], eventInput[1]);
             break;
         default:
-            throw new DukeWrongInputException();
+            throw new DukeException();
         }
 
         printAddToList(list, listCounter);
@@ -136,9 +144,9 @@ public class Duke {
                 try {
                     parseInput(list, listCounter, userInput);
                     listCounter++;
-                } catch (DukeWrongInputException e) {
+                } catch (DukeException e) {
                     System.out.println(WRONG_INPUT_MESSAGE);
-                } catch (DukeWrongFormatException | IndexOutOfBoundsException e) {
+                } catch (IndexOutOfBoundsException e) {
                     System.out.println(WRONG_FORMAT_MESSAGE);
                 }
             }
@@ -156,7 +164,6 @@ public class Duke {
 
     public static void main(String[] args) {
         System.out.println(WELCOME_MESSAGE);
-        //printWelcomeMessage();
         acceptInput();
     }
 
