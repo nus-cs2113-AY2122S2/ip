@@ -1,15 +1,26 @@
+/**
+ * Main 'brains' of Sora. Focuses on taking in user input and passing commands
+ * to Sora's relevant components.
+ */
 public class Sora {
+    /**
+     * When IN_TESTING_MODE is set to true, certain features of Sora will be limited to
+     * improve the automated text UI testing.
+     */
     protected static final boolean IN_TESTING_MODE = true;
     private boolean isUserExiting = false;
 
     private TasksManager tasksManager;
-    private SoraUI soraUI = new SoraUI();
+    private SoraUI soraUI;
     private SoraReader soraReader;
+    private SoraExceptionHandler exceptionHandler;
 
     protected Sora() {
         // Instantiate components
+        soraUI = new SoraUI();
         tasksManager = new TasksManager();
         soraReader = new SoraReader();
+        exceptionHandler = new SoraExceptionHandler(soraUI);
 
         // Greet user
         soraUI.printGreetings();
@@ -79,9 +90,8 @@ public class Sora {
             }
         } catch (InvalidCommandException e) {
             // TODO: Create method to handle exception
-            handleInvalidCommandException(e);
+            exceptionHandler.handleInvalidCommandException(e);
         }
-
     }
 
     private String extractCommand(String userRawInput) {
@@ -92,9 +102,5 @@ public class Sora {
     private int getTaskNumberFromCommand(String userRawInput) {
         int taskNum = Integer.parseInt(userRawInput.split(" ")[1]);
         return taskNum;
-    }
-
-    private void handleInvalidCommandException(InvalidCommandException e) {
-
     }
 }
