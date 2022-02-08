@@ -17,4 +17,14 @@ unmark 1
 list
 bloop bloop
 todo
+event
+event test
+event test /at
+event test /at
+event test /at now
+event test /at now /at
+event test /at now /by
+event test /at /by now
+event test /at/at/at now
+event test /at/at/at/by/at now
 bye
