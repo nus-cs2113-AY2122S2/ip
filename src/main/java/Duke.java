@@ -21,22 +21,68 @@ public class Duke {
             String taskName = reader.nextLine();
             switch (command) {
             case "todo":
-                taskManager.addToTasks(taskName);
+                try {
+                    taskManager.addToTasks(taskName);
+                } catch (IllegalInputException inputException) {
+                    greet.printDecoration();
+                    System.out.println("I'm sorry you can't have an empty todo task, try giving it a name.");
+                    greet.printDecoration();
+                }
+
                 break;
             case "deadline":
-                taskManager.addToTasks("D",taskName.trim().split(" /by ")[0],taskName.trim().split(" /by ")[1]);
+                try {
+                    taskManager.addToTasks("D",taskName.trim().split(" /by ")[0],taskName.trim().split(" /by ")[1]);
+                } catch (ArrayIndexOutOfBoundsException outOfBoundsException) {
+                    greet.printDecoration();
+                    System.out.println("You seemed to have missed out a few key details required to create a deadline.\n" +
+                            "Say \"help\" to see how to use various commands.");
+                    greet.printDecoration();
+                }
+
                 break;
             case "event":
-                taskManager.addToTasks("E",taskName.trim().split(" /at ")[0],taskName.trim().split(" /at ")[1]);
+                try {
+                    taskManager.addToTasks("E",taskName.trim().split(" /at ")[0],taskName.trim().split(" /at ")[1]);
+                } catch (ArrayIndexOutOfBoundsException outOfBoundsException) {
+                    greet.printDecoration();
+                    System.out.println("You seemed to have missed out a few key details required to create an event.\n" +
+                            "Say \"help\" to see how to use various commands.");
+                    greet.printDecoration();
+                }
                 break;
             case "list":
                 taskManager.printTasks();
                 break;
             case "mark":
-                taskManager.markTask(Integer.parseInt(taskName.trim()));
+                try {
+                    taskManager.markTask(Integer.parseInt(taskName.trim()));
+                } catch (IllegalInputException inputException){
+                    System.out.println("Invalid Number given, you can only mark tasks that are in the list.\n" +
+                            "Say \"list\" to view your list of tasks");
+                    greet.printDecoration();
+                } catch (NumberFormatException numberFormatException)
+                {
+                    greet.printDecoration();
+                    System.out.println("You are required to give an integer value to mark an item in the list.\n" +
+                            "Say \"help\" to see how to use various commands.");
+                    greet.printDecoration();
+                }
                 break;
             case "unmark":
-                taskManager.unmarkTask(Integer.parseInt(taskName.trim()));
+                try{
+                    taskManager.unmarkTask(Integer.parseInt(taskName.trim()));
+                } catch (IllegalInputException inputException){
+                    System.out.println("Invalid Number given, you can only unmark tasks that are in the list.\n" +
+                            "Say \"list\" to view your list of tasks.");
+                    greet.printDecoration();
+                } catch (NumberFormatException numberFormatException)
+                {
+                    greet.printDecoration();
+                    System.out.println("You are required to give an integer value to unmark an item in the list.\n" +
+                            "Say \"help\" to see how to use various commands.");
+                    greet.printDecoration();
+                }
                 break;
             case "bye":
                 isDone = true;

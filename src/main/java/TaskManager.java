@@ -10,12 +10,10 @@ public class TaskManager {
         return taskCount;
     }
 
-    public void markTask(int number){
+    public void markTask(int number) throws IllegalInputException {
         greet.printDecoration();
         if (number > taskCount || number < 1) {
-            System.out.println("Invalid Number! Let's try again...");
-            greet.printDecoration();
-            return;
+            throw new IllegalInputException();
         }
         if (tasks[number - 1].isMarked()) {
             System.out.println("Err, this task is already marked...");
@@ -28,12 +26,10 @@ public class TaskManager {
 
     }
 
-    public void unmarkTask(int number){
+    public void unmarkTask(int number) throws IllegalInputException{
         greet.printDecoration();
         if(number > taskCount || number < 1){
-            System.out.println("Invalid Number! Let's try again...");
-            greet.printDecoration();
-            return;
+            throw new IllegalInputException();
         }
         if(!tasks[number - 1].isMarked()){
             System.out.println("I cannot unmark something that was never marked...");
@@ -45,7 +41,10 @@ public class TaskManager {
         greet.printDecoration();
     }
 
-    public void addToTasks(String taskName){
+    public void addToTasks(String taskName) throws IllegalInputException{
+        if (taskName.equals("")) {
+            throw new IllegalInputException();
+        }
         greet.printDecoration();
         tasks[taskCount] = new Todo(taskName);
         System.out.println("added: " + tasks[taskCount]);
