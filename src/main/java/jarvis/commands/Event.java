@@ -1,3 +1,5 @@
+package jarvis.commands;
+
 public class Event extends Task {
     private String eventDate;
 
