@@ -62,33 +62,61 @@ public class Duke {
      * @param inputLine line of user input
      * @return array of Strings (task type, description, additional info)
      */
-    public static String[] extractTaskInfo(String inputLine) {
+    public static String[] extractTaskInfo(String inputLine) throws DukeException {
         String type;
-        String description;
+        String description = "";
         String additionalInfo;
         int additionalInfoIndex = inputLine.length(); // Index where description should end
 
         // Extract the type of task
         type = inputLine.split(" ")[0];
+        // If the task type is not a todo, deadline, or event, throw a DukeException
+        if ((!type.equals("todo")) && (!type.equals("deadline")) && (!type.equals("event"))) {
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-( Please enter a valid task type (todo, deadline, or event)");
+        }
 
         // Extract the deadline (for Deadline tasks) or time (for Event tasks), if applicable
         if (type.equals("deadline")) {
+            // If the task doesn't have a deadline, throw a DukeException
+            if (!inputLine.contains("/by") || inputLine.endsWith("/by")) {
+                throw new DukeException("OOPS!!! Task of type deadline must have a deadline specified.");
+            }
             additionalInfo = inputLine.substring(inputLine.indexOf("/by") + 4);
+            // If the task has an empty deadline, throw a DukeException
+            if (additionalInfo.isEmpty()) {
+                throw new DukeException("OOPS!!! Type of task deadline must not have an empty deadline.");
+            }
             additionalInfoIndex = inputLine.indexOf("/by");
         } else if (type.equals("event")) {
+            // If the task is an event and doesn't have a time, throw a DukeException
+            if (!inputLine.contains("/at") || inputLine.endsWith("/at")) {
+                throw new DukeException("OOPS!!! Task of type event must have a time specified.");
+            }
             additionalInfo = inputLine.substring(inputLine.indexOf("/at") + 4);
+            // If the task has an empty time, throw a DukeException
+            if (additionalInfo.isEmpty()) {
+                throw new DukeException("OOPS! Task of type event must not have an empty time.");
+            }
             additionalInfoIndex = inputLine.indexOf("/at");
         } else {
             additionalInfo = "";
         }
 
         // Extract the description
-        if (type.equals("todo")) {
-            description = inputLine.substring(type.length() + 1);
-        } else if (type.equals("deadline") || type.equals("event")) {
-            description = inputLine.substring(type.length() + 1, additionalInfoIndex - 1);
-        } else { // No task type specified; the entire line is the task description
-            description = inputLine;
+        // If the description is empty, throw a DukeException
+        if (type.length() == inputLine.length()) {
+            throw new DukeException("OOPS!!! The description of a " + type + " cannot be empty.");
+        } else {
+            if (type.equals("todo")) {
+                description = inputLine.substring(type.length() + 1);
+            } else if (type.equals("deadline") || type.equals("event")) {
+                description = inputLine.substring(type.length() + 1, additionalInfoIndex - 1);
+            } else { // No task type specified; the entire line is the task description
+                description = inputLine;
+            }
+            if (description.isEmpty()) {
+                throw new DukeException("OOPS!!! The description of a " + type + " cannot be empty.");
+            }
         }
 
         return new String[] { type, description, additionalInfo };
@@ -101,25 +129,30 @@ public class Duke {
      * @param line line of user input
      */
     public static void addTask(String line) {
-        String[] taskInfo = extractTaskInfo(line);
-        String type = taskInfo[0];
-        String description = taskInfo[1];
-        String additionalInfo = taskInfo[2];
-        Task task = new Task(line);
+        String[] taskInfo = {"", "", ""};
+        try {
+            taskInfo = extractTaskInfo(line);
+            String type = taskInfo[0];
+            String description = taskInfo[1];
+            String additionalInfo = taskInfo[2];
+            Task task = new Task(line);
 
-        if (type.equals("todo")) {
-            task = new Todo(description);
-        } else if (type.equals("deadline")) {
-            task = new Deadline(description, additionalInfo);
-        } else if (type.equals("event")) {
-            task = new Event(description, additionalInfo);
+            if (type.equals("todo")) {
+                task = new Todo(description);
+            } else if (type.equals("deadline")) {
+                task = new Deadline(description, additionalInfo);
+            } else if (type.equals("event")) {
+                task = new Event(description, additionalInfo);
+            }
+
+            taskList[taskIndex] = task;
+            taskIndex += 1;
+            System.out.println("Got it. I've added this task:");
+            System.out.println(task.toString());
+            System.out.println("Now you have " + Integer.toString(taskIndex) + " tasks on the list.");
+        } catch (DukeException e) {
+            System.out.println(e);
         }
-
-        taskList[taskIndex] = task;
-        taskIndex += 1;
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + Integer.toString(taskIndex) + " tasks on the list.");
     }
 
     /**
