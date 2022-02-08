@@ -152,6 +152,10 @@ public class Duke {
             // add Deadline task to List
             addDeadlineToList(deadlineDescription,dueDate);
         }
+        // If not a recognizable command, inform user
+        else{
+            System.out.println("OOPS! I'm sorry but I don't know what you mean :(");
+        }
     }
 
     //method marks task in list with taskNumber as done.
@@ -195,6 +199,12 @@ public class Duke {
         return userInput.equals("list");
     }
 
+    public static boolean isByeCommand(String userInput){
+        // return true if command is list, else false
+        return userInput.equals("bye");
+    }
+
+
     public static int getTaskNumber(String userInput){
         return Integer.parseInt(userInput.split(" ")[1]);
     }
@@ -215,7 +225,7 @@ public class Duke {
             // Check userInput for respective command.
 
             // Exit if "bye" is entered by user.
-            if(userInput.equals("bye")) {
+            if(isByeCommand(userInput)) {
                 return;
             }
             else if(isListCommand(userInput)){
@@ -229,7 +239,7 @@ public class Duke {
                 int taskNumber=getTaskNumber(userInput);
                 unmarkTaskAsDone(taskNumber);
             }
-            // else it is an addition command
+            // else it is an addition command or some unknown command
             else{
                 addTaskToList(userInput);
             }
