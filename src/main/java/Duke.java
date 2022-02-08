@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static Task[] list = new Task[100];
+    private static final Task[] list = new Task[100];
     private static int taskIndex = 0;
     private static Boolean willExit = false;
 
@@ -31,7 +31,7 @@ public class Duke {
         String listAsString = "";
         for (int i = 0; i < taskIndex; i++) {
             Task curr = list[i];
-            listAsString = listAsString.concat(String.format(" %d. %s\n", i + 1, curr.toString()));
+            listAsString = listAsString.concat(String.format(" %d. %s\n", i + 1, curr));
         }
         printFormat("Here are the tasks in your list:\n" + listAsString);
     }
@@ -40,71 +40,89 @@ public class Duke {
         Task curr;
         try {
             int taskNum = Integer.parseInt(line.split(" ", 0)[1]);
+            if (taskNum > taskIndex) {
+                throw new DukeException("Please mark / unmark with a number that's in the list :')");
+            }
             curr = list[taskNum - 1];
-        } catch (Exception exception) {
-            printFormat("Please mark / unmark with a number that's in the list :')");
+        } catch (IndexOutOfBoundsException e) {
+            printFormat("Please mark / unmark with a valid number :')");
+            return;
+        } catch (DukeException e) {
+            printFormat(e.msg);
             return;
         }
 
         if (shouldMark) {
             curr.setDone(true);
-            printFormat("Nice! I've marked this task as done:\n  " + curr.toString());
+            printFormat("Nice! I've marked this task as done:\n  " + curr);
         } else {
             curr.setDone(false);
-            printFormat("OK, I've marked this task as not done yet:\n  " + curr.toString());
+            printFormat("OK, I've marked this task as not done yet:\n  " + curr);
         }
     }
 
-    private static Task parseDeadline(String description) {
-        String[] deadlineBreakdown = description.split("/by", 2);
-        description = deadlineBreakdown[0];
-        String by = deadlineBreakdown[1];
-        Task t = new Deadline(description, by);
-        return t;
+    private static Task parseDeadline(String description) throws DukeException {
+        String by;
+        try {
+            String[] deadlineBreakdown = description.split("/by ", 2);
+            description = deadlineBreakdown[0];
+            by = deadlineBreakdown[1];
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("You need to provide a time for your deadline (e.g. /by 7am)");
+        }
+        return new Deadline(description, by);
     }
 
-    private static Task parseEvent(String description) {
-        String[] eventBreakdown = description.split(" /at ", 2);
-        description = eventBreakdown[0];
-        String at = eventBreakdown[1];
-        Task t = new Event(description, at);
-        return t;
+    private static Task parseEvent(String description) throws DukeException {
+        String at;
+        try {
+            String[] eventBreakdown = description.split(" /at ", 2);
+            description = eventBreakdown[0];
+            at = eventBreakdown[1];
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("You need to provide a time for your event (e.g. /at 2-4pm)");
+        }
+        return new Event(description, at);
     }
 
-    private static Task parseTask(String type, String description) {
+    private static Task parseTask(String type, String description) throws DukeException {
         Task t;
-        if (type.equals("todo")) {
+        switch (type) {
+        case "todo":
             t = new Todo(description);
-        } else if (type.equals("deadline")) {
+            break;
+        case "deadline":
             t = parseDeadline(description);
-        } else if (type.equals("event")) {
+            break;
+        case "event":
             t = parseEvent(description);
-        } else {
-            throw new RuntimeException("Not a valid task type");
+            break;
+        default:
+            throw new DukeException("I don't understand what you want to do, big sad :(");
+        }
+
+        if (description.equals("")) {
+            throw new DukeException("Please provide a task description!");
         }
         return t;
-    }
-
-    public static void invalidTask() {
-        printFormat("I don't understand what you want to do.\n" +
-                "Maybe you could try the following commands:\n" +
-                "  - list: list out existing tasks\n" +
-                "  - etc.");
     }
 
     public static void addTask(String line) {
         try {
             String[] commands = line.split(" ", 2);
             String type = commands[0];
-            String description = commands[1];
+            String description = "";
+            if (commands.length > 1) {
+                description = commands[1];
+            }
 
             Task t = parseTask(type, description);
             list[taskIndex] = t;
             taskIndex++;
-            printFormat("Got it. I've added this task:\n  " + t.toString() +
+            printFormat("Got it. I've added this task:\n  " + t +
                     String.format("\nNow you have %d tasks in the list.", taskIndex));
-        } catch (Exception e){
-            invalidTask();
+        } catch (DukeException e) {
+            printFormat(e.msg);
         }
     }
 
