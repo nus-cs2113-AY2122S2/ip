@@ -11,7 +11,6 @@ public class Duke {
     public static final String MESSAGE_MARK_SUCCESS = "Congrats! You've completed:\n";
     public static final String MESSAGE_UNMARK_SUCCESS = "Aw, you've marked this as undone:\n";
 
-
     //Commands
     public static final String COMMAND_BYE = "bye";
     public static final String COMMAND_LIST = "list";
@@ -24,7 +23,12 @@ public class Duke {
     //Errors
     public static final String ERROR_NO_INPUT = "Hmmmm... you didn't type anything. Please try again using a valid command!";
     public static final String ERROR_NOT_VALID_COMMAND = "Sorry, command is not recognised. Please try again using a valid command!";
+    public static final String ERROR_INVALID_SYNTAX = "You've entered an invalid syntax for ";
+    public static final String ERROR_INVALID_TASK_NUMBER = "Please enter a valid task number!";
 
+    //Flags
+    public static final String FLAG_DEADLINE = " /by ";
+    public static final String FLAG_EVENT = " /at ";
 
     //Misc text
     protected static final String BANNER = "─────────▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄─────────\n" +
@@ -112,20 +116,36 @@ public class Duke {
     }
 
     public static void executeMark(String input) {
-        String taskNumber = parseMarkOrUnmark(input);
-        int taskIndex = Integer.parseInt(taskNumber) - 1;
-        tasks[taskIndex].markAsDone();
-        System.out.println(MESSAGE_MARK_SUCCESS + tasks[taskIndex]);
+        try {
+            String taskNumber = parseMarkOrUnmark(input);
+            int taskIndex = Integer.parseInt(taskNumber) - 1;
+            tasks[taskIndex].markAsDone();
+            System.out.println(MESSAGE_MARK_SUCCESS + tasks[taskIndex]);
+        } catch (DukeException error) {
+            System.out.println(error.getMessage() + COMMAND_MARK + ".");
+        } catch (NumberFormatException e) {
+            System.out.println(ERROR_INVALID_TASK_NUMBER);
+        }
     }
 
     public static void executeUnmark(String input) {
-        String taskNumber = parseMarkOrUnmark(input);
-        int taskIndex = Integer.parseInt(taskNumber) - 1;
-        tasks[taskIndex].markAsNotDone();
-        System.out.println(MESSAGE_UNMARK_SUCCESS + tasks[taskIndex]);
+        try {
+            String taskNumber = parseMarkOrUnmark(input);
+            int taskIndex = Integer.parseInt(taskNumber) - 1;
+            tasks[taskIndex].markAsNotDone();
+            System.out.println(MESSAGE_UNMARK_SUCCESS + tasks[taskIndex]);
+        } catch (DukeException error) {
+            System.out.println(error.getMessage() + COMMAND_UNMARK + ".");
+        } catch (NumberFormatException e) {
+            System.out.println(ERROR_INVALID_TASK_NUMBER);
+        }
     }
 
     public static void executeTodo(String input) {
+        if (!input.contains(" ")) { // Checks for presence of description
+            System.out.println(ERROR_INVALID_SYNTAX + COMMAND_UNMARK + ".");
+            return;
+        }
         String description = getDescription(input);
         Todo t = new Todo(description);
         t.printAddToListMessage();
@@ -134,6 +154,10 @@ public class Duke {
     }
 
     public static void executeDeadline(String input) {
+        if (!input.contains(FLAG_DEADLINE)) { // Checks for presence of description
+            System.out.println(ERROR_INVALID_SYNTAX + COMMAND_DEADLINE + ".");
+            return;
+        }
         String[] parsedCommand = parseDeadlineOrEvent(input);
         String description = parsedCommand[0];
         String by = parsedCommand[1];
@@ -144,6 +168,10 @@ public class Duke {
     }
 
     public static void executeEvent(String input) {
+        if (!input.contains(FLAG_EVENT)) { // Checks for presence of description
+            System.out.println(ERROR_INVALID_SYNTAX + COMMAND_EVENT + ".");
+            return;
+        }
         String[] parsedCommand = parseDeadlineOrEvent(input);
         String description = parsedCommand[0];
         String at = parsedCommand[1];
@@ -158,17 +186,20 @@ public class Duke {
         String command = getCommand(input);
         String[] inputArray;
         if (command.equals(COMMAND_DEADLINE)) {
-            inputArray = input.split(" /by ");
+            inputArray = input.split(FLAG_DEADLINE);
         } else {
-            inputArray = input.split(" /at ");
+            inputArray = input.split(FLAG_EVENT);
         }
         inputArray[0] = inputArray[0].substring(inputArray[0].indexOf(" "));
         return inputArray;
     }
 
     //Returns a String representing the integer of the chosen task
-    public static String parseMarkOrUnmark(String input) {
+    public static String parseMarkOrUnmark(String input) throws DukeException {
         String[] inputArray = input.split(" ");
+        if (inputArray.length != 2) {
+            throw new DukeException(ERROR_INVALID_SYNTAX);
+        }
         return inputArray[1];
     }
 
