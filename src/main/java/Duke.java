@@ -54,13 +54,6 @@ public class Duke {
         }
     }
 
-
-    /**
-     * Helper for extractTaskInfo
-     * Determines if a particular string is
-     */
-
-
     /**
      * Helper for addTask
      * Extracts information about Task object from line of user input
