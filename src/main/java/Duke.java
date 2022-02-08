@@ -24,13 +24,23 @@ public class Duke {
     public static void acceptCommand() {
         String input = getInput();
         while (!isBye(input)) {
-            String command = getCommand(input);
-            if (isValidCommand(command)) {
+            try {
+                checkIfValidCommand(input);
                 executeCommand(input);
-            } else {
-                System.out.println("Not a valid command. Please try again.");
+            } catch (DukeException error){
+                System.out.println(error.getMessage());
             }
             input = getInput();
+        }
+    }
+
+    public static void checkIfValidCommand(String input) throws DukeException {
+        if (!isValidCommand(input)) {
+            if (input.length() == 0) {
+                throw new DukeException("Hmmm... you didn't type anything. Please try again using a valid command!");
+            } else {
+                throw new DukeException("Sorry, command is not recognised. Please try again using a valid command!");
+            }
         }
     }
 
