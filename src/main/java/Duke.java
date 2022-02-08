@@ -15,22 +15,27 @@ public class Duke {
         Scanner input = new Scanner(System.in);
         String task = "";
         while(true) {
-            task = input.nextLine();
-            System.out.println("    ____________________________________");
-            if(task.equals("bye")){
-                break;
-            } else if(task.equals("list")) {
-                listTasks();
-            } else if(task.startsWith("mark ")) {
-                markTask(task);
-            } else if(task.startsWith("unmark ")) {
-                unmarkTask(task);
-            } else if(task.startsWith("todo") || task.startsWith("deadline") || task.startsWith("event")) {
-                addTask(task);
-            } else {
+            try {
+                task = input.nextLine();
+                System.out.println("    ____________________________________");
+                if (task.equals("bye")) {
+                    break;
+                } else if (task.equals("list")) {
+                    listTasks();
+                } else if (task.startsWith("mark ")) {
+                    markTask(task);
+                } else if (task.startsWith("unmark ")) {
+                    unmarkTask(task);
+                } else if (task.startsWith("todo") || task.startsWith("deadline") || task.startsWith("event")) {
+                    addTask(task);
+                } else {
+                    throw new DukeException();
+                }
+                System.out.println("    ____________________________________");
+            } catch (DukeException e) {
                 System.out.println("    Sorry I do not know what that means!");
             }
-            System.out.println("    ____________________________________");
+
         }
     }
 
@@ -78,6 +83,8 @@ public class Duke {
             } else {
                 System.out.println("    OOPS there are only " + taskIndex + " tasks in the list");
             }
+        } catch (NumberFormatException e) {
+            System.out.println("    Please enter the number of the task you want to mark");
         }
     }
 
@@ -89,7 +96,6 @@ public class Duke {
                 taskList[i].setDone(false);
                 System.out.println("    OK, I've marked this task as not done yet:");
                 System.out.println("        "+taskList[i]);
-
             } else {
                 System.out.println("    Please enter a valid task number");
             }
@@ -99,6 +105,8 @@ public class Duke {
             } else {
                 System.out.println("    OOPS there are only " + taskIndex + " tasks in the list");
             }
+        } catch (NumberFormatException e) {
+            System.out.println("    Please enter the number of the task you want to unmark");
         }
 
     }
