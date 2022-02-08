@@ -29,7 +29,7 @@ public class Boba {
                 String[] arguments = parseInput(operation, input);
                 TaskManager.run(operation, arguments);
             } catch (BobaException e) {
-                BobaResponse.printThis(e.getMessage());
+                ErrorHandler.printErrorMessage(e.getOperation());
             }
 
         } while(operation != Command.EXIT);
@@ -70,7 +70,7 @@ public class Boba {
             // both follow the same convention of using a slash command
             int slashIndex = input.indexOf("/");
             if (slashIndex == -1) {
-                throw new BobaException("Slash command is required");
+                throw new BobaException(operation);
             }
             arguments[1] = input.substring(input.indexOf(" ", slashIndex) + 1);
             input = input.substring(0, slashIndex - 1);
@@ -79,7 +79,7 @@ public class Boba {
         case UNMARK:
             int spaceIndex = input.indexOf(" ");
             if (spaceIndex == -1) {
-                throw new BobaException("Please also provide the proper arguments");
+                throw new BobaException(operation);
             }
             arguments[0] = input.substring(spaceIndex + 1);
         default:
