@@ -15,20 +15,20 @@ public class Duke {
         System.out.println("================================================");
 
         int i = 0;
-        int marker;
+        int taskStartIndex;
         String userInput;
         Scanner in = new Scanner(System.in);
         do{
             userInput = in.nextLine();
 
             if(userInput.startsWith("mark")){
-                marker = Integer.parseInt(userInput.substring(5));
-                tasks[marker-1].markAsDone();
-                System.out.println(tasks[marker-1].printTask());
+                taskStartIndex = Integer.parseInt(userInput.substring(5));
+                tasks[taskStartIndex-1].markAsDone();
+                System.out.println(tasks[taskStartIndex-1].printTask());
             }else if(userInput.startsWith("unmark")){
-                marker = Integer.parseInt(userInput.substring(7));
-                tasks[marker-1].markAsUndone();
-                System.out.println(tasks[marker-1].printTask());
+                taskStartIndex = Integer.parseInt(userInput.substring(7));
+                tasks[taskStartIndex-1].markAsUndone();
+                System.out.println(tasks[taskStartIndex-1].printTask());
             }else{
                 switch(userInput){
                 case "bye":
@@ -52,7 +52,7 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public static Task addTask(String userInput) {
+    public static Task addTask(String userInput){
         if (userInput.startsWith("todo")) {
             return new Todo(userInput.substring(5));
         } else if (userInput.startsWith("deadline")) {
