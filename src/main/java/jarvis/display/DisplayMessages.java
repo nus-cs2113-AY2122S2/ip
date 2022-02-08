@@ -1,3 +1,7 @@
+package jarvis.display;
+
+import jarvis.commands.Task;
+
 public class DisplayMessages {
     final static String HORIZONTAL_LINE = "____________________________________________________________\n";
     final static String SOFT_BREAK = "============================================================\n";

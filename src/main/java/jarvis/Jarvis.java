@@ -1,3 +1,7 @@
+package jarvis;
+
+import jarvis.display.DisplayMessages;
+
 import java.util.Scanner;
 
 public class Jarvis {

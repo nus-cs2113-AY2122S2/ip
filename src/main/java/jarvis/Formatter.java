@@ -1,6 +1,14 @@
+package jarvis;
+
+import jarvis.commands.Deadline;
+import jarvis.commands.Event;
+import jarvis.commands.Task;
+import jarvis.commands.UserList;
+import jarvis.display.DisplayMessages;
+import jarvis.exceptions.JarvisException;
+
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.List;
 
 public class Formatter {
 

@@ -1,3 +1,7 @@
+package jarvis.commands;
+
+import jarvis.display.DisplayMessages;
+
 public class UserList extends Task {
     private static Task[] userList= new Task[100]; //list of Tasks
     private static int listSize = 0; //keeps track of number of items in list
@@ -16,7 +20,7 @@ public class UserList extends Task {
         listSize++;
     }
 
-    public static void printList() { //consider converting this function to DisplayMessages
+    public static void printList() { //consider converting this function to Jarvis.DisplayMessages
         boolean isListEmpty = listSize == 0;
         if (!isListEmpty) {
             DisplayMessages.horizontalLine();
