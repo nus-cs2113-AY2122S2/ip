@@ -6,8 +6,8 @@ public class TaskList {
         System.out.println("\t" + "-----------------------------------------");
     }
 
-    public void addTask(Task task){
-        taskList[taskCount] = task;
+    public void addTask(Task newTask){
+        taskList[taskCount] = newTask;
         taskCount += 1;
     }
 
