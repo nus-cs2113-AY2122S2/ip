@@ -1,2 +1,2 @@
-public class DukeEmptyStringException extends Exception{
+public class DukeEmptyStringException extends Exception {
 }
