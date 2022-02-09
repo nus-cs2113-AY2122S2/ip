@@ -1,3 +1,8 @@
+package duke.task;
+
+import duke.exception.DukeException;
+import duke.iomethods.IOMethods;
+
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -47,7 +52,7 @@ public class TaskManager {
 
     }
 
-    public void markCompleted  (int taskNumber) throws DukeException  {
+    public void markCompleted  (int taskNumber) throws DukeException {
         try {
             Task task = tasks.get(taskNumber - 1);
             task.setCompleted(true);

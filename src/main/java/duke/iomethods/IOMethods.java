@@ -1,5 +1,8 @@
+package duke.iomethods;
+
+import duke.exception.DukeException;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class IOMethods {
     public static ArrayList<String> splitToTwo(String line, String delimiter) {
