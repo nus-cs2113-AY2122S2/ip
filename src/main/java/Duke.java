@@ -23,17 +23,14 @@ public class Duke {
                 + "| |___ | |\\__/| |  /=\\ /=\\ /=\\ \n"
                 + "|_____||_|    |_|__[_]_[_]_[_]______________________________\n";
         String greetings = LINESEPARATOR
-                + "Hello! I'm EM\n"
-                + "What can I do for you?\n"
-                + LINESEPARATOR;
+                + "Hello! I'm EM\n" + "What can I do for you?\n" + LINESEPARATOR;
         System.out.println(logo + greetings);
     }
 
     /*Display goodbye message*/
     public static void displayFarewell() {
         String farewell = LINESEPARATOR
-                + "Bye. Hope to see you again soon!\n"
-                + LINESEPARATOR;
+                + "Bye. Hope to see you again soon!\n" + LINESEPARATOR;
         System.out.println(farewell);
     }
 
