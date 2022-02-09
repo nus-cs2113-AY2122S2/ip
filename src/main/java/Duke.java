@@ -1,3 +1,7 @@
+import duke.exception.DukeException;
+import duke.iomethods.IOMethods;
+import duke.task.TaskManager;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
