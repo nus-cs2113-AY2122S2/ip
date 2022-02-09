@@ -1,4 +1,7 @@
-import java.util.*;
+import DukeException.DukeEmptyException;
+import DukeException.DukeInvalidInputException;
+
+import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
@@ -14,16 +17,20 @@ public class Duke {
 
             if(reply.equalsIgnoreCase("LIST")){
                 taskManager.printTasks();
-                String choice = taskManager.taskChoice();
-                while(choice=="finishedLoop"){
-                    choice = taskManager.taskChoice();
-                }
-                reply = choice;
+                reply = input.nextLine();
                 continue;
             }
-
-            taskManager.addTask(reply);
-
+            //check if the reply is about mark/ unmark.
+            //If it is related to mark/unmark, relatedToMark will mark/unmark related task
+            if(!taskManager.relatedToMark(reply)) try {
+                taskManager.addTask(reply);
+            } catch(DukeInvalidInputException e){
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            } catch(DukeEmptyException e){ //The task has no description
+                System.out.println("OOPS!!! The description of a "+e.getMessage()+" cannot be empty.");
+            } catch(StringIndexOutOfBoundsException e){ //The task of DEADLINE/ EVENT has no time details
+                System.out.println("OOPS!!! The time detail of this task cannot be empty.");
+            }
             reply = input.nextLine();
         }
 

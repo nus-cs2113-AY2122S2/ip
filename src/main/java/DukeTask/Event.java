@@ -1,3 +1,5 @@
+package DukeTask;
+
 public class Event extends Task{
     private String at;
     public Event(String description, String at) {
