@@ -21,9 +21,9 @@ public class Solana {
     public static final int MAX_TASKS = 100;
 
     public static void printIntro() {
-        String logo = "   __|   _ \\  |       \\     \\ |    \\\n"
-                + " \\__ \\  (   | |      _ \\   .  |   _ \\\n"
-                + " ____/ \\___/ ____| _/  _\\ _|\\_| _/  _\\\n";
+        String logo = "  __|   _ \\  |       \\     \\ |    \\\n"
+                + "\\__ \\  (   | |      _ \\   .  |   _ \\\n"
+                + "____/ \\___/ ____| _/  _\\ _|\\_| _/  _\\\n";
 
         System.out.print(System.lineSeparator());
         System.out.println(CYAN_BOLD_BRIGHT + logo + RESET_COLOUR);
@@ -64,17 +64,31 @@ public class Solana {
         System.out.print(System.lineSeparator());
     }
 
-    public static void unmarkCommand(String parsedInput, Task[] tasks){
-        int taskIndex = Integer.parseInt(parsedInput);
-        tasks[taskIndex + CONVERT_TASK_TO_I].unmarkAsDone();
-        tasks[taskIndex + CONVERT_TASK_TO_I].printDescription();
+    public static void unmarkCommand(String parsedInput, Task[] tasks) {
+        try {
+            int taskIndex = Integer.parseInt(parsedInput);
+            tasks[taskIndex + CONVERT_TASK_TO_I].unmarkAsDone();
+            tasks[taskIndex + CONVERT_TASK_TO_I].printDescription();
+        } catch (NumberFormatException e) {
+            System.out.println("Input a task number!");
+        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+            System.out.println("No such task number!");
+        }
+
         System.out.print(System.lineSeparator());
     }
 
     public static void markCommand(String parsedInput, Task[] tasks) {
-        int taskIndex = Integer.parseInt(parsedInput);
-        tasks[taskIndex + CONVERT_TASK_TO_I].markAsDone();
-        tasks[taskIndex + CONVERT_TASK_TO_I].printDescription();
+        try {
+            int taskIndex = Integer.parseInt(parsedInput);
+            tasks[taskIndex + CONVERT_TASK_TO_I].markAsDone();
+            tasks[taskIndex + CONVERT_TASK_TO_I].printDescription();
+        } catch (NumberFormatException e) {
+            System.out.println("Input a task number!");
+        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+            System.out.println("No such task number!");
+        }
+
         System.out.print(System.lineSeparator());
     }
 
@@ -86,25 +100,56 @@ public class Solana {
     }
 
     public static void deadlineCommand(String parsedInput, Task[] tasks) {
-        String[] parsedInputAsArray = parsedInput.split(" /by ", SPLIT_LIMIT);
-        Deadline newDeadline = new Deadline(parsedInputAsArray[DEADLINE_INDEX], parsedInputAsArray[BY_INDEX]);
-        tasks[Task.getTaskNum() + CONVERT_TASK_TO_I] = newDeadline;
-
-        printAddedPrompt(newDeadline);
+        try {
+            String[] parsedInputAsArray = parsedInput.split(" /by ", SPLIT_LIMIT);
+            Deadline newDeadline = new Deadline(parsedInputAsArray[DEADLINE_INDEX], parsedInputAsArray[BY_INDEX]);
+            tasks[Task.getTaskNum() + CONVERT_TASK_TO_I] = newDeadline;
+            printAddedPrompt(newDeadline);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Include the date or time using the keyword \"/by\"!" + System.lineSeparator());
+        }
     }
 
     public static void eventCommand(String parsedInput, Task[] tasks) {
-        String[] parsedInputAsArray = parsedInput.split(" /at ", SPLIT_LIMIT);
-        Event newEvent = new Event(parsedInputAsArray[EVENT_INDEX], parsedInputAsArray[AT_INDEX]);
-        tasks[Task.getTaskNum() + CONVERT_TASK_TO_I] = newEvent;
+        try {
+            String[] parsedInputAsArray = parsedInput.split(" /at ", SPLIT_LIMIT);
+            Event newEvent = new Event(parsedInputAsArray[EVENT_INDEX], parsedInputAsArray[AT_INDEX]);
+            tasks[Task.getTaskNum() + CONVERT_TASK_TO_I] = newEvent;
+            printAddedPrompt(newEvent);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Include the date or time using keyword \"/at\"!" + System.lineSeparator());
+        }
+    }
 
-        printAddedPrompt(newEvent);
+    public static void checkDescription(String[] parsedInput) throws SolanaException {
+        if (parsedInput.length == 1) {
+            switch (parsedInput[COMMAND_INDEX]) {
+            case "bye":
+                //Fallthrough
+            case "list":
+                return;
+            case "todo":
+                throw new SolanaException("Description of todo cannot be empty!");
+            case "deadline":
+                throw new SolanaException("Description of deadline cannot be empty!");
+            case "event":
+                throw new SolanaException("Description of event cannot be empty!");
+            default:
+                throw new SolanaException("Invalid command!");
+            }
+        }
     }
 
     public static void executeCommand(String input, Task[] tasks) {
         String[] parsedInput = parseInput(input);
 
-        switch(parsedInput[COMMAND_INDEX]) {
+        try {
+            checkDescription(parsedInput);
+        } catch (SolanaException e){
+            return;
+        }
+
+        switch (parsedInput[COMMAND_INDEX]) {
         case "bye":
             System.out.println("Goodbye!");
             System.exit(0);
