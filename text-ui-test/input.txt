@@ -29,4 +29,6 @@ unmark 1
 unmark 50
 unmark -1
 unmark 1001
+event asd /at /at /at
+deadline asd /by /by /by
 bye
