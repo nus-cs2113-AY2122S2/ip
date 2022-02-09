@@ -20,12 +20,10 @@ public class Duke {
 
         System.out.println(GREET);
 
-        //String instruction;
         String[] instructions = new String[100];
 
         Task task = new Task("hello");
         Task[] tasks = new Task[100];
-
         task.number = 0;
 
         Deadline deadline = new Deadline("return book", "holi");
@@ -115,7 +113,6 @@ public class Duke {
                 event.getAt();
                 System.out.println(event);
                 System.out.println("Now you have " + task.number + " task(s) in the list.");
-
             }
         }
     }
