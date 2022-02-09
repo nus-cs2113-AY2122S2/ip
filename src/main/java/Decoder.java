@@ -1,5 +1,5 @@
 public class Decoder {
-    public static Command parseInput(String userInput) {
+    public static Command parseInput(String userInput) throws DukeException {
         Command newCommand;
         if (userInput.equals("bye")) {
             newCommand = new ExitProgramCommand();
@@ -9,8 +9,14 @@ public class Decoder {
             newCommand = new UpdateTaskStatusCommand(userInput, true);
         } else if (userInput.startsWith("unmark")) {
             newCommand = new UpdateTaskStatusCommand(userInput, false);
+        } else if (userInput.startsWith("deadline") || userInput.startsWith("event") || userInput.startsWith("todo")) {
+            try {
+                newCommand = new AddTaskCommand(userInput);
+            } catch (DukeException de) {
+                throw de;
+            }
         } else {
-            newCommand = new AddTaskCommand(userInput);
+            throw new DukeException(DukeExceptionCause.INVALIDCOMMAND);
         }
         return newCommand;
     }

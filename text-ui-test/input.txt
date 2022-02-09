@@ -1,17 +1,21 @@
 todo borrow book
 list
+nani
 deadline return book /by Sunday
 event project meeting /at Mon 2-4pm
 list
 mark 1
 list
+deadline
 mark 2
 list
 mark 3
 list
+todo
 unmark 1
 list
 unmark 2
+event
 list
 unmark 3
 list

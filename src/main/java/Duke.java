@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static void printHorizontalLine(){
+    public static void printHorizontalLine() {
         System.out.println("    ------------------------------------------------------------");
     }
 
@@ -13,13 +13,20 @@ public class Duke {
         while (!shouldExitProgram) {
             String userInput = in.nextLine();
             printHorizontalLine();
-            inputCommand = Decoder.parseInput(userInput);
-            if (inputCommand.getType() != Command.CommandType.EXITPROGRAM) {
-                bigBob.executeCommand(inputCommand);
-            } else {
+            try {
+                inputCommand = Decoder.parseInput(userInput);
+            } catch (DukeException de) {
+                bigBob.processExceptions(de);
+                printHorizontalLine();
+                continue;
+            }
+            if (inputCommand.getType() == Command.CommandType.EXITPROGRAM) {
                 shouldExitProgram = true;
                 bigBob.echoFarewellGreeting();
+                printHorizontalLine();
+                continue;
             }
+            bigBob.executeCommand(inputCommand);
             printHorizontalLine();
         }
     }

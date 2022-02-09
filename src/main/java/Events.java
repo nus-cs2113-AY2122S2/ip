@@ -8,7 +8,7 @@ public class Events extends Task {
     }
 
     public String printTaskDescription() {
-        return EVENTS_SYMBOL + super.printTaskDescription() + String.format("(at: %s)",getTime());
+        return EVENTS_SYMBOL + super.printTaskDescription() + String.format("(at: %s)", getTime());
     }
 
     public String setDone(boolean isDone) {
