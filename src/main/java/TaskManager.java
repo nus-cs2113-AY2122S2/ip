@@ -7,19 +7,40 @@ public class TaskManager {
     private int tasksCount = 0;
 
     public void addTask(String typeOfTask, String userInput) {
-        System.out.println(" Got it. I've added this task: ");
-        if (typeOfTask.equalsIgnoreCase(TODO_COMMAND)) {
-            tasks[tasksCount] = new ToDo(userInput.substring(userInput.indexOf(" ") + 1));
+
+        try {
+            String[] inputs = userInput.split(" ");
+            String task = inputs[1];
+
+            if (typeOfTask.equalsIgnoreCase(TODO_COMMAND)) {
+                tasks[tasksCount] = new ToDo(userInput.substring(userInput.indexOf(" ") + 1));
+                System.out.println(" Got it. I've added this task: ");
+                System.out.println(tasks[tasksCount]);
+                tasksCount++;
+                System.out.println(" Now you have " + tasksCount + " tasks in the list");
+            }
+            else if (typeOfTask.equalsIgnoreCase(DEADLINE_COMMAND)) {
+                tasks[tasksCount] = new Deadline(userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/by")), userInput.substring(userInput.indexOf("/by") + 4));
+                System.out.println(" Got it. I've added this task: ");
+                System.out.println(tasks[tasksCount]);
+                tasksCount++;
+                System.out.println(" Now you have " + tasksCount + " tasks in the list");
+            }
+            else if (typeOfTask.equalsIgnoreCase(EVENT_COMMAND)) {
+                tasks[tasksCount] = new Event(userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/at")), userInput.substring(userInput.indexOf("/at") + 4));
+                System.out.println(" Got it. I've added this task: ");
+                System.out.println(tasks[tasksCount]);
+                tasksCount++;
+                System.out.println(" Now you have " + tasksCount + " tasks in the list");
+            }
+            else {
+                System.out.println(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(" ☹ OOPS!!! The description of a task cannot be empty.");
         }
-        else if (typeOfTask.equalsIgnoreCase(DEADLINE_COMMAND)) {
-            tasks[tasksCount] = new Deadline(userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/by")), userInput.substring(userInput.indexOf("/by") + 4));
-        }
-        else if (typeOfTask.equalsIgnoreCase(EVENT_COMMAND)) {
-            tasks[tasksCount] = new Event(userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/at")), userInput.substring(userInput.indexOf("/at") + 4));
-        }
-        System.out.println(tasks[tasksCount]);
-        tasksCount++;
-        System.out.println(" Now you have " + tasksCount + " tasks in the list");
+
     }
 
     public void markAsDone(int taskIndex) {
