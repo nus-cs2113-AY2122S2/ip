@@ -48,15 +48,25 @@ public class TaskManager {
     }
 
     public void markCompleted (int taskNumber) {
-        Task task = tasks.get(taskNumber -1);
-        task.setCompleted(true);
-        IOMethods.printWithDivider(task.toString());
+        try {
+            Task task = tasks.get(taskNumber - 1);
+            task.setCompleted(true);
+            IOMethods.printWithDivider(task.toString());
+        }
+        catch (IndexOutOfBoundsException e) {
+            System.out.println ("Index out of bounds!");
+        }
     }
 
     public void unmarkCompleted (int taskNumber) {
-        Task task = tasks.get(taskNumber -1);
-        task.setCompleted(false);
-        IOMethods.printWithDivider(task.toString());
+        try {
+            Task task = tasks.get(taskNumber - 1);
+            task.setCompleted(false);
+            IOMethods.printWithDivider(task.toString());
+        }
+        catch (IndexOutOfBoundsException e) {
+            System.out.println ("Index out of bounds!");
+        }
     }
 
     @Override

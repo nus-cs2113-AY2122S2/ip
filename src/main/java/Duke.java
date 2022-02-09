@@ -18,10 +18,11 @@ public class Duke {
 
 
     //main
-    public static void run (String line) {
+    public static void run(String line) {
         ArrayList<String> words = IOMethods.splitToTwo(line, " ");
         String command = words.get(0);
         String description = words.size()>= 2 ? words.get(1) : null;
+
 
         switch(command) {
         case "mark":
@@ -43,15 +44,18 @@ public class Duke {
         }
     }
 
+
+
     public static void main(String[] args) {
 
         hello();
-
         Scanner sc = new Scanner (System.in);
         String line = sc.nextLine();
 
         while (!line.equals("bye")){
-            run(line);
+            if (IOMethods.errorHandler(line)) {
+                run(line);
+            }
             line = sc.nextLine();
         }
         IOMethods.printWithDivider("Bye. Hope to see you again soon!");
