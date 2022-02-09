@@ -78,7 +78,7 @@ public class Duke {
         try {
             addTask(request.trim());
         } catch (GeneralException e) {
-            System.out.print(boundary + "Hmm...I'm sorry but I cannot understand this..."
+            System.out.print(boundary + "Hmm...I'm sorry but I cannot understand this :("
                                      + System.lineSeparator() + boundary);
         } catch (TaskEmptyException e) {
             System.out.print(boundary + "Hmm...hi dear, remember to put in your task description~"
