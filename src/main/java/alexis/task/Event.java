@@ -1,3 +1,5 @@
+package alexis.task;
+
 public class Event extends Task {
 
     public Event(String description, String timing) {

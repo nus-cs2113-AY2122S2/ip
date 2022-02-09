@@ -1,4 +1,12 @@
+package alexis.main;
+
 import java.util.Scanner;
+import alexis.exceptions.EmptyListException;
+import alexis.exceptions.IllegalTodoException;
+import alexis.task.Task;
+import alexis.task.Deadline;
+import alexis.task.Event;
+import alexis.task.Todo;
 
 public class Main {
     //Constant(s) used in multiple classes

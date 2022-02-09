@@ -1,3 +1,7 @@
+package alexis.task;
+
+import alexis.main.Main;
+
 public class Task {
     protected String description;
     protected String timing;
