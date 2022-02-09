@@ -100,9 +100,9 @@ public class Duke {
     public static void parseInput(Task[] list, int listCounter, String userInput) throws DukeException {
         String[] parsedUserInputs = userInput.split(" ", 2);
         parsedUserInputs[0] = parsedUserInputs[0].toLowerCase();
-
         switch (parsedUserInputs[0]) {
         case TODO_MESSAGE:
+            parsedUserInputs[1] = parsedUserInputs[1].trim();
             if (parsedUserInputs[1].length() == 0) {
                 throw new IndexOutOfBoundsException();
             }
@@ -125,14 +125,12 @@ public class Duke {
         default:
             throw new DukeException();
         }
-
         printAddToList(list, listCounter);
     }
 
     private static void processInput(String userInput, Scanner in) {
         Task[] list = new Task[MAX_TASK];
         int listCounter = 0;
-
         while(!userInput.equalsIgnoreCase(EXIT_MESSAGE)){
             if (userInput.startsWith(PRINT_MESSAGE)) {
                 printList(list, listCounter);
@@ -152,7 +150,6 @@ public class Duke {
             }
             userInput = in.nextLine();
         }
-
         System.out.println("Bye. Hope to see you again soon!");
     }
 
