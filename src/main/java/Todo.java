@@ -20,4 +20,13 @@ public class Todo extends Task {
     public String toString() {
         return super.toString();
     }
+    public static String getToDoTask(String s) {
+        int spaceIndex = s.indexOf(" ");
+        String firstWord = s.substring(spaceIndex);
+        if (firstWord.equals("")){
+            throw new IndexOutOfBoundsException();
+        }
+        return firstWord.trim();
+    }
+
 }

@@ -47,6 +47,9 @@ public class Task {
         return "[" + this.type + "][" + this.getStatusIcon() + "] " + this.taskName;
     }
 
+    public String getTaskDescription(String input) {
+        return " ";
+    }
 
     public static void printList(Task[] list, int counter) {
         System.out.println("Here are the tasks in your list:");
@@ -64,4 +67,7 @@ public class Task {
     public static void printNumberOfTasksInList(int taskCounter) {
         System.out.println("Now you have " + taskCounter + " tasks in the list.");
     }
-}
+
+
+    }
+
