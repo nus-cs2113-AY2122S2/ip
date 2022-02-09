@@ -1,3 +1,9 @@
+package duke;
+
+import duke.command.*;
+import duke.exception.DukeException;
+import duke.exception.DukeExceptionCause;
+
 public class Decoder {
     public static Command parseInput(String userInput) throws DukeException {
         Command newCommand;

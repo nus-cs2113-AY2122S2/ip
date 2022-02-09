@@ -1,3 +1,12 @@
+package duke;
+
+import duke.command.AddTaskCommand;
+import duke.command.Command;
+import duke.command.UpdateTaskStatusCommand;
+import duke.exception.DukeException;
+import duke.exception.DukeExceptionCause;
+import duke.task.*;
+
 public class ChatBot {
     private final String BOT_NAME = "Big Bob";
     private final int MAXIMUM_NUMBER_OF_TASK = 100;
