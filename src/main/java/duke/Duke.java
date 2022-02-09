@@ -1,4 +1,6 @@
-// import libraries here
+package duke;// import libraries here
+import duke.Deadline;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Set;
@@ -38,9 +40,9 @@ public class Duke {
                 continue;
             }
             try {
-                checkCommand(line);
+                checkCommand(input);
             } catch (InvalidCommandException | EmptyDescriptionException e) {
-                line = in.nextLine();
+                input = in.nextLine();
                 continue;
             }
             // Command is valid, handle the command
@@ -162,7 +164,7 @@ public class Duke {
 
     private static void greeting() {
         System.out.println("    ____________________________________________________________");
-        System.out.println("     Hello! I'm Duke");
+        System.out.println("     Hello! I'm duke.Duke");
         System.out.println("     What can I do for you?");
         System.out.println("    ____________________________________________________________");
         System.out.println();

@@ -1,3 +1,5 @@
+package duke;
+
 public class EmptyDescriptionException extends RuntimeException{
     EmptyDescriptionException() {
         System.out.println("    ____________________________________________________________");
