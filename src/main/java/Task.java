@@ -23,7 +23,4 @@ public class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
-    public String getSymbol(){
-        return "";
-    }
 }
