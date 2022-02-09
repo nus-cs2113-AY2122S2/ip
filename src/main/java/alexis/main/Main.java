@@ -34,6 +34,10 @@ public class Main {
             + "cannot be empty.";
     public static final String EVENT_EXCEPTION_MESSAGE_TEXT_TWO = " Oops!! The description of an event "
             + "has to have the format:\n   (task description) /at (event time)";
+    public static final String MARK_EXCEPTION_TEXT_ONE = " Oops!! Please input a task number after 'mark'";
+    public static final String MARK_EXCEPTION_TEXT_TWO = " Oops!! Please input a valid task number to mark";
+    public static final String UNMARK_EXCEPTION_TEXT_ONE = " Oops!! Please input a task number after 'unmark'";
+    public static final String UNMARK_EXCEPTION_TEXT_TWO = " Oops!! Please input a valid task number to unmark";
 
     //Constants used in the Task class
     public static final String ADD_NEW_TASK_MESSAGE = "Got it! I've added this task:";
@@ -62,6 +66,14 @@ public class Main {
 
     private static void eventExceptionMessage(String eventExceptionText) {
         System.out.println(BORDER_LINE + "\n" + SAD_FACE + eventExceptionText + "\n" + BORDER_LINE);
+    }
+
+    private static void markExceptionMessage(String markExceptionText) {
+        System.out.println(BORDER_LINE + "\n" + SAD_FACE + markExceptionText + "\n" + BORDER_LINE);
+    }
+
+    private static void unmarkExceptionMessage(String unmarkExceptionText) {
+        System.out.println(BORDER_LINE + "\n" + SAD_FACE + unmarkExceptionText + "\n" + BORDER_LINE);
     }
 
     public static void checkListValidity(int numOfTasks) throws EmptyListException {
@@ -129,13 +141,25 @@ public class Main {
     }
 
     public static void mark(Task[] tasks, String[] arrOfInputStrings) {
-        int inputTaskNumber = Integer.parseInt(arrOfInputStrings[1]) - 1;
-        tasks[inputTaskNumber].markAsDone();
+        try {
+            int inputTaskNumber = Integer.parseInt(arrOfInputStrings[1]) - 1;
+            tasks[inputTaskNumber].markAsDone();
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            markExceptionMessage(MARK_EXCEPTION_TEXT_ONE);
+        } catch (NullPointerException e) {
+            markExceptionMessage(MARK_EXCEPTION_TEXT_TWO);
+        }
     }
 
     public static void unmark(Task[] tasks, String[] arrOfInputStrings) {
-        int inputTaskNumber = Integer.parseInt(arrOfInputStrings[1]) - 1;
-        tasks[inputTaskNumber].markAsUndone();
+        try {
+            int inputTaskNumber = Integer.parseInt(arrOfInputStrings[1]) - 1;
+            tasks[inputTaskNumber].markAsUndone();
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            unmarkExceptionMessage(UNMARK_EXCEPTION_TEXT_ONE);
+        } catch (NullPointerException e) {
+            unmarkExceptionMessage(UNMARK_EXCEPTION_TEXT_TWO);
+        }
     }
 
     public static void main(String[] args) {
