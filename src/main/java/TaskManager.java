@@ -8,18 +8,6 @@ public class TaskManager {
     private final char INDICATE_DEADLINE = '~';
     private final char INDICATE_EVENT = '@';
 
-    public boolean handleTaskCommand(String userInput) throws DukeWrongCommandException {
-        if ((userInput.contains("todo:"))) {
-            return addTodo(userInput);
-        } else if ((userInput.contains("deadline:"))) {
-            return addDeadline(userInput);
-        } else if ((userInput.contains("event:"))) {
-            return addEvent(userInput);
-        } else {
-            throw new DukeWrongCommandException();
-        }
-    }
-
     public void startUp() {
         String userInput = "";
         Scanner in = new Scanner(System.in);
@@ -37,21 +25,37 @@ public class TaskManager {
             } else if (userInput.contains("tick")) {
                 tickTaskCompleted(userInput, true);
             } else {
-                try {
-                    hasAddedTask = handleTaskCommand(userInput);
-                } catch (DukeWrongCommandException e) {
-                    System.out.println(BOT_NAME + "Not able to understand your wishes.");
-                }
+                hasAddedTask = isTaskAdded(userInput, hasAddedTask);
             }
-
             if (hasAddedTask) {
                 printNumberOfWish();
             }
         }
     }
 
+    public boolean handleTaskCommand(String userInput) throws DukeWrongCommandException {
+        if ((userInput.contains("todo:"))) {
+            return addTodo(userInput);
+        } else if ((userInput.contains("deadline:"))) {
+            return addDeadline(userInput);
+        } else if ((userInput.contains("event:"))) {
+            return addEvent(userInput);
+        } else {
+            throw new DukeWrongCommandException();
+        }
+    }
+
+    private boolean isTaskAdded(String userInput, boolean hasAddedTask) {
+        try {
+            hasAddedTask = handleTaskCommand(userInput);
+        } catch (DukeWrongCommandException error) {
+            printMessage("Please state a valid wish!!!");
+        }
+        return hasAddedTask;
+    }
+
     private void printExitMessage() {
-        System.out.println(BOT_NAME + "Bye! Hope to hear from you soon :)");
+        printMessage("Bye! Hope to hear from you soon :)");
     }
 
     private void printNumberOfWish() {
@@ -79,11 +83,16 @@ public class TaskManager {
         try {
             description = deriveDescription(userInput, "event:");
         } catch (DukeEmptyStringException e) {
-            System.out.println(BOT_NAME + "The description for event: cannot be empty");
+            printMessage("The description for event: cannot be empty");
             return false;
         }
         String at = deriveTimeDate(description, INDICATE_EVENT);
-        description = description.substring(0, description.indexOf("@"));
+        try {
+            description = description.substring(0, description.indexOf("@"));
+        } catch (StringIndexOutOfBoundsException e) {
+            printMessage("Incorrect event usage -> 'event: sing @ 3pm'");
+            return false;
+        }
         taskList[trackList] = new Event(description, at);
         trackList++;
         printNoted();
@@ -96,12 +105,17 @@ public class TaskManager {
         String description = "";
         try {
             description = deriveDescription(userInput, "deadline:");
-        } catch (DukeEmptyStringException e) {
-            System.out.println(BOT_NAME + "The description for deadline: cannot be empty");
+        } catch (DukeEmptyStringException error) {
+            printMessage("The description for deadline: cannot be empty");
             return false;
         }
         String by = deriveTimeDate(description, INDICATE_DEADLINE);
-        description = description.substring(0, description.indexOf("~"));
+        try {
+            description = description.substring(0, description.indexOf("~"));
+        } catch (StringIndexOutOfBoundsException error) {
+            printMessage("Incorrect deadline usage -> 'deadline: homework ~ 3pm'");
+            return false;
+        }
         taskList[trackList] = new Deadline(description, by);
         trackList++;
         printNoted();
@@ -114,21 +128,21 @@ public class TaskManager {
         String description = "";
         try {
             description = deriveDescription(userInput, "todo:");
-        } catch (DukeEmptyStringException e) {
-            System.out.println(BOT_NAME + "The description for todo: cannot be empty");
+        } catch (DukeEmptyStringException error) {
+            printMessage("The description for todo: cannot be empty");
             return false;
         }
         taskList[trackList] = new Todo(description);
         trackList++;
-        System.out.println(BOT_NAME + " noting down your wish -> " + taskList[trackList - 1]);
+        printMessage(" noting down your wish -> " + taskList[trackList - 1]);
         hasAddedTask = true;
         return hasAddedTask;
     }
 
-    private void tickTaskCompleted(String userInput, boolean b) {
+    private void tickTaskCompleted(String userInput, boolean isCompleted) {
         String choice = userInput.substring(userInput.indexOf(' ') + 1);
         int choiceNumber = Integer.parseInt(choice) - 1;
-        taskList[choiceNumber].setCompleted(b);
+        taskList[choiceNumber].setCompleted(isCompleted);
         System.out.println(taskList[choiceNumber]);
     }
 
@@ -137,14 +151,18 @@ public class TaskManager {
     }
 
     public void printNoted() {
-        System.out.println(BOT_NAME + " noting down your wish -> " + taskList[trackList - 1]);
+        printMessage("noting down your wish -> " + taskList[trackList - 1]);
     }
 
     public void printList() {
-        System.out.println(BOT_NAME + " ** These are your wishes **");
+        printMessage(" ** These are your wishes **");
         for (int i = 0; i < trackList; i++) {
             System.out.println((i + 1) + ". " + taskList[i]);
         }
         System.out.println("We reached the end of the list. Anymore wish?");
+    }
+
+    public void printMessage(String message) {
+        System.out.println(BOT_NAME + message);
     }
 }
