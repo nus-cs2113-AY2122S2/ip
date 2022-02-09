@@ -1,5 +1,3 @@
-package duke.entity;
-
 public class Deadline extends Task {
 
     protected String by;
