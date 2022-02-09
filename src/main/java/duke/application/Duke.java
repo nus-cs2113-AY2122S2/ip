@@ -4,10 +4,10 @@ import duke.entity.Deadline;
 import duke.entity.Event;
 import duke.entity.Todo;
 import duke.entity.Task;
-import duke.exception.IllegalCommandException;
 import duke.exception.IllegalTodoException;
 import duke.exception.IllegalEventException;
 import duke.exception.IllegalDeadlineException;
+import duke.exception.DukeException;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -72,7 +72,7 @@ public class Duke {
                 }
                 userInput = sc.nextLine();
                 checkUserInputValidity(userInput);
-            } catch (IllegalCommandException e) {
+            } catch (DukeException e) {
                 printIllegalCommandErrorMessage();
             }
         }
@@ -85,7 +85,7 @@ public class Duke {
                 + " unmark or equals list or bye");
     }
 
-    private static void checkUserInputValidity(String userInput) throws IllegalCommandException {
+    private static void checkUserInputValidity(String userInput) throws DukeException {
         //checking validity of commands which uses "start with"
         List<String> validCommandsForStartsWith = Arrays.asList("todo", "event","deadline","mark","unmark");
         boolean isStartWithCommandValid = validCommandsForStartsWith.stream().anyMatch(userInput::startsWith);
@@ -94,7 +94,7 @@ public class Duke {
         boolean isEqualsToCommandValid = validCommandsForEquals.stream().anyMatch(userInput::equals);
         //if either 1 is true -> dont throw exception, else throw an exception
         if (!(isStartWithCommandValid ^ isEqualsToCommandValid)) {
-            throw new IllegalCommandException();
+            throw new DukeException();
         }
     }
 
