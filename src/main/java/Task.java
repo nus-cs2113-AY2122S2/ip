@@ -21,7 +21,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "☑" : "☐"); // mark done task with tick
+        return (isDone ? "[X]" : "[ ]"); // mark done task with tick
     }
 
     public static String addIndentation() {

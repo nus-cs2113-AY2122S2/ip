@@ -31,28 +31,9 @@ public class Duke {
     public static final String FLAG_EVENT = " /at ";
 
     //Misc text
-    protected static final String BANNER = "─────────▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄─────────\n" +
-            "───────▄▀▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▀▄───────\n" +
-            "──────▐▒▒▒███▒▒▒▒▒▒▒▒███▒▒▒▌──────\n" +
-            "▄▄────▐▒▒▒███▒▒▒▒▒▒▒▒███▒▒▒▌────▄▄\n" +
-            "▌▒▀▄──▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▌──▄▀▒▐\n" +
-            "▌▒▒▒▀▄█▒▒▒▄▀▄▄▀▀▄▄▀▀▄▄▀▄▒▒▒█▄▀▒▒▒▐\n" +
-            "▀▄▒▒▒▒▐▒▒▐▓▓▓▓▓▓▓▓▓▓▓▓▓▓▌▒▒▌▒▒▒▒▄▀\n" +
-            "──▀▄▒▒▐▒▒▐▓▓▓▓▓▓▓▓▓▓▓▓▓▓▌▒▒▌▒▒▄▀──\n" +
-            "────▀▄▐▒▒▐▓▓▓▓▓▓▓▓▓▓▓▓▓▓▌▒▒▌▄▀────\n" +
-            "──────█▒▒▐▄▀▄▀▀▄▄▀▀▄▄▀▀▄▌▒▒█──────\n" +
-            "──────▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▌──────\n" +
-            "──────▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▌──────\n" +
-            "──────▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▌──────\n" +
-            "──────▐▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▌──────\n" +
-            "──────▐▒▒▓▓▓▓▒▒▒▒▒▒▒▒▓▓▓▓▒▒▌──────\n" +
-            "──────▐▒▒▒▒▒▒▓▓▄▀▀▄▓▓▒▒▒▒▒▒▌──────\n" +
-            "──────▐▒▒▒▒▒▒▒▒▌──▐▒▒▒▒▒▒▒▒▌──────\n" +
-            "──────▐▒▒▒▒▒▒▒▒▌──▐▒▒▒▒▒▒▒▒▌──────\n" +
-            "──────▐▒▒▒▒▒▒▒▒▌──▐▒▒▒▒▒▒▒▒▌──────\n" +
-            "───────▀▀▀▀▀▀▀▀────▀▀▀▀▀▀▀▀───────";
     public static final String SEPARATOR = "───────────────────────────────────";
 
+    protected static final Scanner scan = new Scanner(System.in);
     protected static Task[] tasks = new Task[100];
     protected static int numTasks = 0;
 
@@ -70,7 +51,6 @@ public class Duke {
     public static void exit() {
         printLine();
         System.out.println(MESSAGE_BYE);
-        printDomo();
     }
 
     public static void acceptCommand() {
@@ -224,16 +204,11 @@ public class Duke {
 
     public static String getInput() {
         System.out.println(MESSAGE_INSTRUCTION);
-        Scanner scan = new Scanner(System.in);
         return scan.nextLine();
     }
 
     public static boolean isBye(String command) {
         return command.equals(COMMAND_BYE);
-    }
-
-    public static void printDomo() {
-        System.out.println(BANNER);
     }
 
     public static void printLine() {
