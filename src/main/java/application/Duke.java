@@ -1,5 +1,4 @@
-package duke.application;
-
+package application;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -80,7 +79,7 @@ public class Duke {
                 + "|____/ \\,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         System.out.println("=============================");
-        System.out.println("Ayo my name's duke.application.application.Duke!");
+        System.out.println("Ayo my name's duke.application.application.application.Duke!");
         System.out.println("What's up?");
         System.out.println("=============================");
     }
