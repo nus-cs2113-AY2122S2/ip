@@ -1,121 +1,67 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
+    public static List<Task> listArray = new ArrayList<>();
+    public static int itemNumber;
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String DISPLAY_LINE= "________________________________________________\n";
 
-    public static void greetings() {
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
-    }
-
-    public static void addList (Task[] array, String message, int itemNumber) {
-        Task taskItem = new Task(message);
-        array[itemNumber] = taskItem;
-        System.out.println("added: " + taskItem.description);
-    }
-
-    public static void addTodo (Task[] array, String message, int itemNumber) {
-        String[] splitMessage = message.split(" ", 2);
-        String getDescription = splitMessage[1];
-        Task taskItem = new Todo(getDescription);
-        array[itemNumber] = taskItem;
-        System.out.println("Got it. I've added this task:");
-        System.out.println(taskItem);
-        System.out.println("Now you have " + (itemNumber + 1) + " tasks in the list.");
-    }
-    public static String[] splitLongMessage (String message, String regex) {
-        String[] splitMessage = message.split(" ", 2);
-        String getSecondPart = splitMessage[1];
-        return getSecondPart.split(regex, 2);
-    }
-    public static void addDeadline(Task[]array, String message, int itemNumber) {
-        String[] splitSecondPart = splitLongMessage(message, " /by ");
-        String getDescription = splitSecondPart[0];
-        String getDate = splitSecondPart[1];
-        Task taskItem = new Deadline(getDescription, getDate);
-        array[itemNumber] = taskItem;
-        System.out.println("Got it. I've added this task:");
-        System.out.println(taskItem);
-        System.out.println("Now you have " + (itemNumber + 1) + " tasks in the list.");
-    }
-
-    public static void addEvent(Task[]array, String message, int itemNumber) {
-        String[] splitSecondPart = splitLongMessage(message, " /at ");
-        String getDescription = splitSecondPart[0];
-        String getDate = splitSecondPart[1];
-        Task taskItem = new Event(getDescription, getDate);
-        array[itemNumber] = taskItem;
-        System.out.println("Got it. I've added this task:");
-        System.out.println(taskItem);
-        System.out.println("Now you have " + (itemNumber + 1) + " tasks in the list.");
-    }
-
-    public static void listItems (Task[] array, int itemNumber) {
-        System.out.println("Here are the tasks in your list: ");
-        for(int i = 0; i < itemNumber; i++) {
-            System.out.print(i + 1 + ". ");
-            System.out.println(array[i]);
-        }
-    }
-
-    public static void markItem (Task[] array, String message, int itemNumber) {
-        String[] splitMessage = message.split(" ");
-        String getNumber = splitMessage[1];
-        int positionToMark = Integer.parseInt(getNumber) - 1;
-        array[positionToMark].markAsDone();
-        System.out.println("Nice! I've marked this as done:");
-        System.out.println("[" + array[positionToMark].getStatusIcon() + "] " + array[positionToMark].description);
-    }
-
-    public static void unMarkItem(Task[] array, String message, int itemNumber) {
-        String[] splitMessage = message.split(" ");
-        String getNumber = splitMessage[1];
-        int positionToUnMark = Integer.parseInt(getNumber) - 1;
-        array[positionToUnMark].unMark();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("[" + array[positionToUnMark].getStatusIcon() + "] " + array[positionToUnMark].description);
-    }
-
-    public static void exits() {
-        System.out.println("Bye. Hope to see you again soon!");
-    }
-
-    public static void main(String[] args) {
-        int itemNumber = 0;
-        Task[] listArray = new Task[100];
+    public static void greet() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println(logo);
-        greetings();
+        System.out.println(DISPLAY_LINE + ANSI_BLUE + logo);
+        System.out.println("Hello! Duke here!:)");
+        System.out.print("Is there anything I can do for you?\n" + ANSI_RESET + DISPLAY_LINE);
+    }
+
+    public static void exit() {
+        System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    public static void listItems (List<Task> array, int itemNumber) {
+        System.out.println(DISPLAY_LINE + "Here are the tasks in your list: ");
+        for(int i = 0; i < itemNumber; i++) {
+            System.out.print(i + 1 + ". ");
+            System.out.println(array.get(i));
+        }
+        System.out.print(DISPLAY_LINE);
+    }
+
+
+    public static void main(String[] args) {
+        itemNumber = 0;
+        greet();
+        Scanner in = new Scanner(System.in);
         boolean isLoop = true;
         while (isLoop) {
-            Scanner in = new Scanner(System.in);
             String message = in.nextLine();
             String messageLowerCase = message.toLowerCase();
             if (messageLowerCase.equals("bye")) {
-                exits();
+                exit();
                 isLoop = false;
             } else if (messageLowerCase.equals("list")) {
                 listItems(listArray, itemNumber);
             } else if (messageLowerCase.contains("unmark")) {
-                unMarkItem(listArray,message,itemNumber);
+                MarkUnmarkItem.unMarkItem(listArray,message);
             } else if (messageLowerCase.contains("mark")) {
-                markItem(listArray,message,itemNumber);
+                MarkUnmarkItem.markItem(listArray,message);
             } else if (messageLowerCase.contains("todo")) {
-                addTodo(listArray,message,itemNumber);
+                AddTask.addTodo(listArray,message,itemNumber);
                 itemNumber++;
-            }else if (messageLowerCase.contains("deadline")) {
-                addDeadline(listArray,message,itemNumber);
+            } else if (messageLowerCase.contains("deadline")) {
+                AddTask.addDeadline(listArray,message,itemNumber);
                 itemNumber++;
             } else if (messageLowerCase.contains("event")) {
-                addEvent(listArray,message,itemNumber);
+                AddTask.addEvent(listArray,message,itemNumber);
                 itemNumber++;
             } else {
-                addList(listArray, message, itemNumber);
-                itemNumber++;
+                System.out.println("Invalid command! Please try again:)");
             }
         }
     }
