@@ -1,4 +1,14 @@
+package duke;
+
 import java.util.Scanner;
+import duke.task.Task;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
+import duke.exceptions.GeneralException;
+import duke.exceptions.TaskEmptyException;
+import duke.exceptions.EventFormatException;
+import duke.exceptions.DeadlineFormatException;
 
 public class Duke {
     public static String boundary = "____________________________________________________________" + System.lineSeparator();
@@ -39,12 +49,16 @@ public class Duke {
         if (request.toLowerCase().startsWith("deadline")) {
             if ((!request.contains("/by"))) {
                 throw new DeadlineFormatException();
+            } else if (request.substring(9, (request.indexOf("/by"))).trim().equals("")) {
+                throw new TaskEmptyException();
             }
             int byPosition = request.indexOf("/");
             taskList[countTask] = new Deadline(request.substring(9, byPosition - 1), request.substring(byPosition + 4));
         } else if (request.toLowerCase().startsWith("event")) {
             if (!request.contains("/at")) {
                 throw new EventFormatException();
+            } else if (request.substring(6, (request.indexOf("/at"))).trim().equals("")) {
+                throw new TaskEmptyException();
             }
             int atPosition = request.indexOf("/");
             taskList[countTask] = new Event(request.substring(6, atPosition - 1), request.substring(atPosition + 4));
