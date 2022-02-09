@@ -94,7 +94,9 @@ public class TaskManager {
     }
 
     /*
-
+    relatedToMark is a public method which checks if the user input is related to "mark" or "unmark" action.
+    If yes, it will call changeTaskStatus to do the corresponding task and return true. Otherwise, it returns false.
+    It is able to handle DukeInvalidException and NumberFormatException from changeTaskStatus method.
      */
     public boolean relatedToMark(String reply){
         String[] words = reply.split(" ");
