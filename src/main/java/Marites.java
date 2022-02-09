@@ -1,3 +1,4 @@
+import java.text.NumberFormat;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -12,7 +13,7 @@ public class Marites {
             "Hi, I'm Marites! I've heard so many things about you!\n" +
             "I have a lot of stories to share, but first, how can I help you?\n";
     private static final String EXIT_MESSAGE = "See you next time!";
-    private static final String UNKNOWN_COMMAND_MESSAGE = "I didn't understand that.";
+    private static final String UNKNOWN_COMMAND_MESSAGE = "I didn't understand that.\n";
 
     private static final String COMMAND_EXIT = "bye";
     private static final String COMMAND_LIST = "list";
@@ -24,12 +25,18 @@ public class Marites {
     private static final String COMMAND_ADD_DEADLINE_TAG = "--by";
     private static final String COMMAND_ADD_EVENT_TAG = "--at";
 
-    private static final String LIST_TASK_ITEM_FORMAT_STRING = "%d. %s%n";
+    private static final String LIST_TASK_ITEM_FORMAT_STRING = "%d. %s\n";
     private static final String ADD_TASK_FORMAT_STRING =
-        "Alright, task added:%n  %s%nYour list currently has %d tasks.%n";
+           "Alright, task added:%n  %s%nYour list currently has %d tasks.\n";
+    private static final String ADD_TASK_MISSING_PARAMETER_MESSAGE =
+           "You're missing a parameter: %s\n";
+    private static final String ADD_TASK_MISSING_DESCRIPTION_MESSAGE =
+            "Please add a description to your task.\n";
     private static final String MARK_DONE_MESSAGE = "Good job on getting this done!";
     private static final String MARK_UNDONE_MESSAGE = "Okay, I've marked this as not yet done:";
-    private static final String SET_TASK_STATUS_FORMAT_STRING = "%s%n    %s%n";
+    private static final String MARK_INVALID_NUMBER_MESSAGE =
+            "I either didn't get a task number, or couldn't understand it: '%s'\n";
+    private static final String SET_TASK_STATUS_FORMAT_STRING = "%s%n    %s\n";
 
     private static final Scanner SCANNER = new Scanner(System.in);
 
@@ -90,8 +97,8 @@ public class Marites {
      */
     private static String[] splitCommandTypeAndCommand(String userInput) {
         String[] inputSplit = userInput.split("\\s", 2);
-        return new String[]{inputSplit[0],
-                (inputSplit.length > 1 ? inputSplit[1] : "")};
+        return new String[]{inputSplit[0].strip(),
+                (inputSplit.length > 1 ? inputSplit[1] : "").strip()};
     }
 
     /**
@@ -153,22 +160,31 @@ public class Marites {
      * @param command The user's command.
      * @return A Task object representing the task.
      */
-    private static Task parseAddTask(String taskType, String command) {
+    private static Task parseAddTask(String taskType, String command)
+        throws EmptyTaskDescriptionException, MissingParameterException {
         String[] parametersSplit;
+        if (command.length() == 0) {
+            throw new EmptyTaskDescriptionException();
+        }
         switch (taskType) {
         case COMMAND_ADD_TODO:
-            return new Todo(command.strip());
+            return new Todo(command);
         case COMMAND_ADD_DEADLINE:
             parametersSplit = command.split(COMMAND_ADD_DEADLINE_TAG);
+            if (parametersSplit.length == 1) {
+                throw new MissingParameterException(COMMAND_ADD_DEADLINE_TAG);
+            }
             return new Deadline(parametersSplit[0].strip(), parametersSplit[1].strip());
         case COMMAND_ADD_EVENT:
             parametersSplit = command.split(COMMAND_ADD_EVENT_TAG);
+            if (parametersSplit.length == 1) {
+                throw new MissingParameterException(COMMAND_ADD_EVENT_TAG);
+            }
             return new Event(parametersSplit[0].strip(), parametersSplit[1].strip());
         default:
             return new Task("");
         }
     }
-
     /**
      * Executes an add task command.
      * @param taskType The task's type.
@@ -176,7 +192,14 @@ public class Marites {
      * @return A feedback string with the added task.
      */
     private static String executeAddTask(String taskType, String command) {
-        Task task = parseAddTask(taskType, command);
+        Task task;
+        try {
+            task = parseAddTask(taskType, command);
+        } catch (MissingParameterException e) {
+            return String.format(ADD_TASK_MISSING_PARAMETER_MESSAGE, e.getMissingParameterTag());
+        } catch (EmptyTaskDescriptionException e) {
+            return ADD_TASK_MISSING_DESCRIPTION_MESSAGE;
+        }
         tasks.add(task);
         return String.format(ADD_TASK_FORMAT_STRING, task, tasks.size());
     }
@@ -189,7 +212,12 @@ public class Marites {
      * @return A feedback string with the tasks' new status.
      */
     private static String executeSetTaskStatus(String command, boolean isDone) {
-        int taskIndex = parseInt(command);
+        int taskIndex;
+        try {
+            taskIndex = parseInt(command);
+        } catch (NumberFormatException e) {
+            return String.format(MARK_INVALID_NUMBER_MESSAGE, command);
+        }
         Task taskToMark = tasks.get(taskIndex - 1);
         taskToMark.setDone(isDone);
         String message = (isDone ? MARK_DONE_MESSAGE :
