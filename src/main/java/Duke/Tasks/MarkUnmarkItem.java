@@ -1,3 +1,8 @@
+package Duke.Tasks;
+
+import Duke.Duke;
+import Duke.Tasks.Task;
+
 import java.util.List;
 
 public class MarkUnmarkItem {
