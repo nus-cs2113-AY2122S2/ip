@@ -1,6 +1,6 @@
 -------------------------------------------------------------
 Hello! I'm Alexis, your trusty helper!
-What can I do for you?
+What can I do for you? ?
 
 Hint: You may use these commands to navigate around:
 [list] [todo] [deadline] [event] [mark] [unmark] [bye]
@@ -37,6 +37,35 @@ Great! I've marked this task as done:
 -------------------------------------------------------------
 Ok. I've marked this task as not done yet:
   [D][ ] complete CS2113T quiz (by: Thursday 9am)
+-------------------------------------------------------------
+-------------------------------------------------------------
+Here are the tasks in your list:
+1.[T][X] walk the dog
+2.[D][ ] complete CS2113T quiz (by: Thursday 9am)
+3.[E][ ] attend internship briefing (at: Friday 12pm)
+-------------------------------------------------------------
+-------------------------------------------------------------
+? Oops!! The description of a todo cannot be empty.
+-------------------------------------------------------------
+-------------------------------------------------------------
+? Oops!! The description of a todo cannot be empty.
+-------------------------------------------------------------
+-------------------------------------------------------------
+? Oops!! The description of a deadline cannot be empty.
+-------------------------------------------------------------
+-------------------------------------------------------------
+? Oops!! The description of a deadline has to have the format:
+   (task description) /by (deadline time)
+-------------------------------------------------------------
+-------------------------------------------------------------
+? Oops!! The description of an event cannot be empty.
+-------------------------------------------------------------
+-------------------------------------------------------------
+? Oops!! The description of an event has to have the format:
+   (task description) /at (event time)
+-------------------------------------------------------------
+-------------------------------------------------------------
+? Oops!! I'm sorry, but I don't know what that means :-(
 -------------------------------------------------------------
 -------------------------------------------------------------
 Here are the tasks in your list:
