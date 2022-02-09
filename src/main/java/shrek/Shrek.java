@@ -6,7 +6,6 @@ import shrek.task.Events;
 import shrek.task.ToDo;
 import shrek.constant.PrintStrings;
 import shrek.exception.InvalidCommandException;
-
 import java.util.Scanner;
 
 public class Shrek {
