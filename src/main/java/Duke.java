@@ -5,22 +5,7 @@ public class Duke {
     public static Task[] taskList = new Task[100];
     public static int taskCounter = 0;
 
-    public static void printList(Task[] list, int counter) {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < counter; i++) {
-            System.out.print(i + 1 + ".");
-            printTask(list[i]);
-        }
-        printNumberOfTasksInList(counter);
-    }
 
-    public static void printTask(Task t) {
-        System.out.println(t.toString());
-    }
-
-    public static void printNumberOfTasksInList(int taskCounter) {
-        System.out.println("Now you have " + taskCounter + " tasks in the list.");
-    }
 
     public static String getFirstWordOfCommand(String s) {
         int spaceIndex = s.indexOf(" ");
@@ -28,15 +13,16 @@ public class Duke {
             return s;
         }
         String firstWord = s.substring(0, spaceIndex);
-        //System.out.println("First Word: " + firstWord);
         return firstWord;
     }
 
-    public static String getToDoTask(String s) {
-        int spaceIndex = s.indexOf(" ");
-        String firstWord = s.substring(spaceIndex);
-        //System.out.println("ToDo Task is: " + firstWord);
-        return firstWord.trim();
+    public static void addDeadlineTask(String input){
+        Deadline d = new Deadline(Deadline.getDeadlineTask(input),Deadline.getDeadlineDate(input));
+        taskList[taskCounter] = d;
+        taskCounter++;
+        System.out.println("Got it. I've added this task:");
+        Task.printTask(d);
+        Task.printNumberOfTasksInList(taskCounter);
     }
 
     public static int getTaskNumberArgument(String input) {
@@ -46,63 +32,32 @@ public class Duke {
         return Integer.parseInt(taskNum.trim());
     }
 
-    public static String getDeadlineDate(String input) {
-        int byIndex = input.indexOf("/by");
-        int deadlineIndex = input.indexOf(" ",byIndex);
-        String deadlineDate = input.substring(deadlineIndex + 1);
-        System.out.println(deadlineDate);
-        return deadlineDate.trim();
-    }
 
-    public static String getDeadlineTask(String input) {
-        //first space
-        int firstSpaceIndex = input.indexOf(" ");
-        int byIndex = input.indexOf("/by");
-        String deadlineTask = input.substring(firstSpaceIndex+1,byIndex-1);
-        System.out.println(deadlineTask);
-        return deadlineTask.trim();
-    }
+
+
     public static void addToDoTask(String input){
-        String taskDescription = getToDoTask(input);
-        Todo t = new Todo(taskDescription);
-        taskList[taskCounter] = t;
-        taskCounter++;
-        System.out.println("Got it. I've added this task:");
-        printTask(t);
-        printNumberOfTasksInList(taskCounter);
-    }
-    public static void addDeadlineTask(String input){
-        Deadline d = new Deadline(getDeadlineTask(input),getDeadlineDate(input));
-        taskList[taskCounter] = d;
-        taskCounter++;
-        System.out.println("Got it. I've added this task:");
-        printTask(d);
-        printNumberOfTasksInList(taskCounter);
+        try{
+            String taskDescription = Todo.getToDoTask(input);
+            Todo t = new Todo(taskDescription);
+            taskList[taskCounter] = t;
+            taskCounter++;
+            System.out.println("Got it. I've added this task:");
+            Task.printTask(t);
+            Task.printNumberOfTasksInList(taskCounter);
+        } catch (IndexOutOfBoundsException iobe){
+            System.out.println(Errors.INVALID_TASK_NAME_ERROR);
+        }catch (NumberFormatException NFE) {
+            System.out.println(Errors.INVALID_TASK_NAME_ERROR);
+        }
     }
 
-    public static String getEventTask(String input) {
-        //first space
-        int firstSpaceIndex = input.indexOf(" ");
-        int byIndex = input.indexOf("/at");
-        String deadlineTask = input.substring(firstSpaceIndex+1,byIndex-1);
-        //System.out.println(deadlineTask);
-        return deadlineTask;
-    }
-
-    public static String getEventDateTime(String input) {
-        int atIndex = input.indexOf("/at");
-        int eventDateTimeIndex = input.indexOf(" ",atIndex);
-        String eventDateTime = input.substring(eventDateTimeIndex + 1);
-        //System.out.println(eventDateTime);
-        return eventDateTime;
-    }
     public static void addEventTask(String input){
-        Event e = new Event(getEventTask(input),getEventDateTime(input));
+        Event e = new Event(Event.getEventTask(input),Event.getEventDateTime(input));
         taskList[taskCounter] = e;
         taskCounter++;
         System.out.println("Got it. I've added this task:");
-        printTask(e);
-        printNumberOfTasksInList(taskCounter);
+        Task.printTask(e);
+        Task.printNumberOfTasksInList(taskCounter);
 
     }
     public static void markTaskAsComplete(String input){
@@ -110,16 +65,14 @@ public class Duke {
         //System.out.println(taskNum);
         taskList[taskNum - 1].setDone(true);
         //System.out.println(taskList[taskNum-1].isDone());
-        printTask(taskList[taskNum - 1]);
+        Task.printTask(taskList[taskNum - 1]);
         System.out.println("Nice! I've marked this task as done:\n");
     }
 
     public static void unmarkTaskAsIncomplete(String input){
         int taskNum = getTaskNumberArgument(input);
-        //System.out.println(taskNum);
         taskList[taskNum - 1].setDone(false);
-        //System.out.println(taskList[taskNum-1].isDone());
-        printTask(taskList[taskNum - 1]);
+        Task.printTask(taskList[taskNum - 1]);
         System.out.println("Ok I have marked this task as incomplete:\n");
 
     }
@@ -138,7 +91,7 @@ public class Duke {
             String command = getFirstWordOfCommand(input);
             switch (command) {
             case "list":
-                printList(taskList, taskCounter);
+                Task.printList(taskList, taskCounter);
                 break;
             case "mark":
                 markTaskAsComplete(input);
@@ -154,6 +107,9 @@ public class Duke {
                 break;
             case "event":
                 addEventTask(input);
+                break;
+            default:
+                System.out.println(Errors. INPUT_ERROR);
                 break;
             }
             input = sc.nextLine();

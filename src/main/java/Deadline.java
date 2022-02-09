@@ -22,4 +22,22 @@ public class Deadline extends Task {
 
         return super.toString() + " (by: " + by + ")";
     }
+
+
+    public static String getDeadlineTask(String input) {
+        //first space
+        int firstSpaceIndex = input.indexOf(" ");
+        int byIndex = input.indexOf("/by");
+        String deadlineTask = input.substring(firstSpaceIndex+1,byIndex-1);
+
+        return deadlineTask.trim();
+    }
+
+    public static String getDeadlineDate(String input) {
+        int byIndex = input.indexOf("/by");
+        int deadlineIndex = input.indexOf(" ",byIndex);
+        String deadlineDate = input.substring(deadlineIndex + 1);
+        System.out.println(deadlineDate);
+        return deadlineDate.trim();
+    }
 }
