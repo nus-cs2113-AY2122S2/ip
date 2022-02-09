@@ -51,8 +51,8 @@ public class Duke {
     }
 
     public static void addTask(String userInput, Task[] taskList) {
-        String[] taskDesc = userInput.split(" ", 2);
-        Task newTask = new ToDo(taskDesc[1]);
+        String[] taskDescription = userInput.split(" ", 2);
+        Task newTask = new ToDo(taskDescription[1]);
         taskList[Task.getTaskCount() - 1] = newTask;
         System.out.println(LINESEPARATOR + "Got it. I've added this task:");
         System.out.println(taskList[Task.getTaskCount() - 1].toString());
@@ -63,15 +63,14 @@ public class Duke {
         String[] arrayOfUserInput = userInput.split(" ", 2);
         arrayOfUserInput = userInput.split("/", 2);
         String taskLongDesc = arrayOfUserInput[0];
-        String[] taskDesc = taskLongDesc.split(" ", 2);
+        String[] taskDescription = taskLongDesc.split(" ",2);
         String timeWithTaskType = arrayOfUserInput[1];
         String[] timing = timeWithTaskType.split(" ", 2);
-
         Task newTask;
         if (timing[0].equals("by")) {
-            newTask = new Deadline(taskDesc[1], timing[1]);
-        } else {
-            newTask = new Event(taskDesc[1], timing[1]);
+            newTask = new Deadline(taskDescription[1], timing[1]);
+        } else{
+            newTask = new Event(taskDescription[1], timing[1]);
         }
         taskList[Task.getTaskCount() - 1] = newTask;
         System.out.println(LINESEPARATOR + "Got it. I've added this task:");
