@@ -17,6 +17,7 @@ public class Duke {
         String TODO = "todo";
         String DEADLINE = "deadline";
         String EVENT = "event";
+        String BLANK = "";
 
         System.out.println(GREET);
 
@@ -55,67 +56,95 @@ public class Duke {
 
             String instructionNum;
 
-            if (isBye) {
+            try {
 
-                System.out.println(EXIT);
-                break;
+                if (isBye) {
 
-            } else if (isList) {
+                    System.out.println(EXIT);
+                    break;
 
-                System.out.println("Here are the tasks in your list:");
-                for(int j = 1; j <= task.number; j++){
-                    System.out.print(j + ". ");
-                    System.out.println(instructions[j - 1]);
+                } else if (isList) {
+
+                    System.out.println("Here are the task(s) in your list:");
+                    for (int j = 1; j <= task.number; j++) {
+                        System.out.print(j + ". ");
+                        System.out.println(instructions[j - 1]);
+                    }
+
+                } else if (isMark) {
+
+                    if (arrOfStr.length == 1){
+                        throw new DukeException("Error: You have not entered the task number!");
+                    }
+
+                    System.out.println("Nice! I've marked this task as done:");
+                    instructionNum = arrOfStr[1];
+                    t.setStatusIcon(true);
+                    String prefix = "  \\[T]\\[ ]";
+                    instructions[Integer.parseInt(instructionNum) - 1] = instructions[Integer.parseInt(instructionNum) - 1].replaceAll(prefix, "  [T][X]");
+                    System.out.println(instructions[Integer.parseInt(instructionNum) - 1]);
+
+                } else if (isTodo) {
+
+                    if (arrOfStr.length == 1){
+                        throw new DukeException("☹ OOPS!!! You have not entered your task!");
+                    }
+
+                    updatedInstructionLine = "  [T][ ]" + instructionLine;
+                    tasks[task.number] = new Task(updatedInstructionLine);
+                    instructions[task.number] = updatedInstructionLine;
+                    task.number++;
+
+                    System.out.println("Got it. I've added this task: ");
+                    System.out.println(updatedInstructionLine);
+                    System.out.println("Now you have " + task.number + " task(s) in the list.");
+
+                } else if (isDeadline) {
+
+                    if (arrOfStr.length == 1){
+                        throw new DukeException("☹ OOPS!!! You have not entered your task!");
+                    }
+                    if (arrOfDeadline.length == 1){
+                        throw new DukeException("Hey! You have not entered the due date! hint: use '/by'");
+                    }
+                    deadline.instruction = arrOfDeadline[0];
+                    deadline.setBy(arrOfDeadline[1]);
+                    updatedInstructionLine = deadline.toString();
+                    tasks[task.number] = new Task(updatedInstructionLine);
+                    instructions[task.number] = updatedInstructionLine;
+                    task.number++;
+
+                    System.out.println("Got it. I've added this task: ");
+                    deadline.getBy();
+                    System.out.println(deadline);
+                    System.out.println("Now you have " + task.number + " task(s) in the list.");
+
+                } else if (isEvent) {
+
+                    if (arrOfStr.length == 1){
+                        throw new DukeException("☹ OOPS!!! You have not entered your event!");
+                    }
+                    if (arrOfEvent.length == 1){
+                        throw new DukeException("Hey! You have not entered the event date! hint: use '/at'");
+                    }
+
+                    event.instruction = arrOfEvent[0];
+                    event.setAt(arrOfEvent[1]);
+                    updatedInstructionLine = event.toString();
+                    tasks[task.number] = new Task(updatedInstructionLine);
+                    instructions[task.number] = updatedInstructionLine;
+                    task.number++;
+
+                    System.out.println("Got it. I've added this task: ");
+                    event.getAt();
+                    System.out.println(event);
+                    System.out.println("Now you have " + task.number + " task(s) in the list.");
+
+                } else {
+                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means.");
                 }
-
-            } else if (isMark) {
-
-                System.out.println("Nice! I've marked this task as done:");
-                instructionNum = arrOfStr[1];
-                t.setStatusIcon(true);
-                String prefix = "  \\[T]\\[ ]";
-                instructions[Integer.parseInt(instructionNum) - 1] = instructions[Integer.parseInt(instructionNum) - 1].replaceAll(prefix, "  [T][X]");
-                System.out.println(instructions[Integer.parseInt(instructionNum) - 1]);
-
-            } else if (isTodo){
-
-                updatedInstructionLine = "  [T][ ]" + instructionLine;
-                tasks[task.number] = new Task(updatedInstructionLine);
-                instructions[task.number] = updatedInstructionLine;
-                task.number ++;
-
-                System.out.println("Got it. I've added this task: ");
-                System.out.println(updatedInstructionLine);
-                System.out.println("Now you have " + task.number + " task(s) in the list.");
-
-            } else if (isDeadline){
-
-                deadline.instruction = arrOfDeadline[0];
-                deadline.setBy(arrOfDeadline[1]);
-                updatedInstructionLine = deadline.toString();
-                tasks[task.number] = new Task(updatedInstructionLine);
-                instructions[task.number] = updatedInstructionLine;
-                task.number ++;
-
-                System.out.println("Got it. I've added this task: ");
-                deadline.getBy();
-                System.out.println(deadline);
-                System.out.println("Now you have " + task.number + " task(s) in the list.");
-
-            } else if(isEvent){
-
-                event.instruction = arrOfEvent[0];
-                event.setAt(arrOfEvent[1]);
-                updatedInstructionLine = event.toString();
-                tasks[task.number] = new Task(updatedInstructionLine);
-                instructions[task.number] = updatedInstructionLine;
-                task.number ++;
-
-                System.out.println("Got it. I've added this task: ");
-                event.getAt();
-                System.out.println(event);
-                System.out.println("Now you have " + task.number + " task(s) in the list.");
-
+            } catch(DukeException e){
+                System.out.println(e.getMessage());
             }
         }
     }
