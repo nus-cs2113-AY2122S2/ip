@@ -1,3 +1,14 @@
+package duke.application;
+
+import duke.entity.Deadline;
+import duke.entity.Event;
+import duke.entity.Todo;
+import duke.entity.Task;
+import duke.exception.IllegalCommandException;
+import duke.exception.IllegalTodoException;
+import duke.exception.IllegalEventException;
+import duke.exception.IllegalDeadlineException;
+
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;

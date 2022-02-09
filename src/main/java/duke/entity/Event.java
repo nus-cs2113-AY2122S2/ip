@@ -1,3 +1,5 @@
+package duke.entity;
+
 public class Event extends Task {
 
     private final static String EVENT_MARKER = "[E]";

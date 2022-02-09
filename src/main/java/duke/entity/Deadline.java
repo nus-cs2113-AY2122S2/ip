@@ -1,3 +1,5 @@
+package duke.entity;
+
 public class Deadline extends Task {
 
     private final static String DEADLINE_MARKER = "[D]";

@@ -1,3 +1,5 @@
+package duke.entity;
+
 public class Todo extends Task {
 
     private final static String TODO_MARKER = "[T]";
