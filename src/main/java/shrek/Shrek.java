@@ -141,7 +141,7 @@ public class Shrek {
         } catch (NullPointerException e) {
             throw new InvalidCommandException("You do not have that many items in the list!", errorCount);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InvalidCommandException("Please enter a number from 1 to 100", errorCount);
+            throw new InvalidCommandException("Enter a number from 1 to 100", errorCount);
         }
 
         System.out.println(lists[Integer.parseInt(indexOfList)]);
@@ -160,7 +160,7 @@ public class Shrek {
         } catch (NullPointerException e) {
             throw new InvalidCommandException("You do not have that many items in the list!", errorCount);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InvalidCommandException("Please enter a number from 1 to 100", errorCount);
+            throw new InvalidCommandException("Enter a number from 1 to 100", errorCount);
         }
         System.out.println(lists[Integer.parseInt(indexOfList)]);
     }
