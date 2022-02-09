@@ -1,3 +1,5 @@
+package Eliz;
+
 /** Used to create task objects whenever a task is keyed in*/
 public class Task {
     protected String description;

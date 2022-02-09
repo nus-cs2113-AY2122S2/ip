@@ -1,9 +1,11 @@
-public class Todo extends Task{
+package Eliz;
+
+public class Event extends Task{
     private String taskType;
 
-    public Todo(String description) {
+    public Event(String description) {
         super(description);
-        taskType = "T";
+        taskType = "E";
     }
 
     @Override
@@ -15,4 +17,5 @@ public class Todo extends Task{
     public String toString() {
         return "[" + taskType + "][" + getStatusIcon() + "] " + description;
     }
+
 }

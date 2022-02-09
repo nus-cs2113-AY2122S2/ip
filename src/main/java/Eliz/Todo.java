@@ -1,9 +1,11 @@
-public class Deadline extends Task{
+package Eliz;
+
+public class Todo extends Task{
     private String taskType;
 
-    public Deadline(String description) {
+    public Todo(String description) {
         super(description);
-        taskType = "D";
+        taskType = "T";
     }
 
     @Override
