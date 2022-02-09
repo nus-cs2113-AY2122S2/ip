@@ -1,3 +1,5 @@
+package duke.task;
+
 public class ToDo extends Task {
     private final String TO_DO_SYMBOL = "[T]";
 

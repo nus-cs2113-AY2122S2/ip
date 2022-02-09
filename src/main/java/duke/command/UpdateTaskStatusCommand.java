@@ -1,3 +1,5 @@
+package duke.command;
+
 public class UpdateTaskStatusCommand extends Command {
     private int taskIndex;
     private boolean isTaskDone;

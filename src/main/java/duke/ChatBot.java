@@ -1,3 +1,12 @@
+package duke;
+
+import duke.command.AddTaskCommand;
+import duke.command.Command;
+import duke.command.UpdateTaskStatusCommand;
+import duke.exception.DukeException;
+import duke.exception.DukeExceptionCause;
+import duke.task.*;
+
 public class ChatBot {
     private final String BOT_NAME = "Big Bob";
     private final int MAXIMUM_NUMBER_OF_TASK = 100;
@@ -30,15 +39,43 @@ public class ChatBot {
         }
     }
 
+    public void echoInvalidCommandMessage() {
+        System.out.println("\t ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+    }
+
+    public void echoMissingTaskNameMessage(String typeOfTask) {
+        System.out.println("\t ☹ OOPS!!! The description of a " + typeOfTask + " cannot be empty.");
+    }
+
+    public void processExceptions(DukeException de) {
+        DukeExceptionCause causeOfException = de.getExceptionCause();
+        switch (causeOfException) {
+        case INVALIDCOMMAND:
+            echoInvalidCommandMessage();
+            break;
+        case TODOTASKNAMEEMPTY:
+            echoMissingTaskNameMessage("todo");
+            break;
+        case EVENTTASKNAMEEMPTY:
+            echoMissingTaskNameMessage("event");
+            break;
+        case DEADLINETASKNAMEEMPTY:
+            echoMissingTaskNameMessage("deadline");
+            break;
+        default:
+            break;
+        }
+    }
+
     public void addTaskToList(AddTaskCommand inputCommand) {
         String acknowledgementMessage = "\t Got it. I've added this task:\n";
         String taskName = inputCommand.getTaskName();
         Task freshTask;
-        if (inputCommand.getTaskType() == TaskType.DEADLINES) {
+        if (inputCommand.getTaskType() == TaskType.DEADLINE) {
             String by = inputCommand.getTaskRequirement();
             freshTask = new Deadlines(taskName, by);
             acknowledgementMessage = acknowledgementMessage + String.format("\t   [D][ ] %s (by: %s)", taskName, by);
-        } else if (inputCommand.getTaskType() == TaskType.EVENTS) {
+        } else if (inputCommand.getTaskType() == TaskType.EVENT) {
             String time;
             time = inputCommand.getTaskRequirement();
             freshTask = new Events(taskName, time);

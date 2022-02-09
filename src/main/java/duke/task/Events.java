@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Events extends Task {
     private final String EVENTS_SYMBOL = "[E]";
     private String time;
@@ -8,7 +10,7 @@ public class Events extends Task {
     }
 
     public String printTaskDescription() {
-        return EVENTS_SYMBOL + super.printTaskDescription() + String.format("(at: %s)",getTime());
+        return EVENTS_SYMBOL + super.printTaskDescription() + String.format("(at: %s)", getTime());
     }
 
     public String setDone(boolean isDone) {
