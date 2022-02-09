@@ -7,7 +7,7 @@ public class Duke {
 
     public static void printList() {
         System.out.println(boundary + "Here are the tasks in your list:");
-        for (int i = 0; i < countTask; i ++) {
+        for (int i = 0; i < countTask; i++) {
             System.out.println((i + 1) + ". " + taskList[i]);
         }
         System.out.print("Now you have " + countTask + " tasks in the list."+ System.lineSeparator() + boundary);
@@ -25,23 +25,68 @@ public class Duke {
         System.out.print(boundary);
     }
 
-    public static void addTask(String request) {
+    public static void checkDescription(String request) throws TaskEmptyException {
+        if (request.toLowerCase().endsWith("deadline") ||
+                    request.toLowerCase().endsWith("event") ||
+                    request.toLowerCase().endsWith("todo")) {
+            throw new TaskEmptyException();
+        }
+    }
+
+    public static void addTask(String request) throws GeneralException,
+                                                              TaskEmptyException, DeadlineFormatException, EventFormatException {
+        checkDescription(request);
         if (request.toLowerCase().startsWith("deadline")) {
+            if ((!request.contains("/by"))) {
+                throw new DeadlineFormatException();
+            }
             int byPosition = request.indexOf("/");
             taskList[countTask] = new Deadline(request.substring(9, byPosition - 1), request.substring(byPosition + 4));
         } else if (request.toLowerCase().startsWith("event")) {
+            if (!request.contains("/at")) {
+                throw new EventFormatException();
+            }
             int atPosition = request.indexOf("/");
             taskList[countTask] = new Event(request.substring(6, atPosition - 1), request.substring(atPosition + 4));
         } else if (request.toLowerCase().startsWith("todo")) {
             taskList[countTask] = new Todo(request.substring(5));
         } else {
-            taskList[countTask] = new Task(request);
+            throw new GeneralException();
         }
 
-        countTask ++;
+        countTask++;
 
         System.out.println(boundary + "Got it. I've added this task: " + System.lineSeparator() + taskList[countTask - 1]);
         System.out.print("Now you have " + countTask + " tasks in the list."+ System.lineSeparator() + boundary);
+    }
+
+    public static void tryAddTask(String request) {
+        try {
+            addTask(request.trim());
+        } catch (GeneralException e) {
+            System.out.print(boundary + "Hmm...I'm sorry but I cannot understand this..."
+                                     + System.lineSeparator() + boundary);
+        } catch (TaskEmptyException e) {
+            System.out.print(boundary + "Hmm...hi dear, remember to put in your task description~"
+                                     + System.lineSeparator() + boundary);
+        } catch (DeadlineFormatException e) {
+            System.out.print(boundary + "Hmm...hi dear, when do u want to finish this by?"
+                                     + System.lineSeparator() + boundary);
+        } catch (EventFormatException e) {
+            System.out.print(boundary + "Hmm...hi dear, when is this event happening?"
+                                     + System.lineSeparator() + boundary);
+        }
+    }
+
+    public static void sayHello() {
+        String logo = " ____        _        \n"
+                              + "|  _ \\ _   _| | _____ \n"
+                              + "| | | | | | | |/ / _ \\\n"
+                              + "| |_| | |_| |   <  __/\n"
+                              + "|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println(boundary + logo);
+        System.out.println("Hello! I'm Duke");
+        System.out.println("What can I do for you?" + System.lineSeparator() + boundary);
     }
 
     public static void sayGoodbye() {
@@ -49,17 +94,9 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println(boundary+ logo);
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?" + System.lineSeparator() + boundary);
+        sayHello();
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
-
 
         while (!line.equalsIgnoreCase("bye")) {
             if (line.equalsIgnoreCase("list")) {
@@ -69,7 +106,7 @@ public class Duke {
             } else if (line.toLowerCase().startsWith("unmark")) {
                 unmarkTask(Integer.parseInt(line.substring(7)) - 1);
             } else {
-                addTask(line);
+                tryAddTask(line);
             }
             in = new Scanner(System.in);
             line = in.nextLine();
