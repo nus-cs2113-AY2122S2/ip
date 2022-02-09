@@ -10,11 +10,11 @@ public class UserInterface {
     public static final String COMMAND_TODO = "todo";
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
-    private final Scanner uiScan;
+    private final Scanner UISCAN;
     private final ArrayList<Task> tasks;
 
     public UserInterface(Scanner mainScan) {
-        this.uiScan = mainScan;
+        this.UISCAN = mainScan;
         this.tasks = new ArrayList<>();
     }
 
@@ -30,7 +30,7 @@ public class UserInterface {
     public void loopCommandInput() {
         String commandInput;
         do {
-            commandInput = uiScan.nextLine();
+            commandInput = UISCAN.nextLine();
             executeCommand(commandInput);
         } while (!commandInput.equals(COMMAND_EXIT));
     }
@@ -43,7 +43,8 @@ public class UserInterface {
     private void executeCommand(String nextLine) {
         try {
             ArrayList<String> pieces = new ArrayList<>(Arrays.asList(nextLine.split(" ")));
-            switch (pieces.get(0)) {
+            String commandType = pieces.get(0);
+            switch (commandType) {
             case COMMAND_EXIT:
                 printGoodbye();
                 break;
@@ -51,10 +52,12 @@ public class UserInterface {
                 listTasks();
                 break;
             case COMMAND_MARK:
-                doTask(pieces.get(1));
+                String taskToMark = pieces.get(1);
+                doTask(taskToMark);
                 break;
             case COMMAND_UNMARK:
-                undoTask(pieces.get(1));
+                String taskToUnmark = pieces.get(1);
+                undoTask(taskToUnmark);
                 break;
             case COMMAND_TODO:
             case COMMAND_DEADLINE:
@@ -62,7 +65,7 @@ public class UserInterface {
                 addTask(pieces);
                 break;
             default:
-                System.out.println("Command not found: " + pieces.get(0));
+                System.out.println("Command not found: " + commandType);
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -100,9 +103,13 @@ public class UserInterface {
         case COMMAND_TODO:
             return new ToDo(String.valueOf(taskParts.get(0)));
         case COMMAND_DEADLINE:
-            return new Deadline(String.valueOf(taskParts.get(0)), String.valueOf(taskParts.get(1)), prepositions);
+            return new Deadline(String.valueOf(taskParts.get(0)),
+                    String.valueOf(taskParts.get(1)),
+                    prepositions);
         case COMMAND_EVENT:
-            return new Event(String.valueOf(taskParts.get(0)), String.valueOf(taskParts.get(1)), prepositions);
+            return new Event(String.valueOf(taskParts.get(0)),
+                    String.valueOf(taskParts.get(1)),
+                    prepositions);
         }
         return null;
     }
@@ -133,7 +140,8 @@ public class UserInterface {
             }
             inputIterator++;
             taskParts.add(new StringBuilder());
-            for (; inputIterator < input.size() && !input.get(inputIterator).startsWith("/"); ++inputIterator) {
+            for (; inputIterator < input.size()
+                    && !input.get(inputIterator).startsWith("/"); ++inputIterator) {
                 taskParts.get(taskPartsIterator).append(input.get(inputIterator)).append(" ");
             }
         }
@@ -147,10 +155,14 @@ public class UserInterface {
     private void listTasks() {
         printDivider();
         System.out.println("Here are the tasks in your list:");
+        printTasks();
+        printDivider();
+    }
+
+    private void printTasks() {
         for (int i = 1; i <= this.tasks.size(); i++) {
             System.out.println(i + "." + this.tasks.get(i - 1));
         }
-        printDivider();
     }
 
     /**

@@ -16,6 +16,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (" + preposition + ": " + this.at + ")";
+        return String.format("[E]%s (%s: %s)", super.toString(), preposition, at);
     }
 }
