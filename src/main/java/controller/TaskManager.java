@@ -1,6 +1,10 @@
-import jdk.swing.interop.SwingInterOpUtils;
+package controller;
 
-import java.util.Locale;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
+
 import java.util.Scanner;
 
 public class TaskManager {
