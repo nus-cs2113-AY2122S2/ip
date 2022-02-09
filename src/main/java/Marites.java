@@ -82,13 +82,16 @@ public class Marites {
     }
 
     /**
-     * Get the type of command issued.
+     * Divides a line of user input into the command type, and the command.
      * @param userInput The user's input
-     * @return The command type.
+     * @return A String[] with length 2. The first element is the command type,
+     *  while the second element is the command. If the command has no body
+     *  (e.g. list, unmark), this second element is an empty string.
      */
-    private static String getCommandType(String userInput) {
-        String[] tokens = userInput.split("\\s");
-        return tokens[0];
+    private static String[] splitCommandTypeAndCommand(String userInput) {
+        String[] inputSplit = userInput.split("\\s", 2);
+        return new String[]{inputSplit[0],
+                (inputSplit.length > 1 ? inputSplit[1] : "")};
     }
 
     /**
@@ -97,27 +100,37 @@ public class Marites {
      * @return Output that must be passed back to the user.
      */
     private static String processUserCommand(String userInput) {
-        switch (getCommandType(userInput)) {
+        String[] commandSplit = splitCommandTypeAndCommand(userInput);
+        String commandOutput;
+        String commandType = commandSplit[0], command = commandSplit[1];
+        switch (commandType) {
         case COMMAND_EXIT:
-            return executeExit();
+            commandOutput = executeExit();
+            break;
         case COMMAND_LIST:
-            return executeListTasks();
+            commandOutput = executeListTasks();
+            break;
         case COMMAND_MARK:
-            return executeSetTaskStatus(userInput, true);
+            commandOutput = executeSetTaskStatus(command, true);
+            break;
         case COMMAND_UNMARK:
-            return executeSetTaskStatus(userInput, false);
+            commandOutput = executeSetTaskStatus(command, false);
+            break;
         case COMMAND_ADD_TODO:
         case COMMAND_ADD_DEADLINE:
         case COMMAND_ADD_EVENT:
-            return executeAddTask(userInput);
+            // All 3 cases fallthrough here
+            commandOutput = executeAddTask(commandType, command);
+            break;
         default:
-            return UNKNOWN_COMMAND_MESSAGE;
+            commandOutput = UNKNOWN_COMMAND_MESSAGE;
+            break;
         }
+        return commandOutput;
     }
 
     /*
-        The following methods take in a String,
-            denoting the full line of user input.
+        The following methods take in a String, denoting a command.
         They return a String, denoting the feedback after executing the command.
      */
 
@@ -136,21 +149,20 @@ public class Marites {
 
     /**
      * Parses an add task command given by the user.
-     * @param userInput The user's input
-     * @return A Task object representing the task
+     * @param taskType The task's type.
+     * @param command The user's command.
+     * @return A Task object representing the task.
      */
-    private static Task parseAddTask(String userInput) {
-        String[] tokens = userInput.split("\\s", 2);
+    private static Task parseAddTask(String taskType, String command) {
         String[] parametersSplit;
-        String commandType = tokens[0], commandParameters = tokens[1];
-        switch (commandType) {
+        switch (taskType) {
         case COMMAND_ADD_TODO:
-            return new Todo(commandParameters.strip());
+            return new Todo(command.strip());
         case COMMAND_ADD_DEADLINE:
-            parametersSplit = commandParameters.split(COMMAND_ADD_DEADLINE_TAG);
+            parametersSplit = command.split(COMMAND_ADD_DEADLINE_TAG);
             return new Deadline(parametersSplit[0].strip(), parametersSplit[1].strip());
         case COMMAND_ADD_EVENT:
-            parametersSplit = commandParameters.split(COMMAND_ADD_EVENT_TAG);
+            parametersSplit = command.split(COMMAND_ADD_EVENT_TAG);
             return new Event(parametersSplit[0].strip(), parametersSplit[1].strip());
         default:
             return new Task("");
@@ -159,11 +171,12 @@ public class Marites {
 
     /**
      * Executes an add task command.
-     * @param userInput The user's input.
+     * @param taskType The task's type.
+     * @param command The user's command.
      * @return A feedback string with the added task.
      */
-    private static String executeAddTask(String userInput) {
-        Task task = parseAddTask(userInput);
+    private static String executeAddTask(String taskType, String command) {
+        Task task = parseAddTask(taskType, command);
         tasks.add(task);
         return String.format(ADD_TASK_FORMAT_STRING, task, tasks.size());
     }
@@ -171,13 +184,12 @@ public class Marites {
     /**
      * Executes a set task command.
      * This can be used to both mark and unmark a task as done.
-     * @param userInput The user's input.
+     * @param command The user's command.
      * @param isDone The new done/undone status of the task.
      * @return A feedback string with the tasks' new status.
      */
-    private static String executeSetTaskStatus(String userInput, boolean isDone) {
-        String[] tokens = userInput.split("\\s");
-        int taskIndex = parseInt(tokens[1]);
+    private static String executeSetTaskStatus(String command, boolean isDone) {
+        int taskIndex = parseInt(command);
         Task taskToMark = tasks.get(taskIndex - 1);
         taskToMark.setDone(isDone);
         String message = (isDone ? MARK_DONE_MESSAGE :
