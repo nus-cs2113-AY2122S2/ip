@@ -1,10 +1,13 @@
 package tasks;
 
+import exceptions.DukeException;
+import times.DukeTime;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class EventTask extends Task {
-    private String dateTime;
+    private DukeTime dateTime;
     private static final String DATE_TIME_FIELD = "dateTime";
 
     public EventTask(String taskDescription, String taskType) {
@@ -18,7 +21,7 @@ public class EventTask extends Task {
      */
     public EventTask(HashMap<String, Object> compressedObject) {
         super( compressedObject);
-        dateTime = (String) compressedObject.get(DATE_TIME_FIELD);
+        dateTime = (DukeTime) compressedObject.get(DATE_TIME_FIELD);
     }
 
     /**
@@ -28,9 +31,14 @@ public class EventTask extends Task {
      * @param taskType The type of the task
      * @param dateTime The time of the task
      */
-    public EventTask(String taskDescription, String taskType, String dateTime) {
+    public EventTask(String taskDescription, String taskType, String dateTime) throws DukeException {
         super(taskDescription, taskType);
-        this.dateTime = dateTime;
+        try {
+            this.dateTime = new DukeTime(dateTime);
+        } catch (DukeException e) {
+            throw e;
+        }
+
     }
 
 
@@ -39,8 +47,13 @@ public class EventTask extends Task {
      *
      * @param dateTime The time of the task
      */
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
+    public void setDateTime(String dateTime) throws DukeException {
+        try {
+            this.dateTime = new DukeTime(dateTime);
+        } catch (DukeException e) {
+            throw e;
+        }
+
     }
 
 
@@ -51,7 +64,7 @@ public class EventTask extends Task {
      */
     @Override
     public String getReport() {
-        return String.format("[%s][%s] %s (at: %s)", taskType, markedSign(), taskDescription, dateTime);
+        return String.format("[%s][%s] %s (at: %s)", taskType, markedSign(), taskDescription, dateTime.toString());
     }
 
     /**

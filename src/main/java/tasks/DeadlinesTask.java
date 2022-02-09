@@ -1,9 +1,12 @@
 package tasks;
 
+import exceptions.DukeException;
+import times.DukeTime;
+
 import java.util.HashMap;
 
 public class DeadlinesTask extends Task {
-    private String dateTime;
+    private DukeTime dateTime;
     private static final String DATE_TIME_FIELD = "dateTime";
 
     /**
@@ -13,9 +16,14 @@ public class DeadlinesTask extends Task {
      * @param taskType
      * @param dateTime
      */
-    public DeadlinesTask(String taskDescription, String taskType, String dateTime) {
+    public DeadlinesTask(String taskDescription, String taskType, String dateTime) throws DukeException {
         super(taskDescription, taskType);
-        this.dateTime = dateTime;
+        try{
+            this.dateTime = new DukeTime(dateTime);
+        } catch (DukeException e) {
+            throw e;
+        }
+
     }
 
     /**
@@ -24,7 +32,7 @@ public class DeadlinesTask extends Task {
      */
     public DeadlinesTask(HashMap<String, Object> compressedObject) {
         super( compressedObject);
-        dateTime = (String) compressedObject.get(DATE_TIME_FIELD);
+        dateTime = (DukeTime) compressedObject.get(DATE_TIME_FIELD);
     }
 
     /**
@@ -32,8 +40,13 @@ public class DeadlinesTask extends Task {
      *
      * @param dateTime
      */
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
+    public void setDateTime(String dateTime) throws DukeException {
+        try {
+            this.dateTime = new DukeTime(dateTime);
+        } catch (DukeException e) {
+            throw e;
+        }
+
     }
 
     /**
