@@ -21,8 +21,8 @@ public class Marites {
     private static final String COMMAND_ADD_TODO = "todo";
     private static final String COMMAND_ADD_DEADLINE = "deadline";
     private static final String COMMAND_ADD_EVENT = "event";
-    private static final String COMMAND_ADD_DEADLINE_TAG = "/by";
-    private static final String COMMAND_ADD_EVENT_TAG = "/at";
+    private static final String COMMAND_ADD_DEADLINE_TAG = "--by";
+    private static final String COMMAND_ADD_EVENT_TAG = "--at";
 
     private static final String LIST_TASK_ITEM_FORMAT_STRING = "%d. %s%n";
     private static final String ADD_TASK_FORMAT_STRING =

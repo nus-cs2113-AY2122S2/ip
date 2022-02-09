@@ -1,6 +1,6 @@
 todo Finish increment
-deadline Run grading scripts /by next weekend
-event Midterms /at February 14
+deadline Run grading scripts --by next weekend
+event Midterms --at February 14
 list
 mark 2
 unmark 2
