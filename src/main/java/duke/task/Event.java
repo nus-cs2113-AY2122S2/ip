@@ -1,3 +1,5 @@
+package duke.task;
+
 /**
  * Example: event company meeting /at 2-4pm, June 8th
  * description: "company meeting"
