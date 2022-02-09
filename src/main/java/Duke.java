@@ -1,6 +1,7 @@
 // import libraries here
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Duke {
     private static ArrayList<String> descriptions = new ArrayList<>();
@@ -36,6 +37,12 @@ public class Duke {
                 input = in.nextLine();
                 continue;
             }
+            try {
+                checkCommand(line);
+            } catch (InvalidCommandException | EmptyDescriptionException e) {
+                line = in.nextLine();
+                continue;
+            }
             // Command is valid, handle the command
             System.out.println("    ____________________________________________________________");
             System.out.println("     Got it. I've added this task: ");
@@ -48,6 +55,19 @@ public class Duke {
         System.out.println("     Bye. Hope to see you again soon!");
         System.out.println("    ____________________________________________________________");
     }
+
+    private static void checkCommand(String line) throws EmptyDescriptionException, InvalidCommandException {
+        Set<String> validCommands = Set.of("todo", "deadline", "event");
+        String[] splitLine = line.split(" ");
+        String type = splitLine[0];
+        if (!validCommands.contains(type)) {
+            throw new InvalidCommandException();
+        }
+        if (splitLine.length == 1) {
+            throw new EmptyDescriptionException();
+        }
+    }
+
 
     private static void handleCommand(String line) {
         String description;
