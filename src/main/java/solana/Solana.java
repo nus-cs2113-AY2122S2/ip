@@ -1,3 +1,10 @@
+package solana;
+
+import solana.task.Deadline;
+import solana.task.Event;
+import solana.task.Task;
+import solana.task.Todo;
+
 import java.util.Scanner;
 
 public class Solana {
@@ -43,9 +50,9 @@ public class Solana {
         }
     }
 
-    public static void printAddedPrompt(Task newtask) {
+    public static void printAddedPrompt(Task newTask) {
         System.out.print("Added: ");
-        newtask.printDescription();
+        newTask.printDescription();
 
         if (Task.getTaskNum() > 1) {
             System.out.println("You now have " + Task.getTaskNum() + " tasks in the list" + System.lineSeparator());
