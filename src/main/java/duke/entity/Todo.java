@@ -1,4 +1,6 @@
-public class Todo extends Task{
+package duke.entity;
+
+public class Todo extends Task {
     public Todo(String description){
         super(description);
     }

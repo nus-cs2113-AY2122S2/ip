@@ -1,3 +1,5 @@
+package duke.entity;
+
 public class Task {
     protected String description;
     protected boolean isTaskDone;

@@ -1,6 +1,18 @@
+package duke.application;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import duke.entity.Deadline;
+import duke.entity.Event;
+import duke.entity.Task;
+import duke.entity.Todo;
+
+import duke.exception.DukeException;
+import duke.exception.IllegalTodoException;
+import duke.exception.IllegalEventException;
+import duke.exception.IllegalDeadlineException;
 
 public class Duke {
     public static void main(String[] args) {
@@ -66,12 +78,12 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         System.out.println("=============================");
-        System.out.println("Ayo my name's Duke!");
+        System.out.println("Ayo my name's application.Duke!");
         System.out.println("What's up?");
         System.out.println("=============================");
     }
 
-    public static void checkInputValidity(String userInput) throws DukeException{
+    public static void checkInputValidity(String userInput) throws DukeException {
         String[] validInputs = {"list","unmark","mark","deadline","event","todo"};
         if (userInput.length() == 0){
             throw new DukeException();
@@ -151,7 +163,7 @@ public class Duke {
 
     //deadline methods
 
-    public static void addDeadline(ArrayList<Task> taskArray, String userInput) throws IllegalDeadlineException{
+    public static void addDeadline(ArrayList<Task> taskArray, String userInput) throws IllegalDeadlineException {
         if (userInput.length() <= 8 || !userInput.contains("/by")){
             throw new IllegalDeadlineException();
         }
@@ -172,7 +184,7 @@ public class Duke {
 
     //event methods
 
-    public static void addEvent(ArrayList<Task> taskArray, String userInput) throws IllegalEventException{
+    public static void addEvent(ArrayList<Task> taskArray, String userInput) throws IllegalEventException {
         if (userInput.length() <= 5 || !userInput.contains("/at")){
             throw new IllegalEventException();
         }
@@ -193,7 +205,7 @@ public class Duke {
 
     //todo methods
 
-    public static void addTodo(ArrayList<Task> taskArray, String userInput) throws IllegalTodoException{
+    public static void addTodo(ArrayList<Task> taskArray, String userInput) throws IllegalTodoException {
         if (userInput.length() <= 4){
             throw new IllegalTodoException();
         }
