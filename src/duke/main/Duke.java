@@ -1,4 +1,11 @@
+package duke.main;
+
+import duke.task.Deadline;
+import duke.task.Task;
+import duke.task.Event;
+import duke.task.Todo;
 import java.util.Scanner;
+
 public class Duke{
     public static final String LINEBREAK = "____________________________________________________________";
     public static Task[] list = new Task[100];
