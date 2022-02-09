@@ -1,5 +1,6 @@
 package duke.application;
 
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +14,7 @@ import duke.exception.DukeException;
 import duke.exception.IllegalTodoException;
 import duke.exception.IllegalEventException;
 import duke.exception.IllegalDeadlineException;
+
 
 public class Duke {
     public static void main(String[] args) {
@@ -74,11 +76,11 @@ public class Duke {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+                + "| |_| | |_| |   <  /\n"
+                + "|____/ \\,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         System.out.println("=============================");
-        System.out.println("Ayo my name's application.Duke!");
+        System.out.println("Ayo my name's duke.application.application.Duke!");
         System.out.println("What's up?");
         System.out.println("=============================");
     }
@@ -164,14 +166,14 @@ public class Duke {
     //deadline methods
 
     public static void addDeadline(ArrayList<Task> taskArray, String userInput) throws IllegalDeadlineException {
-        if (userInput.length() <= 8 || !userInput.contains("/by")){
+        if (userInput.length() <= 8 ||!userInput.contains("/by")){
             throw new IllegalDeadlineException();
         }
         String[] temp = new String[100];
         temp = userInput.split("/by");
         String description = temp[0].split("deadline")[1].trim();
         String by = temp[1].trim();
-        if (by.length() == 0 || description.length() == 0){
+        if (by.length() == 0 ||description.length() == 0){
             throw new IllegalDeadlineException();
         }
         Deadline deadline = new Deadline(description, by);
@@ -185,14 +187,14 @@ public class Duke {
     //event methods
 
     public static void addEvent(ArrayList<Task> taskArray, String userInput) throws IllegalEventException {
-        if (userInput.length() <= 5 || !userInput.contains("/at")){
+        if (userInput.length() <= 5 ||!userInput.contains("/at")){
             throw new IllegalEventException();
         }
         String[] temp = new String[100];
         temp = userInput.split("/at");
         String description = temp[0].split("event")[1].trim();
         String at = temp[1].trim();
-        if (at.length() == 0 || description.length() == 0){
+        if (at.length() == 0 ||description.length() == 0){
             throw new IllegalEventException();
         }
         Event event = new Event(description, at);
