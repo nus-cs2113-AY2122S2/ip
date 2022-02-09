@@ -1,6 +1,7 @@
 import java.util.List;
 
 public class MarkUnmarkItem {
+
     public static void markItem (List<Task> array, String message) {
         String[] splitMessage = message.split(" ");
         String getNumber = splitMessage[1];
@@ -9,6 +10,7 @@ public class MarkUnmarkItem {
         System.out.println(Duke.DISPLAY_LINE + "Nice! I've marked this as done:");
         System.out.println("[" + array.get(positionToMark).getStatusIcon() + "] " + array.get(positionToMark).description);
         System.out.print(Duke.DISPLAY_LINE);
+
     }
 
     public static void unMarkItem(List<Task> array, String message) {

@@ -9,34 +9,27 @@ public class Duke {
     public static final String ANSI_BLUE = "\u001B[34m";
     public static final String DISPLAY_LINE= "________________________________________________\n";
 
-    public static void greet() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println(DISPLAY_LINE + ANSI_BLUE + logo);
-        System.out.println("Hello! Duke here!:)");
-        System.out.print("Is there anything I can do for you?\n" + ANSI_RESET + DISPLAY_LINE);
-    }
-
     public static void exit() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public static void listItems (List<Task> array, int itemNumber) {
-        System.out.println(DISPLAY_LINE + "Here are the tasks in your list: ");
-        for(int i = 0; i < itemNumber; i++) {
-            System.out.print(i + 1 + ". ");
-            System.out.println(array.get(i));
+    public static void listItems (List<Task> array, int itemNumber) throws DukeException {
+        if (itemNumber == 0) {
+            throw new DukeException();
+        } else {
+            System.out.println(DISPLAY_LINE + "Here are the tasks in your list: ");
+            for (int i = 0; i < itemNumber; i++) {
+                System.out.print(i + 1 + ". ");
+                System.out.println(array.get(i));
+            }
+            System.out.print(DISPLAY_LINE);
         }
-        System.out.print(DISPLAY_LINE);
     }
 
 
     public static void main(String[] args) {
         itemNumber = 0;
-        greet();
+        DisplayMessages.displayGreetMessage();
         Scanner in = new Scanner(System.in);
         boolean isLoop = true;
         while (isLoop) {
@@ -46,22 +39,52 @@ public class Duke {
                 exit();
                 isLoop = false;
             } else if (messageLowerCase.equals("list")) {
-                listItems(listArray, itemNumber);
+                try {
+                    listItems(listArray, itemNumber);
+                } catch (DukeException e) {
+                    DisplayMessages.displayListMessage();
+                }
             } else if (messageLowerCase.contains("unmark")) {
-                MarkUnmarkItem.unMarkItem(listArray,message);
+                try {
+                    MarkUnmarkItem.unMarkItem(listArray, message);
+                } catch (IndexOutOfBoundsException e) {
+                    DisplayMessages.displayUnmarkMessage(itemNumber);
+                }
             } else if (messageLowerCase.contains("mark")) {
-                MarkUnmarkItem.markItem(listArray,message);
+                try {
+                    MarkUnmarkItem.markItem(listArray, message);
+                } catch (IndexOutOfBoundsException e) {
+                    DisplayMessages.displayMarkMessage(itemNumber);
+                }
             } else if (messageLowerCase.contains("todo")) {
-                AddTask.addTodo(listArray,message,itemNumber);
-                itemNumber++;
+                try {
+                    AddTask.addTodo(listArray, message, itemNumber);
+                    itemNumber++;
+                } catch (IndexOutOfBoundsException e) {
+                    DisplayMessages.displayTodoMessage();
+                } catch (DukeException e) {
+                    DisplayMessages.displayTodoMessage();
+                }
             } else if (messageLowerCase.contains("deadline")) {
-                AddTask.addDeadline(listArray,message,itemNumber);
-                itemNumber++;
+                try {
+                    AddTask.addDeadline(listArray, message, itemNumber);
+                    itemNumber++;
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    DisplayMessages.displayDeadlineMessage();
+                } catch (DukeException e) {
+                    DisplayMessages.displayDeadlineMessage();
+                }
             } else if (messageLowerCase.contains("event")) {
-                AddTask.addEvent(listArray,message,itemNumber);
-                itemNumber++;
+                try {
+                    AddTask.addEvent(listArray, message, itemNumber);
+                    itemNumber++;
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    DisplayMessages.displayEventMessage();
+                } catch (DukeException e) {
+                    DisplayMessages.displayEventMessage();
+                }
             } else {
-                System.out.println("Invalid command! Please try again:)");
+                DisplayMessages.displayInvalidInputMessage();
             }
         }
     }

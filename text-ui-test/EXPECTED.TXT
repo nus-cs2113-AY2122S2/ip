@@ -1,23 +1,68 @@
- ____        _
+________________________________________________
+________________________________________________
+ ____        _        
 |  _ \ _   _| | _____ 
 | | | | | | | |/ / _ \
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
-Hello! I'm Duke
-What can I do for you?
-Got it. I've added this task:
+
+Hello! Duke here!:)
+Is there anything I can do for you?
+________________________________________________
+[0m________________________________________________
+Okay! I've added this task:
 [T][ ] borrow book
 Now you have 1 tasks in the list.
-Got it. I've added this task:
+________________________________________________
+________________________________________________
+Okay! I've added this task:
 [D][ ] return book (by: Sunday)
 Now you have 2 tasks in the list.
-Here are the tasks in your list:
+________________________________________________
+________________________________________________
+Here are the tasks in your list: 
 1. [T][ ] borrow book
 2. [D][ ] return book (by: Sunday)
-Got it. I've added this task:
-[E][ ] project meeting (at: Mon 2-4)
+________________________________________________
+________________________________________________
+Okay! I've added this task:
+[E][ ] project meeting (at: Mon 2-4pm)
 Now you have 3 tasks in the list.
-Here are the tasks in your list:
+________________________________________________
+________________________________________________
+Here are the tasks in your list: 
 1. [T][ ] borrow book
 2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (at: Mon 2-4)
+3. [E][ ] project meeting (at: Mon 2-4pm)
+________________________________________________
+________________________________________________
+Nice! I've marked this as done:
+[X] borrow book
+________________________________________________
+________________________________________________
+OK, I've marked this task as not done yet:
+[ ] borrow book
+________________________________________________
+________________________________________________
+There are 3 items in the list
+Please input which item you would like to mark.
+For eg. 'mark 2' 
+________________________________________________
+________________________________________________
+Please input a description, '/by', date
+For eg. 'deadline work /by Sunday'
+________________________________________________
+________________________________________________
+Here are the tasks in your list: 
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (at: Mon 2-4pm)
+________________________________________________
+________________________________________________
+Please input a description
+For eg. 'todo borrow book'
+________________________________________________
+Please input a valid command:)
+________________________________________________
+
+Bye. Hope to see you again soon!
