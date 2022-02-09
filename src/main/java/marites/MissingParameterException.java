@@ -1,3 +1,5 @@
+package marites;
+
 public class MissingParameterException extends MaritesException {
     private final String missingParameterTag;
 

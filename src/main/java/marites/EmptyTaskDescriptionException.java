@@ -1,3 +1,5 @@
+package marites;
+
 /**
  * Exception raised when a task is created without a description.
  */

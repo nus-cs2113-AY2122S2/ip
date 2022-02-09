@@ -1,3 +1,5 @@
+package marites.task;
+
 public class Deadline extends Task {
 
     private static final String DEADLINE_FORMAT_STRING = "[D]%s (by: %s)";
