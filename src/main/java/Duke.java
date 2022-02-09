@@ -13,8 +13,6 @@ public class Duke {
     public static Task[] taskList = new Task[100];
     public static int taskCounter = 0;
 
-
-
     public static String getFirstWordOfCommand(String s) {
         int spaceIndex = s.indexOf(" ");
         if (spaceIndex == -1) {
@@ -26,11 +24,11 @@ public class Duke {
 
     public static void addDeadlineTask(String input){
         try {
-            Deadline d = new Deadline(Deadline.getDeadlineTask(input), Deadline.getDeadlineDate(input));
-            taskList[taskCounter] = d;
+            Deadline newDeadline = new Deadline(Deadline.getDeadlineTask(input), Deadline.getDeadlineDate(input));
+            taskList[taskCounter] = newDeadline;
             taskCounter++;
             System.out.println("Got it. I've added this task:");
-            Task.printTask(d);
+            Task.printTask(newDeadline);
             Task.printNumberOfTasksInList(taskCounter);
         } catch (StringIndexOutOfBoundsException se){
             System.out.println(INVALID_TASK_DETAILS_ERROR);
@@ -48,11 +46,11 @@ public class Duke {
         try{
             String taskDescription = Todo.getToDoTask(input);
 
-            Todo t = new Todo(taskDescription);
-            taskList[taskCounter] = t;
+            Todo newTodo = new Todo(taskDescription);
+            taskList[taskCounter] = newTodo;
             taskCounter++;
             System.out.println("Got it. I've added this task:");
-            Task.printTask(t);
+            Task.printTask(newTodo);
             Task.printNumberOfTasksInList(taskCounter);
         } catch (IndexOutOfBoundsException iobe){
             System.out.println(Errors.INVALID_TASK_DETAILS_ERROR);
@@ -61,11 +59,11 @@ public class Duke {
 
     public static void addEventTask(String input){
         try {
-            Event e = new Event(Event.getEventTask(input), Event.getEventDateTime(input));
-            taskList[taskCounter] = e;
+            Event newEvent = new Event(Event.getEventTask(input), Event.getEventDateTime(input));
+            taskList[taskCounter] = newEvent;
             taskCounter++;
             System.out.println("Got it. I've added this task:");
-            Task.printTask(e);
+            Task.printTask(newEvent);
             Task.printNumberOfTasksInList(taskCounter);
         } catch(StringIndexOutOfBoundsException se){
             System.out.println(Errors.INVALID_TASK_DETAILS_ERROR);
