@@ -2,7 +2,10 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) {
+    public Task(String description) throws NullPointerException {
+        if (description.isBlank()){
+            throw new NullPointerException();
+        }
         this.description = description;
         this.isDone = false;
     }
