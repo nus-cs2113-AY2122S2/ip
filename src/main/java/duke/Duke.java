@@ -1,4 +1,7 @@
+package duke;
+
 import java.util.Scanner;
+import exceptions.UnknownCommandException;
 
 public class Duke {
     private static Task[] tasks = new Task[100];
