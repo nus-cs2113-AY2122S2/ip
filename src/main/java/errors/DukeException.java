@@ -1,3 +1,5 @@
+package errors;
+
 public class DukeException extends Exception{
 
 

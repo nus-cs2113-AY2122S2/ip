@@ -1,4 +1,12 @@
+import task.Deadline;
+import task.Event;
+import task.Task;
+import errors.Errors;
+import task.Todo;
+
 import java.util.Scanner;
+
+import static errors.Errors.INVALID_TASK_DETAILS_ERROR;
 
 public class Duke {
 
@@ -17,12 +25,16 @@ public class Duke {
     }
 
     public static void addDeadlineTask(String input){
-        Deadline d = new Deadline(Deadline.getDeadlineTask(input),Deadline.getDeadlineDate(input));
-        taskList[taskCounter] = d;
-        taskCounter++;
-        System.out.println("Got it. I've added this task:");
-        Task.printTask(d);
-        Task.printNumberOfTasksInList(taskCounter);
+        try {
+            Deadline d = new Deadline(Deadline.getDeadlineTask(input), Deadline.getDeadlineDate(input));
+            taskList[taskCounter] = d;
+            taskCounter++;
+            System.out.println("Got it. I've added this task:");
+            Task.printTask(d);
+            Task.printNumberOfTasksInList(taskCounter);
+        } catch (StringIndexOutOfBoundsException se){
+            System.out.println(INVALID_TASK_DETAILS_ERROR);
+        }
     }
 
     public static int getTaskNumberArgument(String input) {
@@ -32,12 +44,10 @@ public class Duke {
         return Integer.parseInt(taskNum.trim());
     }
 
-
-
-
     public static void addToDoTask(String input){
         try{
             String taskDescription = Todo.getToDoTask(input);
+
             Todo t = new Todo(taskDescription);
             taskList[taskCounter] = t;
             taskCounter++;
@@ -45,26 +55,33 @@ public class Duke {
             Task.printTask(t);
             Task.printNumberOfTasksInList(taskCounter);
         } catch (IndexOutOfBoundsException iobe){
-            System.out.println(Errors.INVALID_TASK_NAME_ERROR);
+            System.out.println(Errors.INVALID_TASK_DETAILS_ERROR);
         }
     }
 
     public static void addEventTask(String input){
-        Event e = new Event(Event.getEventTask(input),Event.getEventDateTime(input));
-        taskList[taskCounter] = e;
-        taskCounter++;
-        System.out.println("Got it. I've added this task:");
-        Task.printTask(e);
-        Task.printNumberOfTasksInList(taskCounter);
-
+        try {
+            Event e = new Event(Event.getEventTask(input), Event.getEventDateTime(input));
+            taskList[taskCounter] = e;
+            taskCounter++;
+            System.out.println("Got it. I've added this task:");
+            Task.printTask(e);
+            Task.printNumberOfTasksInList(taskCounter);
+        } catch(StringIndexOutOfBoundsException se){
+            System.out.println(Errors.INVALID_TASK_DETAILS_ERROR);
+        }
     }
     public static void markTaskAsComplete(String input){
-        int taskNum = getTaskNumberArgument(input);
-        //System.out.println(taskNum);
-        taskList[taskNum - 1].setDone(true);
-        //System.out.println(taskList[taskNum-1].isDone());
-        Task.printTask(taskList[taskNum - 1]);
-        System.out.println("Nice! I've marked this task as done:\n");
+        try {
+            int taskNum = getTaskNumberArgument(input);
+            //System.out.println(taskNum);
+            taskList[taskNum - 1].setDone(true);
+            //System.out.println(taskList[taskNum-1].isDone());
+            Task.printTask(taskList[taskNum - 1]);
+            System.out.println("Nice! I've marked this task as done:\n");
+        } catch (NumberFormatException nfe){
+            System.out.println(Errors.INVALID_TASK_MARK_ERROR);
+        }
     }
 
     public static void unmarkTaskAsIncomplete(String input){

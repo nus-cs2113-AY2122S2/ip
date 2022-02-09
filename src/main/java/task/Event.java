@@ -1,3 +1,5 @@
+package task;
+
 public class Event extends Task {
 
     private String at;
@@ -29,16 +31,22 @@ public class Event extends Task {
         //first space
         int firstSpaceIndex = input.indexOf(" ");
         int byIndex = input.indexOf("/at");
-        String eventTask = input.substring(firstSpaceIndex+1,byIndex-1);
+        String eventTask = input.substring(firstSpaceIndex+1,byIndex-1).trim();
+        if (eventTask.length() == 0){
+            throw new StringIndexOutOfBoundsException();
+        }
         //System.out.println(deadlineTask);
-        return eventTask.trim();
+        return eventTask;
     }
 
     public static String getEventDateTime(String input) {
         int atIndex = input.indexOf("/at");
         int eventDateTimeIndex = input.indexOf(" ",atIndex);
-        String eventDateTime = input.substring(eventDateTimeIndex + 1);
+        String eventDateTime = input.substring(eventDateTimeIndex + 1).trim();
         //System.out.println(eventDateTime);
+        if (eventDateTime.length() == 0){
+            throw new IndexOutOfBoundsException();
+        }
         return eventDateTime;
     }
 }

@@ -1,3 +1,5 @@
+package task;
+
 public class Task {
 
     protected String taskName;
@@ -12,7 +14,7 @@ public class Task {
         this.type = type;
     }
 
-    public Task(String taskName){
+    public Task(String taskName) {
         this.taskName = taskName;
         this.isDone = false;
     }
@@ -33,14 +35,14 @@ public class Task {
         isDone = isDone;
     }
 
-    public String getStatusIcon(){
-        if (isDone){
+    public String getStatusIcon() {
+        if (isDone) {
             return "X";
-        }
-        else{
+        } else {
             return " ";
         }
     }
+
     @Override
     public String toString() {
 
@@ -69,5 +71,5 @@ public class Task {
     }
 
 
-    }
+}
 

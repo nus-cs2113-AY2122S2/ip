@@ -1,3 +1,5 @@
+package task;
+
 public class Todo extends Task {
 
     private boolean isDone;
@@ -22,9 +24,9 @@ public class Todo extends Task {
     }
     public static String getToDoTask(String s) {
         int spaceIndex = s.indexOf(" ");
-        String firstWord = s.substring(spaceIndex);
-        if (firstWord.equals("")){
-            throw new IndexOutOfBoundsException();
+        String firstWord = s.substring(spaceIndex).trim();
+        if (firstWord.length() == 0){
+            throw new StringIndexOutOfBoundsException();
         }
         return firstWord.trim();
     }
