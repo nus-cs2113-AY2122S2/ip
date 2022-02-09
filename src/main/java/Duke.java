@@ -20,29 +20,29 @@ public class Duke {
     }
 
     private static void getCommand() {
-        String line;
+        String input;
         Scanner in = new Scanner(System.in);
         // get user input
-        line = in.nextLine();
-        while (!line.equals("bye")) {
-            if (line.equals("list")) {
+        input = in.nextLine();
+        while (!input.equals("bye")) {
+            if (input.equals("list")) {
                 showList();
-                line = in.nextLine();
+                input = in.nextLine();
                 continue;
             }
-            if (line.startsWith("done")) {
-                int number = Integer.parseInt(line.substring(line.length() - 1));
+            if (input.startsWith("done")) {
+                int number = Integer.parseInt(input.substring(input.length() - 1));
                 markAsDone(number);
-                line = in.nextLine();
+                input = in.nextLine();
                 continue;
             }
             // Command is valid, handle the command
             System.out.println("    ____________________________________________________________");
             System.out.println("     Got it. I've added this task: ");
-            handleCommand(line);
+            handleCommand(input);
             System.out.println("     Now you have " + descriptions.size() + " tasks in the list.");
             System.out.println("    ____________________________________________________________");
-            line = in.nextLine();
+            input = in.nextLine();
         }
         System.out.println("    ____________________________________________________________");
         System.out.println("     Bye. Hope to see you again soon!");

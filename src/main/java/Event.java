@@ -1,14 +1,14 @@
 public class Event extends Task {
 
-    protected String at;
+    protected String event;
 
-    public Event(String description, String at) {
+    public Event(String description, String event) {
         super(description);
-        this.at = at;
+        this.event = event;
     }
 
     @Override
     public String toString(boolean isDone) {
-        return "[E]" + super.toString(isDone) + " (at: " + at + ")";
+        return "[E]" + super.toString(isDone) + " (at: " + event + ")";
     }
 }
