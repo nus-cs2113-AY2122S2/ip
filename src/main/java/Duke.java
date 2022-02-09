@@ -1,9 +1,12 @@
-import java.util.Locale;
 import java.util.Scanner;
 
-import EmException.EmptyTaskDescriptionException;
-import EmException.IllegalInputException;
-import EmException.TaskOutOfRangeException;
+import em.exception.EmptyTaskDescriptionException;
+import em.exception.IllegalInputException;
+import em.exception.TaskOutOfRangeException;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
 
 
 public class Duke {
