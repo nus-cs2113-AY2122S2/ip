@@ -8,8 +8,10 @@ deadline return book /by monday
 list
 deadline task2 /by infinite
 list
+blah
 mark 3
 list
+todo
 unmark 5
 unmark 1
 list
