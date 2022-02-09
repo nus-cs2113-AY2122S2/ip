@@ -28,8 +28,7 @@ public class Duke {
         task.number = 0;
 
         Deadline deadline = new Deadline("return book", "holi");
-        Event event = new Event("hehe", "7pm");
-
+        Event event = new Event("test", "7pm");
 
         for (int i = 0; i < 200; i++) { // can have 200 input lines (including wrong command)
             Scanner in = new Scanner(System.in);
