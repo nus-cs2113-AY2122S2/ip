@@ -1,6 +1,8 @@
+package boba.task;
+
 /**
  * Represent an item to do.
- * Inherits from the Task class.
+ * Inherits from the boba.task.Task class.
  */
 public class Todo extends Task{
 
@@ -13,7 +15,7 @@ public class Todo extends Task{
     }
 
     /**
-     * @return String representation of Todo Class
+     * @return String representation of boba.task.Todo Class
      */
     @Override
     public String toString() {

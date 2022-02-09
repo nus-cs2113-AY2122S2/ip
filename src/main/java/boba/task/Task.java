@@ -1,3 +1,5 @@
+package boba.task;
+
 /**
  * Represents a task that needs to be done.
  */
@@ -9,7 +11,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Creates a new Task with the given description.
+     * Creates a new boba.task.Task with the given description.
      * The task initially set to not completed
      * @param description A description of the task
      */
@@ -33,7 +35,7 @@ public class Task {
     }
 
     /**
-     * @return String representation of Task class
+     * @return String representation of boba.task.Task class
      */
     @Override
     public String toString() {

@@ -1,11 +1,16 @@
+package boba.exception;
+
+import boba.command.Command;
+import boba.response.BobaResponse;
+
 /**
  * Utility Class that handles unexpected inputs from command
  */
 public class ErrorHandler {
 
     /**
-     * Print the respective error message based on the Command
-     * @param operation The Command that was inputted
+     * Print the respective error message based on the boba.command.Command
+     * @param operation The boba.command.Command that was inputted
      */
     public static void printErrorMessage(Command operation) {
         BobaResponse.addResponse("Uh oh... Something went wrong!");

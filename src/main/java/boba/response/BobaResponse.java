@@ -1,3 +1,5 @@
+package boba.response;
+
 import java.util.ArrayList;
 
 /**
