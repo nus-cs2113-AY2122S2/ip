@@ -18,7 +18,7 @@ public class Duke {
 
 
     //main
-    public static void run(String line) {
+    public static void run(String line) throws DukeException {
         ArrayList<String> words = IOMethods.splitToTwo(line, " ");
         String command = words.get(0);
         String description = words.size()>= 2 ? words.get(1) : null;
@@ -44,8 +44,6 @@ public class Duke {
         }
     }
 
-
-
     public static void main(String[] args) {
 
         hello();
@@ -53,10 +51,17 @@ public class Duke {
         String line = sc.nextLine();
 
         while (!line.equals("bye")){
-            if (IOMethods.errorHandler(line)) {
+            try {
+                IOMethods.errorHandler(line);
                 run(line);
             }
-            line = sc.nextLine();
+            catch(DukeException e) {
+                System.out.println(e.toString());
+            }
+            finally {
+                line = sc.nextLine();
+            }
+
         }
         IOMethods.printWithDivider("Bye. Hope to see you again soon!");
 

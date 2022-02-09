@@ -23,7 +23,7 @@ public class IOMethods {
         System.out.println(breakLine);
     }
 
-    public static boolean errorHandler(String input) {
+    public static void errorHandler(String input) throws DukeException {
         String[] words = input.split(" ");
         String command = words[0];
 
@@ -33,15 +33,15 @@ public class IOMethods {
         case "deadline":
             String taskName = getNextWord(input, command);
             if (taskName.equals("")) {
-                System.out.printf("%s requires a name\n", command);
-                return false;
+                String errorMsg = String.format("%s requires a name\n", command);
+                throw new DukeException(errorMsg);
             } else {
                 if (command.equals("event") || command.equals("deadline")) {
                     int indexOfSlash = input.indexOf("/");
                     String date = indexOfSlash == -1 ? "" : input.substring(indexOfSlash);
                     if (date.length() <= 1) {
-                        System.out.printf("%s requires a valid date in the format taskName /date\n", command);
-                        return false;
+                        String errorMsg = String.format("%s requires a valid date in the format taskName /date\n", command);
+                        throw new DukeException(errorMsg);
                     }
                 }
             }
@@ -50,8 +50,8 @@ public class IOMethods {
         case "bye":
         case "list":
             if (!getNextWord(input, command).equals("")) {
-                System.out.println("Command not understood");
-                return false;
+                String errorMsg = String.format("Command not understood");
+                throw new DukeException(errorMsg);
             }
             break;
 
@@ -60,16 +60,16 @@ public class IOMethods {
             try {
                 Integer.parseInt(getNextWord(input, command));
             } catch (NumberFormatException e) {
-                System.out.println("Please enter a valid index for mark/unmark");
-                return false;
+                String errorMsg = String.format("Please enter a valid index for mark/unmark");
+                throw new DukeException(errorMsg);
             }
             break;
 
         default:
-            System.out.println("Command not understood");
-            return false;
+            String errorMsg = String.format("Command not understood");
+            throw new DukeException(errorMsg);
         }
-        return true;
+        return;
     }
 
     public static String getNextWord(String line, String word) {

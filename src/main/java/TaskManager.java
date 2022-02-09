@@ -47,25 +47,25 @@ public class TaskManager {
 
     }
 
-    public void markCompleted (int taskNumber) {
+    public void markCompleted  (int taskNumber) throws DukeException  {
         try {
             Task task = tasks.get(taskNumber - 1);
             task.setCompleted(true);
             IOMethods.printWithDivider(task.toString());
         }
         catch (IndexOutOfBoundsException e) {
-            System.out.println ("Index out of bounds!");
+            throw new DukeException("Index out of bounds!");
         }
     }
 
-    public void unmarkCompleted (int taskNumber) {
+    public void unmarkCompleted (int taskNumber) throws DukeException {
         try {
             Task task = tasks.get(taskNumber - 1);
             task.setCompleted(false);
             IOMethods.printWithDivider(task.toString());
         }
         catch (IndexOutOfBoundsException e) {
-            System.out.println ("Index out of bounds!");
+            throw new DukeException("Index out of bounds!");
         }
     }
 
