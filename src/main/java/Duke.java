@@ -46,8 +46,6 @@ public class Duke {
             Task.printNumberOfTasksInList(taskCounter);
         } catch (IndexOutOfBoundsException iobe){
             System.out.println(Errors.INVALID_TASK_NAME_ERROR);
-        }catch (NumberFormatException NFE) {
-            System.out.println(Errors.INVALID_TASK_NAME_ERROR);
         }
     }
 
