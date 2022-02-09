@@ -24,3 +24,4 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    ```
    
 #Personalisation
+1.Renamed bot to Eliz
