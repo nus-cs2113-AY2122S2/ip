@@ -21,12 +21,10 @@ public class Duke {
 
         System.out.println(GREET);
 
-        //String instruction;
         String[] instructions = new String[100];
 
         Task task = new Task("hello");
         Task[] tasks = new Task[100];
-
         task.number = 0;
 
         Deadline deadline = new Deadline("return book", "holi");
@@ -143,7 +141,8 @@ public class Duke {
                 } else {
                     System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means.");
                 }
-            } catch(DukeException e){
+
+            } catch(DukeException e) {
                 System.out.println(e.getMessage());
             }
         }
