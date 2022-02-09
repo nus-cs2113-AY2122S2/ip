@@ -38,6 +38,8 @@ public class Marites {
            "You're missing a parameter: %s\n";
     private static final String ADD_TASK_MISSING_DESCRIPTION_MESSAGE =
             "Please add a description to your task.\n";
+    private static final String ADD_TASK_UNKNOWN_TASK_MESSAGE =
+            "I don't know this task type: '%s'\n";
     private static final String MARK_DONE_MESSAGE = "Good job on getting this done!";
     private static final String MARK_UNDONE_MESSAGE = "Okay, I've marked this as not yet done:";
     private static final String MARK_INVALID_NUMBER_MESSAGE =
@@ -167,7 +169,7 @@ public class Marites {
      * @return A marites.task.Task object representing the task.
      */
     private static Task parseAddTask(String taskType, String command)
-        throws EmptyTaskDescriptionException, MissingParameterException {
+        throws EmptyTaskDescriptionException, MissingParameterException, UnknownTaskTypeException {
         String[] parametersSplit;
         if (command.length() == 0) {
             throw new EmptyTaskDescriptionException();
@@ -188,7 +190,7 @@ public class Marites {
             }
             return new Event(parametersSplit[0].strip(), parametersSplit[1].strip());
         default:
-            return new Task("");
+            throw new UnknownTaskTypeException(taskType);
         }
     }
     /**
@@ -205,6 +207,8 @@ public class Marites {
             return String.format(ADD_TASK_MISSING_PARAMETER_MESSAGE, e.getMissingParameterTag());
         } catch (EmptyTaskDescriptionException e) {
             return ADD_TASK_MISSING_DESCRIPTION_MESSAGE;
+        } catch (UnknownTaskTypeException e) {
+            return String.format(ADD_TASK_UNKNOWN_TASK_MESSAGE, e.getTaskType());
         }
         tasks.add(task);
         return String.format(ADD_TASK_FORMAT_STRING, task, tasks.size());
