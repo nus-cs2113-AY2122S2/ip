@@ -5,7 +5,7 @@ public class Eliz {
     public static void printTasks(Task[] tasks) {
         for (int i = 0; i < tasks.length; i++) {
             int numToPrint = i + 1;
-            System.out.println(numToPrint + ".[" + tasks[i].getTaskType() + "]" + "["+ tasks[i].getStatusIcon() + "] "
+            System.out.println(numToPrint + ".[" + tasks[i].getTaskType() + "]" + "[" + tasks[i].getStatusIcon() + "] "
                     + tasks[i].description);
         }
     }
@@ -28,7 +28,7 @@ public class Eliz {
 
     public static Task createTask(String line) {
         Task t;
-        String[] splitTwoSections = line.split(" ",2); //0: task type, 1: rest of the words
+        String[] splitTwoSections = line.split(" ", 2); //0: task type, 1: rest of the words
         String taskType = splitTwoSections[0];
         switch (taskType) {
         case "todo":
@@ -94,32 +94,51 @@ public class Eliz {
         }
     }
 
+    public static void getInput(String line, Task[] tasks, int taskCounter) throws ElizException {
+        String[] breakTaskNames = line.split(" ");
+        if (breakTaskNames[0].equalsIgnoreCase("todo") || breakTaskNames[0].equalsIgnoreCase("deadline")
+        || breakTaskNames[0].equalsIgnoreCase("event")) {
+            //do nothing;
+        } else {
+            System.out.println("OOPS!!! I'm sorry but I do not understand what you mean");
+            throw new ElizException();
+        }
+        if (breakTaskNames.length < 2) {
+            System.out.println("OOPS!!! The description of a " + breakTaskNames[0] + " cannot be empty.");
+            throw new ElizException();
+        }
+        if (line.equalsIgnoreCase("list")) { //check if action is t
+            // o echo or print tasks
+            printTasks(Arrays.copyOf(tasks, taskCounter));
+        } else if (line.contains("mark")) { //to check if todos are marked
+            Eliz.markOrUnmark(line, tasks, taskCounter);
+        } else {
+            /** add line to todo, deadline, or event by creating the respective object */
+            Task t = createTask(line);
+            tasks[taskCounter] = t;
+            taskCounter++;
+            System.out.println("Got it. I've added this task ");
+            System.out.println(t);
+            System.out.println("Now you have " + taskCounter + " tasks in the list.");
+        }
+    }
+
     public static void main(String[] args) {
         /** Key Definitions */
         String line;
-        String BYE = "bye";
-        String LIST = "list";
-        Task[] tasks = new Task[100]; //array of Task objects
-        botIntroduction(); //calls the introduction of the bot
-        Scanner in = new Scanner(System.in);
-        line = in.nextLine();
+        Task[] tasks = new Task[100];
         int taskCounter = 0;
-        while (!line.equals(BYE)) { //while command to end is not entered
-            if (line.equals(LIST)) { //check if action is to echo or print tasks
-                printTasks(Arrays.copyOf(tasks, taskCounter));
-            } else if (line.contains("mark")) { //to check if todos are marked
-                Eliz.markOrUnmark(line, tasks, taskCounter);
-            } else {
-                /** add line to todo, deadline, or event by creating the respective object */
-                Task t = createTask(line);
-                tasks[taskCounter] = t;
+        Scanner in = new Scanner(System.in);
+        botIntroduction(); //calls the introduction of the bot
+        line = in.nextLine();
+        try {
+            while (!line.equalsIgnoreCase("bye")) { //while command to end is not entered
+                getInput(line, tasks, taskCounter);
                 taskCounter++;
-                System.out.println("Got it. I've added this task ");
-                System.out.println(t);
-                System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                line = in.nextLine();
             }
-            line = in.nextLine();
+            System.out.println("Bye. Hope to see you again soon!");
+        } catch (ElizException e) {
         }
-        System.out.println("Bye. Hope to see you again soon!");
     }
 }
