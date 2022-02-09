@@ -31,49 +31,51 @@ public class UserInterface {
         String commandInput;
         do {
             commandInput = UISCAN.nextLine();
-            executeCommand(commandInput);
+            try {
+                executeCommand(commandInput);
+            } catch (DukeException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
         } while (!commandInput.equals(COMMAND_EXIT));
     }
 
     /**
      * Checks the String inputted by the user and executes the appropriate command
      * using a switch statement.
+     *
      * @param nextLine The command to be executed.
      */
-    private void executeCommand(String nextLine) {
-        try {
-            ArrayList<String> pieces = new ArrayList<>(Arrays.asList(nextLine.split(" ")));
-            String commandType = pieces.get(0);
-            switch (commandType) {
-            case COMMAND_EXIT:
-                printGoodbye();
-                break;
-            case COMMAND_LIST:
-                listTasks();
-                break;
-            case COMMAND_MARK:
-                String taskToMark = pieces.get(1);
-                doTask(taskToMark);
-                break;
-            case COMMAND_UNMARK:
-                String taskToUnmark = pieces.get(1);
-                undoTask(taskToUnmark);
-                break;
-            case COMMAND_TODO:
-            case COMMAND_DEADLINE:
-            case COMMAND_EVENT:
-                addTask(pieces);
-                break;
-            default:
-                System.out.println("Command not found: " + commandType);
-            }
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+    private void executeCommand(String nextLine) throws DukeException {
+        ArrayList<String> pieces = new ArrayList<>(Arrays.asList(nextLine.split(" ")));
+        String commandType = pieces.get(0);
+        switch (commandType) {
+        case COMMAND_EXIT:
+            printGoodbye();
+            break;
+        case COMMAND_LIST:
+            listTasks();
+            break;
+        case COMMAND_MARK:
+            String taskToMark = pieces.get(1);
+            doTask(taskToMark);
+            break;
+        case COMMAND_UNMARK:
+            String taskToUnmark = pieces.get(1);
+            undoTask(taskToUnmark);
+            break;
+        case COMMAND_TODO:
+        case COMMAND_DEADLINE:
+        case COMMAND_EVENT:
+            addTask(pieces);
+            break;
+        default:
+            throw new DukeException("Command not found.");
         }
     }
 
     /**
      * Stores a task in the list of tasks.
+     *
      * @param inputTasks ArrayList<String> containing input from stdin. The first String in task should represent the type of
      *                   Task that must be added to the list of Tasks. Supported tasks: todo, deadline, event
      */
@@ -82,7 +84,8 @@ public class UserInterface {
             printDivider();
             this.tasks.add(buildTask(inputTasks));
             System.out.println("Got it. I've added this task:\n  " + this.tasks.get(this.tasks.size() - 1));
-            System.out.println("Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
+            System.out.println("Now you have " + tasks.size()
+                    + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
             printDivider();
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -91,13 +94,15 @@ public class UserInterface {
 
     /**
      * Constructs a subclass of Task from an ArrayList<String>.
+     *
      * @param taskStringArray the ArrayList<String> containing the user's input, split up by whitespace.
      *                        The first element of this list should contain the subclass of task to be constructed.
      * @return a subclass of Task determined by the first element of taskStringArray.
      */
-    private Task buildTask(ArrayList<String> taskStringArray) {
+    private Task buildTask(ArrayList<String> taskStringArray) throws DukeException {
         String taskType = taskStringArray.get(0);
         ArrayList<StringBuilder> taskParts = splitTask(taskStringArray);
+        validateTask(taskType, taskParts);
         String prepositions = String.valueOf(taskParts.get(taskParts.size() - 1));
         switch (taskType) {
         case COMMAND_TODO:
@@ -115,15 +120,49 @@ public class UserInterface {
     }
 
     /**
+     * Validates the input of the task to check for user error.
+     *
+     * @param taskType  the type of task (todo, deadline etc).
+     * @param taskParts the list of components that form the task.
+     * @throws DukeException error message if task is invalid
+     */
+    private void validateTask(String taskType, ArrayList<StringBuilder> taskParts) throws DukeException {
+        if (taskParts.isEmpty()) {
+            throw new DukeException("The description of a " + taskType + " cannot be empty.");
+        }
+        String prepositions = String.valueOf(taskParts.get(taskParts.size() - 1));
+        switch (taskType) {
+        case COMMAND_TODO:
+            if (!prepositions.isEmpty()) {
+                throw new DukeException("Todo tasks cannot include the preposition " + prepositions +" in the description.");
+            }
+            break;
+        case COMMAND_DEADLINE:
+            if (taskParts.get(0).toString().equals("")
+                    || taskParts.get(1).toString().equals("")) {
+                throw new DukeException("The description or deadline is incomplete.");
+            }
+            break;
+        case COMMAND_EVENT:
+            if (taskParts.get(0).toString().equals("") || taskParts.get(1).toString().equals("")) {
+                throw new DukeException("The description or time of event is incomplete.");
+            }
+        }
+    }
+
+
+    /**
      * Splits an ArrayList<String> into an ArrayList<StringBuilder>, where each element
      * can be used to construct a subclass of Task. Use this in conjunction with buildTask to construct a
      * subclass of Task.
+     *
      * @param input ArrayList of Strings that represent the user's input split by whitespace.
      * @return an ArrayList<StringBuilder> containing the input split by the '/' character.
-     *         Each element represents a String used to construct the task.
-     *         The last element contains all prepositions used in a single string.
-     *         e.g.: deadline return book /by Sunday /at library returns the following Arraylist:
-     *         {"return book", "Sunday", "Library", "/by/at"}
+     * Each element represents a String used to construct the task.
+     * The last element contains all prepositions used in a single string.
+     * e.g.: deadline return book /by Sunday /at library returns the following Arraylist:
+     * {"return book", "Sunday", "Library", "/by/at"}
+     * returns an empty list if input contains only a command.
      */
     private ArrayList<StringBuilder> splitTask(ArrayList<String> input) {
         /* taskPartsIterator increments when a String containing '/' is encountered.
@@ -132,6 +171,9 @@ public class UserInterface {
          * Strings in input have been read.
          */
         ArrayList<StringBuilder> taskParts = new ArrayList<>();
+        if (input.size() <= 1) {
+            return taskParts;
+        }
         StringBuilder prepositions = new StringBuilder();
         for (int taskPartsIterator = 0, inputIterator = 0; inputIterator < input.size(); ++taskPartsIterator) {
             String finalWord = input.get(inputIterator);
@@ -168,11 +210,12 @@ public class UserInterface {
     /**
      * Marks the task selected by the user as done. Tasks are selected by their visual index on the list
      * (starting from 1, not 0) and not by name.
+     *
      * @param task The index of the task to be marked done.
      */
     private void doTask(String task) {
         if (task == null) {
-            System.out.println(("Error: Task to be done is null."));
+            System.out.println(("Task to be done is null."));
             return;
         }
         try {
@@ -189,6 +232,7 @@ public class UserInterface {
     /**
      * Marks the task selected by the user as undone. Tasks are selected by their visual index on the list
      * (starting from 1, not 0) and not by name.
+     *
      * @param task The index of the task to be marked done.
      */
     private void undoTask(String task) {

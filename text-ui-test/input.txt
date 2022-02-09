@@ -7,3 +7,15 @@ mark 1
 mark 4
 list
 bye
+todo
+todo /by
+deadline
+deadline /by
+deadline test /by
+deadline /by test
+deadline test /by test
+event /at
+event test /at
+event /at test
+event test /at test
+
