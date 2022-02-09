@@ -1,3 +1,5 @@
+package marites.task;
+
 public class Event extends Task {
 
     private static final String EVENT_FORMAT_STRING = "[E]%s (at: %s)";

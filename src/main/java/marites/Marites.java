@@ -1,4 +1,10 @@
-import java.text.NumberFormat;
+package marites;
+
+import marites.task.Deadline;
+import marites.task.Event;
+import marites.task.Task;
+import marites.task.Todo;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -40,7 +46,7 @@ public class Marites {
 
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    /** The task list being tracked by Marites. */
+    /** The task list being tracked by marites.Marites. */
     private static final ArrayList<Task> tasks = new ArrayList<>();
 
 
@@ -158,7 +164,7 @@ public class Marites {
      * Parses an add task command given by the user.
      * @param taskType The task's type.
      * @param command The user's command.
-     * @return A Task object representing the task.
+     * @return A marites.task.Task object representing the task.
      */
     private static Task parseAddTask(String taskType, String command)
         throws EmptyTaskDescriptionException, MissingParameterException {

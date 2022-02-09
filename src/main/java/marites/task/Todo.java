@@ -1,9 +1,11 @@
+package marites.task;
+
 public class Todo extends Task {
 
     private static final String TODO_FORMAT_STRING = "[T]%s";
 
     public Todo(String description) {
-        super(description);
+         super(description);
     }
 
     @Override
