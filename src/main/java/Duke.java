@@ -10,13 +10,19 @@ public class Duke {
         userInput = new Task[MAX_TASK_SIZE];
         while(true) {
             Scanner input = new Scanner(System.in);
-            line = input.nextLine();
-            if (line.equals("list")){
-                printList(inputCount, userInput);
-                continue;
+            //line = input.nextLine();
+            try{
+                checkCommandValidity(input);
+            } catch (InvalidInputException e) {
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-
-            if (line.contains(" ")){
+            if (isList()){
+                printList();
+                continue;
+            } else if (isBye()) {
+                System.out.println("Bye. Hope to see you again soon!");
+                break;
+            } else if (line.contains(" ")){
                 if (isMark()) {
                     if (checkValidity()){
                         markAsDone();
@@ -30,23 +36,31 @@ public class Duke {
                         System.out.println("Invalid Command!");
                     } continue;
                 } else if (isTodo()){
+                    try{
                     addTodo();
+                    } catch (InvalidInputException e) {
+                        System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                    }
                     continue;
                 } else if (isDeadline()){
-                    addDeadline();
+                    try {
+                        addDeadline();
+                    } catch (InvalidInputException e) {
+                        System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+                    }
                     continue;
                 } else if (isEvent()){
-                    addEvent();
+                    try {
+                        addEvent();
+                    } catch (InvalidInputException e) {
+                        System.out.println("☹ OOPS!!! The description of a event cannot be empty.");
+                    }
                     continue;
                 }
             }
-            if (isBye()) {
-                System.out.println("Bye. Hope to see you again soon!");
-                break;
-            }
-            userInput[inputCount] = new Task(line);
-            inputCount++;
-            System.out.println("Add: " + line);
+//            userInput[inputCount] = new Task(line);
+//            inputCount++;
+//            System.out.println("Add: " + line);
         }
     }
 
@@ -61,7 +75,7 @@ public class Duke {
         System.out.println("What can I do for you?");
     }
 
-    public static void printList(int inputCount, Task[] userInput){
+    public static void printList(){
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < inputCount; i++) {
             System.out.println((i+1) +  ".[" +  userInput[i].getIcon() +"] " + "[" +  userInput[i].getStatusIcon() +"] "+ userInput[i].description);
@@ -69,11 +83,11 @@ public class Duke {
     }
 
     public static boolean isUnmark(){
-        return (line.substring(0, line.indexOf(" "))).equals("unmark");
+        return (line.substring(0, line.indexOf(" "))).equalsIgnoreCase("unmark");
     }
 
     public static boolean isMark(){
-        return (line.substring(0, line.indexOf(" "))).equals("mark");
+        return (line.substring(0, line.indexOf(" "))).equalsIgnoreCase("mark");
     }
 
     public static void markAsDone(){
@@ -91,25 +105,28 @@ public class Duke {
     }
 
     public static boolean isTodo() {
-        return (line.substring(0, line.indexOf(" "))).equals("Todo");
+        return (line.substring(0, line.indexOf(" "))).equalsIgnoreCase("Todo");
     }
 
     public static boolean isDeadline() {
-        return (line.substring(0, line.indexOf(" "))).equals("Deadline");
+        return (line.substring(0, line.indexOf(" "))).equalsIgnoreCase("Deadline");
     }
 
     public static boolean isEvent(){
-        return (line.substring(0, line.indexOf(" "))).equals("Event");
+        return (line.substring(0, line.indexOf(" "))).equalsIgnoreCase("Event");
     }
 
     public static boolean isBye(){
-        return line.equals("bye");
+        return line.equalsIgnoreCase("bye");
     }
     public static boolean checkValidity(){
         return Integer.parseInt(line.substring(line.indexOf(" ") + 1)) <= inputCount;
     }
-
-    public static void addTodo(){
+    public static boolean isList() {
+        return line.equals("list");
+    }
+    public static void addTodo() throws InvalidInputException {
+        if ((line.substring(1 + line.indexOf(" "))).trim().isEmpty()) throw new InvalidInputException();
         userInput[inputCount] = new Todo((line.substring(1 + line.indexOf(" "))));
         inputCount++;
         System.out.println("Got it. I've added this task: ");
@@ -117,7 +134,8 @@ public class Duke {
         System.out.println("Now you have " + inputCount + " tasks in the list.");
     }
 
-    public static void addDeadline(){
+    public static void addDeadline() throws InvalidInputException {
+        if ((line.substring(1 + line.indexOf(" "))).trim().isEmpty()) throw new InvalidInputException();
         userInput[inputCount] = new Deadline((line.substring(1 + line.indexOf(" "), line.indexOf("/by"))),line.substring(line.indexOf("/by") + 4));
         inputCount++;
         System.out.println("Got it. I've added this task: ");
@@ -125,12 +143,21 @@ public class Duke {
         System.out.println("Now you have " + inputCount + " tasks in the list.");
     }
 
-    public static void addEvent(){
+    public static void addEvent() throws InvalidInputException {
+        if (((line.substring(1 + line.indexOf(" "))).trim()).isEmpty()) throw new InvalidInputException();
         userInput[inputCount] = new Event((line.substring(1 + line.indexOf(" "), line.indexOf("/at"))),line.substring(line.indexOf("/at") + 4));
         inputCount++;
         System.out.println("Got it. I've added this task: ");
         System.out.println("[" + userInput[inputCount - 1].getIcon() + "]" + "[" + userInput[inputCount - 1].getStatusIcon() + "] " + userInput[inputCount - 1].description + "(at: " + userInput[inputCount - 1].getAt() + ")");
         System.out.println("Now you have " + inputCount + " tasks in the list.");
+    }
+    public static void checkCommandValidity(Scanner input) throws InvalidInputException {
+        line = input.nextLine();
+        if (line.equalsIgnoreCase("todo") || line.equalsIgnoreCase("deadline") || line.equalsIgnoreCase("event"))
+            line+= ' ';
+        if (!isList() && !isBye() && !line.contains(" ")) {
+            throw new InvalidInputException();
+        }
     }
 
 
