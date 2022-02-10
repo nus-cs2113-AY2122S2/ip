@@ -1,3 +1,5 @@
+package duke.tasks;
+
 public class ToDo {
     protected String description;
     protected boolean isDone;
