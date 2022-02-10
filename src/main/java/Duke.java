@@ -18,10 +18,21 @@ public class Duke {
         Scanner task = new Scanner(System.in);
         String command = task.nextLine();
         while(!command.equals("bye")){
-            System.out.println(horiLine + "added: "+ command+ System.lineSeparator() + horiLine);
-            list[commCount] = command;
-            commCount++;
-            command = task.nextLine();
+
+            if(command.equals("list")){
+                System.out.println(horiLine);
+                for(int i=0; i<commCount; i++){
+                    System.out.println(i+". "+ list[i]);
+                }
+                System.out.println(horiLine);
+                command = task.nextLine();
+            }
+            else {
+                System.out.println(horiLine + "added: " + command + System.lineSeparator() + horiLine);
+                list[commCount] = command;
+                commCount++;
+                command = task.nextLine();
+            }
         }
 
         System.out.println(horiLine + ending + horiLine);
