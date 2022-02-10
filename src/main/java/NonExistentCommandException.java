@@ -1,2 +1,2 @@
-public class NonExistentCommandException extends Exception {
+public class NonExistentCommandException extends Exception{
 }

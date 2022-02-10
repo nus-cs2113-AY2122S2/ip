@@ -13,7 +13,7 @@ public class Duke {
         String input;
         while (true){
             input = sc.nextLine();
-            try {
+            try{
                 getCommand(input);
             }catch (IllegalCommandException e){
                 PatternGenerator.generateArrows();
@@ -29,7 +29,6 @@ public class Duke {
             if(input.equals("bye")){
                 break;
             }
-
         }
     }
 
@@ -46,6 +45,7 @@ public class Duke {
             if (arrOfInput.length < 2){
                 throw new IllegalCommandException();
             }
+
             Command.addTodo(arrOfInput[1]);
             break;
         case "deadline":
@@ -58,6 +58,7 @@ public class Duke {
             catch (IllegalFormatException e){
                 System.out.println("OOPS!!! The format is not correct.");
             }
+
             break;
         case "event":
             if (arrOfInput.length < 2){
@@ -76,9 +77,10 @@ public class Duke {
                 throw new IllegalCommandException();
             }
             Command.mark(Integer.parseInt(arrOfInput[1]));
-            break;
+
         default:
             throw new NonExistentCommandException();
+
         }
     }
 
