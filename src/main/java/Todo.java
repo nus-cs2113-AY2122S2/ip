@@ -9,7 +9,8 @@ public class Todo extends Task {
      * @param description Description of the Task to be created
      */
     public Todo(String description) {
-        super(description);
+        this.description = description;
+        this.isDone = false;
     }
 
     @Override

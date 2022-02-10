@@ -10,4 +10,13 @@ mark 3
 list
 mark 2
 list
+invalidcommand
+todo
+todo
+deadline asdasd
+deadline asdasd /at test
+deadline /by test
+event asdads
+event asdasd /by test
+event /at test
 bye

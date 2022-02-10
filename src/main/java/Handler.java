@@ -1,9 +1,6 @@
 import java.util.ArrayList;
 import java.util.Map;
 
-/**
- * Stores the
- */
 public class Handler {
     // Output message format for various actions
     public static final String TASK_ADDED_MESSAGE_FORMAT =
@@ -93,7 +90,7 @@ public class Handler {
      *
      * @param argumentList arguments passed in by the user, as inherited from public execute() function
      */
-    private void executeMark(Map<String, String> argumentList) {
+    private void executeMark(Map<String, String> argumentList) throws IndexOutOfBoundsException {
         int index = Integer.parseInt(argumentList.get(""));
         index = index - 1;
         Task taskToMark = taskList.get(index);
@@ -108,7 +105,7 @@ public class Handler {
      *
      * @param argumentList arguments passed in by the user, as inherited from public execute() function
      */
-    private void executeUnmark(Map<String, String> argumentList) {
+    private void executeUnmark(Map<String, String> argumentList) throws IndexOutOfBoundsException {
         int index = Integer.parseInt(argumentList.get(""));
         index = index - 1;
         Task taskToMark = taskList.get(index);
