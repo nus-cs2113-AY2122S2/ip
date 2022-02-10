@@ -30,8 +30,7 @@ public class Event extends Task {
      * @param atDate String representing event time
      */
     public Event(String description, String atDate) {
-        this.description = description;
-        this.isDone = false;
+        super(description);
         this.atDate = atDate;
     }
 

@@ -1,7 +1,4 @@
 import java.util.Scanner;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-import java.util.ArrayList;
 
 public class Duke {
 
@@ -33,24 +30,41 @@ public class Duke {
         System.out.println(WELCOME_BANNER);
     }
 
-    public static void main(String[] args) {
-
-        // Intro message
-        printIntro();
-
-        //
-        Handler commandHandler = new Handler();
-        Scanner scannerInput = new Scanner(System.in);
-        boolean hasInput = true;
-        Parser argumentParser = new Parser();
-        while (hasInput) {
-            String userInput = scannerInput.nextLine();
-            if (!argumentParser.parseInput(userInput)) {
-                continue;
-            }
-            hasInput = commandHandler.execute(argumentParser.getUserCommand(), argumentParser.getArgumentList());
-        }
-        scannerInput.close();
+    /**
+     * Prints exit message
+     */
+    public static void printExit() {
         System.out.println(EXIT_MESSAGE);
     }
+
+    /**
+     * Runs function to start up application
+     * @param args not used
+     */
+    public static void main(String[] args) {
+        printIntro();
+        loopWhileInput();
+        printExit();
+    }
+
+    /**
+     * Takes in input and passes input to a Parser.
+     * Subsequently, passes the Parser object to a Handler, which executes the commands.
+     */
+    public static void loopWhileInput() {
+        boolean hasInput = true;
+        Scanner scannerInput = new Scanner(System.in);
+        Handler handler = new Handler();
+        while (hasInput) {
+            String userInput = scannerInput.nextLine();
+            Parser argumentParser = new Parser();
+            argumentParser.parseInput(userInput);
+            if (argumentParser.isBye()) {
+                break;
+            }
+            handler.execute(argumentParser);
+        }
+        scannerInput.close();
+    }
+
 }
