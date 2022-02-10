@@ -4,7 +4,7 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(){
+    public Task() {
         this.description = null;
         this.isDone = false;
     }
@@ -15,15 +15,16 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        // mark done task with X, undone task with space
+        return (isDone ? "X" : " ");
     }
 
-    public String toString(){
+    public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
 
-    public void setIsDone(boolean isDone){
-        this.isDone=isDone;
+    public void setIsDone(boolean isDone) {
+        this.isDone = isDone;
     }
 }
 
