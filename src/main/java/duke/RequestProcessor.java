@@ -16,10 +16,10 @@ public class RequestProcessor {
             TaskManager.printList();
             break;
         case "mark":
-            TaskManager.markItem(words);
+            TaskManager.markItem(words, "mark");
             break;
         case "unmark":
-            TaskManager.unmarkItem(words);
+            TaskManager.markItem(words, "unmark");
             break;
         case "todo":
             TaskManager.addTask(request, "todo");

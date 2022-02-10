@@ -28,16 +28,16 @@ public class Duke {
     }
 
     private static void getRequest() {
+        Scanner in = new Scanner(System.in);
         boolean hasExited = false;
         while (!hasExited) {
-            hasExited = isCompleted();
+            String request = in.nextLine();
+            request = request.trim();
+            hasExited = isCompleted(request);
         }
     }
 
-    private static boolean isCompleted() {
-        Scanner in = new Scanner(System.in);
-        String request = in.nextLine();
-        request = request.trim();
+    private static boolean isCompleted(String request) {
         boolean hasExited = false;
         try {
             hasExited = RequestProcessor.filterRequest(request);

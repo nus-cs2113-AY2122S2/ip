@@ -15,6 +15,7 @@ public class TaskManager {
     private static final String NUMBER_OF_TASKS_SECOND_HALF = " tasks in the list.";
     private static final String INVALID_INDEX = "The index that you have indicated is invalid, please try again.";
     private static final String LINE = "-----------------------------";
+    public static final String WRONG_TYPE_OF_TASK = "Something is wrong with the typeOfTask";
 
     private static Task[] listOfTasks = new Task[100];
     private static int index = 0;
@@ -34,6 +35,8 @@ public class TaskManager {
         case "event":
             listOfTasks[index] = new Event(description, timing);
             break;
+        default:
+            System.out.println("Oh no D: There seems to be a problem creating the task");
         }
     }
 
@@ -41,11 +44,10 @@ public class TaskManager {
         index++;
     }
 
-    public static void markItem(String[] words) {
+    public static void markItem(String[] words, String typeOfTask) {
         int indexToMark = getIndexToMarkOrUnmark(words);
         try {
-            listOfTasks[indexToMark].markAsDone();
-            printMarkIsCompleted(listOfTasks[indexToMark]);
+            markOrUnmark(typeOfTask, indexToMark);
         } catch(NullPointerException error) {
             System.out.println(INVALID_INDEX);
             System.out.println(LINE);
@@ -55,17 +57,18 @@ public class TaskManager {
         }
     }
 
-    public static void unmarkItem(String[] words) {
-        int indexToUnmark = getIndexToMarkOrUnmark(words);
-        try {
-            listOfTasks[indexToUnmark].markAsUndone();
-            printUnmarkIsCompleted(listOfTasks[indexToUnmark]);
-        } catch(NullPointerException error) {
-            System.out.println(INVALID_INDEX);
-            System.out.println(LINE);
-        } catch(ArrayIndexOutOfBoundsException error) {
-            System.out.println(INVALID_INDEX);
-            System.out.println(LINE);
+    private static void markOrUnmark(String typeOfTask, int indexToMark) {
+        switch (typeOfTask) {
+        case "mark":
+            listOfTasks[indexToMark].markAsDone();
+            printMarkOrUnmarkIsCompleted(listOfTasks[indexToMark], "mark");
+            break;
+        case "unmark":
+            listOfTasks[indexToMark].markAsUndone();
+            printMarkOrUnmarkIsCompleted(listOfTasks[indexToMark], "unmark");
+            break;
+        default:
+            System.out.println(WRONG_TYPE_OF_TASK);
         }
     }
 
@@ -83,49 +86,50 @@ public class TaskManager {
     private static String getDescription(String request, String typeOfTask) throws AdditionalException {
         int lengthOfTypeOfTask = typeOfTask.length();
         int lengthOfRequest = request.length();
-        String description = request.substring(lengthOfTypeOfTask, lengthOfRequest);
-        description = description.trim();
-        checkLengthOfDescription(description);
+        String description = checkLength(request, lengthOfTypeOfTask, lengthOfRequest, "description");
         return description;
     }
 
     private static String getDescription(String request, String typeOfTask, String preposition)
                 throws AdditionalException {
-        int indexOfPreposition = request.indexOf(preposition);
-        checkIndexOfPreposition(indexOfPreposition);
+        int indexOfPreposition = checkIndexOfPreposition(request, preposition);
         int lengthOfTypeOfTask = typeOfTask.length();
-        String description = request.substring(lengthOfTypeOfTask, indexOfPreposition);
-        description = description.trim();
-        checkLengthOfDescription(description);
+        String description = checkLength(request, lengthOfTypeOfTask, indexOfPreposition, "description");
         return description;
     }
 
     private static String getTiming(String request, String preposition) throws AdditionalException {
-        int indexOfPreposition = request.indexOf(preposition);
-        checkIndexOfPreposition(indexOfPreposition);
+        int indexOfPreposition = checkIndexOfPreposition(request, preposition);
         int lengthOfPreposition = preposition.length();
         int startingIndexOfTiming = indexOfPreposition + lengthOfPreposition;
         int lengthOfRequest = request.length();
-        String timing = request.substring(startingIndexOfTiming, lengthOfRequest);
-        timing = timing.trim();
-        checkLengthOfTiming(timing);
+        String timing = checkLength(request, startingIndexOfTiming, lengthOfRequest, "timing");
         return timing;
     }
 
-    private static void checkIndexOfPreposition(int indexOfPreposition) throws AdditionalException {
-        if (indexOfPreposition == -1) {
+    private static int checkIndexOfPreposition(String request, String preposition) throws AdditionalException {
+        if (request.indexOf(preposition) == -1) {
             throw new AdditionalException("OOPS!!! You seem to have forgotten your preposition.");
+        } else {
+            return request.indexOf(preposition);
         }
     }
 
-    private static void checkLengthOfDescription(String description) throws AdditionalException {
-        if (description.length() < 1) {
+    private static String checkLength(String request, int lowerBound, int UpperBound, String typeOfDetail)
+                throws AdditionalException {
+        String descriptionOrTiming = request.substring(lowerBound, UpperBound);
+        String trimmedDescriptionOrTiming = descriptionOrTiming.trim();
+        if (trimmedDescriptionOrTiming.length() < 1) {
+            raiseException(typeOfDetail);
+        }
+        return trimmedDescriptionOrTiming;
+    }
+
+    private static void raiseException(String typeOfDetail) throws AdditionalException {
+        switch(typeOfDetail) {
+        case "description":
             throw new AdditionalException("OOPS!!! The description cannot be empty.");
-        }
-    }
-
-    private static void checkLengthOfTiming(String timing) throws AdditionalException {
-        if (timing.length() < 1) {
+        case "timing":
             throw new AdditionalException("OOPS!!! The timing cannot be empty");
         }
     }
@@ -142,14 +146,17 @@ public class TaskManager {
         System.out.println(LINE);
     }
 
-    private static void printUnmarkIsCompleted(Task task) {
-        System.out.println(UNMARKED_THIS_TASK_AS_UNDONE);
-        System.out.println(task);
-        System.out.println(LINE);
-    }
-
-    private static void printMarkIsCompleted(Task task) {
-        System.out.println(MARKED_THIS_TASK_AS_DONE);
+    private static void printMarkOrUnmarkIsCompleted(Task task, String typeOfTask) {
+        switch(typeOfTask) {
+        case "mark":
+            System.out.println(MARKED_THIS_TASK_AS_DONE);
+            break;
+        case "unmark":
+            System.out.println(UNMARKED_THIS_TASK_AS_UNDONE);
+            break;
+        default:
+            System.out.println(WRONG_TYPE_OF_TASK);
+        }
         System.out.println(task);
         System.out.println(LINE);
     }

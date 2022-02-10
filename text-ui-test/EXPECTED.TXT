@@ -1,13 +1,20 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+
+  .-')     _ (`-.                           .-. .-')               
+ ( OO ).  ( (OO  )                          \  ( OO )              
+(_)---\_)_.`     \ .-'),-----.  .-'),-----. ,--. ,--.   ,--.   ,--.
+/    _ |(__...--''( OO'  .-.  '( OO'  .-.  '|  .'   /    \  `.'  / 
+\  :` `. |  /  | |/   |  | |  |/   |  | |  ||      /,  .-')     /  
+ '..`''.)|  |_.' |\_) |  |\|  |\_) |  |\|  ||     ' _)(OO  \   /   
+.-._)   \|  .___.'  \ |  | |  |  \ |  | |  ||  .   \   |   /  /\_  
+\       /|  |        `'  '-'  '   `'  '-'  '|  |\   \  `-./  /.__) 
+ `-----' `--'          `-----'      `-----' `--' '--'    `--'      
 
 -----------------------------
-Hello there! I'm Duke :D
+Hello there! I'm Spooky :D
 What can I do for you?
+-----------------------------
+YAY!!! you do not have any tasks at the moment hehe
 -----------------------------
 Got it. I have added this task: 
 [T][ ]borrow book
@@ -16,12 +23,93 @@ Now you have 1 tasks in the list.
 1. [T][ ]borrow book
 -----------------------------
 Got it. I have added this task: 
-[D][ ]return book (by: Sunday)
+[E][ ]read book (at: library tonight)
 Now you have 2 tasks in the list.
 -----------------------------
+1. [T][ ]borrow book
+2. [E][ ]read book (at: library tonight)
+-----------------------------
 Got it. I have added this task: 
-[E][ ]project meeting (at: Mon 2-4pm)
+[D][ ]return book (by: tomorrow 2359)
 Now you have 3 tasks in the list.
+-----------------------------
+1. [T][ ]borrow book
+2. [E][ ]read book (at: library tonight)
+3. [D][ ]return book (by: tomorrow 2359)
+-----------------------------
+Nice! I've marked this task as done:
+[T][X]borrow book
+-----------------------------
+1. [T][X]borrow book
+2. [E][ ]read book (at: library tonight)
+3. [D][ ]return book (by: tomorrow 2359)
+-----------------------------
+Nice! I've marked this task as done:
+[E][X]read book (at: library tonight)
+-----------------------------
+1. [T][X]borrow book
+2. [E][X]read book (at: library tonight)
+3. [D][ ]return book (by: tomorrow 2359)
+-----------------------------
+Nice! I've marked this task as done:
+[D][X]return book (by: tomorrow 2359)
+-----------------------------
+1. [T][X]borrow book
+2. [E][X]read book (at: library tonight)
+3. [D][X]return book (by: tomorrow 2359)
+-----------------------------
+Nice! I've unmarked this task as undone:
+[D][ ]return book (by: tomorrow 2359)
+-----------------------------
+1. [T][X]borrow book
+2. [E][X]read book (at: library tonight)
+3. [D][ ]return book (by: tomorrow 2359)
+-----------------------------
+Nice! I've unmarked this task as undone:
+[E][ ]read book (at: library tonight)
+-----------------------------
+1. [T][X]borrow book
+2. [E][ ]read book (at: library tonight)
+3. [D][ ]return book (by: tomorrow 2359)
+-----------------------------
+Nice! I've unmarked this task as undone:
+[T][ ]borrow book
+-----------------------------
+1. [T][ ]borrow book
+2. [E][ ]read book (at: library tonight)
+3. [D][ ]return book (by: tomorrow 2359)
+-----------------------------
+OOPS!!! The description cannot be empty.
+-----------------------------
+OOPS!!! You seem to have forgotten your preposition.
+-----------------------------
+OOPS!!! The description cannot be empty.
+-----------------------------
+OOPS!!! The timing cannot be empty
+-----------------------------
+OOPS!!! The description cannot be empty.
+-----------------------------
+OOPS!!! I'm sorry, but I don't know what that means :-(
+-----------------------------
+OOPS!!! You seem to have forgotten your preposition.
+-----------------------------
+OOPS!!! The description cannot be empty.
+-----------------------------
+OOPS!!! The timing cannot be empty
+-----------------------------
+OOPS!!! The description cannot be empty.
+-----------------------------
+OOPS!!! I'm sorry, but I don't know what that means :-(
+-----------------------------
+The index that you have indicated is invalid, please try again.
+-----------------------------
+The index that you have indicated is invalid, please try again.
+-----------------------------
+The index that you have indicated is invalid, please try again.
+-----------------------------
+The index that you have indicated is invalid, please try again.
+-----------------------------
+OOPS!!! I'm sorry, but I don't know what that means :-(
 -----------------------------
 Bye! Hope to see you soon :D
 -----------------------------

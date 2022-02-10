@@ -1,5 +1,36 @@
+list
 todo borrow book
 list
-deadline return book /by Sunday
-event project meeting /at Mon 2-4pm
+event read book /at library tonight
+list
+deadline return book /by tomorrow 2359
+list
+mark 1
+list
+mark 2
+list
+mark 3
+list
+unmark 3
+list
+unmark 2
+list
+unmark 1
+list
+todo
+event
+event /at
+event eat dinner /at
+event /at home later
+eventeat dinner /at home later
+deadline
+deadline /by
+deadline submit homework /by
+deadline /by tonight 2359
+deadlinesubmit homework /by tonight 2359
+mark 0
+mark 4
+unmark 0
+unmark 4
+asdf
 bye
