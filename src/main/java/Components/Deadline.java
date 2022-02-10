@@ -1,7 +1,7 @@
 package Components;
 
 public class Deadline extends Task {
-    String dateTime;
+    private String dateTime;
 
     public Deadline(String description, String dateTime) {
         super(description);

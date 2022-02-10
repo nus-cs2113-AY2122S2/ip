@@ -1,8 +1,8 @@
 package Components;
 
 public class Task {
-    protected String description;
-    protected boolean isDone;
+    private String description;
+    private boolean isDone;
 
     public Task() {
         this.description = null;

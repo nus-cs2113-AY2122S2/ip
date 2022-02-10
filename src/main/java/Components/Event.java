@@ -1,7 +1,7 @@
 package Components;
 
 public class Event extends Task {
-    String dateTime;
+    private String dateTime;
 
     public Event(String description, String dateTime) {
         super(description);
