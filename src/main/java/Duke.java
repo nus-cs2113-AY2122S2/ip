@@ -16,15 +16,4 @@ public class Duke {
         System.out.println(byeStr);
     }
 
-    public static void echo() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("\t Type \"bye\" to exit.");
-        String input = sc.nextLine();
-        while(!input.equals("bye")){
-            System.out.println("\t" + "-".repeat(60));
-            System.out.println("\t" + input);
-            System.out.println("\t" + "-".repeat(60));
-            input = sc.nextLine();
-        }
-    }
 }
