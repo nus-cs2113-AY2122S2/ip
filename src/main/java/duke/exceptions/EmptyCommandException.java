@@ -1,3 +1,5 @@
+package duke.exceptions;
+
 public class EmptyCommandException extends Exception{
     private static final String EMPTY_COMMAND_MESSAGE =
             "____________________________________________________________"

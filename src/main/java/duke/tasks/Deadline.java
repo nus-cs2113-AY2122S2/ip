@@ -1,3 +1,5 @@
+package duke.tasks;
+
 public class Deadline extends Task {
 
     // toString format string

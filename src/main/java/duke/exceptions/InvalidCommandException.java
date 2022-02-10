@@ -1,3 +1,5 @@
+package duke.exceptions;
+
 public class InvalidCommandException extends Exception {
     private static final String INVALID_COMMAND_MESSAGE =
             "____________________________________________________________"
