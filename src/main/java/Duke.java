@@ -37,30 +37,68 @@ public class Duke {
                 }
             } else if (arrOfStr[0].equals("todo")) {
                 // toDo method
-                allTasks.add(new ToDo(arrOfStr[1]));
+                try {
+                    allTasks.add(new ToDo(arrOfStr[1]));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("OOPS!! The description of a todo cannot be empty");
+                    System.out.println(END_OF_SECTION);
+                    line = in.nextLine();
+                    continue;
+                }
                 System.out.println(String.format("Got it. I've added this task:%n  %s%nNow you have %d tasks in the list.",
                         allTasks.get(allTasks.size() - 1), allTasks.size()));
             } else if (arrOfStr[0].equals("deadline")) {
                 // Deadline method
                 String[] deadlineDescription = arrOfStr[1].split("/by");
-                allTasks.add(new Deadline(deadlineDescription[0], deadlineDescription[1]));
+                try {
+                    allTasks.add(new Deadline(deadlineDescription[0], deadlineDescription[1]));
+                } catch (ArrayIndexOutOfBoundsException e){
+                    System.out.println("Wrong input format. Please follow the following format:");
+                    System.out.println("deadline [description] /by [date]");
+                    System.out.println(END_OF_SECTION);
+                    line = in.nextLine();
+                    continue;
+                }
                 System.out.println(String.format("Got it. I've added this task:%n  %s%nNow you have %d tasks in the list.",
                         allTasks.get(allTasks.size() - 1), allTasks.size()));
             } else if (arrOfStr[0].equals("event")) {
                 // Event method
                 String[] eventDescription = arrOfStr[1].split("/at");
-                allTasks.add(new Event(eventDescription[0], eventDescription[1]));
+                try {
+                    allTasks.add(new Event(eventDescription[0], eventDescription[1]));
+                } catch (ArrayIndexOutOfBoundsException e){
+                    System.out.println("Wrong input format. Please follow the following format:");
+                    System.out.println("event [description] /at [time/date]");
+                    System.out.println(END_OF_SECTION);
+                    line = in.nextLine();
+                    continue;
+                }
                 System.out.println(String.format("Got it. I've added this task:%n  %s%nNow you have %d tasks in the list.",
                         allTasks.get(allTasks.size() - 1), allTasks.size()));
             } else if (arrOfStr[0].equals("mark")) {
-                allTasks.get(Integer.parseInt(arrOfStr[1]) - 1).markAsDone();
+                try {
+                    allTasks.get(Integer.parseInt(arrOfStr[1]) - 1).markAsDone();
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Please input the correct index to mark it as done");
+                    System.out.println(END_OF_SECTION);
+                    line = in.nextLine();
+                    continue;
+                }
                 System.out.println(String.format("Nice! I've marked this task as done:%n%s",
                         allTasks.get(Integer.parseInt(arrOfStr[1]) - 1)));
             } else if (arrOfStr[0].equals("unmark")) {
-                allTasks.get(Integer.parseInt(arrOfStr[1]) - 1).unmark();
+                try {
+                    allTasks.get(Integer.parseInt(arrOfStr[1]) - 1).markAsDone();
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Please input the correct index to mark it as undone");
+                    System.out.println(END_OF_SECTION);
+                    line = in.nextLine();
+                    continue;
+                }
                 System.out.println(String.format("Ok, I've marked this task as not done yet:%n%s",
                         allTasks.get(Integer.parseInt(arrOfStr[1]) - 1)));
             } else {
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means");
             }
             System.out.println(END_OF_SECTION);
             line = in.nextLine();
