@@ -1,3 +1,4 @@
+package duke.tasks;
 public class Event extends Task{
     protected String startEndTime;
 

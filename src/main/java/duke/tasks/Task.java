@@ -1,3 +1,7 @@
+package duke.tasks;
+
+import duke.util.PatternGenerator;
+
 public class Task {
     protected String description;
     protected boolean isDone;

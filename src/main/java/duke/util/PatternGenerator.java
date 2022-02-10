@@ -1,3 +1,4 @@
+package duke.util;
 public class PatternGenerator {
     public static void generateLine(){
         System.out.println("____________________________________________________________");

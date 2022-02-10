@@ -1,4 +1,10 @@
-import java.util.Scanner;
+package duke.util;
+
+import duke.exception.IllegalFormatException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 
 public class Command {
     public static void greetUser(){
@@ -34,7 +40,7 @@ public class Command {
         Task.addTask(todo);
     }
 
-    public static void addDDL(String s) throws IllegalFormatException{
+    public static void addDDL(String s) throws IllegalFormatException {
         String[] arrOfS = s.split("/");
         if(arrOfS.length < 2){
             throw new IllegalFormatException();
