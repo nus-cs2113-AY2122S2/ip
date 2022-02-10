@@ -1,3 +1,5 @@
+package brave;
+
 import java.util.Scanner;
 import java.lang.String;
 

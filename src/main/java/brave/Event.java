@@ -1,3 +1,5 @@
+package brave;
+
 public class Event extends Task {
     private String eventTime;
 
