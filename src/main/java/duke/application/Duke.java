@@ -82,11 +82,7 @@ public class Duke {
                 + "|____/ \\,_|_|\\_\\___|\n";
         System.out.println("Hey! What's up\n" + logo);
         System.out.println("=============================");
-<<<<<<< HEAD
-        System.out.println("Ayo my name's duke.application.Duke!");
-=======
         System.out.println("Ayo my name's duke!");
->>>>>>> branch-Level-5
         System.out.println("What's up?");
         System.out.println("=============================");
     }
@@ -206,11 +202,7 @@ public class Duke {
         }
         String description = temp[0].split("event")[1].trim();
         String at = temp[1].trim();
-<<<<<<< HEAD
         if (description.length() == 0){
-=======
-        if (at.length() == 0 ||description.length() == 0){
->>>>>>> branch-Level-5
             throw new IllegalEventException();
         }
         Event event = new Event(description, at);
