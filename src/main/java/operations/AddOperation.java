@@ -5,6 +5,10 @@ import tasks.Task;
 import tasks.TaskFactory;
 import tasks.TaskList;
 
+
+/**
+ * AddOperation handle adding command into tasklist
+ */
 public class AddOperation extends Operation {
 
     /**
