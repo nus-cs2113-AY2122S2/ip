@@ -1,3 +1,7 @@
+package duke;
+
+import duke.task.Task;
+
 public class TaskList {
     private Task[] taskList = new Task[100];
     private int taskCount = 0;
