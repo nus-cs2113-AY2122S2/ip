@@ -6,31 +6,14 @@ public class Event extends Task {
     protected String atDate;
 
     /**
-     * Create a Deadline with isDone set to false, empty description and empty atDate
-     */
-    public Event() {
-        super();
-        this.atDate = "";
-    }
-
-    /**
-     * Create an Event with isDone set to false, description of choice and empty atDate
-     *
-     * @param description Description of the Task to be created
-     */
-    public Event(String description) {
-        super(description);
-        this.atDate = "";
-    }
-
-    /**
      * Create an Event with isDone set to false, description of choice and atDate of choice
      *
      * @param description Description of the Task to be created
      * @param atDate String representing event time
      */
     public Event(String description, String atDate) {
-        super(description);
+        this.description = description;
+        this.isDone = false;
         this.atDate = atDate;
     }
 
@@ -40,7 +23,7 @@ public class Event extends Task {
      * @return byDate
      */
     public String getAtDate() {
-        return atDate;
+        return this.atDate;
     }
 
     @Override
