@@ -1,14 +1,17 @@
-package application;
+package duke.application;
 
+//java imports
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+//entity classes imports
 import duke.entity.Deadline;
 import duke.entity.Event;
 import duke.entity.Task;
 import duke.entity.Todo;
 
+//exception classes imports
 import duke.exception.DukeException;
 import duke.exception.IllegalTodoException;
 import duke.exception.IllegalEventException;
@@ -77,9 +80,9 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  /\n"
                 + "|____/ \\,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        System.out.println("Hey! What's up\n" + logo);
         System.out.println("=============================");
-        System.out.println("Ayo my name's duke.application.application.application.Duke!");
+        System.out.println("Ayo my name's duke!");
         System.out.println("What's up?");
         System.out.println("=============================");
     }
@@ -170,9 +173,12 @@ public class Duke {
         }
         String[] temp = new String[100];
         temp = userInput.split("/by");
+        if (temp.length <= 1){
+            throw new IllegalDeadlineException();
+        }
         String description = temp[0].split("deadline")[1].trim();
         String by = temp[1].trim();
-        if (by.length() == 0 ||description.length() == 0){
+        if (description.length() == 0){
             throw new IllegalDeadlineException();
         }
         Deadline deadline = new Deadline(description, by);
@@ -191,6 +197,9 @@ public class Duke {
         }
         String[] temp = new String[100];
         temp = userInput.split("/at");
+        if (temp.length <= 1){
+            throw new IllegalEventException();
+        }
         String description = temp[0].split("event")[1].trim();
         String at = temp[1].trim();
         if (at.length() == 0 ||description.length() == 0){
