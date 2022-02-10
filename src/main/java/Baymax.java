@@ -4,60 +4,57 @@ import java.util.Scanner;
 public class Baymax {
     public static void main(String[] args) {
 
-        String greeting = "  Hello, I'm Baymax.\n"+
-                          "  Your personal task managing companion. \n" +
-                          "  What can I do for you? \n";
-        String ending = "Bye. Hope to see you again soon! \n";
+        Scanner in = new Scanner(System.in);
+        String command;
+        String taskDescrip;
+        String[] taskWord;
+        TaskManager tManager = new TaskManager();
         String horiLine = "____________________________________________________________\n";
 
-        Task[] task = new Task[100];
-        int taskCount = 0;
-        Scanner in = new Scanner(System.in);
-        String command = in.nextLine();
+        tManager.welcome();
 
-        System.out.println(horiLine + greeting + horiLine);//greetings
+        command = in.nextLine();
+        while (!command.equals("bye")) {
 
-        while(!command.equals("bye")){
+            String[] word_split;
+            word_split = command.split(" ", 2);
+            String taskName = word_split[0];
 
-            System.out.println(horiLine);
-            if(command.equals("list")){
-                for(int i=0; i<taskCount; i++){
-                    System.out.println((i+1) + "." + task[i].getStatusIcon() + " " + task[i].getDescription());
-                }
+            switch (taskName) {
+                case "todo":
+                    tManager.addTask(new Todo(word_split[1]));
+                    break;
+                case "deadline":
+                    taskWord = word_split[1].split("/by ", 2);
+                    taskDescrip = taskWord[0];
+                    String ddl = taskWord[1];
+                    tManager.addTask(new Deadline(taskDescrip, ddl));
+                    break;
+                case "event":
+                    taskWord = word_split[1].split("/at ", 2);
+                    taskDescrip = taskWord[0];
+                    String eventTime = taskWord[1];
+                    tManager.addTask(new Event(taskDescrip, eventTime));
+                    break;
+                case "list":
+                    tManager.printTaskList();
+                    break;
+                case "mark":
+                    System.out.println(horiLine);
+                    tManager.markTask(Integer.parseInt(word_split[1]) - 1);
+                    System.out.println(horiLine);
+                    break;
+                case "unmark":
+                    System.out.println(horiLine);
+                    tManager.unmarkTask(Integer.parseInt(word_split[1]) - 1);
+                    System.out.println(horiLine);
+                    break;
+                default:
+                    System.out.println("Error. Please retry");
+                    break;
             }
-            else if(command.split(" ")[0].equals("mark")){
-                String[] word_split;
-                word_split = command.split(" ");
-                int taskIndex = Integer.parseInt(word_split[1]) - 1;
-                task[taskIndex].markTaskDone();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(task[taskIndex].getStatusIcon() + " " + task[taskIndex].getDescription());
-            }
-            else if (command.split(" ")[0].equals("unmark")) {
-                String[] words = command.split(" ");
-                int taskIndex = Integer.parseInt(words[1]) - 1;
-                task[taskIndex].unmarkTaskDone();
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(task[taskIndex].getStatusIcon() + " " + task[taskIndex].getDescription());
-            }
-            else{
-                System.out.println("added: " + command);
-                System.out.println(horiLine);
-                task[taskCount] = new Task(command);
-                taskCount++;
-            }
-            System.out.println(horiLine);
             command = in.nextLine();
         }
-
-        System.out.println(horiLine + ending + horiLine);
-
-
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        System.out.println("Hello from\n" + logo);
+        tManager.bye();
     }
 }
