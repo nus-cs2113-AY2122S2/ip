@@ -22,58 +22,96 @@ public class TaskManager {
         System.out.println("\t Type \"bye\" to exit");
         System.out.println("\t" + "-".repeat(60));
 
-        String option = sc.next();
-        while(!option.equals("bye")) {
-            switch (option) {
+        String input = sc.nextLine();
+        String[] inputs = input.split(" ", 2);
+        while(!inputs[0].equals("bye")) {
+            switch (inputs[0]) {
             case "todo":
                 // Fallthrough
             case "deadline":
                 // Fallthrough
             case "event":
-                String taskDescription = sc.nextLine();
-                addTask(option, taskDescription);
-                System.out.println("\t" + "-".repeat(60));
-                System.out.println("\t Got it. I've added this task:");
-                System.out.println("\t\t" + tasks[taskCount - 1].toString());
-                System.out.println("\t Now you have " + taskCount + " tasks in the list.");
-                System.out.println("\t" + "-".repeat(60));
+                try {
+                    addTask(inputs[0], inputs[1]);
+                    System.out.println("\t" + "-".repeat(60));
+                    System.out.println("\t Got it. I've added this task:");
+                    System.out.println("\t\t" + tasks[taskCount - 1].toString());
+                    System.out.println("\t Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("\t" + "-".repeat(60));
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("\t" + "-".repeat(60));
+                    System.out.println("\t ☹ OOPS!!! The description of a " + inputs[0] + " cannot be empty.");
+                    System.out.println("\t" + "-".repeat(60));
+                } catch (DukeException e) {
+                    System.out.println("\t" + "-".repeat(60));
+                    System.out.println("\t " + e.getMessage());
+                    System.out.println("\t" + "-".repeat(60));
+                }
                 break;
             case "list":
                 listTasks();
                 break;
             case "mark":
-                idx = sc.nextInt();
-                markTask(idx);
+                try {
+                    idx = Integer.parseInt(inputs[1]);
+                    markTask(idx);
+                } catch (NumberFormatException e) {
+                    System.out.println("\t" + "-".repeat(60));
+                    System.out.println("\t Index is not an integer. Please try again.");
+                    System.out.println("\t" + "-".repeat(60));
+                } catch (DukeException e) {
+                    System.out.println("\t" + "-".repeat(60));
+                    System.out.println("\t " + e.getMessage() + " Please try again.");
+                    System.out.println("\t" + "-".repeat(60));
+                }
                 break;
             case "unmark":
-                idx = sc.nextInt();
-                unmarkTask(idx);
+                try {
+                    idx = Integer.parseInt(inputs[1]);
+                    unmarkTask(idx);
+                } catch (NumberFormatException e) {
+                    System.out.println("\t" + "-".repeat(60));
+                    System.out.println("\t Index is not an integer. Please try again.");
+                    System.out.println("\t" + "-".repeat(60));
+                } catch (DukeException e) {
+                    System.out.println("\t" + "-".repeat(60));
+                    System.out.println("\t " + e.getMessage() + " Please try again.");
+                    System.out.println("\t" + "-".repeat(60));
+                }
                 break;
             default:
                 displayInvalidCmd();
-                sc.nextLine();
                 break;
             }
-            option = sc.next();
+            input = sc.nextLine();
+            inputs = input.split(" ", 2);
         }
     }
 
-    public void addTask(String option, String taskDescription) {
+    public void addTask(String option, String taskDescription) throws DukeException{
         if(option.equals("todo")) {
             tasks[taskCount++] = new Todo(taskDescription.trim());
             return;
         }
 
         if(option.equals("deadline")) {
-            String[] descriptions = taskDescription.split("/by", 2);
-            descriptions[0] = descriptions[0].trim();
-            descriptions[1] = descriptions[1].trim();
-            tasks[taskCount++] = new Deadline(descriptions[0], descriptions[1]);
+            try {
+                String[] descriptions = taskDescription.split("/by", 2);
+                descriptions[0] = descriptions[0].trim();
+                descriptions[1] = descriptions[1].trim();
+                tasks[taskCount++] = new Deadline(descriptions[0], descriptions[1]);
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("Deadline is not specified.");
+            }
         } else if(option.equals("event")) {
-            String[] descriptions = taskDescription.split("/at", 2);
-            descriptions[0] = descriptions[0].trim();
-            descriptions[1] = descriptions[1].trim();
-            tasks[taskCount++] = new Event(descriptions[0], descriptions[1]);
+            try {
+                String[] descriptions = taskDescription.split("/at", 2);
+                descriptions[0] = descriptions[0].trim();
+                descriptions[1] = descriptions[1].trim();
+                tasks[taskCount++] = new Event(descriptions[0], descriptions[1]);
+            } catch (IndexOutOfBoundsException e){
+                throw new DukeException("Event time is not specified.");
+            }
         }
     }
 
@@ -92,7 +130,10 @@ public class TaskManager {
         System.out.println("\t" + "-".repeat(60));
     }
 
-    public void markTask(int idx) {
+    public void markTask(int idx) throws DukeException {
+        if(idx > taskCount){
+            throw new DukeException("Task index out of bound.");
+        }
         idx --;
         tasks[idx].markAsDone();
         System.out.println("\t" + "-".repeat(60));
@@ -101,7 +142,10 @@ public class TaskManager {
         System.out.println("\t" + "-".repeat(60));
     }
 
-    public void unmarkTask(int idx) {
+    public void unmarkTask(int idx) throws DukeException {
+        if(idx > taskCount){
+            throw new DukeException("Task index out of bound.");
+        }
         idx --;
         tasks[idx].unmark();
         System.out.println("\t" + "-".repeat(60));
@@ -112,7 +156,7 @@ public class TaskManager {
 
     public void displayInvalidCmd() {
         System.out.println("\t" + "-".repeat(60));
-        System.out.println("\t I cannot read this instruction. Please try again.");
+        System.out.println("\t ☹ OOPS!!! I don't know what that means. Please try again.");
         System.out.println("\t" + "-".repeat(60));
     }
 }
