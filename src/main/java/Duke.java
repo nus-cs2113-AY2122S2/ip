@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InputLengthException {
         Scanner sc = new Scanner(System.in);
         ToDo[] toDos = new ToDo[100]; //holds all tasks given
         int taskCounter = 0; //counts number of tasks
@@ -21,24 +21,35 @@ public class Duke {
             case "bye": //end the program
                 System.out.println(underscoreLine);
                 System.out.println("  Bye; Don't restart me.");
-                System.out.println("____________________________________________________________\n");
+                System.out.println(underscoreLine);
                 System.exit(0);
             case "list": //list out all tasks
                 System.out.println(underscoreLine);
                 for (int i = 0; i < taskCounter; i++) {
                     System.out.println("   " + (i + 1) + ". " + toDos[i].getStatusIcon() + toDos[i].getDescription());
                 }
-                System.out.println("____________________________________________________________\n");
+                System.out.println(underscoreLine);
                 break;
             case "mark": //mark a task as done
-                commandNumber = Integer.parseInt(commands[1]) - 1;
-                if (commandNumber >= 0 && commandNumber <= taskCounter) {
+                try {
+                    if (args.length < 2) {
+                        throw new InputLengthException();
+                    }
+                    commandNumber = Integer.parseInt(commands[1]) - 1;
+                    if (commandNumber >= 0 && commandNumber <= taskCounter) {
+                        System.out.println(underscoreLine);
+                        System.out.println("   I don't actually believe you completed a task, but I'll mark it anyway.");
+                        System.out.println("     [X] " + toDos[commandNumber].getDescription());
+                        System.out.println(underscoreLine);
+                        toDos[commandNumber].setDone(true);
+                    } else {
+                        throw new UnreachableTaskException();
+                    }
+                } catch (InputLengthException e) {
                     System.out.println(underscoreLine);
-                    System.out.println("   I don't actually believe you completed a task, but I'll mark it anyway.");
-                    System.out.println("     [X] " + toDos[commandNumber].getDescription());
+                    System.out.println("   You forgot to tell me what to mark. \n But that doesn't surprise me...");
                     System.out.println(underscoreLine);
-                    toDos[commandNumber].setDone(true);
-                } else {
+                } catch (UnreachableTaskException e) {
                     System.out.println(underscoreLine);
                     System.out.println("   You didn't even write down that task.");
                     System.out.println(underscoreLine);
@@ -59,15 +70,25 @@ public class Duke {
                 }
                 break;
             case "todo": //add a todo (normal task) to the list
-                line = line.substring(5); //removing the first part of the command from the description
-                toDos[taskCounter] = new ToDo(line);
-                System.out.println(underscoreLine);
-                System.out.println(" Do these tasks distract you from a glaring lack of meaning\n  in your life?" +
-                        "\nAnyway, I added" + " it to the list.");
-                System.out.printf("   %s %s%n", toDos[taskCounter].getStatusIcon(), line);
-                taskCounter++;
-                System.out.println(" There are now " + taskCounter + " tasks in the list.");
-                System.out.println("____________________________________________________________\n");
+                try {
+                    if (args.length < 2) {
+                        throw new InputLengthException();
+                    }
+                    line = line.substring(5); //removing the first part of the command from the description
+                    toDos[taskCounter] = new ToDo(line);
+                    System.out.println(underscoreLine);
+                    System.out.println(" Do these tasks distract you from a glaring lack of meaning\n  in your life?" +
+                            "\nAnyway, I added" + " it to the list.");
+                    System.out.printf("   %s %s%n", toDos[taskCounter].getStatusIcon(), line);
+                    taskCounter++;
+                    System.out.println(" There are now " + taskCounter + " tasks in the list.");
+                    System.out.println(underscoreLine);
+                } catch (InputLengthException e) {
+                    System.out.println(underscoreLine);
+                    System.out.println("   Todo what? You left the task blank.");
+                    System.out.println("   Doing nothing would be your normal schedule.");
+                    System.out.println(underscoreLine);
+                }
                 break;
             case "deadline": //add a deadline to the task list
                 int separationLocation = line.indexOf("/by"); //used to split the command
@@ -85,7 +106,7 @@ public class Duke {
                 System.out.printf("   %s %s(by:%s)%n", toDos[taskCounter].getStatusIcon(), description, doBy);
                 taskCounter++;
                 System.out.printf(" There are now %d tasks in the list.%n", taskCounter);
-                System.out.println("____________________________________________________________\n");
+                System.out.println(underscoreLine);
                 break;
             case "event": //add an event to the task list
                 separationLocation = line.indexOf("/at");
@@ -103,11 +124,11 @@ public class Duke {
                 System.out.printf("   %s %s(at:%s)%n", toDos[taskCounter].getStatusIcon(), description, doAt);
                 taskCounter++;
                 System.out.printf(" There are now %d tasks in the list.%n", taskCounter);
-                System.out.println("____________________________________________________________\n");
+                System.out.println(underscoreLine);
                 break;
             default: //user formatted a command incorrectly
                 System.out.println(underscoreLine);
-                System.out.println("Can't understand your gibberish.");
+                System.out.println("I can't understand your gibberish.");
                 System.out.println(underscoreLine);
             }
         }
