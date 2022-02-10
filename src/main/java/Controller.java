@@ -31,14 +31,6 @@ public class Controller {
     }
 
 
-    /**
-     *  Say good bye before the controller end.
-     */
-    public void sayGoodBye() {
-        chatBox.contendsSetter(EXIT_WORDS);
-        chatBox.printChatBox();
-        chatBox.endChatBox();
-    }
 
 
     /**

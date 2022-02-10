@@ -33,27 +33,26 @@ public class TaskFactory {
      *
      * @return Certain task
      */
-    public Task makeTask() throws TodoDukeException {
-        switch (taskType) {
-        case TODO_TASK:
-            try {
+    public Task makeTask() throws DukeException {
+        try {
+            switch (taskType) {
+            case TODO_TASK:
                 return new ToDoTask(taskDescription, "T");
-            } catch (TodoDukeException e1) {
-                throw e1;
-
+            case DEADLINE_TASK:
+                String[] taskInfomation = taskDescription.split("/by");
+                taskDescription = taskInfomation[0].trim();
+                String dateTime = taskInfomation[1].trim();
+                return new DeadlinesTask(taskDescription, "D", dateTime);
+            case EVENT_TASK:
+                taskInfomation = taskDescription.split("/at");
+                taskDescription = taskInfomation[0].trim();
+                dateTime = taskInfomation[1].trim();
+                return new EventTask(taskDescription, "E", dateTime);
+            default:
+                return new Task(taskDescription);
             }
-        case DEADLINE_TASK:
-            String[] taskInfomation = taskDescription.split("/by");
-            taskDescription = taskInfomation[0].trim();
-            String dateTime = taskInfomation[1].trim();
-            return new DeadlinesTask(taskDescription, "D", dateTime);
-        case EVENT_TASK:
-            taskInfomation = taskDescription.split("/at");
-            taskDescription = taskInfomation[0].trim();
-            dateTime = taskInfomation[1].trim();
-            return new EventTask(taskDescription, "E", dateTime);
-        default:
-            return new Task(taskDescription);
+        } catch (DukeException e) {
+            throw e;
         }
     }
 

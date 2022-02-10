@@ -6,7 +6,7 @@ package ui;
 public class ChatBox {
 
     private String contends = "";
-    private static String upperLine = "____________________________________________________________";
+    private static String UPPER_LINE = "____________________________________________________________";
 
     /**
      * Intitializes a ui.ChatBox with Defined contends
@@ -33,7 +33,7 @@ public class ChatBox {
      * @return The Layout of the ui.ChatBox
      */
     public String getChatBox() {
-        String returnString = upperLine + "\n" + contends + "\n" + upperLine + "\n";
+        String returnString = UPPER_LINE + "\n" + contends + "\n" + UPPER_LINE + "\n";
         return returnString;
     }
 
@@ -41,7 +41,7 @@ public class ChatBox {
      * Print the layout of the ui.ChatBox
      */
     public void printChatBox() {
-        String printString = upperLine + "\n" + contends + "\n" + upperLine + "\n";
+        String printString = UPPER_LINE + "\n" + contends + "\n" + UPPER_LINE + "\n";
         System.out.println(printString);
     }
 
@@ -50,7 +50,7 @@ public class ChatBox {
      * @param contends The contends that needs to be printed
      */
     public static void printChatBox(String contends) {
-        String printString = upperLine + "\n" + contends  + "\n" + upperLine + "\n";
+        String printString = UPPER_LINE + "\n" + contends  + "\n" + UPPER_LINE + "\n";
         System.out.println(printString);
     }
 
@@ -58,7 +58,7 @@ public class ChatBox {
      * Print the end layout of the ui.ChatBox
      */
     public void endChatBox() {
-        System.out.println(upperLine);
+        System.out.println(UPPER_LINE);
     }
 
 
