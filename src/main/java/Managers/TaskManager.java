@@ -5,14 +5,14 @@ import Components.Todo;
 import Components.Deadline;
 import Components.Event;
 
+import static Constants.TaskManagerConstants.TODO_LENGTH;
+import static Constants.TaskManagerConstants.DEADLINE_LENGTH;
+import static Constants.TaskManagerConstants.EVENT_LENGTH;
+import static Constants.TaskManagerConstants.DATETIME_DELIMITER_LENGTH;
+
 public class TaskManager {
     private static Task[] tasks = new Task[100];
     private static int numTasks = 0;
-
-    private static final int TODO_LENGTH = "todo".length();
-    private static final int DEADLINE_LENGTH = "deadline".length();
-    private static final int EVENT_LENGTH = "event".length();
-    private static final int DATETIME_DELIMITER_LENGTH = "/at".length(); // "/at" and "/by" are of same length
 
     public static void addTask(Task task) {
         tasks[numTasks++] = task;

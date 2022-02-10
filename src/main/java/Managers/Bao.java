@@ -1,24 +1,19 @@
 package Managers;
 
+import java.util.Scanner;
+
 import Components.Task;
 
-import Managers.TaskManager;
-
-import java.util.Scanner;
+import static Constants.BaoConstants.LOGO;
+import static Constants.BaoConstants.LINE_BREAK;
 
 public class Bao {
     private static Scanner in = new Scanner(System.in);
-    private static String logo = "\t  ____       _       ___  " + System.lineSeparator()
-                               + "\t | __ )     / \\     / _ \\" + System.lineSeparator()
-                               + "\t |  _ \\    / _ \\   | | | |" + System.lineSeparator()
-                               + "\t | |_) |  / ___ \\  | |_| |" + System.lineSeparator()
-                               + "\t |____/  /_/   \\_\\  \\___/";
-    private static final String LINE_BREAK = "______________________________________________________________________________________";
 
     private static void greet() {
         System.out.println(LINE_BREAK);
         System.out.println("You have" + System.lineSeparator()
-                          + logo + System.lineSeparator()
+                          + LOGO + System.lineSeparator()
                           + "\t\t\t\t\tat your service");
         System.out.println("Hello there! Bao here!" + System.lineSeparator()
                            + "How can I help?");
@@ -95,9 +90,7 @@ public class Bao {
 
     public static void initiateBao() {
         greet();
-
         serveUser();
-
         farewell();
     }
 }
