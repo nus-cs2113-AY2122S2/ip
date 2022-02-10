@@ -34,15 +34,21 @@ public class Command {
         Task.addTask(todo);
     }
 
-    public static void addDDL(String s){
+    public static void addDDL(String s) throws IllegalFormatException{
         String[] arrOfS = s.split("/");
+        if(arrOfS.length < 2){
+            throw new IllegalFormatException();
+        }
         Task ddl = new Deadline(arrOfS[0], arrOfS[1]);
         Task.addTask(ddl);
 
     }
 
-    public static void addEvent(String s){
+    public static void addEvent(String s)throws IllegalFormatException{
         String[] arrOfS = s.split("/");
+        if(arrOfS.length < 2){
+            throw new IllegalFormatException();
+        }
         Task event = new Event(arrOfS[0], arrOfS[1]);
         Task.addTask(event);
 

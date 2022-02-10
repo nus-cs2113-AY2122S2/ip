@@ -13,14 +13,27 @@ public class Duke {
         String input;
         while (true){
             input = sc.nextLine();
-            getCommand(input);
+            try {
+                getCommand(input);
+            }catch (IllegalCommandException e){
+                PatternGenerator.generateArrows();
+                System.out.println("OOPS!!! The description cannot be empty.");
+                PatternGenerator.generateLine();
+            }
+            catch (NonExistentCommandException e){
+                PatternGenerator.generateArrows();
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                PatternGenerator.generateLine();
+            }
+
             if(input.equals("bye")){
                 break;
             }
+
         }
     }
 
-    public static void getCommand(String input){
+    public static void getCommand(String input) throws IllegalCommandException, NonExistentCommandException{
         String[] arrOfInput = input.split(" ",2);
         switch (arrOfInput[0]) {
         case "bye":
@@ -30,16 +43,42 @@ public class Duke {
             Command.list();
             break;
         case "todo":
+            if (arrOfInput.length < 2){
+                throw new IllegalCommandException();
+            }
             Command.addTodo(arrOfInput[1]);
             break;
         case "deadline":
-            Command.addDDL(arrOfInput[1]);
+            if (arrOfInput.length < 2){
+                throw new IllegalCommandException();
+            }
+            try {
+                Command.addDDL(arrOfInput[1]);
+            }
+            catch (IllegalFormatException e){
+                System.out.println("OOPS!!! The format is not correct.");
+            }
             break;
         case "event":
-            Command.addEvent(arrOfInput[1]);
+            if (arrOfInput.length < 2){
+                throw new IllegalCommandException();
+            }
+            try {
+                Command.addEvent(arrOfInput[1]);
+            }
+            catch (IllegalFormatException e){
+                System.out.println("OOPS!!! The format is not correct.");
+            }
+
+            break;
+        case "mark":
+            if (arrOfInput.length < 2){
+                throw new IllegalCommandException();
+            }
+            Command.mark(Integer.parseInt(arrOfInput[1]));
             break;
         default:
-            break;
+            throw new NonExistentCommandException();
         }
     }
 
