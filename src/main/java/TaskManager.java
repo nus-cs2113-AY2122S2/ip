@@ -13,7 +13,9 @@ public class TaskManager {
         int idx;
         // Supported commands
         System.out.println("\t Supported commands:");
-        System.out.println("\t Type \"todo/deadline/event <task>\" to add a task");
+        System.out.println("\t Type \"todo <task>\" to add a todo task");
+        System.out.println("\t Type \"deadline <task> /by <time>\" to add a deadline task");
+        System.out.println("\t Type \"event <task> /at <time>\" to add a event task");
         System.out.println("\t Type \"list\" to list all tasks");
         System.out.println("\t Type \"mark <task number>\" to mark a task");
         System.out.println("\t Type \"unmark <task number>\" to unmark a task");
@@ -62,19 +64,20 @@ public class TaskManager {
             return;
         }
 
-        int sepIndex = taskDescription.indexOf("/");
-        String description = taskDescription.substring(0, sepIndex);
-        description = description.trim();
-        String time = taskDescription.substring(sepIndex + 3);
-        time = time.trim();
         if(option.equals("deadline")) {
-            tasks[taskCount++] = new Deadline(description, time);
+            String[] descriptions = taskDescription.split("/by", 2);
+            descriptions[0] = descriptions[0].trim();
+            descriptions[1] = descriptions[1].trim();
+            tasks[taskCount++] = new Deadline(descriptions[0], descriptions[1]);
         } else if(option.equals("event")) {
-            tasks[taskCount++] = new Event(description, time);
+            String[] descriptions = taskDescription.split("/at", 2);
+            descriptions[0] = descriptions[0].trim();
+            descriptions[1] = descriptions[1].trim();
+            tasks[taskCount++] = new Event(descriptions[0], descriptions[1]);
         }
     }
 
-    public void listTasks(){
+    public void listTasks() {
         System.out.println("\t" + "-".repeat(60));
         System.out.println("\t Here are the tasks in your list:");
         if(taskCount == 0) {
