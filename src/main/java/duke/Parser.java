@@ -1,3 +1,9 @@
+package duke;
+
+import duke.exceptions.EmptyCommandException;
+import duke.exceptions.InvalidArgumentException;
+import duke.exceptions.InvalidCommandException;
+
 import java.util.Map;
 import static java.util.Map.entry;
 
@@ -99,7 +105,7 @@ public class Parser {
     /**
      * Checks if the command entered is valid
      * @param inputCommand the extracted user command
-     * @throws InvalidCommandException
+     * @throws InvalidCommandException if command does not match any known commands
      */
     private void parseCommand(String inputCommand) throws InvalidCommandException {
         Set<String> keys = MAP_COMMAND_FORMAT.keySet();
@@ -112,10 +118,10 @@ public class Parser {
     /**
      * Checks if the arguments entered matches the regex for the given command and sets userCommand and argumentList accordingly
      * @param inputArguments the extracted user arguments
-     * @throws InvalidArgumentException
+     * @throws InvalidArgumentException if argument does not follow format given by input command
      */
     private void parseArguments(String inputCommand, String inputArguments) throws InvalidArgumentException {
-        // Get associatd regex with inputCommand
+        // Get associated regex with inputCommand
         Pattern argumentPattern = MAP_COMMAND_FORMAT.get(inputCommand);
         Matcher argumentMatcher = argumentPattern.matcher(inputArguments);
         if (!argumentMatcher.matches()) {
