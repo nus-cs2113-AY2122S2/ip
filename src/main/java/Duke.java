@@ -34,7 +34,6 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String request = in.nextLine();
         request = request.trim();
-<<<<<<< HEAD
         boolean hasExited = false;
         try {
             hasExited = RequestProcessor.filterRequest(request);
@@ -42,10 +41,6 @@ public class Duke {
             System.out.println(error.getMessage());
             System.out.println(LINE);
         }
-=======
-        boolean hasExited;
-        hasExited = RequestProcessor.filterRequest(request);
->>>>>>> 798b7cee3680aa228d25a6a3b90e13594330c8d5
         return hasExited;
     }
 

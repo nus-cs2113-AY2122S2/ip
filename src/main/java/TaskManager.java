@@ -11,24 +11,14 @@ public class TaskManager {
     private static Task[] listOfTasks = new Task[100];
     private static int index = 0;
 
-<<<<<<< HEAD
     public static void addTask(String request, String typeOfTask) throws AdditionalException {
-=======
-    public static void addTask(String request, String typeOfTask) {
->>>>>>> 798b7cee3680aa228d25a6a3b90e13594330c8d5
         String description = getDescription(request, typeOfTask);
         listOfTasks[index] = new ToDo(description);
     }
 
-<<<<<<< HEAD
     public static void addTask(String request, String typeOfTask, String preposition) throws AdditionalException {
         String description = getDescription(request, typeOfTask, preposition);
         String timing = getTiming(request, preposition);
-=======
-    public static void addTask(String request, String typeOfTask, String preposition) {
-        String timing = getTiming(request, preposition);
-        String description = getDescription(request, typeOfTask, preposition);
->>>>>>> 798b7cee3680aa228d25a6a3b90e13594330c8d5
         switch (typeOfTask) {
         case "deadline":
             listOfTasks[index] = new Deadline(description, timing);
@@ -45,7 +35,6 @@ public class TaskManager {
 
     public static void markItem(String[] words) {
         int indexToMark = getIndexToMarkOrUnmark(words);
-<<<<<<< HEAD
         try {
             listOfTasks[indexToMark].markAsDone();
             printMarkIsCompleted(listOfTasks[indexToMark]);
@@ -55,19 +44,11 @@ public class TaskManager {
         } catch(ArrayIndexOutOfBoundsException error) {
             System.out.println(INVALID_INDEX);
             System.out.println(LINE);
-=======
-        if (isIndexValid(indexToMark)) {
-            listOfTasks[indexToMark].markAsDone();
-            printMarkIsCompleted(listOfTasks[indexToMark]);
-        } else {
-            handleInvalidIndex();
->>>>>>> 798b7cee3680aa228d25a6a3b90e13594330c8d5
         }
     }
 
     public static void unmarkItem(String[] words) {
         int indexToUnmark = getIndexToMarkOrUnmark(words);
-<<<<<<< HEAD
         try {
             listOfTasks[indexToUnmark].markAsUndone();
             printUnmarkIsCompleted(listOfTasks[indexToUnmark]);
@@ -84,17 +65,6 @@ public class TaskManager {
         if (index == 0) {
             throw new AdditionalException("YAY!!! you do not have any tasks at the moment hehe");
         }
-=======
-        if (isIndexValid(indexToUnmark)) {
-            listOfTasks[indexToUnmark].markAsUndone();
-            printUnmarkIsCompleted(listOfTasks[indexToUnmark]);
-        } else {
-            handleInvalidIndex();
-        }
-    }
-
-    public static void printList() {
->>>>>>> 798b7cee3680aa228d25a6a3b90e13594330c8d5
         for (int i = 0; i < index; i++) {
             int numbering = i + 1;
             System.out.println(numbering + ". " + listOfTasks[i]);
@@ -102,7 +72,6 @@ public class TaskManager {
         System.out.println(LINE);
     }
 
-<<<<<<< HEAD
     private static String getDescription(String request, String typeOfTask) throws AdditionalException {
         int lengthOfTypeOfTask = typeOfTask.length();
         int lengthOfRequest = request.length();
@@ -126,29 +95,10 @@ public class TaskManager {
     private static String getTiming(String request, String preposition) throws AdditionalException {
         int indexOfPreposition = request.indexOf(preposition);
         checkIndexOfPreposition(indexOfPreposition);
-=======
-    private static String getDescription(String request, String typeOfTask) {
-        int lengthOfTypeOfTask = typeOfTask.length();
-        int lengthOfRequest = request.length();
-        String description = request.substring(lengthOfTypeOfTask, lengthOfRequest);
-        return description.trim();
-    }
-
-    private static String getDescription(String request, String typeOfTask, String preposition) {
-        int indexOfPreposition = request.indexOf(preposition);
-        int lengthOfTypeOfTask = typeOfTask.length();
-        String description = request.substring(lengthOfTypeOfTask, indexOfPreposition);
-        return description.trim();
-    }
-
-    private static String getTiming(String request, String preposition) {
-        int indexOfPreposition = request.indexOf(preposition);
->>>>>>> 798b7cee3680aa228d25a6a3b90e13594330c8d5
         int lengthOfPreposition = preposition.length();
         int startingIndexOfTiming = indexOfPreposition + lengthOfPreposition;
         int lengthOfRequest = request.length();
         String timing = request.substring(startingIndexOfTiming, lengthOfRequest);
-<<<<<<< HEAD
         timing = timing.trim();
         checkLengthOfTiming(timing);
         return timing;
@@ -170,20 +120,6 @@ public class TaskManager {
         if (timing.length() < 1) {
             throw new AdditionalException("OOPS!!! The timing cannot be empty");
         }
-=======
-        return timing.trim();
-    }
-
-    private static void handleInvalidIndex() {
-        System.out.println(INVALID_INDEX);
-        System.out.println(LINE);
-    }
-
-    private static boolean isIndexValid(int indexToUnmark) {
-        boolean isAboveZero = indexToUnmark >= 0;
-        boolean isBelowMaximum = indexToUnmark < index;
-        return isAboveZero && isBelowMaximum;
->>>>>>> 798b7cee3680aa228d25a6a3b90e13594330c8d5
     }
 
     private static int getIndexToMarkOrUnmark(String[] words) {
