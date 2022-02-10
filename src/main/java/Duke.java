@@ -39,73 +39,74 @@ public class Duke {
             }
             timeSeparator = ans.indexOf('/');
             switch (command) {
-            case "bye":
-                loopInput = false;
-                break;
-            case "list":
-                System.out.println("    _________________________________________");
-                System.out.println("    Here the task you've written m'lord:");
-                printTasks();
-                System.out.println("    _________________________________________\n");
-                break;
-            case "mark":
-                ans = ans.substring(commandSeparator + 1);
-                index = Integer.parseInt(ans) - 1;
-                mark(index);
-                System.out.println("    _________________________________________");
-                System.out.println("    I've marked the task as done m'lord:");
-                printTasks();
-                System.out.println("    _________________________________________\n");
-                break;
-            case "unmark":
-                ans = ans.substring(commandSeparator + 1);
-                index = Integer.parseInt(ans) - 1;
-                unmark(index);
-                System.out.println("    _________________________________________");
-                System.out.println("    I've revert the task to active m'lord:");
-                printTasks();
-                System.out.println("    _________________________________________\n");
-                break;
-            case "todo":
-                ans = ans.substring(commandSeparator + 1);
-                System.out.println("    _________________________________________");
-                addTask(ans, 'T', time);
-                System.out.println("     added: " + tasks[idx - 1]);
-                System.out.println("     there are currently " + idx + " tasks ");
-                System.out.println("    _________________________________________\n");
-                break;
-            case "deadline":
-                // timeSeparator = (timeSeparator == -1 ? ans.length() : timeSeparator);
-                if (timeSeparator == -1) {
-                    time = "";
-                } else {
-                    time = ans.substring(timeSeparator + 4);
-                }
-                ans = ans.substring(commandSeparator + 1, timeSeparator);
-                System.out.println("    _________________________________________");
-                addTask(ans, 'D', time);
-                System.out.println("     added: " + tasks[idx - 1]);
-                System.out.println("     there are currently " + idx + " tasks ");
-                System.out.println("    _________________________________________\n");
-                break;
-            case "event":
-                // timeSeparator = (timeSeparator == -1 ? ans.length() : timeSeparator);
-                if (timeSeparator == -1) {
-                    time = "";
-                } else {
-                    time = ans.substring(timeSeparator + 4);
-                }
-                ans = ans.substring(commandSeparator + 1, timeSeparator);
-                System.out.println("    _________________________________________");
-                addTask(ans, 'E', time);
-                System.out.println("     added: " + tasks[idx - 1]);
-                System.out.println("     there are currently " + idx + " tasks ");
-                System.out.println("    _________________________________________\n");
-                break;
-            default:
-                loopInput = false;
-                break;
+                case "bye":
+                    loopInput = false;
+                    break;
+                case "list":
+                    System.out.println("    _________________________________________");
+                    System.out.println("    Here the task you've written m'lord:");
+                    printTasks();
+                    System.out.println("    _________________________________________\n");
+                    break;
+                case "mark":
+                    ans = ans.substring(commandSeparator + 1);
+                    index = Integer.parseInt(ans) - 1;
+                    mark(index);
+                    System.out.println("    _________________________________________");
+                    System.out.println("    I've marked the task as done m'lord:");
+                    printTasks();
+                    System.out.println("    _________________________________________\n");
+                    break;
+                case "unmark":
+                    ans = ans.substring(commandSeparator + 1);
+                    index = Integer.parseInt(ans) - 1;
+                    unmark(index);
+                    System.out.println("    _________________________________________");
+                    System.out.println("    I've revert the task to active m'lord:");
+                    printTasks();
+                    System.out.println("    _________________________________________\n");
+                    break;
+                case "todo":
+                    ans = ans.substring(commandSeparator + 1);
+                    System.out.println("    _________________________________________");
+                    addTask(ans, 'T', time);
+                    System.out.println("     added: " + tasks[idx - 1]);
+                    System.out.println("     there are currently " + idx + " tasks ");
+                    System.out.println("    _________________________________________\n");
+                    break;
+                case "deadline":
+                    // timeSeparator = (timeSeparator == -1 ? ans.length() : timeSeparator);
+                    if (timeSeparator == -1) {
+                        time = "";
+                    } else {
+                        time = ans.substring(timeSeparator + 4);
+                    }
+                    ans = ans.substring(commandSeparator + 1, timeSeparator);
+                    System.out.println("    _________________________________________");
+                    addTask(ans, 'D', time);
+                    System.out.println("     added: " + tasks[idx - 1]);
+                    System.out.println("     there are currently " + idx + " tasks ");
+                    System.out.println("    _________________________________________\n");
+                    break;
+                case "event":
+                    // timeSeparator = (timeSeparator == -1 ? ans.length() : timeSeparator);
+                    if (timeSeparator == -1) {
+                        time = "";
+                    } else {
+                        time = ans.substring(timeSeparator + 4);
+                    }
+                    ans = ans.substring(commandSeparator + 1, timeSeparator);
+                    System.out.println("    _________________________________________");
+                    addTask(ans, 'E', time);
+                    System.out.println("     added: " + tasks[idx - 1]);
+                    System.out.println("     there are currently " + idx + " tasks ");
+                    System.out.println("    _________________________________________\n");
+                    break;
+                default:
+                    loopInput = false;
+                    break;
             }
+
         }
 
         System.out.println("    _________________________________________");
@@ -132,5 +133,3 @@ public class Duke {
             System.out.println("    " + (i + 1) + " " + tasks[i]);
         }
     }
-
-}
