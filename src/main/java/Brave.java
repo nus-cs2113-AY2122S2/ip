@@ -28,13 +28,29 @@ public class Brave {
                 tasks.printTaskList();
                 break;
             case "mark":
-                tasks.markTask(Integer.parseInt(splitInputs[1]) - 1); // 0 indexing
+                try {
+                    tasks.markTask(Integer.parseInt(splitInputs[1]) - 1); // 0 indexing
+                } catch (NumberFormatException e) {
+                    System.out.println("Please put in integer value");
+                } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Please put in valid number of task");
+                }
                 break;
             case "unmark":
-                tasks.unmarkTask(Integer.parseInt(splitInputs[1]) - 1); // 0 indexing
+                try {
+                    tasks.unmarkTask(Integer.parseInt(splitInputs[1]) - 1); // 0 indexing
+                } catch (NumberFormatException e) {
+                    System.out.println("Please put in integer value");
+                } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Please put in valid number of task");
+                }
                 break;
             case "todo":
-                tasks.addTask(new Todo(splitInputs[1]));
+                try {
+                    tasks.addTask(new Todo(splitInputs[1]));
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println(" ☹ OOPS!!! The description of a todo cannot be empty.");
+                }
                 break;
             case "deadline":
                 // To-do validate arguments~
@@ -51,7 +67,12 @@ public class Brave {
                 tasks.addTask(new Event(description, eventTime));
                 break;
             default:
-                System.out.println("Wrong input, available command are -> list/mark/unmark/todo/deadline/event");
+                try {
+                    throw new IllegalArgumentException();
+                } catch (IllegalArgumentException e) {
+                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    System.out.println("Available command are -> list/mark/unmark/todo/deadline/event");
+                }
                 break;
             }
         }
