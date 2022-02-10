@@ -18,6 +18,7 @@ public class OperationFactory {
     private static final String DELETE_COMMAND = "delete";
     private static final String SAVE_COMMAND = "save";
 
+    private static final String FIND_COMMAND = "find";
     public OperationFactory(String orderLocal) {
 
         order = orderLocal;
@@ -59,8 +60,9 @@ public class OperationFactory {
             return new SaveOperation(orderName,order);
         case DELETE_COMMAND:
             return new RemoveOperation(orderName, order);
+        case FIND_COMMAND:
+            return new FindOperation(orderName,order);
         default:
-            //return new AddOperation(orderName, order);
             throw new UnknownOrderDukeException();
         }
     }
