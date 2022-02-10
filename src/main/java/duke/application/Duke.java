@@ -1,18 +1,22 @@
 package duke.application;
 
+//java imports
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+//entity classes imports
 import duke.entity.Deadline;
 import duke.entity.Event;
 import duke.entity.Task;
 import duke.entity.Todo;
 
+//exception classes imports
 import duke.exception.DukeException;
 import duke.exception.IllegalTodoException;
 import duke.exception.IllegalEventException;
 import duke.exception.IllegalDeadlineException;
+
 
 public class Duke {
     public static void main(String[] args) {
@@ -74,11 +78,15 @@ public class Duke {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+                + "| |_| | |_| |   <  /\n"
+                + "|____/ \\,_|_|\\_\\___|\n";
+        System.out.println("Hey! What's up\n" + logo);
         System.out.println("=============================");
+<<<<<<< HEAD
         System.out.println("Ayo my name's duke.application.Duke!");
+=======
+        System.out.println("Ayo my name's duke!");
+>>>>>>> branch-Level-5
         System.out.println("What's up?");
         System.out.println("=============================");
     }
@@ -164,7 +172,7 @@ public class Duke {
     //deadline methods
 
     public static void addDeadline(ArrayList<Task> taskArray, String userInput) throws IllegalDeadlineException {
-        if (userInput.length() <= 8 || !userInput.contains("/by")){
+        if (userInput.length() <= 8 ||!userInput.contains("/by")){
             throw new IllegalDeadlineException();
         }
         String[] temp = new String[100];
@@ -188,7 +196,7 @@ public class Duke {
     //event methods
 
     public static void addEvent(ArrayList<Task> taskArray, String userInput) throws IllegalEventException {
-        if (userInput.length() <= 5 || !userInput.contains("/at")){
+        if (userInput.length() <= 5 ||!userInput.contains("/at")){
             throw new IllegalEventException();
         }
         String[] temp = new String[100];
@@ -198,7 +206,11 @@ public class Duke {
         }
         String description = temp[0].split("event")[1].trim();
         String at = temp[1].trim();
+<<<<<<< HEAD
         if (description.length() == 0){
+=======
+        if (at.length() == 0 ||description.length() == 0){
+>>>>>>> branch-Level-5
             throw new IllegalEventException();
         }
         Event event = new Event(description, at);
