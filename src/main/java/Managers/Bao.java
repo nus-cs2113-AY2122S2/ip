@@ -1,3 +1,5 @@
+package Managers;
+
 import Components.Task;
 
 import Managers.TaskManager;
@@ -6,12 +8,46 @@ import java.util.Scanner;
 
 public class Bao {
     private static Scanner in = new Scanner(System.in);
+    private static String logo = "\t  ____       _       ___  " + System.lineSeparator()
+                               + "\t | __ )     / \\     / _ \\" + System.lineSeparator()
+                               + "\t |  _ \\    / _ \\   | | | |" + System.lineSeparator()
+                               + "\t | |_) |  / ___ \\  | |_| |" + System.lineSeparator()
+                               + "\t |____/  /_/   \\_\\  \\___/";
     private static final String LINE_BREAK = "______________________________________________________________________________________";
 
     private static void greet() {
         System.out.println(LINE_BREAK);
+        System.out.println("You have" + System.lineSeparator()
+                          + logo + System.lineSeparator()
+                          + "\t\t\t\t\tat your service");
         System.out.println("Hello there! Bao here!" + System.lineSeparator()
                            + "How can I help?");
+        System.out.println(LINE_BREAK);
+    }
+
+    private static void serveUser(){
+        String userInput = in.nextLine();
+        while (!userInput.equals("bye")) {
+            if (userInput.equals("list")) {
+                listTasks();
+            } else if (userInput.startsWith("mark")) {
+                markTask(userInput);
+            } else if (userInput.startsWith("unmark")) {
+                unmarkTask(userInput);
+            } else if (userInput.startsWith("todo")) {
+                addToDo(userInput);
+            } else if (userInput.startsWith("deadline")) {
+                addDeadline(userInput);
+            } else if (userInput.startsWith("event")) {
+                addEvent(userInput);
+            }
+            userInput = in.nextLine();
+        }
+    }
+
+    private static void farewell() {
+        System.out.println(LINE_BREAK);
+        System.out.println("Alright, goodbye. See you later alligator!");
         System.out.println(LINE_BREAK);
     }
 
@@ -57,41 +93,10 @@ public class Bao {
         System.out.println(LINE_BREAK);
     }
 
-    private static void farewell() {
-        System.out.println(LINE_BREAK);
-        System.out.println("Alright, goodbye. See you later alligator!");
-        System.out.println(LINE_BREAK);
-    }
-
-    public static void main(String[] args) {
-        String userInput;
-        String logo = "  ____       _       ___  " + System.lineSeparator()
-                    + " | __ )     / \\     / _ \\" + System.lineSeparator()
-                    + " |  _ \\    / _ \\   | | | |" + System.lineSeparator()
-                    + " | |_) |  / ___ \\  | |_| |" + System.lineSeparator()
-                    + " |____/  /_/   \\_\\  \\___/";
-
-        System.out.println("Hello from" + System.lineSeparator() + logo);
-
+    public static void initiateBao() {
         greet();
 
-        userInput = in.nextLine();
-        while (!userInput.equals("bye")) {
-            if (userInput.equals("list")) {
-                listTasks();
-            } else if (userInput.startsWith("mark")) {
-                markTask(userInput);
-            } else if (userInput.startsWith("unmark")) {
-                unmarkTask(userInput);
-            } else if (userInput.startsWith("todo")) {
-                addToDo(userInput);
-            } else if (userInput.startsWith("deadline")) {
-                addDeadline(userInput);
-            } else if (userInput.startsWith("event")) {
-                addEvent(userInput);
-            }
-            userInput = in.nextLine();
-        }
+        serveUser();
 
         farewell();
     }
