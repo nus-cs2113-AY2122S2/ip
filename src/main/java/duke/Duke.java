@@ -92,10 +92,10 @@ public class Duke {
             try{
                 processLine(line);
 
-            } catch (IllegalKeyword e){
+            } catch (DukeIllegalKeyword e){
                 printIllegalKeyword();
 
-            } catch (IllegalDescription e){
+            } catch (DukeIllegalDescription e){
                 printIllegalDescription();
             }
             
@@ -104,7 +104,7 @@ public class Duke {
         System.out.print(bye);
     }
 
-    private static void processLine(String line) throws IllegalKeyword, IllegalDescription {
+    private static void processLine(String line) throws DukeIllegalKeyword, DukeIllegalDescription {
         if (line.equals("list")){
             printList();
         } else if (line.startsWith("mark")){
@@ -115,7 +115,7 @@ public class Duke {
             unMarkTask(indexToUnmark);
         } else if (line.startsWith("todo")){
             if (line.length() < 5){
-                throw new IllegalDescription();
+                throw new DukeIllegalDescription();
             }
             String todoDescription = line.substring(4);
             Todo task = new Todo(todoDescription);
@@ -124,7 +124,7 @@ public class Duke {
             printAddedItem(task);
         } else if (line.startsWith("deadline")){
             if (line.length() < 9 || !line.contains("/by")){
-                throw new IllegalDescription();
+                throw new DukeIllegalDescription();
             }
             int byIndex = line.indexOf("/by");
             String deadlineDescription = line.substring(8, byIndex - 1);
@@ -135,7 +135,7 @@ public class Duke {
             printAddedItem(task);
         } else if (line.startsWith("event")){
             if (line.length() < 6 || !line.contains("/at")){
-                throw new IllegalDescription();
+                throw new DukeIllegalDescription();
             }
             int atIndex = line.indexOf("/at");
             String eventDescription = line.substring(5, atIndex - 1);
@@ -144,6 +144,6 @@ public class Duke {
             taskList[currentCount] = task;
             currentCount += 1;
             printAddedItem(task);
-        } else throw new IllegalKeyword();
+        } else throw new DukeIllegalKeyword();
     }
 }
