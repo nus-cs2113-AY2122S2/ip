@@ -4,6 +4,9 @@ import exceptions.DukeException;
 import tasks.Task;
 import tasks.TaskFactory;
 
+/**
+ * Handles adding deadline specificly
+ */
 public class DeadlinesAddOperation extends AddOperation {
     /**
      * Initializes operation with operationName

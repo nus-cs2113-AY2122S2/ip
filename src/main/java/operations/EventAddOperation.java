@@ -4,6 +4,9 @@ import exceptions.DukeException;
 import tasks.Task;
 import tasks.TaskFactory;
 
+/**
+ * Handles adding event specifically
+ */
 public class EventAddOperation extends AddOperation {
 
     /**

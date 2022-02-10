@@ -12,6 +12,9 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Dao for task
+ */
 public class TaskFileDAO extends FileDAO{
 
     /**
