@@ -56,14 +56,25 @@ public class Duke {
                 }
                 break;
             case "unmark": //mark a task as no longer done
-                commandNumber = Integer.parseInt(commands[1]) - 1;
-                if (commandNumber >= 0 && commandNumber <= taskCounter) {
+                try {
+                    if (args.length < 2) {
+                        throw new InputLengthException();
+                    }
+                    commandNumber = Integer.parseInt(commands[1]) - 1;
+                    if (commandNumber >= 0 && commandNumber <= taskCounter) {
+                        System.out.println(underscoreLine);
+                        System.out.println("   Unmarking a task; sharp as a marble, aren't we?");
+                        System.out.println("     [] " + toDos[commandNumber].getDescription());
+                        System.out.println(underscoreLine);
+                        toDos[commandNumber].setDone(false);
+                    } else {
+                        throw new UnreachableTaskException();
+                    }
+                } catch (InputLengthException e) {
                     System.out.println(underscoreLine);
-                    System.out.println("   Unmarking a task; sharp as a marble, aren't we?");
-                    System.out.println("     [] " + toDos[commandNumber].getDescription());
+                    System.out.println("   You forgot to tell me what to unmark. \n But that doesn't surprise me...");
                     System.out.println(underscoreLine);
-                    toDos[commandNumber].setDone(false);
-                } else {
+                } catch (UnreachableTaskException e) {
                     System.out.println(underscoreLine);
                     System.out.println("   You didn't even write down that task.");
                     System.out.println(underscoreLine);
