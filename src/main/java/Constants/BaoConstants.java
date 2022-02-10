@@ -6,6 +6,7 @@ public class BaoConstants {
             + "\t |  _ \\    / _ \\   | | | |" + System.lineSeparator()
             + "\t | |_) |  / ___ \\  | |_| |" + System.lineSeparator()
             + "\t |____/  /_/   \\_\\  \\___/";
-    public static final String LINE_BREAK = "______________________________________________________________________________________";
+    public static final String LINE_BREAK = "______________________________________________________________________________________"
+                                            + System.lineSeparator();
 
 }
