@@ -1,6 +1,7 @@
 package Constants;
 
 public class TaskManagerConstants {
+    public static final int MAX_TASKS = 100;
     public static final int TODO_LENGTH = "todo".length();
     public static final int DEADLINE_LENGTH = "deadline".length();
     public static final int EVENT_LENGTH = "event".length();
