@@ -1,3 +1,7 @@
+package duke;
+
+import duke.exception.AdditionalException;
+
 public class RequestProcessor {
 
     public static boolean filterRequest(String request) throws AdditionalException {

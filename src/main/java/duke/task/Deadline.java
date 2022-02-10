@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Deadline extends Task{
     private static final String DEADLINE_LOGO = "[D]";
     private static final String BY_FIRST_HALF = " (by: ";

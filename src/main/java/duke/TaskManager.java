@@ -1,3 +1,11 @@
+package duke;
+
+import duke.exception.AdditionalException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
 public class TaskManager {
 
     private static final String MARKED_THIS_TASK_AS_DONE = "Nice! I've marked this task as done:";
