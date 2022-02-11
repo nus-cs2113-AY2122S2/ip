@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96ac93b2-3953-4de9-b73f-aa2e8ee10130" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/duke/Duke.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/duke/Duke.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/duke/FileEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/duke/FileEditor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/duke/task/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/duke/task/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/duke/TaskManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/duke/TaskManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/duke/TaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/duke/TaskManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text-ui-test/ACTUAL.TXT" beforeDir="false" afterPath="$PROJECT_DIR$/text-ui-test/ACTUAL.TXT" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text-ui-test/EXPECTED.TXT" beforeDir="false" afterPath="$PROJECT_DIR$/text-ui-test/EXPECTED.TXT" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -26,7 +26,7 @@ public class TaskManager {
     public static void addTask(String request, String typeOfTask) throws AdditionalException {
         String description = getDescription(request, typeOfTask);
         listOfTasks.add(new ToDo(description));
-        saveDataToFile();
+        saveDataToFile(typeOfTask);
     }
 
     public static void addTask(String request, String typeOfTask, String preposition) throws AdditionalException {
@@ -35,20 +35,20 @@ public class TaskManager {
         switch (typeOfTask) {
         case "deadline":
             listOfTasks.add(new Deadline(description, timing));
-            saveDataToFile();
+            saveDataToFile(typeOfTask);
             break;
         case "event":
             listOfTasks.add(new Event(description, timing));
-            saveDataToFile();
+            saveDataToFile(typeOfTask);
             break;
         default:
             System.out.println("Oh no D: There seems to be a problem creating the task");
         }
     }
 
-    private static void saveDataToFile() {
+    private static void saveDataToFile(String typeOfTask) {
         int indexOfLastTask = listOfTasks.size() - 1;
-        FileEditor.saveData("add", listOfTasks.get(indexOfLastTask), listOfTasks);
+        FileEditor.saveData(typeOfTask, listOfTasks.get(indexOfLastTask), listOfTasks);
     }
 
     public static void markOrDeleteItem(String[] words, String typeOfTask) {

@@ -16,14 +16,12 @@ What can I do for you?
 -----------------------------
 YAY!!! you do not have any tasks at the moment hehe
 -----------------------------
-Something is wrong with the typeOfTask
 Got it. I have added this task: 
 [T][] borrow book
 Now you have 1 tasks in the list.
 -----------------------------
 1. [T][] borrow book
 -----------------------------
-Something is wrong with the typeOfTask
 Got it. I have added this task: 
 [E][] read book (at: library tonight)
 Now you have 2 tasks in the list.
@@ -31,7 +29,6 @@ Now you have 2 tasks in the list.
 1. [T][] borrow book
 2. [E][] read book (at: library tonight)
 -----------------------------
-Something is wrong with the typeOfTask
 Got it. I have added this task: 
 [D][] return book (by: tomorrow 2359)
 Now you have 3 tasks in the list.
