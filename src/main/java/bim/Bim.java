@@ -5,12 +5,11 @@ import bim.task.Event;
 import bim.task.Task;
 import bim.task.ToDo;
 
-import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.File;
 
 public class Bim {
     private static final Scanner in = new Scanner(System.in);
@@ -248,9 +247,9 @@ public class Bim {
 
             int i = 0;
             while (dataReader.hasNextLine()) {
+                String currentLine = dataReader.nextLine();
                 if (i == index) {
-                    String targetLine = dataReader.nextLine();
-                    String[] targetParts = targetLine.split(DELIMITER_DATA);
+                    String[] targetParts = currentLine.split(DELIMITER_DATA);
 
                     targetParts[1] = DATA_FILE_UNMARKED_TASK;
                     if (mode.equals(OP_MARK)) {
@@ -265,9 +264,10 @@ public class Bim {
                             writer.write(DATA_FILE_NEW_LINE);
                         }
                     }
+                    continue;
                 }
                 ++i;
-                writer.write(dataReader.nextLine() + DATA_FILE_NEW_LINE);
+                writer.write(currentLine + DATA_FILE_NEW_LINE);
             }
 
             dataReader.close();
@@ -282,16 +282,38 @@ public class Bim {
 
     private static void loadDataFile() {
         File dataDirectory = new File(getDataDirectoryPath());
+        File dataFile = new File(getDataFilePath());
         if (dataDirectory.mkdir()) {
-            File dataFile = new File(getDataFilePath());
             try {
                 dataFile.createNewFile();
             } catch (IOException exception) {
-                System.out.println("Something went wrong here!");
+                System.out.println(ERROR_DATA_FILE);
             }
         }
         else {
-            // read file
+            try {
+                Scanner reader = new Scanner(dataFile);
+                while (reader.hasNextLine()) {
+                    String task = reader.nextLine();
+                    String[] taskParts = task.split(DELIMITER_DATA);
+                    switch (taskParts[0]) {
+                    case DATA_FILE_EVENT:
+                        //Fallthrough
+                    case DATA_FILE_DEADLINE:
+                        taskStore.add(new Deadline(taskParts[2], taskParts[3]));
+                        break;
+                    case DATA_FILE_TODO:
+                        taskStore.add(new ToDo(taskParts[2]));
+                        break;
+                    }
+                    if (taskParts[1].equals(DATA_FILE_MARKED_TASK)) {
+                        taskStore.get(taskStore.size() - 1).setAsDone();
+                    }
+                }
+                reader.close();
+            } catch (IOException exception) {
+                System.out.println(ERROR_DATA_FILE);
+            }
 
         }
     }
