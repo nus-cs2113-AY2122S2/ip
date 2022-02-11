@@ -1,5 +1,6 @@
 package duke;
 
+import java.util.ArrayList;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -12,8 +13,7 @@ import java.util.Scanner;
  * and performs certain actions for specific commands.
  */
 public class Duke {
-    private static final Task[] list = new Task[100];
-    private static int taskIndex = 0;
+    private static final ArrayList<Task> list = new ArrayList<>(100);
     private static Boolean willExit = false;
 
     private static void printFormat(String s) {
@@ -34,14 +34,14 @@ public class Duke {
     }
 
     private static void list() {
-        if (taskIndex == 0) {
+        if (list.size() == 0) {
             printFormat("You haven't added any tasks to your list yet!");
             return;
         }
 
         String listAsString = "";
-        for (int i = 0; i < taskIndex; i++) {
-            Task curr = list[i];
+        for (int i = 0; i < list.size(); i++) {
+            Task curr = list.get(i);
             listAsString = listAsString.concat(String.format(" %d. %s\n", i + 1, curr));
         }
         printFormat("Here are the tasks in your list:\n" + listAsString);
@@ -51,10 +51,10 @@ public class Duke {
         Task curr;
         try {
             int taskNum = Integer.parseInt(line.split(" ", 0)[1]);
-            if (taskNum > taskIndex) {
+            if (taskNum > list.size()) {
                 throw new DukeException("Please mark / unmark with a number that's in the list :')");
             }
-            curr = list[taskNum - 1];
+            curr = list.get(taskNum - 1);
         } catch (IndexOutOfBoundsException e) {
             printFormat("Please mark / unmark with a valid number :')");
             return;
@@ -128,10 +128,9 @@ public class Duke {
             }
 
             Task t = parseTask(type, description);
-            list[taskIndex] = t;
-            taskIndex++;
+            list.add(t);
             printFormat("Got it. I've added this task:\n  " + t +
-                    String.format("\nNow you have %d tasks in the list.", taskIndex));
+                    String.format("\nNow you have %d tasks in the list.", list.size() + 1));
         } catch (DukeException e) {
             printFormat(e.msg);
         }
