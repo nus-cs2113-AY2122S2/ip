@@ -1,3 +1,7 @@
+package Duke.Helper;
+
+import Duke.Duke;
+
 public class DisplayMessages {
 
     public static void displayMarkMessage(int itemNumber) {
@@ -51,7 +55,7 @@ public class DisplayMessages {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println(Duke.DISPLAY_LINE + Duke.DISPLAY_LINE + logo);
-        System.out.println("Hello! Duke here!:)");
+        System.out.println("Hello! Duke.Duke here!:)");
         System.out.print("Is there anything I can do for you?\n" + Duke.DISPLAY_LINE + Duke.ANSI_RESET);
     }
 }
