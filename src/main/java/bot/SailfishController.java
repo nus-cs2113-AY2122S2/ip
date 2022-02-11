@@ -5,14 +5,13 @@ import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
  * The bot.
  */
-public final class Sailfish {
+public final class SailfishController {
     /**
      * The width for the screen.
      */
@@ -26,22 +25,24 @@ public final class Sailfish {
     /**
      * The list of tasks stored by the bot.
      */
-    private final List<Task> tasks;
+    private final SailfishManager manager;
 
     /**
      * Creates the bot.
      */
-    public Sailfish() {
+    public SailfishController() throws IOException {
         this.scanner = new Scanner(System.in);
-        this.tasks = new ArrayList<>();
+        this.manager = new SailfishManager();
     }
 
     /**
      * Makes the bot take control of the application.
      * <p>
      * This method shows the welcome message and then waits for input.
+     *
+     * @throws IOException Error saving data.
      */
-    public void takeControl() {
+    public void takeControl() throws IOException {
         // Prints the welcome text.
         this.printWelcome();
 
@@ -67,7 +68,7 @@ public final class Sailfish {
                 this.delete(command);
                 break;
             case "bye": // Exit the app.
-                System.out.println("Farewell, sailor!");
+                this.bye();
                 return;
             default: // By default, we assume that the user is using a command that adds a task.
                 this.addTask(command);
@@ -91,25 +92,10 @@ public final class Sailfish {
     }
 
     /**
-     * Helper method to get a task at a particular index.
-     *
-     * @param command Command object containing parsed information.
-     * @return Task object.
-     * @throws NumberFormatException For invalid index.
-     */
-    private Task getTask(Command command) throws NumberFormatException {
-        int index = Integer.parseInt(command.getDesc()) - 1;
-        if (index < 0 || index >= this.tasks.size()) {
-            throw new NumberFormatException("Please specify a integer for the index and range!");
-        }
-        return this.tasks.get(index);
-    }
-
-    /**
      * List all stored tasks.
      */
     private void list() {
-        if (this.tasks.size() == 0) {
+        if (this.manager.getNumTasks() == 0) {
             System.out.println("No tasks!");
             return;
         }
@@ -118,8 +104,8 @@ public final class Sailfish {
         builder.append("Here are the tasks in your list:\n");
 
         // Add each task.
-        for (int i = 0; i < this.tasks.size(); i++) {
-            builder.append(String.format("%d. %s\n", i + 1, this.tasks.get(i)));
+        for (int i = 0; i < this.manager.getNumTasks(); i++) {
+            builder.append(String.format("%d. %s\n", i + 1, this.manager.getTask(i)));
         }
         builder.deleteCharAt(builder.length() - 1);  // Remove last newline.
 
@@ -136,7 +122,7 @@ public final class Sailfish {
         // Get the index of the task to mark.
         Task task;
         try {
-            task = this.getTask(command);
+            task = this.manager.getTask(command);
         } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
             return;
@@ -155,7 +141,7 @@ public final class Sailfish {
     private void unMark(Command command) {
         Task task;
         try {
-            task = this.getTask(command);
+            task = this.manager.getTask(command);
         } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
             return;
@@ -167,6 +153,16 @@ public final class Sailfish {
     }
 
     /**
+     * Exit the application.
+     *
+     * @throws IOException Error saving data.
+     */
+    private void bye() throws IOException {
+        System.out.println("Farewell, sailor!");
+        this.manager.saveData();
+    }
+
+    /**
      * Delete a task by index.
      *
      * @param command Command object containing parsed information.
@@ -174,16 +170,16 @@ public final class Sailfish {
     private void delete(Command command) {
         Task task;
         try {
-            task = this.getTask(command);
+            task = this.manager.getTask(command);
         } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
             return;
         }
 
         // Remove this task.
-        this.tasks.remove(task);
+        this.manager.deleteTask(task);
         System.out.printf("Noted. I've removed this task:\n\t%s\n" +
-                "Now you have %d tasks in the list.\n", task, this.tasks.size());
+                "Now you have %d tasks in the list.\n", task, this.manager.getNumTasks());
     }
 
     /**
@@ -197,13 +193,13 @@ public final class Sailfish {
         try {
             switch (command.getCommand()) {
             case "todo":
-                newTask = new Todo(command.getDesc());
+                newTask = new Todo(command.getDesc(), false);
                 break;
             case "deadline":
-                newTask = new Deadline(command.getDesc(), command.getArgument(Deadline.REQ_ARG));
+                newTask = new Deadline(command.getDesc(), false, command.getArgument(Deadline.REQ_ARG));
                 break;
             case "event":
-                newTask = new Event(command.getDesc(), command.getArgument(Event.REQ_ARG));
+                newTask = new Event(command.getDesc(), false, command.getArgument(Event.REQ_ARG));
                 break;
             default:
                 throw new IllegalArgumentException("Unknown command!");
@@ -214,8 +210,8 @@ public final class Sailfish {
         }
 
         // Really add it now!
-        this.tasks.add(newTask);
+        this.manager.addTask(newTask);
         System.out.printf("Got it. I've added this task:\n\t%s\n" +
-                "Now you have %d tasks in the list.\n", newTask, this.tasks.size());
+                "Now you have %d tasks in the list.\n", newTask, this.manager.getNumTasks());
     }
 }
