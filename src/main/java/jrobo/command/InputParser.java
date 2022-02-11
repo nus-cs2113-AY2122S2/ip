@@ -1,5 +1,7 @@
 package jrobo.command;
 
+import jrobo.exception.InvalidFormatException;
+
 public class InputParser {
     protected String[] args;
     protected static String[] validCommands = {"mark", "m", "unmark", "um", "todo", "t", "deadline", "d", "event", "e", "list", "ls", "bye", "exit", "quit", "q"};

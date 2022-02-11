@@ -1,9 +1,7 @@
 package jrobo.task;
 
-import jrobo.task.Deadline;
-import jrobo.task.Event;
-import jrobo.task.Task;
-import jrobo.task.Todo;
+
+import jrobo.exception.InvalidTypeException;
 
 import java.util.ArrayList;
 
@@ -14,7 +12,7 @@ public class TaskManager {
         this.tasks = new ArrayList<>();
     }
 
-    protected void printWithSeparator(String... strings) {
+    public void printWithSeparator(String... strings) {
         System.out.println("\t____________________________________________________________");
         for (String s : strings) {
             System.out.println("\t" + s);

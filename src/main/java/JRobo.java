@@ -44,7 +44,7 @@ public class JRobo {
             default:
                 try {
                     manager.addTask(parser.getBody(), parser.getSuffix(), parser.getType());
-                } catch (InvalidFormatException | InvalidTypeException e) {
+                } catch (jrobo.exception.InvalidFormatException | jrobo.exception.InvalidTypeException e) {
                     manager.printWithSeparator(e.getMessage());
                 }
                 break;
