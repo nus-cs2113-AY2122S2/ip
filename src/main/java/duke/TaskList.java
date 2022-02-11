@@ -15,6 +15,10 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    public void delete(int taskOrder) {
+        tasks.remove(taskOrder - 1);
+    }
+
     public void add(Task task) {
         tasks.add(task);
     }
