@@ -22,7 +22,7 @@ public class FileEditor {
         case "todo":
         case "deadline":
         case "event":
-            saveDataAfterAdd(task, typeOfTask);
+            saveDataAfterAdd(task);
             break;
         case "markOrDelete":
             saveDataAfterMarkOrDelete(listOfTasks, typeOfTask);
@@ -48,14 +48,14 @@ public class FileEditor {
             if (task == null) {
                 break;
             }
-            fileWriter.write(typeOfTask + "," + task.isDone() + "," + task.getDescription() + "\n");
+            fileWriter.write(task.getTypeOfTask() + "," + task.isDone() + "," + task.getDescription() + "\n");
         }
     }
 
-    private static void saveDataAfterAdd(Task task, String typeOfTask) {
+    private static void saveDataAfterAdd(Task task) {
         try {
             FileWriter fileWriter = new FileWriter(FILE_PATH, true);
-            fileWriter.write(typeOfTask + "," + task.isDone() + "," + task.getDescription() + "\n");
+            fileWriter.write(task.getTypeOfTask() + "," + task.isDone() + "," + task.getDescription() + "\n");
             fileWriter.close();
         } catch(IOException error) {
             System.out.println("Error finding file");

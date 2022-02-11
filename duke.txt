@@ -1,3 +1,3 @@
-markOrDelete,true,borrow book
-markOrDelete,false,return book
-markOrDelete,false,read book
+todo,true,read book
+deadline,true,return book
+event,false,read book
