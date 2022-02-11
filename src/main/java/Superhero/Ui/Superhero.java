@@ -66,23 +66,43 @@ public class Superhero {
             case "mark":
                 try {
                     int index = Integer.parseInt(inputArray.get(1));
-                    inputList.getList()[index - 1].setDone(true);
-                    this.printMarkMessage(index - 1);
+                    inputList.getList().get(index - 1).setDone(true);
+                    Vocabulary markedVocab = inputList.getList().get(index - 1);
+                    this.printMarkMessage(markedVocab);
                 } catch (NumberFormatException e) {
                     printNumberFormatExceptionMessage();
                 } catch (NullPointerException e) {
                     printNullPointerExceptionMessage();
+                } catch (IndexOutOfBoundsException e) {
+                    printIndexOutOfBoundsExceptionMessage("general");
                 }
                 break;
             case "unmark":
                 try {
                     int index = Integer.parseInt(inputArray.get(1));
-                    inputList.getList()[index - 1].setDone(false);
-                    this.printUnmarkMessage(index - 1);
+                    inputList.getList().get(index - 1).setDone(false);
+                    Vocabulary unmarkedVocab = inputList.getList().get(index - 1);
+                    this.printUnmarkMessage(unmarkedVocab);
                 } catch (NumberFormatException e) {
                     printNumberFormatExceptionMessage();
                 } catch (NullPointerException e) {
                     printNullPointerExceptionMessage();
+                } catch (IndexOutOfBoundsException e) {
+                    printIndexOutOfBoundsExceptionMessage("general");
+                }
+                break;
+            case "delete":
+                try {
+                    int index = Integer.parseInt(inputArray.get(1));
+                    Vocabulary deleteVocab = inputList.getList().get(index - 1);
+                    inputList.getList().remove(index - 1);
+                    this.printDeleteMessage(deleteVocab);
+                } catch (NumberFormatException e) {
+                    printNumberFormatExceptionMessage();
+                } catch (NullPointerException e) {
+                    printNullPointerExceptionMessage();
+                } catch (IndexOutOfBoundsException e) {
+                    printIndexOutOfBoundsExceptionMessage("general");
                 }
                 break;
             default:
@@ -106,19 +126,26 @@ public class Superhero {
                 dottedLine);
     }
 
-    private void printMarkMessage(int index) {
+    private void printMarkMessage(Vocabulary markedVocab) {
         System.out.println(dottedLine + "\n" +
                 " We've just confirmed you have understood this word:\n" +
-                " [x] " + inputList.getList()[index].getWord() + "\n" +
+                " " + markedVocab + "\n" +
                 " Now go learn more new words!\n" +
                 dottedLine);
     }
 
-    private void printUnmarkMessage(int index) {
+    private void printUnmarkMessage(Vocabulary unmarkedVocab) {
         System.out.println(dottedLine + "\n" +
                 " We've just confirmed you forgot this word:\n" +
-                " [ ] " + inputList.getList()[index].getWord() + "\n" +
+                " " + unmarkedVocab + "\n" +
                 " What happened???\n" +
+                dottedLine);
+    }
+
+    private void printDeleteMessage(Vocabulary deleteVocab) {
+        System.out.println(dottedLine + "\n" +
+                " You have deleted this word:\n" +
+                " " + deleteVocab + "\n" +
                 dottedLine);
     }
 
@@ -154,11 +181,15 @@ public class Superhero {
     }
 
     /**
-     * Method to print message when user has missing fields when adding a vocabulary
+     * Method to print message when user inputs wrong index/has missing fields when adding a vocabulary
      * @param taskName Type of task is needed to identify what message to print
      */
-    public void printIndexOutOfBoundsExceptionMessage(String taskName){
-        if (taskName.equals("tolearn")) {
+    public void printIndexOutOfBoundsExceptionMessage(String taskName) {
+        if (taskName.equals("general")) {
+            System.out.println("Index out of bounds!\n" +
+                    dottedLine);
+        }
+        else if (taskName.equals("tolearn")) {
             System.out.println("Wrong format! Format should be as such: tolearn (vocab)\n" +
                     dottedLine);
         }
