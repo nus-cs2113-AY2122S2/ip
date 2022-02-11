@@ -17,6 +17,8 @@ unmark 2
 list
 unmark 1
 list
+delete 1
+list
 todo
 event
 event /at
@@ -28,9 +30,14 @@ deadline /by
 deadline submit homework /by
 deadline /by tonight 2359
 deadlinesubmit homework /by tonight 2359
-mark 0
+mark
 mark 4
-unmark 0
+mark hello
+unmark
 unmark 4
+unmark hello
+delete
+delete 4
+delete hello
 asdf
 bye
