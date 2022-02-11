@@ -7,9 +7,6 @@ public abstract class Task {
     /** Completion status of a task */
     protected boolean isDone;
 
-    /** Total number of tasks currently in use */
-    protected static int count = 0;
-
     /**
      * Class constructor
      *
@@ -18,7 +15,6 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        count++;
     }
 
     /**
@@ -30,7 +26,6 @@ public abstract class Task {
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
-        count++;
     }
 
     /**
@@ -79,15 +74,6 @@ public abstract class Task {
             return "X";
         }
         return " ";
-    }
-
-    /**
-     * Returns the total number of Task instances currently in use.
-     *
-     * @return number of tasks.
-     */
-    public static int getCount() {
-        return count;
     }
 
     /**

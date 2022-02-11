@@ -1,16 +1,17 @@
 package bob.util.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.FileWriter;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-
-import bob.util.task.Task;
-import bob.util.task.ToDos;
+import bob.util.exception.BobInvalidLoad;
 import bob.util.task.Deadlines;
 import bob.util.task.Events;
-import bob.util.exception.BobInvalidLoad;
+import bob.util.task.Task;
+import bob.util.task.ToDos;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class LoadSave {
     public static final String FILEPATH = "data/data.txt";
@@ -58,10 +59,10 @@ public class LoadSave {
      * @param list a Task class list.
      * @throws IOException when error met while writing to the data file.
      */
-    public static void writeDataToFile(Task[] list) throws IOException {
+    public static void writeDataToFile(ArrayList<Task> list) throws IOException {
         FileWriter writer = new FileWriter(FILEPATH);
-        for (int i = 0; i < Task.getCount(); i++) {
-            writer.write(String.valueOf(list[i]));
+        for (int i = 0; i < list.size(); i++) {
+            writer.write(String.valueOf(list.get(i)));
             writer.write(System.lineSeparator());
         }
         writer.close();
@@ -72,7 +73,7 @@ public class LoadSave {
      *
      * @param list a Task class list.
      */
-    public static void saveData(Task[] list) {
+    public static void saveData(ArrayList<Task> list) {
         try {
             checkFilePath();
             writeDataToFile(list);
@@ -172,7 +173,7 @@ public class LoadSave {
      * @param data the data of the task to be created and appended.
      * @throws BobInvalidLoad when the length of the data does not meet minimum requirements.
      */
-    public static void addToList(Task[] list, String data) throws BobInvalidLoad {
+    public static void addToList(ArrayList<Task> list, String data) throws BobInvalidLoad {
         if (data.length() < MIN_TASK_LENGTH) {
             throw new BobInvalidLoad();
         }
@@ -181,7 +182,7 @@ public class LoadSave {
             boolean taskStatus = getTaskStatus(data.substring(STATUS_INDICATOR, STATUS_INDICATOR_END));
             String taskDetails = data.substring(TASK_DETAILS);
             Task task = createTask(taskType, taskStatus, taskDetails);
-            list[Task.getCount() - 1] = task;
+            list.add(task);
         } catch (BobInvalidLoad e) {
             printLoadError(MESSAGE_INVALID_VALUES);
         }
@@ -193,7 +194,7 @@ public class LoadSave {
      * @param list a Task class list to be restored.
      * @throws FileNotFoundException when the file cannot be found.
      */
-    public static void readDataFromFile(Task[] list) throws FileNotFoundException {
+    public static void readDataFromFile(ArrayList<Task> list) throws FileNotFoundException {
         try {
             File file = new File(FILEPATH);
             Scanner in = new Scanner(file);
@@ -210,7 +211,7 @@ public class LoadSave {
      *
      * @param list a Task class list to be restored.
      */
-    public static void loadData(Task[] list) {
+    public static void loadData(ArrayList<Task> list) {
         try {
             checkFilePath();
             readDataFromFile(list);
