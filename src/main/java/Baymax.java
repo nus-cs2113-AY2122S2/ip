@@ -1,8 +1,8 @@
 import java.lang.String;
 import java.util.Scanner;
 
-public class Baymax {
-    public static void main(String[] args) {
+public class Baymax{
+    public static void main(String[] args) throws BaymaxException {
 
         Scanner in = new Scanner(System.in);
         String command;
@@ -20,40 +20,68 @@ public class Baymax {
             word_split = command.split(" ", 2);
             String taskName = word_split[0];
 
+            System.out.println(horiLine);
             //different functions based on command lines
             switch (taskName) {
                 case "todo":
-                    tManager.addTask(new Todo(word_split[1]));
+                    try {
+                        tManager.addTask(new Todo(word_split[1]));
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println(" ☹ OOPS!!! The description of a todo cannot be empty.");
+                    } catch(BaymaxException b) {
+                        System.out.println(b.getMessage() + "Let's try again.");
+                    }
                     break;
                 case "deadline":
-                    taskWord = word_split[1].split("/by ", 2);
-                    taskDescrip = taskWord[0];
-                    String ddl = taskWord[1];
-                    tManager.addTask(new Deadline(taskDescrip, ddl));
+                    try {
+                        taskWord = word_split[1].split("/by ", 2);
+                        taskDescrip = taskWord[0];
+                        String ddl = taskWord[1];
+                        tManager.addTask(new Deadline(taskDescrip, ddl));
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println(" ☹ OOPS!!! The description of a deadline cannot be empty.");
+                    } catch(BaymaxException b) {
+                        System.out.println(b.getMessage() + "Let's try again.");
+                    }
                     break;
                 case "event":
-                    taskWord = word_split[1].split("/at ", 2);
-                    taskDescrip = taskWord[0];
-                    String eventTime = taskWord[1];
-                    tManager.addTask(new Event(taskDescrip, eventTime));
+                    try {
+                        taskWord = word_split[1].split("/at ", 2);
+                        taskDescrip = taskWord[0];
+                        String eventTime = taskWord[1];
+                        tManager.addTask(new Event(taskDescrip, eventTime));
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println(" ☹ OOPS!!! The description of a event cannot be empty.");
+                    } catch(BaymaxException b) {
+                        System.out.println(b.getMessage() + "Let's try again.");
+                    }
                     break;
                 case "list":
                     tManager.printTaskList();
                     break;
                 case "mark":
-                    System.out.println(horiLine);
-                    tManager.markTask(Integer.parseInt(word_split[1]) - 1);
-                    System.out.println(horiLine);
+                    try {
+                        tManager.markTask(Integer.parseInt(word_split[1]) - 1);
+                    } catch(NumberFormatException e) {
+                        System.out.println("Please enter an integer for task index. Let's try again.");
+                    } catch(BaymaxException b) {
+                        System.out.println(b.getMessage() + "Let's try again.");
+                    }
                     break;
                 case "unmark":
-                    System.out.println(horiLine);
-                    tManager.unmarkTask(Integer.parseInt(word_split[1]) - 1);
-                    System.out.println(horiLine);
+                    try {
+                        tManager.unmarkTask(Integer.parseInt(word_split[1]) - 1);
+                    } catch(NumberFormatException e) {
+                        System.out.println("Please enter an integer for task index. Let's try again.");
+                    } catch(BaymaxException b) {
+                        System.out.println(b.getMessage() + "Let's try again.");
+                    }
                     break;
                 default:
-                    System.out.println("Error. Please retry");
+                    System.out.println(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-( Please retry.");
                     break;
             }
+            System.out.println(horiLine);
             command = in.nextLine();
         }
         tManager.bye(); //bye
