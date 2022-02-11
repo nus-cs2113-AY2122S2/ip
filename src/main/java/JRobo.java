@@ -1,3 +1,6 @@
+import jrobo.command.InputParser;
+import jrobo.task.TaskManager;
+
 import java.util.Scanner;
 
 public class JRobo {

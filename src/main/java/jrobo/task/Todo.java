@@ -1,3 +1,7 @@
+package jrobo.task;
+
+import jrobo.task.Task;
+
 public class Todo extends Task {
 
 

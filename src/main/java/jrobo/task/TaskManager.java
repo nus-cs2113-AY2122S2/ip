@@ -1,3 +1,10 @@
+package jrobo.task;
+
+import jrobo.task.Deadline;
+import jrobo.task.Event;
+import jrobo.task.Task;
+import jrobo.task.Todo;
+
 import java.util.ArrayList;
 
 public class TaskManager {
