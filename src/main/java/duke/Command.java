@@ -44,7 +44,7 @@ public class Command {
             }
             int taskOrder = Integer.parseInt(dummy.substring(dummy.length() - 1));
             System.out.println(line + "Noted. I've removed this task:\n" + taskList.getTask(taskOrder) + "\n" +
-                    "Now you have " + taskList.amountOfTasks() +" tasks in the list.\n" + line);
+                    "Now you have " + (taskList.amountOfTasks() - 1) +" tasks in the list.\n" + line);
             taskList.delete(taskOrder);
         }
         else if(commandType.contains("deadline")) {
