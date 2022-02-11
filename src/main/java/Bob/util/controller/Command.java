@@ -1,11 +1,11 @@
-package util.controller;
+package bob.util.controller;
 
 import java.util.Scanner;
-import util.tasks.Task;
-import util.tasks.Deadlines;
-import util.tasks.ToDos;
-import util.tasks.Events;
-import util.exception.BobInvalidIdException;
+import bob.util.task.Task;
+import bob.util.task.Deadlines;
+import bob.util.task.ToDos;
+import bob.util.task.Events;
+import bob.util.exception.BobInvalidIdException;
 
 public class Command {
 

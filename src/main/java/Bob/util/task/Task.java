@@ -1,6 +1,6 @@
-package util.tasks;
+package bob.util.task;
 
-public class Task {
+public abstract class Task {
     /** Description of a task */
     protected String description;
 

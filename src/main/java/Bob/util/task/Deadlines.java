@@ -1,4 +1,4 @@
-package util.tasks;
+package bob.util.task;
 
 public class Deadlines extends Task {
     /** Deadline of a task */

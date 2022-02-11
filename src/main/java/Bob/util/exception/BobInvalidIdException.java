@@ -1,4 +1,4 @@
-package util.exception;
+package bob.util.exception;
 
 public class BobInvalidIdException extends Exception {
 }
