@@ -16,6 +16,18 @@ public class Events extends Task {
     }
 
     /**
+     * Class constructor
+     *
+     * @param description the Task description.
+     * @param isDone      the completion status.
+     * @param period      the Task period.
+     */
+    public Events(String description, boolean isDone, String period) {
+        super(description, isDone);
+        this.period = period;
+    }
+
+    /**
      * Returns the task's period.
      *
      * @return a period text.
@@ -38,6 +50,6 @@ public class Events extends Task {
      */
     @Override
     public String toString() {
-        return ("[D]" + super.toString() + " (at: " + getPeriod() + ")");
+        return ("[E]" + super.toString() + " (at: " + getPeriod() + ")");
     }
 }

@@ -16,6 +16,18 @@ public class Deadlines extends Task {
     }
 
     /**
+     * Class constructor
+     *
+     * @param description the Task description.
+     * @param isDone      the completion status.
+     * @param by          the Task deadline.
+     */
+    public Deadlines(String description, boolean isDone, String by) {
+        super(description, isDone);
+        this.by = by;
+    }
+
+    /**
      * Returns the task's deadline.
      *
      * @return a deadline text.

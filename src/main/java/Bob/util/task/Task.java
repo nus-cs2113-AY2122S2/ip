@@ -22,6 +22,18 @@ public abstract class Task {
     }
 
     /**
+     * Class constructor
+     *
+     * @param description the Task description.
+     * @param isDone      the completion status.
+     */
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+        count++;
+    }
+
+    /**
      * Returns the task's description.
      *
      * @return a description text.
