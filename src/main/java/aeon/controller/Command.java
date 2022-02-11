@@ -4,6 +4,7 @@ import aeon.task.Task;
 import aeon.task.Event;
 import aeon.task.Todo;
 import aeon.task.Deadline;
+import java.util.ArrayList;
 
 public class Command {
 
@@ -17,9 +18,10 @@ public class Command {
     public static final String CONGRATULATIONS_MSG = "Congrats on completing this task!:";
     public static final String MARK_UNDONE = "Alright, marked as undone!:";
     public static final String NO_TASKS = "No tasks!";
+    public static final String TASK_DELETED = "Task deleted!";
 
     public static void CommandProcessor() {
-        Task[] list = new Task[100];
+        ArrayList<Task> list = new ArrayList<>();
         printWelcomeMessage();
         Scanner in = new Scanner(System.in);
         String response = in.nextLine();
@@ -68,6 +70,15 @@ public class Command {
                     System.out.println(EVENT_FORMAT_ERR);
                 }
                 break;
+            case("delete"):
+                try {
+                    deleteTask(list, words);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println(TASK_NOT_FOUND);
+                } catch (NumberFormatException e) {
+                    System.out.println(INVALID_INTEGER_MSG);
+                }
+                break;
             default:
                 System.out.println(INVALID_COMMAND);
                 break;
@@ -77,8 +88,9 @@ public class Command {
         printGoodbyeMessage();
     }
 
-    public static void addToList(Task[] list, Task t) {
-        list[Task.getNoOfItems()] = t;
+    public static void addToList(ArrayList<Task> list, Task t) {
+        list.add(t);
+        //list[Task.getNoOfItems()] = t;
         Task.setNoOfItems(Task.getNoOfItems() + 1);
         System.out.println("Total: " + Task.getNoOfItems() + " task(s) in the list!");
     }
@@ -88,7 +100,7 @@ public class Command {
         System.out.println("____________________________________________________________\n");
     }
 
-    private static void addEventTask(Task[] list, String[] words) throws IndexOutOfBoundsException {
+    private static void addEventTask(ArrayList<Task> list, String[] words) throws IndexOutOfBoundsException {
         String[] eventDate = words[1].split(" /at ", 2);
         Task e = new Event(eventDate[0].trim(), eventDate[1].trim());
         System.out.println(TASK_ADDED);
@@ -96,7 +108,7 @@ public class Command {
         addToList(list, e);
     }
 
-    private static void addDeadlineTask(Task[] list, String[] words) throws IndexOutOfBoundsException {
+    private static void addDeadlineTask(ArrayList<Task> list, String[] words) throws IndexOutOfBoundsException {
         String[] dueDate = words[1].split(" /by ", 2);
         Task d = new Deadline(dueDate[0].trim(), dueDate[1].trim());
         System.out.println(TASK_ADDED);
@@ -104,37 +116,48 @@ public class Command {
         addToList(list, d);
     }
 
-    private static void addTodoTask(Task[] list, String[] words) throws IndexOutOfBoundsException {
+    private static void addTodoTask(ArrayList<Task> list, String[] words) throws IndexOutOfBoundsException {
         Task t = new Todo(words[1]);
         System.out.println(TASK_ADDED);
         System.out.println(t);
         addToList(list, t);
     }
 
-    private static void markTask(Task[] list, String[] words) throws IndexOutOfBoundsException, NumberFormatException {
+    private static void markTask(ArrayList<Task> list, String[] words) throws IndexOutOfBoundsException,
+            NumberFormatException {
         int index;
         index = Integer.parseInt(words[1]);
-        list[index - 1].setDoneStatus(true);
+        list.get(index - 1).setDoneStatus(true);
         System.out.println(CONGRATULATIONS_MSG);
-        System.out.println(list[index - 1]);
+        System.out.println(list.get(index - 1));
     }
 
-    private static void unmarkTask(Task[] list, String[] words)
+    private static void unmarkTask(ArrayList<Task> list, String[] words)
             throws IndexOutOfBoundsException, NumberFormatException {
         int index = Integer.parseInt(words[1]);
-        list[index - 1].setDoneStatus(false);
+        list.get(index - 1).setDoneStatus(false);
         System.out.println(MARK_UNDONE);
-        System.out.println(list[index - 1]);
+        System.out.println(list.get(index - 1));
     }
 
-    private static void printListOfTasks(Task[] list) {
+    private static void printListOfTasks(ArrayList<Task> list) {
         Integer noOfItems = Task.getNoOfItems();
         if (noOfItems == 0) {
             System.out.println(NO_TASKS);
         }
         for (int index = 0; index < noOfItems; index++) {
-            System.out.println(index + 1 + ". " + list[index]);
+            System.out.println(index + 1 + ". " + list.get(index));
         }
+    }
+
+    private static void deleteTask(ArrayList<Task> list, String[] words)
+            throws IndexOutOfBoundsException, NumberFormatException {
+        int index = Integer.parseInt(words[1]);
+        System.out.println(TASK_DELETED);
+        System.out.println(list.get(index - 1));
+        list.remove(index - 1);
+        Task.setNoOfItems(Task.getNoOfItems() - 1);
+        System.out.println("Total: " + Task.getNoOfItems() + " task(s) in the list!");
     }
 
     public static void printWelcomeMessage() {
