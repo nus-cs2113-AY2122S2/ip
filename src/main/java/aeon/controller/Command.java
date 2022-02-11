@@ -277,6 +277,11 @@ public class Command {
         list.remove(index - 1);
         Task.setNoOfItems(Task.getNoOfItems() - 1);
         System.out.println("Total: " + Task.getNoOfItems() + " task(s) in the list!");
+        try {
+            writeToFile(list, rawDescList);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void printWelcomeMessage() {
