@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Command class is concerned with parsing the input from the user.
+ * CommandParser class is concerned with parsing the input from the user.
  * <p>
  * Note that this class is not in fact responsible for the bot's individual commands (list command, todo command).
  */
-public final class Command {
+public final class CommandParser {
     /**
      * The actual command the user inputted.
      */
@@ -31,7 +31,7 @@ public final class Command {
      * @param desc      Description for the command.
      * @param artifacts Extra arguments specified with this command.
      */
-    private Command(String command, String desc, Map<String, String> artifacts) {
+    private CommandParser(String command, String desc, Map<String, String> artifacts) {
         this.command = command;
         this.desc = desc;
         this.arguments = artifacts;
@@ -43,7 +43,7 @@ public final class Command {
      * @param input The inputted line from the console.
      * @return New Command object with parsed information.
      */
-    public static Command fromString(String input) {
+    public static CommandParser fromString(String input) {
         // Trim the input.
         input = input.trim();
 
@@ -54,7 +54,7 @@ public final class Command {
         // If the length of the first parsed command is not more or equal to 2, then
         // there is no description or extra arguments.
         if (parsedOne.length < 2) {
-            return new Command(command, "", new HashMap<>());
+            return new CommandParser(command, "", new HashMap<>());
         }
 
         // Else, there is either a description or extra arguments.
@@ -69,7 +69,7 @@ public final class Command {
             String[] parsedThree = parsedTwo[i].split(" ", 2);
             extras.put(parsedThree[0].toLowerCase(), parsedThree.length == 2 ? parsedThree[1] : "");
         }
-        return new Command(command, task, extras);
+        return new CommandParser(command, task, extras);
     }
 
     /**

@@ -11,7 +11,7 @@ import java.util.Scanner;
 /**
  * The bot.
  */
-public final class SailfishController {
+public final class SailfishUI {
     /**
      * The width for the screen.
      */
@@ -25,14 +25,14 @@ public final class SailfishController {
     /**
      * The list of tasks stored by the bot.
      */
-    private final SailfishManager manager;
+    private final TaskManager manager;
 
     /**
      * Creates the bot.
      */
-    public SailfishController() throws IOException {
+    public SailfishUI() throws IOException {
         this.scanner = new Scanner(System.in);
-        this.manager = new SailfishManager();
+        this.manager = new TaskManager();
     }
 
     /**
@@ -50,28 +50,28 @@ public final class SailfishController {
         while (true) {
             System.out.println("-".repeat(WIDTH));
             // Get input from the user.
-            Command command = Command.fromString(this.scanner.nextLine());
+            CommandParser commandParser = CommandParser.fromString(this.scanner.nextLine());
             System.out.println("-".repeat(WIDTH));
 
             // Switch the command.
-            switch (command.getCommand()) {
+            switch (commandParser.getCommand()) {
             case "list": // List all tasks.
                 this.list();
                 break;
             case "mark": // Mark a task as done.
-                this.mark(command);
+                this.mark(commandParser);
                 break;
             case "unmark": // Mark a task as not done.
-                this.unMark(command);
+                this.unMark(commandParser);
                 break;
             case "delete":
-                this.delete(command);
+                this.delete(commandParser);
                 break;
             case "bye": // Exit the app.
                 this.bye();
                 return;
             default: // By default, we assume that the user is using a command that adds a task.
-                this.addTask(command);
+                this.addTask(commandParser);
                 break;
             }
         }
@@ -116,13 +116,13 @@ public final class SailfishController {
     /**
      * Mark a task as done.
      *
-     * @param command Command object containing parsed information.
+     * @param commandParser Command object containing parsed information.
      */
-    private void mark(Command command) {
+    private void mark(CommandParser commandParser) {
         // Get the index of the task to mark.
         Task task;
         try {
-            task = this.manager.getTask(command);
+            task = this.manager.getTask(commandParser);
         } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
             return;
@@ -136,12 +136,12 @@ public final class SailfishController {
     /**
      * Mark a task as undone.
      *
-     * @param command Command object containing parsed information.
+     * @param commandParser Command object containing parsed information.
      */
-    private void unMark(Command command) {
+    private void unMark(CommandParser commandParser) {
         Task task;
         try {
-            task = this.manager.getTask(command);
+            task = this.manager.getTask(commandParser);
         } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
             return;
@@ -165,12 +165,12 @@ public final class SailfishController {
     /**
      * Delete a task by index.
      *
-     * @param command Command object containing parsed information.
+     * @param commandParser Command object containing parsed information.
      */
-    private void delete(Command command) {
+    private void delete(CommandParser commandParser) {
         Task task;
         try {
-            task = this.manager.getTask(command);
+            task = this.manager.getTask(commandParser);
         } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
             return;
@@ -185,21 +185,21 @@ public final class SailfishController {
     /**
      * Add a new task.
      *
-     * @param command Command object containing parsed information.
+     * @param commandParser Command object containing parsed information.
      */
-    private void addTask(Command command) {
+    private void addTask(CommandParser commandParser) {
         // Create the required task.
         Task newTask;
         try {
-            switch (command.getCommand()) {
+            switch (commandParser.getCommand()) {
             case "todo":
-                newTask = new Todo(command.getDesc(), false);
+                newTask = new Todo(commandParser.getDesc(), false);
                 break;
             case "deadline":
-                newTask = new Deadline(command.getDesc(), false, command.getArgument(Deadline.REQ_ARG));
+                newTask = new Deadline(commandParser.getDesc(), false, commandParser.getArgument(Deadline.REQ_ARG));
                 break;
             case "event":
-                newTask = new Event(command.getDesc(), false, command.getArgument(Event.REQ_ARG));
+                newTask = new Event(commandParser.getDesc(), false, commandParser.getArgument(Event.REQ_ARG));
                 break;
             default:
                 throw new IllegalArgumentException("Unknown command!");

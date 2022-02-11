@@ -1,11 +1,11 @@
-import bot.SailfishController;
+import bot.SailfishUI;
 
 import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
         try {
-            SailfishController fish = new SailfishController();
+            SailfishUI fish = new SailfishUI();
             fish.takeControl();
         } catch (IOException e) {
             System.out.printf("There was an error reading/saving the database: %s\n" +
