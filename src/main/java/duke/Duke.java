@@ -16,7 +16,7 @@ public class Duke {
             "\\       /|  |        `'  '-'  '   `'  '-'  '|  |\\   \\  `-./  /.__) \n" +
             " `-----' `--'          `-----'      `-----' `--' '--'    `--'      \n";
     private static final String FIRST_GREETING = "Hello from\n";
-    private static final String SECOND_GREETING = "Hello there! I'm Spooky :D";
+    private static final String SECOND_GREETING = "Hi there! I'm Spooky :D";
     private static final String PROVIDE_SERVICE = "What can I do for you?";
     private static final String LINE = "-----------------------------";
     private static final String GOODBYE = "Bye! Hope to see you soon :D";
