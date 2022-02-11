@@ -50,12 +50,13 @@ public class Duke {
     private static void markStatus(Boolean shouldMark, String line) {
         Task curr;
         try {
-            int taskNum = Integer.parseInt(line.split(" ", 0)[1]);
+            int taskNum = Integer.parseInt(line.split(" ", 0)[1]) - 1;
             if (taskNum > list.size()) {
                 throw new DukeException("Please mark / unmark with a number that's in the list :')");
             }
-            curr = list.get(taskNum - 1);
-        } catch (IndexOutOfBoundsException e) {
+            curr = list.get(taskNum);
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            // NumberFormatException caught in IntelliJ runtime env but not in testing...
             printFormat("Please mark / unmark with a valid number :')");
             return;
         } catch (DukeException e) {
@@ -72,7 +73,31 @@ public class Duke {
         }
     }
 
+    private static void removeTask(String line) {
+        Task curr;
+        try {
+            int taskNum = Integer.parseInt(line.split(" ", 0)[1]) - 1;
+            if (taskNum > list.size()) {
+                throw new DukeException("Please delete a task number that's in the list :')");
+            }
+            curr = list.get(taskNum);
+            list.remove(taskNum);
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            printFormat("You can only delete with a valid task number :')");
+            return;
+        } catch (DukeException e) {
+            printFormat(e.msg);
+            return;
+        }
+
+        printFormat("Noted. I've removed this task: \n  " + curr +
+                String.format("\nNow you have %d tasks in the list.", list.size()));
+    }
+
     private static Task parseDeadline(String description) throws DukeException {
+        if (description.equals("")) {
+            throw new DukeException("Please provide a task description!");
+        }
         String by;
         try {
             String[] deadlineBreakdown = description.split("/by ", 2);
@@ -85,6 +110,9 @@ public class Duke {
     }
 
     private static Task parseEvent(String description) throws DukeException {
+        if (description.equals("")) {
+            throw new DukeException("Please provide a task description!");
+        }
         String at;
         try {
             String[] eventBreakdown = description.split(" /at ", 2);
@@ -100,6 +128,9 @@ public class Duke {
         Task t;
         switch (type) {
         case "todo":
+            if (description.equals("")) {
+                throw new DukeException("Please provide a task description!");
+            }
             t = new Todo(description);
             break;
         case "deadline":
@@ -112,9 +143,6 @@ public class Duke {
             throw new DukeException("I don't understand what you want to do, big sad :(");
         }
 
-        if (description.equals("")) {
-            throw new DukeException("Please provide a task description!");
-        }
         return t;
     }
 
@@ -130,7 +158,7 @@ public class Duke {
             Task t = parseTask(type, description);
             list.add(t);
             printFormat("Got it. I've added this task:\n  " + t +
-                    String.format("\nNow you have %d tasks in the list.", list.size() + 1));
+                    String.format("\nNow you have %d tasks in the list.", list.size()));
         } catch (DukeException e) {
             printFormat(e.msg);
         }
@@ -145,6 +173,8 @@ public class Duke {
             markStatus(true, line);
         } else if (line.startsWith("unmark")) {
             markStatus(false, line);
+        } else if (line.startsWith("delete")) {
+            removeTask(line);
         } else {
             addTask(line);
         }
