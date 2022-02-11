@@ -6,6 +6,8 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.util.ArrayList;
+
 public class TaskManager {
 
     private static final String MARKED_THIS_TASK_AS_DONE = "Nice! I've marked this task as done:";
@@ -13,16 +15,17 @@ public class TaskManager {
     private static final String ADDED = "Got it. I have added this task: ";
     private static final String NUMBER_OF_TASKS_FIRST_HALF = "Now you have ";
     private static final String NUMBER_OF_TASKS_SECOND_HALF = " tasks in the list.";
-    private static final String INVALID_INDEX = "The index that you have indicated is invalid, please try again.";
+    private static final String INVALID_INDEX = "The index is missing or out of range, please try again.";
+    private static final String NOT_AN_INTEGER = "The index should be an integer, please try again.";
     private static final String LINE = "-----------------------------";
-    public static final String WRONG_TYPE_OF_TASK = "Something is wrong with the typeOfTask";
+    private static final String WRONG_TYPE_OF_TASK = "Something is wrong with the typeOfTask";
+    private static final String DELETED = "Noted. I've removed this task: ";
 
-    private static Task[] listOfTasks = new Task[100];
-    private static int index = 0;
+    private static ArrayList<Task> listOfTasks = new ArrayList<>();
 
     public static void addTask(String request, String typeOfTask) throws AdditionalException {
         String description = getDescription(request, typeOfTask);
-        listOfTasks[index] = new ToDo(description);
+        listOfTasks.add(new ToDo(description));
     }
 
     public static void addTask(String request, String typeOfTask, String preposition) throws AdditionalException {
@@ -30,42 +33,41 @@ public class TaskManager {
         String timing = getTiming(request, preposition);
         switch (typeOfTask) {
         case "deadline":
-            listOfTasks[index] = new Deadline(description, timing);
+            listOfTasks.add(new Deadline(description, timing));
             break;
         case "event":
-            listOfTasks[index] = new Event(description, timing);
+            listOfTasks.add(new Event(description, timing));
             break;
         default:
             System.out.println("Oh no D: There seems to be a problem creating the task");
         }
     }
 
-    public static void incrementIndex() {
-        index++;
-    }
-
-    public static void markItem(String[] words, String typeOfTask) {
-        int indexToMark = getIndexToMarkOrUnmark(words);
+    public static void markOrDeleteItem(String[] words, String typeOfTask) {
         try {
-            markOrUnmark(typeOfTask, indexToMark);
-        } catch(NullPointerException error) {
-            System.out.println(INVALID_INDEX);
-            System.out.println(LINE);
-        } catch(ArrayIndexOutOfBoundsException error) {
-            System.out.println(INVALID_INDEX);
-            System.out.println(LINE);
+            int indexToMarkOrDelete = Integer.parseInt(words[1]) - 1;
+            Task taskToMarkOrDelete = listOfTasks.get(indexToMarkOrDelete);
+            markOrDelete(typeOfTask, taskToMarkOrDelete);
+        } catch(IndexOutOfBoundsException error) {
+            System.out.println(INVALID_INDEX + System.lineSeparator() + LINE);
+        } catch (NumberFormatException error) {
+            System.out.println(NOT_AN_INTEGER + System.lineSeparator()+ LINE);
         }
     }
 
-    private static void markOrUnmark(String typeOfTask, int indexToMark) {
+    private static void markOrDelete(String typeOfTask, Task taskToMarkOrDelete) {
         switch (typeOfTask) {
         case "mark":
-            listOfTasks[indexToMark].markAsDone();
-            printMarkOrUnmarkIsCompleted(listOfTasks[indexToMark], "mark");
+            taskToMarkOrDelete.markAsDone();
+            printMarkOrUnmarkIsCompleted(taskToMarkOrDelete, "mark");
             break;
         case "unmark":
-            listOfTasks[indexToMark].markAsUndone();
-            printMarkOrUnmarkIsCompleted(listOfTasks[indexToMark], "unmark");
+            taskToMarkOrDelete.markAsUndone();
+            printMarkOrUnmarkIsCompleted(taskToMarkOrDelete, "unmark");
+            break;
+        case "delete":
+            listOfTasks.remove(taskToMarkOrDelete);
+            printConfirmationForDeletingTask(taskToMarkOrDelete);
             break;
         default:
             System.out.println(WRONG_TYPE_OF_TASK);
@@ -73,12 +75,12 @@ public class TaskManager {
     }
 
     public static void printList() throws AdditionalException {
-        if (index == 0) {
+        if (listOfTasks.isEmpty()) {
             throw new AdditionalException("YAY!!! you do not have any tasks at the moment hehe");
         }
-        for (int i = 0; i < index; i++) {
+        for (int i = 0; i < listOfTasks.size(); i++) {
             int numbering = i + 1;
-            System.out.println(numbering + ". " + listOfTasks[i]);
+            System.out.println(numbering + ". " + listOfTasks.get(i));
         }
         System.out.println(LINE);
     }
@@ -86,16 +88,14 @@ public class TaskManager {
     private static String getDescription(String request, String typeOfTask) throws AdditionalException {
         int lengthOfTypeOfTask = typeOfTask.length();
         int lengthOfRequest = request.length();
-        String description = checkLength(request, lengthOfTypeOfTask, lengthOfRequest, "description");
-        return description;
+        return checkLength(request, lengthOfTypeOfTask, lengthOfRequest, "description");
     }
 
     private static String getDescription(String request, String typeOfTask, String preposition)
                 throws AdditionalException {
         int indexOfPreposition = checkIndexOfPreposition(request, preposition);
         int lengthOfTypeOfTask = typeOfTask.length();
-        String description = checkLength(request, lengthOfTypeOfTask, indexOfPreposition, "description");
-        return description;
+        return checkLength(request, lengthOfTypeOfTask, indexOfPreposition, "description");
     }
 
     private static String getTiming(String request, String preposition) throws AdditionalException {
@@ -103,8 +103,7 @@ public class TaskManager {
         int lengthOfPreposition = preposition.length();
         int startingIndexOfTiming = indexOfPreposition + lengthOfPreposition;
         int lengthOfRequest = request.length();
-        String timing = checkLength(request, startingIndexOfTiming, lengthOfRequest, "timing");
-        return timing;
+        return checkLength(request, startingIndexOfTiming, lengthOfRequest, "timing");
     }
 
     private static int checkIndexOfPreposition(String request, String preposition) throws AdditionalException {
@@ -134,15 +133,18 @@ public class TaskManager {
         }
     }
 
-    private static int getIndexToMarkOrUnmark(String[] words) {
-        return Integer.parseInt(words[1]) - 1;
+    public static void printConfirmationForAddingTasks() {
+        System.out.println(ADDED);
+        int indexOfLastItem = listOfTasks.size() - 1;
+        System.out.println(listOfTasks.get(indexOfLastItem));
+        System.out.println(NUMBER_OF_TASKS_FIRST_HALF + listOfTasks.size() + NUMBER_OF_TASKS_SECOND_HALF);
+        System.out.println(LINE);
     }
 
-    public static void printConfirmationForAddingTasks() {
-        int numberOfTasks = index + 1;
-        System.out.println(ADDED);
-        System.out.println(listOfTasks[index]);
-        System.out.println(NUMBER_OF_TASKS_FIRST_HALF + numberOfTasks + NUMBER_OF_TASKS_SECOND_HALF);
+    private static void printConfirmationForDeletingTask(Task taskToMarkOrDelete) {
+        System.out.println(DELETED);
+        System.out.println(taskToMarkOrDelete);
+        System.out.println(NUMBER_OF_TASKS_FIRST_HALF + listOfTasks.size() + NUMBER_OF_TASKS_SECOND_HALF);
         System.out.println(LINE);
     }
 
@@ -157,8 +159,7 @@ public class TaskManager {
         default:
             System.out.println(WRONG_TYPE_OF_TASK);
         }
-        System.out.println(task);
-        System.out.println(LINE);
+        System.out.println(task + System.lineSeparator() + LINE);
     }
 
 }

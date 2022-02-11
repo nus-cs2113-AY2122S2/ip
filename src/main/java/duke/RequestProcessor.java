@@ -16,25 +16,25 @@ public class RequestProcessor {
             TaskManager.printList();
             break;
         case "mark":
-            TaskManager.markItem(words, "mark");
+            TaskManager.markOrDeleteItem(words, "mark");
             break;
         case "unmark":
-            TaskManager.markItem(words, "unmark");
+            TaskManager.markOrDeleteItem(words, "unmark");
+            break;
+        case "delete":
+            TaskManager.markOrDeleteItem(words, "delete");
             break;
         case "todo":
             TaskManager.addTask(request, "todo");
             TaskManager.printConfirmationForAddingTasks();
-            TaskManager.incrementIndex();
             break;
         case "deadline":
             TaskManager.addTask(request, "deadline", "/by");
             TaskManager.printConfirmationForAddingTasks();
-            TaskManager.incrementIndex();
             break;
         case "event":
             TaskManager.addTask(request, "event", "/at");
             TaskManager.printConfirmationForAddingTasks();
-            TaskManager.incrementIndex();
             break;
         default:
             throw new AdditionalException("OOPS!!! I'm sorry, but I don't know what that means :-(");
