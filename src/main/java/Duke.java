@@ -9,46 +9,71 @@ public class Duke {
 
         //main handler for receiving input
         while (!userInput.equals("bye")) {
-            Tokenise userInputTokens = new Tokenise(userInput);
-            //change user input into an array of tokens
-            switch (userInputTokens.getTokens()[0]) {
-            case "list":
-                String allTasks = listTask(userLists);
-                allTasks = wrapMessage(allTasks);
-                System.out.println(allTasks);
-                break;
-            case "todo":
-                Todo newTodo = new Todo(userInputTokens.getDescription());
-                userLists = addTask(newTodo, userLists);
-                break;
-            case "deadline":
-                Deadline newDeadline = new Deadline(
-                        userInputTokens.getDescription(),
-                        userInputTokens.getTime());
-                userLists = addTask(newDeadline, userLists);
-                break;
-            case "event":
-                //find index in user input tokens which contains the time separator
-                Event newEvent = new Event(
-                        userInputTokens.getDescription(),
-                        userInputTokens.getTime());
-                userLists = addTask(newEvent, userLists);
-                break;
-            case "mark":
-                userLists[userInputTokens.getMarkIndex()].setMark();
-                System.out.println(
-                        wrapMessage("Nice! I've marked this task as done:\n" +
+            String[] tokens = userInput.split(" ");
+            try {
+                Tokenise userInputTokens = new Tokenise(userInput);
+                //change user input into an array of tokens
+                switch (userInputTokens.getTokens()[0]) {
+                case "list":
+                    String allTasks = listTask(userLists);
+                    allTasks = wrapMessage(allTasks);
+                    System.out.println(allTasks);
+                    break;
+                case "todo":
+                    Todo newTodo = new Todo(userInputTokens.getDescription());
+                    userLists = addTask(newTodo, userLists);
+                    break;
+                case "deadline":
+                    Deadline newDeadline = new Deadline(
+                            userInputTokens.getDescription(),
+                            userInputTokens.getTime());
+                    userLists = addTask(newDeadline, userLists);
+                    break;
+                case "event":
+                    //find index in user input tokens which contains the time separator
+                    Event newEvent = new Event(
+                            userInputTokens.getDescription(),
+                            userInputTokens.getTime());
+                    userLists = addTask(newEvent, userLists);
+                    break;
+                case "mark":
+                    int markIndex = userInputTokens.getMarkIndex();
+                    if (markIndex > userLists.length) {
+                        throw new DukeExceptionMarkBounds();
+                    }
+                    userLists[markIndex].setMark();
+                    System.out.println(
+                            wrapMessage("Nice! I've marked this task as done:\n" +
                                     userLists[userInputTokens.getMarkIndex()].toString()
-                        ));
-                break;
-            case "unmark":
-                userLists[userInputTokens.getMarkIndex()].unMark();
-                System.out.println(
-                        wrapMessage("OK, I've marked this task as not done yet:\n" +
+                            ));
+                    break;
+                case "unmark":
+                    markIndex = userInputTokens.getMarkIndex();
+                    if (markIndex > userLists.length) {
+                        throw new DukeExceptionMarkBounds();
+                    }
+                    userLists[userInputTokens.getMarkIndex()].unMark();
+                    System.out.println(
+                            wrapMessage("OK, I've marked this task as not done yet:\n" +
                                     userLists[userInputTokens.getMarkIndex()].toString()
-                        ));
-                break;
-            default:
+                            ));
+                    break;
+                default:
+                }
+            } catch (DukeExceptionCommand e) {
+                System.out.println(wrapMessage("OOPS!!! I'm sorry, but I don't know what that means :-("));
+            } catch (DukeExceptionDescription e) {
+                System.out.printf(wrapMessage("OOPS!!! The description of a %s cannot be empty!\n"),
+                        tokens[0]);
+            } catch (DukeExceptionTiming e) {
+                System.out.printf(wrapMessage("OOPS!!! The time of this %s cannot be empty!\n"),
+                        tokens[0]);
+            } catch (DukeExceptionList e) {
+                System.out.println(wrapMessage("OOPS!!! List should not have any other text after!"));
+            } catch (DukeExceptionMark e) {
+                System.out.printf(wrapMessage("%s needs a number as an input\n"), tokens[0]);
+            } catch (DukeExceptionMarkBounds e) {
+                System.out.println(wrapMessage("Number provided is not in the list"));
             }
             userInput = input.nextLine();
         }

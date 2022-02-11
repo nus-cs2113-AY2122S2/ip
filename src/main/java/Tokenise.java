@@ -12,75 +12,57 @@ public class Tokenise {
 
     public Tokenise(String userInput) throws DukeException {
         tokens = userInput.split(" ");
-
-        try {
-            switch (tokens[0]) {
-            case "list":
-                if (tokens.length != 1) {
-                    throw new DukeException("list", "list");
-                }
-                break;
-            case "deadline":
-                if (tokens.length < 2) {
-                    throw new DukeException("no description", "no description");
-                }
-                int deadlineBy = findIndex(tokens, "/by");
-                if (deadlineBy > 0) {
-                    //remove keyword deadline and deadline time from raw user input
-                    this.description = combineToken(tokens, 1, deadlineBy);
-                    this.time = combineToken(tokens, deadlineBy + 1);
-                } else {
-                    throw new DukeException("no timing", "no timing");
-                }
-                break;
-            case "events":
-                if (tokens.length < 2) {
-                    throw new DukeException("no description", "no description");
-                }
-                int eventAt = findIndex(tokens, "/at");
-                if (eventAt > 0) {
-                    //remove keyword deadline and deadline time from raw user input
-                    this.description = combineToken(tokens, 1, eventAt);
-                    this.time = combineToken(tokens, eventAt + 1);
-                } else {
-                    throw new DukeException("no timing", "no timing");
-                }
-            case "todo":
-                if (tokens.length < 2) {
-                    throw new DukeException("no description", "no description");
-                }
-                this.description = combineToken(tokens, 1);
-                break;
-            case "mark":
-            case "unmark":
-                //checking if value after mark or unmark is a number
-                if (tokens.length != 2) {
-                    System.out.printf("OOPS!!! %s must have the number of task to %s",
-                            tokens[0], tokens[0]);
-                }
-                try {
-                    markIndex = Integer.parseInt(tokens[1]) - 1;
-                } catch (NumberFormatException e) {
-                    System.out.printf("%s needs a number as an input", tokens[0]);
-                }
-                break;
-            default:
-                throw new DukeException("no command", "no command");
+        switch (tokens[0]) {
+        case "list":
+            if (tokens.length != 1) {
+                throw new DukeExceptionList();
             }
-        } catch (DukeException e) {
-            if (e.getDescription().equals("no command")) {
-                System.out.printf("OOPS!!! I'm sorry, but I don't know what that means :-(\n");
-
-            } else if (e.getDescription().equals("no description")) {
-                System.out.printf("OOPS!!! The description of a %s cannot be empty!\n",
-                        tokens[0]);
-            } else if (e.getDescription().equals("no timing")) {
-                System.out.printf(Duke.wrapMessage("OOPS!!! The time of this %s cannot be empty!\n"),
-                        tokens[0]);
-            } else if (e.getDescription().equals("list")) {
-                System.out.println(Duke.wrapMessage(
-                        "OOPS!!! List should not have any other text after!"));
+            break;
+        case "deadline":
+            if (tokens.length < 2) {
+                throw new DukeExceptionDescription();
             }
+            int deadlineBy = findIndex(tokens, "/by");
+            if (deadlineBy > 0) {
+                //remove keyword deadline and deadline time from raw user input
+                this.description = combineToken(tokens, 1, deadlineBy);
+                this.time = combineToken(tokens, deadlineBy + 1);
+            } else {
+                throw new DukeExceptionTiming();
+            }
+            break;
+        case "events":
+            if (tokens.length < 2) {
+                throw new DukeExceptionDescription();
+            }
+            int eventAt = findIndex(tokens, "/at");
+            if (eventAt > 0) {
+                //remove keyword deadline and deadline time from raw user input
+                this.description = combineToken(tokens, 1, eventAt);
+                this.time = combineToken(tokens, eventAt + 1);
+            } else {
+                throw new DukeExceptionTiming();
+            }
+        case "todo":
+            if (tokens.length < 2) {
+                throw new DukeExceptionDescription();
+            }
+            this.description = combineToken(tokens, 1);
+            break;
+        case "mark":
+        case "unmark":
+            //checking if value after mark or unmark is a number
+            if (tokens.length != 2) {
+                throw new DukeExceptionMark();
+            }
+            try {
+                markIndex = Integer.parseInt(tokens[1]) - 1;
+            } catch (NumberFormatException e) {
+                throw new DukeExceptionMark();
+            }
+            break;
+        default:
+            throw new DukeExceptionCommand();
         }
     }
 

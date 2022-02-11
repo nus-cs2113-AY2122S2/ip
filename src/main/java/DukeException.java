@@ -1,12 +1,21 @@
 public class DukeException extends Exception {
-    private String description;
+}
 
-    public DukeException(String message, String description) {
-        super(message);
-        this.description = description;
-    }
+class DukeExceptionList extends DukeException {
+}
 
-    public String getDescription() {
-        return description;
-    }
+class DukeExceptionTiming extends DukeException {
+}
+
+class DukeExceptionDescription extends DukeException {
+}
+
+class DukeExceptionCommand extends DukeException {
+}
+
+class DukeExceptionMark extends DukeException {
+}
+
+class DukeExceptionMarkBounds extends DukeException {
+
 }
