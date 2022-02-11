@@ -1,5 +1,6 @@
 package bob.util.controller;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import bob.util.task.Task;
 import bob.util.task.Deadlines;
@@ -28,6 +29,7 @@ public class Command {
     public static final String MESSAGE_TASK_MARKED = "The following task has been checked off:";
     public static final String MESSAGE_TASK_UNMARKED = "The following task has yet to be completed:";
     public static final String MESSAGE_TASK_COUNT = "The number of tasks amounts to: ";
+    private static final String MESSAGE_DELETE_SUCCESS = "The following task has been deleted:";
 
     public static final String MESSAGE_INVALID_COMMAND = "Sorry, I do not understand.";
     public static final String MESSAGE_INVALID_ARGC = "Invalid number of arguments. ( °□°)";
@@ -133,12 +135,13 @@ public class Command {
     /**
      * Throws an exception if the given task id is not currently in use.
      *
-     * @param id The task id to be checked for validity
+     * @param id   The task id to be checked for validity
+     * @param list The list to check the id against
      * @throws BobInvalidIdException if id is not currently in use.
      */
-    public static void isValidCurrentId(int id) throws BobInvalidIdException {
+    public static void isValidCurrentId(ArrayList<Task> list, int id) throws BobInvalidIdException {
         if (id >= MIN_TASK_ID && id <= MAX_TASK_ID) {
-            if (id <= Task.getCount()) {
+            if (id <= list.size()) {
                 return;
             }
         }
@@ -160,15 +163,15 @@ public class Command {
      *
      * @param list a Task class list.
      */
-    public static void displayList(Task[] list) {
+    public static void displayList(ArrayList<Task> list) {
         printBorder();
-        int count = Task.getCount();
+        int count = list.size();
 
         if (count > 0) {
             printlnTab(MESSAGE_TASK_LIST);
             for (int i = 0; i < count; i++) {
                 printListId(i);
-                System.out.println(list[i]);
+                System.out.println(list.get(i));
             }
         } else {
             printlnTab(MESSAGE_NO_TASKS);
@@ -183,7 +186,7 @@ public class Command {
      * @param command the command containing the task id to be updated.
      * @param isDone  the status to be updated to.
      */
-    public static void updateStatus(Task[] list, String command, boolean isDone) {
+    public static void updateStatus(ArrayList<Task> list, String command, boolean isDone) {
         printBorder();
         String[] commandToken = parseCommand(command, DELIMIT_COMMAND);
 
@@ -193,8 +196,8 @@ public class Command {
         }
         try {
             int id = stringToInt(commandToken[1]);
-            isValidCurrentId(id);
-            Task target = list[id - 1];
+            isValidCurrentId(list, id);
+            Task target = list.get(id - 1);
             target.setDone(isDone);
 
             if (isDone) {
@@ -212,16 +215,46 @@ public class Command {
     }
 
     /**
+     * Delete the task indicated by an id.
+     *
+     * @param list    a Task class list.
+     * @param command the command containing the task id to be deleted.
+     */
+    public static void deleteTask(ArrayList<Task> list, String command) {
+        printBorder();
+        String[] commandToken = parseCommand(command, DELIMIT_COMMAND);
+
+        if (commandToken[1] == null) {
+            printError(MESSAGE_INVALID_ARGC);
+            return;
+        }
+        try {
+            int id = stringToInt(commandToken[1]);
+            isValidCurrentId(list, id);
+            Task target = list.get(id - 1);
+            list.remove(id - 1);
+
+            printlnTab(MESSAGE_DELETE_SUCCESS);
+            System.out.println("\t" + target);
+            printlnTab(MESSAGE_TASK_COUNT + list.size());
+            printBorder();
+        } catch (NumberFormatException e) {
+            printError(MESSAGE_INVALID_ID_FORMAT);
+        } catch (BobInvalidIdException e) {
+            printError(MESSAGE_INVALID_ID_NUMBER);
+        }
+    }
+
+    /**
      * Appends a Task to the task list.
      *
      * @param list a Task class list.
      * @param task the Task to be added.
      */
-    public static void addTaskToList(Task[] list, Task task) {
-        int index = Task.getCount() - 1;
-        list[index] = task;
+    public static void addTaskToList(ArrayList<Task> list, Task task) {
+        list.add(task);
         System.out.println("\t" + task);
-        printlnTab(MESSAGE_TASK_COUNT + Task.getCount());
+        printlnTab(MESSAGE_TASK_COUNT + list.size());
     }
 
     /**
@@ -230,7 +263,7 @@ public class Command {
      * @param list        a Task class list.
      * @param taskDetails the details of the new undated task to be created.
      */
-    public static void addToDosTask(Task[] list, String taskDetails) {
+    public static void addToDosTask(ArrayList<Task> list, String taskDetails) {
         Task task = new ToDos(taskDetails);
         addTaskToList(list, task);
         printBorder();
@@ -242,7 +275,7 @@ public class Command {
      * @param list        a Task class list.
      * @param taskDetails the details of the new dated task to be created.
      */
-    public static void addDeadlineTask(Task[] list, String taskDetails) {
+    public static void addDeadlineTask(ArrayList<Task> list, String taskDetails) {
         String[] tokenDetails = parseCommand(taskDetails, DELIMIT_DEADLINE);
 
         // check that the deadline is not empty
@@ -261,7 +294,7 @@ public class Command {
      * @param list        a Task class list.
      * @param taskDetails the details of the new dated task to be created.
      */
-    public static void addEventTask(Task[] list, String taskDetails) {
+    public static void addEventTask(ArrayList<Task> list, String taskDetails) {
         String[] tokenDetails = parseCommand(taskDetails, DELIMIT_EVENT);
 
         // check that the event period is not empty
@@ -280,9 +313,9 @@ public class Command {
      * @param list    a Task class list.
      * @param command the command containing the type of task and its details.
      */
-    public static void addNewValidTask(Task[] list, String command) {
+    public static void addNewValidTask(ArrayList<Task> list, String command) {
         printBorder();
-        if (Task.getCount() >= MAX_TASK_ID) {
+        if (list.size() >= MAX_TASK_ID) {
             printError(MESSAGE_TASK_LIMIT_REACHED);
             return;
         }
@@ -311,7 +344,8 @@ public class Command {
      */
     public static void listenAndExecuteCommands() {
         Scanner in = new Scanner(System.in);
-        Task[] list = new Task[MAX_TASK_ID];
+
+        ArrayList<Task> list = new ArrayList<>();
 
         String command;
         do {
@@ -333,6 +367,9 @@ public class Command {
             case "deadline":
             case "event":
                 addNewValidTask(list, command);
+                break;
+            case "delete":
+                deleteTask(list, command);
                 break;
             case "bye":
                 break;
