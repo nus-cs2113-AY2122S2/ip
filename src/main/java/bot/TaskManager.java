@@ -5,6 +5,7 @@ import tasks.Task;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * TaskManager is a wrapper around the list of tasks kept by the bot.
@@ -78,6 +79,12 @@ public class TaskManager {
      */
     protected void deleteTask(Task task) {
         this.tasks.remove(task);
+    }
+
+    protected List<Task> findTasks(String keyword) {
+        return this.tasks.stream().
+                filter(task -> task.taskDescription.toLowerCase().contains(keyword)).
+                collect(Collectors.toList());
     }
 
     /**

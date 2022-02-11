@@ -6,6 +6,7 @@ import tasks.Task;
 import tasks.Todo;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -66,6 +67,9 @@ public final class SailfishUI {
                 break;
             case "delete":
                 this.delete(commandParser);
+                break;
+            case "find":
+                this.find(commandParser);
                 break;
             case "bye": // Exit the app.
                 this.bye();
@@ -150,6 +154,29 @@ public final class SailfishUI {
         // Set the required task as undone.
         task.setDone(false);
         System.out.printf("Ok, I've marked this task as not done yet:\n%s\n", task);
+    }
+
+    /**
+     * Find tasks with description matching provided keyword.
+     *
+     * @param commandParser Command object containing parsed information.
+     */
+    private void find(CommandParser commandParser) {
+        List<Task> tasks = this.manager.findTasks(commandParser.getDesc());
+        if (tasks.size() == 0) {
+            System.out.println("No tasks matched your keyword!");
+            return;
+        }
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("We found the following tasks:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            builder.append(String.format("%d. %s\n", i + 1, tasks.get(i)));
+        }
+        builder.deleteCharAt(builder.length() - 1);
+
+        // Print found tasks.
+        System.out.println(builder);
     }
 
     /**
