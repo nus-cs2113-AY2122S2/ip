@@ -1,0 +1,3 @@
+[T][ ]borrow book
+[D][ ]return book (by: tmr 2359)
+[E][ ]read book (at: home tonight)
