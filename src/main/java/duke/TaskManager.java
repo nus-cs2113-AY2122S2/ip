@@ -6,6 +6,9 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class TaskManager {
 
     private static final String MARKED_THIS_TASK_AS_DONE = "Nice! I've marked this task as done:";
@@ -23,6 +26,7 @@ public class TaskManager {
     public static void addTask(String request, String typeOfTask) throws AdditionalException {
         String description = getDescription(request, typeOfTask);
         listOfTasks[index] = new ToDo(description);
+        FileEditor.saveData("add", listOfTasks[index], new ArrayList<Task>(Arrays.asList(listOfTasks)));
     }
 
     public static void addTask(String request, String typeOfTask, String preposition) throws AdditionalException {
@@ -31,9 +35,11 @@ public class TaskManager {
         switch (typeOfTask) {
         case "deadline":
             listOfTasks[index] = new Deadline(description, timing);
+            FileEditor.saveData("add", listOfTasks[index], new ArrayList<Task>(Arrays.asList(listOfTasks)));
             break;
         case "event":
             listOfTasks[index] = new Event(description, timing);
+            FileEditor.saveData("add", listOfTasks[index], new ArrayList<Task>(Arrays.asList(listOfTasks)));
             break;
         default:
             System.out.println("Oh no D: There seems to be a problem creating the task");
@@ -62,10 +68,12 @@ public class TaskManager {
         case "mark":
             listOfTasks[indexToMark].markAsDone();
             printMarkOrUnmarkIsCompleted(listOfTasks[indexToMark], "mark");
+            FileEditor.saveData("mark", listOfTasks[indexToMark], new ArrayList<Task>(Arrays.asList(listOfTasks)));
             break;
         case "unmark":
             listOfTasks[indexToMark].markAsUndone();
             printMarkOrUnmarkIsCompleted(listOfTasks[indexToMark], "unmark");
+            FileEditor.saveData("mark", listOfTasks[indexToMark], new ArrayList<Task>(Arrays.asList(listOfTasks)));
             break;
         default:
             System.out.println(WRONG_TYPE_OF_TASK);
