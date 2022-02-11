@@ -73,7 +73,7 @@ public class TaskManager {
         }
     }
 
-    public void addTask(String description, String detail, String type) {
+    public void addTask(String description, String detail, String type) throws InvalidTypeException {
         Task task;
         switch (type) {
         case "todo":
@@ -86,8 +86,7 @@ public class TaskManager {
             task = new Event(description, detail);
             break;
         default:
-            giveError();
-            return;
+            throw new InvalidTypeException("Invalid command!");
         }
         tasks.add(task);
         printWithSeparator("Got it. I've added this task:", "\t" + task, "Now, you have " + Task.taskCount + " in the list.");
