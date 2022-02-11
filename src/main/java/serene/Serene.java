@@ -5,10 +5,10 @@ import serene.task.Event;
 import serene.task.Task;
 import serene.task.ToDo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Serene {
-    public static final int TASK_LIMIT = 100;
     private static final String PARTITION_LINE = "____________________________________________________________";
     private static final String INPUT_ERROR_MESSAGE = "Uhm... I'm afraid I don't know what you mean by that :/";
     private static final String INVALID_NUM_ERROR_MESSAGE = "Please enter a valid task number ;-;";
@@ -21,7 +21,7 @@ public class Serene {
     private static final int RESPONSE_INDEX_BODY = 1;
     private static final int TASK_INDEX_DESCRIPTION = 0;
     private static final int TASK_INDEX_OPTIONS = 1;
-    private static Task[] taskList = new Task[TASK_LIMIT];
+    private static ArrayList<Task> taskList = new ArrayList<>();
     private static int taskCount = 0;
     private static int statusOfSerene = CONTINUE;
 
@@ -87,8 +87,10 @@ public class Serene {
     private static void printTaskList() {
         System.out.println(PARTITION_LINE);
         System.out.println("Here is your task list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + "." + taskList[i]);
+        int i = 1;
+        for (Task task: taskList) {
+            System.out.println((i) + "." + task);
+            i++;
         }
         System.out.println(PARTITION_LINE);
     }
@@ -104,14 +106,14 @@ public class Serene {
                 return;
             }
             // Checking if task has not already been marked
-            if (!taskList[taskIndex].isDone()) {
-                taskList[taskIndex].markDone();
+            if (!taskList.get(taskIndex).isDone()) {
+                taskList.get(taskIndex).markDone();
                 printWithPartition("Good job~ This task is now done:" + System.lineSeparator() +
-                        taskList[taskIndex]);
+                        taskList.get(taskIndex));
             }
             else {
                 printWithPartition("Huh? Didn't you complete this already?" + System.lineSeparator() +
-                        taskList[taskIndex]);
+                        taskList.get(taskIndex));
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             printWithPartition(INVALID_NUM_ERROR_MESSAGE);
@@ -129,14 +131,14 @@ public class Serene {
                 return;
             }
             // Checking if task has already been marked
-            if (taskList[taskIndex].isDone()) {
-                taskList[taskIndex].markNotDone();
+            if (taskList.get(taskIndex).isDone()) {
+                taskList.get(taskIndex).markNotDone();
                 printWithPartition("Sigh. Here we go again:" + System.lineSeparator() +
-                        taskList[taskIndex]);
+                        taskList.get(taskIndex));
             }
             else {
                 printWithPartition("Bruh. You never completed this in the first place." + System.lineSeparator() +
-                        taskList[taskIndex]);
+                        taskList.get(taskIndex));
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             printWithPartition(INVALID_NUM_ERROR_MESSAGE);
@@ -229,20 +231,20 @@ public class Serene {
     }
 
     private static void allocateTask(Task inputTask) {
-        taskList[taskCount] = inputTask;
+        taskList.add(inputTask);
         taskCount++;
-        printAddedTask();
+        printAddedTask(inputTask);
     }
 
-    private static void printAddedTask() {
+    private static void printAddedTask(Task inputTask) {
         String toPrint;
         if (taskCount == 1) {
             toPrint = "Okay, I've added this for you:" + System.lineSeparator() +
-                    taskList[taskCount - 1] + System.lineSeparator() +
+                    inputTask + System.lineSeparator() +
                     "Now you have " + taskCount + " task in the list.";
         } else {
             toPrint = "Okay, I've added this for you:" + System.lineSeparator() +
-                    taskList[taskCount - 1] + System.lineSeparator() +
+                    inputTask + System.lineSeparator() +
                     "Now you have " + taskCount + " tasks in the list.";
         }
         printWithPartition(toPrint);
