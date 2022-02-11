@@ -2,10 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96ac93b2-3953-4de9-b73f-aa2e8ee10130" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/bin/duke/TaskManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/duke/TaskManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/duke.txt" beforeDir="false" afterPath="$PROJECT_DIR$/duke.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ip/duke/Duke.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ip/duke/Duke.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ip/duke/FileEditor.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ip/duke/FileEditor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ip/duke/TaskManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ip/duke/TaskManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ip/duke/task/Task.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ip/duke/task/Task.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/duke/TaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/duke/TaskManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/text-ui-test/ACTUAL.TXT" beforeDir="false" afterPath="$PROJECT_DIR$/text-ui-test/ACTUAL.TXT" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/text-ui-test/EXPECTED.TXT" beforeDir="false" afterPath="$PROJECT_DIR$/text-ui-test/EXPECTED.TXT" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/duke/task/Deadline.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/duke/task/Deadline.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/duke/task/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/duke/task/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/duke/task/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/duke/task/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/duke/task/ToDo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/duke/task/ToDo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

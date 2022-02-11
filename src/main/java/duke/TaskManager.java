@@ -25,7 +25,7 @@ public class TaskManager {
 
     public static void addTask(String request, String typeOfTask) throws AdditionalException {
         String description = getDescription(request, typeOfTask);
-        listOfTasks.add(new ToDo(description));
+        listOfTasks.add(new ToDo(description, typeOfTask));
         saveDataToFile(typeOfTask);
     }
 
@@ -34,11 +34,11 @@ public class TaskManager {
         String timing = getTiming(request, preposition);
         switch (typeOfTask) {
         case "deadline":
-            listOfTasks.add(new Deadline(description, timing));
+            listOfTasks.add(new Deadline(description, timing, typeOfTask));
             saveDataToFile(typeOfTask);
             break;
         case "event":
-            listOfTasks.add(new Event(description, timing));
+            listOfTasks.add(new Event(description, timing, typeOfTask));
             saveDataToFile(typeOfTask);
             break;
         default:
