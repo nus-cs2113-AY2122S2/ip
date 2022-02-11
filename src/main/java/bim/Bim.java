@@ -23,6 +23,7 @@ public class Bim {
     private static final String MESSAGE_GOODBYE = "See you soon!";
     private static final String MESSAGE_MARK_TASK = "Okie Dokie!";
     private static final String MESSAGE_UNMARK_TASK = "Oh no! Anyways..";
+    private static final String MESSAGE_DELETE_TASK = "Sure, deleted!";
 
     private static final String DELIMITER_EVENT = " /at ";
     private static final String DELIMITER_DEADLINE = " /by ";
@@ -34,8 +35,12 @@ public class Bim {
     private static final String OP_ADD_EVENT = "event";
     private static final String OP_EXIT_PROGRAM = "bye";
     private static final String OP_LIST_TASK = "list";
+    private static final String OP_DELETE_TASK = "delete";
 
     private static final String LINE_SEPARATOR = "----------------------------------";
+    private static final String LINE_INDENT = "\t";
+    private static final String LIST_DOT = ".";
+
     private static final int EXPECTED_ARG_NUMBER = 2;
 
     public static void main(String[] args) {
@@ -49,6 +54,7 @@ public class Bim {
             String[] words = input.split(" ", 2);
             String command = words[0].toLowerCase();
             String commandArg = (words.length > 1) ? words[1] : "";
+            System.out.println(LINE_SEPARATOR);
             try {
                 handleCommand(command, commandArg);
             } catch (BimException exception) {
@@ -81,6 +87,9 @@ public class Bim {
         case OP_ADD_EVENT:
             addEvent(commandArg);
             break;
+        case OP_DELETE_TASK:
+            deleteTask(commandArg);
+            break;
         default:
             throw new BimException();
         }
@@ -95,10 +104,11 @@ public class Bim {
     private static void listTask() {
         if (taskStore.isEmpty()) {
             System.out.println(EMPTY_TASKLIST);
+            return;
         }
         int i = 1;
         for (Task t : taskStore) {
-            System.out.println(i + "." + t);
+            System.out.println(i + LIST_DOT + t);
             ++i;
         }
     }
@@ -118,6 +128,17 @@ public class Bim {
             System.out.println(MESSAGE_UNMARK_TASK);
         }
         System.out.println("\t" + currentTask);
+    }
+
+    private static void deleteTask(String commandArg) {
+        int index = tryParseIndex(commandArg);
+        if (!isValidIndex(index)) {
+            System.out.println(ERROR_INDEX);
+            return;
+        }
+        String taskInfo = taskStore.get(index).toString();
+        taskStore.remove(index);
+        printDeleteMessage(taskInfo);
     }
 
     private static void addToDo(String commandArg) {
@@ -169,11 +190,11 @@ public class Bim {
     }
 
     private static int tryParseIndex(String commandArg) {
-        int index = -1;
+        int index;
         try {
-            index = Integer.parseInt(commandArg);
+            index = Integer.parseInt(commandArg) - 1;
         } catch (NumberFormatException exception) {
-            return index;
+            index = -1;
         }
         return index;
     }
@@ -189,9 +210,15 @@ public class Bim {
         System.out.println(LINE_SEPARATOR);
     }
 
+    private static void printDeleteMessage(String taskInfo) {
+        System.out.println(MESSAGE_DELETE_TASK);
+        System.out.println(LINE_INDENT + taskInfo);
+        System.out.println("There are " + taskStore.size() + " task(s) left in the list");
+    }
+
     private static void printAddMessage(String type) {
         System.out.println("New " + type + " added!");
-        System.out.println("\t" + taskStore.get(taskStore.size() - 1));
+        System.out.println(LINE_INDENT + taskStore.get(taskStore.size() - 1));
         System.out.println("There are " + taskStore.size() + " task(s) in the list");
     }
 }
