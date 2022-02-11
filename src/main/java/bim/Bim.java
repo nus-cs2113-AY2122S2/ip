@@ -30,6 +30,7 @@ public class Bim {
 
     private static final String DELIMITER_EVENT = " /at ";
     private static final String DELIMITER_DEADLINE = " /by ";
+    private static final String DELIMITER_DATA = " \\| ";
 
     private static final String OP_MARK = "mark";
     private static final String OP_UNMARK = "unmark";
@@ -40,13 +41,13 @@ public class Bim {
     private static final String OP_LIST_TASK = "list";
 
     private static final String LINE_SEPARATOR = "----------------------------------";
-    private static final String DATA_FILE_SEPARATOR = "|";
+    private static final String DATA_FILE_SEPARATOR = " | ";
     private static final String DATA_FILE_NEW_LINE = "\n";
     private static final String DATA_FILE_DEADLINE = "D";
     private static final String DATA_FILE_EVENT = "E";
     private static final String DATA_FILE_TODO = "T";
-    private static final int DATA_FILE_UNMARKED_TASK = 0;
-    private static final int DATA_FILE_MARKED_TASK = 1;
+    private static final String DATA_FILE_UNMARKED_TASK = "0";
+    private static final String DATA_FILE_MARKED_TASK = "1";
     private static final int EXPECTED_ARG_NUMBER = 2;
 
     public static void main(String[] args) {
@@ -133,6 +134,7 @@ public class Bim {
             currentTask.setAsNotDone();
             System.out.println(MESSAGE_UNMARK_TASK);
         }
+        writeData(mode, index);
         System.out.println("\t" + currentTask);
     }
 
@@ -190,7 +192,7 @@ public class Bim {
     private static int tryParseIndex(String commandArg) {
         int index = -1;
         try {
-            index = Integer.parseInt(commandArg);
+            index = Integer.parseInt(commandArg) - 1;
         } catch (NumberFormatException exception) {
             return index;
         }
@@ -235,17 +237,44 @@ public class Bim {
         }
     }
 
-    private static void writeData(int index) {
+    private static void writeData(String mode, int index) {
         try {
-            FileWriter writer = new FileWriter(getDataFilePath());
-        } catch (IOException exception) {
-            System.out.println(ERROR_DATA_FILE);
-        }
-    }
+            File dataFile = new File(getDataFilePath());
+            File tempFile = new File(getTempDataFilePath());
+            tempFile.createNewFile();
 
-    private static void deleteData(int index) {
-        try {
-            FileWriter writer = new FileWriter(getDataFilePath());
+            FileWriter writer = new FileWriter(getTempDataFilePath());
+            Scanner dataReader = new Scanner(dataFile);
+
+            int i = 0;
+            while (dataReader.hasNextLine()) {
+                if (i == index) {
+                    String targetLine = dataReader.nextLine();
+                    String[] targetParts = targetLine.split(DELIMITER_DATA);
+
+                    targetParts[1] = DATA_FILE_UNMARKED_TASK;
+                    if (mode.equals(OP_MARK)) {
+                        targetParts[1] = DATA_FILE_MARKED_TASK;
+                    }
+                    for(int j = 0; j < targetParts.length; j++) {
+                        writer.write(targetParts[j]);
+                        if (j != targetParts.length - 1) {
+                            writer.write(DATA_FILE_SEPARATOR);
+                        }
+                        else {
+                            writer.write(DATA_FILE_NEW_LINE);
+                        }
+                    }
+                }
+                ++i;
+                writer.write(dataReader.nextLine() + DATA_FILE_NEW_LINE);
+            }
+
+            dataReader.close();
+            dataFile.delete();
+            writer.close();
+            tempFile.renameTo(dataFile);
+
         } catch (IOException exception) {
             System.out.println(ERROR_DATA_FILE);
         }
@@ -268,10 +297,14 @@ public class Bim {
     }
 
     private static String getDataDirectoryPath() {
-        return System.getProperty("user.dir").concat("\\data");
+        return System.getProperty("user.dir") + "\\data";
     }
 
     private static String getDataFilePath() {
-        return getDataDirectoryPath().concat("\\bimData.txt");
+        return getDataDirectoryPath() + "\\bimData.txt";
+    }
+
+    private static String getTempDataFilePath() {
+        return getDataDirectoryPath() + "\\tempData.txt";
     }
 }
