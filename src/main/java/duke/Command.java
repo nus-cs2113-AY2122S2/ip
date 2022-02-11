@@ -64,19 +64,19 @@ public class Command {
         }
         else if(commandType.contains("event")) {
 
-                String dummy = commandType.trim();
-                if(dummy.length() == 5) {
-                    throw new DukeException("☹ OOPS!!! The description of a event cannot be empty.");
-                }
-                int splitPosition = dummy.indexOf("/at");
-                String description = dummy.substring(6, splitPosition);
-                String duration = dummy.substring(splitPosition + 4);
-                Events event = new Events(description, duration);
-                taskList.add(event);
-                System.out.println(line);
-                System.out.println(event);
-                System.out.println(String.format("Now you have %d tasks in you list.", taskList.size()));
-                System.out.println(line);
+            String dummy = commandType.trim();
+            if(dummy.length() == 5) {
+                throw new DukeException("☹ OOPS!!! The description of a event cannot be empty.");
+            }
+            int splitPosition = dummy.indexOf("/at");
+            String description = dummy.substring(6, splitPosition);
+            String duration = dummy.substring(splitPosition + 4);
+            Events event = new Events(description, duration);
+            taskList.add(event);
+            System.out.println(line);
+            System.out.println(event);
+            System.out.println(String.format("Now you have %d tasks in you list.", taskList.size()));
+            System.out.println(line);
         }
         else if(commandType.contains("todo")) {
             String dummy = commandType.trim();
