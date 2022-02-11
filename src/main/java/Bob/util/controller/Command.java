@@ -1,12 +1,13 @@
 package bob.util.controller;
 
+import bob.util.exception.BobInvalidIdException;
+import bob.util.task.Deadlines;
+import bob.util.task.Events;
+import bob.util.task.Task;
+import bob.util.task.ToDos;
+
 import java.util.ArrayList;
 import java.util.Scanner;
-import bob.util.task.Task;
-import bob.util.task.Deadlines;
-import bob.util.task.ToDos;
-import bob.util.task.Events;
-import bob.util.exception.BobInvalidIdException;
 
 public class Command {
 
@@ -344,8 +345,9 @@ public class Command {
      */
     public static void listenAndExecuteCommands() {
         Scanner in = new Scanner(System.in);
-
         ArrayList<Task> list = new ArrayList<>();
+
+        LoadSave.loadData(list);
 
         String command;
         do {
@@ -359,17 +361,21 @@ public class Command {
                 break;
             case "mark":
                 updateStatus(list, command, true);
+                LoadSave.saveData(list);
                 break;
             case "unmark":
                 updateStatus(list, command, false);
+                LoadSave.saveData(list);
                 break;
             case "todo":
             case "deadline":
             case "event":
                 addNewValidTask(list, command);
+                LoadSave.saveData(list);
                 break;
             case "delete":
                 deleteTask(list, command);
+                LoadSave.saveData(list);
                 break;
             case "bye":
                 break;
