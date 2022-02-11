@@ -1,6 +1,7 @@
 package bob.util.controller;
 
-import bob.util.exception.BobInvalidLoad;
+import bob.util.exception.BobInvalidLoadValue;
+import bob.util.exception.BobInvalidLoadLength;
 import bob.util.task.Deadlines;
 import bob.util.task.Events;
 import bob.util.task.Task;
@@ -87,15 +88,15 @@ public class LoadSave {
      *
      * @param taskStatusString the string used to infer the task's status.
      * @return Status of the task.
-     * @throws BobInvalidLoad when the taskStatusString has unexpected values.
+     * @throws BobInvalidLoadValue when the taskStatusString has unexpected values.
      */
-    public static boolean getTaskStatus(String taskStatusString) throws BobInvalidLoad {
+    public static boolean getTaskStatus(String taskStatusString) throws BobInvalidLoadValue {
         if (taskStatusString.equals("X")) {
             return true;
         } else if (taskStatusString.equals(" ")) {
             return false;
         } else {
-            throw new BobInvalidLoad();
+            throw new BobInvalidLoadValue();
         }
     }
 
@@ -116,11 +117,11 @@ public class LoadSave {
      * @param type    The type of task to be processed.
      * @param details The details of the task.
      * @return a list containing details of the task.
-     * @throws BobInvalidLoad when the length of the string does not match minimum requirements.
+     * @throws BobInvalidLoadValue when the length of the details do not match minimum requirements.
      */
-    public static String[] getTokenDetails(String type, String details) throws BobInvalidLoad {
+    public static String[] getTokenDetails(String type, String details) throws BobInvalidLoadValue {
         if (details.length() < MIN_DETAILS_LENGTH) {
-            throw new BobInvalidLoad();
+            throw new BobInvalidLoadValue();
         }
         String delimiter;
         if (type.equals("D")) {
@@ -133,7 +134,7 @@ public class LoadSave {
         if (tokenDetails[1] != null) {
             return tokenDetails;
         }
-        throw new BobInvalidLoad();
+        throw new BobInvalidLoadValue();
     }
 
     /**
@@ -143,9 +144,9 @@ public class LoadSave {
      * @param status  The status of the task.
      * @param details The details of the task.
      * @return A task object with aforementioned details.
-     * @throws BobInvalidLoad when type of task is found to be invalid.
+     * @throws BobInvalidLoadValue when type of task is found to be invalid.
      */
-    public static Task createTask(String type, boolean status, String details) throws BobInvalidLoad {
+    public static Task createTask(String type, boolean status, String details) throws BobInvalidLoadValue {
         Task task;
         String[] tokenDetails;
         switch (type) {
@@ -161,7 +162,7 @@ public class LoadSave {
             task = new Events(tokenDetails[0], status, tokenDetails[1]);
             break;
         default:
-            throw new BobInvalidLoad();
+            throw new BobInvalidLoadValue();
         }
         return task;
     }
@@ -171,11 +172,12 @@ public class LoadSave {
      *
      * @param list a Task class list.
      * @param data the data of the task to be created and appended.
-     * @throws BobInvalidLoad when the length of the data does not meet minimum requirements.
+     * @throws BobInvalidLoadLength when the length of the data does not meet minimum requirements.
+     * @throws BobInvalidLoadValue when data have unexpected arguments.
      */
-    public static void addToList(ArrayList<Task> list, String data) throws BobInvalidLoad {
+    public static void addToList(ArrayList<Task> list, String data) throws BobInvalidLoadValue, BobInvalidLoadLength {
         if (data.length() < MIN_TASK_LENGTH) {
-            throw new BobInvalidLoad();
+            throw new BobInvalidLoadLength();
         }
         try {
             String taskType = data.substring(TASK_INDICATOR, TASK_INDICATOR_END);
@@ -183,8 +185,9 @@ public class LoadSave {
             String taskDetails = data.substring(TASK_DETAILS);
             Task task = createTask(taskType, taskStatus, taskDetails);
             list.add(task);
-        } catch (BobInvalidLoad e) {
+        } catch (BobInvalidLoadValue e) {
             printLoadError(MESSAGE_INVALID_VALUES);
+            throw new BobInvalidLoadValue();
         }
     }
 
@@ -201,8 +204,10 @@ public class LoadSave {
             while (in.hasNext()) {
                 addToList(list, in.nextLine());
             }
-        } catch (BobInvalidLoad e) {
+        } catch (BobInvalidLoadLength e) {
             printLoadError(MESSAGE_INVALID_LENGTH);
+        } catch (BobInvalidLoadValue e) {
+            // already handled, catch to stop loop
         }
     }
 
