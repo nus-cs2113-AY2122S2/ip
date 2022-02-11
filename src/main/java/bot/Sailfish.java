@@ -63,6 +63,9 @@ public final class Sailfish {
             case "unmark": // Mark a task as not done.
                 this.unMark(command);
                 break;
+            case "delete":
+                this.delete(command);
+                break;
             case "bye": // Exit the app.
                 System.out.println("Farewell, sailor!");
                 return;
@@ -161,6 +164,26 @@ public final class Sailfish {
         // Set the required task as undone.
         task.setDone(false);
         System.out.printf("Ok, I've marked this task as not done yet:\n%s\n", task);
+    }
+
+    /**
+     * Delete a task by index.
+     *
+     * @param command Command object containing parsed information.
+     */
+    private void delete(Command command) {
+        Task task;
+        try {
+            task = this.getTask(command);
+        } catch (NumberFormatException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+
+        // Remove this task.
+        this.tasks.remove(task);
+        System.out.printf("Noted. I've removed this task:\n\t%s\n" +
+                "Now you have %d tasks in the list.\n", task, this.tasks.size());
     }
 
     /**
