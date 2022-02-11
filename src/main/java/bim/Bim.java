@@ -6,6 +6,7 @@ import bim.task.Task;
 import bim.task.ToDo;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ import java.util.Scanner;
 public class Bim {
     private static final Scanner in = new Scanner(System.in);
     private static final ArrayList<Task> taskStore = new ArrayList<Task>();
+    private static final File dataDirectory = new File(getDataDirectoryPath());
+    private static final File dataFile = new File(getDataFilePath());
 
     private static final String EMPTY_TASKLIST = "404 Not Found";
     private static final String ERROR_INDEX = "Invalid index!";
@@ -40,6 +43,8 @@ public class Bim {
     private static final String OP_LIST_TASK = "list";
 
     private static final String LINE_SEPARATOR = "----------------------------------";
+    private static final String DATA_FOLDER_NAME = "data";
+    private static final String DATA_FILE_NAME = "bimData.txt";
     private static final String DATA_FILE_SEPARATOR = " | ";
     private static final String DATA_FILE_NEW_LINE = "\n";
     private static final String DATA_FILE_DEADLINE = "D";
@@ -133,7 +138,7 @@ public class Bim {
             currentTask.setAsNotDone();
             System.out.println(MESSAGE_UNMARK_TASK);
         }
-        writeData(mode, index);
+        modifyData(mode, index);
         System.out.println("\t" + currentTask);
     }
 
@@ -236,44 +241,30 @@ public class Bim {
         }
     }
 
-    private static void writeData(String mode, int index) {
+    private static void modifyData(String mode, int index) {
         try {
-            File dataFile = new File(getDataFilePath());
-            File tempFile = new File(getTempDataFilePath());
-            tempFile.createNewFile();
-
-            FileWriter writer = new FileWriter(getTempDataFilePath());
             Scanner dataReader = new Scanner(dataFile);
-
+            String dataFileString = "";
             int i = 0;
             while (dataReader.hasNextLine()) {
                 String currentLine = dataReader.nextLine();
                 if (i == index) {
-                    String[] targetParts = currentLine.split(DELIMITER_DATA);
-
-                    targetParts[1] = DATA_FILE_UNMARKED_TASK;
+                    String[] currentParts = currentLine.split(DELIMITER_DATA);
                     if (mode.equals(OP_MARK)) {
-                        targetParts[1] = DATA_FILE_MARKED_TASK;
+                        currentParts[1] = DATA_FILE_MARKED_TASK;
                     }
-                    for(int j = 0; j < targetParts.length; j++) {
-                        writer.write(targetParts[j]);
-                        if (j != targetParts.length - 1) {
-                            writer.write(DATA_FILE_SEPARATOR);
-                        }
-                        else {
-                            writer.write(DATA_FILE_NEW_LINE);
-                        }
+                    else {
+                        currentParts[1] = DATA_FILE_UNMARKED_TASK;
                     }
-                    continue;
+                    currentLine = String.join(DATA_FILE_SEPARATOR, currentParts);
                 }
                 ++i;
-                writer.write(currentLine + DATA_FILE_NEW_LINE);
+                dataFileString += currentLine + DATA_FILE_NEW_LINE;
             }
-
+            FileWriter writer = new FileWriter(getDataFilePath());
+            writer.write(dataFileString);
             dataReader.close();
-            dataFile.delete();
             writer.close();
-            tempFile.renameTo(dataFile);
 
         } catch (IOException exception) {
             System.out.println(ERROR_DATA_FILE);
@@ -281,52 +272,60 @@ public class Bim {
     }
 
     private static void loadDataFile() {
-        File dataDirectory = new File(getDataDirectoryPath());
-        File dataFile = new File(getDataFilePath());
-        if (dataDirectory.mkdir()) {
+        if (doesDataFileExists()) {
             try {
-                dataFile.createNewFile();
-            } catch (IOException exception) {
-                System.out.println(ERROR_DATA_FILE);
-            }
-        }
-        else {
-            try {
-                Scanner reader = new Scanner(dataFile);
-                while (reader.hasNextLine()) {
-                    String task = reader.nextLine();
+                Scanner dataReader = new Scanner(dataFile);
+                while (dataReader.hasNextLine()) {
+                    String task = dataReader.nextLine();
                     String[] taskParts = task.split(DELIMITER_DATA);
+                    Task newTask;
+
                     switch (taskParts[0]) {
                     case DATA_FILE_EVENT:
-                        //Fallthrough
-                    case DATA_FILE_DEADLINE:
-                        taskStore.add(new Deadline(taskParts[2], taskParts[3]));
+                        newTask = new Event(taskParts[2], taskParts[3]);
                         break;
-                    case DATA_FILE_TODO:
-                        taskStore.add(new ToDo(taskParts[2]));
+                    case DATA_FILE_DEADLINE:
+                        newTask = new Deadline(taskParts[2], taskParts[3]);
+                        break;
+                    default:
+                        newTask = new ToDo(taskParts[2]);
                         break;
                     }
                     if (taskParts[1].equals(DATA_FILE_MARKED_TASK)) {
-                        taskStore.get(taskStore.size() - 1).setAsDone();
+                        newTask.setAsDone();
                     }
+                    taskStore.add(newTask);
                 }
-                reader.close();
-            } catch (IOException exception) {
+                dataReader.close();
+            } catch (FileNotFoundException exception) {
                 System.out.println(ERROR_DATA_FILE);
             }
+        }
 
+        else {
+            initDataFile();
+        }
+    }
+
+    private static boolean doesDataFileExists() {
+        return dataDirectory.exists() && dataFile.exists();
+    }
+
+    private static void initDataFile() {
+        try {
+            dataDirectory.mkdir();
+            dataFile.createNewFile();
+        } catch (IOException exception) {
+            System.out.println(ERROR_DATA_FILE);
         }
     }
 
     private static String getDataDirectoryPath() {
-        return System.getProperty("user.dir") + "\\data";
+        return System.getProperty("user.dir") + "\\" + DATA_FOLDER_NAME;
     }
 
     private static String getDataFilePath() {
-        return getDataDirectoryPath() + "\\bimData.txt";
+        return getDataDirectoryPath() + "\\" + DATA_FILE_NAME;
     }
 
-    private static String getTempDataFilePath() {
-        return getDataDirectoryPath() + "\\tempData.txt";
-    }
 }
