@@ -38,6 +38,6 @@ public class Events extends Task {
      */
     @Override
     public String toString() {
-        return ("[D]" + super.toString() + " (at: " + getPeriod() + ")");
+        return ("[E]" + super.toString() + " (at: " + getPeriod() + ")");
     }
 }
