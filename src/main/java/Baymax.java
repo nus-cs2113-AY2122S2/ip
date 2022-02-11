@@ -11,7 +11,7 @@ public class Baymax {
         TaskManager tManager = new TaskManager();
         String horiLine = "____________________________________________________________\n";
 
-        tManager.welcome();
+        tManager.welcome(); //greating
 
         command = in.nextLine();
         while (!command.equals("bye")) {
@@ -20,6 +20,7 @@ public class Baymax {
             word_split = command.split(" ", 2);
             String taskName = word_split[0];
 
+            //different functions based on command lines
             switch (taskName) {
                 case "todo":
                     tManager.addTask(new Todo(word_split[1]));
@@ -55,6 +56,6 @@ public class Baymax {
             }
             command = in.nextLine();
         }
-        tManager.bye();
+        tManager.bye(); //bye
     }
 }
