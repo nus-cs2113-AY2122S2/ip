@@ -14,14 +14,21 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         greet();
         Scanner in = new Scanner(System.in);
-        String userInput = in.nextLine();
-        String lowerCaseUserInput = userInput.toLowerCase();
-        boolean isLastInput = detectLastInput(lowerCaseUserInput);
-        while (!isLastInput) {
-            boolean isListRequest = detectListRequest(lowerCaseUserInput);
-            boolean isMarkRequest = detectMarkRequest(lowerCaseUserInput);
-            boolean isUnmarkRequest = detectUnmarkRequest(lowerCaseUserInput);
+        String userInput;
+        String lowerCaseUserInput;
+        boolean isLastInput;
+        boolean isListRequest;
+        boolean isMarkRequest;
+        boolean isUnmarkRequest;
+        String taskType;
+        do {
+            userInput = in.nextLine().trim();
+            lowerCaseUserInput = userInput.toLowerCase();
             String[] splitUserInput = lowerCaseUserInput.split(" ");
+            isLastInput = detectLastInput(lowerCaseUserInput);
+            isListRequest = detectListRequest(lowerCaseUserInput);
+            isMarkRequest = detectMarkRequest(lowerCaseUserInput);
+            isUnmarkRequest = detectUnmarkRequest(lowerCaseUserInput);
             if (isListRequest) {
                 list();
             } else if (isMarkRequest) {
@@ -35,28 +42,88 @@ public class Duke {
                 System.out.println(tasks[taskNumber - 1]);
                 System.out.println("____________________________________________________________");
             } else {
-                String taskType = splitUserInput[0];
-                String taskDescription = extractDescription(userInput);
+                taskType = splitUserInput[0];
+                try {
+                    checkInputValidity(taskType);
+                } catch(DukeException e) {
+                    System.out.println("____________________________________________________________\n");
+                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-( Please enter something else!");
+                    System.out.println("____________________________________________________________\n");
+                    continue;
+                }
+                String taskDescription;
+                try {
+                    taskDescription = extractDescription(userInput);
+                } catch (DukeException e) {
+                    System.out.println("____________________________________________________________");
+                    System.out.println("☹ OOPS!!! The description of a " + taskType + " cannot be empty.");
+                    System.out.println("____________________________________________________________");
+                    continue;
+                }
                 switch (taskType) {
                 case "todo":
                     addTask(new Todo(taskDescription));
                     break;
                 case "deadline":
-                    String date = extractDeadline(userInput);
+                    String date;
+                    try {
+                        date = extractDeadline(userInput);
+                    } catch (DukeException e) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println("☹ OOPS!!! Please enter a deadline for your task!");
+                        System.out.println("____________________________________________________________");
+                        continue;
+                    }
                     addTask(new Deadline(taskDescription, date));
                     break;
                 case "event":
-                    String duration = extractDuration(userInput);
+                    String duration;
+                    try {
+                        duration = extractDuration(userInput);
+                    } catch (DukeException e) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println("☹ OOPS!!! Please enter a duration for your task!");
+                        System.out.println("____________________________________________________________");
+                        continue;
+                    }
                     addTask(new Event(taskDescription, duration));
                     break;
                 }
-                printTaskCount();
             }
-            userInput = in.nextLine();
-            lowerCaseUserInput = userInput.toLowerCase();
-            isLastInput = detectLastInput(lowerCaseUserInput);
-        }
+        } while(!isLastInput);
         exit();
+    }
+
+    private static String extractDescription(String userInput) throws DukeException {
+        int startIndex = userInput.indexOf(" ");
+        if (startIndex == -1) {
+            throw new DukeException();
+        }
+        int endIndex;
+        if (userInput.contains("/")) {
+            endIndex = userInput.indexOf("/");
+        } else {
+            endIndex = userInput.length();
+        }
+        String description = userInput.substring(startIndex+1, endIndex).trim();
+        if (description.equals("")) {
+            throw new DukeException();
+        }
+        return description;
+    }
+
+    private static void checkInputValidity(String taskType) throws DukeException {
+        switch (taskType) {
+        case "todo":
+            // Fallthrough
+        case "deadline":
+            // Fallthrough
+        case "event":
+            // Fallthrough
+            break;
+        default:
+            throw new DukeException();
+        }
     }
 
     public static boolean detectLastInput(String input) {
@@ -108,25 +175,30 @@ public class Duke {
         }
     }
 
-    public static String extractDeadline(String s) {
-        int index = s.indexOf("/by");
-        return s.substring(index+4);
-    }
-
-    public static String extractDuration(String s) {
-        int index = s.indexOf("/at");
-        return s.substring(index+4);
-    }
-
-    public static String extractDescription(String s) {
-        int startIndex = s.indexOf(" ");
-        int endIndex;
-        if (s.contains("/")) {
-            endIndex = s.indexOf("/")-1;
+    public static String extractDeadline(String s) throws DukeException {
+        if (s.contains("/by")) {
+            int startIndex = s.indexOf("/by");
+            int endIndex = s.length() - 1;
+            if (endIndex - startIndex <= 2) {
+                throw new DukeException();
+            }
+            return s.substring(startIndex+4);
         } else {
-            endIndex = s.length();
+            throw new DukeException();
         }
-        return s.substring(startIndex+1, endIndex);
+    }
+
+    public static String extractDuration(String s) throws DukeException {
+        if (s.contains("/at")) {
+            int startIndex = s.indexOf("/at");
+            int endIndex = s.length() - 1;
+            if (endIndex - startIndex <= 2) {
+                throw new DukeException();
+            }
+            return s.substring(startIndex+4);
+        } else {
+            throw new DukeException();
+        }
     }
 
     public static void exit() {
