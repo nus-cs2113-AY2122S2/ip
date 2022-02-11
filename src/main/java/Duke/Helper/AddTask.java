@@ -1,9 +1,6 @@
 package Duke.Helper;
 
 import Duke.Duke;
-import Duke.Helper.DukeException;
-import Duke.Tasks.Deadline;
-import Duke.Tasks.Event;
 import Duke.Tasks.Task;
 import Duke.Tasks.Todo;
 
