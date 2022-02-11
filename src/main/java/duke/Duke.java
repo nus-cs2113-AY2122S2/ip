@@ -7,29 +7,33 @@ import duke.task.Todo;
 
 import java.util.Scanner;
 
+/**
+ * Runs the Duke chatbot which takes in user input,
+ * and performs certain actions for specific commands.
+ */
 public class Duke {
     private static final Task[] list = new Task[100];
     private static int taskIndex = 0;
     private static Boolean willExit = false;
 
-    public static void printFormat(String s) {
+    private static void printFormat(String s) {
         System.out.println("____________________________________________________________\n" +
                 s + "\n" +
                 "____________________________________________________________");
     }
 
-    public static void greet() {
+    private static void greet() {
         printFormat(" Hey there! I'm Duke\n" +
                 " What can I do for you? uwu");
     }
 
-    public static void bye() {
+    private static void bye() {
         willExit = true;
         printFormat(" Aw, are you leaving now?\n" +
                 " Hope to see you again soon!");
     }
 
-    public static void list() {
+    private static void list() {
         if (taskIndex == 0) {
             printFormat("You haven't added any tasks to your list yet!");
             return;
@@ -43,7 +47,7 @@ public class Duke {
         printFormat("Here are the tasks in your list:\n" + listAsString);
     }
 
-    public static void markStatus(Boolean shouldMark, String line) {
+    private static void markStatus(Boolean shouldMark, String line) {
         Task curr;
         try {
             int taskNum = Integer.parseInt(line.split(" ", 0)[1]);
@@ -114,7 +118,7 @@ public class Duke {
         return t;
     }
 
-    public static void addTask(String line) {
+    private static void addTask(String line) {
         try {
             String[] commands = line.split(" ", 2);
             String type = commands[0];
@@ -133,7 +137,7 @@ public class Duke {
         }
     }
 
-    public static void parseCommands(String line) {
+    private static void parseCommands(String line) {
         if (line.equals("bye")) {
             bye();
         } else if (line.equals("list")) {

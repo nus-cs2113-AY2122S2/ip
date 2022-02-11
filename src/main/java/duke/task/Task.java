@@ -1,8 +1,12 @@
 package duke.task;
 
+/**
+ * Describes the Task object; it is an abstract class that
+ * is the superclass of Todo, Deadline, and Event.
+ */
 public abstract class Task {
-    protected String description;
-    protected boolean isDone;
+    private String description;
+    private boolean isDone;
 
     public Task(String description) {
         this.description = description;
