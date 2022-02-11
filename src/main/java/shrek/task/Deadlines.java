@@ -3,8 +3,8 @@ package shrek.task;
 public class Deadlines extends UserContent {
     protected String by;
 
-    public Deadlines(String description, String by, int listIndex) {
-        super(description, listIndex);
+    public Deadlines(String description, String by) {
+        super(description);
         setTaskName("D");
         this.by = by;
     }
