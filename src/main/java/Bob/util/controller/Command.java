@@ -6,6 +6,7 @@ import bob.util.task.Deadlines;
 import bob.util.task.ToDos;
 import bob.util.task.Events;
 import bob.util.exception.BobInvalidIdException;
+import bob.util.controller.LoadSave;
 
 public class Command {
 
@@ -312,6 +313,7 @@ public class Command {
     public static void listenAndExecuteCommands() {
         Scanner in = new Scanner(System.in);
         Task[] list = new Task[MAX_TASK_ID];
+        LoadSave.loadData(list);
 
         String command;
         do {
@@ -325,14 +327,17 @@ public class Command {
                 break;
             case "mark":
                 updateStatus(list, command, true);
+                LoadSave.saveData(list);
                 break;
             case "unmark":
                 updateStatus(list, command, false);
+                LoadSave.saveData(list);
                 break;
             case "todo":
             case "deadline":
             case "event":
                 addNewValidTask(list, command);
+                LoadSave.saveData(list);
                 break;
             case "bye":
                 break;
