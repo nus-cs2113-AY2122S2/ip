@@ -6,10 +6,14 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import static duke.ReadTaskList.readFile;
+import static duke.WriteTaskList.writeList;
+
 /**
- * Runs the Duke chatbot which takes in user input,
+ * Runs the Duke chat-bot which takes in user input,
  * and performs certain actions for specific commands.
  */
 public class Duke {
@@ -184,10 +188,17 @@ public class Duke {
         greet();
         String line;
         Scanner in = new Scanner(System.in);
+        ArrayList<Task> existingTasks = readFile();
+        for (Task t : existingTasks) {
+            list[taskIndex] = t;
+            taskIndex++;
+        }
 
         while (!willExit) {
             line = in.nextLine();
             parseCommands(line);
         }
+
+        writeList(list);
     }
 }
