@@ -142,6 +142,15 @@ public class SailfishManager {
     }
 
     /**
+     * Remove a task from the list.
+     *
+     * @param task Task object to remove.
+     */
+    protected void deleteTask(Task task) {
+        this.tasks.remove(task);
+    }
+
+    /**
      * Get the number of current tasks stored by the bot.
      *
      * @return Number of tasks.
