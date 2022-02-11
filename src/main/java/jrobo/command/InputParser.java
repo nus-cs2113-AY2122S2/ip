@@ -47,7 +47,7 @@ public class InputParser {
                 && !getBody().equals("")));
     }
 
-    public String getType() {
+    public String getType() throws InvalidFormatException {
         boolean isEvent = false;
         boolean isDeadline = false;
         for (String s : args) {
@@ -68,7 +68,7 @@ public class InputParser {
         if (isEvent && (getPrefix().equals("event") || getPrefix().equals("e"))) {
             return "event";
         }
-        return "invalid";
+        throw new InvalidFormatException("Invalid command format!");
     }
 
     private int findSuffixIndex() {

@@ -42,7 +42,11 @@ public class JRobo {
             case "q":
                 break label;
             default:
-                manager.addTask(parser.getBody(), parser.getSuffix(), parser.getType());
+                try {
+                    manager.addTask(parser.getBody(), parser.getSuffix(), parser.getType());
+                } catch (InvalidFormatException | InvalidTypeException e) {
+                    manager.printWithSeparator(e.getMessage());
+                }
                 break;
             }
         }
