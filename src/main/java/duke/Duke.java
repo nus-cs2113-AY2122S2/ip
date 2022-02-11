@@ -2,6 +2,8 @@ package duke;
 
 import duke.exception.AdditionalException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Duke {
@@ -20,9 +22,11 @@ public class Duke {
     private static final String PROVIDE_SERVICE = "What can I do for you?";
     private static final String LINE = "-----------------------------";
     private static final String GOODBYE = "Bye! Hope to see you soon :D";
+    private static final String FILE_PATH = "./duke.txt";
 
     public static void main(String[] args) {
         printGreeting();
+        //retrieveTasks();
         getRequest();
         printGoodbye();
     }
@@ -34,6 +38,32 @@ public class Duke {
             String request = in.nextLine();
             request = request.trim();
             hasExited = isCompleted(request);
+        }
+    }
+
+    public static void retrieveTasks() {
+        try {
+            readFromFile();
+        } catch (FileNotFoundException error) {
+            System.out.println("No file found to retrieve");
+        }
+    }
+
+    private static void readFromFile() throws FileNotFoundException {
+        File file = new File(FILE_PATH);
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNext()) {
+            readLineByLineFromFile(scanner);
+        }
+    }
+
+    private static void readLineByLineFromFile(Scanner scanner) {
+        try {
+            String nextLine = scanner.nextLine();
+            System.out.println(nextLine);
+            RequestProcessor.filterRequest(nextLine);
+        } catch(AdditionalException error) {
+            System.out.println("Error transferring from file to tasks");
         }
     }
 

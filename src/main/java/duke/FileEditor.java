@@ -15,44 +15,47 @@ public class FileEditor {
     private static File file = new File(FILE_PATH);
 
     public static void saveData(String typeOfTask, Task task, ArrayList<Task> listOfTasks) {
-        if(!file.exists()) {
+        if (!file.exists()) {
             createFile();
         }
         switch(typeOfTask) {
-        case "add":
-            saveDataAfterAdd(task);
+        case "todo":
+        case "deadline":
+        case "event":
+            saveDataAfterAdd(task, typeOfTask);
             break;
         case "markOrDelete":
-            saveDataAfterMarkOrDelete(listOfTasks);
+            saveDataAfterMarkOrDelete(listOfTasks, typeOfTask);
             break;
         default:
             System.out.println(WRONG_TYPE_OF_TASK);
         }
     }
 
-    private static void saveDataAfterMarkOrDelete(ArrayList<Task> listOfTasks) {
+    private static void saveDataAfterMarkOrDelete(ArrayList<Task> listOfTasks, String typeOfTask) {
         try {
             FileWriter fileWriter = new FileWriter(FILE_PATH);
-            writeAllTasksToFile(fileWriter, listOfTasks);
+            writeAllTasksToFile(fileWriter, listOfTasks, typeOfTask);
             fileWriter.close();
         } catch(IOException error) {
             System.out.println("Error finding file");
         }
     }
 
-    private static void writeAllTasksToFile(FileWriter fileWriter, ArrayList<Task> listOfTasks) throws IOException {
+    private static void writeAllTasksToFile(FileWriter fileWriter, ArrayList<Task> listOfTasks, String typeOfTask)
+                throws IOException {
         for (Task task: listOfTasks) {
             if (task == null) {
                 break;
             }
-            fileWriter.write(task.toString() + "\n");
+            fileWriter.write(typeOfTask + "," + task.isDone() + "," + task.getDescription() + "\n");
         }
     }
 
-    private static void saveDataAfterAdd(Task task) {
+    private static void saveDataAfterAdd(Task task, String typeOfTask) {
         try {
             FileWriter fileWriter = new FileWriter(FILE_PATH, true);
-            fileWriter.write(task.toString() + "\n");
+            fileWriter.write(typeOfTask + "," + task.isDone() + "," + task.getDescription() + "\n");
             fileWriter.close();
         } catch(IOException error) {
             System.out.println("Error finding file");
