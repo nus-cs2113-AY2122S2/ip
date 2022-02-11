@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
-    protected static List<Task> listOfTask = new ArrayList<>();
+    protected static ArrayList<Task> listOfTask = new ArrayList<>();
     private static int numOfTask = 0;
 
     public static Task getTaskFromListOfTask(int taskNumber) {
