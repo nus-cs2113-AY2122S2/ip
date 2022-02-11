@@ -26,6 +26,7 @@ public class TaskManager {
     public static void addTask(String request, String typeOfTask) throws AdditionalException {
         String description = getDescription(request, typeOfTask);
         listOfTasks.add(new ToDo(description));
+        saveDataToFile();
     }
 
     public static void addTask(String request, String typeOfTask, String preposition) throws AdditionalException {
@@ -34,13 +35,20 @@ public class TaskManager {
         switch (typeOfTask) {
         case "deadline":
             listOfTasks.add(new Deadline(description, timing));
+            saveDataToFile();
             break;
         case "event":
             listOfTasks.add(new Event(description, timing));
+            saveDataToFile();
             break;
         default:
             System.out.println("Oh no D: There seems to be a problem creating the task");
         }
+    }
+
+    private static void saveDataToFile() {
+        int indexOfLastTask = listOfTasks.size() - 1;
+        FileEditor.saveData("add", listOfTasks.get(indexOfLastTask), listOfTasks);
     }
 
     public static void markOrDeleteItem(String[] words, String typeOfTask) {
@@ -60,14 +68,17 @@ public class TaskManager {
         case "mark":
             taskToMarkOrDelete.markAsDone();
             printMarkOrUnmarkIsCompleted(taskToMarkOrDelete, "mark");
+            FileEditor.saveData("markOrDelete", taskToMarkOrDelete, listOfTasks);
             break;
         case "unmark":
             taskToMarkOrDelete.markAsUndone();
             printMarkOrUnmarkIsCompleted(taskToMarkOrDelete, "unmark");
+            FileEditor.saveData("markOrDelete", taskToMarkOrDelete, listOfTasks);
             break;
         case "delete":
             listOfTasks.remove(taskToMarkOrDelete);
             printConfirmationForDeletingTask(taskToMarkOrDelete);
+            FileEditor.saveData("markOrDelete", taskToMarkOrDelete, listOfTasks);
             break;
         default:
             System.out.println(WRONG_TYPE_OF_TASK);
