@@ -230,7 +230,8 @@ public class Duke {
      */
     private static String[] getUserInput() {
         System.out.print(INPUT_PROMPT);
-        String userInput = in.nextLine();
+        // Strip file separator characters from user input to avoid writing malformed data to file
+        String userInput = in.nextLine().replace(FS,"");
         System.out.println(HORIZONTAL_SEPARATOR);
         String[] userInputTokenized = userInput.trim().split(" ", 2);
         if (userInputTokenized.length == 2) {
