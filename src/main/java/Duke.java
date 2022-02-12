@@ -43,6 +43,8 @@ public class Duke {
         case "event":
             taskManager.addTask(command, description);
             break;
+        case "delete":
+            taskManager.deleteTask(Integer.parseInt(description));
         default:
             taskManager.addTask("task", line);
         }

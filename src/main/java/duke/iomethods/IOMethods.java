@@ -60,6 +60,7 @@ public class IOMethods {
 
         case "mark":
         case "unmark":
+        case "delete":
             try {
                 Integer.parseInt(getNextWord(input, command));
             } catch (NumberFormatException e) {
