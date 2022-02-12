@@ -5,7 +5,7 @@ todo task 1
 deadline
 deadline task 2
 deadline task 2 /by 
-deadline task 2 /by due date
+deadline task 2 /by due` date`
 event
 event task 3
 event task 3 /at 
