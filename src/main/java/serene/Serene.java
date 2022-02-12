@@ -5,6 +5,10 @@ import serene.task.Event;
 import serene.task.Task;
 import serene.task.ToDo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,6 +19,7 @@ public class Serene {
     private static final String EMPTY_DESC_ERROR_MESSAGE = "Hey! Don't try to make me record nothing for fun :<";
     private static final String EMPTY_BY_ERROR_MESSAGE = "No time input? Please remember your /by~";
     private static final String EMPTY_AT_ERROR_MESSAGE = "No time input? Please remember your /at~";
+    private static final String IO_FAIL_MESSAGE = "I/O failed ;-;";
     private static final int DONE = -1;
     private static final int CONTINUE = -2;
     private static final int RESPONSE_INDEX_KEYWORD = 0;
@@ -24,12 +29,48 @@ public class Serene {
     private static ArrayList<Task> taskList = new ArrayList<>();
     private static int taskCount = 0;
     private static int statusOfSerene = CONTINUE;
+    private static final String SAVE_FILE_PATH = "data/serene.txt";
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
+        try {
+            initiateSerene();
+        } catch (IOException e) {
+            System.out.println(IO_FAIL_MESSAGE);
+            printExitMessage();
+            return;
+        }
         printWelcomeMessage();
         operateSerene(in);
         printExitMessage();
+    }
+
+    private static void initiateSerene() throws IOException {
+        File dataDirectory = new File("data");
+        if (!dataDirectory.exists()) {
+            dataDirectory.mkdir();
+            System.out.println("Data directory created~");
+        }
+        File save = new File(SAVE_FILE_PATH);
+        if (save.createNewFile()) {
+            return;
+        }
+        try {
+            readSavedContents(save);
+        } catch (FileNotFoundException e) {
+            System.out.println(IO_FAIL_MESSAGE);
+        }
+    }
+
+    private static void readSavedContents(File save) throws FileNotFoundException {
+        Scanner s = new Scanner(save);
+        while(s.hasNext()) {
+            recoverTask(s.nextLine());
+        }
+    }
+
+    private static void recoverTask(String savedTask) {
+
     }
 
     private static void printWelcomeMessage() {
@@ -176,6 +217,8 @@ public class Serene {
             allocateTask(task);
         } catch (ArrayIndexOutOfBoundsException e) {
             printWithPartition(EMPTY_DESC_ERROR_MESSAGE);
+        } catch (IOException e) {
+            printWithPartition(IO_FAIL_MESSAGE);
         }
     }
 
@@ -199,6 +242,8 @@ public class Serene {
             allocateTask(task);
         } catch (ArrayIndexOutOfBoundsException e) {
             printWithPartition(EMPTY_AT_ERROR_MESSAGE);
+        } catch (IOException e) {
+            printWithPartition(IO_FAIL_MESSAGE);
         }
     }
 
@@ -222,6 +267,8 @@ public class Serene {
             allocateTask(task);
         } catch (ArrayIndexOutOfBoundsException e) {
             printWithPartition(EMPTY_BY_ERROR_MESSAGE);
+        } catch (IOException e) {
+            printWithPartition(IO_FAIL_MESSAGE);
         }
     }
 
@@ -230,10 +277,17 @@ public class Serene {
         return !firstWord.strip().equals("") && !firstWord.contains("/at") && !firstWord.contains("/by");
     }
 
-    private static void allocateTask(Task inputTask) {
+    private static void allocateTask(Task inputTask) throws IOException {
         taskList.add(inputTask);
         taskCount++;
+        appendSave(inputTask.toString());
         printAddedTask(inputTask);
+    }
+
+    private static void appendSave(String inputTask) throws IOException {
+        FileWriter fw = new FileWriter(SAVE_FILE_PATH, true);
+        fw.write(inputTask + System.lineSeparator());
+        fw.close();
     }
 
     private static void printAddedTask(Task inputTask) {
