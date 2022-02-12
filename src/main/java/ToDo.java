@@ -12,7 +12,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public void unmark() {
+    public void markAsNotDone() {
         this.isDone = false;
     }
 

@@ -14,7 +14,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public void unmark() {
+    public void markAsNotDone() {
         this.isDone = false;
     }
 

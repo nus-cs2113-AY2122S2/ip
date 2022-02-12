@@ -11,7 +11,8 @@ abstract class Task {
 
     abstract public void markAsDone();
 
-    abstract public void unmark();
+    abstract public void markAsNotDone();
+
     @Override
     public String toString() {
         return this.description;

@@ -14,7 +14,7 @@ public class Event extends Task {
     }
 
     @Override
-    public void unmark() {
+    public void markAsNotDone() {
         this.isDone = false;
     }
 
