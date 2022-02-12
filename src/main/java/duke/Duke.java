@@ -4,16 +4,33 @@ import duke.exception.*;
 import duke.task.*;
 
 import java.util.ArrayList;
+import java.io.*;
 import java.util.Scanner;
 
 public class Duke {
+
+    // Data file location
+    private static final String DATA_FOLDER_PATH = "./data/";
+    private static final String DATA_FILE_PATH = DATA_FOLDER_PATH + "duke.txt";
 
     // Misc text elements
     private static final String HORIZONTAL_SEPARATOR = "------------------------------------------------------------";
     private static final String INPUT_PROMPT = "> ";
     private static final String LS = System.lineSeparator();
+    private static final String FS = "`";
 
     // Messages
+    private static final String MESSAGE_DIRECTORY_FOUND = "Data directory found!";
+    private static final String MESSAGE_DIRECTORY_CREATED = "Data directory created successfully!";
+    private static final String MESSAGE_DIRECTORY_ERROR = "Data directory could not be created...";
+    private static final String MESSAGE_DATA_FILE_FOUND = "Data file found!";
+    private static final String MESSAGE_DATA_FILE_CREATED = "Data file created successfully!";
+    private static final String MESSAGE_DATA_FILE_ERROR = "Data file could not be created...";
+    private static final String MESSAGE_MALFORMED_TASK = "Skipped malformed task data at line %d: %s";
+    private static final String MESSAGE_DATA_SAVE_ERROR = "Error saving data to file. Your changes were NOT saved!";
+    private static final String MESSAGE_DATA_LOADED = "Successfully loaded %d tasks from file.";
+    private static final String MESSAGE_CLOSE_TO_FIX = "Close the program NOW if you wish to fix this manually.";
+
     private static final String MESSAGE_WELCOME = "Hi, I'm Robit!" + LS + "What would you like me to do?";
     private static final String MESSAGE_SHOW_TASKS = "Here are your tasks:";
     private static final String MESSAGE_NO_TASKS = "You don't have any tasks!";
@@ -58,6 +75,9 @@ public class Duke {
     private static final String USAGE_DELETE = COMMAND_DELETE + " <task index>";
 
     // Program logic stuff
+    private static final File directory = new File(DATA_FOLDER_PATH);
+    private static final File dataFile = new File(DATA_FILE_PATH);
+
     private static final Scanner in = new Scanner(System.in);
 
     private static final ArrayList<Task> savedTasks = new ArrayList<>();
@@ -68,11 +88,120 @@ public class Duke {
      * Main entry point of the program.
      */
     public static void main(String[] args) {
+        if (!checkForDataFile()) {
+            System.exit(-1);
+        }
+        loadTasks();
         printMessage(MESSAGE_WELCOME);
         while (!isExitRequested) {
             String[] input = getUserInput();
             String response = parseCommand(input);
             printMessage(response);
+        }
+    }
+
+    private static boolean checkForDataFile() {
+        // Using System.out.println here when I don't want to print a horizontal line after each output
+        if (!directory.exists()) {
+            if (directory.mkdir()) {
+                System.out.println(MESSAGE_DIRECTORY_CREATED);
+            } else {
+                printMessage(MESSAGE_DIRECTORY_ERROR);
+                return false;
+            }
+        } else {
+            System.out.println(MESSAGE_DIRECTORY_FOUND);
+        }
+        try {
+            if (dataFile.createNewFile()) {
+                System.out.println(MESSAGE_DATA_FILE_CREATED);
+            } else {
+                System.out.println(MESSAGE_DATA_FILE_FOUND);
+            }
+        } catch (IOException e) {
+            printMessage(MESSAGE_DATA_FILE_ERROR);
+            return false;
+        }
+        return true;
+    }
+
+    private static void loadTasks() {
+        try {
+            Scanner sc = new Scanner(dataFile);
+            int lineNum = 1;
+            while (sc.hasNext()) {
+                Task t = parseSavedTask(sc.nextLine(), lineNum);
+                if (t != null) {
+                    savedTasks.add(t);
+                }
+                lineNum++;
+            }
+            printMessage(String.format(MESSAGE_DATA_LOADED, savedTasks.size()));
+        } catch (FileNotFoundException e) {
+            // This branch should be unreachable because we create the file if it doesn't exist
+            printMessage(MESSAGE_DATA_FILE_ERROR);
+            System.exit(-2);
+        }
+    }
+
+    private static Task parseSavedTask(String taskAsString, int lineNum) {
+        String[] processedString = taskAsString.split(FS);
+        try {
+            final String taskType = processedString[0];
+            final boolean taskMarked;
+            if (processedString[1].equals("1")) {
+                taskMarked = true;
+            } else if (processedString[1].equals("0")) {
+                taskMarked = false;
+            } else {
+                throw new MalformedTaskFormatException();
+            }
+            final String taskDescription = processedString[2];
+            switch (taskType) {
+            case "T":
+                if (processedString.length != 3) {
+                    throw new MalformedTaskFormatException();
+                }
+                Todo todo = new Todo(taskDescription);
+                todo.setIsDone(taskMarked);
+                return todo;
+            case "D":
+                if (processedString.length != 4) {
+                    throw new MalformedTaskFormatException();
+                }
+                final String dueBy = processedString[3];
+                Deadline deadline = new Deadline(taskDescription, dueBy);
+                deadline.setIsDone(taskMarked);
+                return deadline;
+            case "E":
+                if (processedString.length != 4) {
+                    throw new MalformedTaskFormatException();
+                }
+                final String time = processedString[3];
+                Event event = new Event(taskDescription, time);
+                event.setIsDone(taskMarked);
+                return event;
+            default:
+                throw new MalformedTaskFormatException();
+            }
+        } catch (IndexOutOfBoundsException | MalformedTaskFormatException e) {
+            // Using System.out.println here because I don't want to print a horizontal line after each output
+            System.out.println(String.format(MESSAGE_MALFORMED_TASK, lineNum, taskAsString));
+            return null;
+        }
+    }
+
+    private static void saveToFile() {
+        try {
+            FileWriter fw = new FileWriter(dataFile);
+            for (Task t : savedTasks) {
+                fw.write(t.formatAsData(FS) + LS);
+            }
+            fw.close();
+        } catch (IOException e) {
+            // Using System.out.println here because I don't want to print a horizontal line after each output
+            System.out.println(MESSAGE_DATA_SAVE_ERROR);
+            System.out.println(MESSAGE_CLOSE_TO_FIX);
         }
     }
 
@@ -91,7 +220,8 @@ public class Duke {
      */
     private static String[] getUserInput() {
         System.out.print(INPUT_PROMPT);
-        String userInput = in.nextLine();
+        // Strip file separator characters from user input to avoid writing malformed data to file
+        String userInput = in.nextLine().replace(FS,"");
         System.out.println(HORIZONTAL_SEPARATOR);
         String[] userInputTokenized = userInput.trim().split(" ", 2);
         if (userInputTokenized.length == 2) {
@@ -117,18 +247,19 @@ public class Duke {
      */
     private static String addTask(Task t, String successMessage) {
         savedTasks.add(t);
+        saveToFile();
         return String.format(successMessage, t);
     }
 
     /**
      * Deletes the task with the specified index from the task list.
      * @param index index of the task to be removed
-     * @param successMessage message to be displayed on success
      * @return command feedback
      */
-    private static String removeTask(int index, String successMessage) {
-        String feedback = String.format(successMessage, savedTasks.get(index));
+    private static String removeTask(int index) {
+        String feedback = String.format(MESSAGE_TASK_DELETED, savedTasks.get(index));
         savedTasks.remove(index);
+        saveToFile();
         return feedback;
     }
 
@@ -275,6 +406,7 @@ public class Duke {
                 return MESSAGE_TASK_ALREADY_MARKED;
             } else {
                 savedTasks.get(index - 1).setIsDone(true);
+                saveToFile();
                 return String.format(MESSAGE_TASK_MARKED, index, savedTasks.get(index - 1));
             }
         } catch (NumberFormatException e) {
@@ -297,6 +429,7 @@ public class Duke {
             }
             if (savedTasks.get(index - 1).getIsDone()) {
                 savedTasks.get(index - 1).setIsDone(false);
+                saveToFile();
                 return String.format(MESSAGE_TASK_UNMARKED, index, savedTasks.get(index-1));
             } else {
                 return MESSAGE_TASK_ALREADY_UNMARKED;
@@ -314,7 +447,7 @@ public class Duke {
             if (index < 1 || index > savedTasks.size()) {
                 throw new IndexOutOfBoundsException();
             }
-            return removeTask(index - 1, MESSAGE_TASK_DELETED);
+            return removeTask(index - 1);
         } catch (NumberFormatException e) {
             return invalidCommandError(COMMAND_DELETE, USAGE_DELETE);
         } catch (IndexOutOfBoundsException e) {

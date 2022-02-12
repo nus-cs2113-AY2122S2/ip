@@ -1,3 +1,7 @@
+Data directory found!
+Data file created successfully!
+Successfully loaded 0 tasks from file.
+------------------------------------------------------------
 Hi, I'm Robit!
 What would you like me to do?
 ------------------------------------------------------------
@@ -102,13 +106,17 @@ Usage: "delete <task index>"
 There's no task with that index...
 ------------------------------------------------------------
 > ------------------------------------------------------------
+I've marked this task as done. Yay!
+3) EVENT: [✓] task 3 (at: time)
+------------------------------------------------------------
+> ------------------------------------------------------------
 Task successfully deleted:
 	  DUE: [ ] task 2 (by: due date)
 ------------------------------------------------------------
 > ------------------------------------------------------------
 Here are your tasks:
 1)  TODO: [ ] task 1
-2) EVENT: [ ] task 3 (at: time)
+2) EVENT: [✓] task 3 (at: time)
 ------------------------------------------------------------
 > ------------------------------------------------------------
 Incorrect command format for bye.
