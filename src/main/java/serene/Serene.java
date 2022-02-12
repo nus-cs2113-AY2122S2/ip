@@ -21,6 +21,7 @@ public class Serene {
     private static final int RESPONSE_INDEX_BODY = 1;
     private static final int TASK_INDEX_DESCRIPTION = 0;
     private static final int TASK_INDEX_OPTIONS = 1;
+    private static final int ERROR_CODE = -1;
     private static ArrayList<Task> taskList = new ArrayList<>();
     private static int taskCount = 0;
     private static int statusOfSerene = CONTINUE;
@@ -78,6 +79,9 @@ public class Serene {
         case "unmark":
             markTaskNotDone(responsePartition);
             break;
+        case "delete":
+            removeTask(responsePartition);
+            break;
         default:
             addTask(userInput);
         }
@@ -88,7 +92,7 @@ public class Serene {
         System.out.println(PARTITION_LINE);
         System.out.println("Here is your task list:");
         int i = 1;
-        for (Task task: taskList) {
+        for (Task task : taskList) {
             System.out.println((i) + "." + task);
             i++;
         }
@@ -98,11 +102,8 @@ public class Serene {
     private static void markTaskDone(String[] userInput) {
         try {
             // Extract index of task to mark
-            String inputNumber = userInput[RESPONSE_INDEX_BODY];
-            int taskIndex = Integer.parseInt(inputNumber) - 1;
-            // Validation of provided index
-            if (!isWithinRange(taskIndex)) {
-                printWithPartition(INVALID_NUM_ERROR_MESSAGE);
+            int taskIndex = validateIndex(userInput);
+            if (taskIndex == ERROR_CODE) {
                 return;
             }
             // Checking if task has not already been marked
@@ -123,11 +124,8 @@ public class Serene {
     private static void markTaskNotDone(String[] userInput) {
         try {
             // Extract index of task to unmark
-            String inputNumber = userInput[RESPONSE_INDEX_BODY];
-            int taskIndex = Integer.parseInt(inputNumber) - 1;
-            // Validation of provided index
-            if (!isWithinRange(taskIndex)) {
-                printWithPartition(INVALID_NUM_ERROR_MESSAGE);
+            int taskIndex = validateIndex(userInput);
+            if (taskIndex == ERROR_CODE) {
                 return;
             }
             // Checking if task has already been marked
@@ -143,6 +141,41 @@ public class Serene {
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             printWithPartition(INVALID_NUM_ERROR_MESSAGE);
         }
+    }
+
+    private static void removeTask(String[] userInput) {
+        try {
+            int taskIndex = validateIndex(userInput);
+            if (taskIndex == ERROR_CODE) {
+                return;
+            }
+            if (taskCount == 2) {
+                printWithPartition("Mmkay~ Shall remove this task:" + System.lineSeparator() +
+                        taskList.get(taskIndex) + System.lineSeparator() +
+                        "Now you have " + (taskCount - 1) + " task left in the list");
+            }
+            else {
+                printWithPartition("Mmkay~ Shall remove this task:" + System.lineSeparator() +
+                        taskList.get(taskIndex) + System.lineSeparator() +
+                        "Now you have " + (taskCount - 1) + " tasks left in the list");
+            }
+            taskList.remove(taskIndex);
+            taskCount--;
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            printWithPartition(INVALID_NUM_ERROR_MESSAGE);
+        }
+    }
+
+    private static int validateIndex(String[] userInput) {
+        // Extract index of task to remove
+        String inputNumber = userInput[RESPONSE_INDEX_BODY];
+        int taskIndex = Integer.parseInt(inputNumber) - 1;
+        // Validation of provided index
+        if (!isWithinRange(taskIndex)) {
+            printWithPartition(INVALID_NUM_ERROR_MESSAGE);
+            return ERROR_CODE;
+        }
+        return taskIndex;
     }
 
     private static boolean isWithinRange(int taskIndex) {
@@ -242,7 +275,8 @@ public class Serene {
             toPrint = "Okay, I've added this for you:" + System.lineSeparator() +
                     inputTask + System.lineSeparator() +
                     "Now you have " + taskCount + " task in the list.";
-        } else {
+        }
+        else {
             toPrint = "Okay, I've added this for you:" + System.lineSeparator() +
                     inputTask + System.lineSeparator() +
                     "Now you have " + taskCount + " tasks in the list.";

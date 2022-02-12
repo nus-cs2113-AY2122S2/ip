@@ -83,5 +83,21 @@ Here is your task list:
 3.[D][ ] Crash Serene (by: The end of this damn semester who knows 40th June)
 ____________________________________________________________
 ____________________________________________________________
+Mmkay~ Shall remove this task:
+[T][ ] Try to crash this system
+Now you have 2 tasks left in the list
+____________________________________________________________
+____________________________________________________________
+Please enter a valid task number ;-;
+____________________________________________________________
+____________________________________________________________
+Please enter a valid task number ;-;
+____________________________________________________________
+____________________________________________________________
+Here is your task list:
+1.[E][ ] Crash this system (at: Some weird timing you'll never know like 13pm)
+2.[D][ ] Crash Serene (by: The end of this damn semester who knows 40th June)
+____________________________________________________________
+____________________________________________________________
 Till next time. Hope to see you again soon~
 ____________________________________________________________
