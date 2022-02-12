@@ -1,7 +1,9 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Duke {
     private static String division = "_____________________________________________\n";
-    private static Task[] taskList = new Task[100];
+    //private static Task[] taskList = new Task[100];
+    private static ArrayList<Task> taskList = new ArrayList<>();
     private static int taskIndex = 0;
 
     /**
@@ -9,6 +11,7 @@ public class Duke {
      * Prints taskList when user types "list" command in program
      * @param taskList
      */
+    /*
     public static void printTaskObjects(Task[] taskList) {
         int taskInd = 0;
         int taskNumber = 1;
@@ -20,6 +23,14 @@ public class Duke {
             taskInd += 1;
         }
     }
+    */
+    public static void printTaskObjects(ArrayList<Task> taskList) {
+        int taskNumber = 1;
+        for (Task task : taskList) {
+            System.out.println(Integer.toString(taskNumber) + ": " + task.toString());
+            taskNumber += 1;
+        }
+    }
 
     /**
      * Helper for processTasks
@@ -28,6 +39,7 @@ public class Duke {
      * @param markAction
      * @param taskNumber
      */
+    /*
     public static void markTask(Task[] taskList, String markAction, int taskNumber) {
         if (taskNumber <= 0 || (taskList[taskNumber - 1] == null)) {
             System.out.println("Oops, there was an error retrieving the specified task.");
@@ -53,6 +65,33 @@ public class Duke {
             }
         }
     }
+    */
+    public static void markTask(ArrayList<Task> taskList, String markAction, int taskNumber) throws DukeException {
+        try {
+            Task targetTask = taskList.get(taskNumber - 1);
+            // Mark the task as done
+            if (markAction.equals("mark")) {
+                if (targetTask.isDone == true) {
+                    System.out.println("Task is already marked as done.");
+                } else {
+                    targetTask.isDone = true;
+                    System.out.println("Nice! I've marked this task as done: ");
+                    System.out.println(targetTask.toString());
+                }
+            } else { // Unmark the task
+                if (targetTask.isDone == false) {
+                    System.out.println("Task is already marked as not done yet.");
+                } else {
+                    targetTask.isDone = false;
+                    System.out.println("OK, I've marked this task as not done yet: ");
+                    System.out.println(targetTask.toString());
+                }
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("Oops, there was an error retrieving the specified task.");
+        }
+    }
+
 
     /**
      * Helper for addTask
@@ -138,7 +177,8 @@ public class Duke {
                 task = new Event(description, additionalInfo);
             }
 
-            taskList[taskIndex] = task;
+            //taskList[taskIndex] = task;
+            taskList.add(taskIndex, task);
             taskIndex += 1;
             System.out.println("Got it. I've added this task:");
             System.out.println(task.toString());
@@ -155,28 +195,32 @@ public class Duke {
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();
-        // While the user has not exited the program
-        while (!line.equals("bye")) {
-            System.out.println(division);
-            // List out the tasks
-            if (line.equals("list")) {
-                printTaskObjects(taskList);
-            // Mark or unmark tasks
-            } else if (line.split(" ")[0].equals("mark") || line.split(" ")[0].equals("unmark")) {
-                String markAction = line.split(" ")[0];
-                int taskNumber = Integer.parseInt(line.split(" ")[1]);
-                markTask(taskList, markAction, taskNumber);
-            // Add a task
-            } else {
-                addTask(line);
+        try {
+            // While the user has not exited the program
+            while (!line.equals("bye")) {
+                System.out.println(division);
+                // List out the tasks
+                if (line.equals("list")) {
+                    printTaskObjects(taskList);
+                    // Mark or unmark tasks
+                } else if (line.split(" ")[0].equals("mark") || line.split(" ")[0].equals("unmark")) {
+                    String markAction = line.split(" ")[0];
+                    int taskNumber = Integer.parseInt(line.split(" ")[1]);
+                    markTask(taskList, markAction, taskNumber);
+                    // Add a task
+                } else {
+                    addTask(line);
+                }
+                System.out.println(division);
+                line = in.nextLine();
+
             }
             System.out.println(division);
-            line = in.nextLine();
-
+            System.out.println("Bye. Hope to see you again soon!\n");
+            System.out.println(division);
+        } catch (DukeException e) {
+            System.out.println(e);
         }
-        System.out.println(division);
-        System.out.println("Bye. Hope to see you again soon!\n");
-        System.out.println(division);
     }
 
 
