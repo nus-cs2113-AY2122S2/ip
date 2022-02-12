@@ -23,7 +23,6 @@ public class ChatSession {
 
     public void addTask(Task task) {
         // Create a new Task, append to taskList
-//        Task newTask = new Task(description);
         taskList.add(task);
         // Return the added task
         System.out.println("____________________________________________________________");
@@ -59,9 +58,9 @@ public class ChatSession {
     }
 
     // If the chat session receives invalid input
-    public void invalidTask() {
+    public void printInvalidTask(DukeException e) {
         System.out.println("____________________________________________________________");
-        System.out.println("Incorrect input. Please try again.");
+        System.out.println(e.getMessage());
         System.out.println("____________________________________________________________");
     }
 }
