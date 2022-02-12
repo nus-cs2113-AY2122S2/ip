@@ -6,11 +6,11 @@ public class UserContent {
     private int listIndex;
     private String taskName;
 
-    public UserContent(){
+    public UserContent() {
         this("", -1);
     }
 
-    public UserContent(String content, int listIndex){
+    public UserContent(String content, int listIndex) {
         setContent(content);
         setUnmark();
         setListIndex(listIndex);
@@ -49,14 +49,18 @@ public class UserContent {
         this.taskName = taskName;
     }
 
+    public String getTaskName() {
+        return taskName;
+    }
+
     @Override
     public String toString() {
         String mark;
-        if(this.getMark()){
+        if (this.getMark()) {
             mark = "X";
-        } else{
+        } else {
             mark = " ";
         }
-        return (getListIndex() + ". " + "[" + this.taskName + "]" + "[" + mark +"] " + getContent());
+        return (getListIndex() + ". " + "[" + this.taskName + "]" + "[" + mark + "] " + getContent());
     }
 }

@@ -6,7 +6,12 @@ import shrek.task.Events;
 import shrek.task.ToDo;
 import shrek.constant.PrintStrings;
 import shrek.exception.InvalidCommandException;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
 
 public class Shrek {
     private static final int NUMBER_OF_INPUT = 100;
@@ -17,14 +22,124 @@ public class Shrek {
     private static final int INDEX_OF_TASK_NAME = 1;
     private static final int INDEX_OF_TASK_COMMAND = 0;
     private static final int INDEX_OF_TASK_INPUT = 1;
+    private static final int INDEX_OF_TASK_MARKED = 0;
     private static final int NUMBER_OF_TERMS_IN_SPLIT = 2;
     public static final String NEW_LINE = System.lineSeparator();
     private static int errorCount = 0;
-    private static final String[] listOfCommands = {"todo", "deadline", "event", "mark", "unmark"};
+    private static String OUTPUT_FILE_PATH;
+    private static final String[] listOfCommands = {"todo", "deadline", "event", "mark", "unmark", "save"};
     public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
     public static final String ANSI_RESET = "\u001B[0m";
+
+    public static void initialiseShrek() throws InvalidCommandException {
+        try {
+            String currentDirectory = System.getProperty("user.dir");
+            OUTPUT_FILE_PATH = currentDirectory + "/data/output.txt";
+            File dataDirectory = new File(currentDirectory + "/data");
+            if (!dataDirectory.exists()) {
+                dataDirectory.mkdir();
+            }
+            File outputFile = new File(OUTPUT_FILE_PATH);
+            if (!outputFile.createNewFile()) {
+                loadFromOutput();
+            }
+        } catch (IOException e) {
+            throw new InvalidCommandException("IO excepts you!", errorCount);
+        }
+    }
+
+    public static String convertMark(UserContent task) {
+        String mark;
+        if (task.getMark()) {
+            mark = "marked";
+        } else {
+            mark = "unmarked";
+        }
+        return mark;
+    }
+
+    public static void loadFromOutput() throws FileNotFoundException {
+        File outputFile = new File(OUTPUT_FILE_PATH);
+        Scanner lineScanner = new Scanner(outputFile);
+        while (lineScanner.hasNext()) {
+            String[] splitMarkAndContent = lineScanner.nextLine().split(" ", NUMBER_OF_TERMS_IN_SPLIT);
+            takeInput(splitMarkAndContent[INDEX_OF_TASK_INPUT], false);
+            if (splitMarkAndContent[INDEX_OF_TASK_MARKED].equals("marked")) {
+                lists[listIndex - 1].setMark();
+            }
+        }
+    }
+
+    public static void saveToOutput() throws InvalidCommandException {
+        try {
+            clearOutput();
+            for (int i = 1; i < listIndex; i++) {
+                UserContent task = lists[i];
+                String taskName = task.getTaskName();
+                switch (taskName) {
+                case "T":
+                    saveTodoToOutput(task);
+                    break;
+                case "D":
+                    Deadlines deadlineTask = (Deadlines) task;
+                    saveDeadlineToOutput(deadlineTask);
+                    break;
+                case "E":
+                    Events eventTask = (Events) task;
+                    saveEventToOutput(eventTask);
+                    break;
+                default:
+                    throw new InvalidCommandException("Not a valid task to save!", errorCount);
+                }
+            }
+        } catch (IOException e) {
+            throw new InvalidCommandException("Cannot write to file!", errorCount);
+        } catch (NullPointerException e) {
+            throw new InvalidCommandException("Invalid task name", errorCount);
+        } catch (ClassCastException e) {
+            throw new InvalidCommandException("Cannot anyhow typecast leh", errorCount);
+        } catch (InvalidCommandException e) {
+            errorCount++;
+        }
+    }
+
+    public static void saveTodoToOutput(UserContent task) throws IOException {
+        String baseString = "todo";
+        String mark = convertMark(task);
+        String taskContent = task.getContent();
+        baseString = mark + " " + baseString + " " + taskContent;
+        writeToFile(baseString);
+    }
+
+    public static void saveDeadlineToOutput(Deadlines task) throws IOException {
+        String baseString = "deadline";
+        String mark = convertMark(task);
+        String taskContent = task.getContent();
+        String taskBy = task.getBy();
+        baseString = mark + " " + baseString + " " + taskContent + "/by " + taskBy;
+        writeToFile(baseString);
+    }
+
+    public static void saveEventToOutput(Events task) throws IOException {
+        String baseString = "event";
+        String mark = convertMark(task);
+        String taskContent = task.getContent();
+        String taskAt = task.getAt();
+        baseString = mark + " " + baseString + " " + taskContent + "/at " + taskAt;
+        writeToFile(baseString);
+    }
+
+    public static void writeToFile(String task) throws IOException {
+        FileWriter outputFile = new FileWriter(OUTPUT_FILE_PATH, true);
+        outputFile.write(task + System.lineSeparator());
+        outputFile.close();
+    }
+
+    public static void clearOutput() throws IOException {
+        FileWriter outputFile = new FileWriter(OUTPUT_FILE_PATH, false);
+        outputFile.write("");
+        outputFile.close();
+    }
 
     public static void printGreeting() {
         String logo = "███████╗██╗  ██╗██████╗ ███████╗██╗  ██╗\n" +
@@ -104,7 +219,7 @@ public class Shrek {
         }
     }
 
-    public static void addToList(String input, String taskName) {
+    public static void addToList(String input, String taskName, boolean toPrint) {
         boolean isTaskRanSuccessful = true;
         switch (taskName) {
         case "todo":
@@ -121,9 +236,11 @@ public class Shrek {
             isTaskRanSuccessful = false;
         }
         if (isTaskRanSuccessful) {
-            System.out.println("Done putting this in the list:");
-            System.out.println(lists[listIndex]);
-            System.out.println("Go do the " + listIndex + " task(s)!!");
+            if (toPrint) {
+                System.out.println("Done putting this in the list:");
+                System.out.println(lists[listIndex]);
+                System.out.println("Go do the " + listIndex + " task(s)!!");
+            }
             listIndex++;
         }
     }
@@ -165,12 +282,18 @@ public class Shrek {
         System.out.println(lists[Integer.parseInt(indexOfList)]);
     }
 
-    public static void takeInput(String userInput) throws InvalidCommandException {
-        System.out.println(LINE);
+    public static void takeInput(String userInput, boolean toPrint) throws InvalidCommandException {
+        if (toPrint) {
+            System.out.print(LINE);
+        }
         try {
             String[] words = userInput.split(" ", NUMBER_OF_TERMS_IN_SPLIT);
             if (words[INDEX_OF_TASK_COMMAND].equals("list")) {
                 printList();
+                System.out.print(LINE);
+                return;
+            } else if (words[INDEX_OF_TASK_COMMAND].equals("save")) {
+                saveToOutput();
                 System.out.print(LINE);
                 return;
             } else if (!isCommandInList(words[INDEX_OF_TASK_COMMAND])) {
@@ -186,31 +309,35 @@ public class Shrek {
                 markTask(words[INDEX_OF_TASK_INPUT]);
                 break;
             case "todo":
-                addToList(words[INDEX_OF_TASK_INPUT], "todo");
+                addToList(words[INDEX_OF_TASK_INPUT], "todo", toPrint);
                 break;
             case "deadline":
-                addToList(words[INDEX_OF_TASK_INPUT], "deadline");
+                addToList(words[INDEX_OF_TASK_INPUT], "deadline", toPrint);
                 break;
             case "event":
-                addToList(words[INDEX_OF_TASK_INPUT], "event");
+                addToList(words[INDEX_OF_TASK_INPUT], "event", toPrint);
                 break;
             default:
                 throw new InvalidCommandException("How did you get here?", errorCount);
             }
-        } catch (InvalidCommandException err) {
+        } catch (InvalidCommandException e) {
             errorCount++;
         }
-        System.out.print(LINE);
+        if (toPrint) {
+            System.out.print(LINE);
+        }
     }
 
     public static void main(String[] args) {
+        initialiseShrek();
         printGreeting();
         Scanner in = new Scanner(System.in);
         String userInput = in.nextLine();
         while (!userInput.equals("bye")) {
-            takeInput(userInput);
+            takeInput(userInput, true);
             userInput = in.nextLine();
         }
+        takeInput("save", true);
         printGoodbye();
     }
 }
