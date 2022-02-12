@@ -1,12 +1,12 @@
 package duke;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.File;
 
 public class Duke {
 
-    static ArrayList<Task> taskList = new ArrayList<Task>();
+    static ArrayList<Task> taskList = new ArrayList<>();
 //    static int currentCount = 0;
     final static String DASHED_LINE = "\t____________________________________________________________";
 

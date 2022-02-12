@@ -13,14 +13,14 @@ public class FileAccess {
         return Boolean.compare(b, false);
     }
 
-    private static void writeToFile(String filePath, String textToAdd) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
+    private static void writeToFile(String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(FileAccess.FILE_NAME);
         fw.write(textToAdd);
         fw.close();
     }
 
-    private static void readFromFile(String filePath) throws FileNotFoundException {
-        File f = new File(filePath); // create a File for the given file path
+    private static void readFromFile() throws FileNotFoundException {
+        File f = new File(FileAccess.FILE_NAME); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         while (s.hasNext()) {
             Task task = lineToTask(s.nextLine());
@@ -30,7 +30,7 @@ public class FileAccess {
 
     private static Task lineToTask(String line){
         Task task = null;
-        int isDoneInt = 0;
+        int isDoneInt;
         char indicator = line.charAt(0);
         switch (indicator) {
         case 'D':
@@ -88,12 +88,12 @@ public class FileAccess {
         return line;
     }
 
-    public static void saveToFile() throws IOException {
+    public static void saveToFile(){
         String line;
         try {
             for (Task task: Duke.taskList){
                 line = taskToLine(task);
-                writeToFile(FILE_NAME, line + System.lineSeparator());
+                writeToFile(line + System.lineSeparator());
             }
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
@@ -102,7 +102,7 @@ public class FileAccess {
 
     public static void loadFromFile(){
         try {
-            readFromFile(FILE_NAME);
+            readFromFile();
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
