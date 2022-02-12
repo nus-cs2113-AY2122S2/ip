@@ -1,10 +1,5 @@
-<div align="center">
-
 # Sailfish
-
 The minimalist task manager app for your daily needs.
-
-</div>
 
 ## Usage
 To run the application, enter the following command in the terminal:
