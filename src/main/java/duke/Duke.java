@@ -22,10 +22,11 @@ public class Duke {
             case "list":
                 TaskList.printTaskList();
                 break;
+            case "delete":
+                TaskList.deleteTask(input);
+                break;
             default:
-                UI.printBorder();
                 TaskList.addTaskToTaskList(input, command);
-                UI.printBorder();
                 break;
             }
         }

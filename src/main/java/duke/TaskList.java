@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
-    protected static List<Task> listOfTask = new ArrayList<>();
+    protected static ArrayList<Task> listOfTask = new ArrayList<>();
     private static int numOfTask = 0;
 
     public static Task getTaskFromListOfTask(int taskNumber) {
@@ -40,6 +40,20 @@ public class TaskList {
                 System.out.println("Okay! I'v marked this task as not done:");
             }
             System.out.println(markedTask);
+        } catch (IndexOutOfBoundsException idxError) {
+            System.out.println("Invalid task number to be marked!");
+        } catch (NumberFormatException numFormError) {
+            System.out.println("Please enter a number to mark task.");
+        }
+    }
+
+    public static void deleteTask(String input) {
+        try {
+            int taskNumber = getTaskNumberFromInput(input);
+            Task toBeDeletedTask = getTaskFromListOfTask(taskNumber);
+            listOfTask.remove(toBeDeletedTask);
+            numOfTask--;
+            printTaskListUpdate(toBeDeletedTask, "deleted");
         } catch (IndexOutOfBoundsException idxError) {
             System.out.println("Invalid task number to be marked!");
         } catch (NumberFormatException numFormError) {
@@ -115,14 +129,20 @@ public class TaskList {
         if (newTask != null) {
             listOfTask.add(newTask);
             numOfTask++;
-            printTaskListUpdate(newTask);
+            printTaskListUpdate(newTask, "added");
         }
     }
 
-    public static void printTaskListUpdate(Task newTask) {
-        System.out.println("Got it!. I've added this task:");
-        System.out.println(newTask);
+    public static void printTaskListUpdate(Task taskObject, String type) {
+        UI.printBorder();
+        if (type.equalsIgnoreCase("added")) {
+            System.out.println("Got it!. I've added this task:");
+        } else if (type.equalsIgnoreCase("deleted")) {
+            System.out.println("Got it!. I've removed this task:");
+        }
+        System.out.println(taskObject);
         System.out.println("Now you have " +numOfTask +" tasks in the list.");
+        UI.printBorder();
     }
 
     public static void printTaskList() {

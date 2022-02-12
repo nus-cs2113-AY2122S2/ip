@@ -19,4 +19,9 @@ list
 mark -1
 mark pen
 mark 3
+delete -1
+delete apple
+delete 100
+delete 1
+list
 bye

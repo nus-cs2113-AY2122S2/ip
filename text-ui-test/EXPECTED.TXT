@@ -8,33 +8,19 @@ __________________________________________________
  Good Morning sir, I am DukeBot, your personal assistant! 
  What can I do for you today?
 __________________________________________________
-__________________________________________________
 duke.exceptions.DukeException: Oops! The description of a todo task cannot be empty!
-__________________________________________________
-__________________________________________________
 duke.exceptions.DukeException: Oops! The description of a todo task cannot be empty!
-__________________________________________________
 __________________________________________________
 Got it!. I've added this task:
 [T][ ] test1
 Now you have 1 tasks in the list.
 __________________________________________________
  1.[T][ ] test1
-__________________________________________________
 duke.exceptions.DukeException: Oops! It seems that you left out the /at in your command!
-__________________________________________________
-__________________________________________________
 duke.exceptions.DukeException: Oops! It seems that you left out the /at in your command!
-__________________________________________________
-__________________________________________________
 Please check your command and formatting again!
-__________________________________________________
-__________________________________________________
 Please check your command and formatting again!
-__________________________________________________
-__________________________________________________
 Please check your command and formatting again!
-__________________________________________________
 __________________________________________________
 Got it!. I've added this task:
 [E][ ] test2 (at: test2)
@@ -42,29 +28,26 @@ Now you have 2 tasks in the list.
 __________________________________________________
  1.[T][ ] test1
  2.[E][ ] test2 (at: test2)
-__________________________________________________
 duke.exceptions.DukeException: Oops! It seems that you left out the /by in your command!
-__________________________________________________
-__________________________________________________
 duke.exceptions.DukeException: Oops! It seems that you left out the /by in your command!
-__________________________________________________
-__________________________________________________
 Please check your command and formatting again!
-__________________________________________________
-__________________________________________________
 Please check your command and formatting again!
-__________________________________________________
-__________________________________________________
 Please check your command and formatting again!
-__________________________________________________
-__________________________________________________
 duke.exceptions.DukeException: Oops! It seems that you left out the /by in your command!
-__________________________________________________
  1.[T][ ] test1
  2.[E][ ] test2 (at: test2)
 Invalid task number to be marked!
 Please enter a number to mark task.
 Invalid task number to be marked!
+Invalid task number to be marked!
+Please enter a number to mark task.
+Invalid task number to be marked!
+__________________________________________________
+Got it!. I've removed this task:
+[T][ ] test1
+Now you have 1 tasks in the list.
+__________________________________________________
+ 1.[E][ ] test2 (at: test2)
                                __
                             _ / /
   __ ___      ____      __ (_) |
