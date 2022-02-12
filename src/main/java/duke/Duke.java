@@ -6,6 +6,9 @@ public class Duke {
     private static final Scanner SC = new Scanner(System.in);
 
     public static void main(String[] args) {
+        LocalStorage.initializeLocalFileStorage();
+        TaskList.loadTaskFromFileToProgram();
+
         UI.printIntro();
         while (true) {
             String input = SC.nextLine();

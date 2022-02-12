@@ -6,8 +6,8 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TaskList {
     protected static ArrayList<Task> listOfTask = new ArrayList<>();
@@ -40,6 +40,7 @@ public class TaskList {
                 System.out.println("Okay! I'v marked this task as not done:");
             }
             System.out.println(markedTask);
+            TaskList.saveTaskListToFile();
         } catch (IndexOutOfBoundsException idxError) {
             System.out.println("Invalid task number to be marked!");
         } catch (NumberFormatException numFormError) {
@@ -68,7 +69,7 @@ public class TaskList {
             String dueDateTime = CommandParser.getDeadlineDate(input);
             newDeadlineTask = new Deadline(deadlineDescription, dueDateTime);
         } catch (DukeException dukeError) {
-            System.out.println(dukeError);
+            System.out.println(dukeError.getMessage());
             return null;
         } catch (StringIndexOutOfBoundsException idxError) {
             System.out.println("Please check your command and formatting again!");
@@ -84,7 +85,7 @@ public class TaskList {
             String dueDate = CommandParser.getEventDateTime(input);
             newEventTask = new Event(eventDescription, dueDate);
         } catch (DukeException dukeError) {
-            System.out.println(dukeError);
+            System.out.println(dukeError.getMessage());
             return null;
         } catch (StringIndexOutOfBoundsException idxError) {
             System.out.println("Please check your command and formatting again!");
@@ -94,12 +95,12 @@ public class TaskList {
     }
 
     public static Todo createTodoTask(String input) {
-        Todo newTodoTask = null;
+        Todo newTodoTask;
         try {
             String todoDescription = CommandParser.getToDoTaskDescription(input);
             newTodoTask = new Todo(todoDescription);
         } catch (DukeException dukeError) {
-            System.out.println(dukeError);
+            System.out.println(dukeError.getMessage());
             return null;
         } catch (StringIndexOutOfBoundsException idxError) {
             System.out.println("Please check your command and formatting again!");
@@ -125,11 +126,28 @@ public class TaskList {
             System.out.println("Invalid type of task given!");
             return;
         }
-
         if (newTask != null) {
             listOfTask.add(newTask);
             numOfTask++;
             printTaskListUpdate(newTask, "added");
+            TaskList.saveTaskListToFile();
+        }
+    }
+
+    public static void loadTaskFromFileToProgram() {
+        listOfTask = LocalStorage.getTaskFromFile();
+        numOfTask = listOfTask.size();
+        UI.printBorder();
+        System.out.println("Total number of task loaded: " +numOfTask);
+        UI.printBorder();
+    }
+
+    public static void saveTaskListToFile() {
+        try {
+            LocalStorage.saveCurrentTaskListToFile(listOfTask);
+            System.out.println("Current task list has been saved!");
+        } catch (IOException e) {
+            System.out.println("Oops! IO exception occurred at: " +e.getMessage());
         }
     }
 

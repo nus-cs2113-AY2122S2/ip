@@ -10,6 +10,21 @@ public class Event extends Task {
         this.at = at;
     }
 
+    public Event(String description, Boolean isDone, String at) {
+        super(description, isDone);
+        this.at = at;
+    }
+
+    @Override
+    public String getTaskType() {
+        return "event";
+    }
+
+    @Override
+    public String getDate() {
+        return at;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (at: " + at + ")";
