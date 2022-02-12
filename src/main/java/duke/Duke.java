@@ -1,5 +1,5 @@
 package duke;
-
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) throws IndexOutOfBoundsException{
@@ -7,29 +7,38 @@ public class Duke {
         System.out.println(("Hello! I'm Duke"));
         System.out.println(("What can i do for you?"));
         System.out.println("---------------------");
-        Task[] taskList = new Task[100];
-        Boolean continueProgram = true; 
-        int arrayIndex = 0; 
+        // Task[] taskList = new Task[100];
+        //using Arraylist instead. 
+        ArrayList<Task> taskList = new ArrayList<Task>(); 
+        // int arrayIndex = 0; 
+        boolean continueProgram = true; 
         DukeException dukeEx = new DukeException();
         while (continueProgram) { 
             Scanner sc = new Scanner(System.in);
             String inputString = sc.nextLine();
 
+            // terminating sequence 
             if (inputString.equals("bye")) { 
                 System.out.println("Bye! Hope to see you again.");
                 continueProgram = false; 
             }
-            else if (inputString.matches("mark \\d+")){
 
+            //deleting task
+            else if (inputString.matches("delete \\d+")){
                 try {
                     String[] arrOfStr = inputString.split(" ", 0);
                     String indexValue = arrOfStr[1]; 
                     int indexValue2 = Integer.parseInt(indexValue) - 1;
-                    //index given is out of array size
-                    if (indexValue2 > arrayIndex || indexValue2 < 0){
+                    if (indexValue2 > taskList.size()-1 || indexValue2 < 0){
                         throw new IndexOutOfBoundsException();
                     }
-                    taskList[indexValue2].markTask(); 
+
+                    Task removedTask = taskList.get(indexValue2);
+                    taskList.remove(indexValue2);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(removedTask.toString());
+                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+
                 }
 
                 catch (IndexOutOfBoundsException e){
@@ -37,16 +46,38 @@ public class Duke {
                 }
             }
 
+            //marking a task by index 
+            else if (inputString.matches("mark \\d+")){
+
+                try {
+                    String[] arrOfStr = inputString.split(" ", 0);
+                    String indexValue = arrOfStr[1]; 
+                    int indexValue2 = Integer.parseInt(indexValue) - 1;
+                    //index given is out of array size
+                    if (indexValue2 > taskList.size()-1 || indexValue2 < 0){
+                        throw new IndexOutOfBoundsException();
+                    }
+                    // taskList[indexValue2].markTask(); 
+                    taskList.get(indexValue2).markTask();
+                }
+
+                catch (IndexOutOfBoundsException e){
+                    dukeEx.wrongIndex();
+                }
+            }
+
+            //unmarking a task by index 
             else if (inputString.matches("unmark \\d+")){
 
                 try {
                     String[] arrOfStr = inputString.split(" ", 0);
                     String indexValue = arrOfStr[1]; 
                     int indexValue2 = Integer.parseInt(indexValue) - 1;
-                    if (indexValue2 > arrayIndex || indexValue2 < 0){
+                    if (indexValue2 > taskList.size()-1 || indexValue2 < 0){
                         throw new IndexOutOfBoundsException();
                     }
-                    taskList[indexValue2].unmarkTask(); 
+                    // taskList[indexValue2].unmarkTask(); 
+                    taskList.get(indexValue2).unmarkTask();
                 }
 
                 catch (IndexOutOfBoundsException e){
@@ -62,10 +93,9 @@ public class Duke {
                         throw new IndexOutOfBoundsException();
                     }
                     System.out.println("Got it. I've added this task:");
-                    taskList[arrayIndex] = new Todo(desc);
-                    System.out.println(taskList[arrayIndex].toString());
-                    arrayIndex++; 
-                    System.out.println("Now you have " + arrayIndex + " tasks in the list.");
+                    taskList.add(new Todo(desc));
+                    System.out.println(taskList.get(taskList.size()-1).toString());
+                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                 }
 
                 catch (IndexOutOfBoundsException e){
@@ -87,11 +117,11 @@ public class Duke {
                     if (by.isEmpty() || by.isBlank()) {
                         throw new IndexOutOfBoundsException();
                     }
-                    taskList[arrayIndex] = new Deadline(desc,by); 
+                    // taskList[arrayIndex] = new Deadline(desc,by); 
+                    taskList.add(new Deadline(desc,by));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(taskList[arrayIndex].toString());
-                    arrayIndex++;
-                    System.out.println("Now you have " + arrayIndex + " tasks in the list.");
+                    System.out.println(taskList.get(taskList.size()-1).toString());
+                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                 }
 
                 catch (IndexOutOfBoundsException e){
@@ -114,11 +144,11 @@ public class Duke {
                     if (by.isEmpty() || by.isBlank()) {
                         throw new IndexOutOfBoundsException();
                     }
-                    taskList[arrayIndex] = new Event(desc,by);
+                    // taskList[arrayIndex] = new Event(desc,by);
+                    taskList.add(new Event(desc,by));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(taskList[arrayIndex].toString()); 
-                    arrayIndex++;
-                    System.out.println("Now you have " + arrayIndex + " tasks in the list.");
+                    System.out.println(taskList.get(taskList.size()-1).toString()); 
+                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                 }
 
                 catch (IndexOutOfBoundsException e){
@@ -132,8 +162,8 @@ public class Duke {
             
             else if (inputString.equals("list")){
                 System.out.println("Here are the tasks in your list : ");
-                for (int i = 0; i<arrayIndex; i++) {
-                    System.out.println(i+1 + "." + taskList[i].toString());
+                for (int i = 0; i<taskList.size(); i++) {
+                    System.out.println(i+1 + "." + taskList.get(i).toString());
                 }
             }
 
