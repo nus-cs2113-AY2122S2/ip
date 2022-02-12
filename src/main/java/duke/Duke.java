@@ -1,7 +1,5 @@
 package duke;
 
-import duke.task.Task;
-
 import java.util.Scanner;
 
 public class Duke {
@@ -23,7 +21,6 @@ public class Duke {
             case "mark":
             case "unmark":
                 TaskList.markTask(input, command);
-                TaskList.saveTaskListToFile();
                 break;
             case "list":
                 TaskList.printTaskList();
@@ -31,7 +28,6 @@ public class Duke {
             default:
                 UI.printBorder();
                 TaskList.addTaskToTaskList(input, command);
-                TaskList.saveTaskListToFile();
                 UI.printBorder();
                 break;
             }

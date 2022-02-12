@@ -40,6 +40,7 @@ public class TaskList {
                 System.out.println("Okay! I'v marked this task as not done:");
             }
             System.out.println(markedTask);
+            TaskList.saveTaskListToFile();
         } catch (IndexOutOfBoundsException idxError) {
             System.out.println("Invalid task number to be marked!");
         } catch (NumberFormatException numFormError) {
@@ -115,6 +116,7 @@ public class TaskList {
             listOfTask.add(newTask);
             numOfTask++;
             printTaskListUpdate(newTask);
+            TaskList.saveTaskListToFile();
         }
     }
 
@@ -131,7 +133,7 @@ public class TaskList {
             LocalStorage.saveCurrentTaskListToFile(listOfTask);
             System.out.println("Current task list has been saved!");
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Oops! IO exception occurred at: " +e.getMessage());
         }
     }
 

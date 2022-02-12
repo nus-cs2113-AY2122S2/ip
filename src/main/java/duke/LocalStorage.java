@@ -31,7 +31,7 @@ public class LocalStorage {
             writeCSVHeaderIntoFile();
             csvFileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Oops! An IO exception has occurred at: " + e.getMessage());
         }
     }
 
@@ -133,7 +133,7 @@ public class LocalStorage {
 
     public static void saveCurrentTaskListToFile(ArrayList<Task> taskList) throws IOException{
         File toBeDeleted = new File(PATH_NAME.toString());
-        toBeDeleted.delete();
+        if (toBeDeleted.delete()) ;
         csvFileWriter = Files.newBufferedWriter(PATH_NAME, CREATE);
         writeCSVHeaderIntoFile();
         for (Task task : taskList) {
