@@ -1,7 +1,11 @@
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
 import java.util.Scanner;
 
 public class Duke {
-
     // Takes in a string. Executed commands will print related statements.
     public static void executeCommands (ChatSession currChat, String userInput) throws DukeException {
         String[] userInputArr;
