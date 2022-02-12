@@ -10,6 +10,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, Boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -20,6 +25,18 @@ public class Task {
 
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    public boolean getStatus() {
+        return isDone;
+    }
+
+    public String getTaskType() {
+        return "task";
+    }
+
+    public String getDate() {
+        return "-";
     }
 
     @Override
