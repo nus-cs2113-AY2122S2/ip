@@ -5,18 +5,24 @@ import bim.task.Event;
 import bim.task.Task;
 import bim.task.ToDo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Bim {
     private static final Scanner in = new Scanner(System.in);
     private static final ArrayList<Task> taskStore = new ArrayList<Task>();
+    private static final File dataDirectory = new File(getDataDirectoryPath());
+    private static final File dataFile = new File(getDataFilePath());
 
     private static final String EMPTY_TASKLIST = "404 Not Found";
     private static final String ERROR_INDEX = "Invalid index!";
     private static final String ERROR_COMMAND = "I didn't understand that!";
     private static final String ERROR_COMMAND_ARG = "Check your arguments!";
-
+    private static final String ERROR_DATA_FILE = "Check data file!";
 
     private static final String MESSAGE_GREETING_1 = "Hi! I'm Bim!";
     private static final String MESSAGE_GREETING_2 = "What can I do for you?";
@@ -27,6 +33,7 @@ public class Bim {
 
     private static final String DELIMITER_EVENT = " /at ";
     private static final String DELIMITER_DEADLINE = " /by ";
+    private static final String DELIMITER_DATA = " \\| ";
 
     private static final String OP_MARK = "mark";
     private static final String OP_UNMARK = "unmark";
@@ -41,14 +48,27 @@ public class Bim {
     private static final String LINE_INDENT = "\t";
     private static final String LIST_DOT = ".";
 
+    private static final String DATA_FOLDER_NAME = "data";
+    private static final String DATA_FILE_NAME = "bimData.txt";
+    private static final String DATA_FILE_SEPARATOR = " | ";
+    private static final String DATA_FILE_NEW_LINE = "\n";
+    private static final String DATA_FILE_DEADLINE = "D";
+    private static final String DATA_FILE_EVENT = "E";
+    private static final String DATA_FILE_TODO = "T";
+    private static final String DATA_FILE_UNMARKED_TASK = "0";
+    private static final String DATA_FILE_MARKED_TASK = "1";
+
     private static final int EXPECTED_ARG_NUMBER = 2;
 
     public static void main(String[] args) {
         printWelcomeMessage();
+        loadDataFile();
         readInput();
+        exitProgram();
     }
 
     public static void readInput() {
+        boolean isExit = false;
         while (in.hasNextLine()) {
             String input = in.nextLine();
             String[] words = input.split(" ", 2);
@@ -56,19 +76,19 @@ public class Bim {
             String commandArg = (words.length > 1) ? words[1] : "";
             System.out.println(LINE_SEPARATOR);
             try {
-                handleCommand(command, commandArg);
+                isExit = handleCommand(command, commandArg);
             } catch (BimException exception) {
                 System.out.println(ERROR_COMMAND);
             }
             System.out.println(LINE_SEPARATOR);
+            if (isExit == true) {
+                return;
+            }
         }
     }
 
-    private static void handleCommand(String command, String commandArg) throws BimException {
+    private static boolean handleCommand(String command, String commandArg) throws BimException {
         switch (command) {
-        case OP_EXIT_PROGRAM:
-            exitProgram();
-            break;
         case OP_LIST_TASK:
             listTask();
             break;
@@ -90,15 +110,17 @@ public class Bim {
         case OP_DELETE_TASK:
             deleteTask(commandArg);
             break;
+        case OP_EXIT_PROGRAM:
+            return true;
         default:
             throw new BimException();
         }
+        return false;
     }
 
     private static void exitProgram() {
         System.out.println(MESSAGE_GOODBYE);
         System.out.println(LINE_SEPARATOR);
-        System.exit(0);
     }
 
     private static void listTask() {
@@ -127,6 +149,7 @@ public class Bim {
             currentTask.setAsNotDone();
             System.out.println(MESSAGE_UNMARK_TASK);
         }
+        modifyData(mode, index);
         System.out.println("\t" + currentTask);
     }
 
@@ -148,6 +171,7 @@ public class Bim {
         }
         ToDo newToDo = new ToDo(commandArg);
         taskStore.add(newToDo);
+        writeData(commandArg);
         printAddMessage(OP_ADD_TODO);
     }
 
@@ -161,6 +185,7 @@ public class Bim {
         String deadlineDate = parsedTokens[1];
         Deadline newDeadline = new Deadline(deadlineDescription, deadlineDate);
         taskStore.add(newDeadline);
+        writeData(DATA_FILE_DEADLINE, deadlineDescription, deadlineDate);
         printAddMessage(OP_ADD_DEADLINE);
     }
 
@@ -174,6 +199,7 @@ public class Bim {
         String eventDate = parsedTokens[1];
         Event newEvent = new Event(eventDescription, eventDate);
         taskStore.add(newEvent);
+        writeData(DATA_FILE_EVENT, eventDescription, eventDate);
         printAddMessage(OP_ADD_EVENT);
     }
 
@@ -221,4 +247,113 @@ public class Bim {
         System.out.println(LINE_INDENT + taskStore.get(taskStore.size() - 1));
         System.out.println("There are " + taskStore.size() + " task(s) in the list");
     }
+
+    private static void writeData(String type, String description, String date) {
+        try {
+            FileWriter writer = new FileWriter(getDataFilePath(), true);
+            writer.write(type + DATA_FILE_SEPARATOR + DATA_FILE_UNMARKED_TASK + DATA_FILE_SEPARATOR + description + DATA_FILE_SEPARATOR + date + DATA_FILE_NEW_LINE);
+            writer.close();
+        } catch (IOException exception) {
+            System.out.println(ERROR_DATA_FILE);
+        }
+
+    }
+
+    private static void writeData(String description) {
+        try {
+            FileWriter writer = new FileWriter(getDataFilePath(), true);
+            writer.write(DATA_FILE_TODO + DATA_FILE_SEPARATOR + DATA_FILE_UNMARKED_TASK + DATA_FILE_SEPARATOR + description + DATA_FILE_NEW_LINE);
+            writer.close();
+        } catch (IOException exception) {
+            System.out.println(ERROR_DATA_FILE);
+        }
+    }
+
+    private static void modifyData(String mode, int index) {
+        try {
+            Scanner dataReader = new Scanner(dataFile);
+            String dataFileString = "";
+            int i = 0;
+            while (dataReader.hasNextLine()) {
+                String currentLine = dataReader.nextLine();
+                if (i == index) {
+                    String[] currentParts = currentLine.split(DELIMITER_DATA);
+                    if (mode.equals(OP_MARK)) {
+                        currentParts[1] = DATA_FILE_MARKED_TASK;
+                    }
+                    else {
+                        currentParts[1] = DATA_FILE_UNMARKED_TASK;
+                    }
+                    currentLine = String.join(DATA_FILE_SEPARATOR, currentParts);
+                }
+                ++i;
+                dataFileString += currentLine + DATA_FILE_NEW_LINE;
+            }
+            FileWriter writer = new FileWriter(getDataFilePath());
+            writer.write(dataFileString);
+            dataReader.close();
+            writer.close();
+
+        } catch (IOException exception) {
+            System.out.println(ERROR_DATA_FILE);
+        }
+    }
+
+    private static void loadDataFile() {
+        if (doesDataFileExists()) {
+            try {
+                Scanner dataReader = new Scanner(dataFile);
+                while (dataReader.hasNextLine()) {
+                    String task = dataReader.nextLine();
+                    String[] taskParts = task.split(DELIMITER_DATA);
+                    Task newTask;
+
+                    switch (taskParts[0]) {
+                    case DATA_FILE_EVENT:
+                        newTask = new Event(taskParts[2], taskParts[3]);
+                        break;
+                    case DATA_FILE_DEADLINE:
+                        newTask = new Deadline(taskParts[2], taskParts[3]);
+                        break;
+                    default:
+                        newTask = new ToDo(taskParts[2]);
+                        break;
+                    }
+                    if (taskParts[1].equals(DATA_FILE_MARKED_TASK)) {
+                        newTask.setAsDone();
+                    }
+                    taskStore.add(newTask);
+                }
+                dataReader.close();
+            } catch (FileNotFoundException exception) {
+                System.out.println(ERROR_DATA_FILE);
+            }
+        }
+
+        else {
+            initDataFile();
+        }
+    }
+
+    private static boolean doesDataFileExists() {
+        return dataDirectory.exists() && dataFile.exists();
+    }
+
+    private static void initDataFile() {
+        try {
+            dataDirectory.mkdir();
+            dataFile.createNewFile();
+        } catch (IOException exception) {
+            System.out.println(ERROR_DATA_FILE);
+        }
+    }
+
+    private static String getDataDirectoryPath() {
+        return System.getProperty("user.dir") + "\\" + DATA_FOLDER_NAME;
+    }
+
+    private static String getDataFilePath() {
+        return getDataDirectoryPath() + "\\" + DATA_FILE_NAME;
+    }
+
 }
