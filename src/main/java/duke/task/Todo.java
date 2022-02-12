@@ -6,6 +6,11 @@ public class Todo extends Task {
     }
 
     @Override
+    public String formatAsData(String FS) {
+        return "T" + FS + super.formatAsData(FS);
+    }
+
+    @Override
     public String toString() {
         return " TODO: " + super.toString();
     }

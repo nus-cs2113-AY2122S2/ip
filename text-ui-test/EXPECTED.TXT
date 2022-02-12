@@ -1,3 +1,7 @@
+Data directory found!
+Data file created successfully!
+Successfully loaded 0 tasks from file.
+------------------------------------------------------------
 Hi, I'm Robit!
 What would you like me to do?
 ------------------------------------------------------------
@@ -13,7 +17,7 @@ Incorrect command format for todo.
 Usage: "todo <your task>"
 ------------------------------------------------------------
 > ------------------------------------------------------------
-duke.task.Todo successfully added:
+Todo successfully added:
 	 TODO: [ ] task 1
 ------------------------------------------------------------
 > ------------------------------------------------------------
@@ -29,7 +33,7 @@ Incorrect command format for deadline.
 Usage: "deadline <your task> /by <task deadline>"
 ------------------------------------------------------------
 > ------------------------------------------------------------
-duke.task.Deadline successfully added:
+Deadline successfully added:
 	  DUE: [ ] task 2 (by: due date)
 ------------------------------------------------------------
 > ------------------------------------------------------------
@@ -45,7 +49,7 @@ Incorrect command format for event.
 Usage: "event <your event> /at <time>"
 ------------------------------------------------------------
 > ------------------------------------------------------------
-duke.task.Event successfully added:
+Event successfully added:
 	EVENT: [ ] task 3 (at: time)
 ------------------------------------------------------------
 > ------------------------------------------------------------
@@ -83,6 +87,10 @@ That task is already marked.
 > ------------------------------------------------------------
 I've unmarked this task.
 1)  TODO: [ ] task 1
+------------------------------------------------------------
+> ------------------------------------------------------------
+I've marked this task as done. Yay!
+2)   DUE: [✓] task 2 (by: due date)
 ------------------------------------------------------------
 > ------------------------------------------------------------
 Incorrect command format for bye.

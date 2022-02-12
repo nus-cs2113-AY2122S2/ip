@@ -1,8 +1,8 @@
 package duke.task;
 
 public class Task {
-    public static final String INDICATOR_MARKED = "[✓]";
-    public static final String INDICATOR_UNMARKED = "[ ]";
+    protected static final String INDICATOR_MARKED = "[✓]";
+    protected static final String INDICATOR_UNMARKED = "[ ]";
 
     protected String taskDescription;
     protected boolean isDone;
@@ -12,16 +12,16 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getTaskDescription() {
-        return this.taskDescription;
-    }
-
     public boolean getIsDone() {
         return this.isDone;
     }
 
     public void setIsDone(boolean isDone) {
         this.isDone = isDone;
+    }
+
+    public String formatAsData(String FS) {
+        return (isDone ? 1 : 0) + FS + this.taskDescription;
     }
 
     @Override
