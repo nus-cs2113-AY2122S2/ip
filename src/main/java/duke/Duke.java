@@ -5,12 +5,15 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
 
     public static final int MAX_TASK = 100;
     public static final String COMMAND_LIST = "list";
+    public static final String COMMAND_DELETE = "delete";
     public static final String COMMAND_MARK = "mark";
     public static final String COMMAND_UNMARK = "unmark";
     public static final String COMMAND_BYE = "bye";
@@ -18,16 +21,17 @@ public class Duke {
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_TODO = "todo";
 
-    private static Task[] taskItems;
     private static int itemNum;
     private static String[] dateArray;
     private static String[] eventArray;
     private static final Scanner SCANNER = new Scanner(System.in);
+    private static ArrayList<Task> taskArrayList = new ArrayList<>();
 
     public static void main(String[] args) throws DukeException {
 
         printWelcomeMessage();
         initTaskTable();
+
         while (true) {
             getNewInput();
         }
@@ -48,21 +52,39 @@ public class Duke {
                 System.out.println("List is empty");
             }
             else {
-                for (int i = 0; i < itemNum; i++) {
-                    System.out.println(listNum + ". " + taskItems[i]);
-                    listNum++;
+                for (Task a : taskArrayList) {
+                    System.out.println(listNum++ + ". " + a);
                 }
             }
             break;
         case COMMAND_MARK:
             int markNum = Integer.parseInt(commandArr[1]) - 1;
-            taskItems[markNum].setDone(true);
-            System.out.println("Nice! I've marked this task as done:\n" + taskItems[markNum]);
+            try {
+                taskArrayList.get(markNum).setDone(true);
+                System.out.println("Nice! I've marked this task as done:\n" + taskArrayList.get(markNum));
+            } catch(IndexOutOfBoundsException markOutOfBounds) {
+                System.out.println("Invalid mark index!!");
+            }
             break;
         case COMMAND_UNMARK:
             int unMarkNum = Integer.parseInt(commandArr[1]) - 1;
-            taskItems[unMarkNum].setDone(false);
-            System.out.println("Nice! I've marked this task as not done yet:\n" + taskItems[unMarkNum]);
+            try {
+                taskArrayList.get(unMarkNum).setDone(false);
+                System.out.println("Nice! I've marked this task as not done yet:\n" + taskArrayList.get(unMarkNum));
+            } catch(IndexOutOfBoundsException unMarkOutOfBounds) {
+                System.out.println("Unmark index is out of bounds!!");
+            }
+            break;
+        case COMMAND_DELETE:
+            int deleteIndex = Integer.parseInt(commandArr[1]) - 1;
+            try {
+                itemNum--;
+                System.out.println("Noted. I've removed this task:\n" + taskArrayList.get(deleteIndex) +
+                        "\nNow you have " + itemNum + " tasks in the list.");
+                taskArrayList.remove(deleteIndex);
+            } catch(IndexOutOfBoundsException deleteIndexOutOFBounds) {
+                System.out.println("The item you want to delete is not in the list!");
+            }
             break;
         case COMMAND_BYE:
             exitProgram();
@@ -83,7 +105,7 @@ public class Duke {
         switch (sentenceArr[0]) {
         case COMMAND_TODO:
             try {
-                taskItems[itemNum] = new ToDo(sentenceArr[1]);
+                taskArrayList.add(new ToDo(sentenceArr[1]));
                 printAcknowledgeAddMessage();
                 itemNum++;
             } catch (IndexOutOfBoundsException todoEmpty) {
@@ -91,13 +113,12 @@ public class Duke {
             }
             break;
         case COMMAND_DEADLINE:
-
             try {
                 dateArray = sentenceArr[1].split("/by", 2);
                 if (dateArray[1].length() == 0 || dateArray[0].length() == 0) {
                     throw new DukeException();
                 }
-                taskItems[itemNum] = new Deadline(dateArray[0], dateArray[1]);
+                taskArrayList.add(new Deadline(dateArray[0], dateArray[1]));
                 printAcknowledgeAddMessage();
                 itemNum++;
             } catch (ArrayIndexOutOfBoundsException deadlineEmpty) {
@@ -112,7 +133,7 @@ public class Duke {
                 if (eventArray[1].length() == 0 || eventArray[0].length() == 0) {
                     throw new DukeException();
                 }
-                taskItems[itemNum] = new Event(eventArray[0], eventArray[1]);
+                taskArrayList.add(new Event(eventArray[0], eventArray[1]));
                 printAcknowledgeAddMessage();
                 itemNum++;
             } catch (ArrayIndexOutOfBoundsException deadlineEmpty) {
@@ -128,12 +149,11 @@ public class Duke {
     }
 
     private static void printAcknowledgeAddMessage() {
-        System.out.println("Got it. I've added this task:\n" + taskItems[itemNum]);
+        System.out.println("Got it. I've added this task:\n" + taskArrayList.get(itemNum));
         System.out.println("Now you have " + (itemNum + 1) +  " tasks in the list.");
     }
 
     private static void initTaskTable() {
-        taskItems = new Task[MAX_TASK];
         itemNum = 0;
     }
 
