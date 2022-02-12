@@ -42,7 +42,8 @@ public class ChatSession {
     }
 
     public void markTaskIndex(int taskID) {
-        String output = taskList.get(taskID - 1).markTask(); // zero-based indexing
+        // zero-based indexing
+        String output = taskList.get(taskID - 1).markTask();
         System.out.println("____________________________________________________________");
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(output);
@@ -50,7 +51,8 @@ public class ChatSession {
     }
 
     public void unmarkTaskIndex(int taskID) {
-        String output = taskList.get(taskID - 1).unmarkTask(); // zero-based indexing
+        // zero-based indexing
+        String output = taskList.get(taskID - 1).unmarkTask();
         System.out.println("____________________________________________________________");
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(output);

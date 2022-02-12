@@ -12,7 +12,6 @@ public class Duke {
         userInputArr = userInput.split(" ", 2);
         userCommand = userInputArr[0];
 
-        // Execute multi-word commands
         switch(userCommand) {
         case "list":
             currChat.printTaskList();
