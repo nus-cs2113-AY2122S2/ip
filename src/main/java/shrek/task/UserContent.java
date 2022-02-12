@@ -40,12 +40,16 @@ public class UserContent {
         this.taskName = taskName;
     }
 
+    public String getTaskName() {
+        return taskName;
+    }
+
     @Override
     public String toString() {
         String mark;
-        if(this.getMark()){
+        if (this.getMark()) {
             mark = "X";
-        } else{
+        } else {
             mark = " ";
         }
         return ("[" + this.taskName + "]" + "[" + mark +"] " + getContent());

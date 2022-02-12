@@ -9,6 +9,10 @@ public class Events extends UserContent {
         this.at = at;
     }
 
+    public String getAt() {
+        return at;
+    }
+
     @Override
     public String toString() {
         return super.toString() + " (at: " + at + ")";
