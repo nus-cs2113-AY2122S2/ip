@@ -73,6 +73,7 @@ public class Serene {
         Scanner s = new Scanner(save);
         while(s.hasNext()) {
             recoverTask(s.nextLine());
+            taskCount++;
         }
     }
 
@@ -244,6 +245,7 @@ public class Serene {
             }
             taskList.remove(taskIndex);
             taskCount--;
+            rewriteSaveFile();
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             printWithPartition(INVALID_NUM_ERROR_MESSAGE);
         }
@@ -263,6 +265,19 @@ public class Serene {
 
     private static boolean isWithinRange(int taskIndex) {
         return taskIndex >= 0 && taskIndex <= taskCount - 1;
+    }
+
+    private static void rewriteSaveFile() {
+        try {
+            // Clear contents of file
+            new FileWriter(SAVE_FILE_PATH, false).close();
+            // Rewrite all tasks
+            for (Task task: taskList) {
+                appendSave(task.toString());
+            }
+        } catch (IOException e) {
+            printWithPartition(IO_FAIL_MESSAGE);
+        }
     }
 
     private static void addTask(String userInput) {
