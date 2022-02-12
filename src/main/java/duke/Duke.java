@@ -1,5 +1,6 @@
+package duke;
+
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Duke {
     public static final String LOGO = " ____        _\n"

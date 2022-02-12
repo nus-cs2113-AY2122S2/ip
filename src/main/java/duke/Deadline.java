@@ -1,10 +1,12 @@
-public class Event extends Task {
-    protected boolean isDone;
-    protected String at;
+package duke;
 
-    public Event(String description, String at) {
+public class Deadline extends Task {
+    protected boolean isDone;
+    protected String by;
+
+    public Deadline(String description, String by) {
         super(description);
-        this.at = at;
+        this.by = by;
         this.isDone = false;
     }
 
@@ -26,6 +28,6 @@ public class Event extends Task {
         } else {
             status = " ";
         }
-        return String.format("[E][%s] %s (at: %s)", status, super.toString().trim(), this.at.trim());
+        return String.format("[D][%s] %s (by: %s)", status, super.toString().trim(), this.by.trim());
     }
 }
