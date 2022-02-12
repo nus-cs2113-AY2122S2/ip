@@ -7,22 +7,17 @@ public class UserContent {
     private String taskName;
 
     public UserContent(){
-        this("", -1);
+        this("");
     }
 
-    public UserContent(String content, int listIndex){
+    public UserContent(String content){
         setContent(content);
         setUnmark();
-        setListIndex(listIndex);
         setTaskName(" ");
     }
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public void setListIndex(int listIndex) {
-        this.listIndex = listIndex;
     }
 
     public void setMark() {
@@ -31,10 +26,6 @@ public class UserContent {
 
     public void setUnmark() {
         isMark = false;
-    }
-
-    public int getListIndex() {
-        return listIndex;
     }
 
     public String getContent() {
@@ -57,6 +48,6 @@ public class UserContent {
         } else{
             mark = " ";
         }
-        return (getListIndex() + ". " + "[" + this.taskName + "]" + "[" + mark +"] " + getContent());
+        return ("[" + this.taskName + "]" + "[" + mark +"] " + getContent());
     }
 }

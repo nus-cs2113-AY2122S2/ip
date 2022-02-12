@@ -6,24 +6,23 @@ import shrek.task.Events;
 import shrek.task.ToDo;
 import shrek.constant.PrintStrings;
 import shrek.exception.InvalidCommandException;
+
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Shrek {
-    private static final int NUMBER_OF_INPUT = 100;
-    private static final UserContent[] lists = new UserContent[NUMBER_OF_INPUT];
-    private static int listIndex = 1;
+    private static final ArrayList<UserContent> lists = new ArrayList<>();
     private static final String LINE = PrintStrings.LINE;
     private static final int INDEX_OF_TASK_CONTENT = 0;
     private static final int INDEX_OF_TASK_NAME = 1;
     private static final int INDEX_OF_TASK_COMMAND = 0;
     private static final int INDEX_OF_TASK_INPUT = 1;
     private static final int NUMBER_OF_TERMS_IN_SPLIT = 2;
+    private static final int LIST_INDEX_CORRECTION = -1;
     public static final String NEW_LINE = System.lineSeparator();
     private static int errorCount = 0;
-    private static final String[] listOfCommands = {"todo", "deadline", "event", "mark", "unmark"};
+    private static final String[] listOfCommands = {"todo", "deadline", "event", "mark", "unmark", "delete"};
     public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
     public static final String ANSI_RESET = "\u001B[0m";
 
     public static void printGreeting() {
@@ -64,8 +63,10 @@ public class Shrek {
 
     public static void printList() {
         System.out.println("Go finish these tasks, NOW:");
-        for (int i = 1; i < listIndex; i++) {
-            System.out.println(lists[i]);
+        int indexOfList = 1;
+        for (UserContent i : lists) {
+            System.out.println(indexOfList + ". " + i);
+            indexOfList++;
         }
     }
 
@@ -90,11 +91,11 @@ public class Shrek {
                 throw new InvalidCommandException("Did you forget to add in the time or task?", errorCount);
             }
             if (taskTimeReference.equals("/at ")) {
-                lists[listIndex] = new Events(chunkOfInput[INDEX_OF_TASK_CONTENT],
-                        chunkOfInput[INDEX_OF_TASK_NAME], listIndex);
+                lists.add(new Events(chunkOfInput[INDEX_OF_TASK_CONTENT],
+                        chunkOfInput[INDEX_OF_TASK_NAME]));
             } else {
-                lists[listIndex] = new Deadlines(chunkOfInput[INDEX_OF_TASK_CONTENT],
-                        chunkOfInput[INDEX_OF_TASK_NAME], listIndex);
+                lists.add(new Deadlines(chunkOfInput[INDEX_OF_TASK_CONTENT],
+                        chunkOfInput[INDEX_OF_TASK_NAME]));
             }
         } catch (ArrayIndexOutOfBoundsException err) {
             if (!input.contains(taskTimeReference)) {
@@ -108,7 +109,7 @@ public class Shrek {
         boolean isTaskRanSuccessful = true;
         switch (taskName) {
         case "todo":
-            lists[listIndex] = new ToDo(input, listIndex);
+            lists.add(new ToDo(input));
             break;
         case "deadline":
             addDeadlineOrEventToList(input, "/by ");
@@ -122,47 +123,54 @@ public class Shrek {
         }
         if (isTaskRanSuccessful) {
             System.out.println("Done putting this in the list:");
-            System.out.println(lists[listIndex]);
-            System.out.println("Go do the " + listIndex + " task(s)!!");
-            listIndex++;
+            System.out.println(lists.get(lists.size() + LIST_INDEX_CORRECTION));
+            System.out.println("Go do the " + lists.size() + " task(s)!!");
         }
+    }
+
+    public static void deleteFromList(String indexOfList) throws InvalidCommandException {
+        UserContent taskToBeRemoved;
+        try {
+            taskToBeRemoved = lists.get(Integer.parseInt(indexOfList) + LIST_INDEX_CORRECTION);
+            lists.remove(Integer.parseInt(indexOfList) + LIST_INDEX_CORRECTION);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidCommandException("You cannot delete whats not there!", errorCount);
+        }
+        System.out.println("This task is gone, reduced to ashes:");
+        System.out.println(taskToBeRemoved);
+        System.out.println(lists.size() + " task(s) remain");
     }
 
     public static void markTask(String indexOfList) throws InvalidCommandException {
         try {
-            if (!lists[Integer.parseInt(indexOfList)].getMark()) {
-                lists[Integer.parseInt(indexOfList)].setMark();
+            if (!lists.get(Integer.parseInt(indexOfList) + LIST_INDEX_CORRECTION).getMark()) {
+                lists.get(Integer.parseInt(indexOfList) + LIST_INDEX_CORRECTION).setMark();
                 System.out.println("So you've done this task, that's great I guess?");
             } else {
                 System.out.println("You have done this task already!");
             }
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Input of mark must be a number!", errorCount);
-        } catch (NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommandException("You do not have that many items in the list!", errorCount);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InvalidCommandException("Enter a number from 1 to 100", errorCount);
         }
-
-        System.out.println(lists[Integer.parseInt(indexOfList)]);
+        System.out.println(lists.get(Integer.parseInt(indexOfList) + LIST_INDEX_CORRECTION));
     }
 
     public static void unmarkTask(String indexOfList) throws InvalidCommandException {
         try {
-            if (lists[Integer.parseInt(indexOfList)].getMark()) {
+            if (lists.get(Integer.parseInt(indexOfList) + LIST_INDEX_CORRECTION).getMark()) {
                 System.out.println("What do you mean you've undone");
-                lists[Integer.parseInt(indexOfList)].setUnmark();
+                lists.get(Integer.parseInt(indexOfList) + LIST_INDEX_CORRECTION).setUnmark();
             } else {
                 System.out.println("How can you undo something you've never did?");
             }
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Input of unmark must be a number!", errorCount);
-        } catch (NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommandException("You do not have that many items in the list!", errorCount);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InvalidCommandException("Enter a number from 1 to 100", errorCount);
         }
-        System.out.println(lists[Integer.parseInt(indexOfList)]);
+        System.out.println(lists.get(Integer.parseInt(indexOfList) + LIST_INDEX_CORRECTION));
     }
 
     public static void takeInput(String userInput) throws InvalidCommandException {
@@ -193,6 +201,9 @@ public class Shrek {
                 break;
             case "event":
                 addToList(words[INDEX_OF_TASK_INPUT], "event");
+                break;
+            case "delete":
+                deleteFromList(words[INDEX_OF_TASK_INPUT]);
                 break;
             default:
                 throw new InvalidCommandException("How did you get here?", errorCount);

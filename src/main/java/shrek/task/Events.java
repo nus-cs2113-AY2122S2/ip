@@ -3,8 +3,8 @@ package shrek.task;
 public class Events extends UserContent {
     protected String at;
 
-    public Events(String description, String at, int listIndex) {
-        super(description, listIndex);
+    public Events(String description, String at) {
+        super(description);
         setTaskName("E");
         this.at = at;
     }
