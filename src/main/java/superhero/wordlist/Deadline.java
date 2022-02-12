@@ -12,4 +12,15 @@ public class Deadline extends Vocabulary {
     public String toString() {
         return "[D]" + super.toString() + "(" + date + ")";
     }
+
+    @Override
+    public String fileFormatString() {
+        String mark;
+        if (isDone()) {
+            mark = "X";
+        } else {
+            mark = " ";
+        }
+        return "E/" + mark + "/" + getWord() + "/" + date;
+    }
 }
