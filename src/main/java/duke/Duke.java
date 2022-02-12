@@ -3,63 +3,64 @@ package duke;
 import duke.exception.*;
 import duke.task.*;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
 
     // Misc text elements
-    public static final String HORIZONTAL_SEPARATOR = "------------------------------------------------------------";
-    public static final String INPUT_PROMPT = "> ";
-    public static final String LS = System.lineSeparator();
+    private static final String HORIZONTAL_SEPARATOR = "------------------------------------------------------------";
+    private static final String INPUT_PROMPT = "> ";
+    private static final String LS = System.lineSeparator();
 
     // Messages
-    public static final String MESSAGE_WELCOME = "Hi, I'm Robit!" + LS + "What would you like me to do?";
-    public static final String MESSAGE_SHOW_TASKS = "Here are your tasks:";
-    public static final String MESSAGE_NO_TASKS = "You don't have any tasks!";
-    public static final String MESSAGE_INCORRECT_COMMAND_FORMAT = "Incorrect command format for %s." + LS
+    private static final String MESSAGE_WELCOME = "Hi, I'm Robit!" + LS + "What would you like me to do?";
+    private static final String MESSAGE_SHOW_TASKS = "Here are your tasks:";
+    private static final String MESSAGE_NO_TASKS = "You don't have any tasks!";
+    private static final String MESSAGE_INCORRECT_COMMAND_FORMAT = "Incorrect command format for %s." + LS
                                                                     + "Usage: \"%s\"";
-    public static final String MESSAGE_ITEMIZED_TASK = "%d) %s";
-    public static final String MESSAGE_TODO_ADDED = "duke.tasks.Todo successfully added:" + LS + "\t%s";
-    public static final String MESSAGE_DEADLINE_ADDED = "duke.tasks.Deadline successfully added:" + LS + "\t%s";
-    public static final String MESSAGE_EVENT_ADDED = "duke.tasks.Event successfully added:" + LS + "\t%s";
-    public static final String MESSAGE_UNKNOWN_COMMAND = "I don't understand that command...";
-    public static final String MESSAGE_TOO_MANY_TASKS = "I can't remember that many tasks...";
-    public static final String MESSAGE_NO_SUCH_INDEX = "There's no task with that index...";
-    public static final String MESSAGE_TASK_MARKED = "I've marked this task as done. Yay!" + LS + "%d) %s";
-    public static final String MESSAGE_TASK_UNMARKED = "I've unmarked this task." + LS + "%d) %s";
-    public static final String MESSAGE_TASK_ALREADY_MARKED = "That task is already marked.";
-    public static final String MESSAGE_TASK_ALREADY_UNMARKED = "That task is already unmarked.";
-    public static final String MESSAGE_GOODBYE = "Goodbye!";
+    private static final String MESSAGE_ITEMIZED_TASK = "%d) %s";
+    private static final String MESSAGE_TODO_ADDED = "Todo successfully added:" + LS + "\t%s";
+    private static final String MESSAGE_DEADLINE_ADDED = "Deadline successfully added:" + LS + "\t%s";
+    private static final String MESSAGE_EVENT_ADDED = "Event successfully added:" + LS + "\t%s";
+    private static final String MESSAGE_TASK_DELETED = "Task successfully deleted:" + LS + "\t%s";
+    private static final String MESSAGE_UNKNOWN_COMMAND = "I don't understand that command...";
+    private static final String MESSAGE_NO_SUCH_INDEX = "There's no task with that index...";
+    private static final String MESSAGE_TASK_MARKED = "I've marked this task as done. Yay!" + LS + "%d) %s";
+    private static final String MESSAGE_TASK_UNMARKED = "I've unmarked this task." + LS + "%d) %s";
+    private static final String MESSAGE_TASK_ALREADY_MARKED = "That task is already marked.";
+    private static final String MESSAGE_TASK_ALREADY_UNMARKED = "That task is already unmarked.";
+    private static final String MESSAGE_GOODBYE = "Goodbye!";
 
     // Commands
-    public static final String COMMAND_BYE = "bye";
-    public static final String COMMAND_LIST = "list";
-    public static final String COMMAND_TODO = "todo";
-    public static final String COMMAND_DEADLINE = "deadline";
-    public static final String COMMAND_EVENT = "event";
-    public static final String COMMAND_MARK = "mark";
-    public static final String COMMAND_UNMARK = "unmark";
+    private static final String COMMAND_BYE = "bye";
+    private static final String COMMAND_LIST = "list";
+    private static final String COMMAND_TODO = "todo";
+    private static final String COMMAND_DEADLINE = "deadline";
+    private static final String COMMAND_EVENT = "event";
+    private static final String COMMAND_MARK = "mark";
+    private static final String COMMAND_UNMARK = "unmark";
+    private static final String COMMAND_DELETE = "delete";
 
     // Argument separators
-    public static final String DEADLINE_SEPARATOR = " /by ";
-    public static final String EVENT_SEPARATOR = " /at ";
+    private static final String DEADLINE_SEPARATOR = " /by ";
+    private static final String EVENT_SEPARATOR = " /at ";
 
     // Usage examples
-    public static final String USAGE_BYE = COMMAND_BYE;
-    public static final String USAGE_LIST = COMMAND_LIST;
-    public static final String USAGE_TODO = COMMAND_TODO + " <your task>";
-    public static final String USAGE_DEADLINE = COMMAND_DEADLINE + " <your task>"
+    private static final String USAGE_BYE = COMMAND_BYE;
+    private static final String USAGE_LIST = COMMAND_LIST;
+    private static final String USAGE_TODO = COMMAND_TODO + " <your task>";
+    private static final String USAGE_DEADLINE = COMMAND_DEADLINE + " <your task>"
                                                 + DEADLINE_SEPARATOR + "<task deadline>";
-    public static final String USAGE_EVENT = COMMAND_EVENT + " <your event>" + EVENT_SEPARATOR + "<time>";
-    public static final String USAGE_MARK = COMMAND_MARK + " <task index>";
-    public static final String USAGE_UNMARK = COMMAND_UNMARK + " <task index>";
+    private static final String USAGE_EVENT = COMMAND_EVENT + " <your event>" + EVENT_SEPARATOR + "<time>";
+    private static final String USAGE_MARK = COMMAND_MARK + " <task index>";
+    private static final String USAGE_UNMARK = COMMAND_UNMARK + " <task index>";
+    private static final String USAGE_DELETE = COMMAND_DELETE + " <task index>";
 
     // Program logic stuff
     private static final Scanner in = new Scanner(System.in);
 
-    public static final int MAX_TASKS = 100;
-    private static Task[] savedTasks = new Task[MAX_TASKS];
-    private static int numSavedTasks = 0;
+    private static final ArrayList<Task> savedTasks = new ArrayList<>();
 
     private static boolean isExitRequested = false;
 
@@ -109,19 +110,26 @@ public class Duke {
     }
 
     /**
-     * Attempts to add the specified task to the task list.
+     * Adds the specified task to the task list.
      * @param t task to be added
      * @param successMessage message to be displayed on success
      * @return command feedback
      */
     private static String addTask(Task t, String successMessage) {
-        try {
-            savedTasks[numSavedTasks] = t;
-            numSavedTasks++;
-            return String.format(successMessage, t);
-        } catch (IndexOutOfBoundsException e) {
-            return MESSAGE_TOO_MANY_TASKS;
-        }
+        savedTasks.add(t);
+        return String.format(successMessage, t);
+    }
+
+    /**
+     * Deletes the task with the specified index from the task list.
+     * @param index index of the task to be removed
+     * @param successMessage message to be displayed on success
+     * @return command feedback
+     */
+    private static String removeTask(int index, String successMessage) {
+        String feedback = String.format(successMessage, savedTasks.get(index));
+        savedTasks.remove(index);
+        return feedback;
     }
 
     /**
@@ -147,6 +155,8 @@ public class Duke {
             return markCommand(args);
         case COMMAND_UNMARK:
             return unmarkCommand(args);
+        case COMMAND_DELETE:
+            return deleteCommand(args);
         default:
             return MESSAGE_UNKNOWN_COMMAND;
         }
@@ -179,12 +189,13 @@ public class Duke {
             if (!args.equals("")) {
                 throw new InvalidCommandFormatException();
             }
+            int numSavedTasks = savedTasks.size();
             if (numSavedTasks == 0) {
                 return MESSAGE_NO_TASKS;
             }
             String result = MESSAGE_SHOW_TASKS;
             for (int i = 0; i < numSavedTasks; i++) {
-                result += LS + String.format(MESSAGE_ITEMIZED_TASK, i + 1, savedTasks[i]);
+                result += LS + String.format(MESSAGE_ITEMIZED_TASK, i + 1, savedTasks.get(i));
             }
             return result;
         } catch (InvalidCommandFormatException e) {
@@ -257,14 +268,14 @@ public class Duke {
     private static String markCommand(String args) {
         try {
             int index = Integer.parseInt(args);
-            if (index < 1 || index > numSavedTasks) {
+            if (index < 1 || index > savedTasks.size()) {
                 throw new IndexOutOfBoundsException();
             }
-            if (savedTasks[index - 1].getIsDone()) {
+            if (savedTasks.get(index - 1).getIsDone()) {
                 return MESSAGE_TASK_ALREADY_MARKED;
             } else {
-                savedTasks[index - 1].setIsDone(true);
-                return String.format(MESSAGE_TASK_MARKED, index, savedTasks[index-1]);
+                savedTasks.get(index - 1).setIsDone(true);
+                return String.format(MESSAGE_TASK_MARKED, index, savedTasks.get(index - 1));
             }
         } catch (NumberFormatException e) {
             return invalidCommandError(COMMAND_MARK, USAGE_MARK);
@@ -272,6 +283,7 @@ public class Duke {
             return MESSAGE_NO_SUCH_INDEX;
         }
     }
+
     /**
      * Marks the specified task as incomplete.
      * @param args command arguments
@@ -280,17 +292,31 @@ public class Duke {
     private static String unmarkCommand(String args) {
         try {
             int index = Integer.parseInt(args);
-            if (index < 1 || index > numSavedTasks) {
+            if (index < 1 || index > savedTasks.size()) {
                 throw new IndexOutOfBoundsException();
             }
-            if (savedTasks[index - 1].getIsDone()) {
-                savedTasks[index - 1].setIsDone(false);
-                return String.format(MESSAGE_TASK_UNMARKED, index, savedTasks[index-1]);
+            if (savedTasks.get(index - 1).getIsDone()) {
+                savedTasks.get(index - 1).setIsDone(false);
+                return String.format(MESSAGE_TASK_UNMARKED, index, savedTasks.get(index-1));
             } else {
                 return MESSAGE_TASK_ALREADY_UNMARKED;
             }
         } catch (NumberFormatException e) {
             return invalidCommandError(COMMAND_UNMARK, USAGE_UNMARK);
+        } catch (IndexOutOfBoundsException e) {
+            return MESSAGE_NO_SUCH_INDEX;
+        }
+    }
+
+    private static String deleteCommand(String args) {
+        try {
+            int index = Integer.parseInt(args);
+            if (index < 1 || index > savedTasks.size()) {
+                throw new IndexOutOfBoundsException();
+            }
+            return removeTask(index - 1, MESSAGE_TASK_DELETED);
+        } catch (NumberFormatException e) {
+            return invalidCommandError(COMMAND_DELETE, USAGE_DELETE);
         } catch (IndexOutOfBoundsException e) {
             return MESSAGE_NO_SUCH_INDEX;
         }
