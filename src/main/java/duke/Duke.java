@@ -1,5 +1,5 @@
 package duke;
-
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
@@ -11,11 +11,7 @@ public class Duke {
         System.out.println(("Hello! I'm Duke"));
         System.out.println(("What can i do for you?"));
         System.out.println("---------------------");
-<<<<<<< Updated upstream
-        Task[] taskList = new Task[100];
-        Boolean continueProgram = true; 
-        int arrayIndex = 0; 
-=======
+
         ArrayList<Task> taskList = new ArrayList<Task>(); 
         //file organization 
         try {
@@ -68,31 +64,21 @@ public class Duke {
             e.printStackTrace();
         }
 
-
-
-
-        // Task[] taskList = new Task[100];
-        //using Arraylist instead. 
-        // int arrayIndex = 0; 
         String filePath = "tasks.txt";
         boolean continueProgram = true; 
->>>>>>> Stashed changes
+
+        //using Arraylist instead. 
+        boolean continueProgram = true; 
+
         DukeException dukeEx = new DukeException();
         while (continueProgram) { 
             Scanner sc = new Scanner(System.in);
             String inputString = sc.nextLine();
-<<<<<<< Updated upstream
-
-=======
-            updateFile(filePath,taskList); 
-            // terminating sequence 
->>>>>>> Stashed changes
             if (inputString.equals("bye")) { 
                 System.out.println("Bye! Hope to see you again.");
                 continueProgram = false; 
             }
-<<<<<<< Updated upstream
-=======
+
 
             //deleting task
             else if (inputString.matches("delete \\d+")){
@@ -109,7 +95,9 @@ public class Duke {
                     System.out.println("Noted. I've removed this task:");
                     System.out.println(removedTask.toString());
                     System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+
                     updateFile(filePath,taskList);
+
 
                 }
 
@@ -119,7 +107,6 @@ public class Duke {
             }
 
             //marking a task by index 
->>>>>>> Stashed changes
             else if (inputString.matches("mark \\d+")){
 
                 try {
@@ -127,16 +114,13 @@ public class Duke {
                     String indexValue = arrOfStr[1]; 
                     int indexValue2 = Integer.parseInt(indexValue) - 1;
                     //index given is out of array size
-                    if (indexValue2 > arrayIndex || indexValue2 < 0){
+                    if (indexValue2 > taskList.size()-1 || indexValue2 < 0){
                         throw new IndexOutOfBoundsException();
                     }
-<<<<<<< Updated upstream
-                    taskList[indexValue2].markTask(); 
-=======
-                    // taskList[indexValue2].markTask(); 
+
+            
                     taskList.get(indexValue2).markTask();
                     updateFile(filePath,taskList);
->>>>>>> Stashed changes
                 }
 
                 catch (IndexOutOfBoundsException e){
@@ -144,22 +128,19 @@ public class Duke {
                 }
             }
 
+            //unmarking a task by index 
             else if (inputString.matches("unmark \\d+")){
 
                 try {
                     String[] arrOfStr = inputString.split(" ", 0);
                     String indexValue = arrOfStr[1]; 
                     int indexValue2 = Integer.parseInt(indexValue) - 1;
-                    if (indexValue2 > arrayIndex || indexValue2 < 0){
+                    if (indexValue2 > taskList.size()-1 || indexValue2 < 0){
                         throw new IndexOutOfBoundsException();
                     }
-<<<<<<< Updated upstream
-                    taskList[indexValue2].unmarkTask(); 
-=======
-                    // taskList[indexValue2].unmarkTask(); 
                     taskList.get(indexValue2).unmarkTask();
                     updateFile(filePath,taskList);
->>>>>>> Stashed changes
+
                 }
 
                 catch (IndexOutOfBoundsException e){
@@ -175,12 +156,8 @@ public class Duke {
                         throw new IndexOutOfBoundsException();
                     }
                     System.out.println("Got it. I've added this task:");
-<<<<<<< Updated upstream
-                    taskList[arrayIndex] = new Todo(desc);
-                    System.out.println(taskList[arrayIndex].toString());
-                    arrayIndex++; 
-                    System.out.println("Now you have " + arrayIndex + " tasks in the list.");
-=======
+
+
                     taskList.add(new Todo(desc));
                     System.out.println(taskList.get(taskList.size()-1).toString());
                     System.out.println("Now you have " + taskList.size() + " tasks in the list.");
@@ -191,7 +168,7 @@ public class Duke {
                     catch (IOException e) {
                         System.out.println("Failed to write event data to text file.");
                     }
->>>>>>> Stashed changes
+
                 }
 
                 catch (IndexOutOfBoundsException e){
@@ -213,13 +190,10 @@ public class Duke {
                     if (by.isEmpty() || by.isBlank()) {
                         throw new IndexOutOfBoundsException();
                     }
-                    taskList[arrayIndex] = new Deadline(desc,by); 
+                    // taskList[arrayIndex] = new Deadline(desc,by); 
+                    taskList.add(new Deadline(desc,by));
                     System.out.println("Got it. I've added this task:");
-<<<<<<< Updated upstream
-                    System.out.println(taskList[arrayIndex].toString());
-                    arrayIndex++;
-                    System.out.println("Now you have " + arrayIndex + " tasks in the list.");
-=======
+                    
                     System.out.println(taskList.get(taskList.size()-1).toString());
                     System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                     String textToAdd = "D" + "|" + " 0 " + "|" + desc + "|" + by;
@@ -229,7 +203,7 @@ public class Duke {
                     catch (IOException e) {
                         System.out.println("Failed to write deadline data to text file.");
                     }
->>>>>>> Stashed changes
+
                 }
 
                 catch (IndexOutOfBoundsException e){
@@ -252,13 +226,9 @@ public class Duke {
                     if (by.isEmpty() || by.isBlank()) {
                         throw new IndexOutOfBoundsException();
                     }
-                    taskList[arrayIndex] = new Event(desc,by);
+                    // taskList[arrayIndex] = new Event(desc,by);
+                    taskList.add(new Event(desc,by));
                     System.out.println("Got it. I've added this task:");
-<<<<<<< Updated upstream
-                    System.out.println(taskList[arrayIndex].toString()); 
-                    arrayIndex++;
-                    System.out.println("Now you have " + arrayIndex + " tasks in the list.");
-=======
                     System.out.println(taskList.get(taskList.size()-1).toString()); 
                     System.out.println("Now you have " + taskList.size() + " tasks in the list.");
 
@@ -269,8 +239,6 @@ public class Duke {
                     catch (IOException e) {
                         System.out.println("Failed to write event data to text file.");
                     }
-
->>>>>>> Stashed changes
                 }
 
                 catch (IndexOutOfBoundsException e){
@@ -284,8 +252,8 @@ public class Duke {
             
             else if (inputString.equals("list")){
                 System.out.println("Here are the tasks in your list : ");
-                for (int i = 0; i<arrayIndex; i++) {
-                    System.out.println(i+1 + "." + taskList[i].toString());
+                for (int i = 0; i<taskList.size(); i++) {
+                    System.out.println(i+1 + "." + taskList.get(i).toString());
                 }
             }
 
