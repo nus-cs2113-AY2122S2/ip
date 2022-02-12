@@ -100,6 +100,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Checks for existence of the data file and attempts to create it if it doesn't already exist.
+     * @return true if data file already exists or could be created in specified location, false otherwise.
+     */
     private static boolean checkForDataFile() {
         // Using System.out.println here when I don't want to print a horizontal line after each output
         if (!directory.exists()) {
@@ -125,6 +129,9 @@ public class Duke {
         return true;
     }
 
+    /**
+     * Load tasks from data file into the program.
+     */
     private static void loadTasks() {
         try {
             Scanner sc = new Scanner(dataFile);
@@ -144,6 +151,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Parse task saved as string format and convert it back into an object.
+     * @param taskAsString task saved as string
+     * @param lineNum line number
+     * @return Task object if successful, or null if error
+     */
     private static Task parseSavedTask(String taskAsString, int lineNum) {
         String[] processedString = taskAsString.split(FS);
         try {
@@ -191,6 +204,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Attempt to save current task data to data file.
+     */
     private static void saveToFile() {
         try {
             FileWriter fw = new FileWriter(dataFile);
@@ -441,6 +457,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Deletes the specified task.
+     * @param args command arguments
+     * @return command feedback
+     */
     private static String deleteCommand(String args) {
         try {
             int index = Integer.parseInt(args);
