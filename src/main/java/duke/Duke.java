@@ -37,6 +37,16 @@ public class Duke {
         System.out.println(message);
     }
 
+    private static void printDeletedItem(Task task){
+        String message = DASHED_LINE + "\n" +
+                "\t Got it. I've removed this task:" + "\n" +
+                "\t \t" + task.toString() + "\n" +
+                "\t Now you have " + taskList.size() +
+                " tasks in the list." + "\n" +
+                DASHED_LINE;
+        System.out.println(message);
+    }
+
     private static void printList(){
         System.out.print(DASHED_LINE);
         for (int j = 0; j < taskList.size(); j++){
@@ -145,6 +155,14 @@ public class Duke {
             taskList.add(task);
 //            currentCount += 1;
             printAddedItem(task);
+        } else if (line.startsWith("delete")) {
+            if (line.length() < 8) {
+                throw new DukeIllegalDescription();
+            }
+            int indexToDelete = Integer.parseInt(line.substring(7));
+            Task deletedTask = taskList.get(indexToDelete);
+            taskList.remove(indexToDelete);
+            printDeletedItem(deletedTask);
         } else throw new DukeIllegalKeyword();
     }
 }
