@@ -295,8 +295,8 @@ public class Bim {
                     }
                     currentLine = String.join(DATA_FILE_SEPARATOR, currentParts);
                 }
-                ++i;
                 dataFileContent += currentLine + DATA_FILE_NEW_LINE;
+                ++i;
             }
             FileWriter writer = new FileWriter(getDataFilePath());
             writer.write(dataFileContent);
@@ -315,8 +315,9 @@ public class Bim {
             int i = 0;
 
             while (dataReader.hasNextLine()) {
+                String currentLine = dataReader.nextLine();
                 if (i != index) {
-                    dataFileContent += dataReader.nextLine() + DATA_FILE_NEW_LINE;
+                    dataFileContent += currentLine + DATA_FILE_NEW_LINE;
                 }
                 ++i;
             }
