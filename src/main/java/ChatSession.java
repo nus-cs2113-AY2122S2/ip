@@ -23,7 +23,6 @@ public class ChatSession {
 
     public void addTask(Task task) {
         // Create a new Task, append to taskList
-//        Task newTask = new Task(description);
         taskList.add(task);
         // Return the added task
         System.out.println("____________________________________________________________");
@@ -43,7 +42,8 @@ public class ChatSession {
     }
 
     public void markTaskIndex(int taskID) {
-        String output = taskList.get(taskID - 1).markTask(); // zero-based indexing
+        // zero-based indexing
+        String output = taskList.get(taskID - 1).markTask();
         System.out.println("____________________________________________________________");
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(output);
@@ -51,7 +51,8 @@ public class ChatSession {
     }
 
     public void unmarkTaskIndex(int taskID) {
-        String output = taskList.get(taskID - 1).unmarkTask(); // zero-based indexing
+        // zero-based indexing
+        String output = taskList.get(taskID - 1).unmarkTask();
         System.out.println("____________________________________________________________");
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(output);
@@ -59,9 +60,9 @@ public class ChatSession {
     }
 
     // If the chat session receives invalid input
-    public void invalidTask() {
+    public void printInvalidTask(DukeException e) {
         System.out.println("____________________________________________________________");
-        System.out.println("Incorrect input. Please try again.");
+        System.out.println(e.getMessage());
         System.out.println("____________________________________________________________");
     }
 }
