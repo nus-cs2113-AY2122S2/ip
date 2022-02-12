@@ -30,6 +30,10 @@ public class Bim {
     private static final String MESSAGE_MARK_TASK = "Okie Dokie!";
     private static final String MESSAGE_UNMARK_TASK = "Oh no! Anyways..";
     private static final String MESSAGE_DELETE_TASK = "Sure, deleted!";
+    private static final String MESSAGE_ADD_TASK_1 = "New ";
+    private static final String MESSAGE_ADD_TASK_2 = " added!";
+    private static final String MESSAGE_LIST_SIZE_1 = "There are ";
+    private static final String MESSAGE_LIST_SIZE_2 = " task(s) in the list";
 
     private static final String DELIMITER_EVENT = " /at ";
     private static final String DELIMITER_DEADLINE = " /by ";
@@ -80,10 +84,10 @@ public class Bim {
             } catch (BimException exception) {
                 System.out.println(ERROR_COMMAND);
             }
-            System.out.println(LINE_SEPARATOR);
             if (isExit == true) {
                 return;
             }
+            System.out.println(LINE_SEPARATOR);
         }
     }
 
@@ -150,7 +154,7 @@ public class Bim {
             System.out.println(MESSAGE_UNMARK_TASK);
         }
         modifyData(mode, index);
-        System.out.println("\t" + currentTask);
+        System.out.println(LINE_INDENT + currentTask);
     }
 
     private static void deleteTask(String commandArg) {
@@ -161,6 +165,7 @@ public class Bim {
         }
         String taskInfo = taskStore.get(index).toString();
         taskStore.remove(index);
+        deleteData(index);
         printDeleteMessage(taskInfo);
     }
 
@@ -239,13 +244,17 @@ public class Bim {
     private static void printDeleteMessage(String taskInfo) {
         System.out.println(MESSAGE_DELETE_TASK);
         System.out.println(LINE_INDENT + taskInfo);
-        System.out.println("There are " + taskStore.size() + " task(s) left in the list");
+        printListSize();
     }
 
     private static void printAddMessage(String type) {
-        System.out.println("New " + type + " added!");
+        System.out.println(MESSAGE_ADD_TASK_1 + type + MESSAGE_ADD_TASK_2);
         System.out.println(LINE_INDENT + taskStore.get(taskStore.size() - 1));
-        System.out.println("There are " + taskStore.size() + " task(s) in the list");
+        printListSize();
+    }
+
+    private static void printListSize() {
+        System.out.println(MESSAGE_LIST_SIZE_1 + taskStore.size() + MESSAGE_LIST_SIZE_2);
     }
 
     private static void writeData(String type, String description, String date) {
@@ -272,7 +281,7 @@ public class Bim {
     private static void modifyData(String mode, int index) {
         try {
             Scanner dataReader = new Scanner(dataFile);
-            String dataFileString = "";
+            String dataFileContent = "";
             int i = 0;
             while (dataReader.hasNextLine()) {
                 String currentLine = dataReader.nextLine();
@@ -287,13 +296,34 @@ public class Bim {
                     currentLine = String.join(DATA_FILE_SEPARATOR, currentParts);
                 }
                 ++i;
-                dataFileString += currentLine + DATA_FILE_NEW_LINE;
+                dataFileContent += currentLine + DATA_FILE_NEW_LINE;
             }
             FileWriter writer = new FileWriter(getDataFilePath());
-            writer.write(dataFileString);
+            writer.write(dataFileContent);
             dataReader.close();
             writer.close();
 
+        } catch (IOException exception) {
+            System.out.println(ERROR_DATA_FILE);
+        }
+    }
+
+    private static void deleteData(int index) {
+        try {
+            Scanner dataReader = new Scanner(dataFile);
+            String dataFileContent = "";
+            int i = 0;
+
+            while (dataReader.hasNextLine()) {
+                if (i != index) {
+                    dataFileContent += dataReader.nextLine() + DATA_FILE_NEW_LINE;
+                }
+                ++i;
+            }
+            FileWriter writer = new FileWriter(getDataFilePath());
+            writer.write(dataFileContent);
+            dataReader.close();
+            writer.close();
         } catch (IOException exception) {
             System.out.println(ERROR_DATA_FILE);
         }
