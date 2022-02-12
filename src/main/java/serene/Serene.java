@@ -22,11 +22,17 @@ public class Serene {
     private static final String IO_FAIL_MESSAGE = "I/O failed ;-;";
     private static final int DONE = -1;
     private static final int CONTINUE = -2;
+    private static final int DEADLINE = 1;
+    private static final int EVENT = 2;
     private static final int RESPONSE_INDEX_KEYWORD = 0;
     private static final int RESPONSE_INDEX_BODY = 1;
     private static final int TASK_INDEX_DESCRIPTION = 0;
     private static final int TASK_INDEX_OPTIONS = 1;
-    private static ArrayList<Task> taskList = new ArrayList<>();
+    private static final int SAVED_INDEX_TYPE = 1;
+    private static final int SAVED_INDEX_IS_DONE = 4;
+    private static final int SAVED_INDEX_DESCRIPTION = 7;
+    private static final int TIME_OFFSET = 6;
+    private static final ArrayList<Task> taskList = new ArrayList<>();
     private static int taskCount = 0;
     private static int statusOfSerene = CONTINUE;
     private static final String SAVE_FILE_PATH = "data/serene.txt";
@@ -70,7 +76,43 @@ public class Serene {
     }
 
     private static void recoverTask(String savedTask) {
-
+        // Extract task type
+        String taskType = savedTask.substring(SAVED_INDEX_TYPE, SAVED_INDEX_TYPE + 1);
+        // Extract isDone
+        String marker = savedTask.substring(SAVED_INDEX_IS_DONE, SAVED_INDEX_IS_DONE + 1);
+        // Extract description
+        String descriptionAndTime = savedTask.substring(SAVED_INDEX_DESCRIPTION);
+        int timeIndex;
+        String description;
+        switch(taskType) {
+        case "T":
+            ToDo todo = new ToDo(descriptionAndTime);
+            if (marker.equals("X")) {
+                todo.markDone();
+            }
+            taskList.add(todo);
+            break;
+        case "D":
+            timeIndex = descriptionAndTime.indexOf(" (by: ");
+            description = descriptionAndTime.substring(0, timeIndex);
+            String by = descriptionAndTime.substring(timeIndex + TIME_OFFSET);
+            Deadline deadline = new Deadline(description, by);
+            if (marker.equals("X")) {
+                deadline.markDone();
+            }
+            taskList.add(deadline);
+            break;
+        case "E":
+            timeIndex = descriptionAndTime.indexOf(" (at: ");
+            description = descriptionAndTime.substring(0, timeIndex);
+            String at = descriptionAndTime.substring(timeIndex + TIME_OFFSET);
+            Event event = new Event(description, at);
+            if (marker.equals("X")) {
+                event.markDone();
+            }
+            taskList.add(event);
+            break;
+        }
     }
 
     private static void printWelcomeMessage() {
