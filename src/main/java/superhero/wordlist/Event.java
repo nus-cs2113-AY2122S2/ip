@@ -12,4 +12,15 @@ public class Event extends Vocabulary {
     public String toString() {
         return "[E]" + super.toString() + "(" + eventTime + ")";
     }
+
+    @Override
+    public String fileFormatString() {
+        String mark;
+        if (isDone()) {
+            mark = "X";
+        } else {
+            mark = " ";
+        }
+        return "E/" + mark + "/" + getWord() + "/" + eventTime;
+    }
 }

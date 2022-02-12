@@ -1,6 +1,6 @@
 package superhero.wordlist;
 
-public class Vocabulary {
+public abstract class Vocabulary {
     private String word;
     private boolean isDone = false;
 
@@ -23,11 +23,13 @@ public class Vocabulary {
     @Override
     public String toString() {
         String mark;
-            if (isDone()) {
-                mark = "X";
-            } else {
-                mark = " ";
-            }
+        if (isDone()) {
+            mark = "X";
+        } else {
+            mark = " ";
+        }
         return "[" + mark + "] " + word;
     }
+
+    public abstract String fileFormatString();
 }

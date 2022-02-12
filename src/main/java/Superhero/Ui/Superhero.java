@@ -8,10 +8,11 @@ import superhero.wordlist.VocabList;
 import superhero.wordlist.Vocabulary;
 import superhero.wordlist.Deadline;
 import superhero.wordlist.Event;
+import superhero.storage.FileReadWrite;
 
 public class Superhero {
 
-    private final String dottedLine = "________________________________________________________________________________";
+    private static final String dottedLine = "________________________________________________________________________________";
     VocabList inputList = new VocabList();
     Scanner choice = new Scanner(System.in);
     String input;
@@ -23,6 +24,7 @@ public class Superhero {
      * and receiving input from user
      */
     public void startVocabCheck() {
+        inputList = FileReadWrite.loadFile();
         this.printWelcomeMessage();
         do {
             input = choice.nextLine();
@@ -30,6 +32,7 @@ public class Superhero {
             switch (inputArray.get(0)) {
             case "bye":
                 this.printByeMessage();
+                FileReadWrite.saveFile(inputList);
                 break;
             case "list":
                 inputList.printList();
@@ -140,7 +143,7 @@ public class Superhero {
     /**
      * Method to print message when user wants to mark/unmark a vocabulary but the second word is not a number
      */
-    private void printNumberFormatExceptionMessage() {
+    public static void printNumberFormatExceptionMessage() {
         System.out.println("Second word in input is not a number!\n" +
                 dottedLine);
     }

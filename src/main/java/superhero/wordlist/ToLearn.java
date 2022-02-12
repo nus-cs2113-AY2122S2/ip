@@ -9,4 +9,15 @@ public class ToLearn extends Vocabulary {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    @Override
+    public String fileFormatString() {
+        String mark;
+        if (isDone()) {
+            mark = "X";
+        } else {
+            mark = " ";
+        }
+        return "T/" + mark + "/" + getWord();
+    }
 }
