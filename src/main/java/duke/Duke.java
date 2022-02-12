@@ -1,6 +1,9 @@
 package duke;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.File;
 
 public class Duke {
 
@@ -61,9 +64,7 @@ public class Duke {
         System.out.println(message);
     }
 
-
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String line;
         Scanner in = new Scanner(System.in);
 
@@ -73,6 +74,8 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
+
+        FileAccess.loadFromFile();
 
         String greeting = DASHED_LINE + "\n" +
                 "\t Hello! I'm Duke\n" +
@@ -102,6 +105,7 @@ public class Duke {
             line = in.nextLine();
         }
         System.out.print(bye);
+        FileAccess.saveToFile();
     }
 
     private static void processLine(String line) throws DukeIllegalKeyword, DukeIllegalDescription {
