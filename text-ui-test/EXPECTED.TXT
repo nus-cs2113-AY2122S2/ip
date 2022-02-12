@@ -2,33 +2,42 @@
 Hi! I'm Bim!
 What can I do for you?
 ----------------------------------
+----------------------------------
 404 Not Found
+----------------------------------
 ----------------------------------
 New todo added!
 	[T][ ] get together with alice
 There are 1 task(s) in the list
 ----------------------------------
+----------------------------------
 New event added!
 	[E][ ] alice wedding (at: 24 nov 2022)
 There are 2 task(s) in the list
+----------------------------------
 ----------------------------------
 New deadline added!
 	[D][ ] prevent alice wedding (by: 24 nov 2022)
 There are 3 task(s) in the list
 ----------------------------------
+----------------------------------
 New todo added!
 	[T][ ] steal alice purse
 There are 4 task(s) in the list
+----------------------------------
 ----------------------------------
 New todo added!
 	[T][ ] steal alice phone
 There are 5 task(s) in the list
 ----------------------------------
+----------------------------------
 Okie Dokie!
 	[T][X] steal alice purse
 ----------------------------------
+----------------------------------
 Okie Dokie!
 	[T][X] steal alice phone
+----------------------------------
 ----------------------------------
 1.[T][ ] get together with alice
 2.[E][ ] alice wedding (at: 24 nov 2022)
@@ -36,41 +45,66 @@ Okie Dokie!
 4.[T][X] steal alice purse
 5.[T][X] steal alice phone
 ----------------------------------
+----------------------------------
 New todo added!
 	[T][ ] seek help from mallory
 There are 6 task(s) in the list
 ----------------------------------
+----------------------------------
 Oh no! Anyways..
 	[T][ ] steal alice purse
 ----------------------------------
-Oh no! Anyways..
-	[T][ ] steal alice phone
 ----------------------------------
-1.[T][ ] get together with alice
+Okie Dokie!
+	[T][X] get together with alice
+----------------------------------
+----------------------------------
+1.[T][X] get together with alice
 2.[E][ ] alice wedding (at: 24 nov 2022)
 3.[D][ ] prevent alice wedding (by: 24 nov 2022)
 4.[T][ ] steal alice purse
-5.[T][ ] steal alice phone
+5.[T][X] steal alice phone
 6.[T][ ] seek help from mallory
 ----------------------------------
-Invalid index!
 ----------------------------------
 Invalid index!
 ----------------------------------
+----------------------------------
 Invalid index!
+----------------------------------
 ----------------------------------
 Check your arguments!
 ----------------------------------
+----------------------------------
 Check your arguments!
 ----------------------------------
-1.[T][ ] get together with alice
+----------------------------------
+1.[T][X] get together with alice
 2.[E][ ] alice wedding (at: 24 nov 2022)
 3.[D][ ] prevent alice wedding (by: 24 nov 2022)
 4.[T][ ] steal alice purse
-5.[T][ ] steal alice phone
+5.[T][X] steal alice phone
 6.[T][ ] seek help from mallory
+----------------------------------
+----------------------------------
+Sure, deleted!
+	[E][ ] alice wedding (at: 24 nov 2022)
+There are 5 task(s) in the list
+----------------------------------
+----------------------------------
+Sure, deleted!
+	[T][ ] seek help from mallory
+There are 4 task(s) in the list
+----------------------------------
+----------------------------------
+1.[T][X] get together with alice
+2.[D][ ] prevent alice wedding (by: 24 nov 2022)
+3.[T][ ] steal alice purse
+4.[T][X] steal alice phone
+----------------------------------
 ----------------------------------
 I didn't understand that!
+----------------------------------
 ----------------------------------
 I didn't understand that!
 ----------------------------------

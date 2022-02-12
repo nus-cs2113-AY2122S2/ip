@@ -9,13 +9,15 @@ mark 5
 list
 todo seek help from mallory
 unmark 4
-unmark 5
+mark 1
 list
 mark 7
-unmark 7
 unmark notanumber
 event bob's birthday
 deadline prepare present
+list
+delete 2
+delete 5
 list
 hello?
 who dis?
