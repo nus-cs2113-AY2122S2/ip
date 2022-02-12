@@ -1,27 +1,84 @@
 package duke;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
+
 public class Duke {
     public static void main(String[] args) throws IndexOutOfBoundsException{
         System.out.println("---------------------");
         System.out.println(("Hello! I'm Duke"));
         System.out.println(("What can i do for you?"));
         System.out.println("---------------------");
-        // Task[] taskList = new Task[100];
-        //using Arraylist instead. 
+
         ArrayList<Task> taskList = new ArrayList<Task>(); 
-        // int arrayIndex = 0; 
+        //file organization 
+        try {
+            File myTasks = new File("tasks.txt"); 
+            if (myTasks.createNewFile()){
+                System.out.println("File is created!");
+               }else{
+                System.out.println("File exists, reading it to taskList!");
+                Scanner s = new Scanner(myTasks); // create a Scanner using the File as the source
+                while (s.hasNext()){
+                    String nextString = s.nextLine();
+                    String[] splitString = nextString.split("\\|");
+                    String typeTask = splitString[0].replaceAll(" ","");
+                    String marked = splitString[1].replaceAll(" ","");
+                    String desc = splitString[2];
+                    System.out.println(typeTask);
+                    System.out.println(marked);
+                    System.out.println(desc);
+                    String todo = "T"; 
+                    String deadline = "D";   
+                    String event = "E";      
+                    String toMark = "1";          
+                    if (typeTask.equals(todo)) { 
+                        taskList.add(new Todo(desc));
+                        if (marked.equals(toMark)) { 
+                            taskList.get(taskList.size()-1).markTask();
+                        }
+                    }
+
+                    else if (typeTask.equals(deadline)) { 
+                        String deadlineDate = splitString[3];
+                        taskList.add(new Deadline(desc,deadlineDate));
+                        if (marked.equals(toMark)) { 
+                            taskList.get(taskList.size()-1).markTask();
+                        }
+                    }
+
+                    else if (typeTask.equals(event)) { 
+                        String eventDate = splitString[3];
+                        taskList.add(new Event(desc,eventDate)); 
+                        if (marked.equals(toMark)) { 
+                            taskList.get(taskList.size()-1).markTask();
+                        }
+                    }
+                }
+                s.close();
+               }        
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String filePath = "tasks.txt";
         boolean continueProgram = true; 
+
+        //using Arraylist instead. 
+        boolean continueProgram = true; 
+
         DukeException dukeEx = new DukeException();
         while (continueProgram) { 
             Scanner sc = new Scanner(System.in);
             String inputString = sc.nextLine();
-
-            // terminating sequence 
             if (inputString.equals("bye")) { 
                 System.out.println("Bye! Hope to see you again.");
                 continueProgram = false; 
             }
+
 
             //deleting task
             else if (inputString.matches("delete \\d+")){
@@ -38,6 +95,9 @@ public class Duke {
                     System.out.println("Noted. I've removed this task:");
                     System.out.println(removedTask.toString());
                     System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+
+                    updateFile(filePath,taskList);
+
 
                 }
 
@@ -57,8 +117,10 @@ public class Duke {
                     if (indexValue2 > taskList.size()-1 || indexValue2 < 0){
                         throw new IndexOutOfBoundsException();
                     }
-                    // taskList[indexValue2].markTask(); 
+
+            
                     taskList.get(indexValue2).markTask();
+                    updateFile(filePath,taskList);
                 }
 
                 catch (IndexOutOfBoundsException e){
@@ -76,8 +138,9 @@ public class Duke {
                     if (indexValue2 > taskList.size()-1 || indexValue2 < 0){
                         throw new IndexOutOfBoundsException();
                     }
-                    // taskList[indexValue2].unmarkTask(); 
                     taskList.get(indexValue2).unmarkTask();
+                    updateFile(filePath,taskList);
+
                 }
 
                 catch (IndexOutOfBoundsException e){
@@ -93,9 +156,19 @@ public class Duke {
                         throw new IndexOutOfBoundsException();
                     }
                     System.out.println("Got it. I've added this task:");
+
+
                     taskList.add(new Todo(desc));
                     System.out.println(taskList.get(taskList.size()-1).toString());
                     System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                    String textToAdd = "T" + "|" + " 0 " + "|" + desc;
+                    try {
+                        appendData(filePath,textToAdd);
+                    }
+                    catch (IOException e) {
+                        System.out.println("Failed to write event data to text file.");
+                    }
+
                 }
 
                 catch (IndexOutOfBoundsException e){
@@ -120,8 +193,17 @@ public class Duke {
                     // taskList[arrayIndex] = new Deadline(desc,by); 
                     taskList.add(new Deadline(desc,by));
                     System.out.println("Got it. I've added this task:");
+                    
                     System.out.println(taskList.get(taskList.size()-1).toString());
                     System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                    String textToAdd = "D" + "|" + " 0 " + "|" + desc + "|" + by;
+                    try {
+                        appendData(filePath,textToAdd);
+                    }
+                    catch (IOException e) {
+                        System.out.println("Failed to write deadline data to text file.");
+                    }
+
                 }
 
                 catch (IndexOutOfBoundsException e){
@@ -149,6 +231,14 @@ public class Duke {
                     System.out.println("Got it. I've added this task:");
                     System.out.println(taskList.get(taskList.size()-1).toString()); 
                     System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+
+                    String textToAdd = "E" + "|" + " 0 " + "|" + desc + "|" + by;
+                    try {
+                        appendData(filePath,textToAdd);
+                    }
+                    catch (IOException e) {
+                        System.out.println("Failed to write event data to text file.");
+                    }
                 }
 
                 catch (IndexOutOfBoundsException e){
@@ -180,4 +270,60 @@ public class Duke {
            
       
     }
+    public static void appendData(String filePath, String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath,true); 
+        fw.write(System.getProperty( "line.separator" ));
+        fw.write(textToAppend); 
+        fw.close();
+    }
+
+    public static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
+    public static void updateFile(String filePath, ArrayList<Task> taskList) {
+        for (int i = 0; i<taskList.size(); i++) {
+            System.out.println(taskList.get(i).toString());
+            String taskListLine = taskList.get(i).toString();
+            String marked = "0";
+            String textToAdd = "";
+            if ( taskListLine.charAt(4)==('X') ) {
+                marked = "1";
+            }
+
+            String typeTask = Character.toString(taskListLine.charAt(1));
+            if (typeTask.equals("T")) {
+                textToAdd = typeTask + "|" + marked + "|" + taskListLine.substring(6);
+            }
+
+            else {
+                int index = taskListLine.indexOf("("); 
+                int index2 = taskListLine.indexOf(")"); 
+                textToAdd = typeTask + "|" + marked + "|" + taskListLine.substring(6,index) + "|" + taskListLine.substring(index+1,index2);
+            }
+
+            if (i==0){
+                try {
+                    writeToFile(filePath,textToAdd);
+                } catch (IOException e) {
+                    System.out.println("Failed to update first line.");
+                }
+            }
+
+            else { 
+                try {
+                    appendData(filePath,textToAdd);
+                } catch (IOException e) {
+                    System.out.println("Failed to append line.");
+                }
+            }
+            
+        }
+    }
+
+
+
+
 }
