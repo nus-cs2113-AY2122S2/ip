@@ -25,11 +25,13 @@ public class Vera {
     private static final String HELP_MESSAGE_MARK_COMMAND = "Mark: Marks a task as done. "
             + "\nTo mark a specific task, please enter 'mark <list_index>'.\n\n Here, "
             + "'list_index' denotes the index of a task \n based on the task list under the command 'list'\n"
-            + "\nE.g., 'mark 1' marks the first task in the task list as done";
+            + "\nE.g., 'mark 1' marks the first task in the task list as done\n\n"
+            + "Note: You can only mark one task per command input";
     private static final String HELP_MESSAGE_UNMARK_COMMAND = "Unmark: Marks a task as undone."
             + "\nTo unmark a specific task, please enter 'unmark <list_index>'.\n\n Here, "
             + "'list_index' denotes the index of a task \n based on the task list under the command 'list'\n"
-            + "\nE.g., 'unmark 3' unmarks the third task in the task list";
+            + "\nE.g., 'unmark 3' unmarks the third task in the task list\n\n"
+            + "Note: You can only unmark one task per command input";
     private static final String HELP_MESSAGE_TODO_COMMAND = "Todo: Adds a 'todo' task into the task list."
             + "\nA 'todo' contains only a task description. \n\nTo add other features to your task, "
             + "such as date and time, \nuse either 'deadline' or 'event'\n\nTo execute the command, \n"
@@ -43,12 +45,19 @@ public class Vera {
             + "of when the event will happen. \n\nTo execute the command,\n"
             + "enter 'event <task_description> /at <task_date>'.\n"
             + "E.g. event project meeting /at 6th Aug 2-4pm";
-    private static final String HELP_MESSAGE_QUICK_START_COMMAND = "Command quick start guide:\n1) List: list\n"
+    private static final String HELP_MESSAGE_DELETE_COMMAND = "Delete: Deletes a task in the task list.\n"
+            + "To delete a specific task, please enter 'delete <list_index>'.\n\n Here, "
+            + "'list_index' denotes the index of a task \n based on the task list under the command 'list'\n"
+            + "\nE.g., 'delete 2' deletes the second task in the task list\n\n"
+            + "Note: You can only delete one task per command input";
+    private static final String HELP_MESSAGE_QUICK_START_COMMAND = "Command input quick start guide:\n"
+            + "1) List: list\n"
             + "2) Mark: mark <list_index>\n"
             + "3) Unmark: unmark <list_index>\n"
             + "4) Todo: todo <task_description>\n"
             + "5) Deadline: deadline <task_description> /by <task_date>\n"
-            + "6) Event: event <task_description> /at <task_date>";
+            + "6) Event: event <task_description> /at <task_date>\n"
+            + "7) Delete: delete <list_index>";
 
     private static final String ERROR_INVALID_INPUT_MESSAGE = "Please key in an appropriate command.\n"
             + HELP_MESSAGE;
@@ -58,6 +67,8 @@ public class Vera {
             + " add a '/by' to your 'deadline' command.";
     private static final String ERROR_TODO_REPEATED_INPUT_MESSAGE = "Oops! It seems that you've "
             + "already added this task.";
+    private static final String ERROR_INVALID_DELETE_INDEX_MESSAGE = "Oops! It seems that you've given\n"
+            + "an invalid index to delete the task.";
 
 
     private static final int OPTIONS_INDEX = 0;
@@ -67,6 +78,7 @@ public class Vera {
     private static final int TASK_DESCRIPTION_INDEX_TODO = 1;
     private static final int TASK_DATE_INDEX = 1;
     private static final int HELP_OPTIONS_INDEX = 1;
+    private static final int DELETE_INDEX = 1;
 
     public enum TaskType {
         TODO, DEADLINE, EVENT
@@ -201,13 +213,15 @@ public class Vera {
                 + "with the new input? [Y/N]");
         while (true) {
             String input = SCANNER.nextLine();
-            if (input.equalsIgnoreCase("Y") || input.equalsIgnoreCase("Yes")) {
+            if (input.equalsIgnoreCase("Y")
+                    || input.equalsIgnoreCase("Yes")) {
                 isOldTaskReplaced = true;
                 System.out.println(PARTITION_LINE + "\nUnderstood. Proceeding to change"
                         + "\nthe old task with the new one..........");
                 break;
             }
-            if (input.equalsIgnoreCase("N") || input.equalsIgnoreCase("No")) {
+            if (input.equalsIgnoreCase("N")
+                    || input.equalsIgnoreCase("No")) {
                 break;
             }
             printWithPartition("Please confirm your choice with either Y (Yes) or N (No).");
@@ -280,7 +294,7 @@ public class Vera {
                 return markTask(parsedInput);
             }
             return unmarkTask(parsedInput);
-        } catch (IndexOutOfBoundsException | InputEmptyException e) {
+        } catch (IndexOutOfBoundsException | InputEmptyException | NumberFormatException e) {
             return "Bzzt!\nPlease"
                     + " key in a valid task number "
                     + "to mark/unmark your task." + HELP_MESSAGE_SPECIFIC_COMMAND;
@@ -289,7 +303,7 @@ public class Vera {
 
     private static String showHelpList() {
         System.out.println(PARTITION_LINE + "\nHere is a list of commands available:");
-        String[] helpCommands = {"list", "mark", "unmark", "todo", "deadline", "event"};
+        String[] helpCommands = {"list", "mark", "unmark", "todo", "deadline", "event", "delete",};
         for (String helpCommand : helpCommands) {
             System.out.println(PARTITION_LINE + System.lineSeparator()
                     + showSpecificHelpCommand(helpCommand));
@@ -298,8 +312,8 @@ public class Vera {
                 + "enter 'help quick start'";
     }
 
-    private static String showSpecificHelpCommand(String parsedInput) {
-        switch (parsedInput.toLowerCase()) {
+    private static String showSpecificHelpCommand(String filteredHelpInput) {
+        switch (filteredHelpInput.toLowerCase()) {
         case "list":
             return HELP_MESSAGE_LIST_COMMAND;
         case "mark":
@@ -312,6 +326,8 @@ public class Vera {
             return HELP_MESSAGE_DEADLINE_COMMAND;
         case "event":
             return HELP_MESSAGE_EVENT_COMMAND;
+        case "delete":
+            return HELP_MESSAGE_DELETE_COMMAND;
         case "quick start":
             return HELP_MESSAGE_QUICK_START_COMMAND + HELP_MESSAGE_SPECIFIC_COMMAND;
         default:
@@ -325,6 +341,25 @@ public class Vera {
             return showSpecificHelpCommand(parsedInput[HELP_OPTIONS_INDEX]);
         } catch (IndexOutOfBoundsException e) {
             return showHelpList();
+        }
+    }
+
+    private static String deleteTask(String[] parsedInput) throws InputEmptyException {
+        if (parsedInput[DELETE_INDEX].isBlank()) {
+            throw new InputEmptyException();
+        }
+        int index = Integer.parseInt(parsedInput[DELETE_INDEX]) - 1;
+        Task taskToBeRemoved = tasks.get(index);
+        tasks.remove(index);
+        return "Okay. I've removed this task:\n  " + taskToBeRemoved
+                + "\nNow you have " + tasks.size() + " task(s) in the list.";
+    }
+
+    private static String catchInvalidDeleteInput(String[] parsedInput) {
+        try {
+            return deleteTask(parsedInput);
+        } catch (IndexOutOfBoundsException | InputEmptyException | NumberFormatException e) {
+            return ERROR_INVALID_DELETE_INDEX_MESSAGE + HELP_MESSAGE_SPECIFIC_COMMAND;
         }
     }
 
@@ -343,6 +378,8 @@ public class Vera {
             return filterTaskBeforeAddingToTaskList(parsedInput, "/at", TaskType.EVENT);
         case "deadline":
             return filterTaskBeforeAddingToTaskList(parsedInput, "/by", TaskType.DEADLINE);
+        case "delete":
+            return catchInvalidDeleteInput(parsedInput);
         case "help":
             return filterHelpCommand(userInput);
         default:
