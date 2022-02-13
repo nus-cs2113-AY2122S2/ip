@@ -1,6 +1,8 @@
-import utilities.*;
+
+
 import tasks.*;
 import java.util.Scanner;
+import java.util.*;
 
 public class Duke {
 
@@ -22,23 +24,21 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println(""+logo);
         dialog.printLine();
-        System.out.println("Hello I'm Duke.");
+        System.out.println("Hello I'm main.");
         System.out.println("What can I do for you?");
         dialog.printLine();
         System.out.println();
     }
 
     /**
-     * utilities.DukeException to represent exceptions specific to Duke.
+     * java.DukeException to represent exceptions specific to main.
      */
     public static void manageUserInput(DialogGenerator dialog) throws DukeException {
-        final int TASK_LENGTH = 100;
         int index;
-        int taskCount = 0;
         boolean notQuit = true;
 
         Task t;
-        Task[] allTasks = new Task[TASK_LENGTH];
+        ArrayList<Task> allTasks = new ArrayList<Task>();
 
         while (notQuit) {
             String command;
@@ -58,18 +58,25 @@ public class Duke {
 
                 case "mark":
                     index = Integer.parseInt(command.split(" ")[1]) - 1;
-                    t = allTasks[index];
+                    t = allTasks.get(index);
                     dialog.markAndDisplayTask(t);
                     break;
 
                 case "unmark":
                     index = Integer.parseInt(command.split(" ")[1]) - 1;
-                    t = allTasks[index];
+                    t = allTasks.get(index);
                     dialog.unmarkAndDisplayTask(t);
                     break;
 
                 case "list":
-                    dialog.displayListWithStatus(allTasks, taskCount);
+                    dialog.displayListWithStatus(allTasks, allTasks.size());
+                    break;
+
+                case "delete":
+                    index = Integer.parseInt(command.split(" ")[1]) - 1;
+                    dialog.deleteAndDisplayTask(allTasks.get(index), allTasks.size() - 1);
+                    allTasks.remove(index);
+
                     break;
 
                 case "todo":
@@ -85,9 +92,8 @@ public class Duke {
                     }
 
                     t = new Todo(description);
-                    allTasks[taskCount] = t;
-                    taskCount += 1;
-                    dialog.displayTask(t, taskCount);
+                    allTasks.add(allTasks.size(), t);
+                    dialog.displayTask(t, allTasks.size());
                     break;
 
                 case "deadline":
@@ -114,9 +120,8 @@ public class Duke {
                     }
 
                     t = new Deadline(description, by);
-                    allTasks[taskCount] = t;
-                    taskCount += 1;
-                    dialog.displayTask(t, taskCount);
+                    allTasks.add(t);
+                    dialog.displayTask(t, allTasks.size());
                     break;
 
                 case "event":
@@ -143,9 +148,8 @@ public class Duke {
                     }
 
                     t = new Event(description, at);
-                    allTasks[taskCount] = t;
-                    taskCount += 1;
-                    dialog.displayTask(t, taskCount);
+                    allTasks.add(t);
+                    dialog.displayTask(t, allTasks.size());
                     break;
 
                 default:

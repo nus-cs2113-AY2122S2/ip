@@ -1,4 +1,8 @@
-import tasks.*;
+
+
+import tasks.Task;
+
+import java.util.ArrayList;
 
 public class DialogGenerator {
 
@@ -20,11 +24,11 @@ public class DialogGenerator {
         this.printLine();
     }
 
-    public void displayListWithStatus(Task[] allTasks, int taskCount) {
+    public void displayListWithStatus(ArrayList<Task> allTasks, int taskCount) {
         this.printLine();
         System.out.println("Here are the tasks in your list:");
         for(int i = 1; i <= taskCount; i++){
-            System.out.println(i + ". " + allTasks[i-1]);
+            System.out.println(i + ". " + allTasks.get(i - 1));
         }
         this.printLine();
     }
@@ -42,6 +46,14 @@ public class DialogGenerator {
         this.printLine();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(t);
+        this.printLine();
+    }
+
+    public void deleteAndDisplayTask(Task t, int taskCount) {
+        this.printLine();
+        System.out.println("Noted. I've removed this task: ");
+        System.out.println(t);
+        System.out.printf("Now you have %d tasks in the list.\n", taskCount);
         this.printLine();
     }
 
