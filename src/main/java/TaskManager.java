@@ -125,7 +125,7 @@ public class TaskManager {
     saveData is a public method to save current data into the hard disk (relative path: src\\DataSrc\\taskList.txt)
      */
     public void saveData() throws IOException {
-        FileWriter writer = new FileWriter("src\\DataSrc\\taskList.txt");
+        FileWriter writer = new FileWriter(".\\src\\DataSrc\\taskList.txt");
         for(Task task: tasks){
             boolean taskDone = task.getStatusIcon().equalsIgnoreCase("X");
             String taskType = task.toString().substring(1,2);
@@ -149,7 +149,7 @@ public class TaskManager {
     readData is a public method to read data from hard disk
      */
     public void readData() throws IOException {
-        BufferedReader in = new BufferedReader(new FileReader("src\\DataSrc\\taskList.txt"));
+        BufferedReader in = new BufferedReader(new FileReader(".\\src\\DataSrc\\taskList.txt"));
         String taskLine;
         while ((taskLine = in.readLine()) != null) {
             String[] task = taskLine.split(",");
