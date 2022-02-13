@@ -121,7 +121,9 @@ public class TaskManager {
         return false;
     }
 
-
+    /*
+    saveData is a public method to save current data into the hard disk (relative path: src\\DataSrc\\taskList.txt)
+     */
     public void saveData() throws IOException {
         FileWriter writer = new FileWriter("src\\DataSrc\\taskList.txt");
         for(Task task: tasks){
@@ -147,24 +149,27 @@ public class TaskManager {
         writer.close();
     }
 
+    /*
+    readData is a public method to read data from hard disk
+     */
     public void readData() throws IOException {
         BufferedReader in = new BufferedReader(new FileReader("src\\DataSrc\\taskList.txt"));
         String taskLine;
         while ((taskLine = in.readLine()) != null) {
             String[] task = taskLine.split(",");
             switch (task[0]) {
-                case "T":
-                    ToDo todo = new ToDo(task[2]);
-                    tasks.add(todo);
-                    break;
-                case "D":
-                    Deadline deadline = new Deadline(task[2], task[3]);
-                    tasks.add(deadline);
-                    break;
-                case "E":
-                    Event event = new Event(task[2], task[3]);
-                    tasks.add(event);
-                    break;
+            case "T":
+                ToDo todo = new ToDo(task[2]);
+                tasks.add(todo);
+                break;
+            case "D":
+                Deadline deadline = new Deadline(task[2], task[3]);
+                tasks.add(deadline);
+                break;
+            case "E":
+                Event event = new Event(task[2], task[3]);
+                tasks.add(event);
+                break;
             }
             if (task[1].equals("true"))
                 tasks.get(tasks.size() - 1).setDone();
