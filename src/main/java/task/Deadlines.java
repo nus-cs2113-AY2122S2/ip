@@ -3,6 +3,12 @@ package task;
 public class Deadlines extends Task {
     protected String by;
 
+    public Deadlines(String description, String by, boolean isDone) {
+        super(description);
+        this.by = by;
+        this.isDone = isDone;
+    }
+
     public Deadlines(String description, String by) {
         super(description);
         this.by = by;

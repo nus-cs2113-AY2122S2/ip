@@ -75,7 +75,7 @@ public class Command {
             }
             String description = dummy.substring(5);
             Task task = new Task(description);
-            tasklist.add(task);
+             tasklist.add(task);
             System.out.println(line);
             System.out.println(task);
             System.out.println(String.format("Now you have %d tasks in you list.", tasklist.size()));

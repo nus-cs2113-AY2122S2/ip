@@ -19,6 +19,14 @@ public class TaskList {
         tasks.add(task);
     }
 
+    public TaskList link(TaskList newList) {
+        int n = newList.size();
+        for(int i = 1; i <= n; i++) {
+            this.add(newList.getTask(i));
+        }
+        return this;
+    }
+
     public int amountOfTasks() {
         return tasks.size();
     }

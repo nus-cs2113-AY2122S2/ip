@@ -16,13 +16,21 @@ public class Duke {
         System.out.println(ui.printLogo());
         System.out.println(ui.greet());
         String commandType = parser.getCommand();
+        Storage storage;
+        try {
+            storage = new Storage();
+            tasklist = storage.loadTaskList();
+        } catch (DukeException e) {
+            throw new DukeException("Cannot load file.\n");
+        }
 
         while(!commandType.equals("bye")) {
             command = new Command(commandType);
             command.execute(tasklist);
             commandType = parser.getCommand();
         }
-
+        storage.saveTaskList(tasklist);
         System.out.println(line + "Bye. Hope to see you again soon!\n" + line);
     }
+
 }

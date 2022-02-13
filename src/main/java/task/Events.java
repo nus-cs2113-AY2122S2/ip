@@ -9,6 +9,12 @@ public class Events extends Task {
         isDone = false;
     }
 
+    public Events(String description, String duration, boolean isDone) {
+        super(description);
+        this.duration = duration;
+        this.isDone = isDone;
+    }
+
     public String getDuration() {
         return duration;
     }

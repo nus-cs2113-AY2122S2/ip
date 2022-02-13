@@ -8,6 +8,18 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
+    public int getDoneStatus() {
+        if(isDone) {
+            return 1;
+        }
+        return 0;
+    }
+
     public String getDescription() {
         return description;
     }
