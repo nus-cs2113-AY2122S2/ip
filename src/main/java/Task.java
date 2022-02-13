@@ -1,8 +1,10 @@
+import java.util.ArrayList;
+
 public class Task {
     protected String description;
     protected boolean isDone;
 
-    private static Task[] tasks = new Task[100];
+    private static ArrayList<Task> tasks = new ArrayList<>();
     private static int taskCount = 0;
 
     public Task(String description){
@@ -11,7 +13,7 @@ public class Task {
     }
 
     public static void addTask(Task task){
-        tasks[taskCount] = task;
+        tasks.add(task);
         taskCount++;
         PatternGenerator.generateLine();
         System.out.println("Got it. I've added this task:");
@@ -20,10 +22,23 @@ public class Task {
         PatternGenerator.generateLine();
     }
 
+    public static void deleteTask(int index) throws IndexOutOfRangeException{
+        if (index > taskCount || index < 0){
+            throw new IndexOutOfRangeException();
+        }
+        PatternGenerator.generateLine();
+        System.out.println("Noted. I've removed this task: ");
+        System.out.println(tasks.get(index-1));
+        tasks.remove(index-1);
+        taskCount--;
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        PatternGenerator.generateLine();
+    }
+
     public static void listTasks(){
         for(int i = 0; i < taskCount; i++){
             System.out.print(i+1);
-            System.out.println("." + tasks[i].toString());
+            System.out.println("." + tasks.get(i).toString());
         }
     }
 
@@ -40,13 +55,13 @@ public class Task {
     }
 
     public static void mark(int index){
-        tasks[index-1].markAsDone();
-        System.out.println("[" + tasks[index-1].getStatusIcon() + "]" + tasks[index-1].description);
+        tasks.get(index-1).markAsDone();
+        System.out.println("[" + tasks.get(index-1).getStatusIcon() + "]" +tasks.get(index-1).description);
     }
 
     public static void unmark(int index){
-        tasks[index-1].markAsUndone();
-        System.out.println("[" + tasks[index-1].getStatusIcon() + "]" + tasks[index-1].description);
+        tasks.get(index-1).markAsUndone();
+        System.out.println("[" + tasks.get(index-1).getStatusIcon() + "]" +tasks.get(index-1).description);
     }
 
     public String toString(){

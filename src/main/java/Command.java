@@ -82,6 +82,14 @@ public class Command {
         }
     }
 
+    public static void delete(int index){
+        try {
+            Task.deleteTask(index);
+        } catch (IndexOutOfRangeException e) {
+            System.out.println("Sorry :(, the index is out of range.");
+        }
+    }
+
     public static void mark(int index){
         PatternGenerator.generateLine();
         System.out.println("This task has been marked as done.");

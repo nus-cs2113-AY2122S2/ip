@@ -70,14 +70,19 @@ public class Duke {
             catch (IllegalFormatException e){
                 System.out.println("OOPS!!! The format is not correct.");
             }
-
             break;
         case "mark":
             if (arrOfInput.length < 2){
                 throw new IllegalCommandException();
             }
             Command.mark(Integer.parseInt(arrOfInput[1]));
-
+            break;
+        case "delete":
+            if (arrOfInput.length < 2){
+                throw new IllegalCommandException();
+            }
+            Command.delete(Integer.parseInt(arrOfInput[1]));
+            break;
         default:
             throw new NonExistentCommandException();
 
