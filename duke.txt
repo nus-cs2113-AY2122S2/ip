@@ -1,3 +1,0 @@
-todo|false|borrow book
-deadline|false|return book| /by tmr 2359
-event|false|return book| /by home tonight
