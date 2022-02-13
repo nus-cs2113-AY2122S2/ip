@@ -30,32 +30,32 @@ public class Vera {
             + "added and shows \nwhether or not certain tasks are marked.";
     private static final String HELP_MESSAGE_MARK_COMMAND = "Mark: Marks a task as done. "
             + "\nTo mark a specific task, enter 'mark <list_index>'.\n\n Here, "
-            + "'list_index' denotes the index of a task \n based on the task list under the command 'list'\n"
-            + "\nE.g., 'mark 1' marks the first task in the task list as done\n\n"
-            + "Note: You can only mark one task per command input";
+            + "'list_index' denotes the index of a task \n based on the task list under the command 'list'.\n"
+            + "\nE.g., 'mark 1' marks the first task in the task list as done.\n\n"
+            + "Note: You can only mark one task per command input.";
     private static final String HELP_MESSAGE_UNMARK_COMMAND = "Unmark: Marks a task as undone."
             + "\nTo unmark a specific task, enter 'unmark <list_index>'.\n\n Here, "
-            + "'list_index' denotes the index of a task \n based on the task list under the command 'list'\n"
-            + "\nE.g., 'unmark 3' unmarks the third task in the task list\n\n"
-            + "Note: You can only unmark one task per command input";
+            + "'list_index' denotes the index of a task \n based on the task list under the command 'list'.\n"
+            + "\nE.g., 'unmark 3' unmarks the third task in the task list.\n\n"
+            + "Note: You can only unmark one task per command input.";
     private static final String HELP_MESSAGE_TODO_COMMAND = "Todo: Adds a 'todo' task into the task list."
             + "\nA 'todo' contains only a task description. \n\nTo add other features to your task, "
-            + "such as date and time, \nuse either 'deadline' or 'event'\n\nTo execute the command, \n"
-            + "enter 'todo <task_description>', e.g. todo read book";
+            + "such as date and time, \nuse either 'deadline' or 'event'.\n\nTo execute the command, \n"
+            + "enter 'todo <task_description>', e.g. todo read book.";
     private static final String HELP_MESSAGE_DEADLINE_COMMAND = "Deadline: Adds a 'deadline' task "
             + "into the task list. \nA 'deadline' contains both a task description \nand a date "
             + "to finish the task by.\n\nTo execute the command,\nenter 'deadline <task_description> "
-            + "/by <task_date>'.\nE.g. deadline return book /by Sunday";
+            + "/by <task_date>'.\nE.g. deadline return book /by Sunday.";
     private static final String HELP_MESSAGE_EVENT_COMMAND = "Event: Adds an 'event' task into the task list.\n"
             + "An 'event' contains both a task description \nand a date "
             + "of when the event will happen. \n\nTo execute the command,\n"
             + "enter 'event <task_description> /at <task_date>'.\n"
-            + "E.g. event project meeting /at 6th Aug 2-4pm";
+            + "E.g. event project meeting /at 6th Aug 2-4pm.";
     private static final String HELP_MESSAGE_DELETE_COMMAND = "Delete: Deletes a task in the task list.\n"
             + "To delete a specific task, enter 'delete <list_index>'.\n\n Here, "
-            + "'list_index' denotes the index of a task \n based on the task list under the command 'list'\n"
-            + "\nE.g., 'delete 2' deletes the second task in the task list\n\n"
-            + "Note: You can only delete one task per command input";
+            + "'list_index' denotes the index of a task \n based on the task list under the command 'list'.\n"
+            + "\nE.g., 'delete 2' deletes the second task in the task list.\n\n"
+            + "Note: You can only delete one task per command input.";
     private static final String HELP_MESSAGE_QUICK_START_COMMAND = "Command input quick start guide:\n"
             + "1) List: list\n"
             + "2) Mark: mark <list_index>\n"
@@ -122,35 +122,57 @@ public class Vera {
         }
     }
 
+    private static Task readSavedTask(String[] rawData) {
+        Task parsedData;
+        switch (rawData[SAVE_TASK_INDEX].trim()) {
+        case "T":
+            parsedData = new Todo(rawData[SAVE_TASK_DESCRIPTION_INDEX]);
+            break;
+        case "D":
+            parsedData = new Deadline(rawData[SAVE_TASK_DESCRIPTION_INDEX],
+                    rawData[SAVE_TASK_DATE_INDEX]);
+            break;
+        case "E":
+            parsedData = new Event(rawData[SAVE_TASK_DESCRIPTION_INDEX],
+                    rawData[SAVE_TASK_DATE_INDEX]);
+            break;
+        default:
+            System.out.println("Oops! It seems that your saved file"
+                    + "was corrupted.\nProceeding to start anew...");
+            return null;
+        }
+        if (rawData[SAVE_TASK_MARK_STATUS].equals("1")) {
+            parsedData.markAsDone();
+        }
+        return parsedData;
+    }
+
+    private static void wipeSavedData() {
+        try {
+            // Create new FileWriter to overwrite existing file. But
+            // no new data is written to overwrite file content, so content remains empty, i.e. clears file content
+            FileWriter fw = new FileWriter(SAVE_FILE_PATH);
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(ERROR_IO_FAILURE_MESSAGE);
+            System.exit(1);
+        }
+    }
+
     private static void loadSaveState() {
         try {
             File f = new File(SAVE_FILE_PATH);
             Scanner s = new Scanner(f);
-            String[] task;
-            Task newTask;
+            String[] taskRawData;
+            Task taskParsedData;
             while (s.hasNext()) {
-                task = s.nextLine().split(" \\| ");
-                switch (task[SAVE_TASK_INDEX].trim()) {
-                case "T":
-                    newTask = new Todo(task[SAVE_TASK_DESCRIPTION_INDEX]);
-                    break;
-                case "D":
-                    newTask = new Deadline(task[SAVE_TASK_DESCRIPTION_INDEX],
-                            task[SAVE_TASK_DATE_INDEX]);
-                    break;
-                case "E":
-                    newTask = new Event(task[SAVE_TASK_DESCRIPTION_INDEX],
-                            task[SAVE_TASK_DATE_INDEX]);
-                    break;
-                default:
-                    System.out.println("Oops! It seems that your saved file"
-                            + "was corrupted.\nProceeding to start anew...");
+                taskRawData = s.nextLine().split(" \\| ");
+                taskParsedData = readSavedTask(taskRawData);
+                if (taskParsedData == null) {
+                    wipeSavedData();
                     return;
                 }
-                if (task[SAVE_TASK_MARK_STATUS].equals("1")) {
-                    newTask.markAsDone();
-                }
-                tasks.add(newTask);
+                tasks.add(taskParsedData);
             }
         } catch (FileNotFoundException e) {
             System.out.println("Sorry! There was an error while loading your"
@@ -241,17 +263,9 @@ public class Vera {
     }
 
     private static void rewriteSaveState() {
-        try {
-            // Create new FileWriter to overwrite existing file. But
-            // no new data is written to overwrite file content, so content remains empty, i.e. clears file content
-            FileWriter fw = new FileWriter(SAVE_FILE_PATH);
-            fw.close();
-            for (Task task : tasks) {
-                appendToFile(task, task.getType());
-            }
-        } catch (IOException e) {
-            printWithPartition(ERROR_IO_FAILURE_MESSAGE);
-            System.exit(1);
+        wipeSavedData();
+        for (Task task : tasks) {
+            appendToFile(task, task.getType());
         }
     }
 
@@ -443,7 +457,7 @@ public class Vera {
                     + showSpecificHelpCommand(helpCommand));
         }
         return "For a quick summary of what commands to execute, \n"
-                + "enter 'help quick start'";
+                + "enter 'help quick start'.";
     }
 
     private static String showSpecificHelpCommand(String filteredHelpInput) {
@@ -491,7 +505,7 @@ public class Vera {
 
     private static String catchInvalidDeleteInput(String[] parsedInput) {
         try {
-            String deleteSuccessfulMessage =  deleteTask(parsedInput);
+            String deleteSuccessfulMessage = deleteTask(parsedInput);
             rewriteSaveState();
             return deleteSuccessfulMessage;
         } catch (IndexOutOfBoundsException | InputEmptyException | NumberFormatException e) {
