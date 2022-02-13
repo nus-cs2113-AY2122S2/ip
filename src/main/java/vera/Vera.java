@@ -491,7 +491,9 @@ public class Vera {
 
     private static String catchInvalidDeleteInput(String[] parsedInput) {
         try {
-            return deleteTask(parsedInput);
+            String deleteSuccessfulMessage =  deleteTask(parsedInput);
+            rewriteSaveState();
+            return deleteSuccessfulMessage;
         } catch (IndexOutOfBoundsException | InputEmptyException | NumberFormatException e) {
             return ERROR_INVALID_DELETE_INDEX_MESSAGE + HELP_MESSAGE_SPECIFIC_COMMAND;
         }
