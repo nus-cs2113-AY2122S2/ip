@@ -1,12 +1,19 @@
 import DukeException.DukeEmptyException;
 import DukeException.DukeInvalidInputException;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         TaskManager taskManager = new TaskManager();
+
+        try{
+            taskManager.readData();
+        }catch(IOException e) {
+            e.printStackTrace();
+        }
 
         initialDisplay();
 
@@ -37,6 +44,12 @@ public class Duke {
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
+        try {
+            taskManager.saveData();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
     }
 
     public static void initialDisplay(){
@@ -51,5 +64,6 @@ public class Duke {
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
     }
+
 
 }
