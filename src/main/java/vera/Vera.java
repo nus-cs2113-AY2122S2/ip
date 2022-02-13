@@ -56,6 +56,7 @@ public class Vera {
             + "'list_index' denotes the index of a task \n based on the task list under the command 'list'.\n"
             + "\nE.g., 'delete 2' deletes the second task in the task list.\n\n"
             + "Note: You can only delete one task per command input.";
+    private static final String HELP_MESSAGE_BYE_COMMAND = "Bye: Exits the program.";
     private static final String HELP_MESSAGE_QUICK_START_COMMAND = "Command input quick start guide:\n"
             + "1) List: list\n"
             + "2) Mark: mark <list_index>\n"
@@ -63,7 +64,8 @@ public class Vera {
             + "4) Todo: todo <task_description>\n"
             + "5) Deadline: deadline <task_description> /by <task_date>\n"
             + "6) Event: event <task_description> /at <task_date>\n"
-            + "7) Delete: delete <list_index>";
+            + "7) Delete: delete <list_index>"
+            + "8) Bye: bye";
 
     private static final String ERROR_INVALID_INPUT_MESSAGE = "Please key in an appropriate command.\n"
             + HELP_MESSAGE;
@@ -476,6 +478,8 @@ public class Vera {
             return HELP_MESSAGE_EVENT_COMMAND;
         case "delete":
             return HELP_MESSAGE_DELETE_COMMAND;
+        case "bye":
+            return HELP_MESSAGE_BYE_COMMAND;
         case "quick start":
             return HELP_MESSAGE_QUICK_START_COMMAND + HELP_MESSAGE_SPECIFIC_COMMAND;
         default:
