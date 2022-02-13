@@ -12,4 +12,8 @@ public class Event extends Task{
         String time = startEndTime.substring(0,index) + ": " +startEndTime.substring(index+1);
         return "[E]" + super.toString() + "(" + time + ")";
     }
+
+    public String getCategory(){
+        return "E";
+    }
 }

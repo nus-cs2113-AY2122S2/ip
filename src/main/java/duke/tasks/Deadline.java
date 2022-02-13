@@ -13,4 +13,8 @@ public class Deadline extends Task{
         String time = by.substring(0,index) + ": " +by.substring(index+1);
         return "[D]" + super.toString() + " (" + time + ")";
     }
+
+    public String getCategory(){
+        return "D";
+    }
 }

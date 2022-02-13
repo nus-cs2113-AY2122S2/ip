@@ -3,12 +3,24 @@ package duke;
 import duke.exception.IllegalCommandException;
 import duke.exception.IllegalFormatException;
 import duke.exception.NonExistentCommandException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 import duke.util.Command;
 import duke.util.PatternGenerator;
+import java.io.File;
+import java.io.FileWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Duke {
+
+    private static String dataPath;
     public static void main(String[] args) {
 //        String logo = " ____        _        \n"
 //                + "|  _ \\ _   _| | _____ \n"
@@ -17,6 +29,8 @@ public class Duke {
 //                + "|____/ \\__,_|_|\\_\\___|\n";
 //        System.out.println("Hello from\n" + logo);
         Command.greetUser();
+        dataPath = getPath();
+        loadData(dataPath);
         Scanner sc = new Scanner(System.in);
         String input;
         while (true){
@@ -37,6 +51,79 @@ public class Duke {
             if(input.equals("bye")){
                 break;
             }
+        }
+        saveData(dataPath);
+    }
+
+    public static String getPath(){
+        String workingDir = System.getProperty("user.dir");
+        String path = workingDir + "/Data/duke.txt";
+        return path;
+    }
+
+    public static void saveData(String dataPath){
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(dataPath);
+            String textToAdd = Task.getData();
+            System.out.println(textToAdd);
+            fw.write(textToAdd);
+            fw.close();
+            System.out.println("Saved successfully.");
+            //if the file does not exist
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadData(String dataPath){
+        File f = new File(dataPath);
+        System.out.println("full path: " + f.getAbsolutePath());
+        try {
+            Scanner s = new Scanner(f);
+            while (s.hasNext()){
+                loadTask(s.nextLine());
+
+            }
+            //if the file does not exist
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void loadTask(String taskText){
+        String[] arrOfText = taskText.split("\\|");
+        if (arrOfText.length == 3) {
+            Todo todo = new Todo(arrOfText[2]);
+            if (Integer.parseInt(arrOfText[1]) == 1){
+                todo.markAsDone();
+            }
+            Task.addTask(todo);
+        }
+        else if (arrOfText.length == 4) {
+            switch (arrOfText[0]){
+            case "D":
+                Deadline deadline = new Deadline(arrOfText[2],arrOfText[3]);
+                if (Integer.parseInt(arrOfText[1]) == 1){
+                    deadline.markAsDone();
+                }
+                Task.addTask(deadline);
+                break;
+            case "E":
+                Event event = new Event(arrOfText[2],arrOfText[3]);
+                if (Integer.parseInt(arrOfText[1]) == 1){
+                    event.markAsDone();
+                }
+                Task.addTask(event);
+                break;
+            default:
+                System.out.println("Invalid case.");
+                break;
+            }
+        }
+        else {
+            System.out.println("No task left.");
         }
     }
 

@@ -34,6 +34,9 @@ public class Task {
     public String getStatusIcon(){
         return (isDone ? "X" : " "); // mark done task with X
     }
+    public String getStatusNumber(){
+        return (isDone ? "1" : "0"); // mark done task with X
+    }
 
     public void markAsDone(){
         this.isDone = true;
@@ -55,5 +58,33 @@ public class Task {
 
     public String toString(){
         return "[" + this.getStatusIcon() + "]" + this.description;
+    }
+
+    public static String getData(){
+        String taskString, wholeString;
+        wholeString = "";
+        for (Task task:tasks){
+            if (task instanceof Todo){
+                taskString = task.getCategory() + "|" + task.getStatusNumber() + "|" +
+                        task.description + System.lineSeparator();
+            }
+            else if (task instanceof Event) {
+                taskString = task.getCategory() + "|" + task.getStatusNumber() + "|" +
+                        task.description + ((Event) task).startEndTime + System.lineSeparator();
+            }
+            else if (task instanceof Deadline) {
+                taskString = task.getCategory() + "|" + task.getStatusNumber() + "|" +
+                        task.description + "|" + ((Deadline) task).by + System.lineSeparator();
+            }
+            else {
+                taskString = "";
+            }
+            wholeString = wholeString + taskString;
+        }
+        return wholeString;
+    }
+
+    public String getCategory(){
+        return "TK";
     }
 }
