@@ -1,4 +1,7 @@
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Duke {
     private static String division = "_____________________________________________\n";
     private static Task[] taskList = new Task[100];
@@ -19,6 +22,23 @@ public class Duke {
             taskNumber += 1;
             taskInd += 1;
         }
+    }
+
+    /**
+     * Helper for saveTasks
+     * Formats taskList into a string to be written into a file
+     * @param taskList list of tasks to be formatted into a string
+     */
+    public static String formatTaskListToString(Task[] taskList) {
+        String taskString = "";
+        for (int i = 0; i < taskList.length; i++) {
+            if (taskList[i] == null) {
+                return taskString;
+            }
+            taskString += taskList[i].toString();
+            taskString += "\n";
+        }
+        return taskString;
     }
 
     /**
