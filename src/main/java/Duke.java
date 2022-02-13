@@ -17,12 +17,19 @@ public class Duke {
 
             if(reply.equalsIgnoreCase("LIST")){
                 taskManager.printTasks();
-                reply = input.nextLine();
-                continue;
+            }
+            else if(reply.split(" ")[0].equalsIgnoreCase("DELETE")){
+                try{
+                    taskManager.deleteTask(Integer.parseInt(reply.split(" ")[1]));
+                } catch(ArrayIndexOutOfBoundsException e){
+                    System.out.println("OOPS!!! The delete index you entered cannot be empty.");
+                } catch(IndexOutOfBoundsException e){
+                    System.out.println("OOPS!!! The delete index you entered is invalid.");
+                }
             }
             //check if the reply is about mark/ unmark.
             //If it is related to mark/unmark, relatedToMark will mark/unmark related task
-            if(!taskManager.relatedToMark(reply)) try {
+            else if(!taskManager.relatedToMark(reply)) try {
                 taskManager.addTask(reply);
             } catch(DukeInvalidInputException e){
                 System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
