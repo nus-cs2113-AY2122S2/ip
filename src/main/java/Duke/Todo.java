@@ -1,3 +1,4 @@
+package Duke;
 public class Todo extends Task {
     protected String icon;
     public Todo(String description) {
