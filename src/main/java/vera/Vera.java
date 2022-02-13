@@ -249,7 +249,10 @@ public class Vera {
         }
     }
 
-    private static String markTask(String[] parsedInput) {
+    private static String markTask(String[] parsedInput) throws InputEmptyException {
+        if (parsedInput[MARK_INDEX].isBlank()) {
+            throw new InputEmptyException();
+        }
         int taskIndexToMark = Integer.parseInt(parsedInput[MARK_INDEX]) - 1;
         if (tasks.get(taskIndexToMark).isDone()) {
             return "This task has already been marked!";
@@ -258,7 +261,10 @@ public class Vera {
         return "Nice! I've marked this task as done:\n  " + tasks.get(taskIndexToMark);
     }
 
-    private static String unmarkTask(String[] parsedInput) {
+    private static String unmarkTask(String[] parsedInput) throws InputEmptyException {
+        if (parsedInput[MARK_INDEX].isBlank()) {
+            throw new InputEmptyException();
+        }
         int taskIndexToUnmark = Integer.parseInt(parsedInput[MARK_INDEX]) - 1;
         if (!tasks.get(taskIndexToUnmark).isDone()) {
             return "This task was already unmarked!";
@@ -274,7 +280,7 @@ public class Vera {
                 return markTask(parsedInput);
             }
             return unmarkTask(parsedInput);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException | InputEmptyException e) {
             return "Bzzt!\nPlease"
                     + " key in a valid task number "
                     + "to mark/unmark your task." + HELP_MESSAGE_SPECIFIC_COMMAND;
