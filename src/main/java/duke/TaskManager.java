@@ -23,26 +23,30 @@ public class TaskManager {
 
     private static ArrayList<Task> listOfTasks = new ArrayList<>();
 
-    public static void addTask(String request, String typeOfTask) throws AdditionalException {
+    public static void addTask(String request, String typeOfTask, boolean isNewRequest) throws AdditionalException {
         String description = getDescription(request, typeOfTask);
         listOfTasks.add(new ToDo(description, typeOfTask));
-        saveDataToFile(typeOfTask);
+        if (isNewRequest) {
+            saveDataToFile(typeOfTask);
+        }
     }
 
-    public static void addTask(String request, String typeOfTask, String preposition) throws AdditionalException {
+    public static void addTask(String request, String typeOfTask, String preposition, boolean isNewRequest)
+                throws AdditionalException {
         String description = getDescription(request, typeOfTask, preposition);
         String timing = getTiming(request, preposition);
         switch (typeOfTask) {
         case "deadline":
             listOfTasks.add(new Deadline(description, timing, typeOfTask));
-            saveDataToFile(typeOfTask);
             break;
         case "event":
             listOfTasks.add(new Event(description, timing, typeOfTask));
-            saveDataToFile(typeOfTask);
             break;
         default:
             System.out.println("Oh no D: There seems to be a problem creating the task");
+        }
+        if (isNewRequest) {
+            saveDataToFile(typeOfTask);
         }
     }
 
@@ -51,11 +55,11 @@ public class TaskManager {
         FileEditor.saveData(typeOfTask, listOfTasks.get(indexOfLastTask), listOfTasks);
     }
 
-    public static void markOrDeleteItem(String[] words, String typeOfTask) {
+    public static void markOrDeleteItem(String[] words, String typeOfTask, boolean isNewRequest) {
         try {
             int indexToMarkOrDelete = Integer.parseInt(words[1]) - 1;
             Task taskToMarkOrDelete = listOfTasks.get(indexToMarkOrDelete);
-            markOrDelete(typeOfTask, taskToMarkOrDelete);
+            markOrDelete(typeOfTask, taskToMarkOrDelete, isNewRequest);
         } catch(IndexOutOfBoundsException error) {
             System.out.println(INVALID_INDEX + System.lineSeparator() + LINE);
         } catch (NumberFormatException error) {
@@ -63,25 +67,25 @@ public class TaskManager {
         }
     }
 
-    private static void markOrDelete(String typeOfTask, Task taskToMarkOrDelete) {
+    private static void markOrDelete(String typeOfTask, Task taskToMarkOrDelete, boolean isNewRequest) {
         switch (typeOfTask) {
         case "mark":
             taskToMarkOrDelete.markAsDone();
-            printMarkOrUnmarkIsCompleted(taskToMarkOrDelete, "mark");
-            FileEditor.saveData("markOrDelete", taskToMarkOrDelete, listOfTasks);
+            printMarkOrUnmarkIsCompleted(taskToMarkOrDelete, "mark", isNewRequest);
             break;
         case "unmark":
             taskToMarkOrDelete.markAsUndone();
-            printMarkOrUnmarkIsCompleted(taskToMarkOrDelete, "unmark");
-            FileEditor.saveData("markOrDelete", taskToMarkOrDelete, listOfTasks);
+            printMarkOrUnmarkIsCompleted(taskToMarkOrDelete, "unmark", isNewRequest);
             break;
         case "delete":
             listOfTasks.remove(taskToMarkOrDelete);
-            printConfirmationForDeletingTask(taskToMarkOrDelete);
-            FileEditor.saveData("markOrDelete", taskToMarkOrDelete, listOfTasks);
+            printConfirmationForDeletingTask(taskToMarkOrDelete, isNewRequest);
             break;
         default:
             System.out.println(WRONG_TYPE_OF_TASK);
+        }
+        if (isNewRequest) {
+            FileEditor.saveData("markOrDelete", taskToMarkOrDelete, listOfTasks);
         }
     }
 
@@ -152,14 +156,20 @@ public class TaskManager {
         System.out.println(LINE);
     }
 
-    private static void printConfirmationForDeletingTask(Task taskToMarkOrDelete) {
+    public static void printConfirmationForDeletingTask(Task taskToMarkOrDelete, boolean isNewRequest) {
+        if (!isNewRequest) {
+            return;
+        }
         System.out.println(DELETED);
         System.out.println(taskToMarkOrDelete);
         System.out.println(NUMBER_OF_TASKS_FIRST_HALF + listOfTasks.size() + NUMBER_OF_TASKS_SECOND_HALF);
         System.out.println(LINE);
     }
 
-    private static void printMarkOrUnmarkIsCompleted(Task task, String typeOfTask) {
+    public static void printMarkOrUnmarkIsCompleted(Task task, String typeOfTask, boolean isNewRequest) {
+        if (!isNewRequest) {
+            return;
+        }
         switch(typeOfTask) {
         case "mark":
             System.out.println(MARKED_THIS_TASK_AS_DONE);

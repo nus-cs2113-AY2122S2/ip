@@ -26,7 +26,7 @@ public class Duke {
 
     public static void main(String[] args) {
         printGreeting();
-        //retrieveTasks();
+        retrieveTasks();
         getRequest();
         printGoodbye();
     }
@@ -50,18 +50,19 @@ public class Duke {
     }
 
     private static void readFromFile() throws FileNotFoundException {
+        int taskNumber = 1;
         File file = new File(FILE_PATH);
         Scanner scanner = new Scanner(file);
-        while (scanner.hasNext()) {
-            readLineByLineFromFile(scanner);
+        while (scanner.hasNextLine()) {
+            String nextLine = scanner.nextLine();
+            readLineByLineFromFile(nextLine, taskNumber);
+            taskNumber++;
         }
     }
 
-    private static void readLineByLineFromFile(Scanner scanner) {
+    private static void readLineByLineFromFile(String nextLine, int taskNumber) {
         try {
-            String nextLine = scanner.nextLine();
-            System.out.println(nextLine);
-            RequestProcessor.filterRequest(nextLine);
+            RequestProcessor.filterRequestsFromFile(nextLine, taskNumber);
         } catch(AdditionalException error) {
             System.out.println("Error transferring from file to tasks");
         }
@@ -70,7 +71,7 @@ public class Duke {
     private static boolean isCompleted(String request) {
         boolean hasExited = false;
         try {
-            hasExited = RequestProcessor.filterRequest(request);
+            hasExited = RequestProcessor.filterNewRequest(request);
         } catch(AdditionalException error) {
             System.out.println(error.getMessage());
             System.out.println(LINE);

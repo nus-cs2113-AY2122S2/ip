@@ -76,7 +76,7 @@ public class FileEditor {
         case "event":
             Event event = (Event) task;
             fileWriter.write(typeOfTask + "|" + task.isDone() + "|" + task.getDescription() +
-                    "|/by " + event.getAt() + "\n");
+                    "|/at " + event.getAt() + "\n");
             break;
         default:
             System.out.println("Error writing data to file");
