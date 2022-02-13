@@ -9,6 +9,16 @@ public class Event extends Task {
     }
 
     @Override
+    public String getDate() {
+        return at;
+    }
+
+    @Override
+    public String getType() {
+        return "E";
+    }
+
+    @Override
     public void resetInput(String date) {
         at = date;
     }
