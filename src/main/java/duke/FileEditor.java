@@ -1,5 +1,7 @@
 package duke;
 
+import duke.task.Deadline;
+import duke.task.Event;
 import duke.task.Task;
 
 import java.io.File;
@@ -10,7 +12,6 @@ import java.util.ArrayList;
 public class FileEditor {
 
     private static final String FILE_PATH = "./duke.txt";
-    public static final String WRONG_TYPE_OF_TASK = "Something is wrong with the typeOfTask";
 
     private static File file = new File(FILE_PATH);
 
@@ -22,13 +23,13 @@ public class FileEditor {
         case "todo":
         case "deadline":
         case "event":
-            saveDataAfterAdd(task);
+            saveDataAfterAdd(task, typeOfTask);
             break;
         case "markOrDelete":
             saveDataAfterMarkOrDelete(listOfTasks, typeOfTask);
             break;
         default:
-            System.out.println(WRONG_TYPE_OF_TASK);
+            System.out.println("Something is wrong with the typeOfTask");
         }
     }
 
@@ -48,17 +49,37 @@ public class FileEditor {
             if (task == null) {
                 break;
             }
-            fileWriter.write(task.getTypeOfTask() + "," + task.isDone() + "," + task.getDescription() + "\n");
+            writeDataToFile(task, task.getTypeOfTask(), fileWriter);
         }
     }
 
-    private static void saveDataAfterAdd(Task task) {
+    private static void saveDataAfterAdd(Task task, String typeOfTask) {
         try {
             FileWriter fileWriter = new FileWriter(FILE_PATH, true);
-            fileWriter.write(task.getTypeOfTask() + "," + task.isDone() + "," + task.getDescription() + "\n");
+            writeDataToFile(task, typeOfTask, fileWriter);
             fileWriter.close();
         } catch(IOException error) {
             System.out.println("Error finding file");
+        }
+    }
+
+    private static void writeDataToFile(Task task, String typeOfTask, FileWriter fileWriter) throws IOException {
+        switch(typeOfTask) {
+        case "todo":
+            fileWriter.write(typeOfTask + "|" + task.isDone() + "|" + task.getDescription() + "\n");
+            break;
+        case "deadline":
+            Deadline deadline = (Deadline) task;
+            fileWriter.write(typeOfTask + "|" + task.isDone() + "|" + task.getDescription() +
+                    "|/by " + deadline.getBy() + "\n");
+            break;
+        case "event":
+            Event event = (Event) task;
+            fileWriter.write(typeOfTask + "|" + task.isDone() + "|" + task.getDescription() +
+                    "|/by " + event.getAt() + "\n");
+            break;
+        default:
+            System.out.println("Error writing data to file");
         }
     }
 

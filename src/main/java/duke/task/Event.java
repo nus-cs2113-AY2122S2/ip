@@ -15,4 +15,8 @@ public class Event extends Task{
     public String toString() {
         return EVENT_LOGO + super.toString() + AT_FIRST_HALF + at + AT_SECOND_HALF;
     }
+
+    public String getAt() {
+        return at;
+    }
 }
