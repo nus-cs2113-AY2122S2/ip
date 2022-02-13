@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.io.FileWriter;
+import java.io.File;
 import java.io.IOException;
 
 public class Duke {
@@ -25,20 +26,41 @@ public class Duke {
     }
 
     /**
-     * Helper for saveTasks
+     * Helper for saveTasksToFile
      * Formats taskList into a string to be written into a file
      * @param taskList list of tasks to be formatted into a string
      */
     public static String formatTaskListToString(Task[] taskList) {
-        String taskString = "";
+        String taskListString = "";
         for (int i = 0; i < taskList.length; i++) {
             if (taskList[i] == null) {
-                return taskString;
+                return taskListString;
             }
-            taskString += taskList[i].toString();
-            taskString += "\n";
+            taskListString += taskList[i].toString();
+            taskListString += "\n";
         }
-        return taskString;
+        return taskListString;
+    }
+
+    /**
+     * Helper for processTasks
+     * Saves the list of tasks to the specified file path
+     * @param filePath file to store list of tasks in
+     * @param taskListString string representation of list of tasks to write to file
+     */
+    public static void saveTasksToFile(String filePath, String taskListString) throws IOException {
+        // If data directory doesn't exist, write to it
+        File dataDirectory = new File("data");
+        if (!dataDirectory.exists()) {
+            dataDirectory.mkdir();
+        }
+        // If duke.txt file doesn't exist, create it
+        File dataFile = new File(dataDirectory, "duke.txt");
+        dataFile.createNewFile();
+
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(taskListString);
+        fw.close();
     }
 
     /**
@@ -177,22 +199,33 @@ public class Duke {
         line = in.nextLine();
         // While the user has not exited the program
         while (!line.equals("bye")) {
-            System.out.println(division);
-            // List out the tasks
-            if (line.equals("list")) {
-                printTaskObjects(taskList);
-            // Mark or unmark tasks
-            } else if (line.split(" ")[0].equals("mark") || line.split(" ")[0].equals("unmark")) {
-                String markAction = line.split(" ")[0];
-                int taskNumber = Integer.parseInt(line.split(" ")[1]);
-                markTask(taskList, markAction, taskNumber);
-            // Add a task
-            } else {
-                addTask(line);
+            try {
+                System.out.println(division);
+                // List out the tasks
+                if (line.equals("list")) {
+                    printTaskObjects(taskList);
+                    // Mark or unmark tasks
+                } else if (line.split(" ")[0].equals("mark") || line.split(" ")[0].equals("unmark")) {
+                    String markAction = line.split(" ")[0];
+                    int taskNumber = Integer.parseInt(line.split(" ")[1]);
+                    markTask(taskList, markAction, taskNumber);
+                    saveTasksToFile("data/duke.txt", formatTaskListToString(taskList));
+                    // Add a task
+                } else {
+                    addTask(line);
+                    saveTasksToFile("data/duke.txt", formatTaskListToString(taskList));
+                }
+                System.out.println(division);
+                line = in.nextLine();
+//            } catch (DukeException e) {
+//                System.out.println(e);
+//                System.out.println(division);
+//                line = in.nextLine();
+            } catch (IOException e) {
+                System.out.println(e);
+                System.out.println(division);
+                line = in.nextLine();
             }
-            System.out.println(division);
-            line = in.nextLine();
-
         }
         System.out.println(division);
         System.out.println("Bye. Hope to see you again soon!\n");
