@@ -9,12 +9,13 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class TaskManager {
-    protected static Task[] tasks = new Task[100];
-    protected static int inputAmount = 0;
+    protected static ArrayList<Task> tasks = new ArrayList<>();
     protected static final List<String> choiceList = Arrays.asList(new String[]{"TODO", "DEADLINE", "EVENT"});
 
     /*
@@ -32,32 +33,29 @@ public class TaskManager {
         }
 
         switch(choice.toUpperCase()) {
-            case "TODO":
-                ToDo todo = new ToDo(newTask);
-                tasks[inputAmount++] = todo;
-                break;
-            case "DEADLINE":
-                int startIndexforBy = newTask.indexOf("/by");
-                String by = newTask.substring(startIndexforBy + 4);
-                String newDeadline = newTask.substring(0, startIndexforBy - 1);
-                Deadline deadline = new Deadline(newDeadline, by);
-                tasks[inputAmount++] = deadline;
-                break;
-            case "EVENT":
-                int startIndexforAt = newTask.indexOf("/at");
-                String at = newTask.substring(startIndexforAt + 4);
-                String newEvent = newTask.substring(0, startIndexforAt - 1);
-                Event event = new Event(newEvent, at);
-                tasks[inputAmount++] = event;
-                break;
-            default:
-                DukeInvalidInputException e = new DukeInvalidInputException("Invalid choice");
-                throw e;
+        case "TODO":
+            tasks.add(new ToDo(newTask));
+            break;
+        case "DEADLINE":
+            int startIndexforBy = newTask.indexOf("/by");
+            String by = newTask.substring(startIndexforBy + 4);
+            String newDeadline = newTask.substring(0, startIndexforBy - 1);
+            tasks.add(new Deadline(newDeadline, by));
+            break;
+        case "EVENT":
+            int startIndexforAt = newTask.indexOf("/at");
+            String at = newTask.substring(startIndexforAt + 4);
+            String newEvent = newTask.substring(0, startIndexforAt - 1);
+            tasks.add(new Event(newEvent, at));
+            break;
+        default:
+            DukeInvalidInputException e = new DukeInvalidInputException("Invalid choice");
+            throw e;
         }
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task: ");
-        System.out.println(tasks[inputAmount-1]);
-        System.out.println("Now you have " + inputAmount + " tasks in the list.");
+        System.out.println(tasks.get(tasks.size()-1));
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
 
     }
@@ -68,8 +66,8 @@ public class TaskManager {
     public void printTasks(){
         System.out.println("____________________________________________________________");
         System.out.println("Here are the tasks in your list:");
-        for(int i=1;i<=inputAmount;i++){
-            System.out.println(i+". "+tasks[i-1]);
+        for(int i=1;i<=tasks.size();i++){
+            System.out.println(i+". "+tasks.get(i-1));
         }
         System.out.println("____________________________________________________________");
     }
@@ -79,21 +77,21 @@ public class TaskManager {
     It will throw exception if the index is out of range.
      */
     private void changeTaskStatus(int index, boolean markDone) throws DukeInvalidInputException{
-        if(index> inputAmount || index<=0){
+        if(index> tasks.size() || index<=0){
             DukeInvalidInputException e = new DukeInvalidInputException("Invalid input");
             throw e;
         }
         if(markDone){//to mark it as done
-            tasks[index-1].setDone();
+            tasks.get(index-1).setDone();
             System.out.println("____________________________________________________________");
             System.out.println("Nice! I've marked this task as done: ");
         }
         else{
-            tasks[index-1].setUndone();
+            tasks.get(index-1).setUndone();
             System.out.println("____________________________________________________________");
             System.out.println("OK, I've marked this task as not done yet:");
         }
-        System.out.println(tasks[index-1]);
+        System.out.println(tasks.get(index-1));
         System.out.println("____________________________________________________________");
     }
 
@@ -123,6 +121,7 @@ public class TaskManager {
         return false;
     }
 
+
     public void saveData() throws IOException {
         FileWriter writer = new FileWriter("src\\DataSrc\\taskList.txt");
         for(Task task: tasks){
@@ -151,26 +150,40 @@ public class TaskManager {
     public void readData() throws IOException {
         BufferedReader in = new BufferedReader(new FileReader("src\\DataSrc\\taskList.txt"));
         String taskLine;
-        while((taskLine = in.readLine())!=null){
+        while ((taskLine = in.readLine()) != null) {
             String[] task = taskLine.split(",");
-            switch(task[0]){
-            case "T":
-               ToDo todo = new ToDo(task[2]);
-               tasks[inputAmount++] = todo;
-               break;
-            case "D":
-                Deadline deadline = new Deadline(task[2], task[3]);
-                tasks[inputAmount++] = deadline;
-                break;
-            case "E":
-                Event event = new Event(task[2], task[3]);
-                tasks[inputAmount++] = event;
-                break;
+            switch (task[0]) {
+                case "T":
+                    ToDo todo = new ToDo(task[2]);
+                    tasks.add(todo);
+                    break;
+                case "D":
+                    Deadline deadline = new Deadline(task[2], task[3]);
+                    tasks.add(deadline);
+                    break;
+                case "E":
+                    Event event = new Event(task[2], task[3]);
+                    tasks.add(event);
+                    break;
             }
-            if(task[1].equals("true"))
-                tasks[inputAmount-1].setDone();
+            if (task[1].equals("true"))
+                tasks.get(tasks.size() - 1).setDone();
         }
         in.close();
+    }
+
+    /*
+    deleteTask is a public method which delete a task based on its given index.
+    It will throw exception if the index is out of range.
+     */
+    public void deleteTask(int index){
+        Task deletedTask = tasks.get(index-1);
+        tasks.remove(index-1);
+        System.out.println("____________________________________________________________");
+        System.out.println("Noted. I've removed this task: \n"+deletedTask);
+        System.out.println("Now you have "+tasks.size()+" tasks in the list.");
+        System.out.println("____________________________________________________________");
+
     }
 
 }
