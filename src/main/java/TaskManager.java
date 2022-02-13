@@ -127,11 +127,10 @@ public class TaskManager {
     public void saveData() throws IOException {
         FileWriter writer = new FileWriter("src\\DataSrc\\taskList.txt");
         for(Task task: tasks){
-            if(task!=null){
-                boolean taskDone = task.getStatusIcon().equalsIgnoreCase("X");
-                String taskType = task.toString().substring(1,2);
-                String taskInfo = taskType+","+taskDone+","+task.getDescription();
-                switch(taskType){
+            boolean taskDone = task.getStatusIcon().equalsIgnoreCase("X");
+            String taskType = task.toString().substring(1,2);
+            String taskInfo = taskType+","+taskDone+","+task.getDescription();
+            switch(taskType){
                 case "D":
                     Deadline deadline = (Deadline) task;
                     taskInfo = taskInfo + "," + deadline.getBy();
@@ -140,11 +139,8 @@ public class TaskManager {
                     Event event = (Event) task;
                     taskInfo = taskInfo + "," + event.getAt();
                     break;
-                }
-                writer.write(taskInfo + System.lineSeparator());
             }
-            else
-                break;
+            writer.write(taskInfo + System.lineSeparator());
         }
         writer.close();
     }

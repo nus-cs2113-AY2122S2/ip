@@ -1,4 +1,4 @@
 T,true,read book
 D,false,return book,June 6th
 E,false,project meeting,Aug 6th 2-4pm
-T,false,join sports club
+T,true,join sports club
