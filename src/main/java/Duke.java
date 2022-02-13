@@ -1,9 +1,12 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
+
 public class Duke {
     private static String division = "_____________________________________________\n";
     private static ArrayList<Task> taskList = new ArrayList<>();
-    //private static int taskIndex = 0;
 
     /**
      * Helper for processTasks
@@ -17,6 +20,40 @@ public class Duke {
             System.out.println(Integer.toString(taskNumber) + ": " + task.toString());
             taskNumber += 1;
         }
+    }
+
+    /**
+     * Helper for saveTasksToFile
+     * Formats taskList into a string to be written into a file
+     * @param taskList list of tasks to be formatted into a string
+     */
+    public static String formatTaskListToString(ArrayList<Task> taskList) {
+        String taskListString = "";
+        for (Task task : taskList) {
+            taskListString += task.toString();
+            taskListString += "\n";
+        }
+        return taskListString;
+    }
+
+    /**
+     * Helper for processTasks
+     * Saves the list of tasks to the specified file path
+     * @param taskListString string representation of list of tasks to write to file
+     */
+    public static void saveTasksToFile(String taskListString) throws IOException {
+        // If data directory doesn't exist, write to it
+        File dataDirectory = new File("data");
+        if (!dataDirectory.exists()) {
+            dataDirectory.mkdir();
+        }
+        // If duke.txt file doesn't exist, create it
+        File dataFile = new File(dataDirectory, "duke.txt");
+        dataFile.createNewFile();
+
+        FileWriter fw = new FileWriter("data/duke.txt");
+        fw.write(taskListString);
+        fw.close();
     }
 
     /**
@@ -137,12 +174,9 @@ public class Duke {
             } else if (type.equals("event")) {
                 task = new Event(description, additionalInfo);
             }
-            //taskList.add(taskIndex, task);
             taskList.add(task);
-            //taskIndex += 1;
             System.out.println("Got it. I've added this task:");
             System.out.println(task.toString());
-            //System.out.println("Now you have " + Integer.toString(taskIndex) + " tasks on the list.");
             System.out.println("Now you have " + Integer.toString(taskList.size()) + " tasks on the list.");
         } catch (DukeException e) {
             System.out.println(e);
@@ -189,16 +223,23 @@ public class Duke {
                     // Mark or unmark a task
                 } else if (keyWord.equals("mark") || keyWord.equals("unmark")) {
                     markTask(line);
+                    saveTasksToFile(formatTaskListToString(taskList));
                     // Delete a task
                 } else if (keyWord.equals("delete")) {
                     deleteTask(line);
+                    saveTasksToFile(formatTaskListToString(taskList));
                     // Add a task
                 } else {
                     addTask(line);
+                    saveTasksToFile(formatTaskListToString(taskList));
                 }
                 System.out.println(division);
                 line = in.nextLine();
             } catch (DukeException e) {
+                System.out.println(e);
+                System.out.println(division);
+                line = in.nextLine();
+            } catch (IOException e) {
                 System.out.println(e);
                 System.out.println(division);
                 line = in.nextLine();
