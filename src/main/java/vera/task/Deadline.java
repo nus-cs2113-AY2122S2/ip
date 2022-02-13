@@ -9,6 +9,16 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String getDate() {
+        return by;
+    }
+
+    @Override
+    public String getType() {
+        return "D";
+    }
+
+    @Override
     public void resetInput(String date) {
         by = date;
     }

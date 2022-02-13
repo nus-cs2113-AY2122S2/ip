@@ -33,6 +33,12 @@ public abstract class Task {
         markAsUndone();
     }
 
+    public String getDate() {
+        return " ";
+    }
+
+    public abstract String getType();
+
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.getDescription();

@@ -10,10 +10,16 @@ import vera.task.Todo;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 
 public class Vera {
     private static ArrayList<Task> tasks;
     private static Scanner SCANNER;
+    private static final String SAVE_FILE_PATH = "data/vera.txt";
     private static final String PARTITION_LINE = "______________________________"
             + "______________________________";
 
@@ -25,11 +31,13 @@ public class Vera {
     private static final String HELP_MESSAGE_MARK_COMMAND = "Mark: Marks a task as done. "
             + "\nTo mark a specific task, please enter 'mark <list_index>'.\n\n Here, "
             + "'list_index' denotes the index of a task \n based on the task list under the command 'list'\n"
-            + "\nE.g., 'mark 1' marks the first task in the task list as done";
+            + "\nE.g., 'mark 1' marks the first task in the task list as done"
+            + "Note: You can only mark one task per command input";
     private static final String HELP_MESSAGE_UNMARK_COMMAND = "Unmark: Marks a task as undone."
             + "\nTo unmark a specific task, please enter 'unmark <list_index>'.\n\n Here, "
             + "'list_index' denotes the index of a task \n based on the task list under the command 'list'\n"
-            + "\nE.g., 'unmark 3' unmarks the third task in the task list";
+            + "\nE.g., 'unmark 3' unmarks the third task in the task list"
+            + "Note: You can only unmark one task per command input";
     private static final String HELP_MESSAGE_TODO_COMMAND = "Todo: Adds a 'todo' task into the task list."
             + "\nA 'todo' contains only a task description. \n\nTo add other features to your task, "
             + "such as date and time, \nuse either 'deadline' or 'event'\n\nTo execute the command, \n"
@@ -58,6 +66,11 @@ public class Vera {
             + " add a '/by' to your 'deadline' command.";
     private static final String ERROR_TODO_REPEATED_INPUT_MESSAGE = "Oops! It seems that you've "
             + "already added this task.";
+    private static final String ERROR_IO_FAILURE_MESSAGE = "Oh no! We've encountered an error \nwhile "
+            + "trying to processing the system.\n"
+            + "Please reboot and execute the application again.";
+    private static final String ERROR_SYSTEM_FAULT_MESSAGE = "Oops! There seems to be some problem"
+            + "with the code.\nPlease contact the developers for help.";
 
 
     private static final int OPTIONS_INDEX = 0;
@@ -67,6 +80,10 @@ public class Vera {
     private static final int TASK_DESCRIPTION_INDEX_TODO = 1;
     private static final int TASK_DATE_INDEX = 1;
     private static final int HELP_OPTIONS_INDEX = 1;
+    private static final int SAVE_TASK_INDEX = 0;
+    private static final int SAVE_TASK_MARK_STATUS = 1;
+    private static final int SAVE_TASK_DESCRIPTION_INDEX = 2;
+    private static final int SAVE_TASK_DATE_INDEX = 3;
 
     public enum TaskType {
         TODO, DEADLINE, EVENT
@@ -79,6 +96,57 @@ public class Vera {
     private static void initTaskManager() {
         tasks = new ArrayList<>();
         SCANNER = new Scanner(System.in);
+        System.out.println("Booting up...");
+        File saveDirectory = new File("data");
+        if (saveDirectory.mkdir()) {
+            System.out.println("Creating save directory...");
+        }
+        try {
+            File saveState = new File(SAVE_FILE_PATH);
+            if (saveState.createNewFile()) {
+                System.out.println("Creating new save state...");
+            }
+        } catch (IOException e) {
+            System.out.println(ERROR_IO_FAILURE_MESSAGE);
+            System.exit(1);
+        }
+    }
+
+    private static void loadSaveState() {
+        try {
+            File f = new File(SAVE_FILE_PATH);
+            Scanner s = new Scanner(f);
+            String[] task;
+            Task newTask;
+            while (s.hasNext()) {
+                task = s.nextLine().split(" \\| ");
+                switch (task[SAVE_TASK_INDEX].trim()) {
+                case "T":
+                    newTask = new Todo(task[SAVE_TASK_DESCRIPTION_INDEX]);
+                    break;
+                case "D":
+                    newTask = new Deadline(task[SAVE_TASK_DESCRIPTION_INDEX],
+                            task[SAVE_TASK_DATE_INDEX]);
+                    break;
+                case "E":
+                    newTask = new Event(task[SAVE_TASK_DESCRIPTION_INDEX],
+                            task[SAVE_TASK_DATE_INDEX]);
+                    break;
+                default:
+                    System.out.println("Oops! It seems that your saved file"
+                            + "was corrupted.\nProceeding to start anew...");
+                    return;
+                }
+                if (task[SAVE_TASK_MARK_STATUS].equals("1")) {
+                    newTask.markAsDone();
+                }
+                tasks.add(newTask);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Sorry! There was an error while loading your"
+                    + "saved file. Please restart and try again later.");
+            System.exit(1);
+        }
     }
 
     private static void printWithPartition(String message) {
@@ -138,7 +206,67 @@ public class Vera {
                 + HELP_MESSAGE_SPECIFIC_COMMAND;
     }
 
-    private static String addTodo(String[] parsedInput) throws InputEmptyException,
+    private static String appendToFile(Task newTask, String taskType) {
+        try {
+            FileWriter fw = new FileWriter(SAVE_FILE_PATH, true);
+            String taskStatus = "0";
+            if (newTask.isDone()) {
+                taskStatus = "1";
+            }
+
+            String textToAppend = taskType + " | " + taskStatus + " | "
+                    + newTask.getDescription();
+            if (!taskType.equals("T")) {
+                textToAppend += " | " + newTask.getDate();
+            }
+
+            fw.write(textToAppend + System.lineSeparator());
+            fw.close();
+
+        } catch (IOException e) {
+            return ERROR_IO_FAILURE_MESSAGE;
+        }
+        return "Got it. I've added this task:\n  " + newTask
+                + "\nNow you have " + tasks.size() + " task(s) in the list.";
+    }
+
+    private static void rewriteSaveState() {
+        try {
+            FileWriter fw = new FileWriter(SAVE_FILE_PATH); // creates a FileWriter object to implement flushing
+            fw.close(); // close method to complete writing. close() also calls flush().
+            for (Task task : tasks) {
+                appendToFile(task, task.getType());
+            }
+        } catch (IOException e) {
+            printWithPartition(ERROR_IO_FAILURE_MESSAGE);
+            System.exit(1);
+        }
+    }
+
+    private static Task addToTaskList(String[] parsedInput, TaskType taskType) {
+        Task newTask = null;
+        switch (taskType) {
+        case TODO:
+            newTask = new Todo(parsedInput[TASK_DESCRIPTION_INDEX_TODO]);
+            break;
+        case DEADLINE:
+            newTask = new Deadline(parsedInput[TASK_DESCRIPTION_INDEX],
+                    parsedInput[TASK_DATE_INDEX]);
+            break;
+        case EVENT:
+            newTask = new Event(parsedInput[TASK_DESCRIPTION_INDEX],
+                    parsedInput[TASK_DATE_INDEX]);
+            break;
+        default:
+            printWithPartition(ERROR_SYSTEM_FAULT_MESSAGE);
+            System.exit(1);
+        }
+
+        tasks.add(newTask);
+        return newTask;
+    }
+
+    private static String initNewTodo(String[] parsedInput) throws InputEmptyException,
             InputRepeatedException {
 
         if (parsedInput[TASK_DESCRIPTION_INDEX_TODO].isBlank()) {
@@ -147,15 +275,14 @@ public class Vera {
         if (isTaskAlreadyAdded(parsedInput[TASK_DESCRIPTION_INDEX_TODO])) {
             throw new InputRepeatedException();
         }
-        Todo newTodo = new Todo(parsedInput[TASK_DESCRIPTION_INDEX_TODO]);
-        tasks.add(newTodo);
-        return "Got it. I've added this task:\n  " + newTodo
-                + "\nNow you have " + tasks.size() + " task(s) in the list.";
+
+        Task newTask = addToTaskList(parsedInput, TaskType.TODO);
+        return appendToFile(newTask, "T");
     }
 
     private static String filterTodoBeforeAddingToTaskList(String[] parsedInput) {
         try {
-            return addTodo(parsedInput);
+            return initNewTodo(parsedInput);
         } catch (ArrayIndexOutOfBoundsException | InputEmptyException e) {
             return printMissingInputMessage("description", TaskType.TODO);
         } catch (InputRepeatedException e) {
@@ -163,7 +290,14 @@ public class Vera {
         }
     }
 
-    private static String addEventOrDeadline(TaskType type, String[] parsedInput, String command)
+    private static String checkTaskType(TaskType taskType) {
+        if (taskType.equals(TaskType.DEADLINE)) {
+            return "D";
+        }
+        return "E";
+    }
+
+    private static String initNewEventOrDeadline(TaskType taskType, String[] parsedInput, String command)
             throws InputEmptyException, InputRepeatedException, CommandMissingException {
 
         if (parsedInput[TASK_CONTENT_INDEX].isBlank()) {
@@ -181,17 +315,9 @@ public class Vera {
             throw new InputRepeatedException();
         }
 
-        Task newTask;
-        if (type.equals(TaskType.EVENT)) {
-            newTask = new Event(filteredTaskContent[TASK_DESCRIPTION_INDEX],
-                    filteredTaskContent[TASK_DATE_INDEX]);
-        } else {
-             newTask = new Deadline(filteredTaskContent[TASK_DESCRIPTION_INDEX],
-                    filteredTaskContent[TASK_DATE_INDEX]);
-        }
-        tasks.add(newTask);
-        return "Got it. I've added this task:\n  " + newTask
-                + "\nNow you have " + tasks.size() + " task(s) in the list.";
+        Task newTask = addToTaskList(filteredTaskContent, taskType);
+        String taskTypeToAppend = checkTaskType(taskType);
+        return appendToFile(newTask, taskTypeToAppend);
     }
 
     private static boolean isTaskBeingReplaced() {
@@ -201,13 +327,15 @@ public class Vera {
                 + "with the new input? [Y/N]");
         while (true) {
             String input = SCANNER.nextLine();
-            if (input.equalsIgnoreCase("Y") || input.equalsIgnoreCase("Yes")) {
+            if (input.equalsIgnoreCase("Y")
+                    || input.equalsIgnoreCase("Yes")) {
                 isOldTaskReplaced = true;
                 System.out.println(PARTITION_LINE + "\nUnderstood. Proceeding to change"
                         + "\nthe old task with the new one..........");
                 break;
             }
-            if (input.equalsIgnoreCase("N") || input.equalsIgnoreCase("No")) {
+            if (input.equalsIgnoreCase("N")
+                    || input.equalsIgnoreCase("No")) {
                 break;
             }
             printWithPartition("Please confirm your choice with either Y (Yes) or N (No).");
@@ -215,16 +343,22 @@ public class Vera {
         return isOldTaskReplaced;
     }
 
+    private static int findIndexToReplace(String[] filteredTaskContent) {
+        int index = 0;
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getDescription().equalsIgnoreCase(filteredTaskContent[TASK_DESCRIPTION_INDEX])) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
     private static String handleRepeatedInputs(String[] filteredTaskContent) {
         if (isTaskBeingReplaced()) {
-            int taskIndexToReplace = 0;
-            for (int i = 0; i < tasks.size(); i++) {
-                if (tasks.get(i).getDescription().equalsIgnoreCase(filteredTaskContent[TASK_DESCRIPTION_INDEX])) {
-                    taskIndexToReplace = i;
-                    break;
-                }
-            }
+            int taskIndexToReplace = findIndexToReplace(filteredTaskContent);
             tasks.get(taskIndexToReplace).resetInput(filteredTaskContent[TASK_DATE_INDEX]);
+            rewriteSaveState();
             return "Done! I've updated this task:\n  " + tasks.get(taskIndexToReplace);
         }
         return "Okay, we'll keep it as it is.";
@@ -236,7 +370,7 @@ public class Vera {
 
     private static String filterTaskBeforeAddingToTaskList(String[] parsedInput, String command, TaskType taskType) {
         try {
-            return addEventOrDeadline(taskType, parsedInput, command);
+            return initNewEventOrDeadline(taskType, parsedInput, command);
         } catch (ArrayIndexOutOfBoundsException | InputEmptyException e) {
             return printMissingInputMessage("description and date\n", taskType);
         } catch (InputRepeatedException e) {
@@ -258,6 +392,7 @@ public class Vera {
             return "This task has already been marked!";
         }
         tasks.get(taskIndexToMark).markAsDone();
+        rewriteSaveState();
         return "Nice! I've marked this task as done:\n  " + tasks.get(taskIndexToMark);
     }
 
@@ -270,6 +405,7 @@ public class Vera {
             return "This task was already unmarked!";
         }
         tasks.get(taskIndexToUnmark).markAsUndone();
+        rewriteSaveState();
         return "Ok, I've marked this task as"
                 + " not done yet:\n  " + tasks.get(taskIndexToUnmark);
     }
@@ -280,7 +416,7 @@ public class Vera {
                 return markTask(parsedInput);
             }
             return unmarkTask(parsedInput);
-        } catch (IndexOutOfBoundsException | InputEmptyException e) {
+        } catch (IndexOutOfBoundsException | InputEmptyException | NumberFormatException e) {
             return "Bzzt!\nPlease"
                     + " key in a valid task number "
                     + "to mark/unmark your task." + HELP_MESSAGE_SPECIFIC_COMMAND;
@@ -298,8 +434,8 @@ public class Vera {
                 + "enter 'help quick start'";
     }
 
-    private static String showSpecificHelpCommand(String parsedInput) {
-        switch (parsedInput.toLowerCase()) {
+    private static String showSpecificHelpCommand(String filteredHelpInput) {
+        switch (filteredHelpInput.toLowerCase()) {
         case "list":
             return HELP_MESSAGE_LIST_COMMAND;
         case "mark":
@@ -352,6 +488,7 @@ public class Vera {
 
     public static void main(String[] args) {
         initTaskManager();
+        loadSaveState();
         printWelcomeMessage();
         String userCommand = getUserInput();
         while (!userCommand.equals("bye")) {
