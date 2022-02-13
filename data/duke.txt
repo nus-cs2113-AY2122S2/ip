@@ -1,3 +1,2 @@
-[T][X]  1
-[T][X]  2
-[E][X]  class  (at: tue)
+[D][ ]  eat pie  (by: noon)
+[E][X]  go to class  (at: Monday)

@@ -38,7 +38,7 @@ public class Duke {
 
     /**
      * Helper for processTasks
-     * Saves the list of tasks to the specified file path
+     * Saves the list of tasks to "data/duke.txt"
      * @param taskListString string representation of list of tasks to write to file
      */
     public static void saveTasksToFile(String taskListString) throws IOException {
