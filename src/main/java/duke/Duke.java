@@ -15,16 +15,16 @@ public class Duke {
 
     public static final int MAX_TASK = 100;
     public static final String COMMAND_LIST = "list";
+    public static final String COMMAND_DELETE = "delete";
     public static final String COMMAND_MARK = "mark";
     public static final String COMMAND_UNMARK = "unmark";
     public static final String COMMAND_BYE = "bye";
     public static final String COMMAND_EVENT = "event";
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_TODO = "todo";
-    public static final String COMMAND_SAVE = "save";
     public static final File filePath = new File("src/main/java/duke/task/Hage.txt");
 
-    //private static Task[] taskItems;
+
     private static int itemNum;
     private static String[] dateArray;
     private static String[] eventArray;
@@ -35,6 +35,7 @@ public class Duke {
 
         printWelcomeMessage();
         initTaskTable();
+
         while (true) {
             getNewInput();
             saveTaskList();
@@ -79,6 +80,17 @@ public class Duke {
                 System.out.println("Unmark index is out of bounds!!");
             }
             break;
+        case COMMAND_DELETE:
+            int deleteIndex = Integer.parseInt(commandArr[1]) - 1;
+            try {
+                itemNum--;
+                System.out.println("Noted. I've removed this task:\n" + taskArrayList.get(deleteIndex) +
+                        "\nNow you have " + itemNum + " tasks in the list.");
+                taskArrayList.remove(deleteIndex);
+            } catch(IndexOutOfBoundsException deleteIndexOutOFBounds) {
+                System.out.println("The item you want to delete is not in the list!");
+            }
+            break;
         case COMMAND_BYE:
             exitProgram();
             break;
@@ -115,7 +127,6 @@ public class Duke {
             }
             break;
         case COMMAND_DEADLINE:
-
             try {
                 dateArray = sentenceArr[1].split("/by", 2);
                 if (dateArray[1].length() == 0 || dateArray[0].length() == 0) {
@@ -155,6 +166,7 @@ public class Duke {
         System.out.println("Got it. I've added this task:\n" + taskArrayList.get(itemNum));
         System.out.println("Now you have " + (itemNum + 1) +  " tasks in the list.");
     }
+
 
     private static void initTaskTable() throws IOException, DukeException {
         itemNum = 0;
