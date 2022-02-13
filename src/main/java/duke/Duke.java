@@ -1,3 +1,11 @@
+package duke;
+
+import duke.exception.IllegalCommandException;
+import duke.exception.IllegalFormatException;
+import duke.exception.NonExistentCommandException;
+import duke.util.Command;
+import duke.util.PatternGenerator;
+
 import java.util.Scanner;
 
 public class Duke {
