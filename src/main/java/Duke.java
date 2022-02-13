@@ -1,5 +1,3 @@
-import java.lang.reflect.Array;
-import java.security.SignatureException;
 import java.util.Scanner;
 
 public class Duke {
@@ -31,7 +29,7 @@ public class Duke {
 
     private static void handleInput(String input) 
         throws SingleWordCommandException, IndexOutOfBoundsException, NoSlashException, AlreadyMarkedException,
-        AlreadyUnmarkedException {
+        AlreadyUnmarkedException, InvalidNumberException {
         if (input.contains("list")) {
             if (input.equals("list")) {
                 handleList();
@@ -89,9 +87,11 @@ public class Duke {
         }
     }
 
-    private static void handleUnmark(String input) throws AlreadyUnmarkedException {
+    private static void handleUnmark(String input) throws AlreadyUnmarkedException, InvalidNumberException {
         int markInt = Integer.parseInt(input.substring(7)) - 1;
-        if (list[markInt].isDone()) { 
+        if (markInt + 1> taskCounter) {
+            throw new InvalidNumberException();
+        } else if (list[markInt].isDone()) {
             list[markInt].setDone(false);
             printFormat("OK, I've marked this task as not done yet:",
                 list[markInt].toString());
@@ -100,9 +100,11 @@ public class Duke {
         }
     }
 
-    private static void handleMark(String input) throws AlreadyMarkedException {
+    private static void handleMark(String input) throws AlreadyMarkedException, InvalidNumberException {
         int markInt = Integer.parseInt(input.substring(5)) - 1;
-        if (list[markInt].isDone()) {
+        if (markInt + 1> taskCounter) {
+            throw new InvalidNumberException();
+        } else if (list[markInt].isDone()) {
             throw new AlreadyMarkedException();
         } else {
             list[markInt].setDone(true);
@@ -181,7 +183,6 @@ public class Duke {
                     handleInput(input);
                 } catch (SingleWordCommandException e) {
                     printFormat("Oh no! There should not be any words after '" + input.split(" ")[1] + "'");
-
                 } catch (IndexOutOfBoundsException e) {
                     printFormat("Oh no! You have to include the details of the task '" + input + "'");
                 } catch (NoSlashException e) {
@@ -190,6 +191,8 @@ public class Duke {
                     printFormat("Oh no! The item is already marked!");
                 } catch (AlreadyUnmarkedException e) {
                     printFormat("Oh no! The item is already unmarked!");
+                } catch (InvalidNumberException e) {
+                    printFormat("Oh no! The number you have chosen is not valid!");
                 }
             }
         }

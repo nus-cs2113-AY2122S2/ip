@@ -1,0 +1,14 @@
+todo read book
+deadline return book /by June 6th
+Event project meeting /at Aug 6th 2-4pm
+list
+mark 1
+mark 2
+unmark 1
+deadline return book /by Sunday
+event project meeting /at Mon 2-4pm
+list
+todo
+test invalid command
+mark 2
+
