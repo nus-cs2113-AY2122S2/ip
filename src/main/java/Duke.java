@@ -45,10 +45,9 @@ public class Duke {
     /**
      * Helper for processTasks
      * Saves the list of tasks to the specified file path
-     * @param filePath file to store list of tasks in
      * @param taskListString string representation of list of tasks to write to file
      */
-    public static void saveTasksToFile(String filePath, String taskListString) throws IOException {
+    public static void saveTasksToFile(String taskListString) throws IOException {
         // If data directory doesn't exist, write to it
         File dataDirectory = new File("data");
         if (!dataDirectory.exists()) {
@@ -58,7 +57,7 @@ public class Duke {
         File dataFile = new File(dataDirectory, "duke.txt");
         dataFile.createNewFile();
 
-        FileWriter fw = new FileWriter(filePath);
+        FileWriter fw = new FileWriter("data/duke.txt");
         fw.write(taskListString);
         fw.close();
     }
@@ -209,11 +208,11 @@ public class Duke {
                     String markAction = line.split(" ")[0];
                     int taskNumber = Integer.parseInt(line.split(" ")[1]);
                     markTask(taskList, markAction, taskNumber);
-                    saveTasksToFile("data/duke.txt", formatTaskListToString(taskList));
+                    saveTasksToFile(formatTaskListToString(taskList));
                     // Add a task
                 } else {
                     addTask(line);
-                    saveTasksToFile("data/duke.txt", formatTaskListToString(taskList));
+                    saveTasksToFile(formatTaskListToString(taskList));
                 }
                 System.out.println(division);
                 line = in.nextLine();
