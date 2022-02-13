@@ -1,13 +1,25 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 public class Duke {
     private static final int MAX_TASK_SIZE = 100;
     private static Task[] userInput;
     private static int valIndex;
     private static int inputCount = 0;
+    private static FileWriting fw;
+    private static final String filePath = "data/data.txt";
     private static String line;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         printWelcomeMessage();
         userInput = new Task[MAX_TASK_SIZE];
+        File f = new File(filePath);
+        File folder = new File("data");
+        if(!folder.exists())
+            folder.mkdir();
+        if(f.exists())
+        fileReading(filePath);
         while(true) {
             Scanner input = new Scanner(System.in);
             //line = input.nextLine();
@@ -28,42 +40,75 @@ public class Duke {
                         markAsDone();
                     } else {
                         System.out.println("Invalid Command!");
-                    } continue;
+                    } //continue;
                 } else if (isUnmark()) {
                     if (checkValidity()) {
                         markAsUndone();
                     } else {
                         System.out.println("Invalid Command!");
-                    } continue;
+                    } //continue;
                 } else if (isTodo()){
                     try{
                     addTodo();
                     } catch (InvalidInputException e) {
                         System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
                     }
-                    continue;
+                    //continue;
                 } else if (isDeadline()){
                     try {
                         addDeadline();
                     } catch (InvalidInputException e) {
                         System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
                     }
-                    continue;
+                    //continue;
                 } else if (isEvent()){
                     try {
                         addEvent();
                     } catch (InvalidInputException e) {
                         System.out.println("☹ OOPS!!! The description of a event cannot be empty.");
                     }
-                    continue;
+                    //continue;
                 }
             }
 //            userInput[inputCount] = new Task(line);
 //            inputCount++;
 //            System.out.println("Add: " + line);
+            File tempFile = new File("data/tempdata.txt");
+            boolean a = tempFile.createNewFile();
+            FileWriting fileWriting = new FileWriting();
+            FileWriter writer;
+            try {
+                for (int i = 0; i < inputCount; i++) {
+                    fileWriting.writeToFile("data/tempdata.txt", (i + 1) + ".[" + userInput[i].getIcon() + "] " + "[" + userInput[i].getStatusIcon() + "] " + userInput[i].description + System.lineSeparator());
+                }
+                f.delete();
+                tempFile.renameTo(f);
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
         }
     }
-
+    public static void fileReading(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        while (s.hasNextLine()) {
+            var str = s.nextLine();
+            if (str.charAt(3) == 'T') {
+                userInput[inputCount] = new Todo(str.substring(11));
+                if (str.charAt(7) == 'X')
+                    userInput[inputCount].markAsDone();
+            } else if (str.charAt(3) == 'D') {
+                userInput[inputCount] = new Deadline(str.substring(11), str.substring(11));
+                if (str.charAt(7) == 'X')
+                    userInput[inputCount].markAsDone();
+            } else if (str.charAt(3) == 'E') {
+                userInput[inputCount] = new Deadline(str.substring(11), str.substring(11));
+                if (str.charAt(7) == 'X')
+                    userInput[inputCount].markAsDone();
+            }
+            inputCount++;
+        }
+    }
     public static void printWelcomeMessage(){
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
