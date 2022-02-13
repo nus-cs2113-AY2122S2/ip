@@ -1,6 +1,7 @@
 package duke.util;
 
 import duke.exception.IllegalFormatException;
+import duke.exception.IndexOutOfRangeException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
@@ -85,6 +86,14 @@ public class Command {
             break;
         default:
             break;
+        }
+    }
+
+    public static void delete(int index){
+        try {
+            Task.deleteTask(index);
+        } catch (IndexOutOfRangeException e) {
+            System.out.println("Sorry :(, the index is out of range.");
         }
     }
 
