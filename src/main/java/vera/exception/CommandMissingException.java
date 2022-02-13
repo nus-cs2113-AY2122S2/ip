@@ -1,4 +1,4 @@
 package vera.exception;
 
-public class CommandMissingException extends Exception{
+public class CommandMissingException extends Exception {
 }

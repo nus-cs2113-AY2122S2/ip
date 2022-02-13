@@ -1,4 +1,4 @@
 package vera.exception;
 
-public class InputRepeatedException extends Exception{
+public class InputRepeatedException extends Exception {
 }

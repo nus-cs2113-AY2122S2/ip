@@ -35,14 +35,14 @@ Now you have 4 task(s) in the list.
 ____________________________________________________________
 ____________________________________________________________
 Bzzt!
-Please key in a valid task number to mark your task.
+Please key in a valid task number to mark/unmark your task.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
 Bzzt!
-Please key in a valid task number to unmark your task.
+Please key in a valid task number to mark/unmark your task.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
@@ -92,21 +92,21 @@ Would you like to override the
 existing time and/or date with the new input? [Y/N]
 ____________________________________________________________
 ____________________________________________________________
-Please confirm your choice with either Y or N.
+Please confirm your choice with either Y (Yes) or N (No).
 ____________________________________________________________
 ____________________________________________________________
 Okay, we'll keep it as it is.
 ____________________________________________________________
 ____________________________________________________________
 Bzzt!
-Please key in a valid task number to mark your task.
+Please key in a valid task number to mark/unmark your task.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
 Bzzt!
-Please key in a valid task number to mark your task.
+Please key in a valid task number to mark/unmark your task.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo

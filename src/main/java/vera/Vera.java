@@ -3,17 +3,16 @@ package vera;
 import vera.exception.CommandMissingException;
 import vera.exception.InputEmptyException;
 import vera.exception.InputRepeatedException;
-import vera.exception.MaxTaskException;
 import vera.task.Deadline;
 import vera.task.Event;
 import vera.task.Task;
 import vera.task.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Vera {
-    private static Task[] tasks;
-    private static int taskCount;
+    private static ArrayList<Task> tasks;
     private static Scanner SCANNER;
     private static final String PARTITION_LINE = "______________________________"
             + "______________________________";
@@ -22,7 +21,7 @@ public class Vera {
     private static final String HELP_MESSAGE_SPECIFIC_COMMAND = "\n\nFor more information on "
             + "the command you wish to execute,\nenter 'help <command>' e.g. help todo";
     private static final String HELP_MESSAGE_LIST_COMMAND = "List: Displays a list of tasks "
-            +"added and shows \nwhether or not certain tasks are marked.";
+            + "added and shows \nwhether or not certain tasks are marked.";
     private static final String HELP_MESSAGE_MARK_COMMAND = "Mark: Marks a task as done. "
             + "\nTo mark a specific task, please enter 'mark <list_index>'.\n\n Here, "
             + "'list_index' denotes the index of a task \n based on the task list under the command 'list'\n"
@@ -53,8 +52,6 @@ public class Vera {
 
     private static final String ERROR_INVALID_INPUT_MESSAGE = "Please key in an appropriate command.\n"
             + HELP_MESSAGE;
-    private static final String ERROR_MAX_TASK_MESSAGE = "Sorry! You've reached the maximum "
-            + "amount of tasks allowed on your task list.";
     private static final String ERROR_EVENT_MISSING_COMMAND_MESSAGE = "Oops! You forgot to "
             + "add a '/at' to your 'event' command.";
     private static final String ERROR_DEADLINE_MISSING_COMMAND_MESSAGE = "Oops! You forgot to"
@@ -75,23 +72,26 @@ public class Vera {
         TODO, DEADLINE, EVENT
     }
 
-    public static void initTaskManager() {
-        tasks = new Task[100];
-        taskCount = 0;
+    public enum MarkType {
+        MARK, UNMARK
+    }
+
+    private static void initTaskManager() {
+        tasks = new ArrayList<>();
         SCANNER = new Scanner(System.in);
     }
 
-    public static void printWithPartition(String message) {
+    private static void printWithPartition(String message) {
         System.out.println(PARTITION_LINE + System.lineSeparator()
                 + message + System.lineSeparator() + PARTITION_LINE);
     }
 
-    public static void printExitMessage() {
+    private static void printExitMessage() {
         String message = "Bye. Hope to see you again soon! :)";
         printWithPartition(message);
     }
 
-    public static void printWelcomeMessage() {
+    private static void printWelcomeMessage() {
         String logo = " __     __             \n"
                 + " \\ \\   / /__ _ __ __ _ \n"
                 + "  \\ \\ / / _ \\ '__/ _` |\n"
@@ -105,73 +105,67 @@ public class Vera {
         printWithPartition(message);
     }
 
-    public static String getUserInput() {
+    private static String getUserInput() {
         return SCANNER.nextLine();
     }
 
-    public static void showResultsToUser(String feedback) {
+    private static void showResultsToUser(String feedback) {
         printWithPartition(feedback);
     }
 
-    public static String list() {
+    private static String list() {
         int printIndex = 1;
         System.out.println(PARTITION_LINE +
                 "\nHere are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println(printIndex + ". " + tasks[i]);
+        for (Task task : tasks) {
+            System.out.println(printIndex + ". " + task);
             printIndex++;
         }
         return "A total of " + (printIndex - 1) + " item(s) have been found!";
     }
 
-    public static boolean isTaskAlreadyAdded(String inputTaskDescription) {
-        for (int i = 0; i < taskCount; i++) {
-            if (tasks[i].getDescription().equalsIgnoreCase(inputTaskDescription)) {
+    private static boolean isTaskAlreadyAdded(String inputTaskDescription) {
+        for (Task task : tasks) {
+            if (task.getDescription().equalsIgnoreCase(inputTaskDescription)) {
                 return true;
             }
         }
         return false;
     }
 
-    public static String printMissingInputMessage(String input, TaskType type) {
-        return "☹ Oops! The " + input + " of a " + type + " cannot be empty."
+    private static String printMissingInputMessage(String input, TaskType taskType) {
+        return "☹ Oops! The " + input + " of a " + taskType + " cannot be empty."
                 + HELP_MESSAGE_SPECIFIC_COMMAND;
     }
 
-    public static String addTodo(String[] parsedInput) throws InputEmptyException,
-            InputRepeatedException, MaxTaskException {
-        if (taskCount >= 100) {
-            throw new MaxTaskException();
-        }
+    private static String addTodo(String[] parsedInput) throws InputEmptyException,
+            InputRepeatedException {
+
         if (parsedInput[TASK_DESCRIPTION_INDEX_TODO].isBlank()) {
             throw new InputEmptyException();
         }
         if (isTaskAlreadyAdded(parsedInput[TASK_DESCRIPTION_INDEX_TODO])) {
             throw new InputRepeatedException();
         }
-        tasks[taskCount] = new Todo(parsedInput[TASK_DESCRIPTION_INDEX_TODO]);
-        taskCount++;
-        return "Got it. I've added this task:\n  " + tasks[taskCount - 1]
-                + "\nNow you have " + taskCount + " task(s) in the list.";
+        Todo newTodo = new Todo(parsedInput[TASK_DESCRIPTION_INDEX_TODO]);
+        tasks.add(newTodo);
+        return "Got it. I've added this task:\n  " + newTodo
+                + "\nNow you have " + tasks.size() + " task(s) in the list.";
     }
 
-    public static String filterTodoBeforeAddingToTaskList(String[] parsedInput) {
+    private static String filterTodoBeforeAddingToTaskList(String[] parsedInput) {
         try {
             return addTodo(parsedInput);
         } catch (ArrayIndexOutOfBoundsException | InputEmptyException e) {
             return printMissingInputMessage("description", TaskType.TODO);
         } catch (InputRepeatedException e) {
             return ERROR_TODO_REPEATED_INPUT_MESSAGE;
-        } catch (MaxTaskException e) {
-            return ERROR_MAX_TASK_MESSAGE;
         }
     }
 
-    public static String addEventOrDeadline(TaskType type, String[] parsedInput, String command)
-            throws InputEmptyException, InputRepeatedException, MaxTaskException, CommandMissingException {
-        if (taskCount >= 100) {
-            throw new MaxTaskException();
-        }
+    private static String addEventOrDeadline(TaskType type, String[] parsedInput, String command)
+            throws InputEmptyException, InputRepeatedException, CommandMissingException {
+
         if (parsedInput[TASK_CONTENT_INDEX].isBlank()) {
             throw new InputEmptyException();
         }
@@ -186,116 +180,108 @@ public class Vera {
         if (isTaskAlreadyAdded(filteredTaskContent[TASK_DESCRIPTION_INDEX])) {
             throw new InputRepeatedException();
         }
+
+        Task newTask;
         if (type.equals(TaskType.EVENT)) {
-            tasks[taskCount] = new Event(filteredTaskContent[TASK_DESCRIPTION_INDEX],
+            newTask = new Event(filteredTaskContent[TASK_DESCRIPTION_INDEX],
                     filteredTaskContent[TASK_DATE_INDEX]);
         } else {
-            tasks[taskCount] = new Deadline(filteredTaskContent[TASK_DESCRIPTION_INDEX],
+             newTask = new Deadline(filteredTaskContent[TASK_DESCRIPTION_INDEX],
                     filteredTaskContent[TASK_DATE_INDEX]);
         }
-        taskCount++;
-        return "Got it. I've added this task:\n  " + tasks[taskCount - 1]
-                + "\nNow you have " + taskCount + " task(s) in the list.";
+        tasks.add(newTask);
+        return "Got it. I've added this task:\n  " + newTask
+                + "\nNow you have " + tasks.size() + " task(s) in the list.";
     }
 
-    public static boolean isTaskBeingReplaced() {
+    private static boolean isTaskBeingReplaced() {
         boolean isOldTaskReplaced = false;
         printWithPartition("Oops! It seems that you've already added this task.\n"
                 + "Would you like to override the\nexisting time and/or date "
                 + "with the new input? [Y/N]");
         while (true) {
             String input = SCANNER.nextLine();
-            if (input.equalsIgnoreCase("Y")) {
+            if (input.equalsIgnoreCase("Y") || input.equalsIgnoreCase("Yes")) {
                 isOldTaskReplaced = true;
                 System.out.println(PARTITION_LINE + "\nUnderstood. Proceeding to change"
                         + "\nthe old task with the new one..........");
                 break;
             }
-            if (input.equalsIgnoreCase("N")) {
+            if (input.equalsIgnoreCase("N") || input.equalsIgnoreCase("No")) {
                 break;
             }
-            printWithPartition("Please confirm your choice with either Y or N.");
+            printWithPartition("Please confirm your choice with either Y (Yes) or N (No).");
         }
         return isOldTaskReplaced;
     }
 
-    public static String handleRepeatedInputs(String[] filteredTaskContent) {
+    private static String handleRepeatedInputs(String[] filteredTaskContent) {
         if (isTaskBeingReplaced()) {
             int taskIndexToReplace = 0;
-            for (int i = 0; i < taskCount; i++) {
-                if (tasks[i].getDescription().equalsIgnoreCase(filteredTaskContent[TASK_DESCRIPTION_INDEX])) {
+            for (int i = 0; i < tasks.size(); i++) {
+                if (tasks.get(i).getDescription().equalsIgnoreCase(filteredTaskContent[TASK_DESCRIPTION_INDEX])) {
                     taskIndexToReplace = i;
                     break;
                 }
             }
-            tasks[taskIndexToReplace].resetInput(filteredTaskContent[TASK_DATE_INDEX]);
-            return "Done! I've updated this task:\n  " + tasks[taskIndexToReplace];
+            tasks.get(taskIndexToReplace).resetInput(filteredTaskContent[TASK_DATE_INDEX]);
+            return "Done! I've updated this task:\n  " + tasks.get(taskIndexToReplace);
         }
         return "Okay, we'll keep it as it is.";
     }
 
-    public static String[] parseData(String data, String keyword, int limit) {
-        return data.split(keyword, limit);
+    private static String[] parseData(String data, String keyword) {
+        return data.split(keyword, 2);
     }
 
-    public static String filterTaskBeforeAddingToTaskList(String[] parsedInput, String command, TaskType type) {
+    private static String filterTaskBeforeAddingToTaskList(String[] parsedInput, String command, TaskType taskType) {
         try {
-            return addEventOrDeadline(type, parsedInput, command);
+            return addEventOrDeadline(taskType, parsedInput, command);
         } catch (ArrayIndexOutOfBoundsException | InputEmptyException e) {
-            return printMissingInputMessage("description and date\n", type);
+            return printMissingInputMessage("description and date\n", taskType);
         } catch (InputRepeatedException e) {
-            return handleRepeatedInputs(parseData(parsedInput[TASK_CONTENT_INDEX], command, 2));
-        } catch (MaxTaskException e) {
-            return ERROR_MAX_TASK_MESSAGE;
+            return handleRepeatedInputs(parseData(parsedInput[TASK_CONTENT_INDEX], command));
         } catch (CommandMissingException e) {
-            if (type.equals(TaskType.EVENT)) {
+            if (taskType.equals(TaskType.EVENT)) {
                 return ERROR_EVENT_MISSING_COMMAND_MESSAGE + HELP_MESSAGE_SPECIFIC_COMMAND;
             }
             return ERROR_DEADLINE_MISSING_COMMAND_MESSAGE + HELP_MESSAGE_SPECIFIC_COMMAND;
         }
     }
 
-    public static boolean isInvalidInput(String[] parsedInput) {
-        boolean isMarkIndexMissing = parsedInput.length < 2;
-        if (isMarkIndexMissing) {
-            return true;
-        }
-        int inputMarkIndex = Integer.parseInt(parsedInput[MARK_INDEX]);
-        return inputMarkIndex <= 0 || inputMarkIndex > taskCount;
-    }
-
-    public static String markTask(String[] parsedInput) {
-        if (isInvalidInput(parsedInput)) {
-            return "Bzzt!\nPlease"
-                    + " key in a valid task number "
-                    + "to mark your task." + HELP_MESSAGE_SPECIFIC_COMMAND;
-        }
-
+    private static String markTask(String[] parsedInput) {
         int taskIndexToMark = Integer.parseInt(parsedInput[MARK_INDEX]) - 1;
-        if (tasks[taskIndexToMark].isDone()) {
+        if (tasks.get(taskIndexToMark).isDone()) {
             return "This task has already been marked!";
         }
-        tasks[taskIndexToMark].markAsDone();
-        return "Nice! I've marked this task as done:\n  " + tasks[taskIndexToMark];
+        tasks.get(taskIndexToMark).markAsDone();
+        return "Nice! I've marked this task as done:\n  " + tasks.get(taskIndexToMark);
     }
 
-    public static String unmarkTask(String[] parsedInput) {
-        if (isInvalidInput(parsedInput)) {
-            return "Bzzt!\nPlease"
-                    + " key in a valid task number "
-                    + "to unmark your task." + HELP_MESSAGE_SPECIFIC_COMMAND;
-        }
-
+    private static String unmarkTask(String[] parsedInput) {
         int taskIndexToUnmark = Integer.parseInt(parsedInput[MARK_INDEX]) - 1;
-        if (!tasks[taskIndexToUnmark].isDone()) {
+        if (!tasks.get(taskIndexToUnmark).isDone()) {
             return "This task was already unmarked!";
         }
-        tasks[taskIndexToUnmark].markAsUndone();
+        tasks.get(taskIndexToUnmark).markAsUndone();
         return "Ok, I've marked this task as"
-                + " not done yet:\n  " + tasks[taskIndexToUnmark];
+                + " not done yet:\n  " + tasks.get(taskIndexToUnmark);
     }
 
-    public static String showHelpList() {
+    private static String catchInvalidMarkInput(String[] parsedInput, MarkType markType) {
+        try {
+            if (markType.equals(MarkType.MARK)) {
+                return markTask(parsedInput);
+            }
+            return unmarkTask(parsedInput);
+        } catch (IndexOutOfBoundsException e) {
+            return "Bzzt!\nPlease"
+                    + " key in a valid task number "
+                    + "to mark/unmark your task." + HELP_MESSAGE_SPECIFIC_COMMAND;
+        }
+    }
+
+    private static String showHelpList() {
         System.out.println(PARTITION_LINE + "\nHere is a list of commands available:");
         String[] helpCommands = {"list", "mark", "unmark", "todo", "deadline", "event"};
         for (String helpCommand : helpCommands) {
@@ -306,8 +292,8 @@ public class Vera {
                 + "enter 'help quick start'";
     }
 
-    public static String showSpecificHelpCommand(String parsedInput) {
-        switch(parsedInput.toLowerCase()) {
+    private static String showSpecificHelpCommand(String parsedInput) {
+        switch (parsedInput.toLowerCase()) {
         case "list":
             return HELP_MESSAGE_LIST_COMMAND;
         case "mark":
@@ -327,24 +313,24 @@ public class Vera {
         }
     }
 
-    public static String filterHelpCommand(String userInput) {
+    private static String filterHelpCommand(String userInput) {
         try {
-            String[] parsedInput = parseData(userInput, " ", 2);
+            String[] parsedInput = parseData(userInput, " ");
             return showSpecificHelpCommand(parsedInput[HELP_OPTIONS_INDEX]);
         } catch (IndexOutOfBoundsException e) {
             return showHelpList();
         }
     }
 
-    public static String executeInput(String userInput) {
-        String[] parsedInput = parseData(userInput, " ", 2);
+    private static String executeInput(String userInput) {
+        String[] parsedInput = parseData(userInput, " ");
         switch (parsedInput[OPTIONS_INDEX].toLowerCase()) {
         case "list":
             return list();
         case "mark":
-            return markTask(parsedInput);
+            return catchInvalidMarkInput(parsedInput, MarkType.MARK);
         case "unmark":
-            return unmarkTask(parsedInput);
+            return catchInvalidMarkInput(parsedInput, MarkType.UNMARK);
         case "todo":
             return filterTodoBeforeAddingToTaskList(parsedInput);
         case "event":
