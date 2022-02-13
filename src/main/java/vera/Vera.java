@@ -64,7 +64,7 @@ public class Vera {
             + "4) Todo: todo <task_description>\n"
             + "5) Deadline: deadline <task_description> /by <task_date>\n"
             + "6) Event: event <task_description> /at <task_date>\n"
-            + "7) Delete: delete <list_index>"
+            + "7) Delete: delete <list_index>\n"
             + "8) Bye: bye";
 
     private static final String ERROR_INVALID_INPUT_MESSAGE = "Please key in an appropriate command.\n"
@@ -453,7 +453,7 @@ public class Vera {
 
     private static String showHelpList() {
         System.out.println(PARTITION_LINE + "\nHere is a list of commands available:");
-        String[] helpCommands = {"list", "mark", "unmark", "todo", "deadline", "event", "delete",};
+        String[] helpCommands = {"list", "mark", "unmark", "todo", "deadline", "event", "delete", "bye",};
         for (String helpCommand : helpCommands) {
             System.out.println(PARTITION_LINE + System.lineSeparator()
                     + showSpecificHelpCommand(helpCommand));
