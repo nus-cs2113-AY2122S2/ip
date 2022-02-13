@@ -4,6 +4,19 @@ public class Task {
 
     protected String description;
     protected boolean isDone;
+    protected String info;
+
+    public void setTaskType(char taskType) {
+        this.taskType = taskType;
+    }
+
+    protected char taskType;
+
+    public char getTaskType() {
+        return taskType;
+    }
+
+
 
     public Task(String description) {
         this.description = description;
@@ -30,5 +43,13 @@ public class Task {
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
+    }
+
+    public String saveDescription() {
+        return description;
+    }
+
+    public String saveAdditionalInfo() {
+        return info;
     }
 }
