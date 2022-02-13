@@ -45,7 +45,7 @@ public class Duke {
         try {
             readFromFile();
         } catch (FileNotFoundException error) {
-            System.out.println("No file found to retrieve");
+            System.out.println("Duke.txt doesn't exist so I'M GOING TO CREATE ONE FOR YOU");
         }
     }
 

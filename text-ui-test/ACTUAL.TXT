@@ -14,6 +14,7 @@ Hello from
 Hi there! I'm Spooky :D
 What can I do for you?
 -----------------------------
+Duke.txt doesn't exist so I'M GOING TO CREATE ONE FOR YOU
 YAY!!! you do not have any tasks at the moment hehe
 -----------------------------
 Got it. I have added this task: 
