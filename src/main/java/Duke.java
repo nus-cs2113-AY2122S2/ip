@@ -161,9 +161,10 @@ public class Duke {
         }
         int deleteIndex = Integer.parseInt(lineWords[1]) - 1;
         try {
-            System.out.println("Noted. I've removed this task: ");
-            System.out.println(taskList.get(deleteIndex).toString());
+            String taskToDelete = taskList.get(deleteIndex).toString();
             taskList.remove(deleteIndex);
+            System.out.println("Noted. I've removed this task: ");
+            System.out.println(taskToDelete);
             System.out.println("Now you have " + taskList.size() + " tasks on the list.");
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Could not remove this task from the list of tasks.");
