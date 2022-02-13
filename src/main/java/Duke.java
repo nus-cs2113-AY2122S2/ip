@@ -1,27 +1,41 @@
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 public class Duke {
     private static ArrayList<Task> userInput;
     private static int valIndex;
     private static int inputCount = 0;
+    private static final String filePath = "data/data.txt";
     private static String line;
-    public static void main(String[] args) {
+
+    public Duke() throws IOException {
+    }
+
+    public static void main(String[] args) throws IOException {
         printWelcomeMessage();
         userInput = new ArrayList<>();
-        while(true) {
+        File f = new File(filePath);
+        File folder = new File("data");
+        if (!folder.exists())
+            folder.mkdir();
+        if (f.exists())
+            fileReading(filePath);
+        while (true) {
             Scanner input = new Scanner(System.in);
-            try{
+            try {
                 checkCommandValidity(input);
             } catch (InvalidInputException e) {
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-            if (isList()){
+            if (isList()) {
                 printList();
                 continue;
             } else if (isBye()) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
-            } else if (line.contains(" ")){
+            } else if (line.contains(" ")) {
                 if (isMark()) {
                     try {
                         if (checkValidity()) {
@@ -32,7 +46,6 @@ public class Duke {
                     } catch (NumberFormatException e) {
                         System.out.println("Please enter the index of task you want to mark!");
                     }
-                    continue;
                 } else if (isUnmark()) {
                     try {
                         if (checkValidity()) {
@@ -43,15 +56,13 @@ public class Duke {
                     } catch (NumberFormatException e) {
                         System.out.println("Please enter the index of task you want to unmark!");
                     }
-                    continue;
-                } else if (isTodo()){
-                    try{
-                    addTodo();
+                } else if (isTodo()) {
+                    try {
+                        addTodo();
                     } catch (InvalidInputException e) {
                         System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
                     }
-                    continue;
-                } else if (isDeadline()){
+                } else if (isDeadline()) {
                     try {
                         addDeadline();
                     } catch (InvalidInputException e) {
@@ -59,8 +70,7 @@ public class Duke {
                     } catch (NumberFormatException e) {
                         System.out.println("☹ OOPS!!! Please set the deadline using 'deadline /by time' format!!!");
                     }
-                    continue;
-                } else if (isEvent()){
+                } else if (isEvent()) {
                     try {
                         addEvent();
                     } catch (InvalidInputException e) {
@@ -68,14 +78,13 @@ public class Duke {
                     } catch (NumberFormatException e) {
                         System.out.println("☹ OOPS!!! Please set the event time using 'event /at time'  format!!!");
                     }
-                    continue;
-                } else if (isDelete()){
+                } else if (isDelete()) {
                     try {
                         try {
                             if (!checkValidity())
-                            System.out.println("☹ OOPS!!! You do not have this task.");
-                        else
-                            deleteTask();
+                                System.out.println("☹ OOPS!!! You do not have this task.");
+                            else
+                                deleteTask();
                         } catch (NumberFormatException e) {
                             System.out.println("☹ OOPS!!! What exactly do you want to delete?");
                         }
@@ -84,9 +93,43 @@ public class Duke {
                     }
                 }
             }
+            File tempFile = new File("data/tempdata.txt");
+            boolean a = tempFile.createNewFile();
+            FileWriting fileWriting = new FileWriting();
+            try {
+                for (int i = 0; i < inputCount; i++) {
+                    fileWriting.writeToFile("data/tempdata.txt", (i + 1) + ".[" + userInput.get(i).getIcon() + "] " + "[" + userInput.get(i).getStatusIcon() + "] " + userInput.get(i).description + userInput.get(i).showDate() + System.lineSeparator());
+                }
+                f.delete();
+                tempFile.renameTo(f);
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
         }
     }
 
+
+    public static void fileReading(String filePath) throws FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        while (s.hasNextLine()) {
+            var str = s.nextLine();
+            if (str.charAt(3) == 'T') {
+                userInput.add(new Todo(str.substring(11)));
+                if (str.charAt(7) == 'X')
+                    userInput.get(inputCount).markAsDone();
+            } else if (str.charAt(3) == 'D') {
+                userInput.add(new Deadline(str.substring(11, str.indexOf("(by: ")), str.substring(str.indexOf("(by: ") + 5,str.indexOf(")") )));
+                if (str.charAt(7) == 'X')
+                    userInput.get(inputCount).markAsDone();
+            } else if (str.charAt(3) == 'E') {
+                userInput.add(new Event(str.substring(11, str.indexOf("(at: ")), str.substring(str.indexOf("(at: ") + 5,str.indexOf(")") )));
+                if (str.charAt(7) == 'X')
+                    userInput.get(inputCount).markAsDone();
+            }
+            inputCount++;
+        }
+    }
     public static void printWelcomeMessage(){
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
