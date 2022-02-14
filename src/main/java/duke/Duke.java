@@ -6,6 +6,7 @@ import duke.task.Task;
 import duke.task.Todo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
 
@@ -14,9 +15,10 @@ public class Duke {
     public static final String MESSAGE_BYE = "Goodbye. Hope to see you again soon!";
     public static final String MESSAGE_LIST = "Here is your list so far:";
     public static final String MESSAGE_NO_TASKS = "You don't seem to have any tasks so far!";
-    public static final String MESSAGE_INSTRUCTION = "Type a valid command (bye, list, mark, unmark, todo, deadline, event) or add a task to your list:";
+    public static final String MESSAGE_INSTRUCTION = "Type a valid command (bye, list, mark, unmark, delete, todo, deadline, event) or add a task to your list:";
     public static final String MESSAGE_MARK_SUCCESS = "Congrats! You've completed:\n";
     public static final String MESSAGE_UNMARK_SUCCESS = "Aw, you've marked this as undone:\n";
+    public static final String MESSAGE_DELETE_SUCCESS = "Alright, deleting this task:\n";
 
     //Commands
     public static final String COMMAND_BYE = "bye";
@@ -26,6 +28,7 @@ public class Duke {
     public static final String COMMAND_TODO = "todo";
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
+    public static final String COMMAND_DELETE = "delete";
 
     //Errors
     public static final String ERROR_NO_INPUT = "Hmmmm... you didn't type anything. Please try again using a valid command!";
@@ -41,8 +44,7 @@ public class Duke {
     public static final String SEPARATOR = "───────────────────────────────────";
 
     protected static final Scanner scan = new Scanner(System.in);
-    protected static Task[] tasks = new Task[100];
-    protected static int numTasks = 0;
+    protected static ArrayList<Task> taskList = new ArrayList<>();
 
     public static void main(String[] args) {
         greet();
@@ -88,6 +90,9 @@ public class Duke {
         case COMMAND_UNMARK:
             executeUnmark(input);
             break;
+        case COMMAND_DELETE:
+            executeDelete(input);
+            break;
         case COMMAND_TODO:
             executeTodo(input);
             break;
@@ -102,28 +107,41 @@ public class Duke {
         }
     }
 
+    public static void executeDelete(String input) {
+        try {
+            String taskNumber = parseMarkOrUnmarkOrDelete(input);
+            int taskIndex = Integer.parseInt(taskNumber) - 1;
+            System.out.println(MESSAGE_DELETE_SUCCESS + taskList.get(taskIndex));
+            taskList.remove(taskIndex);
+        } catch (DukeException error) {
+            System.out.println(error.getMessage() + COMMAND_DELETE + ".");
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            System.out.println(ERROR_INVALID_TASK_NUMBER);
+        }
+    }
+
     public static void executeMark(String input) {
         try {
-            String taskNumber = parseMarkOrUnmark(input);
+            String taskNumber = parseMarkOrUnmarkOrDelete(input);
             int taskIndex = Integer.parseInt(taskNumber) - 1;
-            tasks[taskIndex].markAsDone();
-            System.out.println(MESSAGE_MARK_SUCCESS + tasks[taskIndex]);
+            taskList.get(taskIndex).markAsDone();
+            System.out.println(MESSAGE_MARK_SUCCESS + taskList.get(taskIndex));
         } catch (DukeException error) {
             System.out.println(error.getMessage() + COMMAND_MARK + ".");
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
             System.out.println(ERROR_INVALID_TASK_NUMBER);
         }
     }
 
     public static void executeUnmark(String input) {
         try {
-            String taskNumber = parseMarkOrUnmark(input);
+            String taskNumber = parseMarkOrUnmarkOrDelete(input);
             int taskIndex = Integer.parseInt(taskNumber) - 1;
-            tasks[taskIndex].markAsNotDone();
-            System.out.println(MESSAGE_UNMARK_SUCCESS + tasks[taskIndex]);
+            taskList.get(taskIndex).markAsNotDone();
+            System.out.println(MESSAGE_UNMARK_SUCCESS + taskList.get(taskIndex));
         } catch (DukeException error) {
             System.out.println(error.getMessage() + COMMAND_UNMARK + ".");
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
             System.out.println(ERROR_INVALID_TASK_NUMBER);
         }
     }
@@ -134,10 +152,9 @@ public class Duke {
             return;
         }
         String description = getDescription(input);
-        Todo t = new Todo(description);
-        t.printAddToListMessage();
-        tasks[numTasks] = t;
-        numTasks += 1;
+        Todo task = new Todo(description);
+        taskList.add(task);
+        task.printAddToListMessage();
     }
 
     public static void executeDeadline(String input) {
@@ -148,10 +165,9 @@ public class Duke {
         String[] parsedCommand = parseDeadlineOrEvent(input);
         String description = parsedCommand[0];
         String by = parsedCommand[1];
-        Deadline t = new Deadline(description, by);
-        t.printAddToListMessage();
-        tasks[numTasks] = t;
-        numTasks += 1;
+        Deadline task = new Deadline(description, by);
+        taskList.add(task);
+        task.printAddToListMessage();
     }
 
     public static void executeEvent(String input) {
@@ -162,10 +178,9 @@ public class Duke {
         String[] parsedCommand = parseDeadlineOrEvent(input);
         String description = parsedCommand[0];
         String at = parsedCommand[1];
-        Event t = new Event(description, at);
-        t.printAddToListMessage();
-        tasks[numTasks] = t;
-        numTasks += 1;
+        Event task = new Event(description, at);
+        taskList.add(task);
+        task.printAddToListMessage();
     }
 
     //Returns a String array with the first element as the description and the second element as the deadline/time period
@@ -182,7 +197,7 @@ public class Duke {
     }
 
     //Returns a String representing the integer of the chosen task
-    public static String parseMarkOrUnmark(String input) throws DukeException {
+    public static String parseMarkOrUnmarkOrDelete(String input) throws DukeException {
         String[] inputArray = input.split(" ");
         if (inputArray.length != 2) {
             throw new DukeException(ERROR_INVALID_SYNTAX);
@@ -191,11 +206,11 @@ public class Duke {
     }
 
     public static void listTasks() {
-        if (numTasks == 0) {
+        if (taskList.size() == 0) {
             System.out.println(MESSAGE_NO_TASKS);
         } else {
-            for (int i = 0; i < numTasks; i++) {
-                System.out.println((i + 1) + ". " + tasks[i]);
+            for (int i = 0; i < taskList.size(); i++) {
+                System.out.println((i + 1) + ". " + taskList.get(i));
             }
         }
     }
