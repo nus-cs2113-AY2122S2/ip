@@ -2,6 +2,9 @@ package duke;
 
 import duke.command.Command;
 
+/**
+ * Represents the main control class for the App
+ */
 public class Duke {
 
     private TaskList tasks;
@@ -14,6 +17,9 @@ public class Duke {
         ui = new Ui();
     }
 
+    /**
+     * Runs the Duke application
+     */
     public void run() {
         ui.welcome();
         boolean isExit = false;

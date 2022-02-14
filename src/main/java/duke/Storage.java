@@ -12,13 +12,27 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+/**
+ * Represents the controller to parse and write to a save file for tasks
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * String representation of the file path to the save file
+     * 
+     * @param filePath
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Writes the tasks in task list to the save file
+     * 
+     * @param store
+     *            Task list
+     */
     public void storeToFile(ArrayList<Task> store) {
         String text = "";
         for (int i = 0; i < store.size(); i++) {
@@ -34,6 +48,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses the save file
+     * 
+     * @return ArrayList of tasks
+     */
     public ArrayList<Task> fileToStore() {
         ArrayList<Task> store = new ArrayList<>();
         File f = new File(filePath);
