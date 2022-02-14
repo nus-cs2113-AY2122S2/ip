@@ -2,7 +2,7 @@ package sora;
 
 import java.util.Scanner;
 
-public class SoraReader {
+public class SoraIOHandler {
     Scanner reader = new Scanner(System.in);
 
     protected String getUserInput() {

@@ -16,14 +16,14 @@ public class Sora {
 
     private TasksManager tasksManager;
     private SoraUI soraUI;
-    private SoraReader soraReader;
+    private SoraIOHandler soraIOHandler;
     private SoraExceptionHandler exceptionHandler;
 
     public Sora() {
         // Instantiate components
         soraUI = new SoraUI();
         tasksManager = new TasksManager();
-        soraReader = new SoraReader();
+        soraIOHandler = new SoraIOHandler();
         exceptionHandler = new SoraExceptionHandler(soraUI);
 
         // Greet user
@@ -48,7 +48,7 @@ public class Sora {
         while (!doesUserWantsToExit()) {
             // Get user input
             soraUI.printPrompter(isFirstPrompt);
-            String userRawInput = soraReader.getUserInput();
+            String userRawInput = soraIOHandler.getUserInput();
             isFirstPrompt = false;
             soraUI.printLine();
 
