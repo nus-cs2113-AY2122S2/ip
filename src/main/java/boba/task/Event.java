@@ -2,7 +2,7 @@ package boba.task;
 
 /**
  * Represent a task with a set time to meet.
- * Inherits from the boba.task.Task class.
+ * Inherits from the Task class.
  */
 public class Event extends Task {
 
@@ -20,7 +20,7 @@ public class Event extends Task {
     }
 
     /**
-     * @return String representation of boba.task.Event Class
+     * @return String representation of Event Class
      */
     @Override
     public String toString() {

@@ -10,7 +10,7 @@ public enum Command {
      * Determine what command user is using, and return the enum version.
      * If the command is not valid, the default version is returned.
      * @param input Input by the user given to the bot
-     * @return The boba.command.Command that is being used
+     * @return The Command that is being used
      */
     public static Command getCommand(String input) {
         // ternary operation for one word commands

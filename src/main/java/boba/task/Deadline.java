@@ -2,7 +2,7 @@ package boba.task;
 
 /**
  * Represent a task with a deadline.
- * Inherits from the boba.task.Task class.
+ * Inherits from the Task class.
  */
 public class Deadline extends Task {
 
@@ -20,7 +20,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * @return String representation of boba.task.Deadline class
+     * @return String representation of Deadline class
      */
     @Override
     public String toString() {

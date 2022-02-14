@@ -23,7 +23,7 @@ public class TaskManager {
     /**
      * Runs the given command and calls the right method
      * to print the proper message.
-     * @param operation The boba.command.Command the user entered
+     * @param operation The Command the user entered
      * @param arguments The arguments that follows the command
      */
     public static void run(Command operation, String[] arguments) {
