@@ -8,6 +8,10 @@ import duke.task.ToDo;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The main control class for the App
+ */
+
 public class Duke {
     public static void main(String[] args) {
         String logo = " ____        _        \n"

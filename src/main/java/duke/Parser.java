@@ -4,7 +4,21 @@ import duke.Command.*;
 import duke.task.Deadline;
 import duke.task.ToDo;
 
+/**
+ * The parsing object used to parse user input into Commands
+ */
+
 public class Parser {
+    /**
+     * Parses user input into Duke command
+     *
+     * @param command
+     *            String representation of  user input
+     * @return Command object
+     * @throws DukeException
+     *             If task description is empty or invalid commands
+     */
+
     public static Command parse(String command) throws DukeException {
         String[] initialParse = Command.split(" ");
         String commandType = initialParse[0];
