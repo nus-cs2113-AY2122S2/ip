@@ -14,6 +14,14 @@ public class Deadline extends Todo {
         return by;
     }
 
+    public String getString(){
+        String done = "0";
+        if (isDone){
+            done = "1";
+        }
+        return ("D," + done + "," + description + "," + by);
+    }
+
     public String toString() {
         return (super.toString() + " (by: "  + by + ")");
     }

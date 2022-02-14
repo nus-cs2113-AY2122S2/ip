@@ -9,6 +9,13 @@ public class Task {
     public String getDescription(){
         return description;
     }
+    public String getString(){
+        String done = "0";
+        if (isDone){
+            done = "1";
+        }
+        return ("T," + done + "," + description);
+    }
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
