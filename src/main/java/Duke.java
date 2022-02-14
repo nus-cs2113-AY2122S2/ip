@@ -5,36 +5,43 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    private static void parseInput(Scanner in, Task[] tasks) {
+
+    protected static ArrayList<Task> tasks = new ArrayList<>();
+
+    private static void parseInput(Scanner in) {
         String line;
         System.out.println("Storing Up to 100 Tasks");
         do {
-            System.out.println("Waiting for your input");
+            System.out.println("Awaiting your command");
             line = in.nextLine();
             String[] words = line.split(" ", 2);
             String command = words[0];
 
             switch (command) {
             case "list":
-                printTasks(tasks);
+                printTasks();
                 break;
             case "mark":
-                markTask(tasks, words);
+                markTask(words);
                 break;
             case "unmark":
-                unmarkTask(tasks, words);
+                unmarkTask(words);
                 break;
             case "todo":
-                addToDo(tasks, words);
+                addToDo(words);
                 break;
             case "deadline":
-                addDeadline(tasks, words);
+                addDeadline(words);
                 break;
             case "event":
-                addEvent(tasks, words);
+                addEvent(words);
+                break;
+            case "delete":
+                deleteTask(words);
                 break;
             case "help":
                 printHelp();
@@ -48,14 +55,30 @@ public class Duke {
         } while ((!line.equalsIgnoreCase("bye")) && Task.getNumOfTasks() < 100);
     }
 
-    private static void addEvent(Task[] tasks, String[] words) {
-        int numOfTasks = Task.getNumOfTasks();
+    private static void deleteTask(String[] deleteTaskParameters) {
+        try {
+            int taskNumber = Integer.parseInt(deleteTaskParameters[1]);
+            int taskIndex = taskNumber - 1;
+            if (taskNumber > Task.getNumOfTasks()) {
+                System.out.println("You don't have that many tasks ><!");
+                return;
+            }
+            System.out.println("I have removed:\n" + tasks.get(taskIndex));
+            tasks.remove(taskIndex);
+            Task.deleteTask();
+            System.out.println("Now you have " + Task.getNumOfTasks() + " task(s) on the list.\n");
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a number after delete");
+        }
+    }
+
+    private static void addEvent(String[] words) {
         try {
             String description = extractDescription(words);
             String at = extractDate(words);
-            tasks[numOfTasks] = new Event(description, at);
+            tasks.add(new Event(description, at));
             System.out.println("Event added!");
-            printTasks(tasks);
+            printTasks();
         } catch (MissingDescriptionException e) {
             System.out.println("Description cannot be empty. Correct format: event <description> /at <date>");
         } catch (MissingDateException e) {
@@ -63,14 +86,13 @@ public class Duke {
         }
     }
 
-    private static void addDeadline(Task[] tasks, String[] words) {
-        int numOfTasks = Task.getNumOfTasks();
+    private static void addDeadline(String[] words) {
         try {
             String description = extractDescription(words);
             String by = extractDate(words);
-            tasks[numOfTasks] = new Deadline(description, by);
+            tasks.add(new Deadline(description, by));
             System.out.println("Deadline added!");
-            printTasks(tasks);
+            printTasks();
         } catch (MissingDescriptionException e) {
             System.out.println("Description cannot be empty. Correct format: deadline <description> /by <date>");
         } catch (MissingDateException e) {
@@ -78,19 +100,18 @@ public class Duke {
         }
     }
 
-    private static void addToDo(Task[] tasks, String[] words) {
-        int numOfTasks = Task.getNumOfTasks();
+    private static void addToDo(String[] words) {
         try {
             String description = extractDescription(words);
-            tasks[numOfTasks] = new ToDo(description);
+            tasks.add(new ToDo(description));
             System.out.println("Todo added!");
-            printTasks(tasks);
+            printTasks();
         } catch (MissingDescriptionException e) {
             System.out.println("Description cannot be empty. Correct format: todo <description>");
         }
     }
 
-    private static void unmarkTask(Task[] tasks, String[] unmarkTaskParameters) {
+    private static void unmarkTask(String[] unmarkTaskParameters) {
         try {
             int taskNumber = Integer.parseInt(unmarkTaskParameters[1]);
             int taskIndex = taskNumber - 1;
@@ -98,15 +119,15 @@ public class Duke {
                 System.out.println("You don't have that many tasks ><!");
                 return;
             }
-            tasks[taskIndex].setUndone();
+            tasks.get(taskIndex).setUndone();
             System.out.println("I have marked the task as not done!");
-            System.out.println(tasks[taskIndex].getStatusIcon() + tasks[taskIndex].getTaskDescription() + "\n");
+            System.out.println(tasks.get(taskIndex).getStatusIcon() + tasks.get(taskIndex).getTaskDescription() + "\n");
         } catch (NumberFormatException nfe) {
             System.out.println("Please enter a number after unmark");
         }
     }
 
-    private static void markTask(Task[] tasks, String[] markTaskParameters) {
+    private static void markTask(String[] markTaskParameters) {
         try {
             int taskNumber = Integer.parseInt(markTaskParameters[1]);
             int taskIndex = taskNumber - 1;
@@ -114,18 +135,18 @@ public class Duke {
                 System.out.println("You don't have that many tasks ><!");
                 return;
             }
-            tasks[taskIndex].setDone();
+            tasks.get(taskIndex).setDone();
             System.out.println("I have marked the task as done!");
-            System.out.println(tasks[taskIndex].getStatusIcon() + tasks[taskIndex].getTaskDescription() + "\n");
+            System.out.println(tasks.get(taskIndex).getStatusIcon() + tasks.get(taskIndex).getTaskDescription() + "\n");
         } catch (NumberFormatException nfe) {
             System.out.println("Please enter a number after mark");
         }
     }
 
-    private static void printTasks(Task[] tasks) {
+    private static void printTasks() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < Task.getNumOfTasks(); i += 1) {
-            System.out.println(i + 1 + ". " + tasks[i]);
+            System.out.println(i + 1 + ". " + tasks.get(i));
         }
         System.out.println("You have " + Task.getNumOfTasks() + " task(s) on the list.\n");
     }
@@ -170,8 +191,8 @@ public class Duke {
     public static void main(String[] args) {
         printWelcomeMessage();
         Scanner in = new Scanner(System.in);
-        Task[] tasks = new Task[100];
-        parseInput(in, tasks);
+        //ArrayList<Task> tasks = new ArrayList<>();
+        parseInput(in);
         System.out.println("Goodbye, see you next time!");
     }
 }

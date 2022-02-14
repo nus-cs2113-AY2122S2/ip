@@ -11,6 +11,10 @@ public class Task {
         numOfTasks += 1;
     }
 
+    public static void deleteTask() {
+        numOfTasks -= 1;
+    }
+
     public static int getNumOfTasks() {
         return numOfTasks;
     }

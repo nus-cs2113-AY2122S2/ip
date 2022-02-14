@@ -3,25 +3,25 @@ Hello, nice to meet you. I'm Yae! (*^▽^*)
 What can I do for you?
 ____________________________________________________________
 Storing Up to 100 Tasks
-Waiting for your input
+Awaiting your command
 Todo added!
 Here are the tasks in your list:
 1. [T][ ] borrow book
 You have 1 task(s) on the list.
 
-Waiting for your input
+Awaiting your command
 Here are the tasks in your list:
 1. [T][ ] borrow book
 You have 1 task(s) on the list.
 
-Waiting for your input
+Awaiting your command
 Deadline added!
 Here are the tasks in your list:
 1. [T][ ] borrow book
 2. [D][ ] return book (by: Friday)
 You have 2 task(s) on the list.
 
-Waiting for your input
+Awaiting your command
 Event added!
 Here are the tasks in your list:
 1. [T][ ] borrow book
@@ -29,16 +29,27 @@ Here are the tasks in your list:
 3. [E][ ] project meeting (at: Mon 2-4pm)
 You have 3 task(s) on the list.
 
-Waiting for your input
+Awaiting your command
 I have marked the task as done!
 [X] borrow book
 
-Waiting for your input
+Awaiting your command
 Here are the tasks in your list:
 1. [T][X] borrow book
 2. [D][ ] return book (by: Friday)
 3. [E][ ] project meeting (at: Mon 2-4pm)
 You have 3 task(s) on the list.
 
-Waiting for your input
+Awaiting your command
+I have removed:
+[D][ ] return book (by: Friday)
+Now you have 2 task(s) on the list.
+
+Awaiting your command
+Here are the tasks in your list:
+1. [T][X] borrow book
+2. [E][ ] project meeting (at: Mon 2-4pm)
+You have 2 task(s) on the list.
+
+Awaiting your command
 Goodbye, see you next time!
