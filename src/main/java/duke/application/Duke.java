@@ -62,6 +62,8 @@ public class Duke {
                     catch (IllegalTodoException e){
                         displayTodoErrorMessage();
                     }
+                } else if (userInput.contains("delete")){
+                    displayDeletedTask(taskArray, userInput);
                 }
             }
             catch (DukeException e){
@@ -88,7 +90,7 @@ public class Duke {
     }
 
     public static void checkInputValidity(String userInput) throws DukeException {
-        String[] validInputs = {"list","unmark","mark","deadline","event","todo"};
+        String[] validInputs = {"list","unmark","mark","deadline","event","todo","delete"};
         if (userInput.length() == 0){
             throw new DukeException();
         }
@@ -100,7 +102,7 @@ public class Duke {
 
     public static void displayMainErrorMessage(){
         System.out.println("Hey man you got to give me something to work with!");
-        System.out.println("Start your command with todo, event, deadline, mark, unmark, list or bye! Bye Bye!");
+        System.out.println("Start your command with todo, event, deadline, mark, unmark, list, delete or bye! Bye Bye!");
     }
 
     public static void dukeExit(){
@@ -132,37 +134,53 @@ public class Duke {
         System.out.println("There are " + taskArray.size() + " tasks in the list");
     }
 
-    public static int getTaskIndex(ArrayList<Task> taskArray, String userInput){
+    public static int getTaskIndex(String userInput){
         String[] temp = new String[100];
         temp = userInput.split(" ");
         int num = Integer.parseInt(temp[1]);
         return num;
     }
 
+    //delete methods
+
+    public static Task deleteTask(ArrayList<Task> taskArray, String userInput){
+        int num = getTaskIndex(userInput);
+        Task t = taskArray.get(num-1);
+        taskArray.remove(num-1);
+        return t;
+    }
+
+    public static void displayDeletedTask(ArrayList<Task> taskArray, String userInput){
+        System.out.println("=============================");
+        System.out.println("Hey, I've removed this task for you. Focus on the others ahead!");
+        System.out.println(deleteTask(taskArray, userInput).toString());
+        System.out.println("There are still " + taskArray.size() + " tasks in the list.");
+    }
+
     //unmark methods
 
     public static void unmarkTask(ArrayList<Task> taskArray, String userInput){
-        int num = getTaskIndex(taskArray, userInput);
+        int num = getTaskIndex(userInput);
         taskArray.get(num-1).markAsUndone();
     }
 
     public static void displayUnmarkedTask(ArrayList<Task> taskArray, String userInput){
         System.out.println("=============================");
         System.out.println("What are you waiting for? Just do it!");
-        System.out.println(taskArray.get(getTaskIndex(taskArray, userInput)-1).toString());
+        System.out.println(taskArray.get(getTaskIndex(userInput)-1).toString());
     }
 
     //mark methods
 
     public static void markTask(ArrayList<Task> taskArray, String userInput){
-        int num = getTaskIndex(taskArray, userInput);
+        int num = getTaskIndex(userInput);
         taskArray.get(num-1).markAsDone();
     }
 
     public static void displayMarkedTask(ArrayList<Task> taskArray, String userInput){
         System.out.println("=============================");
         System.out.println("Go get it king, well done!");
-        System.out.println(taskArray.get(getTaskIndex(taskArray, userInput)-1).toString());
+        System.out.println(taskArray.get(getTaskIndex(userInput)-1).toString());
     }
 
     //deadline methods
