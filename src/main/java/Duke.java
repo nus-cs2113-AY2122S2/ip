@@ -3,17 +3,26 @@
 import tasks.*;
 import java.util.Scanner;
 import java.util.*;
+import java.io.*;
 
 public class Duke {
 
 
 
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) throws DukeException, IOException {
         DialogGenerator dialog = new DialogGenerator();
 
         greeting(dialog);
         manageUserInput(dialog);
 
+    }
+
+    public void checkFileExist() throws IOException {
+
+        File dukeTxt = new File("./data/duke.txt");
+        if (!dukeTxt.createNewFile()){
+
+        }
     }
 
     public static void greeting(DialogGenerator dialog) {
@@ -30,16 +39,32 @@ public class Duke {
         System.out.println();
     }
 
+    private static void writeToDukeFile(ArrayList<Task> allTasks) throws IOException {
+        FileWriter fw = new FileWriter("./data/duke.txt");
+        for(Task t:allTasks){
+            fw.write(t.toString()+"\n");
+        }
+        fw.close();
+    }
+
     /**
      * java.DukeException to represent exceptions specific to main.
      */
-    public static void manageUserInput(DialogGenerator dialog) throws DukeException {
+    public static void manageUserInput(DialogGenerator dialog) throws DukeException, IOException {
         int index;
         boolean notQuit = true;
 
         Task t;
         ArrayList<Task> allTasks = new ArrayList<Task>();
 
+        File dataDir = new File("./data");
+        File dataText = new File("./data/duke.txt");
+        if (!dataDir.exists()){
+            dataDir.mkdirs();
+        }
+        if (!dataText.exists()){
+            dataText.createNewFile();
+        }
         while (notQuit) {
             String command;
             String detail = null;
@@ -76,7 +101,7 @@ public class Duke {
                     index = Integer.parseInt(command.split(" ")[1]) - 1;
                     dialog.deleteAndDisplayTask(allTasks.get(index), allTasks.size() - 1);
                     allTasks.remove(index);
-
+                    writeToDukeFile(allTasks);
                     break;
 
                 case "todo":
@@ -94,6 +119,7 @@ public class Duke {
                     t = new Todo(description);
                     allTasks.add(allTasks.size(), t);
                     dialog.displayTask(t, allTasks.size());
+                    writeToDukeFile(allTasks);
                     break;
 
                 case "deadline":
@@ -122,6 +148,7 @@ public class Duke {
                     t = new Deadline(description, by);
                     allTasks.add(t);
                     dialog.displayTask(t, allTasks.size());
+                    writeToDukeFile(allTasks);
                     break;
 
                 case "event":
@@ -150,6 +177,7 @@ public class Duke {
                     t = new Event(description, at);
                     allTasks.add(t);
                     dialog.displayTask(t, allTasks.size());
+                    writeToDukeFile(allTasks);
                     break;
 
                 default:
