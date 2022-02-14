@@ -1,5 +1,6 @@
 package duke;
 
+import java.io.File;
 import java.util.Scanner;
 
 public class Duke {
@@ -11,10 +12,16 @@ public class Duke {
     private static final String END_OF_SECTION = "___________________________________________________";
 
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
+//        try {
+//            File file = new File("./Duke/duke.txt");
+//        } catch (IOException e) {
+//            System.out.println("An error occured.");
+//        }
+
+        File duke = FileManager.openFile();
 
         printGreeting();
-        new TaskManager(in);
+        new TaskManager(duke);
         printExitProgram();
     }
 
