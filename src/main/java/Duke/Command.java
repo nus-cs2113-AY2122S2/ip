@@ -5,11 +5,11 @@ import java.util.List;
 
 public class Command {
     /**
-     * The original user input (raw command)
+     * The original user input (raw command).
      */
     private final String rawCommand;
     /**
-     * The functional unit in raw command
+     * The functional unit in raw command.
      */
     private final String[] commandTokens;
 
@@ -67,6 +67,7 @@ public class Command {
 
 
     /**
+     * Get original user input string.
      * @return the original user input (raw string)
      */
     public String getRawCommand() {
@@ -74,6 +75,7 @@ public class Command {
     }
 
     /**
+     * Get tokens from original input string.
      * @return the tokens/args
      */
     public String[] getCommandTokens() {

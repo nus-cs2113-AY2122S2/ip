@@ -5,21 +5,21 @@ import java.util.Scanner;
 
 public class CommandManager {
     /**
-     * Scanner to get user input
+     * Scanner to get user input.
      */
     private static Scanner sc = new Scanner(System.in);
 
-    private final static String CMD_ADD = "add";
-    private final static String CMD_MARK = "mark";
-    private final static String CMD_UNMARK = "unmark";
-    private final static String CMD_LIST = "list";
-    private final static String CMD_DEADLINE = "deadline";
-    private final static String CMD_EVENT = "event";
-    private final static String CMD_TODO = "todo";
-    private final static String CMD_ECHO = "echo";
+    private static final String CMD_ADD = "add";
+    private static final String CMD_MARK = "mark";
+    private static final String CMD_UNMARK = "unmark";
+    private static final String CMD_LIST = "list";
+    private static final String CMD_DEADLINE = "deadline";
+    private static final String CMD_EVENT = "event";
+    private static final String CMD_TODO = "todo";
+    private static final String CMD_ECHO = "echo";
 
     /**
-     * Get the input string (raw command) from user
+     * Get the input string (raw command) from user.
      *
      * @return the command from user
      */
@@ -30,7 +30,7 @@ public class CommandManager {
 
 
     /**
-     * Run the corresponding command/method regarding args, default command is add reminder
+     * Run the corresponding command/method regarding args, default command is add reminder.
      *
      * @param command the command to execute
      */
@@ -58,6 +58,7 @@ public class CommandManager {
             break;
         case CMD_TODO:
             addTodoAndHandleException(args);
+            break;
         case CMD_ECHO:
             echo(args);
             break;
@@ -69,7 +70,8 @@ public class CommandManager {
     }
 
     private static void defaultCmd(Command command) {
-        System.out.println("Sorry I don't understand this sentence:\n\t\t" + command.getRawCommand() + "\n");
+        System.out.println("Sorry I don't understand this sentence:\n\t\t"
+                + command.getRawCommand() + "\n");
     }
 
     private static void addTodoAndHandleException(String[] args) {
@@ -133,7 +135,7 @@ public class CommandManager {
     }
 
     /**
-     * Print every token in args
+     * Print every token in args.
      *
      * @param args tokens to print
      */
