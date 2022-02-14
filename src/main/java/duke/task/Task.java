@@ -42,4 +42,8 @@ public class Task {
             return "["+UNMARKED_TASK_SYMBOL+"] " + taskDescription;
         }
     }
+
+    public static void reduceNumberOfTask() {
+        numberOfTasks -= 1;
+    }
 }

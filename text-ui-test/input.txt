@@ -15,4 +15,11 @@ deadline
 event
 deadline tryout
 event tryout
+delete 5
+delete
+delete 1
+mark 3
+delete 4
+delete 3
+list
 bye

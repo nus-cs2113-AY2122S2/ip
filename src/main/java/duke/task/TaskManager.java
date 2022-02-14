@@ -1,5 +1,6 @@
 package duke.task;
 
+import duke.Duke;
 import duke.exception.DukeEmptyDescriptionException;
 import duke.exception.DukeMissingTimeSeparator;
 import duke.exception.DukeTaskOutOfRangeException;
@@ -89,5 +90,20 @@ public class TaskManager {
         }
         System.out.println(taskLists.get(taskNumber - 1).toString());
 
+    }
+
+    public static void deleteTask(String userInput) throws DukeEmptyDescriptionException, NumberFormatException, DukeTaskOutOfRangeException {
+        if ((userInput.split(" ")).length <= 1) {
+            throw new DukeEmptyDescriptionException();
+        }
+
+        int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
+        if (!isWithinTaskRange(taskNumber)) {
+            throw new DukeTaskOutOfRangeException();
+        }
+        System.out.println("Noted. Task removed:\n" + taskLists.get(taskNumber - 1).toString());
+        taskLists.remove(taskNumber - 1);
+        Task.reduceNumberOfTask();
+        System.out.println("Now you have " + Task.getNumberOfTasks() + " tasks in your list!");
     }
 }

@@ -57,6 +57,18 @@ public class Duke {
         }
     }
 
+    public static void performDeletion(TaskManager taskManager, String userInput) {
+        try {
+            taskManager.deleteTask(userInput);
+        } catch (DukeEmptyDescriptionException e) {
+            System.out.println("OOPS! Please add the list number you want to delete!");
+        } catch (NumberFormatException e) {
+            System.out.println("OOPS! Specify a number for the list to delete!");
+        } catch (DukeTaskOutOfRangeException e) {
+            System.out.println("Task does not exist!");
+        }
+    }
+
     public static void executeCommand(TaskManager taskManager) {
         String userInput;
         Scanner in = new Scanner(System.in);
@@ -82,6 +94,9 @@ public class Duke {
                 break;
             case "mark":
                 performMarking(taskManager, userInput, true, command);
+                break;
+            case "delete":
+                performDeletion(taskManager, userInput);
                 break;
             default:
                 System.out.println("I'm sorry, but I don't know what that means :(");
