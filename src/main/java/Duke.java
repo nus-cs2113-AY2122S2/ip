@@ -1,12 +1,19 @@
+import java.util.Objects;
 import java.util.Scanner;
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
+=======
+import java.io.*;
+>>>>>>> branch-Level-7
 
 public class Duke {
     static List<Task> tasks = new ArrayList<>();
     static int numTasks = 0;
 
     public static void main(String[] args) {
+        initialiseTasks();
+
         System.out.println("Hello! I'm KaiKai.");
         System.out.println("What can I do for you?");
         System.out.println("______________________________________");
@@ -18,6 +25,7 @@ public class Duke {
         while (!str.equals("bye")) {
             switch (str) {
             case "list":
+<<<<<<< HEAD
                 printTasks();
                 break;
             case "mark":
@@ -26,6 +34,35 @@ public class Duke {
             case "unmark":
                 unmarkTask();
 
+=======
+                printTasks();
+                break;
+            case "mark":
+                printTasks();
+                System.out.println("Which task would you like to mark as completed?");
+                taskNum = sc.nextInt();
+                sc.nextLine();
+                if (taskNum > numTasks || taskNum <= 0) {
+                    System.out.println("Uh oh! It seems like that task doesn't exist!");
+                } else {
+                    tasks[taskNum - 1].setDone(true);
+                    System.out.println("Nice! I've marked this task as done: ");
+                    tasks[taskNum - 1].printTask();
+                }
+                break;
+            case "unmark":
+                printTasks();
+                System.out.println("Which task would you like to mark as incomplete?");
+                taskNum = sc.nextInt();
+                sc.nextLine();
+                if (taskNum > numTasks || taskNum <= 0) {
+                    System.out.println("Uh oh! It seems like that task doesn't exist!");
+                } else {
+                    tasks[taskNum - 1].setDone(false);
+                    System.out.println("Okie, I've marked this task as not done yet:");
+                    tasks[taskNum - 1].printTask();
+                }
+>>>>>>> branch-Level-7
                 break;
             case "add":
                 System.out.println("Okie, what type of task is this?");
@@ -48,8 +85,13 @@ public class Duke {
                 }
                 System.out.println("______________________________________");
                 break;
+<<<<<<< HEAD
             case "delete":
                 deleteTask();
+=======
+            case "save":
+                saveTasks();
+>>>>>>> branch-Level-7
                 break;
             default:
                 System.out.println("Sorry, I don't recognise that command. Please try again!");
@@ -134,6 +176,7 @@ public class Duke {
         System.out.println("Added!");
     }
 
+<<<<<<< HEAD
     public static void markTask(){
         Scanner sc = new Scanner(System.in);
         printTasks();
@@ -202,4 +245,65 @@ public class Duke {
     }
 
 
+=======
+    public static void initialiseTasks(){
+        System.out.println("Initialising...");
+
+        String filePath = "src/main/java/tasks.txt";
+        File file = new File(filePath);
+        try{
+            Scanner sc = new Scanner(file);
+            sc.useDelimiter("\n");
+            while (sc.hasNextLine()) {
+                String task = sc.nextLine();
+                String[] details = task.split(",", 0);
+                switch(details[0]){
+                case "T":
+                    tasks[numTasks] = new Todo(details[2]);
+                    if (Objects.equals(details[1], "1")){
+                        tasks[numTasks].setDone(true);
+                    }
+                    numTasks++;
+                    break;
+                case "D":
+                    tasks[numTasks] = new Deadline(details[2], details[3]);
+                    if (Objects.equals(details[1], "1")){
+                        tasks[numTasks].setDone(true);
+                    }
+                    numTasks++;
+                    break;
+                case "E":
+                    tasks[numTasks] = new Event(details[2], details[3], details[4]);
+                    if (Objects.equals(details[1], "1")){
+                        tasks[numTasks].setDone(true);
+                    }
+                    numTasks++;
+                    break;
+                }
+            }
+            System.out.println("Done!");
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("No saved file found!");
+        }
+        System.out.println("______________________________________");
+    }
+
+    public static void saveTasks(){
+        String toFile = "";
+        try{
+            FileWriter writer = new FileWriter("src/main/java/tasks.txt");
+            for (int i=0; i<numTasks; i++){
+                toFile += tasks[i].getString() + "\n";
+            }
+            writer.write(toFile);
+            writer.close();
+        } catch (Exception e) {
+            System.out.println("An error has occurred when attempting to write to the reservation file");
+        }
+
+
+    }
+
+>>>>>>> branch-Level-7
 }
