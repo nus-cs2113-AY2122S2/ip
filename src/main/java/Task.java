@@ -3,9 +3,13 @@ public abstract class Task {
     protected String taskStatus;
     protected String typeOfTask;
 
-    public Task (String task) {
+    public Task (String task) throws NoTaskException {
         this.task = task.trim();
         this.taskStatus = "[ ]";
+
+        if (this.task == null) {
+            throw new NoTaskException();
+        }
     }
 
     public void mark() {
@@ -15,5 +19,9 @@ public abstract class Task {
 
     public void unmark() {
         this.taskStatus = "[ ]";
+    }
+
+    public String toString() {
+        return typeOfTask + taskStatus + " " + task;
     }
 }

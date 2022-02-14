@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Duke implements DukeConstants {
+public class Duke implements Chatbot {
     public static void linePrinter() {
         System.out.print("\t");
         System.out.println(HORIZONTAL_LINE);
@@ -25,24 +25,36 @@ public class Duke implements DukeConstants {
     }
 
     public static void printMark(Task[] tasks, int markedItem) {
-        if (tasks[markedItem] == null) {
+        try {
+            String ans = tasks[markedItem].toString();
+        } catch (IndexOutOfBoundsException) {
             echo(ITEM_NOT_EXIST_MSG);
-        } else {
-            linePrinter();
-            System.out.println("\t" + MARKED_MSG);
-            System.out.println("\t" + "   " + tasks[markedItem].toString());
-            linePrinter();
+        } finally {
+            if (tasks[markedItem] == null) {
+                echo(ITEM_NOT_EXIST_MSG);
+            } else {
+                linePrinter();
+                System.out.println("\t" + MARKED_MSG);
+                System.out.println("\t" + "   " + tasks[markedItem].toString());
+                linePrinter();
+            }
         }
     }
 
     public static void printUnmark(Task[] tasks, int unmarkedItem) {
-        if (tasks[unmarkedItem] == null) {
+        try {
+            String ans = tasks[unmarkedItem].toString();
+        } catch (IndexOutOfBoundsException) {
             echo(ITEM_NOT_EXIST_MSG);
-        } else {
-            linePrinter();
-            System.out.println("\t" + UNMARKED_MSG);
-            System.out.println("\t" + "   " + tasks[unmarkedItem].toString());
-            linePrinter();
+        } finally {
+            if (tasks[unmarkedItem] == null) {
+                echo(ITEM_NOT_EXIST_MSG);
+            } else {
+                linePrinter();
+                System.out.println("\t" + UNMARKED_MSG);
+                System.out.println("\t" + "   " + tasks[unmarkedItem].toString());
+                linePrinter();
+            }
         }
     }
 
@@ -80,6 +92,49 @@ public class Duke implements DukeConstants {
         return c;
     }
 
+    public static void addTodo(Task[] tasks, String line, int itemCount) {
+        try {
+            tasks[itemCount] = new Todo(line.substring(TODO_TASK_INDEX));
+        } catch (NoTaskException) {
+            echo(NO_TASK_MSG);
+        } finally {
+            echo("Added " + tasks[itemCount].toString() + " to the list");
+            itemCount++;
+        }
+    }
+
+    public static void addDeadline(Task[] tasks, String line, int itemCount) {
+        try {
+            String by = line.substring(line.indexOf(DEADLINE_OF_TASK_CMD) + TIME_INDEX);
+            String deadline = line.substring(DEADLINE_TASK_INDEX, line.indexOf(DEADLINE_OF_TASK_CMD));
+            tasks[itemCount] = new Deadline(deadline, by);
+        } catch (NoTaskException) {
+            echo(NO_TASK_MSG);
+        } catch (NoDateException) {
+            echo(NO_DATE_MSG);
+        }
+        finally {
+            echo("Added " + tasks[itemCount].toString() + " to the list");
+            itemCount++;
+        }
+    }
+
+    public static void addEvent(Task[] tasks, String line, int itemCount) {
+        try {
+            String at = line.substring(line.indexOf(DURATION_OF_EVENT_CMD) + TIME_INDEX);
+            String event = line.substring(EVENT_TASK_INDEX, line.indexOf(DURATION_OF_EVENT_CMD));
+            tasks[itemCount] = new Event(event, at);
+        } catch (NoTaskException) {
+            echo(NO_TASK_MSG);
+        } catch (NoDateException) {
+            echo(NO_DATE_MSG);
+        }
+        finally {
+            echo("Added " + tasks[itemCount].toString() + " to the list");
+            itemCount++;
+        }
+    }
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         String line;
@@ -99,23 +154,13 @@ public class Duke implements DukeConstants {
 
             switch (command) {
             case TODO:
-                tasks[itemCount] = new Todo(line.substring(TODO_TASK_INDEX));
-                echo("Added " + tasks[itemCount].toString() + " to the list");
-                itemCount++;
+                addTodo(tasks, line, itemCount);
                 break;
             case DEADLINE:
-                String by = line.substring(line.indexOf(DEADLINE_OF_TASK_CMD) + TIME_INDEX);
-                String deadline = line.substring(DEADLINE_TASK_INDEX, line.indexOf(DEADLINE_OF_TASK_CMD));
-                tasks[itemCount] = new Deadline(deadline, by);
-                echo("Added " + tasks[itemCount].toString() + " to the list");
-                itemCount++;
+                addDeadline(tasks, line, itemCount);
                 break;
             case EVENT:
-                String at = line.substring(line.indexOf(DURATION_OF_EVENT_CMD) + TIME_INDEX);
-                String event = line.substring(EVENT_TASK_INDEX, line.indexOf(DURATION_OF_EVENT_CMD));
-                tasks[itemCount] = new Event(event, at);
-                echo("Added " + tasks[itemCount].toString() + " to the list");
-                itemCount++;
+                addEvent(tasks, line, itemCount);
                 break;
             case MARK:
                 int markedItem = Integer.parseInt(line.substring(MARKED_ITEM_INDEX)) - 1;

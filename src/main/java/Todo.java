@@ -4,9 +4,4 @@ public class Todo extends Task {
         super(task);
         this.typeOfTask = "[T]";
     }
-
-    @Override
-    public String toString() {
-        return typeOfTask + taskStatus + " " + task;
-    }
 }

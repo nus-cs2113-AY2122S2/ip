@@ -1,4 +1,4 @@
-public interface DukeConstants {
+public interface Chatbot {
     String LOGO = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"
@@ -12,6 +12,8 @@ public interface DukeConstants {
     String MARKED_MSG = " Aha! An interesting selection!";
     String UNMARKED_MSG = " Ah... What a shame!";
     String GOODBYE_MSG = " Good day, then!";
+    String NO_TASK_MSG = " Sorry but you haven't input a task here.";
+    String NO_DATE_MSG = "Sorry but you haven't input a date here.";
 
     String ADD_TODO_CMD = "Todo ";
     String ADD_DEADLINE_CMD = "Deadline ";
