@@ -1,18 +1,20 @@
 package duke.task;
 
 public class Task {
-    protected String descrition;
+    protected String description;
     protected boolean isDone;
 
     public Task(String descrition)
     {
-        this.descrition=descrition;
+        this.description=descrition;
         this.isDone=false;
     }
 
-    public Task() {
-
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
     }
+
 
     public String getStatusIcon(){
         return (isDone ? "X" : " ");
