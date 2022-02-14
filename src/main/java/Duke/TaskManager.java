@@ -1,6 +1,8 @@
 package Duke;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class TaskManager {
@@ -24,9 +26,9 @@ public class TaskManager {
     }
 
 
-    private static void throwIfArgsIsNotValid(String[] args, String functionName) throws DukeException {
+    private static void throwIfArgsIsNotValid(String[] args, String commandName) throws DukeException {
         if (args.length <= 1) {
-            throw new DukeException("☹ OOPS!!! The description of a " + functionName + " cannot be empty.");
+            throw new DukeException("☹ OOPS!!! The description of " + commandName + " cannot be empty.");
         }
     }
 
@@ -59,6 +61,11 @@ public class TaskManager {
      */
     public static void listTasks(String[] args) throws DukeException {
         // TODO args can be used to control the style of output
+        // not throwing anything because no args is needed.
+        if(tasks.isEmpty()) {
+            System.out.println("Oooooops, you haven't added anything.");
+            return;
+        }
         for (int i = 0; i < tasks.size(); i++) {
             System.out.printf("%d. %s\n", getTaskID(i), tasks.get(i));
         }
@@ -72,18 +79,23 @@ public class TaskManager {
      */
     public static void mark(String[] args) throws DukeException {
         throwIfArgsIsNotValid(args, "mark");
+        List<Task> marked = new ArrayList<>();
         for (int i = 1; i < args.length; i++) {
-            int taskID = Integer.parseInt(args[i]);
-            int arrayID = getArrayID(taskID);
-            if (arrayID < 0 || arrayID >= tasks.size()) {
-                System.out.println("There is no " + taskID + " task.");
+            Integer arrayID = tryParseIntAndThrow(args[i], "mark");
+            if (arrayID == null) {
                 continue;
             }
             tasks.get(arrayID).setDone();
-            System.out.println(tasks.get(arrayID));
+            marked.add(tasks.get((arrayID)));
         }
-        System.out.println("Nice! I've marked those valid tasks as done\n");
-    }
+        if (!marked.isEmpty()) {
+            System.out.println("Nice! I've marked these tasks as done :");
+            for (int i = 0; i < marked.size(); i++) {
+                System.out.println("\t" + marked.get(i));
+            }
+        } else {
+            System.out.println("No task is marked");
+        }    }
 
 
     /**
@@ -94,17 +106,39 @@ public class TaskManager {
      */
     public static void unmark(String[] args) throws DukeException {
         throwIfArgsIsNotValid(args, "unmark");
-        System.out.println("Nice! I've marked these tasks as not done yet\n");
+        List<Task> unmarked = new ArrayList<>();
         for (int i = 1; i < args.length; i++) {
-            int taskID = Integer.parseInt(args[i]);
-            int arrayID = getArrayID(taskID);
-            if (arrayID < 0 || arrayID >= tasks.size()) {
-                System.out.println("There is no " + taskID + " task.");
+            Integer arrayID = tryParseIntAndThrow(args[i], "unmark");
+            if (arrayID == null) {
                 continue;
             }
             tasks.get(arrayID).clearDone();
-            System.out.println(tasks.get(arrayID));
+            unmarked.add(tasks.get(arrayID));
         }
+        if (!unmarked.isEmpty()) {
+            System.out.println("Nice! I've marked these tasks as not done yet:");
+            for (int i = 0; i < unmarked.size(); i++) {
+                System.out.println("\t" + unmarked.get(i));
+            }
+        } else {
+            System.out.println("No task is unmarked");
+        }
+    }
+
+    private static Integer tryParseIntAndThrow(String args_i, String commandName) throws DukeException {
+        int taskID;
+        try {
+            taskID = Integer.parseInt(args_i);
+        } catch (NumberFormatException exception) {
+            throw new DukeException(commandName + "'s arg is not number, please enter correct command\n\t"
+                    + exception);
+        }
+        int arrayID = getArrayID(taskID);
+        if (arrayID < 0 || arrayID >= tasks.size()) {
+            System.out.println("There is no task " + taskID + ".");
+            return null;
+        }
+        return arrayID;
     }
 
 
@@ -207,6 +241,29 @@ public class TaskManager {
             System.out.println();
         }
     }
+
+    public static void delete(String[] args) throws DukeException{
+        throwIfArgsIsNotValid(args, "delete");
+        List<Integer> toDelete = new ArrayList<>();
+        for (int i = 1; i < args.length; i++) {
+            Integer arrayID = tryParseIntAndThrow(args[i], "delete");
+            if(arrayID == null) {
+                continue;
+            }
+            if(arrayID < 0 || tasks.size() <= arrayID) {
+                System.out.println("The " + getTaskID(arrayID) + " task doesn't exist");
+                return;
+            }
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("\t" + tasks.get(arrayID));
+            toDelete.add(arrayID);
+        }
+        Collections.sort(toDelete);
+        for (int i = toDelete.size() - 1; i >= 0; i--) {
+            tasks.remove((int)toDelete.get(i));
+        }
+    }
+
 
     private static void addMultipleEvents(List<String> contents, String deadlineTime) {
         for (String content : contents) {

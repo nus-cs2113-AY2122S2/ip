@@ -17,6 +17,7 @@ public class CommandManager {
     private static final String CMD_EVENT = "event";
     private static final String CMD_TODO = "todo";
     private static final String CMD_ECHO = "echo";
+    private static final String CMD_DELETE = "delete";
 
     /**
      * Get the input string (raw command) from user.
@@ -58,6 +59,9 @@ public class CommandManager {
             break;
         case CMD_TODO:
             addTodoAndHandleException(args);
+            break;
+        case CMD_DELETE:
+            deleteAndHandleException(args);
             break;
         case CMD_ECHO:
             echo(args);
@@ -129,6 +133,14 @@ public class CommandManager {
         try {
             TaskManager.addTasks(args);
             TaskManager.printTaskNumber();
+        } catch (DukeException exception) {
+            System.out.println(exception);
+        }
+    }
+
+    private static void deleteAndHandleException(String[] args) {
+        try {
+            TaskManager.delete(args);
         } catch (DukeException exception) {
             System.out.println(exception);
         }

@@ -75,13 +75,11 @@ public class Duke {
      */
     private static void printUserGreet() {
         // TODO Personalize the greeting information (maybe change DUKE to BECK or something else)
-        String logo = """
-                 ____        _       \s
-                |  _ \\ _   _| | _____\s
-                | | | | | | | |/ / _ \\
-                | |_| | |_| |   <  __/
-                |____/ \\__,_|_|\\_\\___|
-                """;
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         printLineDivider();
         System.out.println("Hello, I'm Duke");
