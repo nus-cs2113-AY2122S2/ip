@@ -1,30 +1,30 @@
-public class Parse {
+public class Parser {
     private String[] parsedInput;
-    private boolean isKeyword = false;
 
-    public Parse(String line) {
+    public Parser(String line) throws InvalidCommandException, MissingDescriptionException {
         parsedInput = line.split(" ");
 
         switch (parsedInput[0]) {
         case "todo":
-            // Fallthrough
+            if (parsedInput.length < 2) {
+                throw new MissingDescriptionException();
+            }
+            break;
         case "deadline":
             // Fallthrough
         case "event":
             // Fallthrough
         case "list":
-            isKeyword = true;
             break;
         case "mark":
             // Fallthrough
         case "unmark":
-            if (parsedInput.length == 2) { //simple workaround for now, need better checks later
-                isKeyword = true;
+            if (parsedInput.length != 2) { //simple workaround for now, need better checks later
+                throw new MissingDescriptionException();
             }
             break;
         default:
-            isKeyword = false;
-            break;
+            throw new InvalidCommandException();
         }
     }
 
@@ -32,7 +32,4 @@ public class Parse {
         return parsedInput;
     }
 
-    public boolean getIsKeyword() {
-        return isKeyword;
-    }
 }

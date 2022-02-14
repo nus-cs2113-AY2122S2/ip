@@ -7,59 +7,56 @@ public class Duke {
 
         Scanner userInput = new Scanner(System.in);
         String line;
-        ArrayList<Task> tasks = new ArrayList<Task>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         line = userInput.nextLine();
         while (!"bye".equals(line)) {
-            Parse parsedInput = new Parse(line);
-            if (parsedInput.getIsKeyword()) {
+            try {
+                Parser parsedInput = new Parser(line);
                 switch (parsedInput.getParsedInput()[0]) {
                 case "todo":
-                    line = line.substring(5);
+                    line = line.replace("todo","").strip();
                     Todo newTodo = new Todo(line);
                     tasks.add(newTodo);
-                    System.out.println(wrapText("Added to new thing to do for ya! " + line));
+                    wrapAndPrintText("Added to new thing to do for ya!\n " + newTodo);
                     break;
                 case "deadline":
-                    String deadlineTask = line.substring(9, line.indexOf("/") - 1);
-                    String by = line.substring(line.indexOf("/") + 4);
+                    line = line.replace("deadline", "");
+                    String deadlineTask = line.substring(0, line.indexOf("/by")).strip();
+                    String by = line.substring(line.indexOf("/by") + 4);
                     Deadline newDeadline = new Deadline(deadlineTask, by);
                     tasks.add(newDeadline);
-                    System.out.println(wrapText("Added to thing for ya, and ya gotta do it soon! " + deadlineTask));
+                    wrapAndPrintText("Added to thing for ya, and ya gotta do it soon!\n " + newDeadline);
                     break;
                 case "event":
                     String eventTask = line.substring(6, line.indexOf("/") - 1);
-                    String at = line.substring(line.indexOf("/") + 4);
+                    String at = line.substring(line.indexOf("/at") + 4);
                     Event newEvent = new Event(eventTask, at);
                     tasks.add(newEvent);
-                    System.out.println(wrapText("Added to thing for ya at some place and time! " + eventTask));
+                    wrapAndPrintText("Added to thing for ya at some place and time!\n " + newEvent);
                     break;
                 case "list":
                     String allTasks = "";
                     for (int i = 0; i < tasks.size(); i++) {
                         allTasks = allTasks + " " + (i + 1) + ". " + tasks.get(i).toString();
                     }
-                    System.out.println(wrapText(allTasks));
+                    wrapAndPrintText(allTasks);
                     break;
                 case "mark":
-                    tasks.get(Integer.parseInt(parsedInput.getParsedInput()[1]) - 1).setCompleted();
-                    System.out.println(
-                            wrapText("Marked this task as done!\n"
-                                    + tasks.get(Integer.parseInt(parsedInput.getParsedInput()[1]) - 1).toString())
-                    );
+                    int taskIndex = Integer.parseInt(parsedInput.getParsedInput()[1]) - 1;
+                    tasks.get(taskIndex).setCompleted();
+                    wrapAndPrintText("Marked this task as done!\n" + tasks.get(taskIndex).toString());
                     break;
                 case "unmark":
-                    tasks.get(Integer.parseInt(parsedInput.getParsedInput()[1]) - 1).revertCompleted();
-                    System.out.println(
-                            wrapText("Guess you messed up huh? Reverted that task!\n"
-                                    + tasks.get(Integer.parseInt(parsedInput.getParsedInput()[1]) - 1).toString())
-                    );
+                    taskIndex = Integer.parseInt(parsedInput.getParsedInput()[1]) - 1;
+                    tasks.get(taskIndex).revertCompleted();
+                    wrapAndPrintText("Guess you messed up huh? Reverted that task!\n" + tasks.get(taskIndex).toString());
                     break;
                 }
-            } else {
-                Task newTask = new Task(line);
-                tasks.add(newTask);
-                System.out.println(wrapText("Added to list: " + line));
+            } catch (InvalidCommandException e) {
+                wrapAndPrintText("Whoopsies! I dont know what you're talking about! Try again!\n");
+            } catch (MissingDescriptionException e) {
+                wrapAndPrintText("I think you forgot some stuff there for that command! Try again!\n");
             }
             System.out.println();
             line = userInput.nextLine();
@@ -92,13 +89,14 @@ public class Duke {
     }
 
     /**
-     * Returns text wrapped between two lines for readability
+     * Prints out text wrapped between two lines for readability
      * @param text Text to be wrapped
-     * @return Wrapped text
      */
-    public static String wrapText(String text) {
-        return    "___________________________________\n"
-                + text + "\n"
-                + "___________________________________\n";
+    public static void wrapAndPrintText(String text) {
+        String wrappedText =      "___________________________________\n"
+                                + text
+                                + "___________________________________\n";
+
+        System.out.println(wrappedText);
     }
 }
