@@ -1,5 +1,6 @@
 package sora;
 
+import java.io.IOException;
 import tasks.TasksManager;
 
 /**
@@ -16,18 +17,26 @@ public class Sora {
 
     private TasksManager tasksManager;
     private SoraUI soraUI;
-    private SoraIOHandler soraIOHandler;
+    private SoraReaderWriter soraReaderWriter;
     private SoraExceptionHandler exceptionHandler;
 
-    public Sora() {
+    public Sora() throws IOException {
         // Instantiate components
         soraUI = new SoraUI();
         tasksManager = new TasksManager();
-        soraIOHandler = new SoraIOHandler();
+        soraReaderWriter = new SoraReaderWriter(tasksManager);
         exceptionHandler = new SoraExceptionHandler(soraUI);
 
         // Greet user
         soraUI.printGreetings();
+
+        // Load saved task list from file
+        try {
+            soraReaderWriter.loadTaskListFromFile();
+        } catch (IOException e) {
+            // Throw to caller method to handle to exit
+            throw e;
+        }
     }
 
     protected boolean doesUserWantsToExit() {
@@ -48,7 +57,7 @@ public class Sora {
         while (!doesUserWantsToExit()) {
             // Get user input
             soraUI.printPrompter(isFirstPrompt);
-            String userRawInput = soraIOHandler.getUserInput();
+            String userRawInput = soraReaderWriter.getUserInput();
             isFirstPrompt = false;
             soraUI.printLine();
 

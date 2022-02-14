@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 public class TasksManager {
     private static final int EVENT_DEADLINE_TASK_NUMBER_OF_PARAMETERS = 2;
+    public static final int FILE_DATA_TASK_TYPE_INDEX_NUM = 0;
+    public static final int FILE_DATA_DESCRIPTION_INDEX_NUM = 2;
+    public static final int FILE_DATA_FLAG_VALUE_INDEX_NUM = 3;
 
     private ArrayList<Task> list;
     private int numberOfTasks;
@@ -75,6 +78,80 @@ public class TasksManager {
         return false;
     }
 
+    /**
+     * (WIP Documentation) Specially meant to handle tasks being added from saved data file
+     *
+     * @param taskDataFromFile
+     * @return
+     */
+    public void addTask(String[] taskDataFromFile) {
+        String type;
+        String description;
+        String flag;
+        String flagValue;
+        String isDoneValue = taskDataFromFile[1];
+        boolean isDone = (isDoneValue.equals("1")) ? true : false;
+
+        // Get details of task
+        type = getTaskType(taskDataFromFile[FILE_DATA_TASK_TYPE_INDEX_NUM]);
+        description = taskDataFromFile[FILE_DATA_DESCRIPTION_INDEX_NUM];
+
+        if (!type.equalsIgnoreCase(SoraUI.ADD_TODO_COMMAND_KEYWORD)) {
+            flag = getFlag(type);
+            flagValue = taskDataFromFile[FILE_DATA_FLAG_VALUE_INDEX_NUM];
+        } else {
+            flag = "";
+            flagValue = "";
+        }
+
+        // Craft the command to add task to list
+        StringBuilder commandBuilder = new StringBuilder(type + " " + description);
+
+        if (!type.equalsIgnoreCase(SoraUI.ADD_TODO_COMMAND_KEYWORD)) {
+            // Include flag and flag value
+            commandBuilder.append(flag + " " + flagValue);
+        }
+
+        String newTaskCommand = commandBuilder.toString();
+
+        // Add the task to the list
+        try {
+            boolean result = addTask(newTaskCommand);
+        } catch (InvalidCommandException e) {
+            System.out.println("Oh no! I failed to add a task from the saved data file to my task list.");
+            System.out.println("Here's some details about the error: ");
+            System.out.println("\t" + e.getMessage());
+
+            // TODO: Refine exception handling
+        }
+    }
+
+    private String getTaskType(String abbreviation) {
+        switch (abbreviation) {
+        case "T":
+            return SoraUI.ADD_TODO_COMMAND_KEYWORD;
+        case "E":
+            return SoraUI.ADD_EVENT_COMMAND_KEYWORD;
+        case "D":
+            return SoraUI.ADD_DEADLINE_COMMAND_KEYWORD;
+        default:
+            // TODO: Implement exception?
+            return "";
+        }
+    }
+
+    private String getFlag(String taskType) {
+        switch (taskType) {
+        case SoraUI.ADD_EVENT_COMMAND_KEYWORD:
+            return SoraUI.ADD_EVENT_FLAG_KEYWORD;
+        case SoraUI.ADD_DEADLINE_COMMAND_KEYWORD:
+            return SoraUI.ADD_DEADLINE_FLAG_KEYWORD;
+        default:
+            // TODO: Implement exception?
+            return "";
+        }
+    }
+
     private void checkTodoCommand(String todoUserInput) throws InvalidCommandException {
         // Check if user command has a description
         String[] commandAndDescription = todoUserInput.split(" ", 2);
@@ -132,7 +209,7 @@ public class TasksManager {
     }
 
     /**
-     * (WIP) This method checks for against a list of flags to check if a given command contains
+     * (WIP Documentation) This method checks for against a list of flags to check if a given command contains
      * a flag that is not the specified correct flag.
      *
      * @param userInput

@@ -109,6 +109,10 @@ public class SoraUI {
     protected static final String EVENT_INVALID_FLAGS =
             "%s, the flags used in your event command is invalid...\nCould you try again? (⌒_⌒;)\n";
 
+    protected static final String SELF_LOATHING_ERROR_RESPONSE = "" +
+            "Ah dang. Internal processing in %s failed.\nNot your fault, user. It's the monkey developer's fault.\n" +
+            "If you see the dev, tell him this: %s\n";
+
     /**
      * Prints a line on the console based on the default parameters defined in this Java class.
      */
