@@ -1,29 +1,30 @@
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Eliz {
-    public static void printTasks(Task[] tasks) {
-        for (int i = 0; i < tasks.length; i++) {
+    public static void printTasks(ArrayList<Task> tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
             int numToPrint = i + 1;
-            System.out.println(numToPrint + ".[" + tasks[i].getTaskType() + "]" + "[" + tasks[i].getStatusIcon() + "] "
-                    + tasks[i].description);
+            System.out.println(numToPrint + ".[" + tasks.get(i).getTaskType() + "]" + "[" + tasks.get(i).getStatusIcon() + "] "
+                    + tasks.get(i).description);
         }
     }
 
-    public static void markATask(String line, Task[] tasks) {
+    public static void markATask(String line, ArrayList<Task> tasks) {
         char taskNumChar = line.charAt(line.length() - 1);
         int taskNumInt = Character.getNumericValue(taskNumChar);
-        tasks[taskNumInt - 1].setAsDone();
-        System.out.println("[" + tasks[taskNumInt - 1].getTaskType() + "]" + "[X] "
-                + tasks[taskNumInt - 1].description);
+        tasks.get(taskNumInt - 1).setAsDone();
+        System.out.println("[" + tasks.get(taskNumInt - 1).getTaskType() + "]" + "[X] "
+                + tasks.get(taskNumInt - 1).description);
     }
 
-    public static void unmarkATask(String line, Task[] tasks) {
+    public static void unmarkATask(String line, ArrayList<Task> tasks) {
         char taskNumChar = line.charAt(line.length() - 1);
         int taskNumInt = Character.getNumericValue(taskNumChar);
-        tasks[taskNumInt - 1].setAsNotDone();
-        System.out.println("[" + tasks[taskNumInt - 1].getTaskType() + "]" + "[ ] "
-                + tasks[taskNumInt - 1].description);
+        tasks.get(taskNumInt - 1).setAsNotDone();
+        System.out.println("[" + tasks.get(taskNumInt - 1).getTaskType() + "]" + "[ ] "
+                + tasks.get(taskNumInt - 1).description);
     }
 
     public static Task createTask(String line) {
@@ -84,17 +85,17 @@ public class Eliz {
         System.out.println("What can I do for you?");
     }
 
-    public static void markOrUnmark(String line, Task[] tasks, int taskCounter) {
+    public static void markOrUnmark(String line, ArrayList<Task> tasks, int taskCounter) {
         if (line.contains("unmark")) {
             System.out.println("OK, I've marked this task as not done yet:");
-            unmarkATask(line, Arrays.copyOf(tasks, taskCounter));
+            unmarkATask(line, tasks);
         } else {
             System.out.println("Nice! I've marked this task as done:");
-            markATask(line, Arrays.copyOf(tasks, taskCounter));
+            markATask(line, tasks);
         }
     }
 
-    public static void getInput(String line, Task[] tasks, int taskCounter) throws ElizException {
+    public static void getInput(String line, ArrayList<Task> tasks, int taskCounter) throws ElizException {
         String[] breakTaskNames = line.split(" ");
         if (breakTaskNames[0].equalsIgnoreCase("todo") || breakTaskNames[0].equalsIgnoreCase("deadline")
         || breakTaskNames[0].equalsIgnoreCase("event")) {
@@ -109,13 +110,13 @@ public class Eliz {
         }
         if (line.equalsIgnoreCase("list")) { //check if action is t
             // o echo or print tasks
-            printTasks(Arrays.copyOf(tasks, taskCounter));
+            printTasks(tasks);
         } else if (line.contains("mark")) { //to check if todos are marked
             Eliz.markOrUnmark(line, tasks, taskCounter);
         } else {
             /** add line to todo, deadline, or event by creating the respective object */
             Task t = createTask(line);
-            tasks[taskCounter] = t;
+            tasks.add(taskCounter, t);
             taskCounter++;
             System.out.println("Got it. I've added this task ");
             System.out.println(t);
@@ -126,7 +127,7 @@ public class Eliz {
     public static void main(String[] args) {
         /** Key Definitions */
         String line;
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
         int taskCounter = 0;
         Scanner in = new Scanner(System.in);
         botIntroduction(); //calls the introduction of the bot
