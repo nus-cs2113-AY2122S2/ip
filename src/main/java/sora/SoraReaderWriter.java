@@ -1,15 +1,22 @@
 package sora;
 
-import tasks.TasksManager;
+import tasks.*;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class SoraReaderWriter {
     private static final String DATA_FILE_PATH = "src/main/java/data/";
     private static final String DATA_FILENAME = "data.txt";
-    private static final String FILE_DATA_SEPARATOR = " \\| ";
+
+    private static final String FILE_DATA_SEPARATOR_REGEX = " \\| ";
+    private static final String FILE_DATA_SEPARATOR = " | ";
+
+    public static final String TODO_TYPE_FILE_ABBREVIATION = "T";
+    public static final String EVENT_TYPE_FILE_ABBREVIATION = "E";
+    public static final String DEADLINE_TYPE_FILE_ABBREVIATION = "D";
 
     private TasksManager tasksManager;
 
@@ -60,7 +67,65 @@ public class SoraReaderWriter {
     }
 
     private String[] parseFileLineData(String rawLineData) {
-        String[] parsedLineData = rawLineData.split(FILE_DATA_SEPARATOR);
+        String[] parsedLineData = rawLineData.split(FILE_DATA_SEPARATOR_REGEX);
         return parsedLineData;
+    }
+
+    public void writeNewTaskToFile(Task newTask) throws IOException {
+        String taskInFileFormat = buildTaskTextForFile(newTask);
+
+        // Add line of text to end of file
+        try {
+            FileWriter fileWriter = new FileWriter(DATA_FILE_PATH + DATA_FILENAME, true);
+            fileWriter.append(taskInFileFormat + System.lineSeparator());
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error opening data file for writing. Here are some details:");
+            System.out.println(e.getMessage());
+            throw e;
+        }
+    }
+
+    private String buildTaskTextForFile(Task newTask) {
+        // Build line of text
+        StringBuilder taskInFileFormat = new StringBuilder();
+        String taskType = getTaskType(newTask);
+        taskInFileFormat.append(taskType);
+        taskInFileFormat.append(FILE_DATA_SEPARATOR);
+        String isDoneValue = newTask.isDone() ? "1" : "0";
+        taskInFileFormat.append(isDoneValue);
+        taskInFileFormat.append(FILE_DATA_SEPARATOR);
+        taskInFileFormat.append(newTask.getDescription());
+
+        if (!taskType.equals(TODO_TYPE_FILE_ABBREVIATION)) {
+            // Add date value into taskInFileFormat
+            taskInFileFormat.append(FILE_DATA_SEPARATOR);
+            taskInFileFormat.append(getDate(newTask));
+        }
+        return taskInFileFormat.toString();
+    }
+
+    private String getTaskType(Task task) {
+        if (task instanceof Todo) {
+            return TODO_TYPE_FILE_ABBREVIATION;
+        } else if (task instanceof Event) {
+            return EVENT_TYPE_FILE_ABBREVIATION;
+        } else if (task instanceof Deadline) {
+            return DEADLINE_TYPE_FILE_ABBREVIATION;
+        }
+
+        // TODO: Implement exception?
+        return "";
+    }
+
+    private String getDate(Task task) {
+        if (task instanceof Event) {
+            return ((Event) task).getEventPeriod();
+        } else if (task instanceof Deadline) {
+            return ((Deadline) task).getDueDate();
+        }
+
+        // TODO: Implement exception?
+        return "";
     }
 }

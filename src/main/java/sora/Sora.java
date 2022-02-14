@@ -1,6 +1,7 @@
 package sora;
 
 import java.io.IOException;
+import tasks.Task;
 import tasks.TasksManager;
 
 /**
@@ -84,6 +85,7 @@ public class Sora {
                 int taskNum = getTaskNumberFromCommand(userRawInput);
                 boolean markSuccess = getTasksManager().updateDoneStatus(taskNum, true);
                 soraUI.printMarkTaskResponseMessage(markSuccess, getTasksManager(), taskNum);
+                // Update entire file
                 break;
             case SoraUI.UNMARK_TASK_AS_DONE_COMMAND_KEYWORD:
                 taskNum = getTaskNumberFromCommand(userRawInput);
@@ -95,14 +97,18 @@ public class Sora {
             case SoraUI.ADD_EVENT_COMMAND_KEYWORD:
                 // Fallthrough
             case SoraUI.ADD_DEADLINE_COMMAND_KEYWORD:
-                boolean addSuccess = getTasksManager().addTask(userRawInput);
-                soraUI.printAddTaskResponseMessage(addSuccess, getTasksManager());
+                Task newTask = getTasksManager().addTask(userRawInput);
+                soraUI.printAddTaskResponseMessage(newTask);
+                // Update file
+                soraReaderWriter.writeNewTaskToFile(newTask);
                 break;
             default:
                 throw new InvalidCommandException(InvalidCommandException.NO_SUCH_COMMAND_MSG);
             }
         } catch (InvalidCommandException e) {
             exceptionHandler.handleInvalidCommandException(e);
+        } catch (IOException e) {
+
         }
     }
 

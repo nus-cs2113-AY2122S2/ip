@@ -1,5 +1,6 @@
 package sora;
 
+import tasks.Task;
 import tasks.TasksManager;
 import util.Helper;
 
@@ -254,11 +255,11 @@ public class SoraUI {
         System.out.printf(SoraUI.UNMARK_TASK_DONE_FAILURE_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
-    protected void printAddTaskResponseMessage(boolean isSuccessful, TasksManager tasksManager) {
-        if (isSuccessful) {
+    protected void printAddTaskResponseMessage(Task newTask) {
+        if (newTask != null) {
             System.out.printf(SoraUI.ADD_TASK_SUCCESS_RESPONSE, getRandomPositiveAcknowledgement());
             System.out.println();
-            tasksManager.displayLastAddedTask();
+            System.out.println("\t" + newTask.toString());
             System.out.println();
             return;
         }

@@ -1,5 +1,6 @@
 package tasks;
 
+import sora.SoraReaderWriter;
 import sora.SoraUI;
 import sora.InvalidCommandException;
 import util.Helper;
@@ -14,6 +15,7 @@ public class TasksManager {
 
     private ArrayList<Task> list;
     private int numberOfTasks;
+    SoraReaderWriter soraReaderWriter;
 
     public TasksManager() {
         this.list = new ArrayList<Task>();
@@ -40,9 +42,9 @@ public class TasksManager {
         this.numberOfTasks += 1;
     }
 
-    public boolean addTask(String userInput) throws InvalidCommandException {
+    public Task addTask(String userInput) throws InvalidCommandException {
         // Create new Task object with text
-        boolean isTaskAdded;
+        Task newTask = null;
         String taskType = extractTaskType(userInput);
 
         try {
@@ -50,32 +52,32 @@ public class TasksManager {
             case SoraUI.ADD_TODO_COMMAND_KEYWORD:
                 checkTodoCommand(userInput);
                 String todoDescription = removeCommandKeyword(userInput);
-                isTaskAdded = list.add(new Todo(todoDescription));
+                newTask = new Todo(todoDescription);
+                list.add(newTask);
                 break;
             case SoraUI.ADD_EVENT_COMMAND_KEYWORD:
                 checkEventCommand(userInput);
                 String[] eventDescriptionAndDate = extractDescriptionAndDate(userInput, SoraUI.ADD_EVENT_FLAG_KEYWORD);
-                isTaskAdded = list.add(new Event(eventDescriptionAndDate));
+                newTask = new Event(eventDescriptionAndDate);
+                list.add(newTask);
                 break;
             case SoraUI.ADD_DEADLINE_COMMAND_KEYWORD:
                 checkDeadlineCommand(userInput);
                 String[] deadlineDescriptionAndDate = extractDescriptionAndDate(userInput, SoraUI.ADD_DEADLINE_FLAG_KEYWORD);
-                isTaskAdded = list.add(new Deadline(deadlineDescriptionAndDate));
+                newTask = new Deadline(deadlineDescriptionAndDate);
+                list.add(newTask);
                 break;
             default:
-                isTaskAdded = false;
+                // TODO: Implement exception?
             }
         } catch (InvalidCommandException e) {
             // Rethrow it to caller method
             throw e;
         }
 
-        if (isTaskAdded) {
-            incrementNumberOfTasks();
-            return true;
-        }
+        incrementNumberOfTasks();
 
-        return false;
+        return newTask;
     }
 
     /**
@@ -116,7 +118,7 @@ public class TasksManager {
 
         // Add the task to the list
         try {
-            boolean result = addTask(newTaskCommand);
+            addTask(newTaskCommand);
         } catch (InvalidCommandException e) {
             System.out.println("Oh no! I failed to add a task from the saved data file to my task list.");
             System.out.println("Here's some details about the error: ");
@@ -124,15 +126,20 @@ public class TasksManager {
 
             // TODO: Refine exception handling
         }
+
+        // If task is marked as done in the file, reflect it in Sora's task list
+        if (isDone) {
+            updateDoneStatus(getNumberOfTasks(), true);
+        }
     }
 
     private String getTaskType(String abbreviation) {
         switch (abbreviation) {
-        case "T":
+        case SoraReaderWriter.TODO_TYPE_FILE_ABBREVIATION:
             return SoraUI.ADD_TODO_COMMAND_KEYWORD;
-        case "E":
+        case SoraReaderWriter.EVENT_TYPE_FILE_ABBREVIATION:
             return SoraUI.ADD_EVENT_COMMAND_KEYWORD;
-        case "D":
+        case SoraReaderWriter.DEADLINE_TYPE_FILE_ABBREVIATION:
             return SoraUI.ADD_DEADLINE_COMMAND_KEYWORD;
         default:
             // TODO: Implement exception?
