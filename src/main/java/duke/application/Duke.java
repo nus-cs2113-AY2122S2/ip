@@ -1,9 +1,13 @@
 package duke.application;
 
 //java imports
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.io.File;
+import java.io.FileWriter;
+
 
 //entity classes imports
 import duke.entity.Deadline;
@@ -21,6 +25,7 @@ import duke.exception.IllegalDeadlineException;
 public class Duke {
     public static void main(String[] args) {
         dukeIntro();
+        File f = loadFile();
         ArrayList<Task> taskArray = new ArrayList<Task>();
         Scanner sc = new Scanner(System.in);
         String userInput = null;
@@ -62,6 +67,11 @@ public class Duke {
                     catch (IllegalTodoException e){
                         displayTodoErrorMessage();
                     }
+                }
+                try {
+                    saveFile(f, taskArray);
+                }catch (IOException e){
+                    displayFileErrorMessage();
                 }
             }
             catch (DukeException e){
@@ -107,6 +117,24 @@ public class Duke {
         System.out.println("=============================");
         System.out.println("Cheers! See you!");
         System.out.println("=============================");
+    }
+
+    //file methods
+
+    public static File loadFile(){
+        return new File("src/main/java/duke.txt");
+    }
+
+    public static void saveFile(File f, ArrayList<Task> taskArray) throws IOException {
+        FileWriter fw = new FileWriter(f);
+        for (Task t : taskArray) {
+            fw.write(t.toString() + "\n");
+        }
+        fw.close();
+    }
+
+    public static void displayFileErrorMessage(){
+        System.out.println("Oopsies! Something went wrong while saving");
     }
 
     //list methods
