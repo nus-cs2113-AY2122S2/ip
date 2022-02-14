@@ -4,13 +4,14 @@ import task.Task;
 import errors.Errors;
 import task.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static errors.Errors.INVALID_TASK_DETAILS_ERROR;
 
 public class Duke {
 
-    public static Task[] taskList = new Task[100];
+    public static ArrayList<Task> taskList;
     public static int taskCounter = 0;
 
     public static String getFirstWordOfCommand(String s) {
@@ -25,7 +26,7 @@ public class Duke {
     public static void addDeadlineTask(String input){
         try {
             Deadline newDeadline = new Deadline(Deadline.getDeadlineTask(input), Deadline.getDeadlineDate(input));
-            taskList[taskCounter] = newDeadline;
+            taskList.add(newDeadline);
             taskCounter++;
             System.out.println("Got it. I've added this task:");
             Task.printTask(newDeadline);
@@ -47,7 +48,7 @@ public class Duke {
             String taskDescription = Todo.getToDoTask(input);
 
             Todo newTodo = new Todo(taskDescription);
-            taskList[taskCounter] = newTodo;
+           taskList.add(newTodo);
             taskCounter++;
             System.out.println("Got it. I've added this task:");
             Task.printTask(newTodo);
@@ -60,7 +61,7 @@ public class Duke {
     public static void addEventTask(String input){
         try {
             Event newEvent = new Event(Event.getEventTask(input), Event.getEventDateTime(input));
-            taskList[taskCounter] = newEvent;
+            taskList.add(newEvent);
             taskCounter++;
             System.out.println("Got it. I've added this task:");
             Task.printTask(newEvent);
@@ -73,9 +74,9 @@ public class Duke {
         try {
             int taskNum = getTaskNumberArgument(input);
             //System.out.println(taskNum);
-            taskList[taskNum - 1].setDone(true);
+            taskList.get(taskNum-1).setDone(true);
             //System.out.println(taskList[taskNum-1].isDone());
-            Task.printTask(taskList[taskNum - 1]);
+            Task.printTask(taskList.get(taskNum-1));
             System.out.println("Nice! I've marked this task as done:\n");
         } catch (NumberFormatException nfe){
             System.out.println(Errors.INVALID_TASK_MARK_ERROR);
@@ -84,8 +85,8 @@ public class Duke {
 
     public static void unmarkTaskAsIncomplete(String input){
         int taskNum = getTaskNumberArgument(input);
-        taskList[taskNum - 1].setDone(false);
-        Task.printTask(taskList[taskNum - 1]);
+        taskList.get(taskNum-1).setDone(false);
+        Task.printTask(taskList.get(taskNum-1));
         System.out.println("Ok I have marked this task as incomplete:\n");
 
     }

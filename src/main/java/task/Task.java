@@ -1,5 +1,7 @@
 package task;
 
+import java.util.ArrayList;
+
 public class Task {
 
     protected String taskName;
@@ -53,11 +55,11 @@ public class Task {
         return " ";
     }
 
-    public static void printList(Task[] list, int counter) {
+    public static void printList(ArrayList<Task> list, int counter) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < counter; i++) {
             System.out.print(i + 1 + ".");
-            printTask(list[i]);
+            printTask(list.get(i));
         }
         printNumberOfTasksInList(counter);
     }
