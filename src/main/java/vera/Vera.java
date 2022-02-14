@@ -82,6 +82,8 @@ public class Vera {
             + "Please reboot and execute the application again.";
     private static final String ERROR_SYSTEM_FAULT_MESSAGE = "Oops! There seems to be some problem"
             + "with the code.\nPlease contact the developers for help.";
+    private static final String ERROR_CORRUPT_SAVED_FILE_MESSAGE = "Oops! It seems that your saved file "
+            + "was corrupted.\nProceeding to start anew...";
 
     private static final int OPTIONS_INDEX = 0;
     private static final int MARK_INDEX = 1;
@@ -124,7 +126,21 @@ public class Vera {
         }
     }
 
-    private static Task readSavedTask(String[] rawData) {
+
+    private static boolean isReadTaskEmpty(Task parsedData) {
+        switch (parsedData.getType()) {
+        case "T":
+            return parsedData.getDescription().isBlank();
+        case "D":
+            // fallthrough since Deadline and Event have the same getters
+        case "E":
+            return parsedData.getDescription().isBlank() || parsedData.getDate().isBlank();
+        default:
+            return false;
+        }
+    }
+
+    private static Task readSavedTask(String[] rawData) throws InputEmptyException {
         Task parsedData;
         switch (rawData[SAVE_TASK_INDEX].trim()) {
         case "T":
@@ -139,13 +155,15 @@ public class Vera {
                     rawData[SAVE_TASK_DATE_INDEX]);
             break;
         default:
-            System.out.println("Oops! It seems that your saved file"
-                    + "was corrupted.\nProceeding to start anew...");
-            return null;
+            throw new InputEmptyException();
+        }
+        if (isReadTaskEmpty(parsedData)) {
+            throw new InputEmptyException();
         }
         if (rawData[SAVE_TASK_MARK_STATUS].equals("1")) {
             parsedData.markAsDone();
         }
+
         return parsedData;
     }
 
@@ -170,16 +188,15 @@ public class Vera {
             while (s.hasNext()) {
                 taskRawData = s.nextLine().split(" \\| ");
                 taskParsedData = readSavedTask(taskRawData);
-                if (taskParsedData == null) {
-                    wipeSavedData();
-                    return;
-                }
                 tasks.add(taskParsedData);
             }
         } catch (FileNotFoundException e) {
             System.out.println("Sorry! There was an error while loading your"
                     + "saved file. Please restart and try again later.");
             System.exit(1);
+        } catch (ArrayIndexOutOfBoundsException | InputEmptyException e) {
+            System.out.println(ERROR_CORRUPT_SAVED_FILE_MESSAGE);
+            wipeSavedData();
         }
     }
 
