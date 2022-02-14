@@ -1,9 +1,13 @@
 public class Deadline extends Todo {
     protected String by;
 
-    public Deadline(String task, String by) {
+    public Deadline(String task, String by) throws NoDateException {
         super(task);
         this.by = by;
+
+        if (this.by == null) {
+            throw new NoDateException();
+        }
     }
 
     @Override

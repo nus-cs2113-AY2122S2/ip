@@ -27,7 +27,7 @@ public class Duke implements Chatbot {
     public static void printMark(Task[] tasks, int markedItem) {
         try {
             String ans = tasks[markedItem].toString();
-        } catch (IndexOutOfBoundsException) {
+        } catch (IndexOutOfBoundsException e) {
             echo(ITEM_NOT_EXIST_MSG);
         } finally {
             if (tasks[markedItem] == null) {
@@ -44,7 +44,7 @@ public class Duke implements Chatbot {
     public static void printUnmark(Task[] tasks, int unmarkedItem) {
         try {
             String ans = tasks[unmarkedItem].toString();
-        } catch (IndexOutOfBoundsException) {
+        } catch (IndexOutOfBoundsException e) {
             echo(ITEM_NOT_EXIST_MSG);
         } finally {
             if (tasks[unmarkedItem] == null) {
@@ -95,7 +95,7 @@ public class Duke implements Chatbot {
     public static void addTodo(Task[] tasks, String line, int itemCount) {
         try {
             tasks[itemCount] = new Todo(line.substring(TODO_TASK_INDEX));
-        } catch (NoTaskException) {
+        } catch (NoTaskException e) {
             echo(NO_TASK_MSG);
         } finally {
             echo("Added " + tasks[itemCount].toString() + " to the list");
@@ -108,9 +108,9 @@ public class Duke implements Chatbot {
             String by = line.substring(line.indexOf(DEADLINE_OF_TASK_CMD) + TIME_INDEX);
             String deadline = line.substring(DEADLINE_TASK_INDEX, line.indexOf(DEADLINE_OF_TASK_CMD));
             tasks[itemCount] = new Deadline(deadline, by);
-        } catch (NoTaskException) {
+        } catch (NoTaskException e) {
             echo(NO_TASK_MSG);
-        } catch (NoDateException) {
+        } catch (NoDateException e) {
             echo(NO_DATE_MSG);
         }
         finally {
@@ -124,9 +124,9 @@ public class Duke implements Chatbot {
             String at = line.substring(line.indexOf(DURATION_OF_EVENT_CMD) + TIME_INDEX);
             String event = line.substring(EVENT_TASK_INDEX, line.indexOf(DURATION_OF_EVENT_CMD));
             tasks[itemCount] = new Event(event, at);
-        } catch (NoTaskException) {
+        } catch (NoTaskException e) {
             echo(NO_TASK_MSG);
-        } catch (NoDateException) {
+        } catch (NoDateException e) {
             echo(NO_DATE_MSG);
         }
         finally {
