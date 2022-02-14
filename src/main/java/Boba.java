@@ -26,6 +26,7 @@ public class Boba {
         // Scanner is how commands are inputted
         Scanner scan = new Scanner(System.in);
         Command operation = Command.NONE;
+        TaskManager manager = new TaskManager();
 
         // Keep going until the user enters 'bye'
         do {
@@ -33,7 +34,7 @@ public class Boba {
                 String input = scan.nextLine();
                 operation = Command.getCommand(input);
                 String[] arguments = parseInput(operation, input);
-                TaskManager.run(operation, arguments);
+                manager.run(operation, arguments);
             } catch (BobaException e) {
                 ErrorHandler.printErrorMessage(e.getOperation());
             }

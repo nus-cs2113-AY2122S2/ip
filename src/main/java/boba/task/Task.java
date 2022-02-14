@@ -35,6 +35,22 @@ public class Task {
     }
 
     /**
+     * Get the description of the task
+     * @return String description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Get if the task is done
+     * @return true if finished
+     */
+    public boolean isDone() {
+        return isDone;
+    }
+
+    /**
      * @return String representation of Task class
      */
     @Override

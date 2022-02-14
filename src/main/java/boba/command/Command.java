@@ -4,7 +4,7 @@ package boba.command;
  * Enum for the valid Commands allowed for Boba chat-bot
  */
 public enum Command {
-    EXIT, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, HELP, NONE;
+    EXIT, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, SAVE, HELP, NONE;
 
     /**
      * Determine what command user is using, and return the enum version.
