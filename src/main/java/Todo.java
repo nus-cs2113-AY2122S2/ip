@@ -9,6 +9,6 @@ public class Todo extends Task {
     }
 
     public void printTask() {
-        System.out.println("[T]" + toString());
+        System.out.println("[T]" + this);
     }
 }

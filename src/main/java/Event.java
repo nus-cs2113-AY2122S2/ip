@@ -10,23 +10,19 @@ public class Event extends Deadline {
         this.start = start;
     }
 
-
-
-    public String toString(){
+    public String toString() {
         return "[" + super.getStatusIcon() + "] " + super.description + " (start: " + this.start + ", end: " + super.getBy() + ")";
     }
 
-    public String getString(){
+    public String getString() {
         String done = "0";
-        if (isDone){
+        if (isDone) {
             done = "1";
         }
         return ("E," + done + "," + description + "," + start + "," + super.getBy());
     }
 
-
-
     public void printTask() {
-        System.out.println("[E]" + toString());
+        System.out.println("[E]" + this);
     }
 }

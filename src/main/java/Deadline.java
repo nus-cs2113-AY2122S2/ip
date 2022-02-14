@@ -14,19 +14,19 @@ public class Deadline extends Todo {
         return by;
     }
 
-    public String getString(){
+    public String getString() {
         String done = "0";
-        if (isDone){
+        if (isDone) {
             done = "1";
         }
         return ("D," + done + "," + description + "," + by);
     }
 
     public String toString() {
-        return (super.toString() + " (by: "  + by + ")");
+        return (super.toString() + " (by: " + by + ")");
     }
 
     public void printTask() {
-        System.out.println("[D]" + toString());
+        System.out.println("[D]" + this);
     }
 }
