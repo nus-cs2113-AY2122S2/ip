@@ -38,6 +38,8 @@ public class TaskManager implements Serializable {
 
                 allTasks = (ArrayList<Task>) readStream.readObject();
                 readStream.close();
+                printTaskRemaining();
+                printEndLine();
             } catch (FileNotFoundException e) {
                 System.out.println("File not found");
             } catch (IOException | ClassNotFoundException e) {
