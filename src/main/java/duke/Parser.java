@@ -4,6 +4,7 @@ import duke.command.AddCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.task.Deadline;
@@ -49,6 +50,9 @@ public class Parser {
         case "delete":
             taskIndex = Integer.parseInt(initialParse[1]) - 1;
             return new DeleteCommand(taskIndex);
+        case "find":
+            String searchTerm = initialParse[1].trim();
+            return new FindCommand(searchTerm);
         case "bye":
             return new ExitCommand();
         default:
