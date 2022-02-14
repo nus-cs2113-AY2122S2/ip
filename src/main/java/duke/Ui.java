@@ -67,4 +67,14 @@ public class Ui {
         printSize(size);
     }
 
+    public void printMatchingTasks(TaskList tasks, String searchTerm) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.getSize(); i++) {
+            Task task = tasks.getTaskList().get(i);
+            if (task.getTask().contains(searchTerm)) {
+                System.out.println(i + 1 + ". " + task.getTask());
+            }
+        }
+    }
+
 }
