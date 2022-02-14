@@ -5,6 +5,7 @@ import tasks.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SoraReaderWriter {
@@ -18,16 +19,6 @@ public class SoraReaderWriter {
     public static final String EVENT_TYPE_FILE_ABBREVIATION = "E";
     public static final String DEADLINE_TYPE_FILE_ABBREVIATION = "D";
 
-    private TasksManager tasksManager;
-
-    public SoraReaderWriter(TasksManager tasksManager) {
-        this.tasksManager = tasksManager;
-    }
-
-    private TasksManager getTasksManager() {
-        return this.tasksManager;
-    }
-
     protected String getUserInput() {
         Scanner reader = new Scanner(System.in);
         String userInput = reader.nextLine();
@@ -35,7 +26,7 @@ public class SoraReaderWriter {
         return userInputTrimmed;
     }
 
-    protected void loadTaskListFromFile() throws IOException {
+    protected void loadTaskListFromFile(TasksManager tasksManager) throws IOException {
         File dataFile = new File(DATA_FILE_PATH + DATA_FILENAME);
 
         if (!dataFile.exists()) {
@@ -62,7 +53,7 @@ public class SoraReaderWriter {
             String[] parsedLineData = parseFileLineData(rawLineData);
 
             // Add this line of text data into Sora's task list
-            getTasksManager().addTask(parsedLineData);
+            tasksManager.addTask(parsedLineData);
         }
     }
 
@@ -127,5 +118,34 @@ public class SoraReaderWriter {
 
         // TODO: Implement exception?
         return "";
+    }
+
+    /**
+     * (WIP Documentation) Naive implementation to handle mark/unmark tasks as done by rewriting
+     * the entire task list to the file.
+     *
+     * I hope to implement a more efficient version, that is, search for the task to be updated
+     * in the file and updated it directly.
+     *
+     * @param tasksManager
+     */
+    public void rewriteAllTasksToFile(TasksManager tasksManager) throws IOException {
+        ArrayList<Task> tasksList = tasksManager.getList();
+
+        try {
+            FileWriter fileWriter = new FileWriter(DATA_FILE_PATH + DATA_FILENAME);
+
+            for (Task task  : tasksList) {
+                String taskText = buildTaskTextForFile(task);
+                fileWriter.append(taskText + System.lineSeparator());
+            }
+
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error opening data file for writing. Here are the details:");
+            System.out.println(e.getMessage());
+            throw e;
+        }
+
     }
 }
