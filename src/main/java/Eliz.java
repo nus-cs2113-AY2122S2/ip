@@ -96,32 +96,33 @@ public class Eliz {
     }
 
     public static void getInput(String line, ArrayList<Task> tasks, int taskCounter) throws ElizException {
-        String[] breakTaskNames = line.split(" ");
+        String[] breakTaskNames = line.split(" ", 2);
+
         if (breakTaskNames[0].equalsIgnoreCase("todo") || breakTaskNames[0].equalsIgnoreCase("deadline")
         || breakTaskNames[0].equalsIgnoreCase("event")) {
-            //do nothing;
+                /** add line to todo, deadline, or event by creating the respective object */
+                Task t = createTask(line);
+                tasks.add(taskCounter, t);
+                taskCounter++;
+                System.out.println("Got it. I've added this task ");
+                System.out.println(t);
+                System.out.println("Now you have " + taskCounter + " tasks in the list.");
         } else {
-            System.out.println("OOPS!!! I'm sorry but I do not understand what you mean");
-            throw new ElizException();
+            if (line.equalsIgnoreCase("list")) { //check if action is t
+                // o echo or print tasks
+                printTasks(tasks);
+            } else if (line.contains("mark")) { //to check if todos are marked
+                Eliz.markOrUnmark(line, tasks, taskCounter);
+            } else {
+                System.out.println("OOPS!!! I'm sorry but I do not understand what you mean");
+                throw new ElizException();
+            }
         }
-        if (breakTaskNames.length < 2) {
+        if (!line.equalsIgnoreCase("list") && !line.contains("mark") && breakTaskNames.length < 2) {
             System.out.println("OOPS!!! The description of a " + breakTaskNames[0] + " cannot be empty.");
             throw new ElizException();
         }
-        if (line.equalsIgnoreCase("list")) { //check if action is t
-            // o echo or print tasks
-            printTasks(tasks);
-        } else if (line.contains("mark")) { //to check if todos are marked
-            Eliz.markOrUnmark(line, tasks, taskCounter);
-        } else {
-            /** add line to todo, deadline, or event by creating the respective object */
-            Task t = createTask(line);
-            tasks.add(taskCounter, t);
-            taskCounter++;
-            System.out.println("Got it. I've added this task ");
-            System.out.println(t);
-            System.out.println("Now you have " + taskCounter + " tasks in the list.");
-        }
+
     }
 
     public static void main(String[] args) {
