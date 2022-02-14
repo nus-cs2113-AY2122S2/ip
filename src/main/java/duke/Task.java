@@ -1,6 +1,8 @@
 package duke;
 
-abstract class Task {
+import java.io.Serializable;
+
+abstract class Task implements Serializable {
     protected String description;
 
     public Task(String item) {
