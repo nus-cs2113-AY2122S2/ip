@@ -1,9 +1,11 @@
-public class Event extends Task{
+package Eliz;
+
+public class Deadline extends Task{
     private String taskType;
 
-    public Event(String description) {
+    public Deadline(String description) {
         super(description);
-        taskType = "E";
+        taskType = "D";
     }
 
     @Override
@@ -15,5 +17,4 @@ public class Event extends Task{
     public String toString() {
         return "[" + taskType + "][" + getStatusIcon() + "] " + description;
     }
-
 }
