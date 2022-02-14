@@ -10,6 +10,7 @@ public class TaskManager {
     private static final String UNMARK = "unmark";
     private static final String EVENT = "event";
     private static final String DEADLINE = "deadline";
+    private static final String DELETE = "delete";
     private static final String BYE = "bye";
     private static final String END_OF_SECTION = "___________________________________________________";
 
@@ -58,6 +59,9 @@ public class TaskManager {
             break;
         case BYE:
             isContinueInput = false;
+            break;
+        case DELETE:
+            deleteTask(commandArg);
             break;
         default:
             throw new DukeException();
@@ -116,7 +120,7 @@ public class TaskManager {
         try {
             allTasks.get(Integer.parseInt(commandArg) - 1).markAsDone();
             System.out.println(String.format("Nice! I've marked this task as done:%n  %s",
-                    allTasks.get(Integer.parseInt(commandArg) - 1)));
+                    getTask(commandArg)));
             printEndLine();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Please input the correct index to mark it as done");
@@ -128,7 +132,7 @@ public class TaskManager {
         try {
             allTasks.get(Integer.parseInt(commandArg) - 1).markAsNotDone();
             System.out.println(String.format("Ok, I've marked this task as not done yet:%n  %s",
-                    allTasks.get(Integer.parseInt(commandArg) - 1)));
+                    getTask(commandArg)));
             printEndLine();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Please input the correct index to mark it as done");
@@ -136,9 +140,30 @@ public class TaskManager {
         }
     }
 
+    private static void deleteTask(String commandArg) {
+        try {
+            System.out.println(String.format("Noted. I've removed this task:%n  %s", getTask(commandArg)));
+            allTasks.remove(Integer.parseInt(commandArg) - 1);
+            printTaskRemaining();
+            printEndLine();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Please input the correct index");
+            printEndLine();
+        }
+    }
+
+    private static Task getTask(String commandArg) {
+        return allTasks.get(Integer.parseInt(commandArg) - 1);
+    }
+
+    private static void printTaskRemaining() {
+        System.out.println(String.format("Now you have %d tasks in the list.", allTasks.size()));
+    }
+
     private static void printTask() {
-        System.out.println(String.format("Got it. I've added this task:%n  %s%nNow you have %d tasks in the list.",
-                allTasks.get(allTasks.size() - 1), allTasks.size()));
+        System.out.println(String.format("Got it. I've added this task:%n  %s",
+                allTasks.get(allTasks.size() - 1)));
+        printTaskRemaining();
     }
 
     private static void printEndLine() {
