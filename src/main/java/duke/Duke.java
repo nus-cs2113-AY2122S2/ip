@@ -1,7 +1,6 @@
 package duke;
 
 import duke.exception.DukeEmptyDescriptionException;
-import duke.exception.DukeMaxTaskException;
 import duke.exception.DukeMissingTimeSeparator;
 import duke.exception.DukeTaskOutOfRangeException;
 import duke.task.TaskManager;
@@ -33,8 +32,6 @@ public class Duke {
             taskManager.addTask(userInput);
         } catch (DukeEmptyDescriptionException e) {
             System.out.println("OOPS! The description of a todo cannot be empty!");
-        } catch (DukeMaxTaskException e) {
-            System.out.println("OOPS! You have reached the max number of tasks!");
         }
     }
 
@@ -43,8 +40,6 @@ public class Duke {
             taskManager.addTaskWithTime(userInput, stringSeparator);
         } catch (DukeEmptyDescriptionException e) {
             System.out.println("OOPS! The description of a " + taskType + " cannot be empty!");
-        } catch (DukeMaxTaskException e) {
-            System.out.println("OOPS! You have reached the max number of tasks!");
         } catch (DukeMissingTimeSeparator e) {
             System.out.println("OOPS! You did not include '" + stringSeparator + "' in your command!");
         }

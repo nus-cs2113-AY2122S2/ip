@@ -1,13 +1,13 @@
 package duke.task;
 
 import duke.exception.DukeEmptyDescriptionException;
-import duke.exception.DukeMaxTaskException;
 import duke.exception.DukeMissingTimeSeparator;
 import duke.exception.DukeTaskOutOfRangeException;
 
+import java.util.ArrayList;
+
 public class TaskManager {
-    protected static final int MAX_TASKS = 100;
-    private static Task[] taskLists = new Task[MAX_TASKS];
+    private static ArrayList<Task> taskLists = new ArrayList<>();
 
     public TaskManager() {
 
@@ -15,7 +15,7 @@ public class TaskManager {
 
     public static void printList() {
         for (int i = 0; i < Task.getNumberOfTasks(); i++) {
-            System.out.println((i + 1) + "."+ taskLists[i].toString());
+            System.out.println((i + 1) + "."+ taskLists.get(i).toString());
         }
     }
 
@@ -33,24 +33,15 @@ public class TaskManager {
         return extractTaskDescription;
     }
 
-    public static void checkTaskListSpaceAvailability() throws DukeMaxTaskException {
-        if (Task.getNumberOfTasks() >= MAX_TASKS) {
-            throw new DukeMaxTaskException();
-        }
-    }
-
-    public static void addTask(String userInput) throws DukeEmptyDescriptionException, DukeMaxTaskException {
-        checkTaskListSpaceAvailability();
+    public static void addTask(String userInput) throws DukeEmptyDescriptionException {
         String extractedTaskDescription = validateAndExtractTaskDescription(userInput);
         Task newTask = new Todo(extractedTaskDescription);
-        taskLists[Task.getNumberOfTasks() - 1] = newTask;
+        taskLists.add(newTask);
         System.out.println("Task added:\n\t" + newTask.toString());
         System.out.println("Now you have " + Task.getNumberOfTasks() + " tasks in your list!");
     }
 
-    public static void addTaskWithTime(String userInput, String stringSeparator) throws DukeEmptyDescriptionException, DukeMaxTaskException, DukeMissingTimeSeparator {
-        checkTaskListSpaceAvailability();
-
+    public static void addTaskWithTime(String userInput, String stringSeparator) throws DukeEmptyDescriptionException, DukeMissingTimeSeparator {
         String extractedStringsWithoutCommandType = validateAndExtractTaskDescription(userInput);
         if ((extractedStringsWithoutCommandType.split(stringSeparator).length) <= 1) {
             throw new DukeMissingTimeSeparator();
@@ -61,11 +52,13 @@ public class TaskManager {
         Task newTask;
         if (stringSeparator.equals("/by ")) {
             newTask = new Deadline(extractedTaskDescription, extractedTaskDeadlineTime);
-        } else {
+        } else if (stringSeparator.equals("/at ")) {
             newTask = new Event(extractedTaskDescription, extractedTaskDeadlineTime);
+        } else {
+            throw new DukeMissingTimeSeparator();
         }
 
-        taskLists[Task.getNumberOfTasks() - 1] = newTask;
+        taskLists.add(newTask);
         System.out.println("Task added:\n\t" + newTask.toString());
         System.out.println("Now you have " + Task.getNumberOfTasks() + " tasks in your list!");
     }
@@ -88,13 +81,13 @@ public class TaskManager {
         }
 
         if (isMarked) {
-            taskLists[taskNumber - 1].markAsDone();
+            taskLists.get(taskNumber - 1).markAsDone();
             System.out.println("Fantastic! This task is done:");
         } else {
-            taskLists[taskNumber - 1].markAsUndone();
+            taskLists.get(taskNumber - 1).markAsUndone();
             System.out.println("Uh oh! This task is undone:");
         }
-        System.out.println(taskLists[taskNumber - 1].toString());
+        System.out.println(taskLists.get(taskNumber - 1).toString());
 
     }
 }
