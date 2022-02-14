@@ -1,3 +1,5 @@
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -59,6 +61,9 @@ public class Duke {
             case "list":
                 list(tasks);
                 break;
+            case "save":
+                save(tasks);
+                break;
             case "bye":
                 isToQuit = true;
                 break;
@@ -71,6 +76,22 @@ public class Duke {
         System.out.print("____________________\n"+
                 "Bye. Hope to see you again soon!\n"+
                 "____________________\n");
+    }
+
+    private static void save(ArrayList<Task> list){
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream("duke.txt"), StandardCharsets.UTF_8))) {
+            for(Task t: list){
+                writer.write(t.toString());
+            }
+        }catch(FileNotFoundException e){
+            System.out.println("File could not be opened. Please try again.\n");
+            return;
+        }catch(IOException f){
+            System.out.println("Cannot write to file. Please try again.\n");
+            return;
+        }
+        System.out.println("File saved successfully");
     }
 
     private static void addTodo(String info, ArrayList<Task> list) throws DukeEmptyStringException{
