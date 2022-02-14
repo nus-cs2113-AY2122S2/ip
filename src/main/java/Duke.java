@@ -59,6 +59,9 @@ public class Duke {
             case "list":
                 list(tasks);
                 break;
+            case "delete":
+                delete(info, tasks);
+                break;
             case "bye":
                 isToQuit = true;
                 break;
@@ -71,6 +74,26 @@ public class Duke {
         System.out.print("____________________\n"+
                 "Bye. Hope to see you again soon!\n"+
                 "____________________\n");
+    }
+
+    private static void delete(String info, ArrayList<Task> list){
+        int index;
+        Task removed;
+        try{
+            index = Integer.parseInt(info);
+        } catch (NumberFormatException e){
+            System.out.println("Delete should be followed by a number");
+            return;
+        }
+        try{
+            removed = list.remove(index-1);
+        }catch (IndexOutOfBoundsException f){
+            System.out.println("This task does not exist");
+            return;
+        }
+        System.out.printf("I've deleted this task:\n" +
+                "\t%s" +
+                "Now you have %d in the list.\n", removed, list.size());
     }
 
     private static void addTodo(String info, ArrayList<Task> list) throws DukeEmptyStringException{
