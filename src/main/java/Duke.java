@@ -1,5 +1,12 @@
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 
 public class Duke {
@@ -62,6 +69,9 @@ public class Duke {
             case "delete":
                 delete(info, tasks);
                 break;
+            case "save":
+                save(tasks);
+                break;
             case "bye":
                 isToQuit = true;
                 break;
@@ -94,6 +104,22 @@ public class Duke {
         System.out.printf("I've deleted this task:\n" +
                 "\t%s" +
                 "Now you have %d in the list.\n", removed, list.size());
+    }
+
+    private static void save(ArrayList<Task> list){
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream("duke.txt"), StandardCharsets.UTF_8))) {
+            for(Task t: list){
+                writer.write(t.toString());
+            }
+        }catch(FileNotFoundException e){
+            System.out.println("File could not be opened. Please try again.\n");
+            return;
+        }catch(IOException f){
+            System.out.println("Cannot write to file. Please try again.\n");
+            return;
+        }
+        System.out.println("File saved successfully");
     }
 
     private static void addTodo(String info, ArrayList<Task> list) throws DukeEmptyStringException{
