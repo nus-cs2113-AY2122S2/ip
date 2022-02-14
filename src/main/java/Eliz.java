@@ -27,6 +27,7 @@ public class Eliz {
                 + tasks.get(taskNumInt - 1).description);
     }
 
+
     public static Task createTask(String line) {
         Task t;
         String[] splitTwoSections = line.split(" ", 2); //0: task type, 1: rest of the words
@@ -85,7 +86,7 @@ public class Eliz {
         System.out.println("What can I do for you?");
     }
 
-    public static void markOrUnmark(String line, ArrayList<Task> tasks, int taskCounter) {
+    public static void markOrUnmark(String line, ArrayList<Task> tasks) {
         if (line.contains("unmark")) {
             System.out.println("OK, I've marked this task as not done yet:");
             unmarkATask(line, tasks);
@@ -93,6 +94,17 @@ public class Eliz {
             System.out.println("Nice! I've marked this task as done:");
             markATask(line, tasks);
         }
+    }
+
+    public static void delete(String line, ArrayList<Task> tasks) {
+        char taskNumChar = line.charAt(line.length() - 1);
+        int taskNumInt = Character.getNumericValue(taskNumChar);
+        String deletedTask = tasks.get(taskNumInt - 1).getTaskType();
+        String deletedTaskDescription = tasks.get(taskNumInt - 1).description;
+        tasks.remove(taskNumInt - 1);
+        System.out.println("Noted I have deleted this task");
+        System.out.println("[" + deletedTask + "]" + "[ ] " + deletedTaskDescription);
+        System.out.println("You have " + tasks.size() + " tasks left in the list.");
     }
 
     public static void getInput(String line, ArrayList<Task> tasks, int taskCounter) throws ElizException {
@@ -109,10 +121,12 @@ public class Eliz {
                 System.out.println("Now you have " + taskCounter + " tasks in the list.");
         } else {
             if (line.equalsIgnoreCase("list")) { //check if action is t
-                // o echo or print tasks
+                //echo or print tasks
                 printTasks(tasks);
             } else if (line.contains("mark")) { //to check if todos are marked
-                Eliz.markOrUnmark(line, tasks, taskCounter);
+                Eliz.markOrUnmark(line, tasks);
+            } else if (line.contains("delete")) {
+                Eliz.delete(line, tasks);
             } else {
                 System.out.println("OOPS!!! I'm sorry but I do not understand what you mean");
                 throw new ElizException();
