@@ -1,7 +1,9 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Duke {
-    static Task[] tasks = new Task[100];
+    static List<Task> tasks = new ArrayList<>();
     static int numTasks = 0;
 
     public static void main(String[] args) {
@@ -13,36 +15,19 @@ public class Duke {
         String str = sc.nextLine();
 
 
-        int taskNum;
-
         while (!str.equals("bye")) {
-            if (str.equals("list")) {
+            switch (str) {
+            case "list":
                 printTasks();
-            } else if (str.equals("mark")) {
-                printTasks();
-                System.out.println("Which task would you like to mark as completed?");
-                taskNum = sc.nextInt();
-                sc.nextLine();
-                if (taskNum > numTasks || taskNum <= 0) {
-                    System.out.println("Uh oh! It seems like that task doesn't exist!");
-                } else {
-                    tasks[taskNum - 1].setDone(true);
-                    System.out.println("Nice! I've marked this task as done: ");
-                    tasks[taskNum - 1].printTask();
-                }
-            } else if (str.equals("unmark")) {
-                printTasks();
-                System.out.println("Which task would you like to mark as incomplete?");
-                taskNum = sc.nextInt();
-                sc.nextLine();
-                if (taskNum > numTasks || taskNum <= 0) {
-                    System.out.println("Uh oh! It seems like that task doesn't exist!");
-                } else {
-                    tasks[taskNum - 1].setDone(false);
-                    System.out.println("Okie, I've marked this task as not done yet:");
-                    tasks[taskNum - 1].printTask();
-                }
-            } else if (str.equals("add")) {
+                break;
+            case "mark":
+                markTask();
+                break;
+            case "unmark":
+                unmarkTask();
+
+                break;
+            case "add":
                 System.out.println("Okie, what type of task is this?");
                 System.out.println("1.Todo");
                 System.out.println("2.Deadline");
@@ -62,9 +47,14 @@ public class Duke {
                     System.out.println("Uh oh, please enter a valid number!");
                 }
                 System.out.println("______________________________________");
-            } else {
+                break;
+            case "delete":
+                deleteTask();
+                break;
+            default:
                 System.out.println("Sorry, I don't recognise that command. Please try again!");
                 System.out.println("______________________________________");
+                break;
             }
             str = sc.nextLine();
         }
@@ -72,9 +62,14 @@ public class Duke {
     }
 
     public static void printTasks() {
+        if (numTasks == 0){
+            System.out.println("Looks like you don't have any tasks for now!");
+            System.out.println("______________________________________");
+            return;
+        }
         for (int i = 0; i < numTasks; i++) {
             System.out.print((i + 1) + ". ");
-            tasks[i].printTask();
+            tasks.get(i).printTask();
         }
     }
 
@@ -83,7 +78,8 @@ public class Duke {
         System.out.println("Okie, what should I call the task?");
         String str = sc.nextLine();
         if (!str.isEmpty()){
-            tasks[numTasks] = new Todo(str);
+            Todo t = new Todo(str);
+            tasks.add(t);
             numTasks++;
             System.out.println("Added!");
         }
@@ -106,7 +102,8 @@ public class Duke {
             System.out.println("Oops! The due date of a Deadline cannot be empty.");
             return;
         }
-        tasks[numTasks] = new Deadline(str, by);
+        Deadline d = new Deadline(str, by);
+        tasks.add(d);
         numTasks++;
         System.out.println("Added!");
     }
@@ -131,8 +128,78 @@ public class Duke {
             System.out.println("Oops! The due date of a Deadline cannot be empty.");
             return;
         }
-        tasks[numTasks] = new Event(str, by, start);
+        Event e = new Event(str, by, start);
+        tasks.add(e);
         numTasks++;
         System.out.println("Added!");
     }
+
+    public static void markTask(){
+        Scanner sc = new Scanner(System.in);
+        printTasks();
+        System.out.println("Which task would you like to mark as completed?");
+        String taskNum = sc.nextLine();
+        if (!isInt(taskNum)){
+            System.out.println("Uh oh! Please enter a valid input!");
+            return;
+        }
+        int num = Integer.parseInt(taskNum);
+        if (num > numTasks || num <= 0) {
+            System.out.println("Uh oh! It seems like that task doesn't exist!");
+        } else {
+            tasks.get(num - 1).setDone(true);
+            System.out.println("Nice! I've marked this task as done: ");
+            tasks.get(num - 1).printTask();
+        }
+    }
+    public static void unmarkTask(){
+        Scanner sc = new Scanner(System.in);
+        printTasks();
+        System.out.println("Which task would you like to mark as incomplete?");
+        String taskNum = sc.nextLine();
+        if (!isInt(taskNum)){
+            System.out.println("Uh oh! Please enter a valid input!");
+            return;
+        }
+        int num = Integer.parseInt(taskNum);
+        if (num > numTasks || num <= 0) {
+            System.out.println("Uh oh! It seems like that task doesn't exist!");
+        } else {
+            tasks.get(num - 1).setDone(false);
+            System.out.println("Okie, I've marked this task as not done yet:");
+            tasks.get(num - 1).printTask();
+        }
+
+    }
+
+    public static void deleteTask(){
+        Scanner sc = new Scanner(System.in);
+        printTasks();
+        System.out.println("Which task would you like to remove?");
+        String taskNum = sc.nextLine();
+        if (!isInt(taskNum)){
+            System.out.println("Uh oh! Please enter a valid input!");
+            return;
+        }
+        int num = Integer.parseInt(taskNum);
+        if (num > numTasks || num <= 0) {
+            System.out.println("Uh oh! It seems like that task doesn't exist!");
+        } else {
+            System.out.println("Okay! I have removed this task: ");
+            tasks.get(num - 1).printTask();
+            tasks.remove(num-1);
+            numTasks--;
+        }
+    }
+
+    private static boolean isInt(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch(NumberFormatException nfe) {
+            return false;
+        }
+    }
+
+
 }
