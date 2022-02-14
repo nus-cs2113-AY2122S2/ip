@@ -1,5 +1,6 @@
 package sora;
 
+import tasks.Task;
 import tasks.TasksManager;
 
 /**
@@ -80,6 +81,11 @@ public class Sora {
                 taskNum = getTaskNumberFromCommand(userRawInput);
                 boolean unmarkSuccess = getTasksManager().updateDoneStatus(taskNum, false);
                 soraUI.printUnmarkTaskResponseMessage(unmarkSuccess, getTasksManager(), taskNum);
+                break;
+            case SoraUI.DELETE_TASK_COMMAND_KEYWORD:
+                taskNum = getTaskNumberFromCommand(userRawInput);
+                Task taskRemoved = getTasksManager().deleteTask(taskNum);
+                soraUI.printDeleteTaskResponseMessage(taskRemoved, getTasksManager());
                 break;
             case SoraUI.ADD_TODO_COMMAND_KEYWORD:
                 // Fallthrough
