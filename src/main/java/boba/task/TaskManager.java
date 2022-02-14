@@ -50,6 +50,11 @@ public class TaskManager {
             case HELP:
                 printHelpOptions();
                 break;
+            case DELETE:
+                deleteTask(arguments[0]);
+                break;
+            case EXIT:
+                break;
             case NONE:
             default:
                 throw new BobaException(Command.NONE);
@@ -76,6 +81,7 @@ public class TaskManager {
      * Marks a task as complete or incomplete.
      * @param isDone Whether task is completed
      * @param taskIndex Index of the task we want to mark
+     * @throws BobaException Index out of bounds
      */
     private static void markTask(boolean isDone, String taskIndex) throws BobaException {
         // The task list is 1 base indexing while the array itself is 0 base indexing
@@ -116,19 +122,42 @@ public class TaskManager {
     }
 
     /**
+     * Removes the Task at a given index
+     * @param taskIndex Index of task we want to remove
+     * @throws BobaException Index out of bounds
+     */
+    private static void deleteTask(String taskIndex) throws BobaException{
+        int index = Integer.parseInt(taskIndex) - 1;
+        if (index < 0 || index >= taskCount) {
+            // deleting outside the range is not allowed
+            throw new BobaException(Command.DELETE);
+        }
+        BobaResponse.addResponse("Noted. I've removed this task:");
+        BobaResponse.addResponse("\t" + taskList[index].toString());
+        for (int i = index + 1; i < taskCount; i++) {
+            taskList[i - 1] = taskList[i];
+        }
+        taskCount--;
+        BobaResponse.addResponse("Now you have " + taskCount + " tasks in the list.");
+        BobaResponse.printResponse();
+    }
+
+    /**
      * Print out all the commands the bot will respond to.
      * Activates when user enters <code>help</code>
      */
     private static void printHelpOptions() {
         BobaResponse.addResponse("Here are all the possible commands:");
-        BobaResponse.addResponse("\t1. bye");
-        BobaResponse.addResponse("\t2. list");
-        BobaResponse.addResponse("\t3. todo <description>");
-        BobaResponse.addResponse("\t4. deadline <description> /by <time>");
-        BobaResponse.addResponse("\t5. event <description> /at <time>");
-        BobaResponse.addResponse("\t6. mark <number>");
-        BobaResponse.addResponse("\t7. unmark <number>");
-        BobaResponse.addResponse("\t8. help");
+        int helpCount = 1;
+        BobaResponse.addResponse("\t" + helpCount++ + ". bye");
+        BobaResponse.addResponse("\t" + helpCount++ + ". list");
+        BobaResponse.addResponse("\t" + helpCount++ + ". todo <description>");
+        BobaResponse.addResponse("\t" + helpCount++ + ". deadline <description> /by <time>");
+        BobaResponse.addResponse("\t" + helpCount++ + ". event <description> /at <time>");
+        BobaResponse.addResponse("\t" + helpCount++ + ". mark <number>");
+        BobaResponse.addResponse("\t" + helpCount++ + ". unmark <number>");
+        BobaResponse.addResponse("\t" + helpCount++ + ". delete <number>");
+        BobaResponse.addResponse("\t" + helpCount++ + ". help");
         BobaResponse.printResponse();
     }
 }

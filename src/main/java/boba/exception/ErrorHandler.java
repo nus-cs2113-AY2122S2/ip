@@ -28,6 +28,7 @@ public class ErrorHandler {
             break;
         case MARK:
         case UNMARK:
+        case DELETE:
             BobaResponse.addResponse("Please provide a valid number");
             break;
         case NONE:

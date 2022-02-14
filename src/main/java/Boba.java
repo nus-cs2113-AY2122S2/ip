@@ -83,6 +83,7 @@ public class Boba {
         case TODO:
         case MARK:
         case UNMARK:
+        case DELETE:
             int spaceIndex = input.indexOf(" ");
             if (spaceIndex == -1) {
                 throw new BobaException(operation);
