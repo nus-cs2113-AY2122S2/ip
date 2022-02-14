@@ -1,9 +1,17 @@
 package duke;
 
+import java.io.Serializable;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TaskManager {
+public class TaskManager implements Serializable {
     private static final String LIST = "list";
     private static final String TODO = "todo";
     private static final String MARK = "mark";
@@ -16,8 +24,26 @@ public class TaskManager {
     private static ArrayList<Task> allTasks = new ArrayList<>();
     private static boolean isContinueInput = true;
 
-    public TaskManager(Scanner in) {
+    Scanner in = new Scanner(System.in);
+    private static File duke;
+
+    public TaskManager(File file) {
         String line;
+        this.duke = file;
+        if (this.duke.length() != 0) {
+            try {
+                FileInputStream readData = new FileInputStream(this.duke);
+                ObjectInputStream readStream = new ObjectInputStream(readData);
+
+                allTasks = (ArrayList<Task>) readStream.readObject();
+                readStream.close();
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found");
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
         while (isContinueInput && in.hasNextLine()) {
             line = in.nextLine();
             String[] input = line.split(" ", 2);
@@ -58,6 +84,7 @@ public class TaskManager {
             break;
         case BYE:
             isContinueInput = false;
+            saveData();
             break;
         default:
             throw new DukeException();
@@ -148,5 +175,20 @@ public class TaskManager {
     private static void printInvalidCommand() {
         System.out.println("OOPS!!! I'm sorry, but I don't know what that means");
         printEndLine();
+    }
+
+    private static void saveData() {
+        try {
+            FileOutputStream writeData = new FileOutputStream(duke);
+            ObjectOutputStream writeStream = new ObjectOutputStream(writeData);
+
+            writeStream.writeObject(allTasks);
+            writeStream.flush();
+            writeStream.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found. Unable to save file");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
