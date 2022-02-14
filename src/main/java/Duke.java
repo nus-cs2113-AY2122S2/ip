@@ -11,7 +11,7 @@ import static errors.Errors.INVALID_TASK_DETAILS_ERROR;
 
 public class Duke {
 
-    public static ArrayList<Task> taskList;
+    public static ArrayList<Task> taskList = new ArrayList<Task>();
     public static int taskCounter = 0;
 
     public static String getFirstWordOfCommand(String s) {
@@ -46,9 +46,8 @@ public class Duke {
     public static void addToDoTask(String input){
         try{
             String taskDescription = Todo.getToDoTask(input);
-
             Todo newTodo = new Todo(taskDescription);
-           taskList.add(newTodo);
+            taskList.add(newTodo);
             taskCounter++;
             System.out.println("Got it. I've added this task:");
             Task.printTask(newTodo);
@@ -74,9 +73,11 @@ public class Duke {
         try {
             int taskNum = getTaskNumberArgument(input);
             //System.out.println(taskNum);
-            taskList.get(taskNum-1).setDone(true);
-            //System.out.println(taskList[taskNum-1].isDone());
-            Task.printTask(taskList.get(taskNum-1));
+            Task taskToMark = taskList.get(taskNum-1);
+            System.out.println(taskToMark.isDone());
+            taskToMark.setDone(true);
+            System.out.println(taskToMark.isDone());
+            Task.printTask(taskToMark);
             System.out.println("Nice! I've marked this task as done:\n");
         } catch (NumberFormatException nfe){
             System.out.println(Errors.INVALID_TASK_MARK_ERROR);
@@ -88,7 +89,17 @@ public class Duke {
         taskList.get(taskNum-1).setDone(false);
         Task.printTask(taskList.get(taskNum-1));
         System.out.println("Ok I have marked this task as incomplete:\n");
+    }
 
+    public static void deleteTask(String input){
+        try {
+            int taskNum = getTaskNumberArgument(input);
+            taskList.remove(taskNum-1);
+            System.out.println("Ok I have deleted this task as requested:\n");
+            taskCounter--;
+        } catch (NumberFormatException nfe){
+            System.out.println(Errors.INVALID_TASK_DELETE_ERROR);
+        }
     }
 
     public static void main(String[] args) {
@@ -109,6 +120,9 @@ public class Duke {
                 break;
             case "mark":
                 markTaskAsComplete(input);
+                break;
+            case "delete":
+                deleteTask(input);
                 break;
             case "unmark":
                 unmarkTaskAsIncomplete(input);
