@@ -5,6 +5,8 @@ import boba.exception.BobaException;
 import boba.exception.ErrorHandler;
 import boba.response.BobaResponse;
 
+import java.util.ArrayList;
+
 /**
  * Class that manages the Commands inputted and does
  * the proper instructions based on the input.
@@ -18,7 +20,7 @@ public class TaskManager {
     /** Keeps track on how many tasks are in the list*/
     private static int taskCount = 0;
     /** The list of tasks. Limited to 100 */
-    private static Task[] taskList = new Task[100];
+    private static ArrayList<Task> taskList = new ArrayList<>();
 
     /**
      * Runs the given command and calls the right method
@@ -72,7 +74,7 @@ public class TaskManager {
             BobaResponse.addResponse("The list empty!");
         }
         for (int i = 0; i < taskCount; i++) {
-            BobaResponse.addResponse(i + 1 + ". " + taskList[i]);
+            BobaResponse.addResponse(i + 1 + ". " + taskList.get(i));
         }
         BobaResponse.printResponse();
     }
@@ -90,7 +92,7 @@ public class TaskManager {
             // Marking outside the range is not allowed
             throw new BobaException(Command.MARK);
         }
-        Task selectedTask = taskList[index];
+        Task selectedTask = taskList.get(index);
         if (isDone) {
             selectedTask.markAsDone();
             BobaResponse.addResponse("Beep boop! I've marked this task as done:");
@@ -112,7 +114,7 @@ public class TaskManager {
             BobaResponse.addResponse("The list is full");
             BobaResponse.addResponse("Task could not be added");
         } else {
-            taskList[taskCount] = newTask;
+            taskList.add(newTask);
             taskCount++;
             BobaResponse.addResponse("Got it. I've added this task:");
             BobaResponse.addResponse("\t" + newTask.toString());
@@ -133,10 +135,8 @@ public class TaskManager {
             throw new BobaException(Command.DELETE);
         }
         BobaResponse.addResponse("Noted. I've removed this task:");
-        BobaResponse.addResponse("\t" + taskList[index].toString());
-        for (int i = index + 1; i < taskCount; i++) {
-            taskList[i - 1] = taskList[i];
-        }
+        BobaResponse.addResponse("\t" + taskList.get(index).toString());
+        taskList.remove(index);
         taskCount--;
         BobaResponse.addResponse("Now you have " + taskCount + " tasks in the list.");
         BobaResponse.printResponse();
