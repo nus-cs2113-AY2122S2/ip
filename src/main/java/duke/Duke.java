@@ -5,7 +5,10 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.File;
 
 public class Duke {
 
@@ -37,6 +40,9 @@ public class Duke {
     public static final String FLAG_DEADLINE = " /by ";
     public static final String FLAG_EVENT = " /at ";
 
+    //File
+    public static final String FILE_PATH = "data/duke.txt";
+
     //Misc text
     public static final String SEPARATOR = "───────────────────────────────────";
 
@@ -44,8 +50,14 @@ public class Duke {
     protected static Task[] tasks = new Task[100];
     protected static int numTasks = 0;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         greet();
+        try {
+            duke.File.loadFileContents();
+        } catch (FileNotFoundException e) {
+            File file = new File(FILE_PATH);
+            file.createNewFile();
+        }
         acceptCommand();
         exit();
     }
