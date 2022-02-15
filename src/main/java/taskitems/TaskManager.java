@@ -6,8 +6,10 @@ import taskitems.task.Event;
 import taskitems.task.Task;
 import taskitems.task.Todo;
 
+import java.util.ArrayList;
+
 public class TaskManager {
-    private Task[] tasks = new Task[100];
+    private ArrayList<Task> tasks = new ArrayList<>();
     private int taskCount = 0;
     static Greet greet;
 
@@ -23,12 +25,12 @@ public class TaskManager {
         if (number > taskCount || number < 1) {
             throw new IllegalInputException();
         }
-        if (tasks[number - 1].isMarked()) {
+        if (tasks.get(number - 1).isMarked()) {
             System.out.println("Err, this task is already marked...");
         } else {
-            tasks[number - 1].setMarked(true);
+            tasks.get(number - 1).setMarked(true);
             System.out.println("Nice! I've marked this task as done: ");
-            System.out.println(tasks[number - 1]);
+            System.out.println(tasks.get(number - 1));
         }
         greet.printDecoration();
 
@@ -39,12 +41,12 @@ public class TaskManager {
         if(number > taskCount || number < 1){
             throw new IllegalInputException();
         }
-        if(!tasks[number - 1].isMarked()){
+        if(!tasks.get(number - 1).isMarked()){
             System.out.println("I cannot unmark something that was never marked...");
         } else {
-            tasks[number - 1].setMarked(false);
+            tasks.get(number - 1).setMarked(false);
             System.out.println("Okay Boss! The following task has been unmarked: ");
-            System.out.println(tasks[number - 1]);
+            System.out.println(tasks.get(number - 1));
         }
         greet.printDecoration();
     }
@@ -54,8 +56,8 @@ public class TaskManager {
             throw new IllegalInputException();
         }
         greet.printDecoration();
-        tasks[taskCount] = new Todo(taskName);
-        System.out.println("added: " + tasks[taskCount]);
+        tasks.add(new Todo(taskName));
+        System.out.println("added: " + tasks.get(taskCount));
         taskCount++;
         System.out.println("You now have " + taskCount + " tasks in the list.");
         greet.printDecoration();
@@ -64,11 +66,11 @@ public class TaskManager {
     public void addToTasks(String type, String taskName,String date){
         greet.printDecoration();
         if (type.equals("E")) {
-            tasks[taskCount] = new Event(taskName,date);
+            tasks.add(new Event(taskName, date));
         } else {
-            tasks[taskCount] = new Deadline(taskName,date);
+            tasks.add(new Deadline(taskName, date));
         }
-        System.out.println("added: " + tasks[taskCount]);
+        System.out.println("added: " + tasks.get(taskCount));
         taskCount++;
         System.out.println("You now have " + taskCount + " tasks in the list.");
         greet.printDecoration();
@@ -81,7 +83,7 @@ public class TaskManager {
         } else {
             for (int i = 0; i < taskCount ; i++) {
                 System.out.print(i+1 + ". ");
-                System.out.println(tasks[i]);
+                System.out.println(tasks.get(i));
             }
         }
         greet.printDecoration();
