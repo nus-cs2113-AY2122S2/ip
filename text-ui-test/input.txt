@@ -27,4 +27,17 @@ event test /at now /by
 event test /at /by now
 event test /at/at/at now
 event test /at/at/at/by/at now
+deadline
+deadline test
+deadline test /by
+deadline test /by
+deadline test / by
+deadline test /by now
+deadline test /by now /by
+deadline test /by now /at
+deadline test /at now
+deadline test /by /at now
+deadline test /by/by/by now
+deadline test /by/by/by/at/by now
+list
 bye
