@@ -1,6 +1,9 @@
 package alexis.main;
 
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import alexis.exceptions.EmptyListException;
 import alexis.exceptions.IllegalTodoException;
@@ -11,7 +14,7 @@ import alexis.task.Todo;
 
 public class Main {
     //Constant(s) used in multiple classes
-    public static final String BORDER_LINE = "-------------------------------------------------------------";
+    public static final String BORDER_LINE = "---------------------------------------------------------------";
 
     //Constants used in this Main class
     public static final String HAPPY_FACE = "\uD83D\uDE04";
@@ -19,7 +22,7 @@ public class Main {
     public static final String GREETING_MESSAGE = "Hello! I'm Alexis, your trusty helper!\n"
             + "What can I do for you? " + HAPPY_FACE +"\n\n"
             + "Hint: You may use these commands to navigate around:\n"
-            + "[list] [todo] [deadline] [event] [mark] [unmark] [bye]";
+            + "[list] [todo] [deadline] [event] [mark] [unmark] [delete] [bye]";
     public static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!";
     public static final String DISPLAY_TASK_MESSAGE = "Here are the tasks in your list:";
     public static final String EMPTY_LIST_MESSAGE = "Your list is empty. You have no tasks now.";
@@ -176,8 +179,27 @@ public class Main {
         return numOfTasks;
     }
 
+    private static void writeToFile(String filePath, int numOfTasks, ArrayList<Task> tasks) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        for (int i = 0; i < numOfTasks; i++) {
+            fw.write(tasks.get(i).typeOfTask() + " | " + tasks.get(i).getStatusIcon() + " | "
+                    + tasks.get(i).getFullDescription() + System.lineSeparator());
+        }
+        fw.close();
+    }
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
+
+        String filepath = "list.txt";
+
+        try {
+            File file = new File(filepath);
+            file.createNewFile();
+        } catch (IOException e) {
+            System.out.println("An error occurred in creating a file.");
+            e.printStackTrace();
+        }
 
         int taskCounter = 0;
         ArrayList<Task> tasks = new ArrayList<>(100);
@@ -214,6 +236,13 @@ public class Main {
             default:
                 invalidInputMessage();
                 break;
+            }
+
+            try {
+                new FileWriter(filepath, false).close();    //deletes all content in the file
+                writeToFile(filepath, taskCounter, tasks);
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
             }
 
             input = in.nextLine();
