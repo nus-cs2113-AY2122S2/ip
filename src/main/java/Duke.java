@@ -16,72 +16,47 @@ public class Duke {
         while(true){
             if(task.equalsIgnoreCase("bye"))
                 break;
-            String[] words = task.split(" ",2);
-            switch (words[0].toLowerCase()){
-                case "list":{
-                    System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < todolist.size(); i++)
-                        System.out.println((i+1)+". "+todolist.get(i).toString());
-                    break;
-                }
-                case "mark":{
+            if(task.equalsIgnoreCase("list")){
+                System.out.println("Here are the tasks in your list:");
+                for (int i = 0; i < todolist.size(); i++)
+                    System.out.println((i+1)+". "+todolist.get(i).taskString());
+                task=in.nextLine();
+                continue;}
+            else{
+                String[] words = task.split(" ");
+                if (words[0].equalsIgnoreCase("mark")){
                     try{
                         int index = Integer.parseInt(words[1]);
                         if(index>todolist.size()||index<=0) System.out.println("No task found.");
                         else{
                             todolist.get(index-1).markAsDone();
                             System.out.println("Nice! I've marked this task as done:");
-                            System.out.println((index)+". "+todolist.get(index-1).toString());
+                            System.out.println((index)+". "+todolist.get(index-1).taskString());
                         }
                     }
                     catch (NumberFormatException ex){
                         ex.printStackTrace();
                     }
-                    break;
                 }
-                case "unmark":{
+                else if (words[0].equalsIgnoreCase("unmark")){
                     try{
                         int index = Integer.parseInt(words[1]);
                         if(index>todolist.size()||index<=0) System.out.println("No task found.");
                         else {
                             todolist.get(index-1).markAsUndone();
                             System.out.println("OK, I've marked this task as not done yet:");
-                            System.out.println((index)+". "+todolist.get(index-1).toString());
+                            System.out.println((index)+". "+todolist.get(index-1).taskString());
                         }
                     }
                     catch (NumberFormatException ex){
                         ex.printStackTrace();
                     }
-                    break;
                 }
-                case "todo": {
-                    todolist.add(new ToDo(words[1]));
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + todolist.get(todolist.size() - 1).toString());
-                    System.out.println("Now you have " + todolist.size() + " tasks in the list.");
-                    break;
-                }
-                case "deadline": {
-                    String[] words1 = words[1].split("/by", 2);
-                    todolist.add(new Deadline(words1[0], words1[1]));
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + todolist.get(todolist.size() - 1).toString());
-                    System.out.println("Now you have " + todolist.size() + " tasks in the list.");
-                    break;
-                }
-                case "event": {
-                    String[] words1 = words[1].split("/at", 2);
-                    todolist.add(new Event(words1[0], words1[1]));
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + todolist.get(todolist.size() - 1).toString());
-                    System.out.println("Now you have " + todolist.size() + " tasks in the list.");
-                    break;
-                }
-                default:
-                    System.out.println("Sorry,I don't understand what you are saying." +
-                            " Could you please type again with given keywords?");
-            }
-            task=in.nextLine();
+                else{
+                    System.out.println("added:"+task);
+                    todolist.add(new Task(task)); }
+                task=in.nextLine();
+                continue;}
         }
         System.out.println("Bye.Have a nice day!");
     }
