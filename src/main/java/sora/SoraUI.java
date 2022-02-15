@@ -121,6 +121,10 @@ public class SoraUI {
     protected static final String APOLOGY_MESSAGE = "Sorry about that... (-ω-、)\n";
     protected static final String TRY_AGAIN_MESSAGE = "Could you try again? (⌒_⌒;)\n";
 
+    protected static final String SELF_LOATHING_ERROR_RESPONSE = "" +
+            "Ah dang. Internal processing in %s failed.\nNot your fault, user. It's the monkey developer's fault.\n" +
+            "If you see the dev, tell him this: %s\n";
+
     /**
      * Prints a line on the console based on the default parameters defined in this Java class.
      */
@@ -269,11 +273,11 @@ public class SoraUI {
         System.out.println();
     }
 
-    protected void printAddTaskResponseMessage(boolean isSuccessful, TasksManager tasksManager) {
-        if (isSuccessful) {
+    protected void printAddTaskResponseMessage(Task newTask) {
+        if (newTask != null) {
             System.out.printf(SoraUI.ADD_TASK_SUCCESS_RESPONSE, getRandomPositiveAcknowledgement());
             System.out.println();
-            tasksManager.displayLastAddedTask();
+            System.out.println("\t" + newTask.toString());
             System.out.println();
             return;
         }

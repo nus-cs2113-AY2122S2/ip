@@ -1,5 +1,6 @@
 package sora;
 
+import java.io.IOException;
 import tasks.Task;
 import tasks.TasksManager;
 
@@ -17,18 +18,26 @@ public class Sora {
 
     private TasksManager tasksManager;
     private SoraUI soraUI;
-    private SoraReader soraReader;
+    private SoraReaderWriter soraReaderWriter;
     private SoraExceptionHandler exceptionHandler;
 
-    public Sora() {
+    public Sora() throws IOException {
         // Instantiate components
         soraUI = new SoraUI();
         tasksManager = new TasksManager();
-        soraReader = new SoraReader();
+        soraReaderWriter = new SoraReaderWriter();
         exceptionHandler = new SoraExceptionHandler(soraUI);
 
         // Greet user
         soraUI.printGreetings();
+
+        // Load saved task list from file
+        try {
+            soraReaderWriter.loadTaskListFromFile(getTasksManager());
+        } catch (IOException e) {
+            // Throw to caller method to handle to exit
+            throw e;
+        }
     }
 
     protected boolean doesUserWantsToExit() {
@@ -49,7 +58,7 @@ public class Sora {
         while (!doesUserWantsToExit()) {
             // Get user input
             soraUI.printPrompter(isFirstPrompt);
-            String userRawInput = soraReader.getUserInput();
+            String userRawInput = soraReaderWriter.getUserInput();
             isFirstPrompt = false;
             soraUI.printLine();
 
@@ -75,16 +84,23 @@ public class Sora {
             case SoraUI.MARK_TASK_AS_DONE_COMMAND_KEYWORD:
                 int taskNum = getTaskNumberFromCommand(userRawInput);
                 boolean markSuccess = getTasksManager().updateDoneStatus(taskNum, true);
+                // Update entire file
+                soraReaderWriter.rewriteAllTasksToFile(getTasksManager());
+                // Print response
                 soraUI.printMarkTaskResponseMessage(markSuccess, getTasksManager(), taskNum);
                 break;
             case SoraUI.UNMARK_TASK_AS_DONE_COMMAND_KEYWORD:
                 taskNum = getTaskNumberFromCommand(userRawInput);
                 boolean unmarkSuccess = getTasksManager().updateDoneStatus(taskNum, false);
+                // Update entire file
+                soraReaderWriter.rewriteAllTasksToFile(getTasksManager());
+                // Print response
                 soraUI.printUnmarkTaskResponseMessage(unmarkSuccess, getTasksManager(), taskNum);
                 break;
             case SoraUI.DELETE_TASK_COMMAND_KEYWORD:
                 taskNum = getTaskNumberFromCommand(userRawInput);
                 Task taskRemoved = getTasksManager().deleteTask(taskNum);
+                // Update entire file
                 soraUI.printDeleteTaskResponseMessage(taskRemoved, getTasksManager());
                 break;
             case SoraUI.ADD_TODO_COMMAND_KEYWORD:
@@ -92,14 +108,19 @@ public class Sora {
             case SoraUI.ADD_EVENT_COMMAND_KEYWORD:
                 // Fallthrough
             case SoraUI.ADD_DEADLINE_COMMAND_KEYWORD:
-                boolean addSuccess = getTasksManager().addTask(userRawInput);
-                soraUI.printAddTaskResponseMessage(addSuccess, getTasksManager());
+                Task newTask = getTasksManager().addTask(userRawInput);
+                // Update file
+                soraReaderWriter.writeNewTaskToFile(newTask);
+                // Print response
+                soraUI.printAddTaskResponseMessage(newTask);
                 break;
             default:
                 throw new InvalidCommandException(InvalidCommandException.NO_SUCH_COMMAND_MSG);
             }
         } catch (InvalidCommandException e) {
             exceptionHandler.handleInvalidCommandException(e);
+        } catch (IOException e) {
+
         }
     }
 
