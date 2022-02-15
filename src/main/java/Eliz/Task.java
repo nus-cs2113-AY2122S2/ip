@@ -10,6 +10,7 @@ public class Task {
         this.description = description;
         this.isDone = false; //set to false as default
     }
+    public String getDescription() { return description; };
 
     /** Method to get task status */
     public String getStatusIcon() {
