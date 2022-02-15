@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class Duke {
     public static void userInterface() throws DukeException {
-        Task[] userLists = new Task[]{};
+        ArrayList<Task> userLists = new ArrayList<>();
+        //Task[] userLists = new Task[]{};
         Scanner input = new Scanner(System.in);
         String userInput = input.nextLine();
 
@@ -21,42 +22,46 @@ public class Duke {
                     break;
                 case "todo":
                     Todo newTodo = new Todo(userInputTokens.getDescription());
-                    userLists = addTask(newTodo, userLists);
+                    addTask(newTodo, userLists);
                     break;
                 case "deadline":
                     Deadline newDeadline = new Deadline(
                             userInputTokens.getDescription(),
                             userInputTokens.getTime());
-                    userLists = addTask(newDeadline, userLists);
+                    addTask(newDeadline, userLists);
                     break;
                 case "event":
                     //find index in user input tokens which contains the time separator
                     Event newEvent = new Event(
                             userInputTokens.getDescription(),
                             userInputTokens.getTime());
-                    userLists = addTask(newEvent, userLists);
+                    addTask(newEvent, userLists);
                     break;
                 case "mark":
                     int markIndex = userInputTokens.getMarkIndex();
-                    if (markIndex > userLists.length) {
+                    if (markIndex > userLists.size()) {
                         throw new DukeExceptionMarkBounds();
                     }
-                    userLists[markIndex].setMark();
+                    userLists.get(markIndex).setMark();
                     System.out.println(
-                            wrapMessage("Nice! I've marked this task as done:\n" +
-                                    userLists[userInputTokens.getMarkIndex()].toString()
+                            wrapMessage("Nice! I've marked this task as done:\n " +
+                                    userLists.get(userInputTokens.getMarkIndex()).toString()
                             ));
                     break;
                 case "unmark":
                     markIndex = userInputTokens.getMarkIndex();
-                    if (markIndex > userLists.length) {
+                    if (markIndex > userLists.size()) {
                         throw new DukeExceptionMarkBounds();
                     }
-                    userLists[userInputTokens.getMarkIndex()].unMark();
+                    userLists.get(userInputTokens.getMarkIndex()).unMark();
                     System.out.println(
-                            wrapMessage("OK, I've marked this task as not done yet:\n" +
-                                    userLists[userInputTokens.getMarkIndex()].toString()
+                            wrapMessage("OK, I've marked this task as not done yet:\n " +
+                                    userLists.get(userInputTokens.getMarkIndex()).toString()
                             ));
+                    break;
+                case "delete":
+                    int deleteIndex = userInputTokens.getMarkIndex();
+                    deleteTask(userLists, deleteIndex);
                     break;
                 default:
                 }
@@ -85,19 +90,36 @@ public class Duke {
      *
      * @param task
      * @param userLists
-     * @return Array of Tasks
      */
-    public static Task[] addTask (Task task, Task[] userLists) {
-        userLists = Arrays.copyOf(userLists, userLists.length + 1);
-        userLists[userLists.length - 1] = task;
+    public static void addTask (Task task, ArrayList<Task> userLists) {
+        userLists.add(task);
         String userInput = wrapMessage(
                 String.format("Got it. I've added this task:\n" +
-                              " %s \n" +
-                              "Now you have %d tasks in the list",
-                task.toString(), userLists.length));
+                              "  %s" +
+                              " Now you have %d tasks in the list\n",
+                task.toString(), userLists.size()));
         System.out.println(userInput);
+    }
 
-        return userLists;
+    /**
+     * Deletes a task from the list of tasks
+     *
+     * @param userLists
+     * @param index
+     */
+    public static void deleteTask (ArrayList<Task> userLists, int index) throws
+            DukeExceptionMarkBounds {
+        try {
+            Task removedTask = userLists.remove(index);
+            String userInput = wrapMessage(
+                    String.format("Noted. I've removed this task:\n" +
+                                    "  %s" +
+                                    " Now you have %d tasks in the list\n",
+                            removedTask, userLists.size()));
+            System.out.println(userInput);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeExceptionMarkBounds();
+        }
     }
 
     /**
@@ -107,10 +129,10 @@ public class Duke {
      * @param tasks
      * @return String of all the tasks
      */
-    public static String listTask(Task[] tasks) {
+    public static String listTask(ArrayList<Task> tasks) {
         String allTasks = "";
-        for (int i = 1; i <= tasks.length; i++) {
-            allTasks = allTasks + " " + i + "." + tasks[i-1].toString();
+        for (int i = 1; i <= tasks.size(); i++) {
+            allTasks = allTasks + " " + i + "." + tasks.get(i - 1).toString();
         }
 
         return "Here are the tasks in your list:\n" + allTasks;

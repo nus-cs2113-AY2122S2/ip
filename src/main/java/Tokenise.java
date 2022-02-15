@@ -5,7 +5,7 @@ import java.util.Arrays;
  * and other checks
  */
 public class Tokenise {
-    private String[] tokens = new String[] {};
+    private String[] tokens = new String[]{};
     private int markIndex;
     private String description;
     private String time;
@@ -31,7 +31,7 @@ public class Tokenise {
                 throw new DukeExceptionTiming();
             }
             break;
-        case "events":
+        case "event":
             if (tokens.length < 2) {
                 throw new DukeExceptionDescription();
             }
@@ -43,6 +43,7 @@ public class Tokenise {
             } else {
                 throw new DukeExceptionTiming();
             }
+            break;
         case "todo":
             if (tokens.length < 2) {
                 throw new DukeExceptionDescription();
@@ -51,6 +52,7 @@ public class Tokenise {
             break;
         case "mark":
         case "unmark":
+        case "delete":
             //checking if value after mark or unmark is a number
             if (tokens.length != 2) {
                 throw new DukeExceptionMark();
@@ -123,7 +125,7 @@ public class Tokenise {
      */
     private String combineToken(String[] tokens, int startIndex, int endIndex) {
         String combinedToken = "";
-        for (int i = startIndex + 1; i < endIndex; i++) {
+        for (int i = startIndex; i < endIndex; i++) {
             combinedToken = combinedToken + tokens[i] + " ";
         }
         return combinedToken.trim();
