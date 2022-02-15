@@ -49,10 +49,22 @@ public class TaskList {
     }
 
     /**
+     * Removes a task from the TaskList. Note this is irreversible!
+     *
+     * @param index Index of task to be removed, as displayed to the user
+     */
+    public void deleteTask(int index) {
+        System.out.println("Task removed: " + System.lineSeparator() + taskList.remove(index));
+    }
+
+    /**
      * Prints out the list of Tasks.
      */
     public void displayTasks() {
-        System.out.println("Total " + taskList.size() + " tasks to be completed:");
+        if (taskList.size()==0){
+            System.out.println("no tasks to be found!");
+        }
+        System.out.println("total " + taskList.size() + " tasks to be completed:");
         for (int i = 0; i < taskList.size(); i++) {
             System.out.println((i + 1) + ". " + taskList.get(i));
         }

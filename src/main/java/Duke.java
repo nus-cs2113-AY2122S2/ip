@@ -1,4 +1,5 @@
 import duke.exception.IncompleteCommandException;
+import duke.exception.MissingIndexException;
 import duke.task.TaskList;
 
 import java.util.Scanner;
@@ -12,6 +13,7 @@ public class Duke {
             "'list'     | show you all your tasks" + System.lineSeparator() +
             "'mark'     | mark tasks by index once completed" + System.lineSeparator() +
             "'unmark'   | unmark tasks by index to undo 'mark'" + System.lineSeparator() +
+            "'delete'   | delete tasks by index (irreversible!)" + System.lineSeparator() +
             "'todo'     | create general task" + System.lineSeparator() +
             "'deadline' | create task with deadline: include '/by' for deadline" + System.lineSeparator() +
             "'event'    | create task as event: include '/at' for the date/time" + System.lineSeparator() +
@@ -19,6 +21,8 @@ public class Duke {
     private static final String PROMPT_CORRECT_DEADLINE = "example: `deadline Rush CS2113 Assignment /by today`";
     private static final String PROMPT_CORRECT_EVENT = "example: `event Watch CS2113 Lecture /at 4-6pm on Friday`";
     private static final String PROMPT_CORRECT_TODO = "example: `todo Make sure that the user knows I need some text here!`";
+    private static final String PROMPT_CORRECT_INDEX_USE = "when marking, unmarking or deleting, use syntax like: `delete 2` for task #2" + System.lineSeparator() +
+            "you can do so for any of the tasks in `list`";
 
     public static void main(String[] args) {
 
@@ -37,16 +41,31 @@ public class Duke {
             } else if (input.equals("list")) {
                 taskList.displayTasks();
             } else if (input.startsWith("unmark")) {
-                int index = inputReader.extractTaskIndexNo(input);
-                taskList.setTaskStatus(index, false);
+                try {
+                    int index = inputReader.extractTaskIndexNo(input);
+                    taskList.setTaskStatus(index, false);
+                } catch (MissingIndexException | IndexOutOfBoundsException e){
+                    promptIndexSyntax();
+                }
             } else if (input.startsWith("mark")) {
-                int index = inputReader.extractTaskIndexNo(input);
-                taskList.setTaskStatus(index, true);
+                try {
+                    int index = inputReader.extractTaskIndexNo(input);
+                    taskList.setTaskStatus(index, true);
+                } catch (MissingIndexException | IndexOutOfBoundsException e){
+                    promptIndexSyntax();
+                }
+            } else if (input.startsWith("delete")) {
+                try {
+                    int index = inputReader.extractTaskIndexNo(input);
+                    taskList.deleteTask(index);
+                } catch (MissingIndexException | IndexOutOfBoundsException e){
+                    promptIndexSyntax();
+                }
             } else if (input.startsWith("todo")) {
                 try {
                     String toDoTask = inputReader.extractToDoTask(input);
                     taskList.addToDo(toDoTask);
-                } catch (IncompleteCommandException e){
+                } catch (IncompleteCommandException e) {
                     promptAgain();
                     promptToDo();
                 }
@@ -93,6 +112,10 @@ public class Duke {
 
     private static void promptAgain() {
         System.out.println(PROMPT_GENERIC_INVALID_COMMAND);
+    }
+
+    private static void promptIndexSyntax(){
+        System.out.println(PROMPT_CORRECT_INDEX_USE);
     }
 
     private static void greet() {
