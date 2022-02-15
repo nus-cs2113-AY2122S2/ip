@@ -1,4 +1,5 @@
 import duke.exception.IncompleteCommandException;
+import duke.exception.MissingIndexException;
 
 /**
  *
@@ -14,8 +15,13 @@ public class InputReader {
      * @param input
      * @return int for the task index
      */
-    public int extractTaskIndexNo(String input) {
-        return Integer.parseInt(input.replaceAll("\\D+", "")) - 1;
+    public int extractTaskIndexNo(String input) throws MissingIndexException {
+        String taskIndexString =input.replaceAll("\\D+", "");
+        try{
+            return Integer.parseInt(taskIndexString) - 1;
+        } catch (NumberFormatException e){
+            throw new MissingIndexException();
+        }
     }
 
     /**
