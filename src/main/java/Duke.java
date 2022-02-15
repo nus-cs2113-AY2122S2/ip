@@ -30,31 +30,10 @@ public class Duke {
         Scanner s = new Scanner(System.in);
         InputReader inputReader = new InputReader();
         FileReaderWriter fileReaderWriter = new FileReaderWriter();
-        TaskList taskList = new TaskList();
+
+        TaskList taskList = accessTaskHistory(inputReader, fileReaderWriter);
 
         greet();
-
-        ArrayList<String> oldTaskStrings = fileReaderWriter.readFromFile();
-        for (String taskString: oldTaskStrings){
-            ArrayList<String> splitString = inputReader.parseSavedString(taskString);
-            if (splitString.size()==0){
-                continue;
-            }
-            switch (splitString.get(0)){
-            case "T":
-                taskList.addToDo(splitString.get(2),Boolean.parseBoolean(splitString.get(1)));
-                break;
-            case "D":
-                taskList.addDeadline(splitString.get(2), Boolean.parseBoolean(splitString.get(1)), splitString.get(3));
-                break;
-            case "E":
-                taskList.addEvent(splitString.get(2), Boolean.parseBoolean(splitString.get(1)), splitString.get(3));
-                break;
-            default:
-                System.out.println("not an acceptable task string!"+System.lineSeparator()+taskString);
-            }
-        }
-
 
         while (true) {
 
@@ -120,6 +99,31 @@ public class Duke {
         }
         bye();
 
+    }
+
+    private static TaskList accessTaskHistory(InputReader inputReader, FileReaderWriter fileReaderWriter) {
+        TaskList taskList = new TaskList();
+        ArrayList<String> oldTaskStrings = fileReaderWriter.readFromFile();
+        for (String taskString: oldTaskStrings){
+            ArrayList<String> splitString = inputReader.parseSavedString(taskString);
+            if (splitString.size()==0){
+                continue;
+            }
+            switch (splitString.get(0)){
+            case "T":
+                taskList.addToDo(splitString.get(2),Boolean.parseBoolean(splitString.get(1)));
+                break;
+            case "D":
+                taskList.addDeadline(splitString.get(2), Boolean.parseBoolean(splitString.get(1)), splitString.get(3));
+                break;
+            case "E":
+                taskList.addEvent(splitString.get(2), Boolean.parseBoolean(splitString.get(1)), splitString.get(3));
+                break;
+            default:
+                System.out.println("not an acceptable task string!"+System.lineSeparator()+taskString);
+            }
+        }
+        return taskList;
     }
 
     private static void promptToDo() {
