@@ -20,6 +20,14 @@ public class Event extends Task {
     }
 
     /**
+     * Get the at time of the Event
+     * @return String at
+     */
+    public String getAt() {
+        return at;
+    }
+
+    /**
      * @return String representation of Event Class
      */
     @Override

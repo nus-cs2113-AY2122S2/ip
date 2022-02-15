@@ -1,0 +1,3 @@
+T : O : read book
+D : O : return book : Sunday
+E : X : sleep : night

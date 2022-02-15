@@ -20,6 +20,14 @@ public class Deadline extends Task {
     }
 
     /**
+     * Get the by time of the Deadline
+     * @return String by
+     */
+    public String getBy() {
+        return by;
+    }
+
+    /**
      * @return String representation of Deadline class
      */
     @Override
