@@ -5,6 +5,10 @@ public class ToDo extends Task {
         super(taskInfo);
     }
 
+    public ToDo(String taskInfo, boolean isDone) {
+        super(taskInfo, isDone);
+    }
+
     @Override
     public String toString() {
         // rewrote return statement based on Clarence Chua Ying How's implementation https://github.com/nus-cs2113-AY2122S2/ip/pull/84

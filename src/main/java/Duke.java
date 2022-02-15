@@ -2,6 +2,7 @@ import duke.exception.IncompleteCommandException;
 import duke.exception.MissingIndexException;
 import duke.task.TaskList;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -28,9 +29,32 @@ public class Duke {
 
         Scanner s = new Scanner(System.in);
         InputReader inputReader = new InputReader();
+        FileReaderWriter fileReaderWriter = new FileReaderWriter();
         TaskList taskList = new TaskList();
 
         greet();
+
+        ArrayList<String> oldTaskStrings = fileReaderWriter.readFromFile();
+        for (String taskString: oldTaskStrings){
+            ArrayList<String> splitString = inputReader.parseSavedString(taskString);
+            if (splitString.size()==0){
+                continue;
+            }
+            switch (splitString.get(0)){
+            case "T":
+                taskList.addToDo(splitString.get(2),Boolean.parseBoolean(splitString.get(1)));
+                break;
+            case "D":
+                taskList.addDeadline(splitString.get(2), Boolean.parseBoolean(splitString.get(1)), splitString.get(3));
+                break;
+            case "E":
+                taskList.addEvent(splitString.get(2), Boolean.parseBoolean(splitString.get(1)), splitString.get(3));
+                break;
+            default:
+                System.out.println("not an acceptable task string!"+System.lineSeparator()+taskString);
+            }
+        }
+
 
         while (true) {
 
@@ -81,6 +105,7 @@ public class Duke {
                 try {
                     String[] eventTask = inputReader.extractEventTask(input);
                     taskList.addEvent(eventTask[0], eventTask[1]);
+
                 } catch (IncompleteCommandException e) {
                     promptAgain();
                     promptEvent();
@@ -88,7 +113,10 @@ public class Duke {
             } else {
                 promptAgain();
                 promptCommandList();
+                continue;
             }
+            fileReaderWriter.writeToFile(taskList.getTaskList());
+
         }
         bye();
 
