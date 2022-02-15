@@ -2,6 +2,10 @@ package Eliz;
 
 import java.util.Arrays;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Eliz {
     public static void printTasks(Task[] tasks) {
@@ -99,7 +103,7 @@ public class Eliz {
     public static void getInput(String line, Task[] tasks, int taskCounter) throws ElizException {
         String[] breakTaskNames = line.split(" ");
         if (breakTaskNames[0].equalsIgnoreCase("todo") || breakTaskNames[0].equalsIgnoreCase("deadline")
-        || breakTaskNames[0].equalsIgnoreCase("event")) {
+                || breakTaskNames[0].equalsIgnoreCase("event")) {
             //do nothing;
         } else {
             System.out.println("OOPS!!! I'm sorry but I do not understand what you mean");
@@ -125,6 +129,31 @@ public class Eliz {
         }
     }
 
+    public static void createTasksFromFileContents(String filePath, Task[] tasks) throws FileNotFoundException {
+        File f = new File(filePath); //helps to create a file for the give file path
+        Scanner s = new Scanner(f); //create scanner using file as a source
+        int taskCounter = 0;
+        Task input;
+        while (s.hasNext()) { //while the file is not empty
+            String line = s.nextLine();
+            String[] arrayOfTaskComponents = line.split("|", 2);
+            if (arrayOfTaskComponents[0].contains("T")) {
+                input = new Todo(arrayOfTaskComponents[2]);
+                if (arrayOfTaskComponents[1].contains("X")) {
+                    input.setAsDone();
+                }
+            } else if (arrayOfTaskComponents[0].contains("D")) {
+                input = new Deadline(arrayOfTaskComponents[2]);
+            } else if (arrayOfTaskComponents[0].contains("E")) {
+                input = new Event(arrayOfTaskComponents[2]);
+            } else {
+                return; //error
+            }
+            tasks[taskCounter] = input;
+            taskCounter++;
+        }
+    }
+
     public static void main(String[] args) {
         /** Key Definitions */
         String line;
@@ -133,6 +162,14 @@ public class Eliz {
         Scanner in = new Scanner(System.in);
         botIntroduction(); //calls the introduction of the bot
         line = in.nextLine();
+
+        /* to retrieve content from file to fill up tasks array*/
+        try {
+            createTasksFromFileContents("task_list.txt", tasks);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+
         try {
             while (!line.equalsIgnoreCase("bye")) { //while command to end is not entered
                 getInput(line, tasks, taskCounter);
