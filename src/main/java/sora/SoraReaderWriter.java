@@ -23,7 +23,8 @@ public class SoraReaderWriter {
     public static final String EVENT_TYPE_FILE_ABBREVIATION = "E";
     public static final String DEADLINE_TYPE_FILE_ABBREVIATION = "D";
 
-    SoraUI soraUI;
+    private SoraUI soraUI;
+    private Scanner reader = new Scanner(System.in);
 
     private String homeDir;
     private Path directoryPath;
@@ -47,7 +48,6 @@ public class SoraReaderWriter {
     }
 
     protected String getUserInput() {
-        Scanner reader = new Scanner(System.in);
         String userInput = reader.nextLine();
         String userInputTrimmed = userInput.trim();
         return userInputTrimmed;
