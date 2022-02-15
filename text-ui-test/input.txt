@@ -1,7 +1,7 @@
 Hello 
-Event career fair /at thursday 11-5pm
+util.task.Event career fair /at thursday 11-5pm
 Todo clean the room
-Deadline homework1 /by sunday 11:59pm
+util.task.Task.Deadline homework1 /by sunday 11:59pm
 List
 Mark 3
 Unmark 2

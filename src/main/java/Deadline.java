@@ -10,6 +10,10 @@ public class Deadline extends Todo {
         }
     }
 
+    public String getTime() {
+        return by;
+    }
+
     @Override
     public String toString() {
         return super.toString() + " (by: " + by + ")";
