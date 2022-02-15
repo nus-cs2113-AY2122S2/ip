@@ -87,40 +87,37 @@ public class SoraUI {
     protected static final String ADD_TASK_SUCCESS_RESPONSE =
             "%s, I've added your new task to my list:\n";
     protected static final String ADD_TASK_FAILURE_RESPONSE =
-            "%s, somehow I wasn't able to add your task to my list...\nSorry about that! (-ω-、)\n";
+            "%s, somehow I wasn't able to add your task to my list...\nSorry about that!\n";
 
     protected static final String MARK_TASK_DONE_SUCCESS_RESPONSE =
             "%s, I've marked this task as done:\n";
     protected static final String MARK_TASK_DONE_FAILURE_RESPONSE =
-            "%s, I couldn't mark that task as done.\nSorry about that... (-ω-、)\n";
+            "%s, I couldn't mark that task as done.\nSorry about that...\n";
 
     protected static final String UNMARK_TASK_DONE_SUCCESS_RESPONSE =
             "%s, I've marked this task as not done:\n";
     protected static final String UNMARK_TASK_DONE_FAILURE_RESPONSE =
-            "%s, I couldn't mark that task as not done.\nSorry about that... (-ω-、)\n";
+            "%s, I couldn't mark that task as not done.\nSorry about that...\n";
 
     protected static final String DELETE_TASK_SUCCESS_RESPONSE =
             "%s, I've deleted this task:\n";
     protected static final String DELETE_TASK_FAILURE_RESPONSE =
-            "%s, I couldn't delete this task.\nSorry about that... (-ω-、)\n";
+            "%s, I couldn't delete this task.\nSorry about that...\n";
 
     protected static final String COMMAND_NOT_UNDERSTOOD_RESPONSE =
             "%s, I can't understand what you've just typed...\nCould you try again?\n";
 
     protected static final String TODO_MISSING_DESCRIPTION_RESPONSE =
-            "%s, seems like you didn't give me a description for your\ntodo... Could you try again? (⌒_⌒;)\n";
+            "%s, seems like you didn't give me a description for your\ntodo... Could you try again?\n";
 
     protected static final String EVENT_MISSING_FLAG_RESPONSE =
-            "%s, I couldn't find the proper flag required for the\nevent command... Could you try again? (⌒_⌒;)\n";
+            "%s, I couldn't find the proper flag required for the\nevent command... Could you try again?\n";
     protected static final String EVENT_NO_DESCRIPTION_RESPONSE =
-            "%s, seems like you didn't give me a description for your\nevent... Could you try again? (⌒_⌒;)\n";
+            "%s, seems like you didn't give me a description for your\nevent... Could you try again?\n";
     protected static final String EVENT_NO_PERIOD_RESPONSE =
-            "%s, seems like you didn't give me a date for your event...\nCould you try again? (⌒_⌒;)\n";
+            "%s, seems like you didn't give me a date for your event...\nCould you try again?\n";
     protected static final String EVENT_INVALID_FLAGS =
-            "%s, the flags used in your event command is invalid...\nCould you try again? (⌒_⌒;)\n";
-
-    protected static final String APOLOGY_MESSAGE = "Sorry about that... (-ω-、)\n";
-    protected static final String TRY_AGAIN_MESSAGE = "Could you try again? (⌒_⌒;)\n";
+            "%s, the flags used in your event command is invalid...\nCould you try again?\n";
 
     protected static final String SELF_LOATHING_ERROR_RESPONSE = "" +
             "Ah dang. Internal processing in %s failed.\nNot your fault, user. It's the monkey developer's fault.\n" +
@@ -175,7 +172,7 @@ public class SoraUI {
             System.out.print("Good evening. ");
         }
 
-        System.out.println("I'm Sora ヽ(・∀・)ﾉ");
+        System.out.println("I'm Sora");
     }
 
     /**
@@ -183,11 +180,11 @@ public class SoraUI {
      */
     protected void printGoodbye() {
         if (Helper.getHourOfDay() >= 6 && Helper.getHourOfDay() < 18) {
-            System.out.println("Goodbye! Have a great day ahead (⌒▽⌒)☆");
+            System.out.println("Goodbye! Have a great day ahead");
         } else if (Helper.getHourOfDay() >= 18 && Helper.getHourOfDay() < 22) {
-            System.out.println("Goodbye! Have a good evening <(￣︶￣)>");
+            System.out.println("Goodbye! Have a good evening");
         } else {
-            System.out.println("Good night, have a good rest... (－ω－) zzZ");
+            System.out.println("Good night, have a good rest...");
         }
 
         System.out.println("See you again soon~");
