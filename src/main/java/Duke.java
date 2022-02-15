@@ -1,4 +1,13 @@
 import java.util.Scanner;
+import util.exception.NoDateException;
+import util.exception.NoTaskException;
+import util.exception.NoItemException;
+import util.miscellaneous.Chatbot;
+import util.miscellaneous.CommandType;
+import util.task.Task;
+import util.task.Todo;
+import util.task.Deadline;
+import util.task.Event;
 
 public class Duke implements Chatbot {
     public static void linePrinter() {
@@ -221,7 +230,6 @@ public class Duke implements Chatbot {
     }
 }
 
-
     public static void exitLine() {
         linePrinter();
         System.out.println("\t" + GOODBYE_MSG);
@@ -256,7 +264,6 @@ public class Duke implements Chatbot {
         return c;
     }
 
-<<<<<<< HEAD
     public static void addTodo(Task[] tasks, String line, int itemCount) {
         try {
             tasks[itemCount] = new Todo(line.substring(TODO_TASK_INDEX));
@@ -267,12 +274,11 @@ public class Duke implements Chatbot {
             itemCount++;
         }
     }
-=======
+
     public static void checkCommand(Task[] tasks,String line, CommandType c) throws NoTaskException, NoDateException, NoItemException {
         switch (c) {
         case TODO:
             String todo = line.substring(TODO_TASK_INDEX);
->>>>>>> Level-5
 
             if ((todo.trim()).isEmpty()) {
                 throw new NoTaskException();
@@ -282,7 +288,6 @@ public class Duke implements Chatbot {
         case DEADLINE:
             String by = line.substring(line.indexOf(DEADLINE_OF_TASK_CMD) + TIME_INDEX);
             String deadline = line.substring(DEADLINE_TASK_INDEX, line.indexOf(DEADLINE_OF_TASK_CMD));
-<<<<<<< HEAD
             tasks[itemCount] = new Deadline(deadline, by);
         } catch (NoTaskException e) {
             echo(NO_TASK_MSG);
@@ -292,7 +297,6 @@ public class Duke implements Chatbot {
         finally {
             echo("Added " + tasks[itemCount].toString() + " to the list");
             itemCount++;
-=======
 
             if ((deadline.trim()).isEmpty()) {
                 throw new NoTaskException();
@@ -335,26 +339,22 @@ public class Duke implements Chatbot {
             break;
         default:
             break;
->>>>>>> Level-5
         }
     }
 
     public static int handleError(Task[] tasks,String line, CommandType c) {
         try {
-<<<<<<< HEAD
             String at = line.substring(line.indexOf(DURATION_OF_EVENT_CMD) + TIME_INDEX);
             String event = line.substring(EVENT_TASK_INDEX, line.indexOf(DURATION_OF_EVENT_CMD));
             tasks[itemCount] = new Event(event, at);
         } catch (NoTaskException e) {
             echo(NO_TASK_MSG);
         } catch (NoDateException e) {
-=======
             checkCommand(tasks, line, c);
         } catch (IndexOutOfBoundsException e01) {
             echo(ITEM_NOT_EXIST_MSG);
             return 1;
         } catch (NoDateException e02) {
->>>>>>> Level-5
             echo(NO_DATE_MSG);
             return 1;
         } catch (NoTaskException e03) {
@@ -435,4 +435,5 @@ public class Duke implements Chatbot {
 
         exitLine();
     }
+}
 }
