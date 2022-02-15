@@ -148,27 +148,4 @@ public class SoraReaderWriter {
             throw e;
         }
     }
-
-    // Consider removing this method.
-    public void updateFileData(String lineDataToUpdate, String updatedLineData) throws FileNotFoundException {
-        try {
-            File dataFile = new File(DATA_FILE_PATH + DATA_FILENAME);
-            Scanner lineSearcher = new Scanner(dataFile);
-
-            // Search for the line of text to update
-            while (lineSearcher.hasNext()) {
-                String lineData = lineSearcher.nextLine();
-
-                if (lineData.equals(lineDataToUpdate)) {
-                    // Found the line to update
-
-                }
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("Well this is embarrassing... I can't find the file to store your tasks...");
-            System.out.println("Here are some details:");
-            System.out.println(e.getMessage());
-            throw e;
-        }
-    }
 }
