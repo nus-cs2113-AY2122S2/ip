@@ -14,4 +14,13 @@ public class Todo extends Task{
             return "[T][ ] " + name;
         }
     }
+
+    @Override
+    public String saveString() {
+        if (isMarked) {
+            return ("T," + name + ",1");
+        } else {
+            return ("T," + name + ",0");
+        }
+    }
 }

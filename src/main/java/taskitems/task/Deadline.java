@@ -25,4 +25,13 @@ public class Deadline extends Todo{
             return "[D][ ] " + name + " by:(" + endDate + ")";
         }
     }
+
+    @Override
+    public String saveString() {
+        if (isMarked) {
+            return ("D," + name + ",1," + endDate);
+        } else {
+            return ("D," + name + ",0," + endDate);
+        }
+    }
 }

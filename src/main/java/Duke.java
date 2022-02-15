@@ -2,6 +2,8 @@ import taskitems.Greet;
 import taskitems.exceptions.IllegalInputException;
 import taskitems.TaskManager;
 
+
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Duke {
@@ -11,6 +13,11 @@ public class Duke {
 
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
+        try {
+            taskManager.loadData();
+        } catch (FileNotFoundException f) {
+            System.out.println("No saved data found");
+        }
         greet.sayHi();
         taskLoop(taskManager);
         //echo();
@@ -26,7 +33,7 @@ public class Duke {
             switch (command) {
             case "todo":
                 try {
-                    taskManager.addToTasks(taskName);
+                    taskManager.addToTasks(taskName.trim());
                 } catch (IllegalInputException inputException) {
                     greet.printDecoration();
                     System.out.println("I'm sorry you can't have an empty todo task, try giving it a name.");
@@ -107,6 +114,7 @@ public class Duke {
                 taskManager.printDeletedTasks();
                 break;
             case "bye":
+                taskManager.saveData();
                 isDone = true;
                 break;
             case "help":

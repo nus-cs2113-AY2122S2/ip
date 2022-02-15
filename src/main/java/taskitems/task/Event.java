@@ -17,11 +17,21 @@ public class Event extends Todo{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         if (isMarked) {
             return "[E][X] " + name + " at:(" + timePeriod + ")";
         } else {
             return "[E][ ] " + name + " at:(" + timePeriod + ")";
         }
+    }
+
+    @Override
+    public String saveString() {
+        if (isMarked) {
+            return ("E," + this.name + ",1," + timePeriod);
+        } else {
+            return ("E," + this.name + ",0," + timePeriod);
+        }
+
     }
 }
