@@ -1,6 +1,6 @@
 package taskitems.task;
 
-public class Task {
+public abstract class Task {
     protected String name;
     protected boolean isMarked = false;
 
@@ -20,12 +20,7 @@ public class Task {
         isMarked = marked;
     }
 
-    @Override
-    public String toString(){
-        if (isMarked) {
-            return "[U][X] " + name;
-        } else {
-            return "[U][ ] " + name;
-        }
-    }
+    public abstract String toString();
+
+    public abstract String saveString();
 }
