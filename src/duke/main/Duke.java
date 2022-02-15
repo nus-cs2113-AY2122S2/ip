@@ -5,18 +5,46 @@ import duke.task.Task;
 import duke.task.Event;
 import duke.task.Todo;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke{
     public static final String LINEBREAK = "____________________________________________________________";
-    public static Task[] list = new Task[100];
+    public static ArrayList<Task> list = new ArrayList<>();
     public static Scanner in = new Scanner(System.in);
     public static int taskCount = 0;
     public static void listTasks(){
         System.out.println(LINEBREAK);
         for (int j = 0; j < taskCount; j++){
-            System.out.println(Integer.toString(j + 1) + list[j]);
+            System.out.println(Integer.toString(j + 1) + list.get(j));
         }
         System.out.println(LINEBREAK);
+    }
+    public static void deleteTask(String line){
+        int index;
+        try{
+            index = Integer.parseInt(line.split(" ")[1]) - 1;
+            if (index >= taskCount || index < 0){
+                throw new DukeException("Error: Task Index is out of bounds.");
+            }
+        }catch (NumberFormatException e){
+            System.out.println(LINEBREAK);
+            System.out.println(" Error: Invalid index (Not an integer).");
+            System.out.println(LINEBREAK);
+            return;
+        }catch (DukeException e){
+            System.out.println(LINEBREAK);
+            System.out.println(e.getMessage());
+            System.out.println(LINEBREAK);
+            return;
+        }
+        System.out.println(LINEBREAK);
+        System.out.println(" I have removed this task:");
+        System.out.println(list.get(index));
+        taskCount--;
+        System.out.println(" Total number of tasks now: " + taskCount);
+        System.out.println(LINEBREAK);
+        list.remove((index));
+
     }
     public static void updateMarkTask(String line, boolean mark){
         int index;
@@ -39,16 +67,15 @@ public class Duke{
         System.out.println(LINEBREAK);
         if (mark){
             System.out.println(" Nice! I've marked this task as done:");
-            System.out.println("  [X] " + list[index].getName());
+            System.out.println("  [X] " + list.get(index).getName());
         }else{
             System.out.println(" OK, I've marked this task as not done yet:");
-            System.out.println("  [ ] " + list[index].getName());
+            System.out.println("  [ ] " + list.get(index).getName());
         }
         System.out.println(LINEBREAK);
-        list[index].setMarked(mark);
+        list.get(index).setMarked(mark);
     }
     public static void addNewTask(String line){
-        list[taskCount] = new Task(line, false);
         String taskType = line.split(" ")[0];
         if (line.length() > taskType.length()){
             line = line.substring(taskType.length() + 1);
@@ -61,21 +88,21 @@ public class Duke{
                 if (line.equals("")){
                     throw new DukeException("Error: Argument of todo should not be empty.");
                 }
-                list[taskCount] = new Todo(line, false);
+                list.add(new Todo(line, false));
                 break;
             case "deadline":
                 String[] taskNameAndDeadline = line.split(" /by ");
                 if (taskNameAndDeadline.length < 2){
                     throw new DukeException("Error: A Deadline Task should have the deadline.");
                 }
-                list[taskCount] = new Deadline(taskNameAndDeadline[0], false, taskNameAndDeadline[1]);
+                list.add(new Deadline(taskNameAndDeadline[0], false, taskNameAndDeadline[1]));
                 break;
             case "event":
                 String[] taskNameAndTiming = line.split(" /at ");
                 if (taskNameAndTiming.length < 2){
                     throw new DukeException("Error: An Event Task should have the event timing.");
                 }
-                list[taskCount] = new Event(taskNameAndTiming[0], false, taskNameAndTiming[1]);
+                list.add(new Event(taskNameAndTiming[0], false, taskNameAndTiming[1]));
                 break;
             default:
                 throw new DukeException("Error: Command not recognised.");
@@ -88,7 +115,7 @@ public class Duke{
         }
 
         System.out.println(LINEBREAK);
-        System.out.println(" added: " + list[taskCount]);
+        System.out.println(" added: " + list.get(taskCount));
         System.out.println(" Total number of tasks now: " + (taskCount + 1));
         System.out.println(LINEBREAK);
         taskCount++;
@@ -105,6 +132,8 @@ public class Duke{
                 updateMarkTask(line, true);
             }else if (line.split(" ")[0].equals("unmark")){
                 updateMarkTask(line, false);
+            }else if (line.split(" ")[0].equals("delete")){
+                deleteTask(line);
             }else{
                 addNewTask(line);
             }
