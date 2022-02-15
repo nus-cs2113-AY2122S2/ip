@@ -172,7 +172,7 @@ public class SoraUI {
             System.out.print("Good evening. ");
         }
 
-        System.out.println("I'm Sora");
+        System.out.println("I'm Sora!");
     }
 
     /**
@@ -180,9 +180,9 @@ public class SoraUI {
      */
     protected void printGoodbye() {
         if (Helper.getHourOfDay() >= 6 && Helper.getHourOfDay() < 18) {
-            System.out.println("Goodbye! Have a great day ahead");
+            System.out.println("Goodbye! Have a great day ahead~");
         } else if (Helper.getHourOfDay() >= 18 && Helper.getHourOfDay() < 22) {
-            System.out.println("Goodbye! Have a good evening");
+            System.out.println("Goodbye! Have a good evening~");
         } else {
             System.out.println("Good night, have a good rest...");
         }
