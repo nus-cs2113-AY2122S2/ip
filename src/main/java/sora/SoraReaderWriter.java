@@ -3,6 +3,7 @@ package sora;
 import tasks.*;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -121,8 +122,8 @@ public class SoraReaderWriter {
     }
 
     /**
-     * (WIP Documentation) Naive implementation to handle mark/unmark tasks as done by rewriting
-     * the entire task list to the file.
+     * (WIP Documentation) Overwrites the data file with an updated task list. Currently used when a task is marked
+     * or unmarked as done, or when a task is deleted.
      *
      * I hope to implement a more efficient version, that is, search for the task to be updated
      * in the file and updated it directly.
@@ -146,6 +147,28 @@ public class SoraReaderWriter {
             System.out.println(e.getMessage());
             throw e;
         }
+    }
 
+    // Consider removing this method.
+    public void updateFileData(String lineDataToUpdate, String updatedLineData) throws FileNotFoundException {
+        try {
+            File dataFile = new File(DATA_FILE_PATH + DATA_FILENAME);
+            Scanner lineSearcher = new Scanner(dataFile);
+
+            // Search for the line of text to update
+            while (lineSearcher.hasNext()) {
+                String lineData = lineSearcher.nextLine();
+
+                if (lineData.equals(lineDataToUpdate)) {
+                    // Found the line to update
+
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Well this is embarrassing... I can't find the file to store your tasks...");
+            System.out.println("Here are some details:");
+            System.out.println(e.getMessage());
+            throw e;
+        }
     }
 }
