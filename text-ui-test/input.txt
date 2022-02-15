@@ -15,4 +15,7 @@ event
 event dlfjdslj
 sdfs
 list
+delete 2
+delete 3
+delete
 bye
