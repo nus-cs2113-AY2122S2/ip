@@ -13,14 +13,15 @@ public interface Chatbot {
     String UNMARKED_MSG = " Ah... What a shame!";
     String GOODBYE_MSG = " Good day, then!";
     String NO_TASK_MSG = " Sorry but you haven't input a task here.";
-    String NO_DATE_MSG = "Sorry but you haven't input a date here.";
+    String NO_DATE_MSG = " Sorry but you haven't input a date here.";
+
 
     String ADD_TODO_CMD = "Todo ";
     String ADD_DEADLINE_CMD = "Deadline ";
     String ADD_EVENT_CMD = "Event ";
     String MARK_TASK_CMD = "Mark ";
     String UNMARK_TASK_CMD = "Unmark ";
-    String LIST_TASKS_CMD = "List ";
+    String LIST_TASKS_CMD = "List";
     String DEADLINE_OF_TASK_CMD = "/by";
     String DURATION_OF_EVENT_CMD = "/at";
 
@@ -31,4 +32,5 @@ public interface Chatbot {
     int TIME_INDEX = 4;
     int MARKED_ITEM_INDEX = 5;
     int UNMARKED_ITEM_INDEX = 7;
+    int ERROR_INDICATION_NUMBER = 1;
 }

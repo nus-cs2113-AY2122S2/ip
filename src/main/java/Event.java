@@ -10,6 +10,10 @@ public class Event extends Todo{
         }
     }
 
+    public String getTime() {
+        return at;
+    }
+
     @Override
     public String toString() {
         return super.toString() + " (at: " + at + ")";
