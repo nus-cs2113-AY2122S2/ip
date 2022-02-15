@@ -25,6 +25,11 @@ public class TaskManager {
     /** Manages the reading and writing from our save file*/
     private FileManager fileManager;
 
+    /**
+     * Default constructor for TaskManager
+     * Get the list that was previously saved, and print to the user.
+     * If not, empty list and no need to tell user
+     */
     public TaskManager() {
         fileManager = new FileManager("data/boba.txt");
         taskList = fileManager.readFile();
