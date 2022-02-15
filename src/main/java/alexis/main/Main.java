@@ -1,5 +1,6 @@
 package alexis.main;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import alexis.exceptions.EmptyListException;
 import alexis.exceptions.IllegalTodoException;
@@ -24,6 +25,8 @@ public class Main {
     public static final String EMPTY_LIST_MESSAGE = "Your list is empty. You have no tasks now.";
     public static final String INVALID_INPUT_MESSAGE = SAD_FACE
             + " Oops!! I'm sorry, but I don't know what that means :-(";
+    public static final String DELETE_MESSAGE = "Noted. I've removed this task:";
+
     //Exception messages
     public static final String TODO_EXCEPTION_MESSAGE_TEXT = " Oops!! The description of a todo cannot be empty.";
     public static final String DEADLINE_EXCEPTION_MESSAGE_TEXT_ONE = " Oops!! The description of a deadline"
@@ -38,6 +41,8 @@ public class Main {
     public static final String MARK_EXCEPTION_TEXT_TWO = " Oops!! Please input a valid task number to mark";
     public static final String UNMARK_EXCEPTION_TEXT_ONE = " Oops!! Please input a task number after 'unmark'";
     public static final String UNMARK_EXCEPTION_TEXT_TWO = " Oops!! Please input a valid task number to unmark";
+    public static final String DELETE_EXCEPTION_TEXT_ONE = " Oops!! Please input a task number after 'delete'";
+    public static final String DELETE_EXCEPTION_TEXT_TWO = " Oops!! Please input a valid task number to delete";
 
     //Constants used in the Task class
     public static final String ADD_NEW_TASK_MESSAGE = "Got it! I've added this task:";
@@ -52,28 +57,12 @@ public class Main {
         System.out.println(BORDER_LINE + "\n" + GOODBYE_MESSAGE + "\n" + BORDER_LINE);
     }
 
-    private static void invalid_input() {
+    private static void invalidInputMessage() {
         System.out.println(BORDER_LINE + "\n" + INVALID_INPUT_MESSAGE + "\n" + BORDER_LINE);
     }
 
-    private static void todoExceptionMessage() {
-        System.out.println(BORDER_LINE + "\n" + SAD_FACE + TODO_EXCEPTION_MESSAGE_TEXT + "\n" + BORDER_LINE);
-    }
-
-    private static void deadlineExceptionMessage(String deadlineExceptionText) {
-        System.out.println(BORDER_LINE + "\n" + SAD_FACE + deadlineExceptionText + "\n" + BORDER_LINE);
-    }
-
-    private static void eventExceptionMessage(String eventExceptionText) {
-        System.out.println(BORDER_LINE + "\n" + SAD_FACE + eventExceptionText + "\n" + BORDER_LINE);
-    }
-
-    private static void markExceptionMessage(String markExceptionText) {
-        System.out.println(BORDER_LINE + "\n" + SAD_FACE + markExceptionText + "\n" + BORDER_LINE);
-    }
-
-    private static void unmarkExceptionMessage(String unmarkExceptionText) {
-        System.out.println(BORDER_LINE + "\n" + SAD_FACE + unmarkExceptionText + "\n" + BORDER_LINE);
+    private static void exceptionMessage(String exceptionText) {
+        System.out.println(BORDER_LINE + "\n" + SAD_FACE + exceptionText + "\n" + BORDER_LINE);
     }
 
     public static void checkListValidity(int numOfTasks) throws EmptyListException {
@@ -82,14 +71,14 @@ public class Main {
         }
     }
 
-    public static void displayList(Task[] tasks, int numOfTasks) {
+    public static void displayList(ArrayList<Task> tasks, int numOfTasks) {
         System.out.println(BORDER_LINE);
         try {
             checkListValidity(numOfTasks);
             System.out.println(DISPLAY_TASK_MESSAGE);
             for (int i = 0; i < numOfTasks; i++) {
-                System.out.println((i + 1) + ".[" + tasks[i].typeOfTask() + "][" + tasks[i].getStatusIcon() + "] "
-                        + tasks[i].getFullDescription());
+                System.out.println((i + 1) + ".[" + tasks.get(i).typeOfTask() + "][" + tasks.get(i).getStatusIcon() + "] "
+                        + tasks.get(i).getFullDescription());
             }
         } catch (EmptyListException e) {
             System.out.println(EMPTY_LIST_MESSAGE);
@@ -103,70 +92,95 @@ public class Main {
         }
     }
 
-    public static int todo(Task[] tasks, int numOfTasks, String input) {
+    public static int todo(ArrayList<Task> tasks, int numOfTasks, String input) {
         try {
             checkTodoInputValidity(input);
-            tasks[numOfTasks] = new Todo(input.substring(5));
+            tasks.add(new Todo(input.substring(5)));
             numOfTasks++;
         } catch (StringIndexOutOfBoundsException | IllegalTodoException e) {
-            todoExceptionMessage();
+            exceptionMessage(TODO_EXCEPTION_MESSAGE_TEXT);
         }
         return numOfTasks;
     }
     
-    public static int deadline(Task[] tasks, int numOfTasks, String input) {
+    public static int deadline(ArrayList<Task> tasks, int numOfTasks, String input) {
         try {
             String[] deadlineDescriptionSplitArr = input.substring(9).split(" /by ");
-            tasks[numOfTasks] = new Deadline(deadlineDescriptionSplitArr[0], deadlineDescriptionSplitArr[1]);
+            tasks.add(new Deadline(deadlineDescriptionSplitArr[0], deadlineDescriptionSplitArr[1]));
             numOfTasks++;
         } catch (StringIndexOutOfBoundsException e) {
-            deadlineExceptionMessage(DEADLINE_EXCEPTION_MESSAGE_TEXT_ONE);
+            exceptionMessage(DEADLINE_EXCEPTION_MESSAGE_TEXT_ONE);
         } catch (ArrayIndexOutOfBoundsException e) {
-            deadlineExceptionMessage(DEADLINE_EXCEPTION_MESSAGE_TEXT_TWO);
+            exceptionMessage(DEADLINE_EXCEPTION_MESSAGE_TEXT_TWO);
         }
         return numOfTasks;
     }    
 
-    public static int event(Task[] tasks, int numOfTasks, String input) {
+    public static int event(ArrayList<Task> tasks, int numOfTasks, String input) {
         try {
             String[] eventDescriptionSplitArr = input.substring(6).split(" /at ");
-            tasks[numOfTasks] = new Event(eventDescriptionSplitArr[0], eventDescriptionSplitArr[1]);
+            tasks.add(new Event(eventDescriptionSplitArr[0], eventDescriptionSplitArr[1]));
             numOfTasks++;
         } catch (StringIndexOutOfBoundsException e) {
-            eventExceptionMessage(EVENT_EXCEPTION_MESSAGE_TEXT_ONE);
+            exceptionMessage(EVENT_EXCEPTION_MESSAGE_TEXT_ONE);
         } catch (ArrayIndexOutOfBoundsException e) {
-            eventExceptionMessage(EVENT_EXCEPTION_MESSAGE_TEXT_TWO);
+            exceptionMessage(EVENT_EXCEPTION_MESSAGE_TEXT_TWO);
         }
         return numOfTasks;
     }
 
-    public static void mark(Task[] tasks, String[] arrOfInputStrings) {
+    public static void mark(ArrayList<Task> tasks, String[] arrOfInputStrings) {
         try {
             int inputTaskNumber = Integer.parseInt(arrOfInputStrings[1]) - 1;
-            tasks[inputTaskNumber].markAsDone();
+            tasks.get(inputTaskNumber).markAsDone();
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            markExceptionMessage(MARK_EXCEPTION_TEXT_ONE);
-        } catch (NullPointerException e) {
-            markExceptionMessage(MARK_EXCEPTION_TEXT_TWO);
+            exceptionMessage(MARK_EXCEPTION_TEXT_ONE);
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            exceptionMessage(MARK_EXCEPTION_TEXT_TWO);
         }
     }
 
-    public static void unmark(Task[] tasks, String[] arrOfInputStrings) {
+    public static void unmark(ArrayList<Task> tasks, String[] arrOfInputStrings) {
         try {
             int inputTaskNumber = Integer.parseInt(arrOfInputStrings[1]) - 1;
-            tasks[inputTaskNumber].markAsUndone();
+            tasks.get(inputTaskNumber).markAsUndone();
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            unmarkExceptionMessage(UNMARK_EXCEPTION_TEXT_ONE);
-        } catch (NullPointerException e) {
-            unmarkExceptionMessage(UNMARK_EXCEPTION_TEXT_TWO);
+            exceptionMessage(UNMARK_EXCEPTION_TEXT_ONE);
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            exceptionMessage(UNMARK_EXCEPTION_TEXT_TWO);
         }
+    }
+
+    public static void printDeleteOutput(ArrayList<Task> tasks, int numOfTasks, int taskNumber) {
+        char typeOfTask = tasks.get(taskNumber).typeOfTask();
+        String statusOfTask = tasks.get(taskNumber).getStatusIcon();
+        String descriptionOfTask = tasks.get(taskNumber).getFullDescription();
+        System.out.println(BORDER_LINE);
+        System.out.println(DELETE_MESSAGE);
+        System.out.println("  [" + typeOfTask + "][" + statusOfTask + "] " + descriptionOfTask);
+        System.out.println("Now, you have " + (numOfTasks - 1) + " tasks in the list.");
+        System.out.println(BORDER_LINE);
+    }
+
+    public static int delete(ArrayList<Task> tasks, int numOfTasks, String[] arrOfInputStrings) {
+        try {
+            int taskNumber = Integer.parseInt(arrOfInputStrings[1]) - 1;
+            printDeleteOutput(tasks, numOfTasks, taskNumber);
+            tasks.remove(taskNumber);
+            numOfTasks--;
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            exceptionMessage(DELETE_EXCEPTION_TEXT_ONE);
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            exceptionMessage(DELETE_EXCEPTION_TEXT_TWO);
+        }
+        return numOfTasks;
     }
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
         int taskCounter = 0;
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>(100);
 
         greet();
         String input = in.nextLine();
@@ -194,8 +208,11 @@ public class Main {
             case "unmark":
                 unmark(tasks, arrOfInputStrings);
                 break;
+            case "delete":
+                taskCounter = delete(tasks, taskCounter, arrOfInputStrings);
+                break;
             default:
-                invalid_input();
+                invalidInputMessage();
                 break;
             }
 
