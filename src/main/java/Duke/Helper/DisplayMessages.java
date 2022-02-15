@@ -1,27 +1,40 @@
 package Duke.Helper;
 
 import Duke.Duke;
+import Duke.Tasks.Task;
+
+import java.util.ArrayList;
 
 public class DisplayMessages {
 
-    public static void displayMarkMessage(int itemNumber) {
+    public static void displayMarkMessage(ArrayList<Task> array) {
         String checkGrammer = "items";
-        if (itemNumber == 1) {
+        if (array.size() == 1) {
             checkGrammer = "item";
         }
-        System.out.print(Duke.DISPLAY_LINE + "There are " + itemNumber + " " + checkGrammer + " in the list\n"
+        System.out.print(Duke.DISPLAY_LINE + "There are " + array.size() + " " + checkGrammer + " in the list\n"
                 + "Please input which item you would like to mark.\n"
                 + "For eg. 'mark 2' \n"+ Duke.DISPLAY_LINE);
     }
 
-    public static void displayUnmarkMessage(int itemNumber) {
+    public static void displayUnmarkMessage(ArrayList<Task> array) {
         String checkGrammer = "items";
-        if (itemNumber == 1) {
+        if (array.size() == 1) {
             checkGrammer = "item";
         }
-        System.out.print(Duke.DISPLAY_LINE + "There are " + itemNumber + " " + checkGrammer + " in the list\n"
+        System.out.print(Duke.DISPLAY_LINE + "There are " + array.size() + " " + checkGrammer + " in the list\n"
                 + "Please input which item you would like to unmark.\n"
                 + "For eg. 'unmark 2' \n"+ Duke.DISPLAY_LINE);
+    }
+
+    public static void displayDeleteMessage(ArrayList<Task> array) {
+        String checkGrammer = "items";
+        if (array.size() == 1) {
+            checkGrammer = "item";
+        }
+        System.out.print(Duke.DISPLAY_LINE + "There are " + array.size() + " " + checkGrammer + " in the list\n"
+                + "Please input which item you would like to delete.\n"
+                + "For eg. 'delete 2' \n"+ Duke.DISPLAY_LINE);
     }
 
     public static void displayListMessage() {
@@ -55,7 +68,7 @@ public class DisplayMessages {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println(Duke.ANSI_BLUE + Duke.DISPLAY_LINE + logo);
-        System.out.println("Hello! Duke.Duke here!:)");
+        System.out.println("Hello! Duke here!:)");
         System.out.print("Is there anything I can do for you?\n" + Duke.DISPLAY_LINE + Duke.ANSI_RESET);
     }
 }
