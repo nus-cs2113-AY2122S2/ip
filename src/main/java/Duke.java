@@ -37,7 +37,7 @@ public class Duke {
                                 System.out.println((index)+". "+todolist.get(index-1).toString());
                             }
                         }
-                        catch (NumberFormatException e){
+                        catch (NumberFormatException ex){
                             System.out.println("☹ OOPS!!! Please tell me the task number you want to mark.");
                         }
                     }
