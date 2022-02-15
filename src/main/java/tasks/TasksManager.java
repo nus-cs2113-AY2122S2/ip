@@ -374,12 +374,10 @@ public class TasksManager {
         System.out.println("\t" + taskObject.toString());
     }
 
+    /**
+     * Checking for empty list is done by calling method (SoraUI.displayTaskList)
+     */
     public void displayAllTasks() {
-        if (isEmpty()) {
-            // TODO: throw EmptyListException instead
-            return;
-        }
-
         for (int i = 0; i < getList().size(); i += 1) {
             System.out.println("\t" + (i + 1) + "." + getList().get(i).toString());
         }
