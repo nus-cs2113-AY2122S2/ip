@@ -80,7 +80,7 @@ public class SoraUI {
      * List of response messages
      */
     protected static final String LIST_PRE_EXECUTION_RESPONSE =
-            "%s, here's a list of tasks that you have given to me:\n";
+            "%s, here's a list of %d tasks that you have given to me:\n";
     protected static final String EMPTY_LIST_RESPONSE =
             "%s, my list is empty at the moment...\n";
     protected static final String TASK_NUMBER_OUT_OF_LIST_RANGE_RESPONSE =
@@ -314,7 +314,8 @@ public class SoraUI {
             return;
         }
 
-        System.out.printf(LIST_PRE_EXECUTION_RESPONSE, getRandomPositiveAcknowledgement());
+        System.out.printf(LIST_PRE_EXECUTION_RESPONSE, getRandomPositiveAcknowledgement(),
+                tasksManager.getNumberOfTasks());
         System.out.println();
         tasksManager.displayAllTasks();
         System.out.println();
