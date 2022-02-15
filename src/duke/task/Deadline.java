@@ -17,4 +17,7 @@ public class Deadline extends Task{
             return " [D][ ] " + getName() + " (by: " + getDeadline() + ")";
         }
     }
+    public String getTaskDetails(){
+        return "D | " + (getMarked() ? 1:0) + " | " + getName() + " | " + getDeadline() + "\n";
+    }
 }

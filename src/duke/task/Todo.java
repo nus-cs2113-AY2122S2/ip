@@ -10,4 +10,7 @@ public class Todo extends Task{
             return " [T][ ] " + getName();
         }
     }
+    public String getTaskDetails(){
+        return "T | " + (getMarked() ? 1:0) + " | " + getName() + "\n";
+    }
 }

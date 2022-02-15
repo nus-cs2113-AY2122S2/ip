@@ -6,12 +6,40 @@ import duke.task.Event;
 import duke.task.Todo;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.Path;
 
 public class Duke{
     public static final String LINEBREAK = "____________________________________________________________";
+    public static final String FILEPATH = "data/duke.txt";
+    public static final String DIRPATH = "data";
     public static ArrayList<Task> list = new ArrayList<>();
     public static Scanner in = new Scanner(System.in);
     public static int taskCount = 0;
+    public static void saveTasks(){
+        try{
+            File dirPath = new File(DIRPATH);
+            if (!dirPath.exists()){
+                dirPath.mkdirs();
+            }
+            FileWriter file = new FileWriter(FILEPATH, false);
+            String data = "";
+            for (int i = 0; i < taskCount; i++){
+                data += list.get(i).getTaskDetails();
+            }
+            file.write(data);
+            file.close();
+        }catch (IOException e){
+            System.out.println(LINEBREAK);
+            System.out.println(" Error: " + e.getMessage());
+            System.out.println(LINEBREAK);
+            return;
+        }
+    }
     public static void listTasks(){
         System.out.println(LINEBREAK);
         for (int j = 0; j < taskCount; j++){
@@ -44,7 +72,7 @@ public class Duke{
         System.out.println(" Total number of tasks now: " + taskCount);
         System.out.println(LINEBREAK);
         list.remove((index));
-
+        saveTasks();
     }
     public static void updateMarkTask(String line, boolean mark){
         int index;
@@ -74,6 +102,7 @@ public class Duke{
         }
         System.out.println(LINEBREAK);
         list.get(index).setMarked(mark);
+        saveTasks();
     }
     public static void addNewTask(String line){
         String taskType = line.split(" ")[0];
@@ -119,6 +148,7 @@ public class Duke{
         System.out.println(" Total number of tasks now: " + (taskCount + 1));
         System.out.println(LINEBREAK);
         taskCount++;
+        saveTasks();
     }
     public static void waitForInput(){
         while (true){

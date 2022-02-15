@@ -17,4 +17,7 @@ public class Event extends Task{
             return " [E][ ] " + getName() + " (at: " + getEventTime() + ")";
         }
     }
+    public String getTaskDetails(){
+        return "E | " + (getMarked() ? 1:0) + " | " + getName() + " | " + getEventTime() + "\n";
+    }
 }
