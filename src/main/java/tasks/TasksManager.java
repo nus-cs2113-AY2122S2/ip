@@ -56,13 +56,13 @@ public class TasksManager {
                 list.add(newTask);
                 break;
             case SoraUI.ADD_EVENT_COMMAND_KEYWORD:
-                checkEventCommand(userInput);
+                checkEventDeadlineCommand(userInput);
                 String[] eventDescriptionAndDate = extractDescriptionAndDate(userInput, SoraUI.ADD_EVENT_FLAG_KEYWORD);
                 newTask = new Event(eventDescriptionAndDate);
                 list.add(newTask);
                 break;
             case SoraUI.ADD_DEADLINE_COMMAND_KEYWORD:
-                checkDeadlineCommand(userInput);
+                checkEventDeadlineCommand(userInput);
                 String[] deadlineDescriptionAndDate = extractDescriptionAndDate(userInput, SoraUI.ADD_DEADLINE_FLAG_KEYWORD);
                 newTask = new Deadline(deadlineDescriptionAndDate);
                 list.add(newTask);
@@ -171,48 +171,88 @@ public class TasksManager {
         // Checks are complete, the command is okay. Method will return to caller.
     }
 
-    private void checkEventCommand(String eventUserInput) throws InvalidCommandException {
+    private void checkEventDeadlineCommand(String eventDeadlineUserInput) throws InvalidCommandException {
         // Check if user input has a description
-        String[] splitByFlag = eventUserInput.split("/at");
+        String taskType = eventDeadlineUserInput.split(" ")[0];
+        String commandFlagKeyword = getDeadlineOrEventFlag(taskType);
+        String[] splitByFlag = eventDeadlineUserInput.split(commandFlagKeyword);
         String[] commandAndDescription = splitByFlag[0].split(" ", 2);
 
         if (commandAndDescription.length < 2) {
             // User input has no description
-            throw new InvalidCommandException(InvalidCommandException.EVENT_NO_DESCRIPTION);
+            String noDescriptionExceptionMsg = getDeadlineOrEventNoDescriptionExceptionMsg(taskType);
+            throw new InvalidCommandException(noDescriptionExceptionMsg);
         }
 
         // Check if user input has the correct flag
-        if (!eventUserInput.contains("/at")) {
-            throw new InvalidCommandException(InvalidCommandException.EVENT_MISSING_FLAG);
+        if (!eventDeadlineUserInput.contains(commandFlagKeyword)) {
+            String missingFlagExceptionMsg = getDeadlineOrEventNoFlagExceptionMsg(taskType);
+            throw new InvalidCommandException(missingFlagExceptionMsg);
         }
 
         // Check if user input has a date period
         if (splitByFlag.length < 2) {
             // User input has no date period
-            throw new InvalidCommandException(InvalidCommandException.EVENT_NO_PERIOD);
+            String noDateExceptionMsg = getDeadlineOrEventNoDateExceptionMsg(taskType);
+            throw new InvalidCommandException(noDateExceptionMsg);
         }
 
         // Check if user input has multiple '/at' flags
-        boolean multipleAtFlagOccurrences = Helper.checkMultipleOccurrences(eventUserInput, "/at");
+        boolean multipleAtFlagOccurrences = Helper.checkMultipleOccurrences(eventDeadlineUserInput, commandFlagKeyword);
+        String invalidFlagsExceptionMsg = getDeadlineOrEventInvalidFlagExceptionMsg(taskType);
 
         if (multipleAtFlagOccurrences) {
             // User input has too many 'at' flags
-            throw new InvalidCommandException(InvalidCommandException.EVENT_INVALID_FLAGS);
+            throw new InvalidCommandException(invalidFlagsExceptionMsg);
         }
 
         // Check if user input has extraneous flags
-        if (checkForExtraneousFlags(eventUserInput, SoraUI.ADD_EVENT_FLAG_KEYWORD)) {
+        if (checkForExtraneousFlags(eventDeadlineUserInput, commandFlagKeyword)) {
             // User input contains extraneous flags
-            throw new InvalidCommandException(InvalidCommandException.EVENT_INVALID_FLAGS);
+            throw new InvalidCommandException(invalidFlagsExceptionMsg);
         }
-
-
 
         // Checks are complete, the command is okay. Method will return to caller.
     }
 
-    private void checkDeadlineCommand(String deadlineUserInput) throws InvalidCommandException {
-        // TODO Implement checks for deadline command
+    private String getDeadlineOrEventFlag(String taskType) {
+        if (taskType.equalsIgnoreCase(SoraUI.ADD_EVENT_COMMAND_KEYWORD)) {
+            return SoraUI.ADD_EVENT_FLAG_KEYWORD;
+        } else {
+            return SoraUI.ADD_DEADLINE_FLAG_KEYWORD;
+        }
+    }
+
+    private String getDeadlineOrEventNoDescriptionExceptionMsg(String taskType) {
+        if (taskType.equalsIgnoreCase(SoraUI.ADD_EVENT_COMMAND_KEYWORD)) {
+            return InvalidCommandException.EVENT_NO_DESCRIPTION;
+        } else {
+            return InvalidCommandException.DEADLINE_NO_DESCRIPTION;
+        }
+    }
+
+    private String getDeadlineOrEventNoFlagExceptionMsg(String taskType) {
+        if (taskType.equalsIgnoreCase(SoraUI.ADD_EVENT_COMMAND_KEYWORD)) {
+            return InvalidCommandException.EVENT_MISSING_FLAG;
+        } else {
+            return InvalidCommandException.DEADLINE_MISSING_FLAG;
+        }
+    }
+
+    private String getDeadlineOrEventNoDateExceptionMsg(String taskType) {
+        if (taskType.equalsIgnoreCase(SoraUI.ADD_EVENT_COMMAND_KEYWORD)) {
+            return InvalidCommandException.EVENT_NO_PERIOD;
+        } else {
+            return InvalidCommandException.DEADLINE_NO_DUE_DATE;
+        }
+    }
+
+    private String getDeadlineOrEventInvalidFlagExceptionMsg(String taskType) {
+        if (taskType.equalsIgnoreCase(SoraUI.ADD_EVENT_COMMAND_KEYWORD)) {
+            return InvalidCommandException.EVENT_INVALID_FLAGS;
+        } else {
+            return InvalidCommandException.DEADLINE_INVALID_FLAGS;
+        }
     }
 
     /**

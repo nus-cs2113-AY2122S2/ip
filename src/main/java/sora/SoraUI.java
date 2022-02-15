@@ -119,6 +119,15 @@ public class SoraUI {
     protected static final String EVENT_INVALID_FLAGS =
             "%s, the flags used in your event command is invalid...\nCould you try again?\n";
 
+    protected static final String DEADLINE_MISSING_FLAG_RESPONSE =
+            "%s, I couldn't find the proper flag required for the\ndeadline command... Could you try again?\n";
+    protected static final String DEADLINE_NO_DESCRIPTION_RESPONSE =
+            "%s, seems like you didn't give me a description for your\ndeadline... Could you try again?\n";
+    protected static final String DEADLINE_NO_DUE_DATE_RESPONSE =
+            "%s, seems like you didn't give me a due date for your\ndeadline... Could you try again?\n";
+    protected static final String DEADLINE_INVALID_FLAGS =
+            "%s, the flags used in your deadline command is invalid...\nCould you try again?\n";
+
     protected static final String SELF_LOATHING_ERROR_RESPONSE = "" +
             "Ah dang. Internal processing in %s failed.\nNot your fault, user. It's the monkey developer's fault.\n" +
             "If you see the dev, tell him this: %s\n";
@@ -180,9 +189,9 @@ public class SoraUI {
      */
     protected void printGoodbye() {
         if (Helper.getHourOfDay() >= 6 && Helper.getHourOfDay() < 18) {
-            System.out.println("Goodbye! Have a great day ahead~");
+            System.out.println("Goodbye! Have a great day ahead!");
         } else if (Helper.getHourOfDay() >= 18 && Helper.getHourOfDay() < 22) {
-            System.out.println("Goodbye! Have a good evening~");
+            System.out.println("Goodbye! Have a good evening.");
         } else {
             System.out.println("Good night, have a good rest...");
         }
@@ -330,6 +339,22 @@ public class SoraUI {
 
     public void printEventInvalidFlags() {
         System.out.printf(SoraUI.EVENT_INVALID_FLAGS, getRandomNegativeAcknowledgement());
+    }
+
+    public void printDeadlineMissingFlag() {
+        System.out.printf(SoraUI.DEADLINE_MISSING_FLAG_RESPONSE, getRandomNegativeAcknowledgement());
+    }
+
+    public void printDeadlineMissingDescription() {
+        System.out.printf(SoraUI.DEADLINE_NO_DESCRIPTION_RESPONSE, getRandomNegativeAcknowledgement());
+    }
+
+    public void printDeadlineNoDueDate() {
+        System.out.printf(SoraUI.DEADLINE_NO_DUE_DATE_RESPONSE, getRandomNegativeAcknowledgement());
+    }
+
+    public void printDeadlineInvalidFlags() {
+        System.out.printf(SoraUI.DEADLINE_INVALID_FLAGS, getRandomNegativeAcknowledgement());
     }
 
     public void printDirectoryNotFound() {

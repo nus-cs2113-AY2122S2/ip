@@ -33,6 +33,17 @@ public class SoraExceptionHandler {
         case InvalidCommandException.EVENT_INVALID_FLAGS:
             soraUI.printEventInvalidFlags();
             break;
+        case InvalidCommandException.DEADLINE_MISSING_FLAG:
+            soraUI.printDeadlineMissingFlag();
+            break;
+        case InvalidCommandException.DEADLINE_NO_DESCRIPTION:
+            soraUI.printDeadlineMissingDescription();
+            break;
+        case InvalidCommandException.DEADLINE_NO_DUE_DATE:
+            soraUI.printDeadlineNoDueDate();
+            break;
+        case InvalidCommandException.DEADLINE_INVALID_FLAGS:
+            soraUI.printDeadlineInvalidFlags();
         }
     }
 }
