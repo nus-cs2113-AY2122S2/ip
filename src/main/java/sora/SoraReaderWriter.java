@@ -3,14 +3,17 @@ package sora;
 import tasks.*;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SoraReaderWriter {
-    private static final String DATA_FILE_PATH = "src/main/java/data/";
+    private static final String USER_HOME_PROPERTY = "user.home";
+    private static final String DATA_DIRECTORY = "CS2113T_iP_Sora_Resources";
     private static final String DATA_FILENAME = "data.txt";
 
     private static final String FILE_DATA_SEPARATOR_REGEX = " \\| ";
@@ -20,6 +23,29 @@ public class SoraReaderWriter {
     public static final String EVENT_TYPE_FILE_ABBREVIATION = "E";
     public static final String DEADLINE_TYPE_FILE_ABBREVIATION = "D";
 
+    SoraUI soraUI;
+
+    private String homeDir;
+    private Path directoryPath;
+    private Path filePath;
+
+    public SoraReaderWriter() {
+        this.soraUI = new SoraUI();
+
+        // Get user system's home directory
+        this.homeDir = System.getProperty(USER_HOME_PROPERTY);
+        this.directoryPath = Paths.get(this.homeDir, DATA_DIRECTORY);
+        this.filePath = Paths.get(this.homeDir, DATA_DIRECTORY, DATA_FILENAME);
+    }
+
+    public Path getDirectoryPath() {
+        return this.directoryPath;
+    }
+
+    public Path getFilePath() {
+        return this.filePath;
+    }
+
     protected String getUserInput() {
         Scanner reader = new Scanner(System.in);
         String userInput = reader.nextLine();
@@ -28,22 +54,17 @@ public class SoraReaderWriter {
     }
 
     protected void loadTaskListFromFile(TasksManager tasksManager) throws IOException {
-        File dataFile = new File(DATA_FILE_PATH + DATA_FILENAME);
+        // Check if required directory and file exist
+        boolean directoryAlreadyExists = checkAndCreateDataDirectory(getDirectoryPath());
+        boolean fileAlreadyExists = checkAndCreateDataFile(getFilePath(), directoryAlreadyExists);
 
-        if (!dataFile.exists()) {
-            System.out.println("File for storing task list data not found. Creating file...");
-            try {
-                dataFile.createNewFile();
-            } catch (IOException e) {
-                System.out.println("An error has occurred while trying to create a file.\nHere are the details:");
-                System.out.println(e.getMessage());
-                // Pass it to caller method to exit
-                throw e;
-            }
-
-            // Since it's a newly created file, there's no data to read from it. Continue normal execution
+        if (!fileAlreadyExists) {
+            // Since the file has just been created, there is no data to read. Exit method immediately.
             return;
         }
+
+        // Open the file for reading
+        File dataFile = new File(getFilePath().toUri());
 
         // Read file data line by line
         Scanner fileReader = new Scanner(dataFile);
@@ -56,6 +77,49 @@ public class SoraReaderWriter {
             // Add this line of text data into Sora's task list
             tasksManager.addTask(parsedLineData);
         }
+
+        soraUI.printLoadedFileDataResponse();
+    }
+
+    private boolean checkAndCreateDataFile(Path filePath, boolean directoryAlreadyExists) throws IOException {
+        if (Files.exists(filePath)) {
+            // Data file already exists
+            return true;
+        }
+
+        soraUI.printFileNotFound(directoryAlreadyExists);
+
+        try {
+            Files.createFile(filePath);
+            soraUI.printFileCreatedResponse(filePath);
+        } catch (IOException e) {
+            System.out.println("An error has occurred while trying to create a file.\nHere are the details:");
+            System.out.println(e.getMessage());
+            // Pass it to caller method to exit
+            throw e;
+        }
+
+        return false;
+    }
+
+    private boolean checkAndCreateDataDirectory(Path directoryPath) throws IOException {
+        if (Files.exists(directoryPath)) {
+            // Directory already exists. Exit method
+            return true;
+        }
+
+        // Directory does not exist. Create new directory
+        soraUI.printDirectoryNotFound();
+
+        try {
+            Files.createDirectory(directoryPath);
+        } catch (IOException e) {
+            System.out.println("Error: Could not create directory. Here are the details:");
+            System.out.println(e.getMessage());
+            throw e;
+        }
+
+        return false;
     }
 
     private String[] parseFileLineData(String rawLineData) {
@@ -68,7 +132,7 @@ public class SoraReaderWriter {
 
         // Add line of text to end of file
         try {
-            FileWriter fileWriter = new FileWriter(DATA_FILE_PATH + DATA_FILENAME, true);
+            FileWriter fileWriter = new FileWriter(filePath.toString(), true);
             fileWriter.append(taskInFileFormat + System.lineSeparator());
             fileWriter.close();
         } catch (IOException e) {
@@ -134,7 +198,7 @@ public class SoraReaderWriter {
         ArrayList<Task> tasksList = tasksManager.getList();
 
         try {
-            FileWriter fileWriter = new FileWriter(DATA_FILE_PATH + DATA_FILENAME);
+            FileWriter fileWriter = new FileWriter(filePath.toString());
 
             for (Task task  : tasksList) {
                 String taskText = buildTaskTextForFile(task);

@@ -4,6 +4,7 @@ import tasks.Task;
 import tasks.TasksManager;
 import util.Helper;
 
+import java.nio.file.Path;
 import java.util.Random;
 
 public class SoraUI {
@@ -125,6 +126,15 @@ public class SoraUI {
             "Ah dang. Internal processing in %s failed.\nNot your fault, user. It's the monkey developer's fault.\n" +
             "If you see the dev, tell him this: %s\n";
 
+    protected static final String NO_DIRECTORY_FOUND_RESPONSE =
+            "\n%s, I couldn't find the directory that contains my data\nfile. Let me go and create it...\n";
+    protected static final String NO_FILE_FOUND_RESPONSE =
+            "\n%s, I%s couldn't find my data file. I shall create\nthat%s.\n\n";
+    protected static final String FILE_CREATED_REPSONSE =
+            "%s, I've created my data file in the following\nlocation:\n\t%s\n";
+    protected static final String LOADED_FILE_DATA_RESPONSE =
+            "I've loaded your tasks from our previous interactions!\n";
+
     /**
      * Prints a line on the console based on the default parameters defined in this Java class.
      */
@@ -152,6 +162,7 @@ public class SoraUI {
      */
     protected void printGreetings() {
         // Print banner
+        printLine(DEFAULT_LINE_LENGTH, "=");
         System.out.println(BANNER);
         printLine();
 
@@ -165,8 +176,6 @@ public class SoraUI {
         }
 
         System.out.println("I'm Sora ヽ(・∀・)ﾉ");
-        System.out.println("What can I do for you?");
-        printLine();
     }
 
     /**
@@ -195,6 +204,9 @@ public class SoraUI {
      */
     protected void printPrompter(boolean isFirstPrompt) {
         if (isFirstPrompt) {
+            printLine();
+            System.out.println("Now then, what can I do for you?");
+            printLine();
             System.out.print(PROMPT_SYMBOL + " ");
         } else {
             printLine();
@@ -321,5 +333,27 @@ public class SoraUI {
 
     public void printEventInvalidFlags() {
         System.out.printf(SoraUI.EVENT_INVALID_FLAGS, getRandomNegativeAcknowledgement());
+    }
+
+    public void printDirectoryNotFound() {
+        System.out.printf(SoraUI.NO_DIRECTORY_FOUND_RESPONSE, getRandomNegativeAcknowledgement());
+    }
+
+    public void printFileNotFound(boolean directoryAlreadyExists) {
+        if (!directoryAlreadyExists) {
+            System.out.printf(SoraUI.NO_FILE_FOUND_RESPONSE, getRandomNegativeAcknowledgement(), " also",
+                    " too");
+        } else {
+            System.out.printf(SoraUI.NO_FILE_FOUND_RESPONSE, getRandomNegativeAcknowledgement(), "", "");
+        }
+    }
+
+    public void printFileCreatedResponse(Path filePathName) {
+        System.out.printf(SoraUI.FILE_CREATED_REPSONSE, getRandomPositiveAcknowledgement(), filePathName);
+    }
+
+    public void printLoadedFileDataResponse() {
+        System.out.println();
+        System.out.printf(SoraUI.LOADED_FILE_DATA_RESPONSE);
     }
 }
