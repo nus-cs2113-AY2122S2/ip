@@ -3,13 +3,17 @@ public abstract class Task {
     protected String taskStatus;
     protected String typeOfTask;
 
-    public Task (String task) throws NoTaskException {
+    public Task (String task) {
         this.task = task.trim();
         this.taskStatus = "[ ]";
+    }
 
-        if (this.task == null) {
-            throw new NoTaskException();
-        }
+    public String getTask() {
+        return task;
+    }
+
+    public String getTime() {
+        return null;
     }
 
     public void mark() {
