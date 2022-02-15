@@ -52,7 +52,7 @@ public class Sora {
         return this.tasksManager;
     }
 
-    public void startContinuousUserPrompt() {
+    public void startContinuousUserPrompt()  throws IOException {
         boolean isFirstPrompt = true;
 
         while (!doesUserWantsToExit()) {
@@ -63,14 +63,19 @@ public class Sora {
             soraUI.printLine();
 
             // Execute command
-            executeCommand(userRawInput);
+            try {
+                executeCommand(userRawInput);
+            } catch (IOException e) {
+                // Throw it up to Main class for program termination
+                throw e;
+            }
         }
 
         // Bid farewell to user
         soraUI.printGoodbye();
     }
 
-    private void executeCommand(String userRawInput) {
+    private void executeCommand(String userRawInput) throws IOException {
         String userCommand = extractCommand(userRawInput);
 
         try {
@@ -122,7 +127,10 @@ public class Sora {
         } catch (InvalidCommandException e) {
             exceptionHandler.handleInvalidCommandException(e);
         } catch (IOException e) {
-
+            // Throw it up to calling method for program termination
+            throw e;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            exceptionHandler.handleOutOfRangeListReferences();
         }
     }
 

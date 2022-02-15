@@ -312,10 +312,16 @@ public class TasksManager {
      * @param status
      * @return
      */
-    public boolean updateDoneStatus(int taskNum, boolean status) {
+    public boolean updateDoneStatus(int taskNum, boolean status) throws ArrayIndexOutOfBoundsException {
         if (isEmpty()) {
             // TODO: throw EmptyListException instead
             return false;
+        }
+
+        // Check if task number is within the range of the list
+        boolean taskNumWithinRange = checkTaskNumberWithinRange(taskNum);
+        if (!taskNumWithinRange) {
+            throw new ArrayIndexOutOfBoundsException("Task number is out of permitted range of list.");
         }
 
         // Calculate index number of task in the ArrayList
@@ -331,13 +337,26 @@ public class TasksManager {
             // TODO: throw EmptyListException instead
         }
 
+        // Check if task number is within the range of the list
+        boolean taskNumWithinRange = checkTaskNumberWithinRange(taskNum);
+        if (!taskNumWithinRange) {
+            throw new ArrayIndexOutOfBoundsException("Task number is out of permitted range of list.");
+        }
+
         // Calculate index number of task in the ArrayList
         int indexNum = taskNum - 1;
 
         // Remove the task from the list
         Task taskRemoved = getList().remove(indexNum);
-        // TODO: Consider handling scenario where task removal was unsuccessful?
         return taskRemoved;
+    }
+
+    public boolean checkTaskNumberWithinRange(int taskNum) {
+        if (taskNum > 0 && taskNum <= getNumberOfTasks()) {
+            return true;
+        }
+
+        return false;
     }
 
     public void displayTask(int taskNum) {
@@ -353,17 +372,6 @@ public class TasksManager {
 
     public void displayTask(Task taskObject) {
         System.out.println("\t" + taskObject.toString());
-    }
-
-    public void displayLastAddedTask() {
-        if (isEmpty()) {
-            // TODO: throw EmptyListException instead
-            return;
-        }
-
-        int taskIndex = getNumberOfTasks() - 1;
-        Task taskToDisplay = getList().get(taskIndex);
-        System.out.println("\t" + taskToDisplay.toString());
     }
 
     public void displayAllTasks() {

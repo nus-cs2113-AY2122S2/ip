@@ -83,6 +83,9 @@ public class SoraUI {
             "%s, here's a list of tasks that you have given to me:\n";
     protected static final String EMPTY_LIST_RESPONSE =
             "%s, my list is empty at the moment...\n";
+    protected static final String TASK_NUMBER_OUT_OF_LIST_RANGE_RESPONSE =
+            "%s, the task number you've given me is out of the range\nof the current list of tasks."
+            + " Could you re-enter a\nvalid task number?\n";
 
     protected static final String ADD_TASK_SUCCESS_RESPONSE =
             "%s, I've added your new task to my list:\n";
@@ -377,5 +380,9 @@ public class SoraUI {
     public void printLoadedFileDataResponse() {
         System.out.println();
         System.out.printf(SoraUI.LOADED_FILE_DATA_RESPONSE);
+    }
+
+    public void printTaskNumOutOfListRange() {
+        System.out.printf(SoraUI.TASK_NUMBER_OUT_OF_LIST_RANGE_RESPONSE, getRandomNegativeAcknowledgement());
     }
 }

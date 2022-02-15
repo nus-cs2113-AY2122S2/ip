@@ -46,4 +46,8 @@ public class SoraExceptionHandler {
             soraUI.printDeadlineInvalidFlags();
         }
     }
+
+    public void handleOutOfRangeListReferences() {
+        soraUI.printTaskNumOutOfListRange();
+    }
 }
