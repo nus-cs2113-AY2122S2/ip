@@ -9,6 +9,7 @@ _____________________________________________________
 Hello! I'm Niki
 What can I do for you?
 _____________________________________________________
+Initializing: Duke file loaded successfully...
 _____________________________________________________
 Task added:
 	[T][ ] read book 

@@ -39,16 +39,15 @@ public class TaskManager {
         }
     }
 
-    public static void addTask(String userInput) throws DukeEmptyDescriptionException, DukeMaxTaskException {
+    public static Task addTask(String userInput) throws DukeEmptyDescriptionException, DukeMaxTaskException {
         checkTaskListSpaceAvailability();
         String extractedTaskDescription = validateAndExtractTaskDescription(userInput);
         Task newTask = new Todo(extractedTaskDescription);
         taskLists[Task.getNumberOfTasks() - 1] = newTask;
-        System.out.println("Task added:\n\t" + newTask.toString());
-        System.out.println("Now you have " + Task.getNumberOfTasks() + " tasks in your list!");
+        return newTask;
     }
 
-    public static void addTaskWithTime(String userInput, String stringSeparator) throws DukeEmptyDescriptionException, DukeMaxTaskException, DukeMissingTimeSeparator {
+    public static Task addTaskWithTime(String userInput, String stringSeparator) throws DukeEmptyDescriptionException, DukeMaxTaskException, DukeMissingTimeSeparator {
         checkTaskListSpaceAvailability();
 
         String extractedStringsWithoutCommandType = validateAndExtractTaskDescription(userInput);
@@ -66,8 +65,7 @@ public class TaskManager {
         }
 
         taskLists[Task.getNumberOfTasks() - 1] = newTask;
-        System.out.println("Task added:\n\t" + newTask.toString());
-        System.out.println("Now you have " + Task.getNumberOfTasks() + " tasks in your list!");
+        return newTask;
     }
 
     public static boolean isWithinTaskRange(int taskNumber) {
@@ -77,7 +75,7 @@ public class TaskManager {
         return true;
     }
 
-    public static void markTask(boolean isMarked, String userInput) throws DukeEmptyDescriptionException, NumberFormatException, DukeTaskOutOfRangeException {
+    public static int markTask(boolean isMarked, String userInput) throws DukeEmptyDescriptionException, NumberFormatException, DukeTaskOutOfRangeException {
         if ((userInput.split(" ")).length <= 1) {
             throw new DukeEmptyDescriptionException();
         }
@@ -87,14 +85,26 @@ public class TaskManager {
             throw new DukeTaskOutOfRangeException();
         }
 
+        String markStatusMessage = "";
         if (isMarked) {
             taskLists[taskNumber - 1].markAsDone();
-            System.out.println("Fantastic! This task is done:");
         } else {
             taskLists[taskNumber - 1].markAsUndone();
-            System.out.println("Uh oh! This task is undone:");
         }
-        System.out.println(taskLists[taskNumber - 1].toString());
+        return taskNumber;
 
+    }
+
+    public static void addTaskPrintMessage(Task newTask) {
+        System.out.println("Task added:\n\t" + newTask.toString());
+        System.out.println("Now you have " + Task.getNumberOfTasks() + " tasks in your list!");
+    }
+
+    public static void markStatusPrintMessage(int taskNumberMarked, boolean isMarked) {
+        if (isMarked) {
+            System.out.println("Fantastic! This task is done:\n" + taskLists[taskNumberMarked - 1].toString());
+        } else {
+            System.out.println("Uh oh! This task is undone:\n" + taskLists[taskNumberMarked - 1].toString());
+        }
     }
 }
