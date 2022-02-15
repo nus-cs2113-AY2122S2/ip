@@ -88,6 +88,24 @@ public class Duke {
                     greet.printDecoration();
                 }
                 break;
+            case "delete":
+                try{
+                    taskManager.deleteTask(Integer.parseInt(taskName.trim()));
+                } catch (IllegalInputException inputException){
+                    System.out.println("Invalid Number given, you can only delete tasks that are in the list.\n" +
+                            "Say \"list\" to view your list of tasks.");
+                    greet.printDecoration();
+                } catch (NumberFormatException numberFormatException)
+                {
+                    greet.printDecoration();
+                    System.out.println("You are required to give an integer value to delete an item in the list.\n" +
+                            "Say \"help\" to see how to use various commands.");
+                    greet.printDecoration();
+                }
+                break;
+            case "bin":
+                taskManager.printDeletedTasks();
+                break;
             case "bye":
                 isDone = true;
                 break;
