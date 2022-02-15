@@ -25,61 +25,92 @@ public class Duke {
                     break;
                 }
                 case "mark":{
-                    try{
-                        int index = Integer.parseInt(words[1]);
-                        if(index>todolist.size()||index<=0) System.out.println("No task found.");
-                        else{
-                            todolist.get(index-1).markAsDone();
-                            System.out.println("Nice! I've marked this task as done:");
-                            System.out.println((index)+". "+todolist.get(index-1).toString());
+                    if (words.length==1)
+                        System.out.println("☹ OOPS!!! Please tell me the task you want to mark.");
+                    else{
+                        try{
+                            int index = Integer.parseInt(words[1]);
+                            if(index>todolist.size()||index<=0) System.out.println("No task found.");
+                            else{
+                                todolist.get(index-1).markAsDone();
+                                System.out.println("Nice! I've marked this task as done:");
+                                System.out.println((index)+". "+todolist.get(index-1).toString());
+                            }
                         }
-                    }
-                    catch (NumberFormatException ex){
-                        ex.printStackTrace();
+                        catch (NumberFormatException ex){
+                            System.out.println("☹ OOPS!!! Please tell me the task number you want to mark.");
+                        }
                     }
                     break;
                 }
                 case "unmark":{
-                    try{
-                        int index = Integer.parseInt(words[1]);
-                        if(index>todolist.size()||index<=0) System.out.println("No task found.");
-                        else {
-                            todolist.get(index-1).markAsUndone();
-                            System.out.println("OK, I've marked this task as not done yet:");
-                            System.out.println((index)+". "+todolist.get(index-1).toString());
+                    if (words.length==1)
+                        System.out.println("☹ OOPS!!! Please tell me the task you want to unmark.");
+                    else{
+                        try{
+                            int index = Integer.parseInt(words[1]);
+                            if(index>todolist.size()||index<=0) System.out.println("No task found.");
+                            else {
+                                todolist.get(index-1).markAsUndone();
+                                System.out.println("OK, I've marked this task as not done yet:");
+                                System.out.println((index)+". "+todolist.get(index-1).toString());
+                            }
                         }
-                    }
-                    catch (NumberFormatException ex){
-                        ex.printStackTrace();
+                        catch (NumberFormatException ex){
+                            System.out.println("☹ OOPS!!! Please tell me the task number you want to unmark.");
+                        }
                     }
                     break;
                 }
                 case "todo": {
-                    todolist.add(new ToDo(words[1]));
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + todolist.get(todolist.size() - 1).toString());
-                    System.out.println("Now you have " + todolist.size() + " tasks in the list.");
+                    if (words.length == 1)
+                        System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                    else {
+                        todolist.add(new ToDo(words[1]));
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + todolist.get(todolist.size() - 1).toString());
+                        System.out.println("Now you have " + todolist.size() + " tasks in the list.");
+                    }
                     break;
                 }
                 case "deadline": {
-                    String[] words1 = words[1].split("/by", 2);
-                    todolist.add(new Deadline(words1[0], words1[1]));
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + todolist.get(todolist.size() - 1).toString());
-                    System.out.println("Now you have " + todolist.size() + " tasks in the list.");
+                    if (words.length==1)
+                        System.out.println("☹ OOPS!!! The information about the deadline is incomplete.");
+                    else{
+                        try{
+                            String[] words1 = words[1].split("/by", 2);
+                            todolist.add(new Deadline(words1[0], words1[1]));
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println("  " + todolist.get(todolist.size() - 1).toString());
+                            System.out.println("Now you have " + todolist.size() + " tasks in the list.");
+                        }
+                        catch(ArrayIndexOutOfBoundsException e){
+                            System.out.println("Could you type in the deadline with format:" +
+                                    " deadline {your task} /by {your deadline}?");
+                        }
+                    }
                     break;
                 }
                 case "event": {
-                    String[] words1 = words[1].split("/at", 2);
-                    todolist.add(new Event(words1[0], words1[1]));
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + todolist.get(todolist.size() - 1).toString());
-                    System.out.println("Now you have " + todolist.size() + " tasks in the list.");
+                    if (words.length==1)
+                        System.out.println("☹ OOPS!!! The information about the event is incomplete.");
+                    else{
+                        try{
+                            String[] words1 = words[1].split("/at", 2);
+                            todolist.add(new Event(words1[0], words1[1]));
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println("  " + todolist.get(todolist.size() - 1).toString());
+                            System.out.println("Now you have " + todolist.size() + " tasks in the list.");
+                        }
+                        catch(ArrayIndexOutOfBoundsException e){
+                            System.out.println("Could you type in the event with format:" +
+                                    " event {your task} /at {your event time}?");
+                        }
+                    }
                     break;
                 }
                 default:
-                    System.out.println("Sorry,I don't understand what you are saying." +
-                            " Could you please type again with given keywords?");
+                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
             task=in.nextLine();
         }
