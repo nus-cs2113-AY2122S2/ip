@@ -86,7 +86,7 @@ public class TaskManager {
         return taskNumber;
     }
 
-    public static int deleteTask(String userInput) throws DukeEmptyDescriptionException, DukeTaskOutOfRangeException {
+    public static int deleteTask(String userInput) throws DukeEmptyDescriptionException, NumberFormatException, DukeTaskOutOfRangeException {
         if ((userInput.split(" ")).length <= 1) {
             throw new DukeEmptyDescriptionException();
         }
