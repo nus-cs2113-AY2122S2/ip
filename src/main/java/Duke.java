@@ -2,18 +2,22 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static final String WELCOME_MESSAGE = " ____        _        \n"
-                                               + "|  _ \\ _   _| | _____ \n"
-                                               + "| | | | | | | |/ / _ \\\n"
-                                               + "| |_| | |_| |   <  __/\n"
-                                               + "|____/ \\__,_|_|\\_\\___|\n"
-                                               + "Hello! I'm Duke\n"
+
+    public static final String WELCOME_MESSAGE = "##    ##  #######  ##    ##  ######      ##     ## #### ##    ##  ######\n"
+                                               + " ##  ##  ##     ## ###   ## ##    ##     ###   ###  ##  ###   ## ##    ##\n"
+                                               + "  ####   ##     ## ####  ## ##           #### ####  ##  ####  ## ##\n"
+                                               + "   ##    ##     ## ## ## ## ##   ####    ## ### ##  ##  ## ## ## ##   ####\n"
+                                               + "   ##    ##     ## ##  #### ##    ##     ##     ##  ##  ##  #### ##    ##\n"
+                                               + "   ##    ##     ## ##   ### ##    ##     ##     ##  ##  ##   ### ##    ##\n"
+                                               + "   ##     #######  ##    ##  ######      ##     ## #### ##    ##  ######\n"
+                                               + "Hello! I'm Yong Ming\n"
                                                + "What can I do for you?";
     public static final int MAX_TASK = 100;
     public static final String EXIT_MESSAGE = "bye";
     public static final String PRINT_MESSAGE = "list";
     public static final String MARK_MESSAGE = "mark";
     public static final String UNMARK_MESSAGE = "unmark";
+    public static final String DELETE_MESSAGE = "delete";
     public static final String TODO_MESSAGE = "todo";
     public static final String DEADLINE_MESSAGE = "deadline";
     public static final String DEADLINE_INDICATOR = " /by ";
@@ -79,6 +83,43 @@ public class Duke {
         }
     }
 
+    private static void printListCounter(int listCounter) {
+        if (listCounter == 0) {
+            System.out.println("Now you have no tasks in the list");
+        } else if (listCounter == 1) {
+            System.out.println("Now you have 1 task in the list");
+        } else {
+            System.out.println("Now you have " + listCounter + " tasks in the list.");
+        }
+    }
+
+    public static void deleteTask(Task[] list, String userInput, int listCounter) {
+        int taskIndex;
+        try {
+            taskIndex = getTaskIndex(userInput);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Please specify task number");
+            return;
+        }
+        try {
+            Task deleteTarget = list[taskIndex];
+            if (listCounter - 1 == taskIndex) {
+                list[taskIndex] = null;
+            } else {
+                for (int i = taskIndex; i < listCounter - 1; i++) {
+                    list[i] = list[i + 1];
+                    list[i + 1] = null;
+                }
+            }
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(deleteTarget);
+            listCounter--;
+            printListCounter(listCounter);
+        } catch (NullPointerException e) {
+            System.out.println("OOPS!!! This task does not exist.");
+        }
+    }
+
     public static String[] parseAdditionalParameters (String parsedUserInput, String indicator) {
         String[] additionalParameters = parsedUserInput.split(indicator, 2);
         additionalParameters[0] = additionalParameters[0].trim();
@@ -89,11 +130,7 @@ public class Duke {
     private static void printAddToList(Task[] list, int listCounter) {
         System.out.println("Got it. I've added this task:" + System.lineSeparator() + list[listCounter]);
         listCounter++;
-        if (listCounter == 1) {
-            System.out.println("Now you have 1 task in the list");
-        } else {
-            System.out.println("Now you have " + listCounter + " tasks in the list.");
-        }
+        printListCounter(listCounter);
     }
 
     //Check what kind of task the user intends to add and process accordingly
@@ -138,6 +175,9 @@ public class Duke {
                 markTask(list, userInput);
             } else if (userInput.startsWith(UNMARK_MESSAGE)) {
                 unmarkTask(list, userInput);
+            } else if (userInput.startsWith(DELETE_MESSAGE)) {
+                deleteTask(list, userInput, listCounter);
+                listCounter--;
             } else {
                 try {
                     parseInput(list, listCounter, userInput);
