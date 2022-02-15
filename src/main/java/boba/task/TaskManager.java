@@ -29,6 +29,10 @@ public class TaskManager {
         fileManager = new FileManager("data/boba.txt");
         taskList = fileManager.readFile();
         taskCount = taskList.size();
+        if (taskCount != 0) {
+            BobaResponse.addResponse("Here is your currently save list!");
+            printAllTasks();
+        }
     }
 
     /**
@@ -60,6 +64,8 @@ public class TaskManager {
                 break;
             case HELP:
                 printHelpOptions();
+                break;
+            case EXIT:
                 break;
             case NONE:
             default:
