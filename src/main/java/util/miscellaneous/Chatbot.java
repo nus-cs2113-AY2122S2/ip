@@ -1,3 +1,5 @@
+package util.miscellaneous;
+
 public interface Chatbot {
     String LOGO = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"

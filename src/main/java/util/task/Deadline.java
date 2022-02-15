@@ -1,13 +1,12 @@
+package util.task;
+
+
 public class Deadline extends Todo {
     protected String by;
 
-    public Deadline(String task, String by) throws NoDateException {
+    public Deadline(String task, String by) {
         super(task);
         this.by = by;
-
-        if (this.by == null) {
-            throw new NoDateException();
-        }
     }
 
     public String getTime() {

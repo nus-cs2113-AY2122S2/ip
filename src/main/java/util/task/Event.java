@@ -1,13 +1,11 @@
+package util.task;
+
 public class Event extends Todo{
     protected String at;
 
-    public Event(String task, String at) throws NoDateException {
+    public Event(String task, String at) {
         super(task);
         this.at = at;
-
-        if (this.at == null) {
-            throw new NoDateException();
-        }
     }
 
     public String getTime() {
