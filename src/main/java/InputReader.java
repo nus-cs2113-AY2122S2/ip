@@ -1,5 +1,10 @@
 import duke.exception.IncompleteCommandException;
 
+import java.lang.reflect.Array;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.ArrayList;
+
 /**
  *
  */
@@ -86,6 +91,26 @@ public class InputReader {
             }
         }
         return false;
+    }
+
+    /**
+     * Convert string from stored file to ArrayList of elements.
+     * @param oldString
+     * @return
+     */
+    public ArrayList<String> parseSavedString(String oldString){
+        Pattern taskPattern = Pattern.compile("^\\[([EDT])\\]\\s\\[(.+)\\]\\s(.+)\\s(?:\\([ab][ty]\\:\\s(.+)\\))?$");
+        Matcher matcher = taskPattern.matcher(oldString);
+        ArrayList<String> totalMatches = new ArrayList<>();
+        for (int i=1; i<=matcher.groupCount(); i++){
+            try {
+                String match = matcher.group(i);
+                totalMatches.add(matcher.group(i));
+            } catch (IllegalStateException e){
+                return totalMatches;
+            }
+        }
+        return totalMatches;
     }
 
 }

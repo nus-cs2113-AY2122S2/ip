@@ -8,6 +8,11 @@ public class Event extends Task {
         this.eventTime = eventTime;
     }
 
+    public Event(String taskInfo, boolean isDone, String eventTime) {
+        super(taskInfo);
+        this.eventTime = eventTime;
+    }
+
     @Override
     public String toString() {
         // ternary operator adapted from John McMonigle https://github.com/nus-cs2113-AY2122S2/ip/pull/56

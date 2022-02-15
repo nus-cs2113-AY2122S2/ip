@@ -19,9 +19,8 @@ public class TaskList {
      * @param taskName
      */
     public void addToDo(String taskName) {
-        Task newToDo = new ToDo(taskName);
-        taskList.add(newToDo);
-        System.out.println("Added:" + System.lineSeparator() + "   " + newToDo);
+        Task newTask = new ToDo(taskName);
+        printAndAddTask(newTask);
     }
 
     /**
@@ -31,10 +30,10 @@ public class TaskList {
      * @param deadline
      */
     public void addDeadline(String taskName, String deadline) {
-        Task newDeadline = new Deadline(taskName, deadline);
-        taskList.add(newDeadline);
-        System.out.println("Added:" + System.lineSeparator() + "   " + newDeadline);
+        Task newTask = new Deadline(taskName, deadline);
+        printAndAddTask(newTask);
     }
+
 
     /**
      * Adds a new string as Event to the ArrayList and prints the Task added.
@@ -43,9 +42,52 @@ public class TaskList {
      * @param eventTime
      */
     public void addEvent(String taskName, String eventTime) {
-        Task newEvent = new Event(taskName, eventTime);
-        taskList.add(newEvent);
-        System.out.println("Added:" + System.lineSeparator() + "   " + newEvent);
+        Task newTask = new Event(taskName, eventTime);
+        printAndAddTask(newTask);
+    }
+
+    /**
+     * Adds a new string as ToDo to the ArrayList and prints the Task added.
+     *
+     * @param taskName
+     * @param isDone
+     */
+    public void addToDo(String taskName, boolean isDone) {
+        Task newTask = new ToDo(taskName, isDone);
+        printAndAddTask(newTask);
+    }
+
+    /**
+     * Adds a new string as Deadline to the ArrayList and prints the Task added.
+     *
+     * @param taskName
+     * @param isDone
+     * @param deadline
+     */
+    public void addDeadline(String taskName, boolean isDone, String deadline) {
+        Task newTask = new Deadline(taskName, isDone, deadline);
+        printAndAddTask(newTask);
+    }
+
+
+    /**
+     * Adds a new string as Event to the ArrayList and prints the Task added.
+     *
+     * @param taskName
+     * @param eventTime
+     */
+    public void addEvent(String taskName, boolean isDone, String eventTime) {
+        Task newTask = new Event(taskName, isDone, eventTime);
+        printAndAddTask(newTask);
+    }
+
+    /**
+     * Helper function to print and add new task
+     * @param newTask
+     */
+    private void printAndAddTask(Task newTask) {
+        taskList.add(newTask);
+        System.out.println("Added:" + newTask);
     }
 
     /**
@@ -74,5 +116,11 @@ public class TaskList {
         }
         System.out.println("   " + task);
     }
+
+
+    public ArrayList<Task> getTaskList(){
+        return taskList;
+    }
+
 
 }

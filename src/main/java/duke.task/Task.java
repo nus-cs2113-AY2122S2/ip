@@ -8,13 +8,23 @@ public class Task {
     private boolean isDone;
 
     /**
+     * Constructor for a new Task, with option to indicate Task completion status.
+     *
+     * @param String  representing taskInfo
+     * @param boolean representing if Task is done
+     */
+    public Task(String taskInfo, boolean isDone) {
+        this.taskInfo = taskInfo;
+        this.isDone = isDone;
+    }
+
+    /**
      * Constructor for a new Task, assumes that the Task is not completed.
      *
      * @param String representing taskInfo
      */
     public Task(String taskInfo) {
-        this.taskInfo = taskInfo;
-        this.isDone = false;
+        this(taskInfo, false);
     }
 
     public String getTaskInfo() {

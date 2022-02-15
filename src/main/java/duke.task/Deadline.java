@@ -8,6 +8,11 @@ public class Deadline extends Task {
         this.dueTime = dueTime;
     }
 
+    public Deadline(String taskInfo, boolean isDone, String dueTime) {
+        super(taskInfo,isDone);
+        this.dueTime = dueTime;
+    }
+
     @Override
     public String toString() {
         // ternary operator adapted from John McMonigle https://github.com/nus-cs2113-AY2122S2/ip/pull/56
