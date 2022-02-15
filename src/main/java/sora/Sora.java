@@ -101,6 +101,8 @@ public class Sora {
                 taskNum = getTaskNumberFromCommand(userRawInput);
                 Task taskRemoved = getTasksManager().deleteTask(taskNum);
                 // Update entire file
+                soraReaderWriter.rewriteAllTasksToFile(getTasksManager());
+                // Print response
                 soraUI.printDeleteTaskResponseMessage(taskRemoved, getTasksManager());
                 break;
             case SoraUI.ADD_TODO_COMMAND_KEYWORD:
