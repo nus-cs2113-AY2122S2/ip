@@ -26,4 +26,7 @@ public class Task {
     public void markAsUndone(){
         isDone=false;
     }
+    public String taskString(){
+        return "["+getStatusIcon()+"] "+description;
+    }
 }
