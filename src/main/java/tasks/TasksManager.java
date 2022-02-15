@@ -181,9 +181,16 @@ public class TasksManager {
         return taskDescriptionAndDate;
     }
 
+    /**
+     * (WIP) Marks a task as either done or not done.
+     *
+     * @param taskNum
+     * @param status
+     * @return
+     */
     public boolean updateDoneStatus(int taskNum, boolean status) {
-        // Marks a task as either done or not done
         if (isEmpty()) {
+            // TODO: throw EmptyListException instead
             return false;
         }
 
@@ -195,8 +202,23 @@ public class TasksManager {
         return true;
     }
 
+    public Task deleteTask(int taskNum) {
+        if (isEmpty()) {
+            // TODO: throw EmptyListException instead
+        }
+
+        // Calculate index number of task in the ArrayList
+        int indexNum = taskNum - 1;
+
+        // Remove the task from the list
+        Task taskRemoved = getList().remove(indexNum);
+        // TODO: Consider handling scenario where task removal was unsuccessful?
+        return taskRemoved;
+    }
+
     public void displayTask(int taskNum) {
         if (isEmpty()) {
+            // TODO: throw EmptyListException instead
             return;
         }
 
@@ -205,8 +227,13 @@ public class TasksManager {
         System.out.println("\t" + taskToDisplay.toString());
     }
 
+    public void displayTask(Task taskObject) {
+        System.out.println("\t" + taskObject.toString());
+    }
+
     public void displayLastAddedTask() {
         if (isEmpty()) {
+            // TODO: throw EmptyListException instead
             return;
         }
 
@@ -217,6 +244,7 @@ public class TasksManager {
 
     public void displayAllTasks() {
         if (isEmpty()) {
+            // TODO: throw EmptyListException instead
             return;
         }
 

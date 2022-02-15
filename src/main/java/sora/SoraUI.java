@@ -1,5 +1,6 @@
 package sora;
 
+import tasks.Task;
 import tasks.TasksManager;
 import util.Helper;
 
@@ -60,8 +61,11 @@ public class SoraUI {
     public static final String ADD_EVENT_FLAG_KEYWORD = "/at";
     public static final String ADD_DEADLINE_COMMAND_KEYWORD = "deadline";
     public static final String ADD_DEADLINE_FLAG_KEYWORD = "/by";
+
     public static final String MARK_TASK_AS_DONE_COMMAND_KEYWORD = "mark";
     public static final String UNMARK_TASK_AS_DONE_COMMAND_KEYWORD = "unmark";
+
+    public static final String DELETE_TASK_COMMAND_KEYWORD = "delete";
 
     /**
      * List of flag keywords (for command validation)
@@ -94,6 +98,11 @@ public class SoraUI {
     protected static final String UNMARK_TASK_DONE_FAILURE_RESPONSE =
             "%s, I couldn't mark that task as not done.\nSorry about that... (-ω-、)\n";
 
+    protected static final String DELETE_TASK_SUCCESS_RESPONSE =
+            "%s, I've deleted this task:\n";
+    protected static final String DELETE_TASK_FAILURE_RESPONSE =
+            "%s, I couldn't delete this task.\nSorry about that... (-ω-、)\n";
+
     protected static final String COMMAND_NOT_UNDERSTOOD_RESPONSE =
             "%s, I can't understand what you've just typed...\nCould you try again?\n";
 
@@ -108,6 +117,9 @@ public class SoraUI {
             "%s, seems like you didn't give me a date for your event...\nCould you try again? (⌒_⌒;)\n";
     protected static final String EVENT_INVALID_FLAGS =
             "%s, the flags used in your event command is invalid...\nCould you try again? (⌒_⌒;)\n";
+
+    protected static final String APOLOGY_MESSAGE = "Sorry about that... (-ω-、)\n";
+    protected static final String TRY_AGAIN_MESSAGE = "Could you try again? (⌒_⌒;)\n";
 
     /**
      * Prints a line on the console based on the default parameters defined in this Java class.
@@ -248,6 +260,13 @@ public class SoraUI {
 
         // Unmark task was unsuccessful
         System.out.printf(SoraUI.UNMARK_TASK_DONE_FAILURE_RESPONSE, getRandomNegativeAcknowledgement());
+    }
+
+    protected void printDeleteTaskResponseMessage(Task taskRemoved, TasksManager tasksManager) {
+        System.out.printf(SoraUI.DELETE_TASK_SUCCESS_RESPONSE, getRandomPositiveAcknowledgement());
+        System.out.println();
+        tasksManager.displayTask(taskRemoved);
+        System.out.println();
     }
 
     protected void printAddTaskResponseMessage(boolean isSuccessful, TasksManager tasksManager) {
