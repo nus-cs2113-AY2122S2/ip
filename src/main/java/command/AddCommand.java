@@ -7,6 +7,10 @@ import task.Deadlines;
 import task.Events;
 import task.Task;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class AddCommand extends Command{
     private final String taskType;
 
@@ -26,6 +30,7 @@ public class AddCommand extends Command{
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+
         if(taskType.contains("deadlines")) {
             Deadlines deadline = new Deadlines(description, time);
             taskList.add(deadline);
