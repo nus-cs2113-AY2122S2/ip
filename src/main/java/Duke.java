@@ -1,4 +1,10 @@
 import java.util.ArrayList;
+import java.io.IOException;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.io.File;
 import java.util.Scanner;
 
 public class Duke {
@@ -39,6 +45,8 @@ public class Duke {
                                                    + "> unmark [Task#]\n"
                                                    + "> delete [Task#]\n"
                                                    + "> bye\n";
+    public static final String FILE_PATH = "data/duke.txt";
+    public static final String FOLDER_NAME = "data/";
 
     public static void printList(ArrayList<Task> list, int listCounter) {
         if (listCounter == 0) {
@@ -142,8 +150,21 @@ public class Duke {
         printAddToList(list, listCounter);
     }
 
-    private static void processInput(ArrayList<Task> list, String userInput, Scanner in) {
-        int listCounter = 0;
+    private static void writeToFile(ArrayList<Task> list) {
+        File dir = new File(FOLDER_NAME);
+        dir.mkdirs();
+        try {
+            FileOutputStream fileOut = new FileOutputStream(FILE_PATH);
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+            objectOut.writeObject(list);
+            objectOut.close();
+        } catch (IOException e) {
+            System.out.println("IO Error");
+        }
+        System.out.println("Task File Updated");
+    }
+
+    private static void processInput(ArrayList<Task> list, String userInput, Scanner in, int listCounter) {
         while(!userInput.equalsIgnoreCase(EXIT_MESSAGE)){
             if (userInput.startsWith(PRINT_MESSAGE)) {
                 printList(list, listCounter);
@@ -170,14 +191,28 @@ public class Duke {
             }
             userInput = in.nextLine();
         }
+        writeToFile(list);
         System.out.println("Bye. Hope to see you again soon!");
     }
 
     private static void acceptInput() {
+        Object obj;
+        ArrayList<Task> list = new ArrayList<>();
+        int listCounter = 0;
+        try {
+            FileInputStream fileIn = new FileInputStream(FILE_PATH);
+            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+            obj = objectIn.readObject();
+            objectIn.close();
+            System.out.println("Task File Uploaded\n");
+            list = (ArrayList<Task>) obj;
+            listCounter = list.size();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("No input file located\n");
+        }
         Scanner in = new Scanner(System.in);
         String userInput = in.nextLine();
-        ArrayList<Task> list = new ArrayList<>();
-        processInput(list, userInput, in);
+        processInput(list, userInput, in, listCounter);
     }
 
     public static void main(String[] args) {
