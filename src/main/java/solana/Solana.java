@@ -133,7 +133,7 @@ public class Solana {
         System.out.print(System.lineSeparator());
     }
 
-    public static void todoCommand(String parsedInput, boolean isFromUser, boolean isMarkNeeded) {
+    public static void todoCommand(String parsedInput, boolean isFromUser, boolean isMarked) {
         Todo newTodo = new Todo(parsedInput);
         tasks.add(newTodo);
 
@@ -142,12 +142,12 @@ public class Solana {
             printAddedPrompt(newTodo);
         }
 
-        if (isMarkNeeded) {
+        if (isMarked) {
             newTodo.markAsDone();
         }
     }
 
-    public static void deadlineCommand(String parsedInput, boolean isFromUser, boolean isMarkNeeded) {
+    public static void deadlineCommand(String parsedInput, boolean isFromUser, boolean isMarked) {
         try {
             String[] parsedInputAsArray;
             Deadline newDeadline;
@@ -168,7 +168,7 @@ public class Solana {
                 saveTasks();
             }
 
-            if (isMarkNeeded) {
+            if (isMarked) {
                 newDeadline.markAsDone();
             }
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -176,7 +176,7 @@ public class Solana {
         }
     }
 
-    public static void eventCommand(String parsedInput, boolean isFromUser, boolean isMarkNeeded) {
+    public static void eventCommand(String parsedInput, boolean isFromUser, boolean isMarked) {
         try {
             String[] parsedInputAsArray;
             Event newEvent;
@@ -197,7 +197,7 @@ public class Solana {
                 saveTasks();
             }
 
-            if (isMarkNeeded) {
+            if (isMarked) {
                 newEvent.markAsDone();
             }
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -270,6 +270,7 @@ public class Solana {
     public static void writeToFile() throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
         int listNumber = STARTING_LIST_NUMBER;
+
         for (Task task : tasks) {
             fw.write(listNumber + ". ");
             fw.write(task + System.lineSeparator());
