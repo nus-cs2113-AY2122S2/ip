@@ -15,6 +15,8 @@ public class Event extends Task {
         return "[E]" + getStatusIcon() + " " + super.toString() + " (at: " + at + ")";
     }
 
+    public String getAt() { return at; }
+
     public void printAddToListMessage() {
         System.out.println("\nSuccessfully added to list:\n" + addIndentation() + "[E]" + getStatusIcon() + " "
                 + description + " (at: " + at + ")");

@@ -6,9 +6,9 @@ import duke.task.Task;
 import duke.task.Todo;
 
 import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
-import java.io.File;
 
 public class Duke {
 
@@ -32,6 +32,7 @@ public class Duke {
 
     //Errors
     public static final String ERROR_NO_INPUT = "Hmmmm... you didn't type anything. Please try again using a valid command!";
+    public static final String ERROR_IO = "IO Error occurred!";
     public static final String ERROR_NOT_VALID_COMMAND = "Sorry, command is not recognised. Please try again using a valid command!";
     public static final String ERROR_INVALID_SYNTAX = "You've entered an invalid syntax for ";
     public static final String ERROR_INVALID_TASK_NUMBER = "Please enter a valid task number!";
@@ -79,12 +80,14 @@ public class Duke {
                 executeCommand(input);
             } catch (DukeException error){
                 System.out.println(error.getMessage());
+            } catch (IOException e) {
+                System.out.println(ERROR_IO);
             }
             input = getInput();
         }
     }
 
-    public static void executeCommand(String input) throws DukeException{
+    public static void executeCommand(String input) throws DukeException, IOException {
         if (input.length() == 0) {
             throw new DukeException(ERROR_NO_INPUT);
         }
@@ -140,19 +143,20 @@ public class Duke {
         }
     }
 
-    public static void executeTodo(String input) {
+    public static void executeTodo(String input) throws IOException {
         if (!input.contains(" ")) { // Checks for presence of description
             System.out.println(ERROR_INVALID_SYNTAX + COMMAND_UNMARK + ".");
             return;
         }
         String description = getDescription(input);
         Todo t = new Todo(description);
+        duke.File.appendToFile(t);
         t.printAddToListMessage();
         tasks[numTasks] = t;
         numTasks += 1;
     }
 
-    public static void executeDeadline(String input) {
+    public static void executeDeadline(String input) throws IOException {
         if (!input.contains(FLAG_DEADLINE)) { // Checks for presence of description
             System.out.println(ERROR_INVALID_SYNTAX + COMMAND_DEADLINE + ".");
             return;
@@ -161,12 +165,13 @@ public class Duke {
         String description = parsedCommand[0];
         String by = parsedCommand[1];
         Deadline t = new Deadline(description, by);
+        duke.File.appendToFile(t);
         t.printAddToListMessage();
         tasks[numTasks] = t;
         numTasks += 1;
     }
 
-    public static void executeEvent(String input) {
+    public static void executeEvent(String input) throws IOException {
         if (!input.contains(FLAG_EVENT)) { // Checks for presence of description
             System.out.println(ERROR_INVALID_SYNTAX + COMMAND_EVENT + ".");
             return;
@@ -175,6 +180,7 @@ public class Duke {
         String description = parsedCommand[0];
         String at = parsedCommand[1];
         Event t = new Event(description, at);
+        duke.File.appendToFile(t);
         t.printAddToListMessage();
         tasks[numTasks] = t;
         numTasks += 1;

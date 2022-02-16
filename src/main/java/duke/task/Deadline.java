@@ -14,6 +14,8 @@ public class Deadline extends Task {
         return "[D]" + getStatusIcon() + " " + super.toString() + " (by: " + by + ")";
     }
 
+    public String getDeadline() { return by; }
+
     public void printAddToListMessage() {
         System.out.println("\nSuccessfully added to list:\n" + addIndentation() + "[D]" + getStatusIcon() + " "
                 + description + " (by: " + by + ")");

@@ -6,6 +6,8 @@ import duke.task.Task;
 import duke.task.Todo;
 
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class File {
@@ -14,7 +16,9 @@ public class File {
     public static final String FILE_FLAG = " \\| ";
     public static final String FILE_TODO = "T";
     public static final String FILE_DEADLINE = "D";
+    public static final String FILE_EVENT = "E";
     public static final String FILE_DONE = "1";
+    public static final String FILE_NOT_DONE = "0";
 
     public static void loadFileContents() throws FileNotFoundException {
         java.io.File f = new java.io.File(FILE_PATH);
@@ -31,6 +35,28 @@ public class File {
                 addEvent(contentArray[1], contentArray[2], contentArray[3]);
             }
         }
+    }
+
+    public static void appendToFile(Task task) throws IOException {
+        FileWriter fileWriter = new FileWriter(FILE_PATH, true);
+        if (task instanceof Todo) {
+            fileWriter.write(FILE_TODO + FILE_FLAG + convertStatusToString(task.getIsDone()) + FILE_FLAG
+                    + task.getDescription());
+        } else if (task instanceof Deadline) {
+            fileWriter.write(FILE_DEADLINE + FILE_FLAG + convertStatusToString(task.getIsDone()) + FILE_FLAG
+                    + task.getDescription() + FILE_FLAG + ((Deadline) task).getDeadline());
+        } else {
+            fileWriter.write(FILE_EVENT + FILE_FLAG + convertStatusToString(task.getIsDone()) + FILE_FLAG
+                    + task.getDescription() + FILE_FLAG + ((Event) task).getAt());
+        }
+        fileWriter.close();
+    }
+
+    public static String convertStatusToString(boolean value) {
+        if (value) {
+            return FILE_DONE;
+        }
+        return FILE_NOT_DONE;
     }
 
     public static void addToDo(String status, String description) {
