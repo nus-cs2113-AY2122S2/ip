@@ -15,6 +15,7 @@ public class Duke {
     private static final String TODO_COMMAND = "todo";
     private static final String DEADLINE_COMMAND = "deadline";
     private static final String EVENT_COMMAND = "event";
+    private static final String DELETE_COMMAND = "delete";
     private static final String BYE_COMMAND = "bye";
 
     private static TaskList taskList = new TaskList();
@@ -124,6 +125,10 @@ public class Duke {
     public static void main(String[] args) throws DukeException {
         greeting();
 
+        processActions();
+    }
+
+    private static void processActions() throws DukeException {
         Scanner in = new Scanner(System.in);
         String textIn = in.nextLine();
         String taskDetail;
@@ -144,7 +149,10 @@ public class Duke {
             } else if (textIn.startsWith(EVENT_COMMAND)) {
                 taskDetail = textIn.substring(5);
                 addEvent(taskDetail);
-            } else {
+            } else if (textIn.startsWith(DELETE_COMMAND)){
+                taskList.deleteTask(Integer.parseInt(textIn.substring(6).trim()));
+            }
+            else{
                 printLine();
                 System.out.println("\t ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 System.out.println("\t Please refer to the command guide below.\n");
