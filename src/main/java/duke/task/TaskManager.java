@@ -10,7 +10,6 @@ public class TaskManager {
     private int numOfTasks = 0;
 
     public TaskManager(){
-
     }
 
     public int getNumOfTasks() {
@@ -52,7 +51,7 @@ public class TaskManager {
 
     }
 
-    public void deleteTask(int taskNumber) throws DukeException{
+    public void deleteTask(int taskNumber) throws DukeException {
         try {
             Task task = tasks.get(taskNumber - 1);
             tasks.remove(task);
@@ -61,13 +60,15 @@ public class TaskManager {
             IOMethods.printWithDivider("Noted. I've removed this task:\n\t " + task.toString()
                     + String.format("\nNow you have %d task%s in the list.", this.numOfTasks,
                     this.numOfTasks > 1 ? "s" : ""));
-        }
-
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Index out of bounds!");
         }
+    }
 
 
+    public void setTasks(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+        this.numOfTasks = tasks.size();
     }
 
     public void markCompleted  (int taskNumber) throws DukeException {
