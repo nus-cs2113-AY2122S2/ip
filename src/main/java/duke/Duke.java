@@ -121,12 +121,15 @@ public class Duke {
         try {
             String taskNumber = parseMarkOrUnmark(input);
             int taskIndex = Integer.parseInt(taskNumber) - 1;
+            duke.File.updateStatus(tasks[taskIndex], taskIndex + 1);
             tasks[taskIndex].markAsDone();
             System.out.println(MESSAGE_MARK_SUCCESS + tasks[taskIndex]);
         } catch (DukeException error) {
             System.out.println(error.getMessage() + COMMAND_MARK + ".");
         } catch (NumberFormatException e) {
             System.out.println(ERROR_INVALID_TASK_NUMBER);
+        } catch (IOException e) {
+           System.out.println(ERROR_IO);
         }
     }
 
@@ -134,12 +137,15 @@ public class Duke {
         try {
             String taskNumber = parseMarkOrUnmark(input);
             int taskIndex = Integer.parseInt(taskNumber) - 1;
+            duke.File.updateStatus(tasks[taskIndex], taskIndex + 1);
             tasks[taskIndex].markAsNotDone();
             System.out.println(MESSAGE_UNMARK_SUCCESS + tasks[taskIndex]);
         } catch (DukeException error) {
             System.out.println(error.getMessage() + COMMAND_UNMARK + ".");
         } catch (NumberFormatException e) {
             System.out.println(ERROR_INVALID_TASK_NUMBER);
+        } catch (IOException e) {
+            System.out.println(ERROR_IO);
         }
     }
 
