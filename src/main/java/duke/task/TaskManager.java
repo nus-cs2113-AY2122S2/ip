@@ -52,6 +52,11 @@ public class TaskManager {
 
     }
 
+    public void setTasks(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+        this.numOfTasks = tasks.size();
+    }
+
     public void markCompleted  (int taskNumber) throws DukeException {
         try {
             Task task = tasks.get(taskNumber - 1);

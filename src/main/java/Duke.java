@@ -1,7 +1,9 @@
 import duke.exception.DukeException;
 import duke.iomethods.IOMethods;
 import duke.task.TaskManager;
+import duke.fileHandler.FileHandler;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
@@ -48,11 +50,16 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
+        FileHandler.setfilePath("./inputoroutputfile.txt");
+        taskManager.setTasks(FileHandler.readFile());
 
         hello();
         Scanner sc = new Scanner (System.in);
         String line = sc.nextLine();
+
+
 
         while (!line.equals("bye")){
             try {
@@ -67,6 +74,8 @@ public class Duke {
             }
 
         }
+
+        FileHandler.writeFile(taskManager.toString());
         IOMethods.printWithDivider("Bye. Hope to see you again soon!");
 
     }
