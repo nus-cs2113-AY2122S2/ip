@@ -146,6 +146,14 @@ public class Duke implements Chatbot {
             }
 
             break;
+        case DEL:
+            int index = Integer.parseInt(line.substring(DELETE_INDEX)) - 1;
+
+            if ((index < 0) || (index >= tasks.size())) {
+                throw new NoItemException();
+            }
+
+            break;
         default:
             break;
         }
