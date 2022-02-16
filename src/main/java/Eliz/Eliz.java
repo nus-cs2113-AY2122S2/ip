@@ -85,7 +85,8 @@ public class Eliz {
 
         System.out.println("Hello from\n" + logo);
         System.out.println("Hello! I'm Eliz");
-        System.out.println("What can I do for you?");
+        System.out.println("I am your personal task list recorder! If you need help, type [/help]");
+        System.out.println("What task would you like me to note down for you?");
     }
 
     public static void markOrUnmark(String line, ArrayList<Task> tasks) {
@@ -96,6 +97,20 @@ public class Eliz {
             System.out.println("Nice! I've marked this task as done:");
             markATask(line, tasks);
         }
+    }
+
+    public static void displayCommands() {
+        System.out.println("Commands to add tasks: ");
+        System.out.println("todo [TASK_NAME]");
+        System.out.println("event [TASK_NAME]");
+        System.out.println("deadline [TASK_NAME]/[DATE]");
+        System.out.println(" ");
+        System.out.println("Command to display list: ");
+        System.out.println("list");
+        System.out.println(" ");
+        System.out.println("Commands for todo tasks: ");
+        System.out.println("mark [TASK_LIST_NUMBER]");
+        System.out.println("unmark [TASK_LIST_NUMBER]");
     }
 
     public static void delete(String line, ArrayList<Task> tasks) {
@@ -110,35 +125,92 @@ public class Eliz {
     }
 
     public static void getInput(String line, ArrayList<Task> tasks, int taskCounter) throws ElizException {
-        String[] breakTaskNames = line.split(" ", 2);
+        String[] breakTaskNames = breakTaskNames = line.split(" ", 2);
+//        if (line.substring(line.length() - 1) == " ") { //in the case that the last character is a space
+//            breakTaskNames[0] = line;
+//            breakTaskNames[1] = null;
+//        } else {
+//            breakTaskNames = line.split(" ", 2);
+//        }
 
-        if (breakTaskNames[0].equalsIgnoreCase("todo") || breakTaskNames[0].equalsIgnoreCase("deadline")
-        || breakTaskNames[0].equalsIgnoreCase("event")) {
-                /** add line to todo, deadline, or event by creating the respective object */
-                Task t = createTask(line);
-                tasks.add(taskCounter, t);
-                taskCounter++;
-                System.out.println("Got it. I've added this task ");
-                System.out.println(t);
-                System.out.println("Now you have " + taskCounter + " tasks in the list.");
-        } else {
-            if (line.equalsIgnoreCase("list")) { //check if action is t
-                //echo or print tasks
-                printTasks(tasks);
-            } else if (line.contains("mark")) { //to check if todos are marked
-                Eliz.markOrUnmark(line, tasks);
-            } else if (line.contains("delete")) {
-                Eliz.delete(line, tasks);
-            } else {
+        if ((breakTaskNames.length < 2)){
+            String firstWord = breakTaskNames[0];
+            switch (firstWord) {
+            case "list" : printTasks(tasks);
+                break;
+            case "todo":
+            case "deadline":
+            case "event":
+                System.out.println("OOPS!!! The description of a " + firstWord + " cannot be empty.");
+                throw new ElizException();
+
+            case "/help":
+                displayCommands();
+                break;
+            default: //for mark, default, other weird spelling words
                 System.out.println("OOPS!!! I'm sorry but I do not understand what you mean");
                 throw new ElizException();
             }
+        } else { //length of breakTaskNames is 2
+            //correct inputs for todo, event, deadline and delete
+            String firstWord = breakTaskNames[0];
+            switch (firstWord) {
+            case "mark":
+            case "unmark":
+                Eliz.markOrUnmark(line, tasks);
+                break;
+            case "delete":
+                Eliz.delete(line, tasks);
+                break;
+            case "todo":
+            case "event":
+            case "deadline":
+//            System.out.println("Index 0: " + breakTaskNames[0]);
+//            System.out.println("Index 1: " + breakTaskNames[1]);
+//            boolean isEmpty = false;
+//            if (breakTaskNames[1] == null) {
+//                isEmpty = true;
+//            }
+//            System.out.println(isEmpty);
+                if (breakTaskNames[1] == null) {
+                    System.out.println("OOPS!!! The description of a " + breakTaskNames[0] + " cannot be empty.");
+                    throw new ElizException();
+                } else {
+                    Task t = createTask(line);
+                    tasks.add(t);
+                    System.out.println("Got it. I've added this task ");
+                    System.out.println(t);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    break;
+                }
+            }
         }
-        if (!line.equalsIgnoreCase("list") && !line.contains("mark") && breakTaskNames.length < 2) {
-            System.out.println("OOPS!!! The description of a " + breakTaskNames[0] + " cannot be empty.");
-            throw new ElizException();
-        }
-
+//        if (breakTaskNames[0].equalsIgnoreCase("todo") || breakTaskNames[0].equalsIgnoreCase("deadline")
+//        || breakTaskNames[0].equalsIgnoreCase("event")) {
+//                /** add line to todo, deadline, or event by creating the respective object */
+//                Task t = createTask(line);
+//                tasks.add(taskCounter, t);
+//                taskCounter++;
+//                System.out.println("Got it. I've added this task ");
+//                System.out.println(t);
+//                System.out.println("Now you have " + taskCounter + " tasks in the list.");
+//        } else {
+//            if (line.equalsIgnoreCase("list")) { //check if action is t
+//                //echo or print tasks
+//                printTasks(tasks);
+//            } else if (line.contains("mark")) { //to check if todos are marked
+//                Eliz.markOrUnmark(line, tasks);
+//            } else if (line.contains("delete")) {
+//                Eliz.delete(line, tasks);
+//            } else {
+//                System.out.println("OOPS!!! I'm sorry but I do not understand what you mean");
+//                throw new ElizException();
+//            }
+//        }
+//        if (!line.equalsIgnoreCase("list") && !line.contains("mark") && breakTaskNames.length < 2) {
+//            System.out.println("OOPS!!! The description of a " + breakTaskNames[0] + " cannot be empty.");
+//            throw new ElizException();
+//        }
     }
 
     public static void main(String[] args) {
