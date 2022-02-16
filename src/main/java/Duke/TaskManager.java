@@ -9,21 +9,6 @@ public class TaskManager {
      */
     private final static List<Task> tasks = new ArrayList<>();
 
-    /**
-     * Add all the tasks in args
-     *
-     * @param args tasks to be added
-     */
-    public static void addTasks(String[] args) throws DukeException {
-        throwIfArgsIsNotValid(args, "task");
-        for (int i = 1; i < args.length; i++) {
-            Task task = new Task(args[i]);
-            tasks.add(task);
-            System.out.println("Added: " + task);
-        }
-    }
-
-
     private static void throwIfArgsIsNotValid(String[] args, String functionName) throws DukeException {
         if (args.length <= 1) {
             throw new DukeException("☹ OOPS!!! The description of a " + functionName + " cannot be empty.");
@@ -70,19 +55,25 @@ public class TaskManager {
      *
      * @param args arguments
      */
-    public static void mark(String[] args) throws DukeException {
+    public static void mark(String[] args, boolean isPrintingPrompt) throws DukeException {
         throwIfArgsIsNotValid(args, "mark");
         for (int i = 1; i < args.length; i++) {
             int taskID = Integer.parseInt(args[i]);
             int arrayID = getArrayID(taskID);
             if (arrayID < 0 || arrayID >= tasks.size()) {
-                System.out.println("There is no " + taskID + " task.");
+                if(isPrintingPrompt) {
+                    System.out.println("There is no " + taskID + " task.");
+                }
                 continue;
             }
             tasks.get(arrayID).setDone();
-            System.out.println(tasks.get(arrayID));
+            if (isPrintingPrompt) {
+                System.out.println(tasks.get(arrayID));
+            }
         }
-        System.out.println("Nice! I've marked those valid tasks as done\n");
+        if (isPrintingPrompt) {
+            System.out.println("Nice! I've marked those valid tasks as done");
+        }
     }
 
 
@@ -129,7 +120,7 @@ public class TaskManager {
      *
      * @param args arguments
      */
-    public static void addToDoes(String[] args) throws DukeException {
+    public static void addToDoes(String[] args, boolean isPrintingPrompt) throws DukeException {
         throwIfArgsIsNotValid(args, "todo");
         for (int i = 1; i < args.length; i++) {
             ToDo todo = new ToDo((args[i]));
@@ -144,7 +135,7 @@ public class TaskManager {
      *
      * @param args arguments
      */
-    public static void addDeadlines(String[] args) throws DukeException {
+    public static void addDeadlines(String[] args, boolean isPrintingPrompt) throws DukeException {
         throwIfArgsIsNotValid(args, "deadline");
         List<String> contents = new ArrayList<>();
         String deadlineTime;
@@ -160,7 +151,7 @@ public class TaskManager {
                 contents.add(args[i]);
             }
         }
-        if (!contents.isEmpty()) {
+        if (!contents.isEmpty() && isPrintingPrompt) {
             System.out.print("Deadline adding failed (no corresponding deadline time):\n");
             for (int i = 0; i < contents.size(); i++) {
                 System.out.print((i + 1) + ". " + contents.get(i) + "\t");
@@ -183,7 +174,7 @@ public class TaskManager {
      *
      * @param args arguments
      */
-    public static void addEvents(String[] args) throws DukeException {
+    public static void addEvents(String[] args, boolean isPrintintPrompt) throws DukeException {
         throwIfArgsIsNotValid(args, "event");
         List<String> contents = new ArrayList<>();
         String schedule;
@@ -199,7 +190,7 @@ public class TaskManager {
                 contents.add(args[i]);
             }
         }
-        if (!contents.isEmpty()) {
+        if (!contents.isEmpty() && isPrintintPrompt) {
             System.out.print("Event adding failed (no corresponding schedule time):\n");
             for (int i = 0; i < contents.size(); i++) {
                 System.out.print((i + 1) + ". " + contents.get(i) + "\t");
@@ -214,5 +205,9 @@ public class TaskManager {
             tasks.add(ddl);
             System.out.println("Added: " + ddl);
         }
+    }
+
+    public static Task[] getCurrentTasks() {
+        return tasks.toArray(new Task[0]);
     }
 }
