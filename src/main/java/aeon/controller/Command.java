@@ -1,6 +1,5 @@
 package aeon.controller;
 import java.io.IOException;
-import java.sql.Array;
 import java.util.Scanner;
 import aeon.task.Task;
 import aeon.task.Event;
@@ -28,24 +27,35 @@ public class Command {
     public static final String DIR_PATH = "./data/";
 
     public static final String CREATE_FILE_FAILED = "Failed to create file to store task!";
+    public static final int COMMAND_WORD = 0;
+    public static final String TASK_LIST = "list";
+    public static final String TASK_UNMARK = "unmark";
+    public static final String TASK_MARK = "mark";
+    public static final String TASK_TODO = "todo";
+    public static final String TASK_DEADLINE = "deadline";
+    public static final String TASK_EVENT = "event";
+    public static final String TASK_DELETE = "delete";
+    public static final int TASK_TYPE = 0;
+    public static final String TASKTYPE_TODO = "T";
+    public static final String TASKTYPE_DEADLINE = "D";
+    public static final String TASKTYPE_EVENT = "E";
 
-    private static ArrayList<String> rawDescList = new ArrayList<>();
+    private static ArrayList<String> rawDescriptions = new ArrayList<>();
     public static final String TASK_DELETED = "Task deleted!";
 
     public static void CommandProcessor() {
         printWelcomeMessage();
-        //Task[] list = new Task[100];
         ArrayList<Task> list = new ArrayList<>();
         readSavedTaskList(list);
         Scanner in = new Scanner(System.in);
         String response = in.nextLine();
         while (!response.equals("bye")) {
             String[] words = response.split(" ", 2);
-            switch (words[0]) {
-            case ("list"):
+            switch (words[COMMAND_WORD]) {
+            case TASK_LIST:
                 printListOfTasks(list);
                 break;
-            case ("unmark"):
+            case TASK_UNMARK:
                 try {
                     unmarkTask(list, words);
                 } catch (IndexOutOfBoundsException e) {
@@ -54,7 +64,7 @@ public class Command {
                     System.out.println(INVALID_INTEGER_MSG);
                 }
                 break;
-            case ("mark"):
+            case TASK_MARK:
                 try {
                     markTask(list, words);
                 } catch (IndexOutOfBoundsException e) {
@@ -63,28 +73,28 @@ public class Command {
                     System.out.println(INVALID_INTEGER_MSG);
                 }
                 break;
-            case ("todo"):
+            case TASK_TODO:
                 try {
                     addTodoTask(list, words);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println(TODO_DESC_ERROR);
                 }
                 break;
-            case ("deadline"):
+            case TASK_DEADLINE:
                 try {
                     addDeadlineTask(list, words);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println(DEADLINE_FORMAT_ERR);
                 }
                 break;
-            case ("event"):
+            case TASK_EVENT:
                 try {
                     addEventTask(list, words);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println(EVENT_FORMAT_ERR);
                 }
                 break;
-            case("delete"):
+            case TASK_DELETE:
                 try {
                     deleteTask(list, words);
                 } catch (IndexOutOfBoundsException e) {
@@ -103,21 +113,21 @@ public class Command {
     }
 
     private static void readSavedTaskList(ArrayList<Task> list) {
-        File f = new File(FILE_PATH);
-        File d = new File(DIR_PATH);
-        if (!d.exists()) {
-                d.mkdir();
+        File FILE = new File(FILE_PATH);
+        File DIRECTORY = new File(DIR_PATH);
+        if (!DIRECTORY.exists()) {
+                DIRECTORY.mkdir();
         }
-        if (!f.exists()) {
+        if (!FILE.exists()) {
             try {
-                createTaskFile(f);
+                createTaskFile(FILE);
             } catch (IOException e) {
                 System.out.println(CREATE_FILE_FAILED);
             }
         }
         Scanner fileScanner = null;
         try {
-            fileScanner = getScanner(f, fileScanner);
+            fileScanner = getScanner(FILE, fileScanner);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -127,14 +137,14 @@ public class Command {
             String[] taskInFileArray = taskInFile.split(" ", 2);
             String[] taskType = taskInFileArray[1].split(" ", 2);
             String isDone = taskInFileArray[0];
-            switch (taskType[0]) {
-            case ("T"):
+            switch (taskType[TASK_TYPE]) {
+            case TASKTYPE_TODO:
                 readFromFileTodo(list, taskType, isDone);
                 break;
-            case ("D"):
+            case TASKTYPE_DEADLINE:
                 readFromFileDeadline(list, taskType, isDone);
                 break;
-            case ("E"):
+            case TASKTYPE_EVENT:
                 readFromFileEvent(list, taskType, isDone);
                 break;
             }
@@ -175,12 +185,12 @@ public class Command {
 
     public static void addToList(ArrayList<Task> list, Task t, String taskType, String rawDesc) {
         list.add(t);
-        rawDescList.add(taskType + " " + rawDesc);
+        rawDescriptions.add(taskType + " " + rawDesc);
 
         Task.setNoOfItems(Task.getNoOfItems() + 1);
         System.out.println("Total: " + Task.getNoOfItems() + " task(s) in the list!");
         try {
-            writeToFile(list, rawDescList);
+            writeToFile(list, rawDescriptions);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -240,7 +250,7 @@ public class Command {
         System.out.println(CONGRATULATIONS_MSG);
         System.out.println(list.get(index - 1));
         try {
-            writeToFile(list, rawDescList);
+            writeToFile(list, rawDescriptions);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -253,7 +263,7 @@ public class Command {
         System.out.println(MARK_UNDONE);
         System.out.println(list.get(index - 1));
         try {
-            writeToFile(list, rawDescList);
+            writeToFile(list, rawDescriptions);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -278,7 +288,7 @@ public class Command {
         Task.setNoOfItems(Task.getNoOfItems() - 1);
         System.out.println("Total: " + Task.getNoOfItems() + " task(s) in the list!");
         try {
-            writeToFile(list, rawDescList);
+            writeToFile(list, rawDescriptions);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
