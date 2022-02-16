@@ -6,12 +6,12 @@ import duke.task.Task;
 import duke.task.Todo;
 
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -44,38 +44,26 @@ public class File {
         }
     }
 
-    public static void updateStatus(Task task, int lineNum) throws IOException {
-        String oldStatus = getFormattedString(task);
-        String newStatus;
-        if (oldStatus.charAt(FILE_STATUS_INDEX) == FILE_DONE_CHAR) {
-            newStatus = oldStatus.substring(0,4) + FILE_NOT_DONE + oldStatus.substring(5);
-        } else {
-            newStatus = oldStatus.substring(0,4) + FILE_DONE + oldStatus.substring(5);
-        }
-        // Solution inspired from https://stackoverflow.com/questions/31375972/how-to-replace-a-specific-line-in-a-file-using-java
+    public static void updateFile() throws IOException {
         Path path = Paths.get(FILE_PATH);
-        List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
-        lines.set(lineNum - 1, newStatus);
+        List<String> lines = new ArrayList<>();
+        for (Task task: Duke.taskList) {
+            lines.add(getFormattedString(task));
+        }
         Files.write(path, lines, StandardCharsets.UTF_8);
     }
 
     public static String getFormattedString(Task task) {
         if (task instanceof Todo) {
             return (FILE_TODO + " | " + convertStatusToString(task.getIsDone()) + " | "
-                    + task.getDescription() + "\n");
+                    + task.getDescription());
         } else if (task instanceof Deadline) {
             return (FILE_DEADLINE + " | " + convertStatusToString(task.getIsDone()) + " | "
-                    + task.getDescription() + " | " + ((Deadline) task).getDeadline() + "\n");
+                    + task.getDescription() + " | " + ((Deadline) task).getDeadline());
         } else {
             return (FILE_EVENT + " | " + convertStatusToString(task.getIsDone()) + " | "
-                    + task.getDescription() + " | " + ((Event) task).getAt() + "\n");
+                    + task.getDescription() + " | " + ((Event) task).getAt());
         }
-    }
-
-    public static void appendToFile(Task task) throws IOException {
-        FileWriter fileWriter = new FileWriter(FILE_PATH, true);
-        fileWriter.write(getFormattedString(task));
-        fileWriter.close();
     }
 
     public static String convertStatusToString(boolean value) {
