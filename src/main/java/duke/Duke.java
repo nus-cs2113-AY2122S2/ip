@@ -294,6 +294,7 @@ public class Duke {
         displayLine();
         isModified = true;
 
+
     }
 
     public static void deleteTask(int taskNumber){
@@ -307,6 +308,7 @@ public class Duke {
             taskNumber++;
         }
         taskCount--;
+
 
     }
 
