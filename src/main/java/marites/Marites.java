@@ -30,6 +30,7 @@ public class Marites {
     private static final String COMMAND_ADD_EVENT = "event";
     private static final String COMMAND_ADD_DEADLINE_TAG = "--by";
     private static final String COMMAND_ADD_EVENT_TAG = "--at";
+    private static final String COMMAND_DELETE = "delete";
 
     private static final String LIST_TASK_ITEM_FORMAT_STRING = "%d. %s\n";
     private static final String ADD_TASK_FORMAT_STRING =
@@ -42,7 +43,9 @@ public class Marites {
             "I don't know this task type: '%s'\n";
     private static final String MARK_DONE_MESSAGE = "Good job on getting this done!";
     private static final String MARK_UNDONE_MESSAGE = "Okay, I've marked this as not yet done:";
-    private static final String MARK_INVALID_NUMBER_MESSAGE =
+    private static final String DELETE_TASK_MESSAGE =
+            "Alright, task deleted:%n  %s%nYour list currently has %d tasks.\n";
+    private static final String INVALID_TASK_NUMBER_MESSAGE =
             "I either didn't get a task number, or couldn't understand it: '%s'\n";
     private static final String SET_TASK_STATUS_FORMAT_STRING = "%s%n    %s\n";
 
@@ -137,6 +140,9 @@ public class Marites {
             // All 3 cases fallthrough here
             commandOutput = executeAddTask(commandType, command);
             break;
+        case COMMAND_DELETE:
+            commandOutput = executeDelete(command);
+            break;
         default:
             commandOutput = UNKNOWN_COMMAND_MESSAGE;
             break;
@@ -226,13 +232,30 @@ public class Marites {
         try {
             taskIndex = parseInt(command);
         } catch (NumberFormatException e) {
-            return String.format(MARK_INVALID_NUMBER_MESSAGE, command);
+            return String.format(INVALID_TASK_NUMBER_MESSAGE, command);
         }
         Task taskToMark = tasks.get(taskIndex - 1);
         taskToMark.setDone(isDone);
         String message = (isDone ? MARK_DONE_MESSAGE :
                 MARK_UNDONE_MESSAGE);
         return String.format(SET_TASK_STATUS_FORMAT_STRING, message, taskToMark);
+    }
+
+    /**
+     * Executes a delete command.
+     * @param command The user's command (in this case, the index of the task to delete.)
+     * @return A feedback string with the deleted task.
+     */
+    private static String executeDelete(String command) {
+        int taskIndex;
+        try {
+            taskIndex = parseInt(command);
+        } catch (NumberFormatException e) {
+            return String.format(INVALID_TASK_NUMBER_MESSAGE, command);
+        }
+        Task taskToDelete = tasks.get(taskIndex - 1);
+        tasks.remove(taskIndex - 1);
+        return String.format(DELETE_TASK_MESSAGE, taskToDelete, tasks.size());
     }
 
     /**
