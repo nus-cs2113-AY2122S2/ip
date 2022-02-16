@@ -293,6 +293,7 @@ public class Duke {
         System.out.println(taskList[taskNumber-1]);
         displayLine();
         isModified = true;
+
     }
 
     public static void deleteTask(int taskNumber){
@@ -306,6 +307,7 @@ public class Duke {
             taskNumber++;
         }
         taskCount--;
+
     }
 
     public static boolean isMarkCommand(String userInput){
