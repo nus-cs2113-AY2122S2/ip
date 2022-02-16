@@ -70,8 +70,8 @@ public class Duke {
 
                 } else if (isMark) {
 
-                    if (arrOfStr.length == 1){
-                        throw new DukeException("Error: You have not entered the task number!");
+                    if (task.instruction.equals("mark") || task.instruction.equals("mark ")){
+                        throw new DukeException("☹ OOPS!!! You have not entered the task number!");
                     }
 
                     System.out.println("Nice! I've marked this task as done:");
@@ -83,7 +83,7 @@ public class Duke {
 
                 } else if (isTodo) {
 
-                    if (arrOfStr.length == 1){
+                    if (task.instruction.equals("todo") || task.instruction.equals("todo ")){
                         throw new DukeException("☹ OOPS!!! You have not entered your task!");
                     }
 
@@ -98,7 +98,7 @@ public class Duke {
 
                 } else if (isDeadline) {
 
-                    if (arrOfStr.length == 1){
+                    if (task.instruction.equals("deadline") || task.instruction.equals("deadline ")){
                         throw new DukeException("☹ OOPS!!! You have not entered your task!");
                     }
                     if (arrOfDeadline.length == 1){
@@ -118,7 +118,7 @@ public class Duke {
 
                 } else if (isEvent) {
 
-                    if (arrOfStr.length == 1){
+                    if (task.instruction.equals("event") || task.instruction.equals("event ")){
                         throw new DukeException("☹ OOPS!!! You have not entered your event!");
                     }
                     if (arrOfEvent.length == 1){
