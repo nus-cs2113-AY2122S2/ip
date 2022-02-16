@@ -1,47 +1,52 @@
 package task;
 
+import java.util.ArrayList;
+
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String taskType;
+
     public static final String LINESEPARATOR = "____________________________________________________________\n";
-    private static int taskCount = 0;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        taskCount++;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setTaskDescription(String description) {
-        this.description = description;
+    public String getTaskType() {
+        return taskType;
     }
 
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
-    public static int getTaskCount() {
-        return taskCount;
-    }
-
-    public void markAsDone(int taskNumber, Task[] taskList) {
+    public void markAsDone(int taskNumber, ArrayList<Task> taskList, Boolean isUserCommand) {
         isDone = true;
-        System.out.print(LINESEPARATOR);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("[" + taskList[taskNumber - 1].getStatusIcon() + "] " + taskList[taskNumber - 1].getDescription());
-        System.out.print(LINESEPARATOR);
+        if (isUserCommand) {
+            System.out.print(LINESEPARATOR);
+            System.out.println("OK, I've marked this task as done:");
+            System.out.println(taskList.get(taskNumber - 1).toString());
+            System.out.print(LINESEPARATOR);
+        }
     }
 
-    public void markAsUndone(int taskNumber, Task[] taskList) {
+    public void markAsUndone(int taskNumber, ArrayList<Task> taskList, Boolean isUserCommand) {
         isDone = false;
-        System.out.print(LINESEPARATOR);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("[" + taskList[taskNumber - 1].getStatusIcon() + "] " + taskList[taskNumber - 1].getDescription());
-        System.out.print(LINESEPARATOR);
+        if (isUserCommand) {
+            System.out.print(LINESEPARATOR);
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println(taskList.get(taskNumber - 1).toString());
+            System.out.print(LINESEPARATOR);
+        }
+    }
+
+    public void deleteTask(int taskNumber, ArrayList<Task> taskList) {
     }
 
     public String toString() {
