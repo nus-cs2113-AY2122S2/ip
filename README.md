@@ -26,4 +26,8 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 #Personalisation
 1.Renamed bot to Eliz
 
-#Bugs
+
+#Bugs for now
+1. Does not detect error when only tasktype is keyed in without a taskname
+2. Reads in task when todo/event/deadline has a space keyed in afterwards
+
