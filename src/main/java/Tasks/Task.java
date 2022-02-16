@@ -9,6 +9,8 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean getStatus(){return isDone;}
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
@@ -31,4 +33,5 @@ public class Task {
     public String toString(){
         return "["+getStatusIcon()+"] "+description;
     }
+    public String getType(){return null;}
 }
