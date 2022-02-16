@@ -145,9 +145,13 @@ public class Duke {
                 writeToFile(pathName, userLists);
             }
         } catch (IOException e) {
-            file.mkdir();
-            saveList(userLists);
-            e.printStackTrace();
+            File directory = new File("./data/");
+            boolean isDirCreated = directory.mkdir();
+            if (isDirCreated) {
+                saveList(userLists);
+            } else {
+                e.printStackTrace();
+            }
         }
     }
 
