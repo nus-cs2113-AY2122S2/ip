@@ -114,6 +114,26 @@ public class Duke {
                     }
                     break;
                 }
+                case "delete":{
+                    if (words.length==1)
+                        System.out.println("☹ OOPS!!! Please tell me the task you want to delete.");
+                    else{
+                        try{
+                            int index = Integer.parseInt(words[1]);
+                            if(index>todolist.size()||index<=0) System.out.println("No task found.");
+                            else{
+                                System.out.println("Noted. I've removed this task:");
+                                System.out.println((index)+". "+todolist.get(index-1).toString());
+                                todolist.remove(index-1);
+                                System.out.println("Now you have " + todolist.size() + " tasks in the list.");
+                            }
+                        }
+                        catch (NumberFormatException ex){
+                            System.out.println("☹ OOPS!!! Please tell me the task number you want to delete.");
+                        }
+                    }
+                    break;
+                }
                 default:
                     System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
