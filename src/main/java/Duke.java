@@ -3,18 +3,46 @@ import Tasks.Event;
 import Tasks.Task;
 import Tasks.ToDo;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.BufferedReader;
+
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        ArrayList<Task> todolist = new ArrayList<Task>();
-        String task;
         System.out.println("Hello from\n" + logo);
+        FileManager.create();
+        ArrayList<Task> todolist = new ArrayList<Task>();
+        BufferedReader br = new BufferedReader(new FileReader("data.txt"));
+        String taskLine;
+        while ((taskLine = br.readLine())!=null) {
+            String[] t = taskLine.split(",");
+            switch (t[0]) {
+                case "T":
+                    ToDo todo = new ToDo(t[2]);
+                    todolist.add(todo);
+                    break;
+                case "D":
+                    Deadline deadline = new Deadline(t[2], t[3]);
+                    todolist.add(deadline);
+                    break;
+                case "E":
+                    Event event = new Event(t[2], t[3]);
+                    todolist.add(event);
+                    break;
+            }
+            if (t.length>1&&t[1].equals("true"))
+                 todolist.get(todolist.size() - 1).markAsDone();
+        }
+        br.close();
+        String task;
         System.out.println("Hello! I'm Duke\nWhat can I do for you?");
         Scanner in = new Scanner(System.in);
         task=in.nextLine();
@@ -139,6 +167,22 @@ public class Duke {
             }
             task=in.nextLine();
         }
+        String taskAllInfo="";
+        for(Task k: todolist){
+            String taskInfo = k.getType()+","+k.getStatus()+","+k.getDescription();
+            if(k.getType()=="D") {
+                Deadline d = (Deadline) k;
+                taskInfo = taskInfo + "," + d.getBy();
+            }
+            else if(k.getType()=="E"){
+                Event e = (Event) k;
+                taskInfo = taskInfo + "," + e.getAt();
+            }
+            taskAllInfo+=taskInfo+"\n";
+        }
+        if (taskAllInfo!=null) taskAllInfo=taskAllInfo.substring(0, taskAllInfo.length() - 1);
+        FileManager.save(taskAllInfo);
         System.out.println("Bye.Have a nice day!");
     }
 }
+
