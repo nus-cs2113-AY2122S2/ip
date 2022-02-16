@@ -4,6 +4,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
+import duke.task.TaskList;
 
 import java.util.Scanner;
 
@@ -17,7 +18,6 @@ public class Duke {
     private static final String BYE_COMMAND = "bye";
 
     private static TaskList taskList = new TaskList();
-
 
     public static void printLine() {
         System.out.println("\t" + "-----------------------------------------");
@@ -43,10 +43,10 @@ public class Duke {
         printLine();
     }
 
-    public static void AbleToAddTask(Task newtask, TaskList taskList) {
+    public static void ableToAddTask(Task newtask, TaskList taskList) {
         System.out.println("\t" + " Got it. I've added this task:");
         System.out.println("\t" + "\t" + newtask);
-        System.out.println("\t" + " Now you have " + taskList.getTaskCount() + " tasks in the list.");
+        System.out.println("\t" + " Now you have " + taskList.getSize() + " tasks in the list.");
         printLine();
     }
 
@@ -56,7 +56,7 @@ public class Duke {
             checkTaskDetailEmpty(taskDetail, TODO_COMMAND);
             Task newTask = new Todo(taskDetail);
             taskList.addTask(newTask);
-            AbleToAddTask(newTask, taskList);
+            ableToAddTask(newTask, taskList);
         } catch (DukeException e) {
             System.out.println(e);
             guide();
@@ -67,11 +67,11 @@ public class Duke {
         printLine();
         try {
             checkTaskDetailEmpty(taskDetail, DEADLINE_COMMAND);
-            int separator = taskDetail.indexOf("by");
-            checkKeyword(separator);
-            Task newTask = new Deadline(taskDetail.substring(0, separator - 1), taskDetail.substring(separator + 3));
+            int separatorIndex = taskDetail.indexOf("/by");
+            checkKeyword(separatorIndex);
+            Task newTask = new Deadline(taskDetail.substring(0, separatorIndex - 1), taskDetail.substring(separatorIndex + 4));
             taskList.addTask(newTask);
-            AbleToAddTask(newTask, taskList);
+            ableToAddTask(newTask, taskList);
         } catch (DukeException e) {
             System.out.println(e);
             guide();
@@ -82,11 +82,11 @@ public class Duke {
         printLine();
         try {
             checkTaskDetailEmpty(taskDetail, EVENT_COMMAND);
-            int separator = taskDetail.indexOf("at");
-            checkKeyword(separator);
-            Task newTask = new Event(taskDetail.substring(0, separator - 1), taskDetail.substring(separator + 3));
+            int separatorIndex = taskDetail.indexOf("/at");
+            checkKeyword(separatorIndex);
+            Task newTask = new Event(taskDetail.substring(0, separatorIndex - 1), taskDetail.substring(separatorIndex + 4));
             taskList.addTask(newTask);
-            AbleToAddTask(newTask, taskList);
+            ableToAddTask(newTask, taskList);
         } catch (DukeException e) {
             System.out.println(e);
             guide();
@@ -112,16 +112,16 @@ public class Duke {
     public static void guide() {
         System.out.println("\t" + " use \"list\" to show the task list");
         System.out.println("\t" + " use \"todo task\" to add a task without any date/time attached to it\"");
-        System.out.println("\t" + " use \"deadline task by time\" to add a task that need to be done before a specific time/date");
-        System.out.println("\t" + " use \"event task at time\" to add a task that tasks that start at a specific time and ends at a specific time");
+        System.out.println("\t" + " use \"deadline task /by time\" to add a task that need to be done before a specific time/date");
+        System.out.println("\t" + " use \"event task /at time\" to add a task that tasks that start at a specific time and ends at a specific time");
         System.out.println("\t" + " use \"mark taskIndex\" to mark that task as done");
         System.out.println("\t" + " use \"unmark taskIndex\" to mark that task as not done");
+        System.out.println("\t" + " use \"delete taskIndex\" to ..........");
         System.out.println("\t" + " use \"bye\" to exit the chatbot");
         printLine();
     }
 
     public static void main(String[] args) throws DukeException {
-
         greeting();
 
         Scanner in = new Scanner(System.in);
@@ -157,3 +157,4 @@ public class Duke {
         bye();
     }
 }
+
