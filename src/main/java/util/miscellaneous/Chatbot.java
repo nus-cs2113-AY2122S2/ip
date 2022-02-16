@@ -38,7 +38,7 @@ public interface Chatbot {
     String DEADLINE_TYPE = "[D]";
     String EVENT_TYPE = "[E]";
     String DONE_STATUS = "[X]";
-    
+
     int DELETE_INDEX = 7;
     int TODO_TASK_INDEX = 4;
     int DEADLINE_TASK_INDEX = 8;

@@ -24,6 +24,7 @@ public class Duke extends DukeOperation {
             boolean isLoadingData = false;
 
             loadAndRun(tasks, line, isLoadingData, needUpdateTaskStatus);
+            line =input2.nextLine();
         }
 
         exitLine();
