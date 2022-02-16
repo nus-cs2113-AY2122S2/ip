@@ -1,13 +1,12 @@
 package duke;
 
 public class Ui {
-    private final Duke duke;
-
+    String line = "____________________________________________________________\n";
     /**
      * A public constructor to construct Ui
      */
-    public Ui(Duke duke) {
-        this.duke = duke;
+    public Ui() {
+        ;
     }
 
     /**
@@ -33,4 +32,7 @@ public class Ui {
         return "Hello! I'm Duke,\nWhat can I do for you?";
     }
 
+    public String generateResponse(String messages) {
+        return line + messages + line;
+    }
 }

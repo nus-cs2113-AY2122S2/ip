@@ -1,21 +1,22 @@
 package duke;
 
+import command.Command;
+import command.ExitCommand;
 import duke.exception.DukeException;
 
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
-    private static final Ui ui = null;
-    private static final Parser parser = null;
+    private static final Ui ui = new Ui();
+    private static final Parser parser = new Parser();
     private static TaskList tasklist = new TaskList();
     private static Command command;
 
     public static void main(String[] args) throws DukeException {
-        String line = "____________________________________________________________\n";
         System.out.println(ui.printLogo());
         System.out.println(ui.greet());
-        String commandType = parser.getCommand();
+        String fullCommand = parser.getCommand();
         Storage storage;
         try {
             storage = new Storage();
@@ -23,14 +24,19 @@ public class Duke {
         } catch (DukeException e) {
             throw new DukeException("Cannot load file.\n");
         }
-
-        while(!commandType.equals("bye")) {
-            command = new Command(commandType);
-            command.execute(tasklist);
-            commandType = parser.getCommand();
+        while (!fullCommand.equals("bye")) {
+            try {
+                    Command c = parser.parse(fullCommand);
+                    System.out.println(c.execute(tasklist, ui, storage));
+                    fullCommand = parser.getCommand();
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+                fullCommand = parser.getCommand();
+                continue;
+            }
         }
-        storage.saveTaskList(tasklist);
-        System.out.println(line + "Bye. Hope to see you again soon!\n" + line);
+        ExitCommand exitCommand = new ExitCommand();
+        System.out.println(exitCommand.execute(tasklist, ui, storage));
     }
 
 }
