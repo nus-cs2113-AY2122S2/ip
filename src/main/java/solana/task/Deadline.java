@@ -9,11 +9,11 @@ public class Deadline extends Task {
     }
 
     @Override
-    public void printDescription() {
+    public String toString() {
         if (isDone) {
-            System.out.println("[D][X] " + description + " (By: " + by + ")");
+            return "[D][X] " + description + " (By: " + by + ")";
         } else {
-            System.out.println("[D][ ] " + description + " (By: " + by + ")");
+            return "[D][ ] " + description + " (By: " + by + ")";
         }
     }
 }

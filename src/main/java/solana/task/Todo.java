@@ -6,11 +6,11 @@ public class Todo extends Task {
     }
 
     @Override
-    public void printDescription() {
+    public String toString() {
         if (isDone) {
-            System.out.println("[T][X] " + description);
+            return "[T][X] " + description;
         } else {
-            System.out.println("[T][ ] " + description);
+            return "[T][ ] " + description;
         }
     }
 }
