@@ -65,4 +65,29 @@ public class TaskManager {
             System.out.println(" " + (i + 1) + "."+ tasks[i]);
         }
     }
+
+    public void deleteTask(int index) {
+        if (tasks == null || index < 0 || index >= tasks.length) {
+            listTasks();
+            return;
+        }
+
+        Task[] anotherTasks = new Task[100];
+
+        for (int i = 0, k = 0; i < tasksCount; i++) {
+            if (i == index) {
+                continue;
+            }
+
+            anotherTasks[k++] = tasks[i];
+        }
+
+        System.out.println(" Noted. I've removed this task: ");
+        System.out.println(tasks[index]);
+        tasksCount--;
+        System.out.println(" Now you have " + tasksCount + " tasks in the list");
+
+        tasks = anotherTasks.clone();
+
+    }
 }

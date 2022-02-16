@@ -8,6 +8,7 @@ public class Duke {
     private static final String LIST_COMMAND = "list";
     private static final String MARK_COMMAND = "mark";
     private static final String UNMARK_COMMAND = "unmark";
+    private static final String DELETE_COMMAND = "delete";
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -48,6 +49,11 @@ public class Duke {
             else if (firstWord.equalsIgnoreCase(UNMARK_COMMAND)) {
                 index = userInput.substring(userInput.indexOf(" ") + 1);
                 t.unmarkAsNotDone(Integer.parseInt(index) - 1);
+                System.out.println(HORIZONTAL_LINE);
+            }
+            else if (firstWord.equalsIgnoreCase(DELETE_COMMAND)) {
+                index = userInput.substring(userInput.indexOf(" ") + 1);
+                t.deleteTask(Integer.parseInt(index) - 1);
                 System.out.println(HORIZONTAL_LINE);
             }
             else if (userInput.equalsIgnoreCase(EXIT_COMMAND) == false) {
