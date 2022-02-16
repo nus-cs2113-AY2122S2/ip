@@ -3,6 +3,9 @@ package duke;
 import command.*;
 import duke.exception.DukeException;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Parser {
