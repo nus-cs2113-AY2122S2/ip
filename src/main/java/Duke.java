@@ -1,5 +1,7 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.sun.source.util.TaskListener;
 import em.exception.EmptyTaskDescriptionException;
 import em.exception.IllegalInputException;
 import em.exception.TaskOutOfRangeException;
@@ -7,12 +9,14 @@ import task.Deadline;
 import task.Event;
 import task.Task;
 import task.ToDo;
+import java.util.ArrayList;
 
 
 public class Duke {
     public static final String LINESEPARATOR = "____________________________________________________________\n";
-    public static final int MAX_TASKS = 100;
-    public static final Task[] taskList = new Task[MAX_TASKS];
+    //public static final int MAX_TASKS = 100;
+    //public static final Task[] taskList = new Task[MAX_TASKS];
+    public static ArrayList<Task> taskList = new ArrayList<>();
 
     public static void displayLogo() {
         String logo = "                       ___\n"
@@ -37,29 +41,31 @@ public class Duke {
         System.out.println(farewell);
     }
 
-    public static void displayTaskList(Task[] taskList) {
+    public static void displayTaskList(ArrayList<Task> taskList) {
         System.out.println(LINESEPARATOR);
         System.out.println("Here are the tasks in your list:");
-        if (Task.getTaskCount() == 0) {
+        //if (Task.getTaskCount() == 0) {
+        if (taskList.size() == 0) {
             System.out.println("List is Empty!");
         }
-
-        for (int i = 0; i < Task.getTaskCount(); i++) {
-            System.out.println((i + 1) + ". " + taskList[i].toString());
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println((i + 1) + ". " + taskList.get(i).toString());
         }
         System.out.println(LINESEPARATOR);
     }
 
-    public static void addTask(String userInput, Task[] taskList) {
+    //public static void addTask(String userInput, Task[] taskList) {
+    public static void addTask(String userInput, ArrayList<Task> taskList) {
         String[] taskDescription = userInput.split(" ", 2);
         Task newTask = new ToDo(taskDescription[1]);
-        taskList[Task.getTaskCount() - 1] = newTask;
+        taskList.add(newTask);
+        //taskList[Task.getTaskCount() - 1] = newTask;
         System.out.println(LINESEPARATOR + "Got it. I've added this task:");
-        System.out.println(taskList[Task.getTaskCount() - 1].toString());
-        System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.\n" + LINESEPARATOR);
+        System.out.println(taskList.get(taskList.size() - 1).toString());
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.\n" + LINESEPARATOR);
     }
 
-    public static void addTaskAndTime(String userInput, Task[] taskList) {
+    public static void addTaskAndTime(String userInput, ArrayList<Task> taskList) {
         String[] arrayOfUserInput = userInput.split(" ", 2);
         arrayOfUserInput = userInput.split("/", 2);
         String taskLongDesc = arrayOfUserInput[0];
@@ -72,17 +78,23 @@ public class Duke {
         } else{
             newTask = new Event(taskDescription[1], timing[1]);
         }
-        taskList[Task.getTaskCount() - 1] = newTask;
+        taskList.add(newTask);
+        //taskList[Task.getTaskCount() - 1] = newTask;
         System.out.println(LINESEPARATOR + "Got it. I've added this task:");
-        System.out.println(taskList[Task.getTaskCount() - 1].toString());
-        System.out.println("Now you have " + Task.getTaskCount() + " tasks in the list.\n" + LINESEPARATOR);
+        //System.out.println(taskList[Task.getTaskCount() - 1].toString());
+        //System.out.println(taskList.get(Task.getTaskCount() - 1).toString());
+        System.out.println(taskList.get(taskList.size()-1).toString());
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.\n" + LINESEPARATOR);
     }
 
     public static boolean isTaskValid(int taskNumber) throws TaskOutOfRangeException {
-        if (taskNumber > Task.getTaskCount() || taskNumber <= 0) {
+        if (taskNumber > taskList.size() || taskNumber <= 0) {
             throw new TaskOutOfRangeException();
         }
         return true;
+    }
+    public static void deleteTask(String userInput, ArrayList<Task> taskList) {
+
     }
 
     public static String checkValidityOfInput(String userInput) throws EmptyTaskDescriptionException, IllegalInputException {
@@ -94,11 +106,13 @@ public class Duke {
             throw new IllegalInputException(); //list and more input
         } else if (arrayOfUserInput.length <= 1 && (arrayOfUserInput[0].equalsIgnoreCase("todo")
                 || arrayOfUserInput[0].equalsIgnoreCase("event") || arrayOfUserInput[0].equalsIgnoreCase("deadline")
-                || arrayOfUserInput[0].equalsIgnoreCase("mark") || arrayOfUserInput[0].equalsIgnoreCase("unmark"))) { //todo, deadline, event with no parameters
+                || arrayOfUserInput[0].equalsIgnoreCase("delete") || arrayOfUserInput[0].equalsIgnoreCase("mark")
+                || arrayOfUserInput[0].equalsIgnoreCase("unmark"))) { //todo, deadline, event with no parameters
             throw new EmptyTaskDescriptionException(); //task with no description
         } else if ((arrayOfUserInput.length <= 1) || !(arrayOfUserInput[0].equalsIgnoreCase("todo")
                 || arrayOfUserInput[0].equalsIgnoreCase("event") || arrayOfUserInput[0].equalsIgnoreCase("deadline")
-                || arrayOfUserInput[0].equalsIgnoreCase("mark") || arrayOfUserInput[0].equalsIgnoreCase("unmark"))) {
+                || arrayOfUserInput[0].equalsIgnoreCase("delete") || arrayOfUserInput[0].equalsIgnoreCase("mark")
+                || arrayOfUserInput[0].equalsIgnoreCase("unmark"))) {
             throw new IllegalInputException(); //not valid task action
         } else {
             return userInput;
@@ -120,13 +134,13 @@ public class Duke {
                 case "mark":
                     int markTaskNumber = Integer.parseInt(userInput.split(" ")[1]);
                     if (isTaskValid(markTaskNumber)) {
-                        taskList[markTaskNumber - 1].markAsDone(markTaskNumber, taskList);
+                        taskList.get(markTaskNumber - 1).markAsDone(markTaskNumber, taskList);
                     }
                     break;
                 case "unmark":
                     int unmarkTaskNumber = Integer.parseInt(userInput.split(" ")[1]);
                     if (isTaskValid(unmarkTaskNumber)) {
-                        taskList[unmarkTaskNumber - 1].markAsUndone(unmarkTaskNumber, taskList);
+                        taskList.get(unmarkTaskNumber - 1).markAsUndone(unmarkTaskNumber, taskList);
                     }
                     break;
                 case "todo":
@@ -135,6 +149,12 @@ public class Duke {
                 case "event":
                 case "deadline":
                     addTaskAndTime(userInput, taskList);
+                    break;
+                case "delete":
+                    int deleteTaskNumber = Integer.parseInt(userInput.split(" ")[1]);
+                    if (isTaskValid(deleteTaskNumber)) {
+                        taskList.get(deleteTaskNumber - 1).deleteTask(deleteTaskNumber, taskList);
+                    }
                     break;
                 default:
                     System.out.println("Invalid");
