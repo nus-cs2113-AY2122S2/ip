@@ -21,7 +21,7 @@ public class Decoder {
             } catch (DukeException de) {
                 throw de;
             }
-        } else {
+        }else {
             throw new DukeException(DukeExceptionCause.INVALIDCOMMAND);
         }
         return newCommand;

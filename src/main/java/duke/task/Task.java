@@ -26,10 +26,8 @@ public class Task {
         this.isDone = isDone;
         String taskStatusSymbol;
         if (isDone == true) {
-            System.out.println("\t Nice! I've marked this task as done:");
             taskStatusSymbol = DONE_SYMBOL;
         } else {
-            System.out.println("\t OK, I've marked this task as not done yet:");
             taskStatusSymbol = NOT_DONE_SYMBOL;
         }
         return taskStatusSymbol;
