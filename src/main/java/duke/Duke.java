@@ -1,9 +1,10 @@
 package duke;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    private static Task[] tasks = new Task[100];
+    private static ArrayList<Task> tasks = new ArrayList<>();
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -17,7 +18,7 @@ public class Duke {
         System.out.println("================================================");
 
         int i = 0;
-        int taskStartIndex;
+        int taskStartIndex, taskDeleteIndex;
         String userInput;
         Scanner in = new Scanner(System.in);
         do{
@@ -25,13 +26,38 @@ public class Duke {
 
             if(userInput.startsWith("mark")){
                 taskStartIndex = Integer.parseInt(userInput.substring(5));
-                tasks[taskStartIndex-1].markAsDone();
-                System.out.println(tasks[taskStartIndex-1].printTask());
+                try {
+                    tasks.get(taskStartIndex-1).markAsDone();
+                    System.out.println(tasks.get(taskStartIndex-1).printTask());
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("This task does not exist!");
+                } catch (NumberFormatException e){
+                    System.out.println("Please use numbers only to specify task!");
+                }
             }else if(userInput.startsWith("unmark")){
                 taskStartIndex = Integer.parseInt(userInput.substring(7));
-                tasks[taskStartIndex-1].markAsUndone();
-                System.out.println(tasks[taskStartIndex-1].printTask());
-            }else{
+                try {
+                    tasks.get(taskStartIndex-1).markAsUndone();
+                    System.out.println(tasks.get(taskStartIndex-1).printTask());
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("This task does not exist!");
+                } catch (NumberFormatException e){
+                    System.out.println("Please use numbers only to specify task!");
+                }
+            }else if(userInput.startsWith("delete")){
+                taskDeleteIndex = Integer.parseInt(userInput.substring(7));
+                try {
+                    deleteTask(taskDeleteIndex);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(tasks.get(taskDeleteIndex-1).printTask());
+                    i--;
+                    System.out.println("Now you have " + i + " tasks in the list.");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("This task does not exist!");
+                } catch (NumberFormatException e){
+                    System.out.println("Please use numbers only to specify task!");
+                }
+            } else{
                 switch(userInput){
                 case "bye":
                     System.out.println("================================================");
@@ -42,10 +68,10 @@ public class Duke {
                 default:
                     System.out.println("================================================");
                     try {
-                        tasks[i] = addTask(userInput);
-                        System.out.println(tasks[i].printTask());
-                        System.out.println("Now you have " + (i+1) + " tasks in the list.");
+                        tasks.add(addTask(userInput));
+                        System.out.println(tasks.get(i).printTask());
                         i++;
+                        System.out.println("Now you have " + (i) + " tasks in the list.");
                     } catch (NullPointerException e) {
                         System.out.println("Please try again!");
                     }
@@ -87,6 +113,10 @@ public class Duke {
         return null;
     }
 
+    public static void deleteTask(int index){
+        tasks.remove(index);
+    }
+
     public static void checkEmptyDescription(String description) throws EmptyDescriptionException{
         if(description.isBlank()){
             throw new EmptyDescriptionException();
@@ -97,7 +127,7 @@ public class Duke {
         System.out.println("================================================");
         System.out.println("Here are the tasks in your list:");
         for(int j=0; j<numOfTasks; j++){
-            System.out.println((j+1) + "." + tasks[j].printTask());
+            System.out.println((j+1) + "." + tasks.get(j).printTask());
         }
         System.out.println("================================================");
     }
