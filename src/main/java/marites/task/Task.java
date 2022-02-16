@@ -1,6 +1,6 @@
 package marites.task;
 
-public abstract class Task {
+public abstract class Task implements java.io.Serializable {
     private final String description;
     private boolean isDone;
     public Task(String description) {
