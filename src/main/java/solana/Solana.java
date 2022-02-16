@@ -5,7 +5,11 @@ import solana.task.Event;
 import solana.task.Task;
 import solana.task.Todo;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
 
 public class Solana {
     public static final String CYAN_BOLD_BRIGHT = "\033[1;96m";
@@ -25,7 +29,15 @@ public class Solana {
     public static final int CONVERT_TASK_TO_I = -1;
 
     public static final int SPLIT_LIMIT = 2;
+
+    public static final int TASK_TYPE_INDEX = 0;
+    public static final int TASK_INDEX = 3;
+    public static final int STARTING_DESCRIPTION_INDEX = 2;
+
     public static final int MAX_TASKS = 100;
+
+    public static final String FOLDER_PATH = "./data/";
+    public static final String FILE_PATH = "./data/savedTasks.txt";
 
     public static void printIntro() {
         String logo = "  __|   _ \\  |       \\     \\ |    \\\n"
@@ -46,13 +58,13 @@ public class Solana {
     public static void printTasks(Task[] tasks) {
         for (int i = 0; i < Task.getTaskNum(); i++) {
             System.out.print(i + CONVERT_I_TO_TASK + ".");
-            tasks[i].printDescription();
+            System.out.println(tasks[i]);
         }
     }
 
     public static void printAddedPrompt(Task newTask) {
         System.out.print("Added: ");
-        newTask.printDescription();
+        System.out.println(newTask);
 
         if (Task.getTaskNum() > 1) {
             System.out.println("You now have " + Task.getTaskNum() + " tasks in the list" + System.lineSeparator());
@@ -75,13 +87,15 @@ public class Solana {
         try {
             int taskIndex = Integer.parseInt(parsedInput);
             tasks[taskIndex + CONVERT_TASK_TO_I].unmarkAsDone();
-            tasks[taskIndex + CONVERT_TASK_TO_I].printDescription();
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println(tasks[taskIndex + CONVERT_TASK_TO_I]);
         } catch (NumberFormatException e) {
             System.out.println("Input a task number!");
         } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
             System.out.println("No such task number!");
         }
 
+        saveTasks(tasks);
         System.out.print(System.lineSeparator());
     }
 
@@ -89,42 +103,181 @@ public class Solana {
         try {
             int taskIndex = Integer.parseInt(parsedInput);
             tasks[taskIndex + CONVERT_TASK_TO_I].markAsDone();
-            tasks[taskIndex + CONVERT_TASK_TO_I].printDescription();
+            System.out.println("Nice, I've marked this task as done:");
+            System.out.println(tasks[taskIndex + CONVERT_TASK_TO_I]);
         } catch (NumberFormatException e) {
             System.out.println("Input a task number!");
         } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
             System.out.println("No such task number!");
         }
 
+        saveTasks(tasks);
         System.out.print(System.lineSeparator());
     }
 
-    public static void todoCommand(String parsedInput, Task[] tasks) {
+    public static void todoCommand(String parsedInput, Task[] tasks, boolean isFromUser, boolean isMarkNeeded) {
         Todo newTodo = new Todo(parsedInput);
         tasks[Task.getTaskNum() + CONVERT_TASK_TO_I] = newTodo;
 
-        printAddedPrompt(newTodo);
+        if (isFromUser) {
+            saveTasks(tasks);
+            printAddedPrompt(newTodo);
+        }
+
+        if (isMarkNeeded) {
+            newTodo.markAsDone();
+        }
     }
 
-    public static void deadlineCommand(String parsedInput, Task[] tasks) {
+    public static void deadlineCommand(String parsedInput, Task[] tasks, boolean isFromUser, boolean isMarkNeeded) {
         try {
-            String[] parsedInputAsArray = parsedInput.split(" /by ", SPLIT_LIMIT);
-            Deadline newDeadline = new Deadline(parsedInputAsArray[DEADLINE_INDEX], parsedInputAsArray[BY_INDEX]);
+            String[] parsedInputAsArray;
+            Deadline newDeadline;
+
+            if (isFromUser) {
+                parsedInputAsArray = parsedInput.split(" /by ", SPLIT_LIMIT);
+                newDeadline = new Deadline(parsedInputAsArray[DEADLINE_INDEX], parsedInputAsArray[BY_INDEX]);
+            } else {
+                parsedInputAsArray = parsedInput.split(" \\(By: ", SPLIT_LIMIT);
+                newDeadline = new Deadline(parsedInputAsArray[DEADLINE_INDEX],
+                        parsedInputAsArray[BY_INDEX].replace(")", ""));
+            }
+
             tasks[Task.getTaskNum() + CONVERT_TASK_TO_I] = newDeadline;
-            printAddedPrompt(newDeadline);
+
+            if (isFromUser) {
+                printAddedPrompt(newDeadline);
+                saveTasks(tasks);
+            }
+
+            if (isMarkNeeded) {
+                newDeadline.markAsDone();
+            }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Include the date or time using the keyword \"/by\"!" + System.lineSeparator());
         }
     }
 
-    public static void eventCommand(String parsedInput, Task[] tasks) {
+    public static void eventCommand(String parsedInput, Task[] tasks, boolean isFromUser, boolean isMarkNeeded) {
         try {
-            String[] parsedInputAsArray = parsedInput.split(" /at ", SPLIT_LIMIT);
-            Event newEvent = new Event(parsedInputAsArray[EVENT_INDEX], parsedInputAsArray[AT_INDEX]);
+            String[] parsedInputAsArray;
+            Event newEvent;
+
+            if (isFromUser) {
+                parsedInputAsArray = parsedInput.split(" /at ", SPLIT_LIMIT);
+                newEvent = new Event(parsedInputAsArray[EVENT_INDEX], parsedInputAsArray[AT_INDEX]);
+            } else {
+                parsedInputAsArray = parsedInput.split(" \\(At: ", SPLIT_LIMIT);
+                newEvent = new Event(parsedInputAsArray[EVENT_INDEX],
+                        parsedInputAsArray[AT_INDEX].replace(")", ""));
+            }
+
             tasks[Task.getTaskNum() + CONVERT_TASK_TO_I] = newEvent;
-            printAddedPrompt(newEvent);
+
+            if (isFromUser) {
+                printAddedPrompt(newEvent);
+                saveTasks(tasks);
+            }
+
+            if (isMarkNeeded) {
+                newEvent.markAsDone();
+            }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Include the date or time using keyword \"/at\"!" + System.lineSeparator());
+        }
+    }
+
+    public static void loadTodo(String description, Task[] tasks, boolean isMarked) {
+        todoCommand(description, tasks, false, isMarked);
+    }
+
+    public static void loadDeadline(String description, Task[] tasks, boolean isMarked) {
+        deadlineCommand(description, tasks, false, isMarked);
+    }
+
+    public static void loadEvent(String description, Task[] tasks, boolean isMarked) {
+        eventCommand(description, tasks, false, isMarked);
+    }
+
+    public static void parseInputFromFile(Task[] tasks, String[] taskAsArray) {
+        switch(taskAsArray[TASK_TYPE_INDEX]) {
+        case "[T][":
+            todoCommand(taskAsArray[DESCRIPTION_INDEX].substring(STARTING_DESCRIPTION_INDEX),
+                    tasks, false, false);
+            break;
+        case "[T][X]":
+            todoCommand(taskAsArray[DESCRIPTION_INDEX], tasks, false, true);
+            break;
+        case "[D][":
+            deadlineCommand(taskAsArray[DESCRIPTION_INDEX].substring(STARTING_DESCRIPTION_INDEX),
+                    tasks, false, false);
+            break;
+        case "[D][X]":
+            deadlineCommand(taskAsArray[DESCRIPTION_INDEX], tasks, false, true);
+            break;
+        case "[E][":
+            eventCommand(taskAsArray[DESCRIPTION_INDEX].substring(STARTING_DESCRIPTION_INDEX),
+                    tasks, false, false);
+            break;
+        case "[E][X]":
+            eventCommand(taskAsArray[DESCRIPTION_INDEX], tasks, false, true);
+            break;
+        default:
+            System.out.println("Unable to identify task type!");
+        }
+    }
+
+    public static void readFromFile(Task[] tasks, File savedTasks) throws FileNotFoundException{
+        Scanner in = new Scanner(savedTasks);
+        while (in.hasNext()) {
+            String taskAsString = in.nextLine().substring(TASK_INDEX);
+            String[] taskAsArray = taskAsString.split(" ", SPLIT_LIMIT);
+            parseInputFromFile(tasks, taskAsArray);
+        }
+    }
+
+    public static void loadTasks(Task[] tasks) {
+        File savedTasks = new File(FILE_PATH);
+        if (savedTasks.exists()) {
+            try {
+                readFromFile(tasks, savedTasks);
+            } catch (FileNotFoundException e) {
+                System.out.println("savedTasks.txt not found!");
+            }
+        }
+    }
+
+    public static void writeToFile(Task[] tasks) throws IOException {
+        FileWriter fw = new FileWriter(FILE_PATH);
+        for (int i = 0; i < Task.getTaskNum(); i++) {
+            fw.write(i + CONVERT_I_TO_TASK + ". ");
+            fw.write(tasks[i].toString() + System.lineSeparator());
+        }
+        fw.close();
+    }
+
+    public static void saveTasks(Task[] tasks) {
+        File dataFolder = new File(FOLDER_PATH);
+        if (!dataFolder.exists()) {
+            boolean isSuccessful = dataFolder.mkdir();
+            if (!isSuccessful) {
+                System.out.println("Create data folder failed!");
+                return;
+            }
+        }
+
+        File savedTasks = new File(FILE_PATH);
+        try {
+            savedTasks.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Create savedTasks.txt failed!");
+            return;
+        }
+
+        try {
+            writeToFile(tasks);
+        } catch (IOException e) {
+            System.out.println("Writing to savedTasks.txt failed!");
         }
     }
 
@@ -170,13 +323,13 @@ public class Solana {
             unmarkCommand(parsedInput[DESCRIPTION_INDEX], tasks);
             break;
         case "todo":
-            todoCommand(parsedInput[DESCRIPTION_INDEX], tasks);
+            todoCommand(parsedInput[DESCRIPTION_INDEX], tasks, true, false);
             break;
         case "deadline":
-            deadlineCommand(parsedInput[DESCRIPTION_INDEX], tasks);
+            deadlineCommand(parsedInput[DESCRIPTION_INDEX], tasks, true, false);
             break;
         case "event":
-            eventCommand(parsedInput[DESCRIPTION_INDEX], tasks);
+            eventCommand(parsedInput[DESCRIPTION_INDEX], tasks, true, false);
             break;
         default:
             System.out.println("Invalid command!" + System.lineSeparator());
@@ -186,6 +339,7 @@ public class Solana {
 
     public static void main(String[] args) {
         Task[] tasks = new Task[MAX_TASKS];
+        loadTasks(tasks);
         Scanner in = new Scanner(System.in);
 
         printIntro();

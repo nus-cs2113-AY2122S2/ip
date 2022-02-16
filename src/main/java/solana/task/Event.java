@@ -9,11 +9,11 @@ public class Event extends Task {
     }
 
     @Override
-    public void printDescription() {
+    public String toString() {
         if (isDone) {
-            System.out.println("[E][X] " + description + " (At: " + at + ")");
+            return "[E][X] " + description + " (At: " + at + ")";
         } else {
-            System.out.println("[E][ ] " + description + " (At: " + at + ")");
+            return "[E][ ] " + description + " (At: " + at + ")";
         }
     }
 }
