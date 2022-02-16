@@ -16,7 +16,6 @@ import task.ToDo;
 
 import java.util.ArrayList;
 
-
 public class Duke {
     public static final String LINESEPARATOR = "____________________________________________________________\n";
     public static ArrayList<Task> taskList = new ArrayList<>();
