@@ -2,11 +2,25 @@ import java.util.Scanner;
 import duke.task.*;
 import duke.exceptions.*;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
 
 public class Duke {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
         ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            printFileContents("duke.txt");
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+
+        File f = new File("duke.txt");
+
+
         int index = 0;
         String greetings =
               "______________________________________________________________\n"
@@ -52,6 +66,7 @@ public class Duke {
                         throw new ChangeStatusException("This task is already marked/unmarked");
                     }
                     toggleStatus(tasks, indexOfTask);
+                    writeToFile(tasks);
                     continue;
                 } else if (curTask.equals("deadline")) {
                     addDeadline(echo, tasks, index);
@@ -64,6 +79,7 @@ public class Duke {
                     index = index - 2;
                 }
                 index++;
+                writeToFile(tasks);
                 System.out.print("Now you have ");
                 System.out.println(index + " tasks in the list.");
                 System.out.println("----------------------------------------------------------------");
@@ -86,10 +102,28 @@ public class Duke {
         }
     }
 
+    private static void writeToFile(ArrayList<Task> tasks) throws IOException {
+        FileWriter fw = new FileWriter("duke.txt");
+        for(Task t: tasks){
+            fw.write(t.toString()+"\n");
+        }
+        fw.close();
+    }
+
+    private static void printFileContents(String filePath) throws IOException, FileNotFoundException {
+        File f = new File(filePath); // create a File for the given file path
+        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        while (s.hasNext()) {
+            System.out.println(s.nextLine());
+        }
+    }
+
+
     public static void deleteTask(ArrayList<Task> tasks, int index) {
         System.out.println("Noted. I've removed this task: ");
         System.out.println(tasks.get(index - 1));
         tasks.remove(index - 1);
+
     }
 
     public static void addTodo(String echo, ArrayList<Task> tasks, int index) {
