@@ -295,6 +295,7 @@ public class Marites {
         }
         Task taskToDelete = tasks.get(taskIndex - 1);
         tasks.remove(taskIndex - 1);
+        saveTaskList();
         return String.format(DELETE_TASK_MESSAGE, taskToDelete, tasks.size());
     }
 
