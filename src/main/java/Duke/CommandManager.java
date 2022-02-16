@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class CommandManager {
     /**
-     * Scanner to get user input
+     * Scanner to get user input.
      */
     private static Scanner sc = new Scanner(System.in);
 
@@ -19,7 +19,7 @@ public class CommandManager {
     private final static String CMD_ECHO = "echo";
 
     /**
-     * Get the input string (raw command) from user
+     * Get the input string (raw command) from user.
      *
      * @return the command from user
      */
@@ -30,7 +30,7 @@ public class CommandManager {
 
 
     /**
-     * Run the corresponding command/method regarding args, default command is add reminder
+     * Run the corresponding command/method regarding args, default command is add reminder.
      *
      * @param command the command to execute
      */
@@ -78,11 +78,12 @@ public class CommandManager {
     }
 
     private static void defaultCmd(Command command) {
-        System.out.println("Sorry I don't understand this sentence:\n\t\t" + command.getRawCommand() + "\n");
+        System.out.println("Sorry I don't understand this sentence:\n\t\t"
+                + command.getRawCommand() + "\n");
     }
 
     /**
-     * Print every token in args
+     * Print every token in args.
      *
      * @param args tokens to print
      */
