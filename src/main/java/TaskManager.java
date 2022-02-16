@@ -1,3 +1,7 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Arrays;
+
 public class TaskManager {
     private static final String TODO_COMMAND = "todo";
     private static final String DEADLINE_COMMAND = "deadline";
@@ -88,6 +92,18 @@ public class TaskManager {
         System.out.println(" Now you have " + tasksCount + " tasks in the list");
 
         tasks = anotherTasks.clone();
+    }
 
+    public void writeToFile() throws IOException {
+
+        String filePath = "/data/duke.txt";
+        FileWriter fw = new FileWriter(filePath);
+
+        for (int i = 0; i < tasksCount; i++) {
+            fw.write(Arrays.toString(tasks[i]));
+            fw.write(System.lineSeparator());
+        }
+
+        fw.close();
     }
 }
