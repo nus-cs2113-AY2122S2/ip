@@ -1,6 +1,4 @@
 import java.util.Scanner;
-import java.util.Arrays;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -23,7 +21,6 @@ public class Duke {
         String DEADLINE = "deadline";
         String EVENT = "event";
         String DELETE = "delete";
-        String BLANK = "";
 
         System.out.println(GREET);
 
