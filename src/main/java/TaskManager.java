@@ -1,10 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskManager {
-    public static final int MAX_TASK = 100;
     private final String BOT_NAME = "[iWish]: ";
-    public Task[] taskList = new Task[MAX_TASK];
-    public int trackList = 0;
+    private ArrayList<Task> taskList = new ArrayList<>();
     private final char INDICATE_DEADLINE = '~';
     private final char INDICATE_EVENT = '@';
 
@@ -24,6 +23,8 @@ public class TaskManager {
                 untickTask(userInput);
             } else if (userInput.contains("tick")) {
                 tickTaskCompleted(userInput, true);
+            } else if ((userInput.contains("delete"))) {
+                deleteTask(userInput);
             } else {
                 hasAddedTask = isTaskAdded(userInput, hasAddedTask);
             }
@@ -45,6 +46,13 @@ public class TaskManager {
         }
     }
 
+    private void deleteTask(String userInput) {
+        String choice = userInput.substring(userInput.indexOf(' ') + 1);
+        int choiceNumber = Integer.parseInt(choice) - 1;
+        System.out.println("oh no, this task has been deleted: " + System.lineSeparator() + taskList.get(choiceNumber));
+        taskList.remove(choiceNumber);
+    }
+
     private boolean isTaskAdded(String userInput, boolean hasAddedTask) {
         try {
             hasAddedTask = handleTaskCommand(userInput);
@@ -59,7 +67,7 @@ public class TaskManager {
     }
 
     private void printNumberOfWish() {
-        System.out.println("Now you have " + trackList + " wish(es) in the list.");
+        System.out.println("Now you have " + taskList.size() + " wish(es) in the list.");
     }
 
     public String deriveDescription(String input, String command) throws DukeEmptyStringException {
@@ -93,8 +101,7 @@ public class TaskManager {
             printMessage("Incorrect event usage -> 'event: sing @ 3pm'");
             return false;
         }
-        taskList[trackList] = new Event(description, at);
-        trackList++;
+        taskList.add(new Event(description, at));
         printNoted();
         hasAddedTask = true;
         return hasAddedTask;
@@ -116,8 +123,7 @@ public class TaskManager {
             printMessage("Incorrect deadline usage -> 'deadline: homework ~ 3pm'");
             return false;
         }
-        taskList[trackList] = new Deadline(description, by);
-        trackList++;
+        taskList.add(new Deadline(description, by));
         printNoted();
         hasAddedTask = true;
         return hasAddedTask;
@@ -132,9 +138,8 @@ public class TaskManager {
             printMessage("The description for todo: cannot be empty");
             return false;
         }
-        taskList[trackList] = new Todo(description);
-        trackList++;
-        printMessage(" noting down your wish -> " + taskList[trackList - 1]);
+        taskList.add(new Todo(description));
+        printMessage(" noting down your wish -> " + taskList.get(taskList.size() - 1));
         hasAddedTask = true;
         return hasAddedTask;
     }
@@ -142,8 +147,8 @@ public class TaskManager {
     private void tickTaskCompleted(String userInput, boolean isCompleted) {
         String choice = userInput.substring(userInput.indexOf(' ') + 1);
         int choiceNumber = Integer.parseInt(choice) - 1;
-        taskList[choiceNumber].setCompleted(isCompleted);
-        System.out.println(taskList[choiceNumber]);
+        taskList.get(choiceNumber).setCompleted(isCompleted);
+        System.out.println(taskList.get(choiceNumber));
     }
 
     private void untickTask(String userInput) {
@@ -151,13 +156,13 @@ public class TaskManager {
     }
 
     public void printNoted() {
-        printMessage("noting down your wish -> " + taskList[trackList - 1]);
+        printMessage("noting down your wish -> " + taskList.get(taskList.size() - 1));
     }
 
     public void printList() {
         printMessage(" ** These are your wishes **");
-        for (int i = 0; i < trackList; i++) {
-            System.out.println((i + 1) + ". " + taskList[i]);
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println((i + 1) + ". " + taskList.get(i));
         }
         System.out.println("We reached the end of the list. Anymore wish?");
     }
@@ -166,3 +171,5 @@ public class TaskManager {
         System.out.println(BOT_NAME + message);
     }
 }
+
+
