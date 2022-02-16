@@ -29,7 +29,7 @@ public interface Chatbot {
     String DURATION_OF_EVENT_CMD = "/at";
     String DELETE_CMD = "Delete ";
 
-    int DELETE_INDEX = 6;
+    int DELETE_INDEX = 7;
     int TODO_TASK_INDEX = 4;
     int DEADLINE_TASK_INDEX = 8;
     int EVENT_TASK_INDEX = 5;

@@ -86,7 +86,7 @@ public class Duke implements Chatbot {
             c = CommandType.UNMARK;
         } else if (line.equals(LIST_TASKS_CMD)){
             c = CommandType.LIST;
-        } else if (line.equals(DELETE_CMD)){
+        } else if (line.startsWith(DELETE_CMD)){
             c = CommandType.DEL;
         } else {
             c = CommandType.NIL;
