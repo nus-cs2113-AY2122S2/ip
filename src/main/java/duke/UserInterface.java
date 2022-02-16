@@ -1,5 +1,5 @@
 package duke;
-// branch Level 7
+// master branch
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -23,9 +23,6 @@ public class UserInterface {
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
     public static final String COMMAND_DELETE = "delete";
-    public static final String TODO = "todo";
-    public static final String DEADLINE = "deadline";
-    public static final String EVENT = "event";
     private Scanner uiScan;
     private ArrayList<Task> tasks;
 
