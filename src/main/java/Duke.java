@@ -1,11 +1,12 @@
 import java.util.Scanner;
 import duke.task.*;
 import duke.exceptions.*;
+import java.util.ArrayList;
 
 public class Duke {
 
     public static void main(String[] args) {
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
         int index = 0;
         String greetings =
               "______________________________________________________________\n"
@@ -46,8 +47,8 @@ public class Duke {
                 if (curTask.equals("mark") || curTask.equals("unmark")) {
                     int indexOfSpace = echo.indexOf(" ");
                     int indexOfTask = Integer.parseInt(echo.substring(indexOfSpace + 1));
-                    if ((curTask.equals("mark") && (tasks[indexOfTask - 1].isDone)) ||
-                        (curTask.equals("unmark") && (!tasks[indexOfTask - 1].isDone))) {
+                    if ((curTask.equals("mark") && (tasks.get(indexOfTask - 1).isDone)) ||
+                        (curTask.equals("unmark") && (!tasks.get(indexOfTask - 1).isDone))) {
                         throw new ChangeStatusException("This task is already marked/unmarked");
                     }
                     toggleStatus(tasks, indexOfTask);
@@ -58,6 +59,9 @@ public class Duke {
                     addEvent(echo, tasks, index);
                 } else if (curTask.equals("todo")) {
                     addTodo(echo, tasks, index);
+                } else if (curTask.equals("delete")) {
+                    deleteTask(tasks, index);
+                    index = index - 2;
                 }
                 index++;
                 System.out.print("Now you have ");
@@ -82,54 +86,60 @@ public class Duke {
         }
     }
 
-    public static void addTodo(String echo, Task[] tasks, int index) {
+    public static void deleteTask(ArrayList<Task> tasks, int index) {
+        System.out.println("Noted. I've removed this task: ");
+        System.out.println(tasks.get(index - 1));
+        tasks.remove(index - 1);
+    }
+
+    public static void addTodo(String echo, ArrayList<Task> tasks, int index) {
         String description = echo.substring(echo.indexOf(" ") + 1);
-        tasks[index] = new Todo(description);
+        tasks.add(new Todo(description));
         System.out.println("Got it. I've added this task:  ");
-        System.out.println(tasks[index]);
+        System.out.println(tasks.get(index));
     }
 
 
-    public static void addEvent(String echo, Task[] tasks, int index) {
+    public static void addEvent(String echo, ArrayList<Task> tasks, int index) {
 
         String event = echo.substring(echo.indexOf("/") + 4);
         String description = echo.substring(echo.indexOf(" "), echo.indexOf("/"));
-        tasks[index] = new Event(description, event);
+        tasks.add(new Event(description, event));
 
         System.out.println("Got it. I've added this task:  ");
-        System.out.println(tasks[index]);
+        System.out.println(tasks.get(index));
     }
 
 
-    public static void addDeadline(String echo, Task[] tasks, int index) {
+    public static void addDeadline(String echo, ArrayList<Task> tasks, int index) {
         String deadline = echo.substring(echo.indexOf("/") + 4);
         String description = echo.substring(echo.indexOf(" "), echo.indexOf("/"));
-        tasks[index] = new Deadline(description, deadline);
+        tasks.add(new Deadline(description, deadline));
 
         System.out.println("Got it. I've added this task:  ");
-        System.out.println(tasks[index]);
+        System.out.println(tasks.get(index));
     }
 
 
-    public static void toggleStatus(Task[] tasks, int indexOfTask) {
-        tasks[indexOfTask - 1].changeStatus();
+    public static void toggleStatus(ArrayList<Task> tasks, int indexOfTask) {
+        tasks.get(indexOfTask - 1).changeStatus();
 
-        if (tasks[indexOfTask -1].isDone) {
+        if (tasks.get(indexOfTask -1).isDone) {
             System.out.println("OK, I've marked this task as done:");
         } else {
             System.out.println("OK, I've marked this task as not done yet:");
         }
         System.out.print(indexOfTask);
-        System.out.println("." + tasks[indexOfTask - 1]);
+        System.out.println("." + tasks.get(indexOfTask - 1));
     }
 
 
-    public static void printTasks(Task[] tasks, int index) {
+    public static void printTasks(ArrayList<Task> tasks, int index) {
         System.out.println("----------------------------------------------------------------");
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < index; i++) {
             System.out.print(i + 1);
-            System.out.println("." + tasks[i]);
+            System.out.println("." + tasks.get(i));
         }
         System.out.println("\n----------------------------------------------------------------");
     }
