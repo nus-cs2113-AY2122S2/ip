@@ -81,15 +81,6 @@ public class TaskManager {
 
     }
 
-    public static boolean checkDescription(String des){
-        //怎么显示没有description?
-        if(des.equals("")){
-            System.out.println(INDENT + "OOPS! The description of task cannot be empty!");
-            return false;
-        }
-        else return true;
-    }
-    
     private static void greet(){
         printLine();
         System.out.println(INDENT + "Hi, I am XiaoAi TongXue ;D");
@@ -156,3 +147,13 @@ public class TaskManager {
     }
     
 }
+//
+//public class Cup<T>{
+//    private T item;
+//    public void set(T item){
+//        this.item = item;
+//    }
+//    public T get(){
+//        return item;
+//    }
+//}
