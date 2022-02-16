@@ -1,5 +1,6 @@
 package Duke;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 
@@ -9,7 +10,6 @@ public class CommandManager {
      */
     private static Scanner sc = new Scanner(System.in);
 
-    private final static String CMD_ADD = "add";
     private final static String CMD_MARK = "mark";
     private final static String CMD_UNMARK = "unmark";
     private final static String CMD_LIST = "list";
@@ -34,102 +34,51 @@ public class CommandManager {
      *
      * @param command the command to execute
      */
-    public static void runCommand(Command command) {
+    public static void runCommand(Command command) throws DukeException {
         String[] args = command.getCommandTokens();
         // TODO Maybe use something like a function pointer array in C
-        switch (args[0]) {
-        case CMD_ADD:
-            addAndHandleException(args);
-            break;
-        case CMD_MARK:
-            markAndHandleException(args);
-            break;
-        case CMD_UNMARK:
-            unmarkAndHandleException(args);
-            break;
-        case CMD_LIST:
-            listAndHandleException(args);
-            break;
-        case CMD_DEADLINE:
-            addDeadlineAndHandleException(args);
-            break;
-        case CMD_EVENT:
-            addEventAndHandleException(args);
-            break;
-        case CMD_TODO:
-            addTodoAndHandleException(args);
-        case CMD_ECHO:
-            echo(args);
-            break;
-        default:
-            defaultCmd(command);
-            break;
+        try {
+            switch (args[0]) {
+            case CMD_MARK:
+                TaskManager.mark(args, true);
+                DiskManager.syncWithDisk();
+                break;
+            case CMD_UNMARK:
+                TaskManager.unmark(args);
+                DiskManager.syncWithDisk();
+                break;
+            case CMD_LIST:
+                TaskManager.listTasks(args);
+                break;
+            case CMD_DEADLINE:
+                TaskManager.addDeadlines(args, true);
+                TaskManager.printTaskNumber();
+                DiskManager.syncWithDisk();
+                break;
+            case CMD_EVENT:
+                TaskManager.addEvents(args, true);
+                TaskManager.printTaskNumber();
+                DiskManager.syncWithDisk();
+                break;
+            case CMD_TODO:
+                TaskManager.addToDoes(args, true);
+                TaskManager.printTaskNumber();
+                DiskManager.syncWithDisk();
+                break;
+            case CMD_ECHO:
+                echo(args);
+                break;
+            default:
+                defaultCmd(command);
+                break;
+            }
+        } catch (DukeException | IOException exception) {
+            throw new DukeException("when running command: \n" + exception.getMessage());
         }
-
     }
 
     private static void defaultCmd(Command command) {
         System.out.println("Sorry I don't understand this sentence:\n\t\t" + command.getRawCommand() + "\n");
-    }
-
-    private static void addTodoAndHandleException(String[] args) {
-        try {
-            TaskManager.addToDoes(args);
-            TaskManager.printTaskNumber();
-        } catch (DukeException exception) {
-            System.out.println(exception);
-        }
-    }
-
-    private static void addEventAndHandleException(String[] args) {
-        try {
-            TaskManager.addEvents(args);
-            TaskManager.printTaskNumber();
-        } catch (DukeException exception) {
-            System.out.println(exception);
-        }
-    }
-
-    private static void addDeadlineAndHandleException(String[] args) {
-        try {
-            TaskManager.addDeadlines(args);
-            TaskManager.printTaskNumber();
-        } catch (DukeException exception) {
-            System.out.println(exception);
-        }
-    }
-
-    private static void listAndHandleException(String[] args) {
-        try {
-            TaskManager.listTasks(args);
-        } catch (DukeException exception) {
-            System.out.println(exception);
-        }
-    }
-
-    private static void unmarkAndHandleException(String[] args) {
-        try {
-            TaskManager.unmark(args);
-        } catch (DukeException exception) {
-            System.out.println(exception);
-        }
-    }
-
-    private static void markAndHandleException(String[] args) {
-        try {
-            TaskManager.mark(args);
-        } catch (DukeException exception) {
-            System.out.println(exception);
-        }
-    }
-
-    private static void addAndHandleException(String[] args) {
-        try {
-            TaskManager.addTasks(args);
-            TaskManager.printTaskNumber();
-        } catch (DukeException exception) {
-            System.out.println(exception);
-        }
     }
 
     /**

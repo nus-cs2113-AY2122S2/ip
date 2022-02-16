@@ -1,5 +1,7 @@
 package Duke;
 
+import java.io.IOException;
+
 /**
  * Duke, your personal terminal assistant
  */
@@ -18,7 +20,7 @@ public class Duke {
      *
      * @param args the appellation for the guest, should only be assigned to {@value #userName} or None
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         initializeDuke(args);
         printUserGreet();
         runDuke();
@@ -30,10 +32,11 @@ public class Duke {
      *
      * @param args the appellation for the guest, should only be assigned to {@value #userName} or None
      */
-    private static void initializeDuke(String[] args) {
+    private static void initializeDuke(String[] args) throws IOException {
         if (args.length >= 1) {
             userName = args[args.length - 1];
         }
+        DiskManager.diskInit();
     }
 
     /**
@@ -48,7 +51,11 @@ public class Duke {
             if (exitIfContainExitCommand(command)) {
                 return;
             }
-            CommandManager.runCommand(command);
+            try {
+                CommandManager.runCommand(command);
+            } catch (DukeException exception) {
+                System.out.println(exception);
+            }
             printLineDivider();
         }
     }
@@ -75,13 +82,11 @@ public class Duke {
      */
     private static void printUserGreet() {
         // TODO Personalize the greeting information (maybe change DUKE to BECK or something else)
-        String logo = """
-                 ____        _       \s
-                |  _ \\ _   _| | _____\s
-                | | | | | | | |/ / _ \\
-                | |_| | |_| |   <  __/
-                |____/ \\__,_|_|\\_\\___|
-                """;
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         printLineDivider();
         System.out.println("Hello, I'm Duke");
