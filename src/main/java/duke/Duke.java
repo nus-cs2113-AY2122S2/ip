@@ -1,16 +1,18 @@
 package duke;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import duke.task.*;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
 
 public class Duke {
 
     static Task[] taskList = new Task[100];
-    static int taskCount=0;
+    static int taskCount = 0;
+    static boolean isModified = false;      // isModified refers to whether taskList is modified or not.
 
     // method prints a horizontal line.
     public static void displayLine(){
@@ -78,11 +80,11 @@ public class Duke {
     }
 
     public static String getEventFromUserInput(String userInput, int eventTimeIdx){
-        return userInput.substring(6,eventTimeIdx);
+        return userInput.substring(6,eventTimeIdx-1);
     }
 
     public static String getDeadlineFromUserInput(String userInput, int dueDateIdx){
-        return userInput.substring(9,dueDateIdx);
+        return userInput.substring(9,dueDateIdx-1);
     }
 
     public static String getEventTimeFromUserInput(String userInput, int eventTimeIdx){
@@ -113,6 +115,15 @@ public class Duke {
         printAddedTask();
     }
 
+    public static void addTodoToList(String todoDescription,boolean isUserMode){
+        //create a new Todo object.
+        Todo newTodo = new Todo(todoDescription);
+        //add the new object to taskList.
+        taskList[taskCount] = newTodo;
+        //keep track of the number of tasks in taskList.
+        taskCount++;
+    }
+
     public static void addEventToList(String eventDescription, String eventTime){
         // create a new Event object.
         Event newEvent = new Event(eventDescription, eventTime);
@@ -124,6 +135,15 @@ public class Duke {
         printAddedTask();
     }
 
+    public static void addEventToList(String eventDescription, String eventTime, boolean isUserMode){
+        // create a new Event object.
+        Event newEvent = new Event(eventDescription, eventTime);
+        // add the new object to taskList.
+        taskList[taskCount] = newEvent;
+        // keep track of the number of tasks in taskList.
+        taskCount++;
+    }
+
     public static void addDeadlineToList(String deadlineDescription, String dueDate){
         // create a new Deadline object.
         Deadline newDeadline = new Deadline(deadlineDescription, dueDate);
@@ -133,6 +153,15 @@ public class Duke {
         taskCount++;
 
         printAddedTask();
+    }
+
+    public static void addDeadlineToList(String deadlineDescription, String dueDate, boolean isUserMode){
+        // create a new Deadline object.
+        Deadline newDeadline = new Deadline(deadlineDescription, dueDate);
+        // add the new object to taskList.
+        taskList[taskCount] = newDeadline;
+        // keep track of the number of tasks in taskList.
+        taskCount++;
     }
 
     public static boolean isInvalidTodo(String todo){
@@ -224,7 +253,9 @@ public class Duke {
         // If not a recognizable command, inform user
         else{
             System.out.println("OOPS! I'm sorry but I don't know what you mean :(");
+            return;
         }
+        isModified = true;
     }
 
     //method marks task in list with taskNumber as done.
@@ -235,6 +266,7 @@ public class Duke {
         // display updated task entry in list.
         System.out.println(taskList[taskNumber-1]);
         displayLine();
+        isModified = true;
     }
 
     //method marks task in list with taskNumber as not yet done.
@@ -245,6 +277,7 @@ public class Duke {
         // display updated task entry in list.
         System.out.println(taskList[taskNumber-1]);
         displayLine();
+        isModified = true;
     }
 
     public static boolean isMarkCommand(String userInput){
@@ -257,7 +290,7 @@ public class Duke {
 
     public static boolean isUnmarkCommand(String userInput){
         if(userInput.length()>=6){
-            // return true if first 6 letters of userInput spell "mark", else false
+            // return true if first 6 letters of userInput spell "unmark", else false
             return userInput.substring(0,6).equals("unmark");
         }
         return false;
@@ -278,16 +311,121 @@ public class Duke {
         return Integer.parseInt(userInput.split(" ")[1]);
     }
 
-    private static String getUserInput() {
+    public static String getUserInput() {
         Scanner in = new Scanner(System.in);
         String userInput = in.nextLine();
         displayLine();
         return userInput;
     }
 
+    public static void createDirectory(String directory){
+        String projectPath = System.getProperty("user.dir");
+        String directoryPath = projectPath + directory;
+        //System.out.println(directoryPath);
+        File dir = new File(directoryPath);
+        boolean isMade = dir.mkdir();
+        if(!isMade){
+            System.out.println("Error making directory \"data\".");
+        }
+    }
+
+    public static void createFile(String file){
+        String projectPath = System.getProperty("user.dir");
+        System.out.println(projectPath);
+        String directory = "\\data";
+        File dir = new File("data");
+        while(!dir.exists()){
+            createDirectory(directory);
+        }
+        File f = new File(projectPath+file);
+
+        try {
+            f.createNewFile();
+        } catch (IOException e){
+            System.out.println("An error occurred making file.");
+        }
+    }
+
+    public static String getTaskInFileFormat(int listIndex){
+        Task task = taskList[listIndex];
+        if(task.getTaskTypeSymbol()=="T") {
+            return task.getTaskTypeSymbol() + "/" + task.isDone() + "/" + task.getDescription();
+        }
+        DynamicTask dTask = (DynamicTask) task;
+        return dTask.getTaskTypeSymbol() + "/" + dTask.isDone() + "/" + dTask.getDescription()
+                + "/" + dTask.getTime();
+    }
+
+    public static void writeToFile() throws IOException{
+        FileWriter fWrite = new FileWriter("data/duke.txt");
+        fWrite.write(getTaskInFileFormat(0)+"\n");
+        fWrite.close();
+        fWrite = new FileWriter("data/duke.txt",true);
+        for(int i = 1; i < taskCount; i++){
+            fWrite.write(getTaskInFileFormat(i)+"\n");
+        }
+        fWrite.close();
+    }
+
+    public static void saveData(){
+        String file = "data\\duke.txt";
+        File f = new File("data/duke.txt");
+        while(!f.exists()){
+            createFile(file);
+        }
+        try {
+            writeToFile();
+        } catch (IOException e){
+            System.out.println("Something went wrong writing to file.");
+        }
+    }
+
+
+
+    public static void transferDataFromFileToList() throws FileNotFoundException {
+        File f = new File("data/duke.txt");
+        Scanner fileReader = new Scanner(f);
+        while(fileReader.hasNext()) {
+            String fileRow = fileReader.nextLine();
+            String[] taskArguments = fileRow.split("/",5);
+            if(taskArguments[0].equals("T")){
+                addTodoToList(taskArguments[2],false);
+            }
+            else if(taskArguments[0].equals("D")){
+                addDeadlineToList(taskArguments[2],taskArguments[3],false);
+            }
+            else if(taskArguments[0].equals("E")){
+                addEventToList(taskArguments[2],taskArguments[3],false);
+            }
+            else{
+                System.out.println("Corrupted entry detected in file.");
+                continue;
+            }
+
+            if(taskArguments[1].equals("true")){
+                taskList[taskCount-1].markAsDone();
+            }
+        }
+        System.out.println("Now you have "+Integer.toString(taskCount)+" tasks in the list.");
+        displayLine();
+    }
+
+    public static void loadData() {
+        String file = "data\\duke.txt";
+        File f = new File("data/duke.txt");
+        try{
+            transferDataFromFileToList();
+        } catch (FileNotFoundException e){
+            while(!f.exists()) {
+                createFile(file);
+            }
+        }
+    }
+
     // method runs main echo functionality of duke.
     public static void echo(){
         while(true){
+            isModified = false;
             //read input from user.
             String userInput = getUserInput();
 
@@ -312,12 +450,19 @@ public class Duke {
             else{
                 addTaskToList(userInput);
             }
+
+            if(isModified){
+                saveData();
+            }
         }
     }
 
     public static void main(String[] args) {
         // opening sequence.
         greeting();
+
+        // if data exists, load.
+        loadData();
 
         // echo loop between user and Dukebot.
         echo();

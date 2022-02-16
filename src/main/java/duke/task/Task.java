@@ -1,6 +1,6 @@
 package duke.task;
 
-public class Task {
+public abstract class Task {
     private String description;
     private boolean isDone;
     private String taskTypeSymbol;
@@ -16,6 +16,18 @@ public class Task {
 
     public String getStatusIcon(){
         return (isDone ? "X" : " ");
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public String getTaskTypeSymbol() {
+        return taskTypeSymbol;
     }
 
     public void markAsDone() {
