@@ -42,4 +42,9 @@ You now have 3 tasks in the list
 2.[D][X] return book (By: Sunday)
 3.[E][X] project meeting (At: Mon 2-4pm)
 
+[1;96m> [0mNo such task number!
+
+[1;96m> [0mDeleted: [T][ ] borrow book
+You now have 2 tasks in the list
+
 [1;96m> [0mGoodbye!
