@@ -36,8 +36,9 @@ public class UserInterface {
      * @throws FileNotFoundException
      * @throws DukeException
      */
-    private ArrayList<Task> loadSaveFile() throws FileNotFoundException, DukeException {
+    private ArrayList<Task> loadSaveFile() throws IOException, DukeException {
         File saveFile = new File("data/duke.txt");
+        saveFile.createNewFile();
         Scanner fileScan = new Scanner(saveFile);
         ArrayList<Task> tasks = new ArrayList<>();
         while (fileScan.hasNextLine()) {
