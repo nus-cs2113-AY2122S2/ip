@@ -117,38 +117,99 @@ public class Eliz {
     /*Deals with the input and calling methods to configure inputs*/
     public static void getInput(String line, ArrayList<Task> tasks, String filePath) throws ElizException, FileSystemNotFoundException, IOException {
         String[] breakTaskNames = line.split(" ", 2);
-        if (breakTaskNames[0].equalsIgnoreCase("todo") || breakTaskNames[0].equalsIgnoreCase("deadline")
-                || breakTaskNames[0].equalsIgnoreCase("event")) {
-            /** add line to todo, deadline, or event by creating the respective object */
-            Task t = createTask(line);
-            tasks.add(t);
-            System.out.println("Got it. I've added this task ");
-            System.out.println(t);
-            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
-            /*every time an object is added or edited, append to file*/
-            try {
-                writeToFile(filePath, tasks.get(tasks.size()-1).getTaskType() + "|" + tasks.get(tasks.size()-1).getStatusIcon() + "|"
-                        + tasks.get(tasks.size()-1).getDescription() + System.lineSeparator());
-            } catch (IOException e) {
-                System.out.println("Something went wrong: " + e.getMessage());
-            }
+        //        if (line.substring(line.length() - 1) == " ") { //in the case that the last character is a space
+//            breakTaskNames[0] = line;
+//            breakTaskNames[1] = null;
+//        } else {
+//            breakTaskNames = line.split(" ", 2);
+//        }
 
-        } else {
-            if (line.equalsIgnoreCase("list")) { //check if action is t
-                //echo or print tasks
-                printTasks(tasks);
-            } else if (line.contains("mark")) { //to check if todos are marked
-                Eliz.markOrUnmark(line, tasks);
-            } else {
+        if ((breakTaskNames.length < 2)){
+            String firstWord = breakTaskNames[0];
+            switch (firstWord) {
+            case "list" : printTasks(tasks);
+                break;
+            case "todo":
+            case "deadline":
+            case "event":
+                System.out.println("OOPS!!! The description of a " + firstWord + " cannot be empty.");
+                throw new ElizException();
+            default: //for mark, default, other weird spelling words
                 System.out.println("OOPS!!! I'm sorry but I do not understand what you mean");
                 throw new ElizException();
             }
+        } else { //length of breakTaskNames is 2
+            //correct inputs for todo, event, deadline and delete
+            String firstWord = breakTaskNames[0];
+            switch (firstWord) {
+            case "mark":
+            case "unmark":
+                Eliz.markOrUnmark(line, tasks);
+                break;
+            case "todo":
+            case "event":
+            case "deadline":
+//            System.out.println("Index 0: " + breakTaskNames[0]);
+//            System.out.println("Index 1: " + breakTaskNames[1]);
+//            boolean isEmpty = false;
+//            if (breakTaskNames[1] == null) {
+//                isEmpty = true;
+//            }
+//            System.out.println(isEmpty);
+                if (breakTaskNames[1] == null) {
+                    System.out.println("OOPS!!! The description of a " + breakTaskNames[0] + " cannot be empty.");
+                    throw new ElizException();
+                } else {
+                    Task t = createTask(line);
+                    tasks.add(t);
+                    System.out.println("Got it. I've added this task ");
+                    System.out.println(t);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    /*every time an object is added or edited, append to file*/
+                    try {
+                        writeToFile(filePath, tasks.get(tasks.size()-1).getTaskType() + "|"
+                                + tasks.get(tasks.size()-1).getStatusIcon() + "|"
+                                + tasks.get(tasks.size()-1).getDescription() + System.lineSeparator());
+                    } catch (IOException e) {
+                        System.out.println("Something went wrong: " + e.getMessage());
+                    }
+                    break;
+                }
+            }
         }
-        if (!line.equalsIgnoreCase("list") && !line.contains("mark") && breakTaskNames.length < 2) {
-            System.out.println("OOPS!!! The description of a " + breakTaskNames[0] + " cannot be empty.");
-            throw new ElizException();
-        }
+//        if (breakTaskNames[0].equalsIgnoreCase("todo") || breakTaskNames[0].equalsIgnoreCase("deadline")
+//                || breakTaskNames[0].equalsIgnoreCase("event")) {
+//            /** add line to todo, deadline, or event by creating the respective object */
+//            Task t = createTask(line);
+//            tasks.add(t);
+//            System.out.println("Got it. I've added this task ");
+//            System.out.println(t);
+//            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+//
+//            /*every time an object is added or edited, append to file*/
+//            try {
+//                writeToFile(filePath, tasks.get(tasks.size()-1).getTaskType() + "|" + tasks.get(tasks.size()-1).getStatusIcon() + "|"
+//                        + tasks.get(tasks.size()-1).getDescription() + System.lineSeparator());
+//            } catch (IOException e) {
+//                System.out.println("Something went wrong: " + e.getMessage());
+//            }
+//
+//        } else {
+//            if (line.equalsIgnoreCase("list")) { //check if action is t
+//                //echo or print tasks
+//                printTasks(tasks);
+//            } else if (line.contains("mark")) { //to check if todos are marked
+//                Eliz.markOrUnmark(line, tasks);
+//            } else {
+//                System.out.println("OOPS!!! I'm sorry but I do not understand what you mean");
+//                throw new ElizException();
+//            }
+//        }
+//        if (!line.equalsIgnoreCase("list") && !line.contains("mark") && breakTaskNames.length < 2) {
+//            System.out.println("OOPS!!! The description of a " + breakTaskNames[0] + " cannot be empty.");
+//            throw new ElizException();
+//        }
 
     }
 
