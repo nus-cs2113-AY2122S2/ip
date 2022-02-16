@@ -1,4 +1,9 @@
 import java.util.Scanner;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Duke {
 
@@ -17,11 +22,14 @@ public class Duke {
         String TODO = "todo";
         String DEADLINE = "deadline";
         String EVENT = "event";
+        String DELETE = "delete";
         String BLANK = "";
 
         System.out.println(GREET);
 
-        String[] instructions = new String[100];
+        //String[] instructions = new String[100];
+        //List<String> instructionsList = Arrays.asList(instructions);
+        ArrayList<String> instructionsList = new ArrayList<>();
 
         Task task = new Task("hello");
         Task[] tasks = new Task[100];
@@ -48,6 +56,7 @@ public class Duke {
             boolean isTodo = arrOfStr[0].equals(TODO);
             boolean isDeadline = arrOfStr[0].equals(DEADLINE);
             boolean isEvent = arrOfStr[0].equals(EVENT);
+            boolean isDelete = arrOfStr[0].equals(DELETE);
             
             String instructionNum;
 
@@ -63,7 +72,7 @@ public class Duke {
                     System.out.println("Here are the task(s) in your list:");
                     for (int j = 1; j <= task.number; j++) {
                         System.out.print(j + ". ");
-                        System.out.println(instructions[j - 1]);
+                        System.out.println(instructionsList.get(j - 1));
                     }
 
                 } else if (isMark) {
@@ -72,27 +81,44 @@ public class Duke {
                         throw new DukeException("Error: You have not entered the task number!");
                     }
 
-                    System.out.println("Nice! I've marked this task as done:");
                     instructionNum = arrOfStr[1];
+                    int index = Integer.parseInt(instructionNum) - 1;
                     t.setStatusIcon(true);
+                    String temp = instructionsList.get(index);
                     String prefix = "  \\[T]\\[ ]";
-                    instructions[Integer.parseInt(instructionNum) - 1] = instructions[Integer.parseInt(instructionNum) - 1].replaceAll(prefix, "  [T][X]");
-                    System.out.println(instructions[Integer.parseInt(instructionNum) - 1]);
+                    temp = temp.replaceAll(prefix, "  [T][X]");
+                    instructionsList.set(index, temp); //updates the list
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(instructionsList.get(index));
 
                 } else if (isTodo) {
 
-                    if (arrOfStr.length == 1){
+                    if (arrOfStr.length == 1) {
                         throw new DukeException("☹ OOPS!!! You have not entered your task!");
                     }
 
                     updatedInstructionLine = "  [T][ ]" + instructionLine;
                     tasks[task.number] = new Task(updatedInstructionLine);
-                    instructions[task.number] = updatedInstructionLine;
+                    instructionsList.add("0");
+                    instructionsList.set(task.number, updatedInstructionLine);
                     task.number++;
 
                     System.out.println("Got it. I've added this task: ");
                     System.out.println(updatedInstructionLine);
                     System.out.println("Now you have " + task.number + " task(s) in the list.");
+                } else if (isDelete){
+                    if (arrOfStr.length == 1) {
+                        throw new DukeException("☹ OOPS!!! You have not entered your task!");
+                    }
+
+                    instructionNum = arrOfStr[1];
+                    int index = Integer.parseInt(instructionNum) - 1;
+                    task.number--;
+
+                    System.out.println("Noted. I've removed this task: ");
+                    System.out.println(instructionsList.get(index));
+                    System.out.println("Now you have " + task.number + " task(s) in the list.");
+                    instructionsList.remove(index);
 
                 } else if (isDeadline) {
 
@@ -106,7 +132,8 @@ public class Duke {
                     deadline.setBy(arrOfDeadline[1]);
                     updatedInstructionLine = deadline.toString();
                     tasks[task.number] = new Task(updatedInstructionLine);
-                    instructions[task.number] = updatedInstructionLine;
+                    instructionsList.add("0");
+                    instructionsList.set(task.number, updatedInstructionLine);
                     task.number++;
 
                     System.out.println("Got it. I've added this task: ");
@@ -127,7 +154,9 @@ public class Duke {
                     event.setAt(arrOfEvent[1]);
                     updatedInstructionLine = event.toString();
                     tasks[task.number] = new Task(updatedInstructionLine);
-                    instructions[task.number] = updatedInstructionLine;
+
+                    instructionsList.add("0");
+                    instructionsList.set(task.number, updatedInstructionLine);
                     task.number++;
 
                     System.out.println("Got it. I've added this task: ");
