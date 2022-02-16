@@ -1,6 +1,7 @@
 package duke;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 import duke.task.Task;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -12,26 +13,26 @@ import duke.exceptions.DeadlineFormatException;
 
 public class Duke {
     public static String boundary = "____________________________________________________________" + System.lineSeparator();
-    public static Task[] taskList = new Task[100];
+    public static ArrayList<Task> taskList = new ArrayList<>();
     public static int countTask = 0;
 
     public static void printList() {
         System.out.println(boundary + "Here are the tasks in your list:");
         for (int i = 0; i < countTask; i++) {
-            System.out.println((i + 1) + ". " + taskList[i]);
+            System.out.println((i + 1) + ". " + taskList.get(i));
         }
         System.out.print("Now you have " + countTask + " tasks in the list."+ System.lineSeparator() + boundary);
     }
 
     public static void markTask(int toMark) {
-        taskList[toMark].markDone();
-        System.out.println(boundary + "Nice! I've marked this task as done:" + System.lineSeparator() + taskList[toMark]);
+        taskList.get(toMark).markDone();
+        System.out.println(boundary + "Nice! I've marked this task as done:" + System.lineSeparator() + taskList.get(toMark));
         System.out.print(boundary);
     }
 
     public static void unmarkTask(int toUnmark) {
-        taskList[toUnmark].markNotDone();
-        System.out.println(boundary + "OK, I've marked this task as not done yet:" + System.lineSeparator() + taskList[toUnmark]);
+        taskList.get(toUnmark).markNotDone();
+        System.out.println(boundary + "OK, I've marked this task as not done yet:" + System.lineSeparator() + taskList.get(toUnmark));
         System.out.print(boundary);
     }
 
@@ -53,7 +54,7 @@ public class Duke {
                 throw new TaskEmptyException();
             }
             int byPosition = request.indexOf("/");
-            taskList[countTask] = new Deadline(request.substring(9, byPosition - 1), request.substring(byPosition + 4));
+            taskList.add(new Deadline(request.substring(9, byPosition - 1), request.substring(byPosition + 4)));
         } else if (request.toLowerCase().startsWith("event")) {
             if (!request.contains("/at")) {
                 throw new EventFormatException();
@@ -61,16 +62,16 @@ public class Duke {
                 throw new TaskEmptyException();
             }
             int atPosition = request.indexOf("/");
-            taskList[countTask] = new Event(request.substring(6, atPosition - 1), request.substring(atPosition + 4));
+            taskList.add(new Event(request.substring(6, atPosition - 1), request.substring(atPosition + 4)));
         } else if (request.toLowerCase().startsWith("todo")) {
-            taskList[countTask] = new Todo(request.substring(5));
+            taskList.add(new Todo(request.substring(5)));
         } else {
             throw new GeneralException();
         }
 
         countTask++;
 
-        System.out.println(boundary + "Got it. I've added this task: " + System.lineSeparator() + taskList[countTask - 1]);
+        System.out.println(boundary + "Got it. I've added this task: " + System.lineSeparator() + taskList.get(countTask - 1));
         System.out.print("Now you have " + countTask + " tasks in the list."+ System.lineSeparator() + boundary);
     }
 
@@ -90,6 +91,14 @@ public class Duke {
             System.out.print(boundary + "Hmm...hi dear, when is this event happening?"
                                      + System.lineSeparator() + boundary);
         }
+    }
+
+    public static void deleteTask(int index) {
+        System.out.println(boundary + "Noted. I've removed this task:");
+        System.out.println(taskList.get(index));
+        System.out.print("Now you have " + (countTask - 1) + " tasks in the list." + System.lineSeparator() + boundary);
+        taskList.remove(index);
+        countTask -= 1;
     }
 
     public static void sayHello() {
@@ -119,6 +128,8 @@ public class Duke {
                 markTask(Integer.parseInt(line.substring(5)) - 1);
             } else if (line.toLowerCase().startsWith("unmark")) {
                 unmarkTask(Integer.parseInt(line.substring(7)) - 1);
+            } else if (line.toLowerCase().startsWith("delete")) {
+                deleteTask(Integer.parseInt(line.substring(7)) - 1);
             } else {
                 tryAddTask(line);
             }
