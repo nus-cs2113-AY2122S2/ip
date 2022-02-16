@@ -1,12 +1,18 @@
+package duke;
+
+import duke.FileStrorage;
 import task.Deadline;
 import task.Event;
 import task.Task;
 import errors.Errors;
 import task.Todo;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static duke.FileStrorage.populateFromTaskFile;
 import static errors.Errors.INVALID_TASK_DETAILS_ERROR;
 
 public class Duke {
@@ -90,22 +96,36 @@ public class Duke {
         System.out.println("Ok I have marked this task as incomplete:\n");
 
     }
+    public static void deleteTask(String input){
+        try {
+            int taskNum = getTaskNumberArgument(input);
+            taskList.remove(taskNum-1);
+            System.out.println("Ok I have deleted this task as requested:\n");
+            taskCounter--;
+        } catch (NumberFormatException nfe){
+            System.out.println(Errors.INVALID_TASK_DELETE_ERROR);
+        }
+    }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
         printWelcomeLogo();
+        populateFromTaskFile();
         takeInputAndProcess();
     }
+
 
     private static void takeInputAndProcess() {
         String input;
         Scanner sc = new Scanner(System.in);
         input = sc.nextLine();
-
         while (!input.equalsIgnoreCase("bye")) {
             String command = getFirstWordOfCommand(input);
             switch (command) {
             case "list":
                 Task.printList(taskList, taskCounter);
+                break;
+            case "delete":
+                deleteTask(input);
                 break;
             case "mark":
                 markTaskAsComplete(input);
@@ -122,6 +142,10 @@ public class Duke {
             case "event":
                 addEventTask(input);
                 break;
+            case "exit":
+                FileStrorage.saveToFile(taskList);
+                System.out.println("Bye. Hope to see you again soon!");
+                return;
             default:
                 System.out.println(Errors. INPUT_ERROR);
                 break;
@@ -129,8 +153,9 @@ public class Duke {
             input = sc.nextLine();
         }
 
-        System.out.println("Bye. Hope to see you again soon!");
     }
+
+
 
     private static void printWelcomeLogo() {
         String customNameLogo = " .______.                .__    .__                                           \n" +

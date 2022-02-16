@@ -1,8 +1,9 @@
 package task;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Task {
+public class Task implements Serializable {
 
     protected String taskName;
     protected boolean isDone;
