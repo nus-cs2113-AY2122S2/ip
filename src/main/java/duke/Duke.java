@@ -2,7 +2,10 @@ package duke;
 
 import exceptions.DukeException;
 
-import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
 
 public class Duke {
     private static Task[] taskList = new Task [100];
@@ -16,6 +19,7 @@ public class Duke {
     }
 
     private static void startChatbot() {
+        readTaskFile();
         Scanner input = new Scanner(System.in);
         String task = "";
         while(true) {
@@ -78,6 +82,7 @@ public class Duke {
                 taskList[i].setDone(true);
                 System.out.println("    Nice! I've marked this task as done:");
                 System.out.println("    " + taskList[i]);
+                writeTaskFile();
             } else {
                 System.out.println("    Please enter a valid task number");
             }
@@ -100,6 +105,7 @@ public class Duke {
                 taskList[i].setDone(false);
                 System.out.println("    OK, I've marked this task as not done yet:");
                 System.out.println("        "+taskList[i]);
+                writeTaskFile();
             } else {
                 System.out.println("    Please enter a valid task number");
             }
@@ -137,6 +143,7 @@ public class Duke {
             System.out.println("    Got it. I've added this task:");
             System.out.println("        " + taskList[taskIndex - 1]);
             System.out.println("    Now you have " + (taskIndex) + " tasks in the list.");
+            writeTaskFile();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("    OOPS!!! The decription of a "+task+" cannot be empty");
         }
@@ -165,5 +172,74 @@ public class Duke {
         index = by.indexOf(' ');
         by = by.substring(index+1);
         taskList[taskIndex++] = new Deadline(task,by);
+    }
+
+    //we can perform a read task file at the start of every operation to update the taskList from there
+    //then we can write into the task file everytime something is changed- after each task whether it is an add or
+    // delete or mark or unmark we should update the file each time
+    private static void readTaskFile() {
+        try {
+            File dukeFile = new File("data/duke.txt");
+            if(dukeFile.createNewFile()) {
+                System.out.println("    I have created \"duke.txt\" to store your tasks: "+dukeFile.getName());
+            } else {
+                System.out.println("    I have restored your tasks from the last session!");
+            }
+            Scanner s = new Scanner(dukeFile);
+            List<String> taskInfo;
+            while(s.hasNext()) {
+                taskInfo = Arrays.asList(s.nextLine().split(" \\| "));
+//                System.out.println(taskInfo);
+                switch(taskInfo.get(0)) {
+                case "T":
+                    taskList[taskIndex++] = new Todo(taskInfo.get(2));
+                    taskList[taskIndex-1].isDone = Objects.equals(taskInfo.get(1), "1");
+                    break;
+                case "E":
+                    taskList[taskIndex++] = new Event(taskInfo.get(2),taskInfo.get(3));
+                    taskList[taskIndex-1].isDone = Objects.equals(taskInfo.get(1), "1");
+                    break;
+                case "D":
+                    taskList[taskIndex++] = new Deadline(taskInfo.get(2),taskInfo.get(3));
+                    taskList[taskIndex-1].isDone = Objects.equals(taskInfo.get(1), "1");
+                    break;
+                }
+            }
+            listTasks();
+        } catch (IOException e) {
+            System.out.println("Could not create file");
+            e.printStackTrace();
+        }
+    }
+    private static void writeTaskFile() {
+        try {
+            File dukeFile = new File("data/duke.txt");
+            FileWriter fw = new FileWriter(dukeFile.getAbsolutePath());
+            String taskType="";
+            for(Task t: taskList) {
+                if (t==null) {
+                    break;
+                }
+                if(t instanceof Todo) {
+                    taskType = "T";
+                    fw.write(taskType+" | "+(t.isDone()?1:0)+" | "+ t.getTitle());
+                    fw.write(System.lineSeparator());
+                }
+                else if(t instanceof Deadline) {
+                    taskType = "D";
+                    fw.write(taskType+" | "+(t.isDone()?1:0)+" | "+ t.getTitle()+" | "+((Deadline) t).getBy());
+                    fw.write(System.lineSeparator());
+                }
+                else if (t instanceof Event) {
+                    taskType = "E";
+                    fw.write(taskType+" | "+(t.isDone()?1:0)+" | "+ t.getTitle()+" | "+ ((Event) t).getEventTime());
+                    fw.write(System.lineSeparator());
+                }
+            }
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

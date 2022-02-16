@@ -1,0 +1,4 @@
+T | 0 | test1
+E | 0 | test2 | 6pm
+D | 0 | test3 | Monday
+E | 0 | meeting | 4pm to 6pm
