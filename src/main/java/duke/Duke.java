@@ -102,6 +102,13 @@ public class Duke {
         displayLine();
     }
 
+    private static void printDeletedTask(int taskNumber) {
+        System.out.println("Noted. I've removed:");
+        System.out.println(taskList[taskNumber-1]);
+        System.out.println("Now you have "+Integer.toString(taskCount-1)+" tasks in the list.");
+        displayLine();
+    }
+
     public static void addTodoToList(String todoDescription){
         //create a new Todo object.
         Todo newTodo = new Todo(todoDescription);
@@ -229,6 +236,10 @@ public class Duke {
 
     //method marks task in list with taskNumber as done.
     public static void markTaskAsDone(int taskNumber){
+        if(taskNumber == -1){
+            System.out.println("Please provide a valid task number for me to mark as done.");
+            return;
+        }
         // mark task with taskNumber as done.
         taskList[taskNumber-1].markAsDone();
         System.out.println("Great Job! I've marked the following task as done:");
@@ -239,12 +250,29 @@ public class Duke {
 
     //method marks task in list with taskNumber as not yet done.
     public static void unmarkTaskAsDone(int taskNumber){
+        if(taskNumber == -1){
+            System.out.println("Please provide a valid task number for me to mark as not yet done.");
+            return;
+        }
         // mark task with taskNumber as yet to be done.
         taskList[taskNumber-1].unmarkAsDone();
         System.out.println("Ok, I've marked the following task as yet to be done:");
         // display updated task entry in list.
         System.out.println(taskList[taskNumber-1]);
         displayLine();
+    }
+
+    public static void deleteTask(int taskNumber){
+        if(taskNumber == -1){
+            System.out.println("Please provide a valid task number for me to delete.");
+            return;
+        }
+        printDeletedTask(taskNumber);
+        while(taskNumber<taskCount){
+            taskList[taskNumber-1] = taskList[taskNumber];
+            taskNumber++;
+        }
+        taskCount--;
     }
 
     public static boolean isMarkCommand(String userInput){
@@ -268,14 +296,30 @@ public class Duke {
         return userInput.equals("list");
     }
 
+    public static boolean isDeleteCommand(String userInput){
+        // return true if command is list, else false
+        if(userInput.length()>=6) {
+            return userInput.substring(0,6).equals("delete");
+        }
+        return false;
+    }
+
     public static boolean isByeCommand(String userInput){
         // return true if command is list, else false
         return userInput.equals("bye");
     }
 
-
+    // method returns task number else -1 if any errors encountered.
     public static int getTaskNumber(String userInput){
-        return Integer.parseInt(userInput.split(" ")[1]);
+        String[] splitInput=userInput.split(" ");
+        if(splitInput.length<=1){
+            return -1;
+        }
+        try {
+            return Integer.parseInt(splitInput[1]);
+        } catch (NumberFormatException e){
+            return -1;
+        }
     }
 
     private static String getUserInput() {
@@ -307,6 +351,10 @@ public class Duke {
             else if (isUnmarkCommand(userInput)){
                 int taskNumber=getTaskNumber(userInput);
                 unmarkTaskAsDone(taskNumber);
+            }
+            else if (isDeleteCommand(userInput)){
+                int taskNumber=getTaskNumber(userInput);
+                deleteTask(taskNumber);
             }
             // else it is an addition command or some unknown command
             else{
