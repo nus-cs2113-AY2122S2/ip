@@ -19,9 +19,15 @@ Alright, task added:
 Your list currently has 3 tasks.
 ========================================
 ========================================
+Alright, task added:
+  [D][ ] Prepare proposal (by: Thursday midnight)
+Your list currently has 4 tasks.
+========================================
+========================================
 1. [T][ ] Finish increment
 2. [D][ ] Run grading scripts (by: next weekend)
 3. [E][ ] Midterms (at: February 14)
+4. [D][ ] Prepare proposal (by: Thursday midnight)
 ========================================
 ========================================
 Good job on getting this done!
@@ -34,6 +40,11 @@ Okay, I've marked this as not yet done:
 ========================================
 Good job on getting this done!
     [T][X] Finish increment
+========================================
+========================================
+Alright, task deleted:
+  [T][X] Finish increment
+Your list currently has 3 tasks.
 ========================================
 See you next time!
 ========================================
