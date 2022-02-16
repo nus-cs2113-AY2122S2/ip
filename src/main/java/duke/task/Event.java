@@ -16,6 +16,14 @@ public class Event extends Task {
         this.preposition = preposition.substring(1);
     }
 
+    public String getTiming() {
+        return this.at;
+    }
+
+    public String getPrepositions() {
+        return "/" + this.preposition;
+    }
+
     @Override
     public String toString() {
         return String.format("[E]%s (%s: %s)", super.toString(), preposition, at);

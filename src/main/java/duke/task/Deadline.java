@@ -16,8 +16,17 @@ public class Deadline extends Task {
         this.preposition = preposition.substring(1);
     }
 
+    public String getTiming() {
+        return this.by;
+    }
+
+    public String getPrepositions() {
+        return "/" + this.preposition;
+    }
+
     @Override
     public String toString() {
         return String.format("[D]%s (%s: %s)", super.toString(), preposition, by);
     }
+
 }
