@@ -73,6 +73,14 @@ public class Parser {
             String description = dummy.substring(5);
             return new AddCommand("todo", description, "");
         }
+        else if(fullCommand.contains("find")) {
+            String dummy = fullCommand.trim();
+            if(dummy.length() == 4) {
+                throw new DukeException("\nThe search key cannot be empty\n");
+            }
+            String searchKey = dummy.substring(5);
+            return new FindCommand(searchKey);
+        }
         else {
             throw new DukeException("\n☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n");
         }
