@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -6,11 +7,14 @@ public class TaskManager {
     private ArrayList<Task> taskList = new ArrayList<>();
     private final char INDICATE_DEADLINE = '~';
     private final char INDICATE_EVENT = '@';
+    private TaskFileManager taskFileManager = new TaskFileManager();
 
     public void startUp() {
         String userInput = "";
+        loadTaskFile();
         Scanner in = new Scanner(System.in);
-        boolean hasAddedTask = false;
+        boolean hasAddedTask;
+        boolean hasUpdate = false;
         while (true) {
             hasAddedTask = false;
             userInput = in.nextLine();
@@ -21,16 +25,37 @@ public class TaskManager {
                 printList();
             } else if (userInput.contains("untick")) {
                 untickTask(userInput);
+                hasUpdate = true;
             } else if (userInput.contains("tick")) {
                 tickTaskCompleted(userInput, true);
             } else if ((userInput.contains("delete"))) {
                 deleteTask(userInput);
+                hasUpdate = true;
             } else {
                 hasAddedTask = isTaskAdded(userInput, hasAddedTask);
             }
             if (hasAddedTask) {
                 printNumberOfWish();
             }
+            if (hasAddedTask || hasUpdate) {
+                updateToFile();
+            }
+        }
+    }
+
+    private void updateToFile() {
+        try {
+            taskFileManager.saveTaskList("wishlist.txt", taskList);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void loadTaskFile() {
+        try {
+            taskFileManager.loadTaskList("wishlist.txt", taskList);
+        } catch (IOException e) {
+            System.out.println("--not valid file--");
         }
     }
 
