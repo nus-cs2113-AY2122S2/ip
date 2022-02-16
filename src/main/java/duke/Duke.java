@@ -63,19 +63,17 @@ public class Duke {
         String taskType = task.getType();
         int status = task.getStatus() ? 1 : 0;
         String taskDescription = task.getDescription();
-        String[] taskDetail;
+        String taskDate = task.getDate();
         String textToWrite = null;
         switch (taskType) {
         case "T":
-            textToWrite = "T|" + status + "|" + taskDescription;
+            textToWrite = "T," + status + "," + taskDescription;
             break;
         case "D":
-            taskDetail = taskDescription.split("/by ");
-            textToWrite = "D|" + status + "|" + taskDetail[0] + "|" + taskDetail[1];
+            textToWrite = "D," + status + "," + taskDescription + "," + taskDate;
             break;
         case "E":
-            taskDetail = taskDescription.split("/at ");
-            textToWrite = "E|" + status + "|" + taskDetail[0] + "|" + taskDetail[1];
+            textToWrite = "E," + status + "," + taskDescription + "," + taskDate;
             break;
         }
         return textToWrite;
@@ -160,24 +158,14 @@ public class Duke {
         readFile(filePath);
     }
 
-    public static void writeToFile(String filePath, String textToAppend) throws IOException {
-        try {
-            FileWriter fw = new FileWriter(filePath, true);
-            fw.write(textToAppend + System.lineSeparator());
-            fw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     public static void readFile(String filePath) throws DukeException, FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
         int separatorIndex;
         while (s.hasNextLine()) {
-            String[] taskInfo = s.nextLine().split("|");
-            String taskDetail;
+            String[] taskInfo = s.nextLine().split(",");
+            String taskDetail = null;
             switch (taskInfo[0]) {
             case "T":
                 taskDetail = taskInfo[2];
@@ -204,8 +192,15 @@ public class Duke {
         greeting();
         checkFileExists(TASKLIST_FILE_PATH);
         processInput();
-        for (int i = 0; i < taskList.getSize(); i++) {
-            writeToFile(TASKLIST_FILE_PATH, formatTask(taskList.getTask(i)));
+        try {
+            FileWriter fw = new FileWriter(TASKLIST_FILE_PATH);
+
+            for (int i = 0; i < taskList.getSize(); i++) {
+                fw.write(formatTask(taskList.getTask(i)) + System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
@@ -231,10 +226,9 @@ public class Duke {
             } else if (textIn.startsWith(EVENT_COMMAND)) {
                 taskDetail = textIn.substring(5);
                 addEvent(taskDetail);
-            } else if (textIn.startsWith(DELETE_COMMAND)){
+            } else if (textIn.startsWith(DELETE_COMMAND)) {
                 taskList.deleteTask(Integer.parseInt(textIn.substring(6).trim()));
-            }
-            else{
+            } else {
                 printLine();
                 System.out.println("\t ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 System.out.println("\t Please refer to the command guide below.\n");
@@ -243,9 +237,9 @@ public class Duke {
             in = new Scanner(System.in);
             textIn = in.nextLine();
 
-            bye();
 
         }
+        bye();
     }
 
 }

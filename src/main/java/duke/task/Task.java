@@ -26,6 +26,10 @@ public class Task {
         return type;
     }
 
+    public String getDate() {
+        return "";
+    }
+
     public boolean getStatus() {
         return isDone;
     }

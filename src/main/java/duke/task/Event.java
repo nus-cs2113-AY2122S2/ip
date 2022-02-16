@@ -9,6 +9,10 @@ public class Event extends Task{
         this.at = at;
     }
 
+    public String getDate(){
+        return at;
+    }
+
     @Override
     public String getType() {
         return type;

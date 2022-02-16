@@ -9,6 +9,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public String getDate(){
+        return by;
+    }
+
     @Override
     public String getType() {
         return type;
