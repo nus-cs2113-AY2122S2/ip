@@ -2,7 +2,7 @@ package duke.command;
 
 public class Command {
     public enum CommandType {
-        ADDTASK, EXITPROGRAM, PRINTLIST, UPDATETASKSTATUS
+        ADDTASK, EXITPROGRAM, PRINTLIST, UPDATETASKSTATUS, DELETETASKS
     }
 
     private CommandType type;

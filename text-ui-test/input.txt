@@ -19,4 +19,10 @@ event
 list
 unmark 3
 list
+delete 2
+list
+delete 1
+list
+delete 1
+list
 bye

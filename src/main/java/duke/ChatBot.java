@@ -1,17 +1,22 @@
 package duke;
 
 import duke.command.AddTaskCommand;
+import duke.command.DeleteTaskCommand;
 import duke.command.Command;
 import duke.command.UpdateTaskStatusCommand;
 import duke.exception.DukeException;
 import duke.exception.DukeExceptionCause;
-import duke.task.*;
+import duke.task.Deadlines;
+import duke.task.Events;
+import duke.task.Task;
+import duke.task.TaskType;
+import duke.task.ToDo;
+
+import java.util.ArrayList;
 
 public class ChatBot {
     private final String BOT_NAME = "Big Bob";
-    private final int MAXIMUM_NUMBER_OF_TASK = 100;
-    private Task[] listOfTasks = new Task[MAXIMUM_NUMBER_OF_TASK];
-    private int numOfTaskInList = 0;
+    private ArrayList<Task> listOfTasks = new ArrayList<>();
 
     public ChatBot() {
         System.out.println("\t Greetings Human! I'm " + BOT_NAME + ".");
@@ -28,15 +33,44 @@ public class ChatBot {
             updateTaskStatusInList(newUpdateCommand);
         } else if (inputCommand.getType() == Command.CommandType.PRINTLIST) {
             printList();
+        } else if (inputCommand.getType() == Command.CommandType.DELETETASKS) {
+            DeleteTaskCommand newDeleteCommand = (DeleteTaskCommand) inputCommand;
+            deleteTask(newDeleteCommand.getTaskIndex());
         }
     }
 
     public void printList() {
         System.out.println("\t Here are the tasks in your list:");
-        for (int i = 0; i < numOfTaskInList; i++) {
+        Task taskToPrint;
+        for (int i = 0; i < listOfTasks.size(); i++) {
             int taskNumber = i + 1;
-            System.out.println("\t " + taskNumber + "." + listOfTasks[i].printTaskDescription());
+            taskToPrint = listOfTasks.get(i);
+            System.out.println("\t " + taskNumber + "." + taskToPrint.printTaskDescription());
         }
+    }
+
+    public void deleteTask(int taskIndex) {
+        String deleteMessage = "\t Noted. I've removed this task:\n\t   ";
+        Task taskToDelete;
+        try {
+            taskToDelete = listOfTasks.get(taskIndex - 1);
+        } catch (IndexOutOfBoundsException IE) {
+            processExceptions(new DukeException(DukeExceptionCause.TASKINDEXOUTOFRANGE));
+            return;
+        }
+        if (taskToDelete instanceof Events) {
+            Events eventToDelete = (Events) taskToDelete;
+            deleteMessage = deleteMessage + eventToDelete.printTaskDescription();
+        } else if (taskToDelete instanceof Deadlines) {
+            Deadlines deadlinesToDelete = (Deadlines) taskToDelete;
+            deleteMessage = deleteMessage + deadlinesToDelete.printTaskDescription();
+        } else if (taskToDelete instanceof ToDo) {
+            ToDo toDoToDelete = (ToDo) taskToDelete;
+            deleteMessage = deleteMessage + toDoToDelete.printTaskDescription();
+        }
+        listOfTasks.remove(taskIndex - 1);
+        System.out.println(deleteMessage);
+        System.out.println("\t Now you have " + listOfTasks.size() + " tasks in the list.");
     }
 
     public void echoInvalidCommandMessage() {
@@ -45,6 +79,14 @@ public class ChatBot {
 
     public void echoMissingTaskNameMessage(String typeOfTask) {
         System.out.println("\t ☹ OOPS!!! The description of a " + typeOfTask + " cannot be empty.");
+    }
+
+    public void echoMissingTaskIndexMessage() {
+        System.out.println("\t ☹ OOPS!!! The index of a task cannot be empty.");
+    }
+
+    public void echoTaskIndexOutOfRangeMessage() {
+        System.out.println("\t ☹ OOPS!!! You have entered an invalid index of a task.");
     }
 
     public void processExceptions(DukeException de) {
@@ -62,6 +104,10 @@ public class ChatBot {
         case DEADLINETASKNAMEEMPTY:
             echoMissingTaskNameMessage("deadline");
             break;
+        case EMPTYTASKINDEX:
+            echoMissingTaskIndexMessage();
+        case TASKINDEXOUTOFRANGE:
+            echoTaskIndexOutOfRangeMessage();
         default:
             break;
         }
@@ -84,17 +130,17 @@ public class ChatBot {
             freshTask = new ToDo(taskName);
             acknowledgementMessage = acknowledgementMessage + String.format("\t   [T][ ] %s", taskName);
         }
-        listOfTasks[numOfTaskInList] = freshTask;
-        numOfTaskInList++;
+        listOfTasks.add(freshTask);
         System.out.println(acknowledgementMessage);
-        System.out.println("\t Now you have " + numOfTaskInList + " tasks in the list.");
+        System.out.println("\t Now you have " + listOfTasks.size() + " tasks in the list.");
     }
 
     public void updateTaskStatusInList(UpdateTaskStatusCommand newUpdateCommand) {
         boolean isTaskDone = newUpdateCommand.isTaskDone();
         int taskIndex = newUpdateCommand.getTaskIndex();
         String acknowledgementMessage;
-        acknowledgementMessage = listOfTasks[taskIndex].setDone(isTaskDone);
+        Task taskToUpdate = listOfTasks.get(taskIndex);
+        acknowledgementMessage = taskToUpdate.setDone(isTaskDone);
         System.out.println("\t   " + acknowledgementMessage);
     }
 
