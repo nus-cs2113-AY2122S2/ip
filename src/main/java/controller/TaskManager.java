@@ -5,6 +5,7 @@ import task.Event;
 import task.Task;
 import task.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskManager {
@@ -15,7 +16,7 @@ public class TaskManager {
 
 
     private static int taskCount=0;
-    private static Task[] taskList = new Task[MAX_TASK_COUNT] ;
+    private static ArrayList<Task> taskList = new ArrayList<>();
     private static Scanner sc = new Scanner(System.in);
 
 
@@ -31,7 +32,7 @@ public class TaskManager {
                 listTask();
                 break;
             case "mark":
-                updateTask(Integer.parseInt(input.split(SPACE)[1])-1,true);
+                updateTask(Integer.parseInt(input.split(SPACE)[1])-1,true);  //refractor get index
                 break;
             case "unmark":
                 updateTask(Integer.parseInt(input.split(SPACE)[1])-1,false);
@@ -40,6 +41,9 @@ public class TaskManager {
             case "deadline":
             case "event":
                 addTaskByMessage(action, input);
+                break;
+            case "delete":
+                deleteTask(Integer.parseInt(input.split(SPACE)[1])-1);
                 break;
             default:
                 printErrorInputMessage();
@@ -52,6 +56,17 @@ public class TaskManager {
         bye();
     }
 
+    private static void deleteTask(int idx){
+        System.out.println(INDENT+"Noted. I've removed this task:");
+        printTask(taskList.get(idx));
+        taskList.remove(idx);
+        printTaskCount();
+    }
+
+    private static void updateTaskCount(){
+        taskCount = taskList.size();
+    }
+
     private static void bye() {
         System.out.println(INDENT + "Bye. Hope to see you again soon!");
         printLine();
@@ -59,8 +74,8 @@ public class TaskManager {
 
     private static void listTask() {
         System.out.println(INDENT+"Here are the tasks in your list:");
-        for(int i =0 ; i<taskCount; i++){
-            System.out.println(INDENT+(i+1) + "." + taskList[i]);
+        for(int i =0 ; i<taskList.size(); i++){
+            System.out.println(INDENT+(i+1) + "." + taskList.get(i));
         }
     }
 
@@ -72,12 +87,16 @@ public class TaskManager {
         System.out.println(INDENT+"OOPS!! I'm sorry, but i don;t know what that means :(");
     }
 
+    public static void printTaskCount(){
+        updateTaskCount();
+        System.out.println(INDENT + "Now you have " + taskCount + " tasks in the list.");
+    }
+
     public static void addTask(Task t){
-        taskList[taskCount] = t;
+        taskList.add(t);
         System.out.println(INDENT+"Got it. I've added this task:");
         System.out.println(INDENT+t);
-        taskCount++;
-        System.out.println(INDENT+"Now you have " + taskCount + " tasks in the list.");
+        printTaskCount();
 
     }
 
@@ -100,12 +119,12 @@ public class TaskManager {
     private static void updateTask(int idx, boolean isMark){
         if(isMark){
             System.out.println(INDENT+"Nice! I have marked this task as done:");
-            taskList[idx].markAsDone();
+            taskList.get(idx).markAsDone();
         }else{
             System.out.println(INDENT+"Nice! I have marked this task as done:");
-            taskList[idx].markAsUndone();
+            taskList.get(idx).markAsUndone();
         }
-        printTask(taskList[idx]);
+        printTask(taskList.get(idx));
     }
     
     private static void printTask(Task task){
