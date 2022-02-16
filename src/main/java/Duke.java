@@ -87,7 +87,9 @@ public class Duke {
         } catch (MissingDescriptionException e) {
             System.out.println("Description cannot be empty. Correct format: event <description> /at <date>");
         } catch (MissingDateException e) {
-            System.out.println("Date cannot be empty. Correct format: deadline <description> /by <date>");
+            System.out.println("Date cannot be empty. Correct format: event <description> /at <date>");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Incorrect Format. Correct format: event <description> /at <date>");
         }
     }
 
@@ -102,6 +104,8 @@ public class Duke {
             System.out.println("Description cannot be empty. Correct format: deadline <description> /by <date>");
         } catch (MissingDateException e) {
             System.out.println("Date cannot be empty. Correct format: deadline <description> /by <date>");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Incorrect Format. Correct format: deadline <description> /by <date>");
         }
     }
 
