@@ -5,8 +5,14 @@ import marites.task.Event;
 import marites.task.Task;
 import marites.task.Todo;
 
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.io.File;
 
 import static java.lang.Integer.parseInt;
 
@@ -50,18 +56,50 @@ public class Marites {
     private static final String SET_TASK_STATUS_FORMAT_STRING = "%s%n    %s\n";
 
     private static final Scanner SCANNER = new Scanner(System.in);
+    public static final String SAVE_FILENAME = "tasklist.ser";
+    public static final String READ_TASK_LIST_ERROR_MESSAGE = "WARNING: Error when reading saved task list; initializing with empty list";
+    public static final String SAVE_TASK_LIST_ERROR_MESSAGE = "WARNING: Error occurred while saving task list";
 
     /** The task list being tracked by marites.Marites. */
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
 
 
     public static void main(String[] args) {
+        initializeTaskList();
         printIntroduction();
         while (true) {
             String userInput = SCANNER.nextLine();
             String commandFeedback = processUserCommand(userInput);
             showFeedback(commandFeedback);
+        }
+    }
+
+    private static void initializeTaskList() {
+        File saveFile = new File(SAVE_FILENAME);
+        if (!saveFile.exists()) {
+            tasks = new ArrayList<>();
+            return;
+        }
+        try {
+            FileInputStream fileIn = new FileInputStream(SAVE_FILENAME);
+            ObjectInputStream objIn = new ObjectInputStream(fileIn);
+            tasks = (ArrayList<Task>)objIn.readObject();
+        } catch (IOException | ClassNotFoundException | ClassCastException e) {
+            System.out.println(READ_TASK_LIST_ERROR_MESSAGE);
+            tasks = new ArrayList<>();
+        }
+    }
+
+    private static void saveTaskList() {
+        try {
+            File saveFile = new File(SAVE_FILENAME);
+            saveFile.createNewFile();
+            FileOutputStream fileOut = new FileOutputStream(SAVE_FILENAME);
+            ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
+            objOut.writeObject(tasks);
+        } catch (IOException e) {
+            System.out.println(SAVE_TASK_LIST_ERROR_MESSAGE);
         }
     }
 
@@ -217,6 +255,7 @@ public class Marites {
             return String.format(ADD_TASK_UNKNOWN_TASK_MESSAGE, e.getTaskType());
         }
         tasks.add(task);
+        saveTaskList();
         return String.format(ADD_TASK_FORMAT_STRING, task, tasks.size());
     }
 
@@ -238,6 +277,7 @@ public class Marites {
         taskToMark.setDone(isDone);
         String message = (isDone ? MARK_DONE_MESSAGE :
                 MARK_UNDONE_MESSAGE);
+        saveTaskList();
         return String.format(SET_TASK_STATUS_FORMAT_STRING, message, taskToMark);
     }
 
