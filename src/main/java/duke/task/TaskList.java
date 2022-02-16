@@ -32,6 +32,10 @@ public class TaskList {
         return taskList.size();
     }
 
+    public Task getTask(int index){
+        return taskList.get(index);
+    }
+
     public void markDone(int taskId){
         taskList.get(taskId - 1).setDone();
         printLine();
