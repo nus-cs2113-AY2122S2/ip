@@ -9,13 +9,13 @@ public class UnmarkCommand extends Command {
     private static final String TASK_UNMARKED_MESSAGE_FORMAT =
             "____________________________________________________________"
             + "\nOK, I've marked this task as not done yet:"
-            + "\n %s"
+            + "\n%s"
             + "\n____________________________________________________________";
     private static final String COMMAND_NAME = "unmark";
     private static final String INVALID_INPUT = "The argument received is not a valid integer.";
     private static final String INVALID_TASK = "The task number given does not exist";
 
-    private Integer index;
+    private int index;
     private HashMap<String, String> arguments;
 
     /**
@@ -46,7 +46,7 @@ public class UnmarkCommand extends Command {
     public void execute() {
         try {
             assertArguments();
-            Task taskToMark = taskList.get(index);
+            Task taskToMark = this.taskList.get(index);
             taskToMark.setIsDone(false);
             System.out.printf((TASK_UNMARKED_MESSAGE_FORMAT) + "%n", taskToMark);
         } catch (InvalidArgumentException e) {
