@@ -1,17 +1,20 @@
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskManager {
-    public static final int MAX_TASK = 100;
     private final String BOT_NAME = "[iWish]: ";
-    public Task[] taskList = new Task[MAX_TASK];
-    public int trackList = 0;
+    public ArrayList<Task> taskList = new ArrayList<Task>();
     private final char INDICATE_DEADLINE = '~';
     private final char INDICATE_EVENT = '@';
+    private TaskFileManager taskFileManager = new TaskFileManager();
 
     public void startUp() {
         String userInput = "";
+        loadTaskFile();
         Scanner in = new Scanner(System.in);
-        boolean hasAddedTask = false;
+        boolean hasAddedTask;
+        boolean hasUpdate = false;
         while (true) {
             hasAddedTask = false;
             userInput = in.nextLine();
@@ -22,14 +25,36 @@ public class TaskManager {
                 printList();
             } else if (userInput.contains("untick")) {
                 untickTask(userInput);
+                hasUpdate = true;
             } else if (userInput.contains("tick")) {
                 tickTaskCompleted(userInput, true);
+                hasUpdate = true;
             } else {
                 hasAddedTask = isTaskAdded(userInput, hasAddedTask);
             }
             if (hasAddedTask) {
                 printNumberOfWish();
+
             }
+            if (hasAddedTask || hasUpdate) {
+                updateToFile();
+            }
+        }
+    }
+
+    private void updateToFile() {
+        try {
+            taskFileManager.saveTaskList("wishlist.txt", taskList);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void loadTaskFile() {
+        try {
+            taskFileManager.loadTaskList("wishlist.txt", taskList);
+        } catch (IOException e) {
+            System.out.println("--not valid file--");
         }
     }
 
@@ -59,7 +84,7 @@ public class TaskManager {
     }
 
     private void printNumberOfWish() {
-        System.out.println("Now you have " + trackList + " wish(es) in the list.");
+        System.out.println("Now you have " + taskList.size() + " wish(es) in the list.");
     }
 
     public String deriveDescription(String input, String command) throws DukeEmptyStringException {
@@ -93,8 +118,7 @@ public class TaskManager {
             printMessage("Incorrect event usage -> 'event: sing @ 3pm'");
             return false;
         }
-        taskList[trackList] = new Event(description, at);
-        trackList++;
+        taskList.add(new Event(description, at));
         printNoted();
         hasAddedTask = true;
         return hasAddedTask;
@@ -116,8 +140,7 @@ public class TaskManager {
             printMessage("Incorrect deadline usage -> 'deadline: homework ~ 3pm'");
             return false;
         }
-        taskList[trackList] = new Deadline(description, by);
-        trackList++;
+        taskList.add(new Deadline(description, by));
         printNoted();
         hasAddedTask = true;
         return hasAddedTask;
@@ -132,9 +155,8 @@ public class TaskManager {
             printMessage("The description for todo: cannot be empty");
             return false;
         }
-        taskList[trackList] = new Todo(description);
-        trackList++;
-        printMessage(" noting down your wish -> " + taskList[trackList - 1]);
+        taskList.add(new Todo(description));
+        printMessage(" noting down your wish -> " + taskList.get(taskList.size() - 1));
         hasAddedTask = true;
         return hasAddedTask;
     }
@@ -142,8 +164,8 @@ public class TaskManager {
     private void tickTaskCompleted(String userInput, boolean isCompleted) {
         String choice = userInput.substring(userInput.indexOf(' ') + 1);
         int choiceNumber = Integer.parseInt(choice) - 1;
-        taskList[choiceNumber].setCompleted(isCompleted);
-        System.out.println(taskList[choiceNumber]);
+        taskList.get(choiceNumber).setCompleted(isCompleted);
+        System.out.println(taskList.get(choiceNumber));
     }
 
     private void untickTask(String userInput) {
@@ -151,13 +173,13 @@ public class TaskManager {
     }
 
     public void printNoted() {
-        printMessage("noting down your wish -> " + taskList[trackList - 1]);
+        printMessage("noting down your wish -> " + taskList.get(taskList.size() - 1));
     }
 
     public void printList() {
         printMessage(" ** These are your wishes **");
-        for (int i = 0; i < trackList; i++) {
-            System.out.println((i + 1) + ". " + taskList[i]);
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.println((i + 1) + ". " + taskList.get(i));
         }
         System.out.println("We reached the end of the list. Anymore wish?");
     }

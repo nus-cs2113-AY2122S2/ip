@@ -15,6 +15,14 @@ public class Task {
         }
     }
 
+    public int getStatusNumber() {
+        if (this.isCompleted) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
     public String getTaskName() {
         return taskName;
     }
@@ -27,13 +35,21 @@ public class Task {
         return this.isCompleted;
     }
 
+    public void setCompletedNoUpdateRequired(boolean isDone) {
+        this.isCompleted = isDone;
+    }
+
     public void setCompleted(boolean isDone) {
         if (isDone) {
             System.out.println("Nice! I've marked this task as done: ");
         } else {
             System.out.println("OK, I've marked this task as not done yet: ");
         }
-        this.isCompleted = isDone;
+        setCompletedNoUpdateRequired(isDone);
+    }
+
+    public String toFileString() {
+        return "| " + getStatusNumber() + " | " + this.taskName;
     }
 
     @Override
