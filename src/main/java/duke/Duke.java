@@ -41,7 +41,7 @@ public class Duke {
             }
             try {
                 checkCommand(input);
-            } catch (InvalidCommandException | EmptyDescriptionException e) {
+            } catch (DukeInvalidCommandException | DukeEmptyDescriptionException e) {
                 input = in.nextLine();
                 continue;
             }
@@ -58,15 +58,15 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
     }
 
-    private static void checkCommand(String line) throws EmptyDescriptionException, InvalidCommandException {
+    private static void checkCommand(String line) throws DukeEmptyDescriptionException, DukeInvalidCommandException {
         Set<String> validCommands = Set.of("todo", "deadline", "event");
         String[] splitLine = line.split(" ");
         String type = splitLine[0];
         if (!validCommands.contains(type)) {
-            throw new InvalidCommandException();
+            throw new DukeInvalidCommandException();
         }
         if (splitLine.length == 1) {
-            throw new EmptyDescriptionException();
+            throw new DukeEmptyDescriptionException();
         }
     }
 
