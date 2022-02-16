@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-//    private static Task[] taskList = new Task [100];
-    static int taskIndex=0;
-
     private static ArrayList<Task> taskList = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -69,10 +66,6 @@ public class Duke {
 
     public static void listTasks() {
         System.out.println("    Here are the tasks in your list:");
-//        for(int i=0;i< taskList.length;i++) {
-//            if(taskList[i] == null) break;
-//            System.out.println("    "+(i+1)+": "+taskList[i]);
-//        }
         int i=1;
         for(Task t:taskList) {
             System.out.println("    "+(i++ )+": "+t);
@@ -83,11 +76,6 @@ public class Duke {
         try {
             task = task.replace("mark ", "");
             int i = Integer.parseInt(task) - 1;
-//            if (taskList[i] != null) {
-//                taskList[i].setDone(true);
-//                System.out.println("    Nice! I've marked this task as done:");
-//                System.out.println("    " + taskList[i]);
-//            }
             if(taskList.get(i)!=null) {
                 taskList.get(i).setDone(true);
                 System.out.println("    Nice! I've marked this task as done:");
@@ -110,11 +98,6 @@ public class Duke {
         try {
             task = task.replace("unmark ","");
             int i = Integer.parseInt(task)-1;
-//            if(taskList[i]!=null) {
-//                taskList[i].setDone(false);
-//                System.out.println("    OK, I've marked this task as not done yet:");
-//                System.out.println("        "+taskList[i]);
-//            }
             if(taskList.get(i)!=null) {
                 taskList.get(i).setDone(false);
                 System.out.println("    OK, I've marked this task as not done yet:");
@@ -177,7 +160,6 @@ public class Duke {
                 return;
             }
             System.out.println("    Got it. I've added this task:");
-//            System.out.println("        " + taskList[taskIndex - 1]);
             System.out.println("        " + taskList.get(taskList.size()-1));
             System.out.println("    Now you have " + (taskList.size()) + " tasks in the list.");
         } catch (IndexOutOfBoundsException e) {
@@ -186,7 +168,6 @@ public class Duke {
     }
 
     private static void addAsTodo(String task) {
-//        taskList[taskIndex++] = new Todo(task);
         taskList.add(new Todo(task));
     }
     private static void addAsEvent(String task) {
@@ -197,7 +178,6 @@ public class Duke {
 
         index = eventTime.indexOf(' ');
         eventTime = eventTime.substring(index+1);
-//        taskList[taskIndex++] = new Event(task,eventTime);
         taskList.add(new Event(task,eventTime));
     }
 
@@ -209,7 +189,6 @@ public class Duke {
 
         index = by.indexOf(' ');
         by = by.substring(index+1);
-//        taskList[taskIndex++] = new Deadline(task,by);
         taskList.add(new Deadline(task,by));
     }
 }
