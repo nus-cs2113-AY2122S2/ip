@@ -3,11 +3,12 @@ package duke;
 import exceptions.DukeException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
 
 public class Duke {
     private static ArrayList<Task> taskList = new ArrayList<>();
@@ -51,7 +52,7 @@ public class Duke {
     }
 
     private static void greetUser(String greeting) {
-        if(greeting.equals("hi")) {
+        if (greeting.equals("hi")) {
             String logo = " ____        _\n"
                     + "|  _ \\ _   _| | _____\n"
                     + "| | | | | | | |/ / _ \\\n"
@@ -81,17 +82,16 @@ public class Duke {
         try {
             task = task.replace("mark ", "");
             int i = Integer.parseInt(task) - 1;
-            if(taskList.get(i)!=null) {
+            if (taskList.get(i)!=null) {
                 taskList.get(i).setDone(true);
                 System.out.println("    Nice! I've marked this task as done:");
                 System.out.println("    " + taskList.get(i));
-//                System.out.println("    " + taskList[i]);
                 writeTaskFile();
             } else {
                 System.out.println("    Please enter a valid task number");
             }
         } catch (IndexOutOfBoundsException e) {
-            if(taskList.size()==0) {
+            if (taskList.size()==0) {
                 System.out.println("    OOPS there are no tasks in the list");
             } else {
                 System.out.println("    OOPS there are only " + taskList.size() + " tasks in the list");
@@ -105,17 +105,16 @@ public class Duke {
         try {
             task = task.replace("unmark ","");
             int i = Integer.parseInt(task)-1;
-            if(taskList.get(i)!=null) {
+            if (taskList.get(i)!=null) {
                 taskList.get(i).setDone(false);
                 System.out.println("    OK, I've marked this task as not done yet:");
                 System.out.println("    " + taskList.get(i));
-//                System.out.println("        "+taskList[i]);
                 writeTaskFile();
             } else {
                 System.out.println("    Please enter a valid task number");
             }
         } catch (IndexOutOfBoundsException e) {
-            if(taskList.size()==0) {
+            if (taskList.size()==0) {
                 System.out.println("    OOPS there are no tasks in the list");
             } else {
                 System.out.println("    OOPS there are only " + taskList.size() + " tasks in the list");
@@ -130,7 +129,7 @@ public class Duke {
         try {
             task = task.replace("delete ","");
             int i = Integer.parseInt(task)-1;
-            if(taskList.get(i)!=null) {
+            if (taskList.get(i)!=null) {
                 System.out.println("deleting task");
                 Task removedTask = taskList.get(i);
                 taskList.remove(i);
@@ -140,7 +139,7 @@ public class Duke {
                 writeTaskFile();
             }
         } catch (IndexOutOfBoundsException e) {
-            if(taskList.size()==0) {
+            if (taskList.size()==0) {
                 System.out.println("    OOPS there are no tasks in the list");
             } else {
                 System.out.println("    OOPS there are only " + taskList.size() + " tasks in the list");
@@ -172,8 +171,6 @@ public class Duke {
             System.out.println("    Got it. I've added this task:");
             System.out.println("        " + taskList.get(taskList.size()-1));
             System.out.println("    Now you have " + (taskList.size()) + " tasks in the list.");
-//            System.out.println("        " + taskList[taskIndex - 1]);
-//            System.out.println("    Now you have " + (taskIndex) + " tasks in the list.");
             writeTaskFile();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("    OOPS!!! The decription of a "+task+" cannot be empty");
@@ -205,11 +202,12 @@ public class Duke {
         taskList.add(new Deadline(task,by));
     }
 
-    //we can perform a read task file at the start of every operation to update the taskList from there
-    //then we can write into the task file everytime something is changed- after each task whether it is an add or
-    // delete or mark or unmark we should update the file each time
     private static void readTaskFile() {
         try {
+            File directory = new File("data");
+            if(!directory.exists()) {
+                directory.mkdir();
+            }
             File dukeFile = new File("data/duke.txt");
             if(dukeFile.createNewFile()) {
                 System.out.println("    I have created \"duke.txt\" to store your tasks: "+dukeFile.getName());
@@ -220,25 +218,18 @@ public class Duke {
             List<String> taskInfo;
             while(s.hasNext()) {
                 taskInfo = Arrays.asList(s.nextLine().split(" \\| "));
-//                System.out.println(taskInfo);
                 switch(taskInfo.get(0)) {
                 case "T":
                     taskList.add(new Todo(taskInfo.get(2)));
-                    taskList.get(taskList.size()-1).isDone = Objects.equals(taskInfo.get(1), "1");
-//                    taskList[taskIndex++] = new Todo(taskInfo.get(2));
-//                    taskList[taskIndex-1].isDone = Objects.equals(taskInfo.get(1), "1");
+                    taskList.get(taskList.size()-1).isDone = taskInfo.get(1).equals("1");
                     break;
                 case "E":
                     taskList.add(new Event(taskInfo.get(2),taskInfo.get(3)));
-                    taskList.get(taskList.size()-1).isDone = Objects.equals(taskInfo.get(1), "1");
-//                    taskList[taskIndex++] = new Event(taskInfo.get(2),taskInfo.get(3));
-//                    taskList[taskIndex-1].isDone = Objects.equals(taskInfo.get(1), "1");
+                    taskList.get(taskList.size()-1).isDone = taskInfo.get(1).equals("1");
                     break;
                 case "D":
                     taskList.add(new Deadline(taskInfo.get(2),taskInfo.get(3)));
-                    taskList.get(taskList.size()-1).isDone = Objects.equals(taskInfo.get(1), "1");
-//                    taskList[taskIndex++] = new Deadline(taskInfo.get(2),taskInfo.get(3));
-//                    taskList[taskIndex-1].isDone = Objects.equals(taskInfo.get(1), "1");
+                    taskList.get(taskList.size()-1).isDone = taskInfo.get(1).equals("1");
                     break;
                 }
             }
@@ -248,6 +239,7 @@ public class Duke {
             e.printStackTrace();
         }
     }
+
     private static void writeTaskFile() {
         try {
             File dukeFile = new File("data/duke.txt");
@@ -275,8 +267,8 @@ public class Duke {
             }
             fw.close();
         } catch (IOException e) {
+            System.out.println("Could not write into file");
             e.printStackTrace();
         }
-
     }
 }
