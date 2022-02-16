@@ -38,6 +38,7 @@ public class UserInterface {
      */
     private ArrayList<Task> loadSaveFile() throws IOException, DukeException {
         File saveFile = new File("data/duke.txt");
+        saveFile.getParentFile().mkdirs();
         saveFile.createNewFile();
         Scanner fileScan = new Scanner(saveFile);
         ArrayList<Task> tasks = new ArrayList<>();
