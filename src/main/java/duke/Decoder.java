@@ -1,6 +1,12 @@
 package duke;
 
-import duke.command.*;
+import duke.command.AddTaskCommand;
+import duke.command.Command;
+import duke.command.DeleteTaskCommand;
+import duke.command.ExitProgramCommand;
+import duke.command.PrintListCommand;
+import duke.command.UpdateTaskStatusCommand;
+
 import duke.exception.DukeException;
 import duke.exception.DukeExceptionCause;
 
@@ -18,6 +24,12 @@ public class Decoder {
         } else if (userInput.startsWith("deadline") || userInput.startsWith("event") || userInput.startsWith("todo")) {
             try {
                 newCommand = new AddTaskCommand(userInput);
+            } catch (DukeException de) {
+                throw de;
+            }
+        } else if (userInput.startsWith("delete")) {
+            try {
+                newCommand = new DeleteTaskCommand(userInput);
             } catch (DukeException de) {
                 throw de;
             }
