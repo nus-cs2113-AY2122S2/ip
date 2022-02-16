@@ -5,6 +5,10 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
@@ -167,11 +171,96 @@ public class Duke {
         System.out.println("event: adds an event. (e.g. event <description> /at <date>)");
     }
 
+    private static void readSaveData(Task[] tasks) throws FileNotFoundException {
+        String taskType;
+        String taskDescription;
+        boolean isDone;
+        String date = "";
+        File loadData = new File("data/duke.txt");
+        Scanner loadDataScanner = new Scanner(loadData);
+        while (loadDataScanner.hasNext()) {
+            String line = loadDataScanner.nextLine();
+            String[] words = line.split(" \\| ");
+            taskType = words[0];
+            isDone = words[1].equals("[X]");
+            taskDescription = words[2];
+            if (words.length > 3) {
+                date = words[3];
+            }
+            loadData(tasks, taskType, isDone, taskDescription, date);
+        }
+    }
+
+    private static void loadData(Task[] tasks, String command, boolean isDone, String description, String date) {
+        int numOfTasks = Task.getNumOfTasks();
+        switch(command) {
+        case "todo":
+            tasks[numOfTasks] = new ToDo(description);
+            if (isDone) {
+                tasks[numOfTasks].setDone();
+            }
+            break;
+        case "deadline":
+            tasks[numOfTasks] = new Deadline(description, date);
+            if (isDone) {
+                tasks[numOfTasks].setDone();
+            }
+            break;
+        case "event":
+            tasks[numOfTasks] = new Event(description, date);
+            if (isDone) {
+                tasks[numOfTasks].setDone();
+            }
+            break;
+        default:
+            System.out.println("Cannot load line");
+        }
+    }
+
+    private static void saveData(Task[] tasks) throws IOException {
+        createSaveDirectory();
+        createSaveFile();
+        FileWriter writer = new FileWriter("data/duke.txt", true);
+        for (int i = 0; i < Task.getNumOfTasks(); i += 1) {
+            writer.write(tasks[i].getTaskType() + " | " + tasks[i].getStatusIcon() + "| "
+                    + tasks[i].getTaskDescription());
+            if (tasks[i] instanceof Deadline || tasks[i] instanceof Event) {
+                writer.write(" | " + tasks[i].getTime());
+            }
+            writer.write("\n");
+        }
+        writer.close();
+    }
+
+    private static void createSaveDirectory() {
+        File saveDirectory = new File("data");
+        if (!saveDirectory.exists()) {
+            if (!saveDirectory.mkdir()) {
+                System.out.println("Failed to create new directory.");
+            }
+        }
+    }
+
+    private static void createSaveFile() throws IOException {
+        File saveFile = new File("data/duke.txt");
+        saveFile.createNewFile();
+    }
+
     public static void main(String[] args) {
         printWelcomeMessage();
         Scanner in = new Scanner(System.in);
         Task[] tasks = new Task[100];
+        try {
+            readSaveData(tasks);
+        } catch (FileNotFoundException e) {
+            System.out.println(("Save File not found."));
+        }
         parseInput(in, tasks);
+        try {
+            saveData(tasks);
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
         System.out.println("Goodbye, see you next time!");
     }
 }

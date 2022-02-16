@@ -1,0 +1,3 @@
+todo | [ ] | sleep
+deadline | [ ] | sleep | 2
+event | [ ] | sleep | 2

@@ -1,6 +1,6 @@
 package duke.task;
 
-public class Task {
+public abstract class Task {
     protected final String taskDescription;
     protected boolean isDone;
     protected static int numOfTasks = 0;
@@ -10,6 +10,10 @@ public class Task {
         this.isDone = false;
         numOfTasks += 1;
     }
+
+    public abstract String getTaskType();
+
+    public abstract String getTime();
 
     public static int getNumOfTasks() {
         return numOfTasks;

@@ -9,6 +9,16 @@ public class Event extends Task {
     }
 
     @Override
+    public String getTaskType() {
+        return "event";
+    }
+
+    @Override
+    public String getTime() {
+        return at;
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (at: " + at + ')';
     }

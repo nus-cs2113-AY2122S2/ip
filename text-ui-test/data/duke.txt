@@ -1,0 +1,15 @@
+todo | [X] | borrow book
+deadline | [ ] | return book | Friday
+event | [ ] | project meeting | Mon 2-4pm
+todo | [ ] | borrow book
+deadline | [ ] | return book | Friday
+event | [ ] | project meeting | Mon 2-4pm
+todo | [ ] | borrow book
+deadline | [ ] | return book | Friday
+event | [ ] | project meeting | Mon 2-4pm
+todo | [ ] | borrow book
+deadline | [ ] | return book | Friday
+event | [ ] | project meeting | Mon 2-4pm
+todo | [ ] | borrow book
+deadline | [ ] | return book | Friday
+event | [ ] | project meeting | Mon 2-4pm
