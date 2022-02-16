@@ -10,9 +10,11 @@ mark 3
 list
 mark 2
 list
+mark 4
+mark
 invalidcommand
 todo
-todo
+todo /by asd
 deadline asdasd
 deadline asdasd /at test
 deadline /by test

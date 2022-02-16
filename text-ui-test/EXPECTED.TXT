@@ -16,43 +16,43 @@ ____________________________________________________________
 added: [D][ ] asdasd (by: test)
 ____________________________________________________________
 ____________________________________________________________
-added: [E][ ] asdasdasd (at: test)
+added: [E][ ] asdasdasd (at: null)
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list
 1. [T][ ] asdasd
 2. [D][ ] asdasd (by: test)
-3. [E][ ] asdasdasd (at: test)
+3. [E][ ] asdasdasd (at: null)
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
- [E][X] asdasdasd (at: test)
+ [E][X] asdasdasd (at: null)
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list
 1. [T][ ] asdasd
 2. [D][ ] asdasd (by: test)
-3. [E][X] asdasdasd (at: test)
+3. [E][X] asdasdasd (at: null)
 ____________________________________________________________
 ____________________________________________________________
 OK, I've marked this task as not done yet:
- [E][ ] asdasdasd (at: test)
+ [E][ ] asdasdasd (at: null)
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list
 1. [T][ ] asdasd
 2. [D][ ] asdasd (by: test)
-3. [E][ ] asdasdasd (at: test)
+3. [E][ ] asdasdasd (at: null)
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
- [E][X] asdasdasd (at: test)
+ [E][X] asdasdasd (at: null)
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list
 1. [T][ ] asdasd
 2. [D][ ] asdasd (by: test)
-3. [E][X] asdasdasd (at: test)
+3. [E][X] asdasdasd (at: null)
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
@@ -62,34 +62,52 @@ ____________________________________________________________
 Here are the tasks in your list
 1. [T][ ] asdasd
 2. [D][X] asdasd (by: test)
-3. [E][X] asdasdasd (at: test)
+3. [E][X] asdasdasd (at: null)
+____________________________________________________________
+____________________________________________________________
+☹ OOPS!!! The command entered for mark ran into an error. The error:
+The task number given does not exist
+____________________________________________________________
+____________________________________________________________
+☹ OOPS!!! The command entered for mark ran into an error. The error:
+The argument received is not a valid integer.
 ____________________________________________________________
 ____________________________________________________________
 ☹ OOPS!!! I'm sorry, but I don't know what 'invalidcommand' means :-(
 ____________________________________________________________
 ____________________________________________________________
-☹ OOPS!!! The command entered for todo does not match (empty or mistyped).
+☹ OOPS!!! The command entered for todo ran into an error. The error:
+Todo must have a description!
 ____________________________________________________________
 ____________________________________________________________
-☹ OOPS!!! The command entered for todo does not match (empty or mistyped).
+☹ OOPS!!! The command entered for todo ran into an error. The error:
+Todo must have a description!
 ____________________________________________________________
 ____________________________________________________________
-☹ OOPS!!! The command entered for deadline does not match (empty or mistyped).
+☹ OOPS!!! The command entered for deadline ran into an error. The error:
+Deadline must have a valid date for /by!
 ____________________________________________________________
 ____________________________________________________________
-☹ OOPS!!! The command entered for deadline does not match (empty or mistyped).
+☹ OOPS!!! The command entered for deadline ran into an error. The error:
+Deadline must have a valid date for /by!
 ____________________________________________________________
 ____________________________________________________________
-☹ OOPS!!! The command entered for deadline does not match (empty or mistyped).
+☹ OOPS!!! The command entered for deadline ran into an error. The error:
+Deadline must have a description!
+Deadline must have a valid date for /by!
 ____________________________________________________________
 ____________________________________________________________
-☹ OOPS!!! The command entered for event does not match (empty or mistyped).
+☹ OOPS!!! The command entered for deadline ran into an error. The error:
+Event must have a valid date for /at!
 ____________________________________________________________
 ____________________________________________________________
-☹ OOPS!!! The command entered for event does not match (empty or mistyped).
+☹ OOPS!!! The command entered for deadline ran into an error. The error:
+Event must have a valid date for /at!
 ____________________________________________________________
 ____________________________________________________________
-☹ OOPS!!! The command entered for event does not match (empty or mistyped).
+☹ OOPS!!! The command entered for deadline ran into an error. The error:
+Event must have a description!
+Event must have a valid date for /at!
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!

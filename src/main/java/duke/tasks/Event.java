@@ -30,6 +30,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format(FORMAT_STRING, this.getStatusIcon(), this.getDescription(), this.getAtDate());
+        return String.format(FORMAT_STRING, this.getIsDone(), this.getDescription(), this.getAtDate());
     }
 }

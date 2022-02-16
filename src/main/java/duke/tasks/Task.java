@@ -18,7 +18,7 @@ public abstract class Task {
      *
      * @return char 'X' if done, ' ' if not done.
      */
-    public char getStatusIcon() {
+    public char getIsDone() {
         return (this.isDone ? 'X' : ' ');
     }
 
@@ -27,7 +27,7 @@ public abstract class Task {
      *
      * @param isDone boolean value representing completion of Task
      */
-    public void setStatusIcon(boolean isDone) {
+    public void setIsDone(boolean isDone) {
         this.isDone = isDone;
     }
 }

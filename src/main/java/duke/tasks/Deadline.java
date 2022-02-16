@@ -30,6 +30,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format(FORMAT_STRING, this.getStatusIcon(), this.getDescription(), this.getByDate());
+        return String.format(FORMAT_STRING, this.getIsDone(), this.getDescription(), this.getByDate());
     }
 }

@@ -17,6 +17,6 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return String.format(FORMAT_STRING, this.getStatusIcon(), this.getDescription());
+        return String.format(FORMAT_STRING, this.getIsDone(), this.getDescription());
     }
 }

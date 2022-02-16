@@ -1,5 +1,8 @@
 package duke;
 
+import duke.commands.ByeCommand;
+import duke.commands.Command;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -60,11 +63,14 @@ public class Duke {
         while (hasInput) {
             String userInput = scannerInput.nextLine();
             Parser argumentParser = new Parser();
-            argumentParser.parseInput(userInput);
-            if (argumentParser.isBye()) {
+            Command userCommand = argumentParser.parseInput(userInput);
+            if (userCommand instanceof ByeCommand) {
                 break;
             }
-            handler.execute(argumentParser);
+            if (userCommand == null) {
+                continue;
+            }
+            handler.executeGivenCommand(userCommand);
         }
         scannerInput.close();
     }
