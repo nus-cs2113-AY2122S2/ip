@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 import util.exception.NoDateException;
 import util.exception.NoTaskException;
@@ -23,28 +24,37 @@ public class Duke implements Chatbot {
 
     }
 
-    public static void printList(Task[] tasks, int itemCount) {
+    public static void printList(ArrayList<Task> tasks) {
         linePrinter();
 
-        for (int i = 0; i < itemCount; i++) {
-            System.out.println("\t" + " " + Integer.toString(i + 1) + " " + tasks[i].toString());
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println("\t" + " " + Integer.toString(i + 1) + " " + (tasks.get(i)).toString());
         }
 
         linePrinter();
     }
 
-    public static void printMark(Task[] tasks, int markedItem) {
+    public static void deleteItem(ArrayList<Task> tasks, int index) {
+        linePrinter();
+        System.out.println("\t" + DELETE_MSG);
+        System.out.println("\t" + "   " + (tasks.get(index)).toString());
+        linePrinter();
+
+        tasks.remove(index);
+    }
+
+    public static void printMark(ArrayList<Task> tasks, int markedItem) {
         linePrinter();
         System.out.println("\t" + MARKED_MSG);
-        System.out.println("\t" + "   " + tasks[markedItem].toString());
+        System.out.println("\t" + "   " + (tasks.get(markedItem)).toString());
         linePrinter();
 
     }
 
-    public static void printUnmark(Task[] tasks, int unmarkedItem) {
+    public static void printUnmark(ArrayList<Task> tasks, int unmarkedItem) {
         linePrinter();
         System.out.println("\t" + UNMARKED_MSG);
-        System.out.println("\t" + "   " + tasks[unmarkedItem].toString());
+        System.out.println("\t" + "   " + (tasks.get(unmarkedItem)).toString());
         linePrinter();
 
     }
@@ -76,6 +86,8 @@ public class Duke implements Chatbot {
             c = CommandType.UNMARK;
         } else if (line.equals(LIST_TASKS_CMD)){
             c = CommandType.LIST;
+        } else if (line.equals(DELETE_CMD)){
+            c = CommandType.DEL;
         } else {
             c = CommandType.NIL;
         }
@@ -83,7 +95,7 @@ public class Duke implements Chatbot {
         return c;
     }
 
-    public static void checkCommand(Task[] tasks,String line, CommandType c) throws NoTaskException, NoDateException, NoItemException {
+    public static void checkCommand(ArrayList<Task> tasks,String line, CommandType c) throws NoTaskException, NoDateException, NoItemException {
         switch (c) {
         case TODO:
             String todo = line.substring(TODO_TASK_INDEX);
@@ -120,18 +132,16 @@ public class Duke implements Chatbot {
             break;
         case MARK:
             int markedItem = Integer.parseInt(line.substring(MARKED_ITEM_INDEX)) - 1;
-            String ans4Mark = tasks[markedItem].toString();
 
-            if (tasks[markedItem] == null) {
+            if ((markedItem < 0) || (markedItem >= tasks.size())) {
                 throw new NoItemException();
             }
 
             break;
         case UNMARK:
             int unmarkedItem = Integer.parseInt(line.substring(UNMARKED_ITEM_INDEX)) - 1;
-            String ans4Unmark= tasks[unmarkedItem].toString();
 
-            if (tasks[unmarkedItem] == null) {
+            if ((unmarkedItem < 0) || (unmarkedItem >= tasks.size())) {
                 throw new NoItemException();
             }
 
@@ -141,7 +151,7 @@ public class Duke implements Chatbot {
         }
     }
 
-    public static int handleError(Task[] tasks,String line, CommandType c) {
+    public static int handleError(ArrayList<Task> tasks,String line, CommandType c) {
         try {
             checkCommand(tasks, line, c);
         } catch (IndexOutOfBoundsException e01) {
@@ -165,8 +175,7 @@ public class Duke implements Chatbot {
         Scanner input = new Scanner(System.in);
         String line;
 
-        Task[] tasks = new Todo[MAX_NUM_OF_TASKS];
-        int itemCount = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
 
         CommandType command;
 
@@ -185,36 +194,37 @@ public class Duke implements Chatbot {
 
             switch (command) {
             case TODO:
-                tasks[itemCount] = new Todo(line.substring(TODO_TASK_INDEX));
-                echo("Added " + tasks[itemCount].toString() + " to the list");
-                itemCount++;
+                tasks.add(new Todo(line.substring(TODO_TASK_INDEX))) ;
+                echo("Added " + tasks.get(tasks.size() - 1) + " to the list");
                 break;
             case DEADLINE:
                 String by = line.substring(line.indexOf(DEADLINE_OF_TASK_CMD) + TIME_INDEX);
                 String deadline = line.substring(DEADLINE_TASK_INDEX, line.indexOf(DEADLINE_OF_TASK_CMD));
-                tasks[itemCount] = new Deadline(deadline, by);
-                echo("Added " + tasks[itemCount].toString() + " to the list");
-                itemCount++;
+                tasks.add(new Deadline(deadline, by));
+                echo("Added " + tasks.get(tasks.size() - 1) + " to the list");
                 break;
             case EVENT:
                 String at = line.substring(line.indexOf(DURATION_OF_EVENT_CMD) + TIME_INDEX);
                 String event = line.substring(EVENT_TASK_INDEX, line.indexOf(DURATION_OF_EVENT_CMD));
-                tasks[itemCount] = new Event(event, at);
-                echo("Added " + tasks[itemCount].toString() + " to the list");
-                itemCount++;
+                tasks.add(new Deadline(event, at));
+                echo("Added " + tasks.get(tasks.size() - 1) + " to the list");
                 break;
             case MARK:
                 int markedItem = Integer.parseInt(line.substring(MARKED_ITEM_INDEX)) - 1;
-                tasks[markedItem].mark();
+                (tasks.get(markedItem)).mark();
                 printMark(tasks, markedItem);
                 break;
             case UNMARK:
                 int unmarkedItem = Integer.parseInt(line.substring(UNMARKED_ITEM_INDEX)) - 1;
-                tasks[unmarkedItem].unmark();
+                (tasks.get(unmarkedItem)).unmark();
                 printUnmark(tasks, unmarkedItem);
                 break;
             case LIST:
-                printList(tasks, itemCount);
+                printList(tasks);
+                break;
+            case DEL:
+                int index = Integer.parseInt(line.substring(DELETE_INDEX)) - 1;
+                deleteItem(tasks, index);
                 break;
             case NIL:
                 echo(line);

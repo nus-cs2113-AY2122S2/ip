@@ -13,6 +13,7 @@ public interface Chatbot {
     String ITEM_NOT_EXIST_MSG = "Ah...The task you choose doesn't exist on your list.";
     String MARKED_MSG = " Aha! An interesting selection!";
     String UNMARKED_MSG = " Ah... What a shame!";
+    String DELETE_MSG = " So you have chosen to delete this task!";
     String GOODBYE_MSG = " Good day, then!";
     String NO_TASK_MSG = " Sorry but you haven't input a task here.";
     String NO_DATE_MSG = " Sorry but you haven't input a date here.";
@@ -26,8 +27,9 @@ public interface Chatbot {
     String LIST_TASKS_CMD = "List";
     String DEADLINE_OF_TASK_CMD = "/by";
     String DURATION_OF_EVENT_CMD = "/at";
+    String DELETE_CMD = "Delete ";
 
-    int MAX_NUM_OF_TASKS = 100;
+    int DELETE_INDEX = 6;
     int TODO_TASK_INDEX = 4;
     int DEADLINE_TASK_INDEX = 8;
     int EVENT_TASK_INDEX = 5;
