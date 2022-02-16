@@ -34,13 +34,16 @@ public class TodoCommand extends Command {
         }
     }
 
+    /**
+     * Creates a Todo task and adds it to taskList
+     */
     public void execute() {
         try {
             assertArguments();
             String description = arguments.get("");
             Todo todoTask = new Todo(description);
             taskList.add(todoTask);
-            System.out.println(String.format(TASK_ADDED_MESSAGE_FORMAT, todoTask.toString()));
+            System.out.printf((TASK_ADDED_MESSAGE_FORMAT) + "%n", todoTask);
         } catch (InvalidArgumentException e) {
             System.out.println(e.getMessage());
         }

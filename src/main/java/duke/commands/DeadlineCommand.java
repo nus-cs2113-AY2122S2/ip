@@ -42,6 +42,9 @@ public class DeadlineCommand extends Command {
         }
     }
 
+    /**
+     * Creates an Event task and adds it to taskList
+     */
     public void execute() {
         try {
             assertArguments();
@@ -49,7 +52,7 @@ public class DeadlineCommand extends Command {
             String byDate = arguments.get("/by");
             Deadline deadlineTask = new Deadline(description, byDate);
             taskList.add(deadlineTask);
-            System.out.println(String.format(TASK_ADDED_MESSAGE_FORMAT, deadlineTask.toString()));
+            System.out.printf(TASK_ADDED_MESSAGE_FORMAT, deadlineTask);
         } catch (InvalidArgumentException e) {
             System.out.println(e.getMessage());
         }

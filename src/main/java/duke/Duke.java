@@ -7,9 +7,6 @@ import java.util.Scanner;
 
 public class Duke {
 
-    // Regex string to extract commands and flags
-    public static final String COMMAND_FORMAT = "(\\S+)(.*)";
-
     // Fixed string output for startup and exit
     public static final String LOGO =
             " ____        _        \n"
@@ -65,7 +62,7 @@ public class Duke {
             Parser argumentParser = new Parser();
             Command userCommand = argumentParser.parseInput(userInput);
             if (userCommand instanceof ByeCommand) {
-                break;
+                hasInput=false;
             }
             if (userCommand == null) {
                 continue;

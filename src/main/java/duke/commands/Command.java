@@ -12,7 +12,7 @@ public abstract class Command {
     /**
      * Classes should override and implement this as needed, namely those that requires additional user arguments
      *
-     * @throws Exception any exception that may occur while parsing, differs for different commands
+     * @throws InvalidArgumentException any exception that may occur while parsing
      */
     protected void assertArguments() throws InvalidArgumentException {
 
@@ -28,8 +28,6 @@ public abstract class Command {
 
     /**
      * A command must execute an action.
-     *
-     * @throws Exception any exception that may happen while executing.
      */
     public abstract void execute();
 }

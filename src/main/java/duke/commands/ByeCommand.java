@@ -1,10 +1,11 @@
 package duke.commands;
 
-import java.util.Set;
-import java.util.regex.Pattern;
-
+/**
+ * Returns an empty Command that does nothing
+ */
 public class ByeCommand extends Command {
+
     public void execute() {
-        return;
+
     }
 }

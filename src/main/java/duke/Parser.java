@@ -60,6 +60,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Create a Command object given an inputCommand and parses inputArguments where necessary
+     * @param inputCommand user given command
+     * @param inputArguments user given arguments
+     * @return a Command object representing the user input command
+     * @throws InvalidCommandException when none of the commands are valid
+     */
     private Command createCommand(String inputCommand, String inputArguments) throws InvalidCommandException {
         HashMap<String, String> parsedArguments;
         switch(inputCommand) {
@@ -86,6 +93,11 @@ public class Parser {
         throw new InvalidCommandException(inputCommand);
     }
 
+    /**
+     * Parses user input arguments into a dictionary form containing named parameters
+     * @param inputArguments the raw unparsed user input
+     * @return HashMap<String, String> mapping parameter name -> parameter value
+     */
     private HashMap<String, String> argumentParser(String inputArguments) {
         HashMap<String, String> parsedArguments = new HashMap<String, String>();
         String parameterName = "";

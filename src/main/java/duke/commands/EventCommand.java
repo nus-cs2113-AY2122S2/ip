@@ -8,8 +8,8 @@ import java.util.HashMap;
 public class EventCommand extends Command {
     public static final String TASK_ADDED_MESSAGE_FORMAT =
             "____________________________________________________________"
-                    + "\nadded: %s"
-                    + "\n____________________________________________________________";
+            + "\nadded: %s"
+            + "\n____________________________________________________________";
     private static final String COMMAND_NAME = "deadline";
     private static final String EMPTY_ARGUMENTS = "Event must have a description!";
     private static final String EMPTY_BYDATE = "Event must have a valid date for /at!";
@@ -42,6 +42,9 @@ public class EventCommand extends Command {
         }
     }
 
+    /**
+     * Creates an Event task and adds it to taskList
+     */
     public void execute() {
         try {
             assertArguments();
@@ -49,7 +52,7 @@ public class EventCommand extends Command {
             String byDate = arguments.get("/by");
             Event eventTask = new Event(description, byDate);
             taskList.add(eventTask);
-            System.out.println(String.format(TASK_ADDED_MESSAGE_FORMAT, eventTask.toString()));
+            System.out.printf((TASK_ADDED_MESSAGE_FORMAT) + "%n", eventTask);
         } catch (InvalidArgumentException e) {
             System.out.println(e.getMessage());
         }

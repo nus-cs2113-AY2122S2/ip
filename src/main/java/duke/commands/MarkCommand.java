@@ -48,7 +48,7 @@ public class MarkCommand extends Command {
             assertArguments();
             Task taskToMark = taskList.get(index);
             taskToMark.setIsDone(true);
-            System.out.println(String.format(TASK_MARKED_MESSAGE_FORMAT, taskToMark.toString()));
+            System.out.printf((TASK_MARKED_MESSAGE_FORMAT) + "%n", taskToMark);
         } catch (InvalidArgumentException e) {
             System.out.println(e.getMessage());
         } catch (IndexOutOfBoundsException e) {

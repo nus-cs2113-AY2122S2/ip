@@ -2,7 +2,6 @@ package duke;
 
 import duke.commands.Command;
 
-import duke.exceptions.InvalidArgumentException;
 import duke.tasks.Task;
 
 import java.util.ArrayList;
