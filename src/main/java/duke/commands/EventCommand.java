@@ -49,7 +49,7 @@ public class EventCommand extends Command {
         try {
             assertArguments();
             String description = arguments.get("");
-            String byDate = arguments.get("/by");
+            String byDate = arguments.get("/at");
             Event eventTask = new Event(description, byDate);
             taskList.add(eventTask);
             System.out.printf((TASK_ADDED_MESSAGE_FORMAT) + "%n", eventTask);
