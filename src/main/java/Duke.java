@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,7 +20,8 @@ public class Duke {
                 //change user input into an array of tokens
                 switch (userInputTokens.getTokens()[0]) {
                 case "list":
-                    String allTasks = listTask(userLists);
+                    String allTasks = "Here are the tasks in your list:\n" +
+                            listTask(userLists);
                     allTasks = wrapMessage(allTasks);
                     System.out.println(allTasks);
                     break;
@@ -95,10 +100,11 @@ public class Duke {
         userLists.add(task);
         String userInput = wrapMessage(
                 String.format("Got it. I've added this task:\n" +
-                              "  %s" +
-                              " Now you have %d tasks in the list\n",
-                task.toString(), userLists.size()));
+                                "  %s" +
+                                " Now you have %d tasks in the list\n",
+                        task.toString(), userLists.size()));
         System.out.println(userInput);
+        saveList(userLists);
     }
 
     /**
@@ -117,9 +123,41 @@ public class Duke {
                                     " Now you have %d tasks in the list\n",
                             removedTask, userLists.size()));
             System.out.println(userInput);
+            saveList(userLists);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeExceptionMarkBounds();
         }
+    }
+
+    /**
+     * Saves the list of Tasks to hard drive
+     * Will be called whenever a task is added or deleted
+     */
+    public static void saveList(ArrayList<Task> userLists) {
+        String pathName = "./data/duke.txt";
+        File file = new File(pathName);
+        try {
+            if (file.createNewFile()) {
+                //file has already been created
+                writeToFile(pathName, userLists);
+            } else {
+                //new file created
+                writeToFile(pathName, userLists);
+            }
+        } catch (IOException e) {
+            file.mkdir();
+            saveList(userLists);
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *
+     */
+    public static void writeToFile(String pathName, ArrayList<Task> list) throws IOException {
+        FileWriter fileWriter = new FileWriter(pathName);
+        fileWriter.write(listTask(list));
+        fileWriter.close();
     }
 
     /**
@@ -134,8 +172,7 @@ public class Duke {
         for (int i = 1; i <= tasks.size(); i++) {
             allTasks = allTasks + " " + i + "." + tasks.get(i - 1).toString();
         }
-
-        return "Here are the tasks in your list:\n" + allTasks;
+        return allTasks;
     }
 
     public static String wrapMessage(String message) {
