@@ -309,9 +309,7 @@ public class Duke {
             taskNumber++;
         }
         taskCount--;
-
-
-
+        isModified = true;
     }
 
     public static boolean isMarkCommand(String userInput){
