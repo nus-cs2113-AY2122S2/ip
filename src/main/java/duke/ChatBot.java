@@ -218,6 +218,11 @@ public class ChatBot {
         listOfTasks.remove(taskIndex - 1);
         System.out.println(deleteMessage);
         System.out.println("\t Now you have " + listOfTasks.size() + " tasks in the list.");
+        try {
+            writeArrayListToFile();
+        } catch (IOException ie) {
+            System.out.println("Something went wrong when writing the list of tasks to file" + ie.getMessage());
+        }
     }
 
     public void echoInvalidCommandMessage() {
