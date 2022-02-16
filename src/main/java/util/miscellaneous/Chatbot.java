@@ -17,6 +17,8 @@ public interface Chatbot {
     String GOODBYE_MSG = " Good day, then!";
     String NO_TASK_MSG = " Sorry but you haven't input a task here.";
     String NO_DATE_MSG = " Sorry but you haven't input a date here.";
+    String IO_ERROR_MSG = " Oh no! File IO error just occurred.";
+    String NO_PREVIOUS_RECORD = " There is currently no save file.";
 
 
     String ADD_TODO_CMD = "Todo ";
@@ -28,7 +30,15 @@ public interface Chatbot {
     String DEADLINE_OF_TASK_CMD = "/by";
     String DURATION_OF_EVENT_CMD = "/at";
     String DELETE_CMD = "Delete ";
+    String SAVE_CMD = "Save";
 
+    String FILEPATH = "data/data.txt";
+
+    String TODO_TYPE = "[T]";
+    String DEADLINE_TYPE = "[D]";
+    String EVENT_TYPE = "[E]";
+    String DONE_STATUS = "[X]";
+    
     int DELETE_INDEX = 7;
     int TODO_TASK_INDEX = 4;
     int DEADLINE_TASK_INDEX = 8;
@@ -37,4 +47,6 @@ public interface Chatbot {
     int MARKED_ITEM_INDEX = 5;
     int UNMARKED_ITEM_INDEX = 7;
     int ERROR_INDICATION_NUMBER = 1;
+    int TASK_DETAIL = 6;
+    int TASK_STATUS_INDEX = 3;
 }

@@ -8,14 +8,7 @@ public abstract class Task {
     public Task (String task) {
         this.task = task.trim();
         this.taskStatus = "[ ]";
-    }
-
-    public String getTask() {
-        return task;
-    }
-
-    public String getTime() {
-        return null;
+        this.typeOfTask = "[ ]";
     }
 
     public void mark() {
