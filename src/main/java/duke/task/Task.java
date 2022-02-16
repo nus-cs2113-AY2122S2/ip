@@ -3,6 +3,7 @@ package duke.task;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String type;
 
     public Task(String description) {
         this.description = description.trim();
@@ -19,6 +20,14 @@ public class Task {
 
     public void setNotDone() {
         isDone = false;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public boolean getStatus() {
+        return isDone;
     }
 
     public String getStatusIcon() {

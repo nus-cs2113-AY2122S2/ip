@@ -6,6 +6,7 @@ import duke.task.Task;
 import duke.task.Todo;
 import duke.task.TaskList;
 
+import java.io.*;
 import java.util.Scanner;
 
 public class Duke {
@@ -17,6 +18,8 @@ public class Duke {
     private static final String EVENT_COMMAND = "event";
     private static final String DELETE_COMMAND = "delete";
     private static final String BYE_COMMAND = "bye";
+
+    private static final String TASKLIST_FILE_PATH = "data.txt";
 
     private static TaskList taskList = new TaskList();
 
@@ -48,7 +51,34 @@ public class Duke {
         System.out.println("\t" + " Got it. I've added this task:");
         System.out.println("\t" + "\t" + newtask);
         System.out.println("\t" + " Now you have " + taskList.getSize() + " tasks in the list.");
+//        try{
+//            writeToFile(TASKLIST_FILE_PATH, );
+//        }catch (IOException e) {
+//            e.printStackTrace();
+//        }
         printLine();
+    }
+
+    public static String formatTask(Task task) {
+        String taskType = task.getType();
+        int status = task.getStatus() ? 1 : 0;
+        String taskDescription = task.getDescription();
+        String[] taskDetail;
+        String textToWrite = null;
+        switch (taskType) {
+        case "T":
+            textToWrite = "T|" + status + "|" + taskDescription;
+            break;
+        case "D":
+            taskDetail = taskDescription.split("/by ");
+            textToWrite = "D|" + status + "|" + taskDetail[0] + "|" + taskDetail[1];
+            break;
+        case "E":
+            taskDetail = taskDescription.split("/at ");
+            textToWrite = "E|" + status + "|" + taskDetail[0] + "|" + taskDetail[1];
+            break;
+        }
+        return textToWrite;
     }
 
     public static void addTodo(String taskDetail) throws DukeException {
@@ -122,13 +152,65 @@ public class Duke {
         printLine();
     }
 
-    public static void main(String[] args) throws DukeException {
-        greeting();
-
-        processActions();
+    public static void checkFileExists(String filePath) throws IOException, DukeException {
+        File f = new File(filePath);
+        if (!f.exists()) {
+            FileOutputStream newFile = new FileOutputStream(filePath);
+        }
+        readFile(filePath);
     }
 
-    private static void processActions() throws DukeException {
+    public static void writeToFile(String filePath, String textToAppend) throws IOException {
+        try {
+            FileWriter fw = new FileWriter(filePath, true);
+            fw.write(textToAppend + System.lineSeparator());
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void readFile(String filePath) throws DukeException, FileNotFoundException {
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
+        int separatorIndex;
+        while (s.hasNextLine()) {
+            String[] taskInfo = s.nextLine().split("|");
+            String taskDetail;
+            switch (taskInfo[0]) {
+            case "T":
+                taskDetail = taskInfo[2];
+                taskList.addTask(new Todo(taskDetail));
+                break;
+            case "D":
+                taskDetail = taskInfo[2] + " /by " + taskInfo[3];
+                separatorIndex = taskDetail.indexOf("/by");
+                taskList.addTask(new Deadline(taskDetail.substring(0, separatorIndex - 1), taskDetail.substring(separatorIndex + 4)));
+                break;
+            case "E":
+                taskDetail = taskInfo[2] + " /at " + taskInfo[3];
+                separatorIndex = taskDetail.indexOf("/at");
+                taskList.addTask(new Event(taskDetail.substring(0, separatorIndex - 1), taskDetail.substring(separatorIndex + 4)));
+                break;
+            }
+            if (taskInfo[1].equals("1")) {
+                taskList.markDone(taskList.getSize() - 1);
+            }
+        }
+    }
+
+    public static void main(String[] args) throws DukeException, IOException {
+        greeting();
+        checkFileExists(TASKLIST_FILE_PATH);
+        processInput();
+        for (int i = 0; i < taskList.getSize(); i++) {
+            writeToFile(TASKLIST_FILE_PATH, formatTask(taskList.getTask(i)));
+        }
+
+    }
+
+    private static void processInput() throws DukeException {
         Scanner in = new Scanner(System.in);
         String textIn = in.nextLine();
         String taskDetail;
@@ -160,9 +242,11 @@ public class Duke {
             }
             in = new Scanner(System.in);
             textIn = in.nextLine();
-        }
 
-        bye();
+            bye();
+
+        }
     }
+
 }
 
