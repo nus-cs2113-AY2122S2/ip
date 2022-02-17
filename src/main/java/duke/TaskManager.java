@@ -1,19 +1,29 @@
 package duke;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskManager {
     private Task[] tasks = new Task[100];
     private static int taskCount = 0;
+    private FileManager fileManager = new FileManager();
 
     public TaskManager() {
-
+        try {
+            ArrayList<String> records = fileManager.loadData();
+            for(String record: records) {
+                loadTask(record);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void start() {
         Scanner sc = new Scanner(System.in);
         int idx;
-        displaySupportedCmds();
+//        displaySupportedCmds();
 
         String input = sc.nextLine();
         String[] inputs = input.split(" ", 2);
@@ -75,6 +85,12 @@ public class TaskManager {
             default:
                 displayInvalidCmd();
                 break;
+            }
+            // Update data file
+            try {
+                saveTasks();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
             input = sc.nextLine();
             inputs = input.split(" ", 2);
@@ -164,5 +180,33 @@ public class TaskManager {
         System.out.println("\t" + "-".repeat(60));
         System.out.println("\t ☹ OOPS!!! I don't know what that means. Please try again.");
         System.out.println("\t" + "-".repeat(60));
+    }
+
+    public void loadTask(String record){
+        String[] data = record.split("/");
+        for (int i = 0; i < data.length; i++){
+            data[i] = data[i].trim();
+        }
+        switch (data[0]) {
+        case "T":
+            tasks[taskCount++] = new Todo(data[2], Boolean.parseBoolean(data[1]));
+            break;
+        case "D":
+            tasks[taskCount++] = new Deadline(data[2], data[3], Boolean.parseBoolean(data[1]));
+            break;
+        case "E":
+            tasks[taskCount++] = new Event(data[2], data[3], Boolean.parseBoolean(data[1]));
+            break;
+        default:
+            break;
+        }
+    }
+
+    public void saveTasks() throws IOException {
+        ArrayList<String> records = new ArrayList<>();
+        for(int i = 0; i < taskCount; i++){
+            records.add(tasks[i].getInfo());
+        }
+        fileManager.saveData(records);
     }
 }
