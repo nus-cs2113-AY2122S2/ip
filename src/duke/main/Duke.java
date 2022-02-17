@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.Path;
 
 public class Duke{
     public static final String LINEBREAK = "____________________________________________________________";
@@ -20,6 +17,46 @@ public class Duke{
     public static ArrayList<Task> list = new ArrayList<>();
     public static Scanner in = new Scanner(System.in);
     public static int taskCount = 0;
+    public static boolean isLoaded = false;
+    public static void loadSavedTasks(){
+        try{
+            File dirPath = new File(DIRPATH);
+            if (!dirPath.exists()){
+                dirPath.mkdirs();
+            }
+            File file = new File(FILEPATH);
+            Scanner txtScanner = new Scanner(file);
+            while (txtScanner.hasNext()) {
+                isLoaded = true;
+                String line = txtScanner.nextLine();
+                String[] fields = line.split(" \\| ");
+                switch(fields[0]){
+                case "T":
+                    list.add(new Todo(fields[2], fields[1].equals("1")));
+                    break;
+                case "D":
+                    list.add(new Deadline(fields[2], fields[1].equals("1"), fields[3]));
+                    break;
+                case "E":
+                    list.add(new Event(fields[2], fields[1].equals("1"), fields[3]));
+                    break;
+                default:
+                    throw new DukeException("Error: Invalid file format.");
+                }
+                taskCount++;
+            }
+        }catch (IOException e){
+            System.out.println(LINEBREAK);
+            System.out.println(" Error: " + e.getMessage());
+            System.out.println(LINEBREAK);
+            return;
+        }catch (DukeException e){
+            System.out.println(LINEBREAK);
+            System.out.println(e.getMessage());
+            System.out.println(LINEBREAK);
+            return;
+        }
+    }
     public static void saveTasks(){
         try{
             File dirPath = new File(DIRPATH);
@@ -171,11 +208,13 @@ public class Duke{
         }
     }
     public static void main(String[] args){
-        System.out.println("Hello from\n");
-        System.out.println(LINEBREAK);
         System.out.println(" Hello! I'm Duke\n What can I do for you?");
         System.out.println(LINEBREAK);
-
+        loadSavedTasks();
+        if (isLoaded){
+            System.out.println(" Loaded Save File.");
+            System.out.println(LINEBREAK);
+        }
         waitForInput();
         System.out.println(LINEBREAK);
         System.out.println(" Bye. Hope to see you again soon!");
