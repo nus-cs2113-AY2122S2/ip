@@ -493,7 +493,7 @@ public class UserInterface {
      * @return a String in save file format.
      */
     private String taskToString(Event task) {
-        String ret = "D|";
+        String ret = "E|";
         if (task.getStatusIcon().equals("X")) {
             ret += "1|";
         } else {
