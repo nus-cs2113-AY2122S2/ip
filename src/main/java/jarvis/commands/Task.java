@@ -16,7 +16,9 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    public String getDescription() { return description; }
+    public String getDescription() {
+        return description;
+    }
 
     public String getTypeIcon() { return "T"; }
 
@@ -40,8 +42,7 @@ public class Task {
         return true;
     }
 
-    public void printItem() {
-        String message = "[" + getTypeIcon() + "]" + "[" + getStatusIcon() + "] " + getDescription();
-        System.out.println(message);
+    public String getFullTask() {
+        return "[" + getTypeIcon() + "]" + "[" + getStatusIcon() + "] " + getDescription();
     }
 }
