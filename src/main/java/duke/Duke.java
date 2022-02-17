@@ -5,10 +5,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
-
-import java.util.ArrayList;
 import java.util.Scanner;
-
 import static duke.ReadTaskList.readFile;
 import static duke.WriteTaskList.writeList;
 
@@ -17,13 +14,17 @@ import static duke.WriteTaskList.writeList;
  * and performs certain actions for specific commands.
  */
 public class Duke {
-    private static final ArrayList<Task> list = new ArrayList<>(100);
+    private static final int MAX_SIZE = 100;
+    private static final String MESSAGE_BORDER =
+            "____________________________________________________________";
+
+    private static final ArrayList<Task> list = new ArrayList<>(MAX_SIZE);
     private static Boolean willExit = false;
 
-    private static void printFormat(String s) {
-        System.out.println("____________________________________________________________\n" +
-                s + "\n" +
-                "____________________________________________________________");
+    private static void printFormat(String message) {
+        System.out.println(MESSAGE_BORDER);
+        System.out.println(message);
+        System.out.println(MESSAGE_BORDER);
     }
 
     private static void greet() {
@@ -54,11 +55,12 @@ public class Duke {
     private static void markStatus(Boolean shouldMark, String line) {
         Task curr;
         try {
-            int taskNum = Integer.parseInt(line.split(" ", 0)[1]) - 1;
-            if (taskNum > list.size()) {
+            String stringOfTaskNum = line.split(" ", 0)[1];
+            int taskInd = Integer.parseInt(stringOfTaskNum) - 1;
+            if (taskInd > list.size()) {
                 throw new DukeException("Please mark / unmark with a number that's in the list :')");
             }
-            curr = list.get(taskNum);
+            curr = list.get(taskInd);
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             // NumberFormatException caught in IntelliJ runtime env but not in testing...
             printFormat("Please mark / unmark with a valid number :')");
@@ -99,9 +101,6 @@ public class Duke {
     }
 
     private static Task parseDeadline(String description) throws DukeException {
-        if (description.equals("")) {
-            throw new DukeException("Please provide a task description!");
-        }
         String by;
         try {
             String[] deadlineBreakdown = description.split("/by ", 2);
@@ -114,9 +113,6 @@ public class Duke {
     }
 
     private static Task parseEvent(String description) throws DukeException {
-        if (description.equals("")) {
-            throw new DukeException("Please provide a task description!");
-        }
         String at;
         try {
             String[] eventBreakdown = description.split(" /at ", 2);
@@ -129,25 +125,31 @@ public class Duke {
     }
 
     private static Task parseTask(String type, String description) throws DukeException {
-        Task t;
+        Task task;
         switch (type) {
         case "todo":
-            if (description.equals("")) {
-                throw new DukeException("Please provide a task description!");
-            }
-            t = new Todo(description);
+            missingDescriptionCheck(description);
+            task = new Todo(description);
             break;
         case "deadline":
-            t = parseDeadline(description);
+            missingDescriptionCheck(description);
+            task = parseDeadline(description);
             break;
         case "event":
-            t = parseEvent(description);
+            missingDescriptionCheck(description);
+            task = parseEvent(description);
             break;
         default:
             throw new DukeException("I don't understand what you want to do, big sad :(");
         }
 
-        return t;
+        return task;
+    }
+
+    private static void missingDescriptionCheck(String description) throws DukeException {
+        if (description.equals("")) {
+            throw new DukeException("Please provide a task description!");
+        }
     }
 
     private static void addTask(String line) {
@@ -159,9 +161,9 @@ public class Duke {
                 description = commands[1];
             }
 
-            Task t = parseTask(type, description);
-            list.add(t);
-            printFormat("Got it. I've added this task:\n  " + t +
+            Task task = parseTask(type, description);
+            list.add(task);
+            printFormat("Got it. I've added this task:\n  " + task +
                     String.format("\nNow you have %d tasks in the list.", list.size()));
         } catch (DukeException e) {
             printFormat(e.msg);
@@ -189,10 +191,7 @@ public class Duke {
         String line;
         Scanner in = new Scanner(System.in);
         ArrayList<Task> existingTasks = readFile();
-        for (Task t : existingTasks) {
-            list[taskIndex] = t;
-            taskIndex++;
-        }
+        list.addAll(existingTasks);
 
         while (!willExit) {
             line = in.nextLine();

@@ -65,8 +65,8 @@ public class ReadTaskList {
     }
 
     private static void readFileToList(String filePath) throws FileNotFoundException {
-        File f = new File(filePath); // create a File for the given file path
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+        File f = new File(filePath);
+        Scanner s = new Scanner(f);
         while (s.hasNext()) {
             String line = s.nextLine();
             try {
