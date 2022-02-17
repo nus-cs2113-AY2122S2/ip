@@ -55,6 +55,7 @@ public class TaskList {
             listOfTask.remove(toBeDeletedTask);
             numOfTask--;
             printTaskListUpdate(toBeDeletedTask, "deleted");
+            TaskList.saveTaskListToFile();
         } catch (IndexOutOfBoundsException idxError) {
             System.out.println("Invalid task number to be marked!");
         } catch (NumberFormatException numFormError) {
