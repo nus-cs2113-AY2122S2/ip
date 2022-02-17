@@ -1,5 +1,3 @@
-
-
 import tasks.*;
 import java.util.Scanner;
 import java.util.*;
@@ -33,7 +31,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println(""+logo);
         dialog.printLine();
-        System.out.println("Hello I'm main.");
+        System.out.println("Hello I'm Duke.");
         System.out.println("What can I do for you?");
         dialog.printLine();
         System.out.println();
