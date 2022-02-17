@@ -15,6 +15,22 @@ public class Task {
         this.isDone = isDone;
     }
 
+    public char typeOfTask() {
+        return this.type;
+    }
+
+    public char getIsDone() {
+        return (isDone) ? 'T' : 'F';
+    }
+
+    public String getDesc() {
+        return description;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
     @Override
     public String toString() {
         String mark = (isDone ? "X" : " ");
