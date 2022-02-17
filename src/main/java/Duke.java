@@ -1,16 +1,11 @@
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
 
-    static int idx = 0;
-    static String[] list = new String[100];
-    static boolean[] marked = new boolean[100];
-    static String[] importance = new String[100];
-    static Task[] tasks = new Task[100];
+    static ArrayList<Task> tasks = new ArrayList<Task>();
 
     public static void main(String[] args) {
-        Arrays.fill(marked, Boolean.FALSE);
         // String logo = " ____ _ \n"
         // + "| _ \\ _ _| | _____ \n"
         // + "| | | | | | | |/ / _ \\\n"
@@ -75,8 +70,8 @@ public class Duke {
                             throw new EmptyDescriptionException();
                         }
                         addTask(ans, 'T', time);
-                        System.out.println("     added: " + tasks[idx - 1]);
-                        System.out.println("     there are currently " + idx + " tasks ");
+                        System.out.println("     added: " + tasks.get(tasks.size() - 1));
+                        System.out.println("     there are currently " + tasks.size() + " tasks ");
                         System.out.println("    _________________________________________\n");
                         break;
                     case "deadline":
@@ -92,8 +87,8 @@ public class Duke {
                             throw new EmptyDescriptionException();
                         }
                         addTask(ans, 'D', time);
-                        System.out.println("     added: " + tasks[idx - 1]);
-                        System.out.println("     there are currently " + idx + " tasks ");
+                        System.out.println("     added: " + tasks.get(tasks.size() - 1));
+                        System.out.println("     there are currently " + tasks.size() + " tasks ");
                         System.out.println("    _________________________________________\n");
                         break;
                     case "event":
@@ -109,8 +104,21 @@ public class Duke {
                             throw new EmptyDescriptionException();
                         }
                         addTask(ans, 'E', time);
-                        System.out.println("     added: " + tasks[idx - 1]);
-                        System.out.println("     there are currently " + idx + " tasks ");
+                        System.out.println("     added: " + tasks.get(tasks.size() - 1));
+                        System.out.println("     there are currently " + tasks.size() + " tasks ");
+                        System.out.println("    _________________________________________\n");
+                        break;
+                    case "delete":
+                        // timeSeparator = (timeSeparator == -1 ? ans.length() : timeSeparator);
+                        ans = ans.substring(commandSeparator + 1);
+                        System.out.println("    _________________________________________");
+                        if (ans.equalsIgnoreCase(command)) {
+                            throw new EmptyDescriptionException();
+                        }
+
+                        System.out.println("     deleted: " + tasks.get(Integer.parseInt(ans) - 1));
+                        deleteTask(Integer.parseInt(ans) - 1);
+                        System.out.println("     there are currently " + tasks.size() + " tasks ");
                         System.out.println("    _________________________________________\n");
                         break;
                     default:
@@ -132,21 +140,24 @@ public class Duke {
     }
 
     public static void addTask(String desc, char type, String time) {
-        tasks[idx] = new Task(desc, false, type, time);
-        idx++;
+        tasks.add(new Task(desc, false, type, time));
+    }
+
+    public static void deleteTask(int del) {
+        tasks.remove(del);
     }
 
     public static void mark(int i) {
-        tasks[i].setIsDone(true);
+        tasks.get(i).setIsDone(true);
     }
 
     public static void unmark(int i) {
-        tasks[i].setIsDone(false);
+        tasks.get(i).setIsDone(false);
     }
 
     public static void printTasks() {
-        for (int i = 0; i < idx; i++) {
-            System.out.println("    " + (i + 1) + " " + tasks[i]);
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println("    " + (i + 1) + " " + tasks.get(i));
         }
     }
 }
