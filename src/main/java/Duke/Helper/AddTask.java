@@ -10,12 +10,9 @@ import java.util.ArrayList;
 
 public class AddTask {
 
-<<<<<<< HEAD
-        public static void addTodo (ArrayList<Task> array, String message) throws DukeException {
-=======
+
         public static void addTodo (ArrayList<Task> array, String message) throws DukeException {
             int status = 0;
->>>>>>> branch-Level-7
             String[] splitMessage = message.split(" ", 2);
             String getDescription = splitMessage[1];
             if (getDescription.equals("")) {
@@ -35,12 +32,8 @@ public class AddTask {
             return getSecondPart.split(regex, 2);
         }
 
-<<<<<<< HEAD
-        public static void addDeadline(ArrayList<Task> array, String message) throws DukeException {
-=======
         public static void addDeadline(ArrayList<Task> array, String message) throws DukeException {
             int status = 0;
->>>>>>> branch-Level-7
             String[] splitSecondPart = splitLongMessage(message, " /by ");
             String getDescription = splitSecondPart[0];
             String getDate = splitSecondPart[1];
@@ -55,12 +48,8 @@ public class AddTask {
             }
         }
 
-<<<<<<< HEAD
-        public static void addEvent(ArrayList<Task> array, String message) throws DukeException {
-=======
         public static void addEvent(ArrayList<Task> array, String message) throws DukeException {
             int status = 0;
->>>>>>> branch-Level-7
             String[] splitSecondPart = splitLongMessage(message, " /at ");
             String getDescription = splitSecondPart[0];
             String getDate = splitSecondPart[1];

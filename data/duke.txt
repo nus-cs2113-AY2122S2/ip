@@ -1,4 +1,0 @@
-T | 0 | work
-E | 0 | work | monday
-D | 0 | project | Sunday 4pm
-T | 1 | mmm

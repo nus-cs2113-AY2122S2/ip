@@ -29,21 +29,12 @@ public class Duke {
         }
     }
 
-<<<<<<< HEAD
     public static void listItems () throws DukeException {
         if (listArray.size() == 0) {
             throw new DukeException();
         } else {
             System.out.println(DISPLAY_LINE + "Here are the tasks in your list: ");
             for (int i = 0; i < listArray.size(); i++) {
-=======
-    public static void listItems () throws DukeException {
-        if (listArray.size() == 0) {
-            throw new DukeException();
-        } else {
-            System.out.println(DISPLAY_LINE + "Here are the tasks in your list: ");
-            for (int i = 0; i < listArray.size(); i++) {
->>>>>>> branch-Level-7
                 System.out.print(i + 1 + ". ");
                 System.out.println(listArray.get(i));
             }
@@ -53,67 +44,6 @@ public class Duke {
 
 
     public static void main(String[] args) {
-<<<<<<< HEAD
-        DisplayMessages.displayGreetMessage();
-        Scanner in = new Scanner(System.in);
-        boolean isLoop = true;
-        while (isLoop) {
-            String message = in.nextLine();
-            String messageLowerCase = message.toLowerCase();
-            if (messageLowerCase.equals("bye")) {
-                exit();
-                isLoop = false;
-            } else if (messageLowerCase.equals("list")) {
-                try {
-                    listItems();
-                } catch (DukeException e) {
-                    DisplayMessages.displayListMessage();
-                }
-            } else if (messageLowerCase.contains("unmark")) {
-                try {
-                    MarkUnmarkItem.unMarkItem(listArray, message);
-                } catch (IndexOutOfBoundsException e) {
-                    DisplayMessages.displayUnmarkMessage(listArray);
-                }
-            } else if (messageLowerCase.contains("mark")) {
-                try {
-                    MarkUnmarkItem.markItem(listArray, message);
-                } catch (IndexOutOfBoundsException e) {
-                    DisplayMessages.displayMarkMessage(listArray);
-                }
-            } else if (messageLowerCase.contains("todo")) {
-                try {
-                    AddTask.addTodo(listArray, message);
-                } catch (IndexOutOfBoundsException e) {
-                    DisplayMessages.displayTodoMessage();
-                } catch (DukeException e) {
-                    DisplayMessages.displayTodoMessage();
-                }
-            } else if (messageLowerCase.contains("deadline")) {
-                try {
-                    AddTask.addDeadline(listArray, message);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    DisplayMessages.displayDeadlineMessage();
-                } catch (DukeException e) {
-                    DisplayMessages.displayDeadlineMessage();
-                }
-            } else if (messageLowerCase.contains("event")) {
-                try {
-                    AddTask.addEvent(listArray, message);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    DisplayMessages.displayEventMessage();
-                } catch (DukeException e) {
-                    DisplayMessages.displayEventMessage();
-                }
-            } else if (messageLowerCase.contains("delete")) {
-                try {
-                    DeleteTask.deleteTask(listArray, message);
-                } catch (IndexOutOfBoundsException e) {
-                    DisplayMessages.displayDeleteMessage(listArray);
-                }
-            } else {
-                DisplayMessages.displayInvalidInputMessage();
-=======
         try {
             DisplayMessages.displayGreetMessage();
             Scanner in = new Scanner(System.in);
@@ -128,7 +58,7 @@ public class Duke {
                     isLoop = false;
                 } else if (messageLowerCase.equals("list")) {
                     try {
-                        listItems(listArray);
+                        listItems();
                     } catch (DukeException e) {
                         DisplayMessages.displayListMessage();
                     }
@@ -136,13 +66,13 @@ public class Duke {
                     try {
                         MarkUnmarkItem.unMarkItem(listArray, message);
                     } catch (IndexOutOfBoundsException e) {
-                        DisplayMessages.displayUnmarkMessage();
+                        DisplayMessages.displayUnmarkMessage(listArray);
                     }
                 } else if (messageLowerCase.contains("mark")) {
                     try {
                         MarkUnmarkItem.markItem(listArray, message);
                     } catch (IndexOutOfBoundsException e) {
-                        DisplayMessages.displayMarkMessage();
+                        DisplayMessages.displayMarkMessage(listArray);
                     }
                 } else if (messageLowerCase.contains("todo")) {
                     try {
@@ -168,10 +98,15 @@ public class Duke {
                     } catch (DukeException e) {
                         DisplayMessages.displayEventMessage();
                     }
-                } else {
+                } else if (messageLowerCase.contains("delete")) {
+                    try {
+                        DeleteTask.deleteTask(listArray, message);
+                    } catch (IndexOutOfBoundsException e) {
+                        DisplayMessages.displayDeleteMessage(listArray);
+                    }
+            }else {
                     DisplayMessages.displayInvalidInputMessage();
                 }
->>>>>>> branch-Level-7
             }
         } catch (IOException e) {
             System.out.println("IO exception here");
