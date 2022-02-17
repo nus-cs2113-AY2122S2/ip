@@ -1,16 +1,16 @@
 package duke;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import exceptions.UnknownCommandException;
 
 public class Duke {
-    private static Task[] tasks = new Task[100];
-    private static int taskCount = 0;
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         showWelcomeMessage();
         greet();
-        converse(tasks, taskCount);
+        converse();
         exit();
     }
 
@@ -42,7 +42,7 @@ public class Duke {
     }
 
 
-    public static void converse(Task[] tasks, int taskCount) {
+    public static void converse() {
         Scanner sc = new Scanner(System.in);
         String response = sc.nextLine();
 
@@ -80,27 +80,13 @@ public class Duke {
             addTask(new Todo(detail));
             break;
         case "deadline":
-            int byIndex = detail.indexOf("/by");
-            boolean isByPresent = byIndex != -1;
-            if (isByPresent) {
-                String by = detail.substring(byIndex + 3).trim();
-                String deadlineDesc = detail.substring(0, byIndex).trim();
-                System.out.println("deadlineDesc:__" + deadlineDesc + "__");
-                addTask(new Deadline(deadlineDesc, by));
-            } else {
-                System.out.println("Sorry, missing /by argument...");
-            }
+            addDeadline(detail);
             break;
         case "event":
-            int atIndex = detail.indexOf("/at");
-            boolean isAtPresent = atIndex != -1;
-            if (isAtPresent) {
-                String at = detail.substring(atIndex + 3).trim();
-                String eventDesc = detail.substring(0, atIndex).trim();
-                addTask(new Event(eventDesc, at));
-            } else {
-                System.out.println("Sorry, missing /at argument...");
-            }
+            addEvent(detail);
+            break;
+        case "delete":
+            deleteTask(response);
             break;
         default:
             throw new UnknownCommandException();
@@ -110,9 +96,9 @@ public class Duke {
     public static void listTasks() {
         printLine();
 
-        for (int i = 0; i < taskCount; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             System.out.print(i + 1);
-            System.out.println("." + tasks[i]);
+            System.out.println("." + tasks.get(i));
         }
 
         printLine();
@@ -121,13 +107,36 @@ public class Duke {
     public static void addTask(Task task) {
         printLine();
 
-        tasks[taskCount] = task;
+        tasks.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
-        taskCount++;
-        System.out.println("Now you have " + taskCount + " task(s) in the list.");
+        System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
 
         printLine();
+    }
+
+    public static void addDeadline(String detail) {
+        int byIndex = detail.indexOf("/by");
+        boolean isByPresent = byIndex != -1;
+        if (isByPresent) {
+            String by = detail.substring(byIndex + 3).trim();
+            String deadlineDesc = detail.substring(0, byIndex).trim();
+            addTask(new Deadline(deadlineDesc, by));
+        } else {
+            System.out.println("Sorry, missing /by argument...");
+        }
+    }
+
+    public static void addEvent(String detail) {
+        int atIndex = detail.indexOf("/at");
+        boolean isAtPresent = atIndex != -1;
+        if (isAtPresent) {
+            String at = detail.substring(atIndex + 3).trim();
+            String eventDesc = detail.substring(0, atIndex).trim();
+            addTask(new Event(eventDesc, at));
+        } else {
+            System.out.println("Sorry, missing /at argument...");
+        }
     }
 
     public static void markTask(String response) {
@@ -136,14 +145,14 @@ public class Duke {
         try {
             String[] words = response.split(" ");
             int taskIndex = Integer.parseInt(words[1]);
-            boolean isNotIndex = taskIndex > taskCount || taskIndex == 0 || taskIndex < 0;
+            boolean isNotIndex = taskIndex > tasks.size() || taskIndex == 0 || taskIndex < 0;
 
             if (isNotIndex) {
                 System.out.println("Sorry, seems like there's no such task with that index.");
                 printLine();
                 return;
             } else {
-                Task t = tasks[taskIndex - 1];
+                Task t = tasks.get(taskIndex - 1); //list indexing to the user starts from 1 but list indexing in fact starts from 0 internally
                 boolean isNotDone = !t.isDone;
 
                 if (isNotDone) {
@@ -167,14 +176,14 @@ public class Duke {
         try{
             String[] words = response.split(" ");
             int taskIndex = Integer.parseInt(words[1]);
-            boolean isNotIndex = taskIndex > taskCount || taskIndex == 0;
+            boolean isNotIndex = taskIndex > tasks.size() || taskIndex == 0;
 
             if (isNotIndex) {
                 System.out.println("Sorry, seems like there's no such task with that index.");
                 printLine();
                 return;
             } else {
-                Task t = tasks[taskIndex - 1];
+                Task t = tasks.get(taskIndex - 1); //list indexing to the user starts from 1 but list indexing in fact starts from 0 internally
                 boolean isDone = t.isDone;
 
                 if (isDone) {
@@ -184,6 +193,32 @@ public class Duke {
                 } else {
                     System.out.println("Hmm, this task is already unmarked.");
                 }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("☹ OOPS!!! You forgot to indicate an index!");
+        }
+
+        printLine();
+    }
+
+    private static void deleteTask(String response) {
+        printLine();
+
+        try{
+            String[] words = response.split(" ");
+            int taskIndex = Integer.parseInt(words[1]);
+            boolean isNotIndex = taskIndex > tasks.size() || taskIndex == 0;
+
+            if (isNotIndex) {
+                System.out.println("Sorry, seems like there's no such task with that index.");
+                printLine();
+                return;
+            } else {
+                Task t = tasks.get(taskIndex - 1);
+                tasks.remove(t);
+                System.out.println("Noted. I've removed this task:");
+                System.out.println(t);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("☹ OOPS!!! You forgot to indicate an index!");
