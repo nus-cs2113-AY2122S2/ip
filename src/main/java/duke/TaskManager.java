@@ -1,13 +1,22 @@
 package duke;
 
-import java.util.Scanner;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class TaskManager {
     private ArrayList<Task> tasks = new ArrayList<>();
+    private FileManager fileManager = new FileManager();
 
     public TaskManager() {
-
+        try {
+            ArrayList<String> records = fileManager.loadData();
+            for(String record: records) {
+                loadTask(record);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void start() {
@@ -90,6 +99,12 @@ public class TaskManager {
                 displayInvalidCmd();
                 break;
             }
+            // Update data file
+            try {
+                saveTasks();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             input = sc.nextLine();
             inputs = input.split(" ", 2);
         }
@@ -102,6 +117,7 @@ public class TaskManager {
         System.out.println("\t Type \"deadline <task> /by <time>\" to add a deadline task");
         System.out.println("\t Type \"event <task> /at <time>\" to add a event task");
         System.out.println("\t Type \"list\" to list all tasks");
+        System.out.println("\t Type \"delete <task number>\" to delete a task");
         System.out.println("\t Type \"mark <task number>\" to mark a task");
         System.out.println("\t Type \"unmark <task number>\" to unmark a task");
         System.out.println("\t Type \"bye\" to exit");
@@ -192,5 +208,33 @@ public class TaskManager {
         System.out.println("\t" + "-".repeat(60));
         System.out.println("\t ☹ OOPS!!! I don't know what that means. Please try again.");
         System.out.println("\t" + "-".repeat(60));
+    }
+
+    public void loadTask(String record){
+        String[] data = record.split("/");
+        for (int i = 0; i < data.length; i++){
+            data[i] = data[i].trim();
+        }
+        switch (data[0]) {
+        case "T":
+            tasks.add(new Todo(data[2], Boolean.parseBoolean(data[1])));
+            break;
+        case "D":
+            tasks.add(new Deadline(data[2], data[3], Boolean.parseBoolean(data[1])));
+            break;
+        case "E":
+            tasks.add(new Event(data[2], data[3], Boolean.parseBoolean(data[1])));
+            break;
+        default:
+            break;
+        }
+    }
+
+    public void saveTasks() throws IOException {
+        ArrayList<String> records = new ArrayList<>();
+        for(int i = 0; i < tasks.size(); i++){
+            records.add(tasks.get(i).getInfo());
+        }
+        fileManager.saveData(records);
     }
 }

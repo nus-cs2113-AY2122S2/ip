@@ -1,0 +1,4 @@
+D / false / return book / June 6th
+E / true / project meeting / Aug 6th 2-4pm
+D / false / report / tmr
+U / true / prepare for presentation
