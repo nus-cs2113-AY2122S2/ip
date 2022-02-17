@@ -1,9 +1,4 @@
-import java.io.File;
 import java.util.ArrayList;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.FileWriter;
-import java.io.FileOutputStream;
 public class TaskManager {
     private static final ArrayList<Task> Tasks = new ArrayList<Task>();
     //response of adding
@@ -35,7 +30,6 @@ public class TaskManager {
 
     }
      */
-
     /**
      * Adds a general task in the list
      * @param name refers to the name of the task
@@ -117,7 +111,7 @@ public class TaskManager {
      * @param n refers to the index of the task in adding time order
      */
     public void markTask(int n) {
-        //System.out.println(n);
+        System.out.println(n);
         String content = "";
         if(n < 1 || n > Tasks.size()) {
             //Beyonds boundaries
@@ -142,21 +136,6 @@ public class TaskManager {
         }else {
             Tasks.get(n - 1).unmark();
             content = "OK, I've marked this task as not done yet:\n" + Tasks.get(n - 1).listName;
-        }
-        chatbox.setContent(content);
-        chatbox.chatboxPrinter();
-    }
-
-    public void deleteTask(int n) {
-        String content = "";
-        if(n < 1 || n > Tasks.size()) {
-            //Beyonds boundaries
-            content = "Sorry, I could not find the task :/";
-        }else {
-            content = "Okay! I've deleted this task:\n" + Tasks.get(n - 1).listName;
-            Tasks.remove(n-1);
-            int s = Tasks.size();
-            content += "\nNow you have " + String.valueOf(s) + " tasks in your list";
         }
         chatbox.setContent(content);
         chatbox.chatboxPrinter();

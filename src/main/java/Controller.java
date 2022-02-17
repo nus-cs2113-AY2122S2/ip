@@ -1,8 +1,6 @@
-import java.io.File;
 import java.util.Locale;
 import java.util.Scanner;
-import java.io.FileWriter;
-import java.io.IOException;
+
 public class Controller {
     //greeting msg and exit msg
     protected String HELLO_WORDS = "Hello! I'm Duke :P\nWhat can I do for you?";
@@ -33,18 +31,14 @@ public class Controller {
     /**
      * Unmarks task in the list
      */
-    public void unmarkTask() throws DukeException{
-        try {
-            int index = Integer.parseInt(analyst.taskName);
-            manager.unmarkTask(index);
-        } catch (NumberFormatException e) {
-            throw new IllegalTaskIndexException();
-        }
+    public void unmarkTask(){
+        int index= Integer.parseInt(analyst.taskName);
+        manager.unmarkTask(index);
     }
 
     /**
      * Marks task in the list
-     */
+
     public void markTask() throws DukeException{
         try {
             int index = Integer.parseInt(analyst.taskName);
@@ -53,7 +47,7 @@ public class Controller {
             throw new IllegalTaskIndexException();
         }
     }
-
+     */
     /**
     public void deleteTask() throws DukeException{
         try {
@@ -62,15 +56,21 @@ public class Controller {
         } catch (NumberFormatException e) {
             throw new IllegalTaskIndexException();
         }
-    }
      */
+    public void markTask(){
+        int index= Integer.parseInt(analyst.taskName);
+        manager.markTask(index);
+    }
+
 
     /**
      * Listen the instruction and operate during the session
      */
-    public void listen() throws DukeException {
+    public void listen() {
         Scanner msg = new Scanner(System.in);
         this.recvMsg = msg.nextLine();
+        /**
+<<<<<<< HEAD
         try {
             analyst = new OperationAnalyst(this.recvMsg);
             String command = analyst.getCommand();
@@ -115,7 +115,36 @@ public class Controller {
         } catch (IllegalTaskIndexException e) {
             chatbox.setContent("Please specify the index of the task :(");
             chatbox.chatboxPrinter();
+=======
+         **/
+        analyst = new OperationAnalyst(this.recvMsg);
+        String command = analyst.getCommand();
+        switch (command) {
+        case "bye":
+            this.bye();
+            break;
+        case "list":
+            manager.listTask();
+            break;
+        case "mark":
+            this.markTask();
+            break;
+        case "unmark":
+            this.unmarkTask();
+            break;
+        case "deadline":
+            manager.addDeadline(analyst.taskName, analyst.time);
+            break;
+        case "event":
+            manager.addEvent(analyst.taskName, analyst.time);
+            break;
+        case "todo":
+            manager.addToDo(analyst.taskName);
+            break;
+        default:
+            manager.addTask(analyst.taskName);
         }
     }
+
 
 }
