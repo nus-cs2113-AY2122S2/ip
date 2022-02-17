@@ -44,6 +44,20 @@ public class TaskManager {
             case "list":
                 listTasks();
                 break;
+            case "delete":
+                try {
+                    idx = Integer.parseInt(inputs[1]);
+                    deleteTask(idx);
+                } catch (NumberFormatException e) {
+                    System.out.println("\t" + "-".repeat(60));
+                    System.out.println("\t Index is not an integer. Please try again.");
+                    System.out.println("\t" + "-".repeat(60));
+                } catch (DukeException e) {
+                    System.out.println("\t" + "-".repeat(60));
+                    System.out.println("\t " + e.getMessage() + " Please try again.");
+                    System.out.println("\t" + "-".repeat(60));
+                }
+                break;
             case "mark":
                 try {
                     idx = Integer.parseInt(inputs[1]);
@@ -98,7 +112,6 @@ public class TaskManager {
         if(option.equals("todo")) {
             taskDescription = taskDescription.trim();
             tasks.add(new Todo(taskDescription));
-            //tasks[taskCount++] = new Todo(taskDescription.trim());
             return;
         }
 
@@ -121,6 +134,21 @@ public class TaskManager {
                 throw new DukeException("Event time is not specified.");
             }
         }
+    }
+
+    public void deleteTask(int idx) throws DukeException {
+        if(idx < 0 || idx > tasks.size()){
+            throw new DukeException("Task index out of bound.");
+        }
+
+        Task deleted = tasks.get(idx - 1);
+        tasks.remove(idx - 1);
+
+        System.out.println("\t" + "-".repeat(60));
+        System.out.println("\t Noted. I've removed this task:");
+        System.out.println("\t\t " + deleted.toString());
+        System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("\t" + "-".repeat(60));
     }
 
     public void listTasks() {
