@@ -17,13 +17,15 @@ public class DisplayMessages {
     }
 
     public static void printTaskMarked(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        task.printItem();
+        System.out.print(HORIZONTAL_LINE);
+        System.out.println("Nice! I've marked this task as done:\n" + task.getFullTask());
+        System.out.print(HORIZONTAL_LINE);
     }
 
     public static void printTaskUnmarked(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        task.printItem();
+        System.out.print(HORIZONTAL_LINE);
+        System.out.println("OK, I've marked this task as not done yet:\n" + task.getFullTask());
+        System.out.print(HORIZONTAL_LINE);
     }
 
 
@@ -84,16 +86,26 @@ public class DisplayMessages {
     }
 
     public static void markError() {
+        System.out.print(HORIZONTAL_LINE);
         System.out.println("This task is already marked as not done! Did you mean to mark it?");
+        System.out.print(HORIZONTAL_LINE);
     }
 
     public static void unmarkError() {
+        System.out.print(HORIZONTAL_LINE);
         System.out.println("This task is already marked as done! Did to mean to unmark it?");
+        System.out.print(HORIZONTAL_LINE);
     }
 
     public static void invalidInput() {
         System.out.println(HORIZONTAL_LINE
                 + "You have entered an invalid command. Please try again\n"
                 + HORIZONTAL_LINE);
+    }
+
+    public static void taskDeleted(Task taskRemoved, Integer listSize) {
+        System.out.print(HORIZONTAL_LINE + "I have removed this task for you:\n" + taskRemoved.getFullTask() + "\n"
+        + "You have " + listSize.toString() + " tasks left.\n" +
+                HORIZONTAL_LINE);
     }
 }

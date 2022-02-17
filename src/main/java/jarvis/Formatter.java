@@ -64,7 +64,7 @@ public class Formatter {
     protected static void unmarkCommand(String[] userCommand) throws JarvisException {
         int taskIndex = getTaskIndex(userCommand);
         if (isValidIndex(taskIndex)) {
-            UserList.markTask(taskIndex);
+            UserList.unmarkTask(taskIndex);
         } else {
             throw new JarvisException();
         }
@@ -113,14 +113,20 @@ public class Formatter {
         }
     }
 
+    protected static void deleteCommand(String[] userCommand) throws JarvisException {
+        try {
+            Integer taskIndex = Integer.parseInt(userCommand[1]);
+            UserList.removeTask(taskIndex - 1);
+        } catch (NumberFormatException e){
+            throw new JarvisException();
+        } catch (IndexOutOfBoundsException e) {
+            throw new JarvisException();
+        }
+    }
+
     public static void inputHandler(Scanner in) {
         String inputLine = in.nextLine();
         String[] userCommand = inputLine.split(" ");
-        int taskIndex = -1;
-        int numOfArgs = userCommand.length;
-        boolean isValidCommand = false;
-        boolean isValidIndex = false;
-        String taskDescription = null;
 
         switch (userCommand[0]) {
         case "bye": //exit command
@@ -171,7 +177,13 @@ public class Formatter {
                 DisplayMessages.invalidInput();
             }
             break;
-
+        case "delete":
+            try {
+                deleteCommand(userCommand);
+            } catch (JarvisException e) {
+                DisplayMessages.invalidInput();
+            }
+            break;
         default:
             DisplayMessages.invalidInput();
         }
