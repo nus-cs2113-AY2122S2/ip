@@ -13,6 +13,7 @@ public class Duke {
     private static final String TODO_COMMAND = "todo";
     private static final String DEADLINE_COMMAND = "deadline";
     private static final String EVENT_COMMAND = "event";
+    private static final String DELETE_COMMAND = "delete";
 
     public static void main(String[] args) {
         initDuke();
@@ -82,6 +83,9 @@ public class Duke {
         case EVENT_COMMAND:
             feedback = addEvent();
             break;
+        case DELETE_COMMAND:
+            feedback = delEvent();
+            break;
         default:
             throw new DukeException(Ui.invalidInput());
         }
@@ -107,5 +111,9 @@ public class Duke {
 
     private static String markTask(boolean isDone) throws DukeException {
         return taskManager.markTask(parser.getTaskId(), isDone);
+    }
+
+    private static String delEvent() throws DukeException {
+        return taskManager.delTask(parser.getTaskId());
     }
 }
