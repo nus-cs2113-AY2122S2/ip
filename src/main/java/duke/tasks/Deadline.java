@@ -18,7 +18,7 @@ public class Deadline extends ToDo {
 
     @Override
     public String getDescription() {
-        String completeDescription = description + "(by: " + doBy + ")";
+        String completeDescription = description + doBy;
         return completeDescription;
     }
 

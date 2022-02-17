@@ -157,34 +157,6 @@ public class Duke {
                 System.out.printf(" There are now %d tasks in the list.%n", taskCounter);
                 System.out.println(underscoreLine);
                 break;
-            case "delete":
-                try {
-                    if (commands.length < 2) {
-                        throw new InputLengthException();
-                    }
-                    commandNumber = Integer.parseInt(commands[1]);
-                    if (commandNumber >= 0 && commandNumber <= taskCounter) {
-                        System.out.println(underscoreLine);
-                        System.out.println(" Forgoing further responsibilties, I see.");
-                        System.out.printf(" Removed:   %s %s%n", toDos.get(commandNumber - 1).getStatusIcon(),
-                                toDos.get(commandNumber - 1).getDescription());
-                        taskCounter--;
-                        System.out.println(" There are now " + taskCounter + " tasks in the list.");
-                        System.out.println(underscoreLine);
-                        toDos.remove(commandNumber - 1);
-                    } else {
-                        throw new UnreachableTaskException();
-                    }
-                } catch (InputLengthException e) {
-                    System.out.println(underscoreLine);
-                    System.out.println("You forgot the whole other half of the command... why am I not surprised?");
-                    System.out.println(underscoreLine);
-                } catch (UnreachableTaskException e) {
-                    System.out.println(underscoreLine);
-                    System.out.println("You never wrote down such a task. But of course you want to delete it.");
-                    System.out.println(underscoreLine);
-                }
-                break;
             default: //user formatted a command incorrectly
                 System.out.println(underscoreLine);
                 System.out.println("I can't understand your gibberish.");
