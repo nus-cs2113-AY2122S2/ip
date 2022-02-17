@@ -1,7 +1,50 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+(งツ)ว
+Hi, I'm Marites! I've heard so many things about you!
+I have a lot of stories to share, but first, how can I help you?
 
+========================================
+========================================
+Alright, task added:
+  [T][ ] Finish increment
+Your list currently has 1 tasks.
+========================================
+========================================
+Alright, task added:
+  [D][ ] Run grading scripts (by: next weekend)
+Your list currently has 2 tasks.
+========================================
+========================================
+Alright, task added:
+  [E][ ] Midterms (at: February 14)
+Your list currently has 3 tasks.
+========================================
+========================================
+Alright, task added:
+  [D][ ] Prepare proposal (by: Thursday midnight)
+Your list currently has 4 tasks.
+========================================
+========================================
+1. [T][ ] Finish increment
+2. [D][ ] Run grading scripts (by: next weekend)
+3. [E][ ] Midterms (at: February 14)
+4. [D][ ] Prepare proposal (by: Thursday midnight)
+========================================
+========================================
+Good job on getting this done!
+    [D][X] Run grading scripts (by: next weekend)
+========================================
+========================================
+Okay, I've marked this as not yet done:
+    [D][ ] Run grading scripts (by: next weekend)
+========================================
+========================================
+Good job on getting this done!
+    [T][X] Finish increment
+========================================
+========================================
+Alright, task deleted:
+  [T][X] Finish increment
+Your list currently has 3 tasks.
+========================================
+See you next time!
+========================================

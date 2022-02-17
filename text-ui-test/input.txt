@@ -1,0 +1,10 @@
+todo Finish increment
+deadline Run grading scripts --by next weekend
+event Midterms --at February 14
+deadline Prepare proposal --by Thursday midnight
+list
+mark 2
+unmark 2
+mark 1
+delete 1
+bye
