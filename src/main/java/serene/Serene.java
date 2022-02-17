@@ -60,6 +60,7 @@ public class Serene {
         }
         File save = new File(SAVE_FILE_PATH);
         if (save.createNewFile()) {
+            System.out.println("Save file created~");
             return;
         }
         try {
