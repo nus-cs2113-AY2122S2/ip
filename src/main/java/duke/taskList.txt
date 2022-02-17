@@ -1,3 +1,3 @@
 [T][X]sleep
-[D][ ]eat (by: 10pm)
+[D][X]eat (by: 10pm)
 [E][X]cry (at: 11pm)
