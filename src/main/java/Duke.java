@@ -1,11 +1,15 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
 
     static ArrayList<Task> tasks = new ArrayList<Task>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // String logo = " ____ _ \n"
         // + "| _ \\ _ _| | _____ \n"
         // + "| | | | | | | |/ / _ \\\n"
@@ -13,6 +17,7 @@ public class Duke {
         // + "|____/ \\__,_|_|\\_\\___|\n";
 
         Scanner input = new Scanner(System.in);
+        readFile();
         System.out.println("    _________________________________________");
         System.out.println("    Hello I'm Duke\n    What can I help you with?");
         System.out.println("    _________________________________________");
@@ -52,6 +57,7 @@ public class Duke {
                         System.out.println("    I've marked the task as done m'lord:");
                         printTasks();
                         System.out.println("    _________________________________________\n");
+                        writeToFile();
                         break;
                     case "unmark":
                         ans = ans.substring(commandSeparator + 1);
@@ -69,10 +75,11 @@ public class Duke {
                         if (ans.equalsIgnoreCase(command)) {
                             throw new EmptyDescriptionException();
                         }
-                        addTask(ans, 'T', time);
+                        addTask(ans, false, 'T', time);
                         System.out.println("     added: " + tasks.get(tasks.size() - 1));
                         System.out.println("     there are currently " + tasks.size() + " tasks ");
                         System.out.println("    _________________________________________\n");
+                        writeToFile();
                         break;
                     case "deadline":
                         // timeSeparator = (timeSeparator == -1 ? ans.length() : timeSeparator);
@@ -86,10 +93,11 @@ public class Duke {
                         if (ans.equalsIgnoreCase(command)) {
                             throw new EmptyDescriptionException();
                         }
-                        addTask(ans, 'D', time);
+                        addTask(ans, false, 'D', time);
                         System.out.println("     added: " + tasks.get(tasks.size() - 1));
                         System.out.println("     there are currently " + tasks.size() + " tasks ");
                         System.out.println("    _________________________________________\n");
+                        writeToFile();
                         break;
                     case "event":
                         // timeSeparator = (timeSeparator == -1 ? ans.length() : timeSeparator);
@@ -103,10 +111,11 @@ public class Duke {
                         if (ans.equalsIgnoreCase(command)) {
                             throw new EmptyDescriptionException();
                         }
-                        addTask(ans, 'E', time);
+                        addTask(ans, false, 'E', time);
                         System.out.println("     added: " + tasks.get(tasks.size() - 1));
                         System.out.println("     there are currently " + tasks.size() + " tasks ");
                         System.out.println("    _________________________________________\n");
+                        writeToFile();
                         break;
                     case "delete":
                         // timeSeparator = (timeSeparator == -1 ? ans.length() : timeSeparator);
@@ -120,6 +129,7 @@ public class Duke {
                         deleteTask(Integer.parseInt(ans) - 1);
                         System.out.println("     there are currently " + tasks.size() + " tasks ");
                         System.out.println("    _________________________________________\n");
+                        writeToFile();
                         break;
                     default:
                         throw new WrongCommandException();
@@ -135,12 +145,13 @@ public class Duke {
         System.out.println("    _________________________________________");
         System.out.println("    Bye. Hope to see you again soon!");
         System.out.println("    _________________________________________");
+
         input.close();
 
     }
 
-    public static void addTask(String desc, char type, String time) {
-        tasks.add(new Task(desc, false, type, time));
+    public static void addTask(String desc, boolean isDone, char type, String time) {
+        tasks.add(new Task(desc, isDone, type, time));
     }
 
     public static void deleteTask(int del) {
@@ -158,6 +169,31 @@ public class Duke {
     public static void printTasks() {
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println("    " + (i + 1) + " " + tasks.get(i));
+        }
+    }
+
+    public static void readFile() throws FileNotFoundException {
+        File f = new File("tasks.txt");
+        Scanner s = new Scanner(f);
+        String line;
+        String desc;
+        String time;
+        int separator;
+        while (s.hasNext()) {
+            line = s.nextLine();
+            boolean isDone = (line.charAt(2) == 'T' ? true : false);
+            separator = (line.indexOf("/") == -1) ? line.length() : line.indexOf("/") + 1;
+            desc = line.substring(4, separator);
+            time = (separator == line.length()) ? "" : line.substring(separator + 1);
+            addTask(desc, isDone, line.charAt(0), time);
+        }
+    }
+
+    public static void writeToFile() throws IOException {
+        FileWriter fw = new FileWriter("tasks.txt");
+        for (int i = 0; i < tasks.size(); i++) {
+            fw.write(tasks.get(i).typeOfTask() + " " + tasks.get(i).getIsDone() + " " + tasks.get(i).getDesc() + "/"
+                    + tasks.get(i).getTime() + System.lineSeparator());
         }
     }
 }
