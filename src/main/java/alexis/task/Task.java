@@ -15,11 +15,19 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public String getTiming() {
+        return timing;
+    }
+
     public String getFullDescription() {
         return description;
     }
 
-    public void addNewTask() {
+    public void addNewTaskMessage() {
         System.out.println(Main.BORDER_LINE);
         System.out.println(Main.ADD_NEW_TASK_MESSAGE);
         System.out.println("  [" + typeOfTask() + "][" + getStatusIcon() + "] " + getFullDescription());
@@ -29,14 +37,12 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        addNewTask();
     }
 
     public Task(String description, String timing) {
         this.description = description;
         this.timing = timing;
         this.isDone = false;
-        addNewTask();
     }
 
     public void markAsDone() {
@@ -56,4 +62,7 @@ public class Task {
         System.out.println(Main.BORDER_LINE);
     }
 
+    public void setIsDone() {
+        this.isDone = true;
+    }
 }

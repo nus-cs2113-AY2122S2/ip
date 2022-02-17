@@ -1,5 +1,6 @@
 package alexis.main;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
@@ -99,6 +100,7 @@ public class Main {
         try {
             checkTodoInputValidity(input);
             tasks.add(new Todo(input.substring(5)));
+            tasks.get(numOfTasks).addNewTaskMessage();
             numOfTasks++;
         } catch (StringIndexOutOfBoundsException | IllegalTodoException e) {
             exceptionMessage(TODO_EXCEPTION_MESSAGE_TEXT);
@@ -110,6 +112,7 @@ public class Main {
         try {
             String[] deadlineDescriptionSplitArr = input.substring(9).split(" /by ");
             tasks.add(new Deadline(deadlineDescriptionSplitArr[0], deadlineDescriptionSplitArr[1]));
+            tasks.get(numOfTasks).addNewTaskMessage();
             numOfTasks++;
         } catch (StringIndexOutOfBoundsException e) {
             exceptionMessage(DEADLINE_EXCEPTION_MESSAGE_TEXT_ONE);
@@ -123,6 +126,7 @@ public class Main {
         try {
             String[] eventDescriptionSplitArr = input.substring(6).split(" /at ");
             tasks.add(new Event(eventDescriptionSplitArr[0], eventDescriptionSplitArr[1]));
+            tasks.get(numOfTasks).addNewTaskMessage();
             numOfTasks++;
         } catch (StringIndexOutOfBoundsException e) {
             exceptionMessage(EVENT_EXCEPTION_MESSAGE_TEXT_ONE);
@@ -179,30 +183,79 @@ public class Main {
         return numOfTasks;
     }
 
+    private static int readFromFile(File file, ArrayList<Task> tasks) throws FileNotFoundException {
+        Scanner s = new Scanner(file); // create a Scanner using the File as the source
+        String line;
+        int taskCounter = 0;
+        while (s.hasNext()) {
+
+            line = s.nextLine();
+            switch(line.charAt(0)) {
+            case 'T':
+                tasks.add(new Todo(line.substring(8)));
+                break;
+            case 'D':
+                String[] deadlineDescriptionSplitArr = line.substring(8).split(" /by ");
+                tasks.add(new Deadline(deadlineDescriptionSplitArr[0], deadlineDescriptionSplitArr[1]));
+                break;
+            case 'E':
+                String[] eventDescriptionSplitArr = line.substring(8).split(" /at ");
+                tasks.add(new Event(eventDescriptionSplitArr[0], eventDescriptionSplitArr[1]));
+                break;
+            default:
+                System.out.println("Failed to load saved file");
+                break;
+            }
+
+            if (line.charAt(4) == 'X') {
+                tasks.get(taskCounter).setIsDone();
+            }
+
+            taskCounter += 1;
+        }
+        return taskCounter;
+    }
+
     private static void writeToFile(String filePath, int numOfTasks, ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (int i = 0; i < numOfTasks; i++) {
-            fw.write(tasks.get(i).typeOfTask() + " | " + tasks.get(i).getStatusIcon() + " | "
-                    + tasks.get(i).getFullDescription() + System.lineSeparator());
+            switch (tasks.get(i).typeOfTask()) {
+            case 'T':
+                fw.write(tasks.get(i).typeOfTask() + " | " + tasks.get(i).getStatusIcon() + " | "
+                        + tasks.get(i).getFullDescription() + System.lineSeparator());
+                break;
+            case 'D':
+                fw.write(tasks.get(i).typeOfTask() + " | " + tasks.get(i).getStatusIcon() + " | "
+                        + tasks.get(i).getDescription() + " /by " + tasks.get(i).getTiming()
+                        + System.lineSeparator());
+                break;
+            case 'E':
+                fw.write(tasks.get(i).typeOfTask() + " | " + tasks.get(i).getStatusIcon() + " | "
+                        + tasks.get(i).getDescription() + " /at " + tasks.get(i).getTiming()
+                        + System.lineSeparator());
+                break;
+            default:
+                System.out.println("Error");
+                break;
+            }
         }
         fw.close();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner in = new Scanner(System.in);
-
-        String filepath = "list.txt";
-
-        try {
-            File file = new File(filepath);
-            file.createNewFile();
-        } catch (IOException e) {
-            System.out.println("An error occurred in creating a file.");
-            e.printStackTrace();
-        }
 
         int taskCounter = 0;
         ArrayList<Task> tasks = new ArrayList<>(100);
+
+        String filepath = "list.txt";
+
+        File file = new File(filepath);
+        if (file.exists()) {
+            taskCounter = readFromFile(file, tasks);
+        } else {
+            file.createNewFile();
+        }
 
         greet();
         String input = in.nextLine();
@@ -239,7 +292,6 @@ public class Main {
             }
 
             try {
-                new FileWriter(filepath, false).close();    //deletes all content in the file
                 writeToFile(filepath, taskCounter, tasks);
             } catch (IOException e) {
                 System.out.println("Something went wrong: " + e.getMessage());
