@@ -45,10 +45,12 @@ public class FileReaderWriter {
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String line = s.nextLine();
-                if (!line.equals(""))
+                if (!line.equals("")) {
                     oldList.add(line);
+                }
             }
         } catch (FileNotFoundException e) {
+            System.out.println("File not found!");
             return oldList;
         }
         return oldList;

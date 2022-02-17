@@ -31,9 +31,30 @@ public class Duke {
         InputReader inputReader = new InputReader();
         FileReaderWriter fileReaderWriter = new FileReaderWriter();
 
-        TaskList taskList = accessTaskHistory(inputReader, fileReaderWriter);
-
         greet();
+
+        TaskList taskList = new TaskList();
+        ArrayList<String> oldTaskStrings = fileReaderWriter.readFromFile();
+        for (String taskString : oldTaskStrings) {
+
+            ArrayList<String> splitString = inputReader.parseSavedString(taskString);
+            if (splitString.size() == 0) {
+                continue;
+            }
+            switch (splitString.get(0)) {
+            case "T":
+                taskList.addToDo(splitString.get(2), Boolean.parseBoolean(splitString.get(1)));
+                break;
+            case "D":
+                taskList.addDeadline(splitString.get(2), Boolean.parseBoolean(splitString.get(1)), splitString.get(3));
+                break;
+            case "E":
+                taskList.addEvent(splitString.get(2), Boolean.parseBoolean(splitString.get(1)), splitString.get(3));
+                break;
+            default:
+                System.out.println("not an acceptable task string!" + System.lineSeparator() + taskString);
+            }
+        }
 
         while (true) {
 
@@ -47,21 +68,21 @@ public class Duke {
                 try {
                     int index = inputReader.extractTaskIndexNo(input);
                     taskList.setTaskStatus(index, false);
-                } catch (MissingIndexException | IndexOutOfBoundsException e){
+                } catch (MissingIndexException | IndexOutOfBoundsException e) {
                     promptIndexSyntax();
                 }
             } else if (input.startsWith("mark")) {
                 try {
                     int index = inputReader.extractTaskIndexNo(input);
                     taskList.setTaskStatus(index, true);
-                } catch (MissingIndexException | IndexOutOfBoundsException e){
+                } catch (MissingIndexException | IndexOutOfBoundsException e) {
                     promptIndexSyntax();
                 }
             } else if (input.startsWith("delete")) {
                 try {
                     int index = inputReader.extractTaskIndexNo(input);
                     taskList.deleteTask(index);
-                } catch (MissingIndexException | IndexOutOfBoundsException e){
+                } catch (MissingIndexException | IndexOutOfBoundsException e) {
                     promptIndexSyntax();
                 }
             } else if (input.startsWith("todo")) {
@@ -101,31 +122,6 @@ public class Duke {
 
     }
 
-    private static TaskList accessTaskHistory(InputReader inputReader, FileReaderWriter fileReaderWriter) {
-        TaskList taskList = new TaskList();
-        ArrayList<String> oldTaskStrings = fileReaderWriter.readFromFile();
-        for (String taskString: oldTaskStrings){
-            ArrayList<String> splitString = inputReader.parseSavedString(taskString);
-            if (splitString.size()==0){
-                continue;
-            }
-            switch (splitString.get(0)){
-            case "T":
-                taskList.addToDo(splitString.get(2),Boolean.parseBoolean(splitString.get(1)));
-                break;
-            case "D":
-                taskList.addDeadline(splitString.get(2), Boolean.parseBoolean(splitString.get(1)), splitString.get(3));
-                break;
-            case "E":
-                taskList.addEvent(splitString.get(2), Boolean.parseBoolean(splitString.get(1)), splitString.get(3));
-                break;
-            default:
-                System.out.println("not an acceptable task string!"+System.lineSeparator()+taskString);
-            }
-        }
-        return taskList;
-    }
-
     private static void promptToDo() {
         System.out.println(PROMPT_CORRECT_TODO);
     }
@@ -146,7 +142,7 @@ public class Duke {
         System.out.println(PROMPT_GENERIC_INVALID_COMMAND);
     }
 
-    private static void promptIndexSyntax(){
+    private static void promptIndexSyntax() {
         System.out.println(PROMPT_CORRECT_INDEX_USE);
     }
 

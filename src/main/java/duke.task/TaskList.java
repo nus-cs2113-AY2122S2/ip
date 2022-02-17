@@ -83,11 +83,12 @@ public class TaskList {
 
     /**
      * Helper function to print and add new task
+     *
      * @param newTask
      */
     private void printAndAddTask(Task newTask) {
         taskList.add(newTask);
-        System.out.println("Added:" + newTask);
+        System.out.println("Added: " + newTask);
     }
 
     /**
@@ -103,7 +104,7 @@ public class TaskList {
      * Prints out the list of Tasks.
      */
     public void displayTasks() {
-        if (taskList.size()==0){
+        if (taskList.size() == 0) {
             System.out.println("no tasks to be found!");
         }
         System.out.println("total " + taskList.size() + " tasks to be completed:");
@@ -130,7 +131,7 @@ public class TaskList {
     }
 
 
-    public ArrayList<Task> getTaskList(){
+    public ArrayList<Task> getTaskList() {
         return taskList;
     }
 
