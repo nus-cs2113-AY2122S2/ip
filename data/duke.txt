@@ -1,4 +1,2 @@
-T | true | read book
-D | false | return book | June 6th
-E | false | project meeting | Aug 6th 2-4pm
-T | true | join club
+T | false | eat
+D | true | have lunch | 12pm
