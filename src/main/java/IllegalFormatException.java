@@ -1,2 +1,2 @@
-public class IllegalFormatException extends DukeException{
+public class IllegalFormatException extends DukeExceptions{
 }

@@ -1,3 +1,2 @@
-public class IllegalInstructionException extends DukeException{
-
+public class IllegalInstructionException extends DukeExceptions{
 }

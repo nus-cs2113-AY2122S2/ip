@@ -1,2 +1,2 @@
-public class IllegalSavingAction extends DukeException{
+public class IllegalSavingAction extends DukeExceptions{
 }

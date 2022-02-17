@@ -1,2 +1,2 @@
-public class IllegalTaskIndexException extends DukeException{
+public class IllegalTaskIndexException extends DukeExceptions{
 }
