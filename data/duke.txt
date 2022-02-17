@@ -1,2 +1,3 @@
-[D][ ]  eat pie  (by: noon)
-[E][X]  go to class  (at: Monday)
+[D][ ] finish hw (by: Tuesday)
+[E][ ] shower (at: 9-11 PM)
+[T][ ] d
