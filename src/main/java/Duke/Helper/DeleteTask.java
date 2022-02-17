@@ -1,0 +1,19 @@
+package Duke.Helper;
+
+import Duke.Duke;
+import Duke.Tasks.Task;
+
+import java.util.ArrayList;
+
+public class DeleteTask {
+    public static void deleteTask(ArrayList<Task> array, String message) {
+        String[] splitMessage = message.split(" ");
+        String getNumber = splitMessage[1];
+        int positionToDelete = Integer.parseInt(getNumber) - 1;
+        System.out.println(Duke.DISPLAY_LINE + "Okay! I have removed this task from the list!");
+        System.out.println(array.get(positionToDelete));
+        array.remove(positionToDelete);
+        System.out.println("You have " + array.size() + " items left in the list:)");
+        System.out.print(Duke.DISPLAY_LINE);
+    }
+}

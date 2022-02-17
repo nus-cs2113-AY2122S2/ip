@@ -5,7 +5,7 @@
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
-Hello! Duke.Duke here!:)
+Hello! Duke here!:)
 Is there anything I can do for you?
 ________________________________________________
 [0m________________________________________________
@@ -36,11 +36,11 @@ Here are the tasks in your list:
 ________________________________________________
 ________________________________________________
 Nice! I've marked this as done:
-[X] borrow book
+[T][X] borrow book
 ________________________________________________
 ________________________________________________
 OK, I've marked this task as not done yet:
-[ ] borrow book
+[T][ ] borrow book
 ________________________________________________
 ________________________________________________
 There are 3 items in the list
@@ -60,6 +60,26 @@ ________________________________________________
 ________________________________________________
 Please input a description
 For eg. 'todo borrow book'
+________________________________________________
+________________________________________________
+Okay! I have removed this task from the list!
+[D][ ] return book (by: Sunday)
+You have 2 items left in the list:)
+________________________________________________
+________________________________________________
+Here are the tasks in your list: 
+1. [T][ ] borrow book
+2. [E][ ] project meeting (at: Mon 2-4pm)
+________________________________________________
+________________________________________________
+There are 2 items in the list
+Please input which item you would like to delete.
+For eg. 'delete 2' 
+________________________________________________
+________________________________________________
+Okay! I have removed this task from the list!
+[T][ ] borrow book
+You have 1 items left in the list:)
 ________________________________________________
 Please input a valid command:)
 ________________________________________________

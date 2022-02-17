@@ -6,11 +6,11 @@ import Duke.Tasks.Event;
 import Duke.Tasks.Task;
 import Duke.Tasks.Todo;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class AddTask {
 
-        public static void addTodo (List<Task> array, String message, int itemNumber) throws DukeException {
+        public static void addTodo (ArrayList<Task> array, String message) throws DukeException {
             String[] splitMessage = message.split(" ", 2);
             String getDescription = splitMessage[1];
             if (getDescription.equals("")) {
@@ -20,7 +20,7 @@ public class AddTask {
                 array.add(taskItem);
                 System.out.println(Duke.DISPLAY_LINE + "Okay! I've added this task:");
                 System.out.println(taskItem);
-                System.out.print("Now you have " + (itemNumber + 1) + " tasks in the list.\n" + Duke.DISPLAY_LINE);
+                System.out.print("Now you have " + array.size() + " tasks in the list.\n" + Duke.DISPLAY_LINE);
             }
         }
 
@@ -30,7 +30,7 @@ public class AddTask {
             return getSecondPart.split(regex, 2);
         }
 
-        public static void addDeadline(List<Task> array, String message, int itemNumber) throws DukeException {
+        public static void addDeadline(ArrayList<Task> array, String message) throws DukeException {
             String[] splitSecondPart = splitLongMessage(message, " /by ");
             String getDescription = splitSecondPart[0];
             String getDate = splitSecondPart[1];
@@ -41,11 +41,11 @@ public class AddTask {
                 array.add(taskItem);
                 System.out.println(Duke.DISPLAY_LINE + "Okay! I've added this task:");
                 System.out.println(taskItem);
-                System.out.print("Now you have " + (itemNumber + 1) + " tasks in the list.\n" + Duke.DISPLAY_LINE);
+                System.out.print("Now you have " + array.size() + " tasks in the list.\n" + Duke.DISPLAY_LINE);
             }
         }
 
-        public static void addEvent(List<Task> array, String message, int itemNumber) throws DukeException {
+        public static void addEvent(ArrayList<Task> array, String message) throws DukeException {
             String[] splitSecondPart = splitLongMessage(message, " /at ");
             String getDescription = splitSecondPart[0];
             String getDate = splitSecondPart[1];
@@ -56,7 +56,7 @@ public class AddTask {
                 array.add(taskItem);
                 System.out.println(Duke.DISPLAY_LINE + "Okay! I've added this task:");
                 System.out.println(taskItem);
-                System.out.print("Now you have " + (itemNumber + 1) + " tasks in the list.\n" + Duke.DISPLAY_LINE);
+                System.out.print("Now you have " + array.size() + " tasks in the list.\n" + Duke.DISPLAY_LINE);
             }
         }
 

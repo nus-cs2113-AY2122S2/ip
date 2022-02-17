@@ -9,5 +9,9 @@ mark 5
 deadline work by
 list
 todo
+delete 2
+list
+delete
+delete 1
 anyhowcommand
 bye
