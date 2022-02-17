@@ -55,7 +55,7 @@ public class Formatter {
     protected static void markCommand(String[] userCommand) throws JarvisException {
         int taskIndex = getTaskIndex(userCommand);
         if (isValidIndex(taskIndex)) {
-            UserList.markTask(taskIndex);
+            UserList.markTask(taskIndex, true);
         } else {
             throw new JarvisException();
         }
@@ -64,7 +64,7 @@ public class Formatter {
     protected static void unmarkCommand(String[] userCommand) throws JarvisException {
         int taskIndex = getTaskIndex(userCommand);
         if (isValidIndex(taskIndex)) {
-            UserList.markTask(taskIndex);
+            UserList.unmarkTask(taskIndex);
         } else {
             throw new JarvisException();
         }
@@ -124,6 +124,8 @@ public class Formatter {
 
         switch (userCommand[0]) {
         case "bye": //exit command
+            DisplayMessages.savingData();
+            UserList.saveData();
             DisplayMessages.closingMessage();
             System.exit(0);
             break;

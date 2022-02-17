@@ -40,9 +40,7 @@ public class DisplayMessages {
                 + "| |_ ___       | | __ _ _ ____   ___ ___ \n"
                 + "| __/ _ \\      | |/ _` | '__\\ \\ / / / __|\n"
                 + "| || (_) | /\\__/ / (_| | |   \\ V /| \\__ \\\n"
-                + " \\__\\___/  \\____/ \\__,_|_|    \\_/ |_|___/\n"
-                + "How can I help you today?\n"
-                + HORIZONTAL_LINE;
+                + " \\__\\___/  \\____/ \\__,_|_|    \\_/ |_|___/\n";
 
         System.out.println(message);
     }
@@ -95,5 +93,30 @@ public class DisplayMessages {
         System.out.println(HORIZONTAL_LINE
                 + "You have entered an invalid command. Please try again\n"
                 + HORIZONTAL_LINE);
+    }
+
+    public static void savedFileDetected() {
+        System.out.println("It seems there is a saved file detected. Loading file...");
+    }
+
+    public static void fileLoaded() {
+        System.out.println("Your file has been successfully loaded!");
+        horizontalLine();
+    }
+
+    public static void noFileDetected() {
+        System.out.println("There does not seem to be any saved data. How can I help you today?\n" + HORIZONTAL_LINE);
+    }
+
+    public static void savingData() {
+        System.out.println("Please hang on while we save your data...");
+    }
+
+    public static void saveError() {
+        System.out.println("There seems to be an error saving your data. Please contact Glendon.");
+    }
+
+    public static void loadError() {
+        System.out.println("There seems to be an error loading your data. Please contact Glendon.");
     }
 }
