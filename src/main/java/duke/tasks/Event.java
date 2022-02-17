@@ -18,7 +18,7 @@ public class Event extends ToDo {
 
     @Override
     public String getDescription() {
-        String completeDescription = description + eventTime;
+        String completeDescription = description + "(at: " + eventTime + ")";
         return completeDescription;
     }
 
