@@ -31,16 +31,16 @@ public class Controller {
     /**
      * Unmarks task in the list
      */
-    public void unmarkTask(){
-        int index= Integer.parseInt(analyst.taskName);
-        manager.unmarkTask(index);
+    public void unmarkTask() throws  DukeExceptions{
+        try {
+            int index= Integer.parseInt(analyst.taskName);
+            manager.unmarkTask(index);
+        } catch (NumberFormatException e) {
+            throw new IllegalTaskIndexException();
+        }
     }
 
-    /**
-     * Marks task in the list
-<<<<<<< HEAD
-
-    public void markTask() throws DukeException{
+    public void markTask() throws DukeExceptions{
         try {
             int index = Integer.parseInt(analyst.taskName);
             manager.markTask(index);
@@ -48,7 +48,6 @@ public class Controller {
             throw new IllegalTaskIndexException();
         }
     }
-     */
     /**
     public void deleteTask() throws DukeException{
         try {
@@ -56,25 +55,14 @@ public class Controller {
             manager.deleteTask(index);
         } catch (NumberFormatException e) {
             throw new IllegalTaskIndexException();
-        }
-=======
->>>>>>> parent of fd7236a (Save/Delete/Exception)
-     */
-    public void markTask(){
-        int index= Integer.parseInt(analyst.taskName);
-        manager.markTask(index);
-    }
-
+*/
 
     /**
      * Listen the instruction and operate during the session
      */
-    public void listen() {
+    public void listen() throws DukeExceptions{
         Scanner msg = new Scanner(System.in);
         this.recvMsg = msg.nextLine();
-        /**
-<<<<<<< HEAD
-<<<<<<< HEAD
         try {
             analyst = new OperationAnalyst(this.recvMsg);
             String command = analyst.getCommand();
@@ -119,38 +107,7 @@ public class Controller {
         } catch (IllegalTaskIndexException e) {
             chatbox.setContent("Please specify the index of the task :(");
             chatbox.chatboxPrinter();
-=======
-=======
->>>>>>> parent of fd7236a (Save/Delete/Exception)
-         **/
-        analyst = new OperationAnalyst(this.recvMsg);
-        String command = analyst.getCommand();
-        switch (command) {
-        case "bye":
-            this.bye();
-            break;
-        case "list":
-            manager.listTask();
-            break;
-        case "mark":
-            this.markTask();
-            break;
-        case "unmark":
-            this.unmarkTask();
-            break;
-        case "deadline":
-            manager.addDeadline(analyst.taskName, analyst.time);
-            break;
-        case "event":
-            manager.addEvent(analyst.taskName, analyst.time);
-            break;
-        case "todo":
-            manager.addToDo(analyst.taskName);
-            break;
-        default:
-            manager.addTask(analyst.taskName);
-        }
-    }
+         }
 
 
 }

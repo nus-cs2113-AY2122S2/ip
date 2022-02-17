@@ -5,7 +5,6 @@ public class TaskManager {
     protected String ADD_RES = "Got it. I've added this task:\n";
     Chatbox chatbox = new Chatbox();
 
-<<<<<<< HEAD
     /**
     public void saveTask() throws DukeException{
         String content = "";
@@ -31,8 +30,6 @@ public class TaskManager {
 
     }
      */
-=======
->>>>>>> parent of fd7236a (Save/Delete/Exception)
     /**
      * Adds a general task in the list
      * @param name refers to the name of the task
