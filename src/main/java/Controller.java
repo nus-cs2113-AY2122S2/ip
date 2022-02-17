@@ -48,8 +48,8 @@ public class Controller {
             throw new IllegalTaskIndexException();
         }
     }
-    /**
-    public void deleteTask() throws DukeException{
+
+    public void deleteTask() throws DukeExceptions{
         try {
             int index = Integer.parseInt(analyst.taskName);
             manager.deleteTask(index);
@@ -88,8 +88,8 @@ public class Controller {
             case "todo":
                 manager.addToDo(analyst.taskName);
                 break;
-            //case "delete":
-                //this.deleteTask();
+            case "delete":
+                this.deleteTask();
             }
             //manager.saveTask();
         } catch (IllegalInstructionException e){
