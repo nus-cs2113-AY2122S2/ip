@@ -42,6 +42,13 @@ public class TaskManager {
         return addTask(task);
     }
 
+    public String delTask(int id) {
+        int index = id - 1;
+        Task task = taskList.getTask(index);
+        taskList.delTask(task);
+        return Ui.delTaskMsg(task, taskList.getSize());
+    }
+
     private String addTask(Task task) {
         taskList.addTask(task);
         return Ui.addTaskMsg(task, taskList.getSize());

@@ -27,6 +27,12 @@ public class Ui {
                         task, size);
     }
 
+    public static String delTaskMsg(Task task, int size) {
+        return String.format("Got it. I've removed this task:\n%s\n" +
+                        "Now you have %d tasks in list.",
+                task, size);
+    }
+
     public static String markTaskMsg(Task task, boolean markDone) {
         if (markDone) {
             return String.format("Nice! I've marked this task as done:\n%s", task);
