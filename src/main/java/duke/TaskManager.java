@@ -1,10 +1,10 @@
 package duke;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class TaskManager {
-    private Task[] tasks = new Task[100];
-    private static int taskCount = 0;
+    private ArrayList<Task> tasks = new ArrayList<>();
 
     public TaskManager() {
 
@@ -28,8 +28,8 @@ public class TaskManager {
                     addTask(inputs[0], inputs[1]);
                     System.out.println("\t" + "-".repeat(60));
                     System.out.println("\t Got it. I've added this task:");
-                    System.out.println("\t\t" + tasks[taskCount - 1].toString());
-                    System.out.println("\t Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("\t\t" + tasks.get(tasks.size() - 1).toString());
+                    System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("\t" + "-".repeat(60));
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("\t" + "-".repeat(60));
@@ -43,6 +43,20 @@ public class TaskManager {
                 break;
             case "list":
                 listTasks();
+                break;
+            case "delete":
+                try {
+                    idx = Integer.parseInt(inputs[1]);
+                    deleteTask(idx);
+                } catch (NumberFormatException e) {
+                    System.out.println("\t" + "-".repeat(60));
+                    System.out.println("\t Index is not an integer. Please try again.");
+                    System.out.println("\t" + "-".repeat(60));
+                } catch (DukeException e) {
+                    System.out.println("\t" + "-".repeat(60));
+                    System.out.println("\t " + e.getMessage() + " Please try again.");
+                    System.out.println("\t" + "-".repeat(60));
+                }
                 break;
             case "mark":
                 try {
@@ -96,7 +110,8 @@ public class TaskManager {
 
     public void addTask(String option, String taskDescription) throws DukeException{
         if(option.equals("todo")) {
-            tasks[taskCount++] = new Todo(taskDescription.trim());
+            taskDescription = taskDescription.trim();
+            tasks.add(new Todo(taskDescription));
             return;
         }
 
@@ -105,7 +120,7 @@ public class TaskManager {
                 String[] descriptions = taskDescription.split("/by", 2);
                 descriptions[0] = descriptions[0].trim();
                 descriptions[1] = descriptions[1].trim();
-                tasks[taskCount++] = new Deadline(descriptions[0], descriptions[1]);
+                tasks.add(new Deadline(descriptions[0], descriptions[1]));
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("Deadline is not specified.");
             }
@@ -114,49 +129,62 @@ public class TaskManager {
                 String[] descriptions = taskDescription.split("/at", 2);
                 descriptions[0] = descriptions[0].trim();
                 descriptions[1] = descriptions[1].trim();
-                tasks[taskCount++] = new Event(descriptions[0], descriptions[1]);
+                tasks.add(new Event(descriptions[0], descriptions[1]));
             } catch (IndexOutOfBoundsException e){
                 throw new DukeException("Event time is not specified.");
             }
         }
     }
 
+    public void deleteTask(int idx) throws DukeException {
+        if(idx < 0 || idx > tasks.size()){
+            throw new DukeException("Task index out of bound.");
+        }
+
+        Task deleted = tasks.get(idx - 1);
+        tasks.remove(idx - 1);
+
+        System.out.println("\t" + "-".repeat(60));
+        System.out.println("\t Noted. I've removed this task:");
+        System.out.println("\t\t " + deleted.toString());
+        System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("\t" + "-".repeat(60));
+    }
+
     public void listTasks() {
         System.out.println("\t" + "-".repeat(60));
         System.out.println("\t Here are the tasks in your list:");
-        if(taskCount == 0) {
+        if(tasks.size() == 0) {
             System.out.println("\t No task recorded.");
             System.out.println("\t" + "-".repeat(60));
             return;
         }
 
-        for(int i = 0;i < taskCount; i++) {
-            System.out.println("\t\t " + (i + 1) + "." + tasks[i].toString());
+        for(int i = 0;i < tasks.size(); i++) {
+            System.out.println("\t\t " + (i + 1) + "." + tasks.get(i).toString());
         }
         System.out.println("\t" + "-".repeat(60));
     }
 
     public void markTask(int idx) throws DukeException {
-        if(idx > taskCount){
+        if(idx > tasks.size()){
             throw new DukeException("Task index out of bound.");
         }
-        idx --;
-        tasks[idx].markAsDone();
+        tasks.get(idx-1).markAsDone();
         System.out.println("\t" + "-".repeat(60));
         System.out.println("\t Nice! I've marked this task as done:");
-        System.out.println("\t\t " + (idx + 1) + "." + tasks[idx].toString());
+        System.out.println("\t\t " + idx + "." + tasks.get(idx-1).toString());
         System.out.println("\t" + "-".repeat(60));
     }
 
     public void unmarkTask(int idx) throws DukeException {
-        if(idx > taskCount){
+        if(idx > tasks.size()){
             throw new DukeException("Task index out of bound.");
         }
-        idx --;
-        tasks[idx].unmark();
+        tasks.get(idx-1).unmark();
         System.out.println("\t" + "-".repeat(60));
         System.out.println("\t OK, I've marked this task as not done yet:");
-        System.out.println("\t\t " + (idx + 1) + "." + tasks[idx].toString());
+        System.out.println("\t\t " + idx + "." + tasks.get(idx-1).toString());
         System.out.println("\t" + "-".repeat(60));
     }
 
