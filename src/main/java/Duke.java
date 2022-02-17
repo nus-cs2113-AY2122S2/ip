@@ -71,7 +71,7 @@ public class Duke {
                 default:
                 }
             } catch (DukeExceptionCommand e) {
-                System.out.println(wrapMessage("OOPS!!! I'm sorry, but I don't know what that means :-("));
+                System.out.println(wrapMessage("OOPS!!! I'm sorry, but I don't know what that means :-(\n"));
             } catch (DukeExceptionDescription e) {
                 System.out.printf(wrapMessage("OOPS!!! The description of a %s cannot be empty!\n"),
                         tokens[0]);
@@ -79,11 +79,11 @@ public class Duke {
                 System.out.printf(wrapMessage("OOPS!!! The time of this %s cannot be empty!\n"),
                         tokens[0]);
             } catch (DukeExceptionList e) {
-                System.out.println(wrapMessage("OOPS!!! List should not have any other text after!"));
+                System.out.println(wrapMessage("OOPS!!! List should not have any other text after!\n"));
             } catch (DukeExceptionMark e) {
                 System.out.printf(wrapMessage("%s needs a number as an input\n"), tokens[0]);
             } catch (DukeExceptionMarkBounds e) {
-                System.out.println(wrapMessage("Number provided is not in the list"));
+                System.out.println(wrapMessage("Number provided is not in the list\n"));
             }
             userInput = input.nextLine();
         }
