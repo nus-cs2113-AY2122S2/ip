@@ -7,7 +7,7 @@ public class OperationAnalyst {
     protected String taskName;
     protected String instruction;
 
-    public OperationAnalyst(String input){
+    public OperationAnalyst(String input) throws DukeExceptions{
         this.keywords = input.split(" ");
         this.rawInput = input;
         this.instruction = keywords[0].toLowerCase(Locale.ROOT);
@@ -26,27 +26,43 @@ public class OperationAnalyst {
     /**
      * Analyses raw input to determine the task name and time
      */
-    public void parseInstruction() {
+    public void parseInstruction() throws DukeExceptions{
         //String name;
         String[] command;
         switch (this.instruction) {
         case "deadline":
             command = rawInput.split("/by ");
             this.taskName = command[0].replace("deadline ", "");
-            this.time = command[1];
+            try {
+                this.time = command[1];
+            } catch (IndexOutOfBoundsException e){
+                throw new IllegalFormatException();
+            }
             //System.out.println(this.time);
             break;
         case "event":
             command = rawInput.split("/at ");
             this.taskName = command[0].replace("event ", "");
-            this.time = command[1];
+            try {
+                this.time = command[1];
+            } catch (IndexOutOfBoundsException e){
+                throw new IllegalFormatException();
+            }
             break;
         case "todo":
             this.taskName = rawInput.replace("todo ", "");
             break;
         case "mark":
         case "unmark":
-            this.taskName = this.keywords[1];
+        case "delete":
+            try {
+                this.taskName = this.keywords[1];
+            } catch (IndexOutOfBoundsException e){
+                throw new IllegalFormatException();
+            }
+            break;
+        case "list" :
+        case "bye" :
             break;
         default:
             this.taskName = rawInput;
