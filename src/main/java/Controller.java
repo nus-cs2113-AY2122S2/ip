@@ -38,6 +38,7 @@ public class Controller {
 
     /**
      * Marks task in the list
+<<<<<<< HEAD
 
     public void markTask() throws DukeException{
         try {
@@ -56,6 +57,8 @@ public class Controller {
         } catch (NumberFormatException e) {
             throw new IllegalTaskIndexException();
         }
+=======
+>>>>>>> parent of fd7236a (Save/Delete/Exception)
      */
     public void markTask(){
         int index= Integer.parseInt(analyst.taskName);
@@ -70,6 +73,7 @@ public class Controller {
         Scanner msg = new Scanner(System.in);
         this.recvMsg = msg.nextLine();
         /**
+<<<<<<< HEAD
 <<<<<<< HEAD
         try {
             analyst = new OperationAnalyst(this.recvMsg);
@@ -116,6 +120,8 @@ public class Controller {
             chatbox.setContent("Please specify the index of the task :(");
             chatbox.chatboxPrinter();
 =======
+=======
+>>>>>>> parent of fd7236a (Save/Delete/Exception)
          **/
         analyst = new OperationAnalyst(this.recvMsg);
         String command = analyst.getCommand();

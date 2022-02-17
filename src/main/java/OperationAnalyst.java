@@ -19,6 +19,7 @@ public class OperationAnalyst {
      * @return the command, whether it is deadline, todo, event, list, mark or unmark
      */
     public String getCommand() {
+
         return this.instruction;
     }
 
