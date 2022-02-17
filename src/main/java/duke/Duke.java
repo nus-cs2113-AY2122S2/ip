@@ -3,6 +3,9 @@ package duke;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Duke {
@@ -16,7 +19,7 @@ public class Duke {
         userInputArr = userInput.split(" ", 2);
         userCommand = userInputArr[0];
 
-        switch(userCommand) {
+        switch (userCommand) {
         case "list":
             currChat.printTaskList();
             break;
@@ -53,11 +56,41 @@ public class Duke {
         }
     }
 
+    // Read previous data
+    public static void readData(ChatSession currChat, String filepath) throws FileNotFoundException {
+        File f = new File(filepath);
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String userInput = s.nextLine();
+            String[] userInputArr = userInput.split(" \\| ");
+            String taskType = userInputArr[0];
+            boolean isDone = userInputArr[1].equals("1");
+
+            switch (taskType) {
+            case "T":
+                currChat.addInitialTask(new Todo(isDone, userInputArr[2]));
+                break;
+            case "D":
+                currChat.addInitialTask(new Deadline(isDone, userInputArr[2], userInputArr[3]));
+                break;
+            case "E":
+                currChat.addInitialTask(new Event(isDone, userInputArr[2], userInputArr[3]));
+                break;
+            }
+        }
+    }
 
     public static void main(String[] args) {
         // Start chat session
         ChatSession currChat = new ChatSession();
         currChat.startSession();
+
+        // Read previous data
+        try {
+            readData(currChat, "data/duke.txt");
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
 
         // Get user input
         Scanner sc = new Scanner(System.in);
