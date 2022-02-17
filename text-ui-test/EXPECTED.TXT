@@ -1,5 +1,4 @@
 Data file was found!
-__________________________________________________
 Total number of task loaded: 0
 __________________________________________________
    ___             _               ___             _
@@ -55,6 +54,7 @@ Now you have 1 tasks in the list.
 __________________________________________________
 Current task list has been saved!
  1.[E][ ] test2 (at: test2)
+Invalid type of task given!
                                __
                             _ / /
   __ ___      ____      __ (_) |
