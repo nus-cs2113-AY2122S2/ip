@@ -10,15 +10,25 @@ import duke.exception.IllegalDeleteException;
 import duke.exception.IllegalEventException;
 import duke.exception.IllegalTodoException;
 
+import duke.database.TaskDatabase;
+
+
+
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.IOException;
+
+
 
 public class Duke {
-    public static void main(String[] args) {
+    public static final String taskAddedSuccessfully = "Got it, Olivia has added this task:";
+
+    public static void main(String[] args) throws IOException {
         printWelcomeMessage();
-        ArrayList<Task> taskList = new ArrayList<>();
+        ArrayList<Task> taskList;
+        taskList = TaskDatabase.getInstance().read("src/main/java/taskdata.txt");
         Scanner sc = new Scanner(System.in);
         String userInput = sc.nextLine();
         while (!userInput.equals("bye")) {
@@ -47,6 +57,7 @@ public class Duke {
                     try {
                         Deadline deadline = getDeadline(userInput);
                         taskList.add(deadline);
+                        System.out.println(taskAddedSuccessfully);
                         System.out.println(deadline);
                         printTotalNumberOfTasks(taskList);
                     } catch (IllegalDeadlineException e) {
@@ -56,6 +67,7 @@ public class Duke {
                     try {
                         Event event = getEvent(userInput);
                         taskList.add(event);
+                        System.out.println(taskAddedSuccessfully);
                         System.out.println(event);
                         printTotalNumberOfTasks(taskList);
                     } catch (IllegalEventException e) {
@@ -65,6 +77,7 @@ public class Duke {
                     try {
                         Todo todo = getTodo(userInput);
                         taskList.add(todo);
+                        System.out.println(taskAddedSuccessfully);
                         System.out.println(todo);
                         printTotalNumberOfTasks(taskList);
                     } catch (IllegalTodoException e) {
@@ -92,6 +105,7 @@ public class Duke {
                 printIllegalCommandErrorMessage();
             }
         }
+        TaskDatabase.getInstance().save("src/main/java/taskdata.txt",taskList);
         printGoodbyeMessage();
     }
 
@@ -117,7 +131,7 @@ public class Duke {
         //checking validity of commands which uses "equals"
         List<String> validCommandsForEquals = Arrays.asList("list","bye");
         boolean isEqualsToCommandValid = validCommandsForEquals.stream().anyMatch(userInput::equals);
-        //if either 1 is true -> dont throw exception, else throw an exception
+        //if either 1 is true -> don't throw exception, else throw an exception
         if (!(isStartWithCommandValid ^ isEqualsToCommandValid)) {
             throw new DukeException();
         }
@@ -226,3 +240,4 @@ public class Duke {
         System.out.println("-----------------------------");
     }
 }
+

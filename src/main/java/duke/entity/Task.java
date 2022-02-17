@@ -12,7 +12,13 @@ public class Task {
         this.description = description;
         this.isTaskDone = false; //default when a task is created it is not done
         taskRunningCount++;
-        System.out.println("Got it, Olivia has added this task:");
+    }
+
+    public Task(String description, boolean isTaskDone) {
+        this.taskId = taskRunningCount;
+        this.description = description;
+        this.isTaskDone = isTaskDone; //create task based on user inputted boolean, not default
+        taskRunningCount++;
     }
 
     //mutator methods
@@ -32,9 +38,11 @@ public class Task {
     public String getTaskStatus() {
         return (isTaskDone ? "[X] " : "[ ] "); //if task done mark it with X
     }
-    public int getTaskId() {
-        return taskId;
+
+    public boolean getIsTaskDone() {
+        return isTaskDone;
     }
+
 
 
     @Override

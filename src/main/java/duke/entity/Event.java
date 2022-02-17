@@ -10,6 +10,15 @@ public class Event extends Task {
         this.duration = duration;
     }
 
+    public Event(String description, boolean isTaskDone, String duration) {
+        super(description, isTaskDone);
+        this.duration = duration;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
     @Override
     public String toString() {
         return EVENT_MARKER + super.toString() + " (at: " + duration + ")";

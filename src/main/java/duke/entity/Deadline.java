@@ -10,6 +10,15 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public Deadline(String description, boolean isTaskDone, String by) {
+        super(description, isTaskDone);
+        this.by = by;
+    }
+
+    public String getBy() {
+        return by;
+    }
+
     @Override
     public String toString() {
         return DEADLINE_MARKER + super.toString() + " (by: " + by + ")";

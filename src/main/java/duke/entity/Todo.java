@@ -9,6 +9,10 @@ public class Todo extends Task {
         super(description);
     }
 
+    public Todo(String description, boolean isTaskDone) {
+        super(description, isTaskDone);
+    }
+
     @Override
     public String toString() {
         return TODO_MARKER + super.toString();
