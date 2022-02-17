@@ -133,9 +133,7 @@ public class LocalStorage {
 
     public static void saveCurrentTaskListToFile(ArrayList<Task> taskList) throws IOException{
         File toBeDeleted = new File(PATH_NAME.toString());
-        if (toBeDeleted.delete()) {
-            System.out.println("File was deleted successfully!");
-        }
+        toBeDeleted.delete();
         csvFileWriter = Files.newBufferedWriter(PATH_NAME, CREATE);
         writeCSVHeaderIntoFile();
         for (Task task : taskList) {
