@@ -91,7 +91,7 @@ public class Controller {
                     case "delete":
                         this.deleteTask();
                     }
-                    //manager.saveTask();
+                    manager.saveTask();
                 } catch (IllegalInstructionException e) {
                     chatbox.setContent("Sorry, I don't understand your instruction :(");
                     chatbox.chatboxPrinter();
