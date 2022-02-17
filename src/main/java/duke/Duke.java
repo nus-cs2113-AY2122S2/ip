@@ -7,6 +7,9 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.ToDo;
 
+import java.io.File;
+import java.io.IOException;
+
 import java.util.Scanner;
 
 public class Duke {
