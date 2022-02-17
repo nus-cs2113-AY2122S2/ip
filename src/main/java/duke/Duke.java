@@ -8,6 +8,8 @@ import duke.tasks.Event;
 import duke.tasks.ToDo;
 
 import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -15,9 +17,42 @@ import java.util.Scanner;
 
 public class Duke {
 
+    public static int taskCounter = 0; //counts number of tasks
+
+    public static void listCreate(String fileString, ArrayList<ToDo> toDos, int counter) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(fileString));
+            for(String line; (line = reader.readLine()) != null; ) {
+                if (line.charAt(1) == 'T') {
+                    toDos.add(new ToDo(line.substring(6, line.length())));
+                    if (line.charAt(4) == 'X') {
+                        toDos.get(taskCounter).setDone(true);
+                    }
+                    taskCounter++;
+                } else if (line.charAt(1) == 'D') {
+                    String[] commands = line.split("by");
+                    toDos.add(new Deadline(line.substring(6, line.indexOf('(')),
+                            line.substring(line.indexOf('(') + 5, line.length() - 1)));
+                    taskCounter++;
+                } else if (line.charAt(1) == 'E') {
+                    String[] commands = line.split("at");
+                    toDos.add(new Event(line.substring(6, line.indexOf('(')),
+                            line.substring(line.indexOf('(') + 5, line.length() - 1)));
+                    taskCounter++;
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("File not found");
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("string out of bounds");
+            return;
+        }
+    }
+
     public static void fileWrite(String fileString, ArrayList<ToDo> toDos) {
         try {
-            //new FileWriter(fileString, false).close();
+            new FileWriter(fileString, false).close();
             FileWriter myWriter = new FileWriter(fileString);
             for (int i = 0; i < toDos.size(); i++) {
                 myWriter.write(toDos.get(i).getStatusIcon() + toDos.get(i).getDescription() + "\n");
@@ -30,10 +65,10 @@ public class Duke {
     }
 
     public static void main(String[] args) throws InputLengthException {
+
         Scanner sc = new Scanner(System.in);
         //ToDo[] toDos = new ToDo[100]; //holds all tasks given
         ArrayList<ToDo> toDos = new ArrayList<>();
-        int taskCounter = 0; //counts number of tasks
 
         String greeting = "____________________________________________________________\n"
                 + " Hello! I'm Duke\n"
@@ -42,6 +77,8 @@ public class Duke {
         String underscoreLine = "____________________________________________________________";
 
         System.out.println(greeting);
+
+        listCreate("src/main/java/duke/taskList.txt", toDos, taskCounter);
 
         while (true) {
             fileWrite("src/main/java/duke/taskList.txt", toDos);
@@ -56,10 +93,6 @@ public class Duke {
                 System.exit(0);
             case "list": //list out all tasks
                 System.out.println(underscoreLine);
-                /*
-                for (int i = 0; i < taskCounter; i++) {
-                    System.out.println("   " + (i + 1) + ". " + toDos[i].getStatusIcon() + toDos[i].getDescription());
-                } */
                 for (int i = 0; i < taskCounter; i++) {
                     System.out.println("   " + (i + 1) + ". " + toDos.get(i).getStatusIcon()
                             + toDos.get(i).getDescription());
