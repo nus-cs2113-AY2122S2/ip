@@ -54,6 +54,7 @@ public class Controller {
         }
     }
 
+    /**
     public void deleteTask() throws DukeException{
         try {
             int index = Integer.parseInt(analyst.taskName);
@@ -62,6 +63,7 @@ public class Controller {
             throw new IllegalTaskIndexException();
         }
     }
+     */
 
     /**
      * Listen the instruction and operate during the session
@@ -94,10 +96,10 @@ public class Controller {
             case "todo":
                 manager.addToDo(analyst.taskName);
                 break;
-            case "delete":
-                this.deleteTask();
+            //case "delete":
+                //this.deleteTask();
             }
-            manager.saveTask();
+            //manager.saveTask();
         } catch (IllegalInstructionException e){
             chatbox.setContent("Sorry, I don't understand your instruction :(");
             chatbox.chatboxPrinter();
