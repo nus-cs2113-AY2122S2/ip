@@ -22,6 +22,10 @@ public class TaskManager {
     }
 
     public void printTaskList() {
+        if (tasks.size() == 0) {
+            System.out.println("You currently have no task!");
+            return;
+        }
         System.out.println(LINE_SPLIT);
         for (Task task : tasks) {
             System.out.println(String.format("\t%d.%s %s", tasks.indexOf(task) + 1, task.getStatusIcon(), task.getDescription()));
@@ -41,6 +45,15 @@ public class TaskManager {
         selected_task.unmarkAsDone();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(selected_task.getStatusIcon() + " " + selected_task.getDescription());
+    }
+
+    public void deleteTask(int taskIndex) {
+        Task selected_task = tasks.get(taskIndex);
+        System.out.println(LINE_SPLIT);
+        System.out.println("Successfully deleted task below");
+        System.out.println(String.format("\t%d.%s %s", taskIndex + 1, selected_task.getStatusIcon(), selected_task.getDescription()));
+        tasks.remove(taskIndex);
+        System.out.println("You now have " + tasks.size() + " task remaining");
     }
 
     public void showWelcomeMessage() {

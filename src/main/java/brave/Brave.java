@@ -69,6 +69,15 @@ public class Brave {
                 String eventTime = arguments[1];
                 tasks.addTask(new Event(description, eventTime));
                 break;
+            case "delete":
+                try {
+                    tasks.deleteTask(Integer.parseInt(splitInputs[1]) - 1); // 0 indexing
+                } catch (NumberFormatException e) {
+                    System.out.println("Please put in integer value");
+                } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Please put in valid number of task");
+                }
+                break;
             default:
                 try {
                     throw new IllegalArgumentException();
