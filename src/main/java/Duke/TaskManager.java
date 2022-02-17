@@ -169,7 +169,9 @@ public class TaskManager {
         for (int i = 1; i < args.length; i++) {
             ToDo todo = new ToDo((args[i]));
             tasks.add(todo);
-            System.out.println("Added: " + todo);
+            if (isPrintingPrompt) {
+                System.out.println("Added: " + todo);
+            }
         }
     }
 
@@ -187,7 +189,7 @@ public class TaskManager {
             if (args[i].equals("/by")) {
                 if (i + 1 < args.length) {
                     deadlineTime = args[i + 1];
-                    addMultipleDeadlines(contents, deadlineTime);
+                    addMultipleDeadlines(contents, deadlineTime, isPrintingPrompt);
                     contents.clear();
                     i++;
                 }
@@ -204,11 +206,13 @@ public class TaskManager {
         }
     }
 
-    private static void addMultipleDeadlines(List<String> contents, String deadlineTime) {
+    private static void addMultipleDeadlines(List<String> contents, String deadlineTime, boolean isPrintingPrompt) {
         for (String content : contents) {
             Deadline ddl = new Deadline(content, deadlineTime);
             tasks.add(ddl);
-            System.out.println("Added: " + ddl);
+            if (isPrintingPrompt) {
+                System.out.println("Added: " + ddl);
+            }
         }
     }
 

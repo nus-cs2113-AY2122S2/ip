@@ -67,13 +67,13 @@ public class DiskManager {
         for (int i = 0; i < tasks.length; i++) {
             if (tasks[i] instanceof Deadline) {
                 Deadline ddl = (Deadline) tasks[i];
-                fw.write("deadline " + ddl.getContent() + " /by " + ddl.getDeadlineTime() + " | " + (ddl.isDone() ? "X" : "_") + System.lineSeparator());
+                fw.write("deadline \"" + ddl.getContent() + "\" /by \"" + ddl.getDeadlineTime() + "\" | " + (ddl.isDone() ? "X" : "_") + System.lineSeparator());
             } else if (tasks[i] instanceof Event) {
                 Event event = (Event) tasks[i];
-                fw.write("event " + event.getContent() + " /at " + event.getSchedule() +  " | " + (event.isDone() ? "X" : "_") + System.lineSeparator());
+                fw.write("event \""  + event.getContent() + "\" /at \"" + event.getSchedule() +  "\" | " + (event.isDone() ? "X" : "_") + System.lineSeparator());
             } else if (tasks[i] instanceof ToDo) {
                 ToDo todo = (ToDo) tasks[i];
-                fw.write("todo " + todo.getContent()  + " | " + (todo.isDone() ? "X" : "_") + System.lineSeparator());
+                fw.write("todo \"" + todo.getContent()  + "\" | " + (todo.isDone() ? "X" : "_") + System.lineSeparator());
             }
         }
         fw.close();

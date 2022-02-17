@@ -17,6 +17,7 @@ public class CommandManager {
     private final static String CMD_EVENT = "event";
     private final static String CMD_TODO = "todo";
     private final static String CMD_ECHO = "echo";
+    private final static String CMD_DELETE = "delete";
 
     /**
      * Get the input string (raw command) from user.
@@ -49,6 +50,10 @@ public class CommandManager {
                 break;
             case CMD_LIST:
                 TaskManager.listTasks(args);
+                break;
+            case CMD_DELETE:
+                TaskManager.delete(args);
+                DiskManager.syncWithDisk();
                 break;
             case CMD_DEADLINE:
                 TaskManager.addDeadlines(args, true);
