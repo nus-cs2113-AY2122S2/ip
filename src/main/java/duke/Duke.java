@@ -1,5 +1,6 @@
 package duke;
 
+import java.util.ArrayList;
 import duke.exceptions.InputLengthException;
 import duke.exceptions.UnreachableTaskException;
 import duke.tasks.Deadline;
@@ -9,9 +10,11 @@ import duke.tasks.ToDo;
 import java.util.Scanner;
 
 public class Duke {
+
     public static void main(String[] args) throws InputLengthException {
         Scanner sc = new Scanner(System.in);
-        ToDo[] toDos = new ToDo[100]; //holds all tasks given
+        //ToDo[] toDos = new ToDo[100]; //holds all tasks given
+        ArrayList<ToDo> toDos = new ArrayList<>();
         int taskCounter = 0; //counts number of tasks
         String greeting = "____________________________________________________________\n"
                 + " Hello! I'm Duke\n"
@@ -22,6 +25,7 @@ public class Duke {
         System.out.println(greeting);
 
         while (true) {
+            System.out.println(taskCounter);
             String line = sc.nextLine();
             String[] commands = line.split(" ");
             int commandNumber;
@@ -33,23 +37,28 @@ public class Duke {
                 System.exit(0);
             case "list": //list out all tasks
                 System.out.println(underscoreLine);
+                /*
                 for (int i = 0; i < taskCounter; i++) {
                     System.out.println("   " + (i + 1) + ". " + toDos[i].getStatusIcon() + toDos[i].getDescription());
+                } */
+                for (int i = 0; i < taskCounter; i++) {
+                    System.out.println("   " + (i + 1) + ". " + toDos.get(i).getStatusIcon()
+                            + toDos.get(i).getDescription());
                 }
                 System.out.println(underscoreLine);
                 break;
             case "mark": //mark a task as done
                 try {
-                    if (args.length < 2) {
+                    if (commands.length < 2) {
                         throw new InputLengthException();
                     }
-                    commandNumber = Integer.parseInt(commands[1]) - 1;
+                    commandNumber = Integer.parseInt(commands[1]);
                     if (commandNumber >= 0 && commandNumber <= taskCounter) {
                         System.out.println(underscoreLine);
                         System.out.println("   I don't actually believe you completed a task, but I'll mark it anyway.");
-                        System.out.println("     [X] " + toDos[commandNumber].getDescription());
+                        System.out.println("     [X] " + toDos.get(commandNumber - 1).getDescription());
                         System.out.println(underscoreLine);
-                        toDos[commandNumber].setDone(true);
+                        toDos.get(commandNumber - 1).setDone(true);
                     } else {
                         throw new UnreachableTaskException();
                     }
@@ -65,16 +74,16 @@ public class Duke {
                 break;
             case "unmark": //mark a task as no longer done
                 try {
-                    if (args.length < 2) {
+                    if (commands.length < 2) {
                         throw new InputLengthException();
                     }
-                    commandNumber = Integer.parseInt(commands[1]) - 1;
+                    commandNumber = Integer.parseInt(commands[1]);
                     if (commandNumber >= 0 && commandNumber <= taskCounter) {
                         System.out.println(underscoreLine);
                         System.out.println("   Unmarking a task; sharp as a marble, aren't we?");
-                        System.out.println("     [] " + toDos[commandNumber].getDescription());
+                        System.out.println("     [] " + toDos.get(commandNumber - 1).getDescription());
                         System.out.println(underscoreLine);
-                        toDos[commandNumber].setDone(false);
+                        toDos.get(commandNumber - 1).setDone(false);
                     } else {
                         throw new UnreachableTaskException();
                     }
@@ -90,15 +99,16 @@ public class Duke {
                 break;
             case "todo": //add a todo (normal task) to the list
                 try {
-                    if (args.length < 2) {
+                    if (commands.length < 2) {
                         throw new InputLengthException();
                     }
                     line = line.substring(5); //removing the first part of the command from the description
-                    toDos[taskCounter] = new ToDo(line);
+                    //toDos.get(taskCounter) = new ToDo(line);
+                    toDos.add(new ToDo(line));
                     System.out.println(underscoreLine);
-                    System.out.println(" Do these tasks distract you from a glaring lack of meaning\n  in your life?" +
-                            "\nAnyway, I added" + " it to the list.");
-                    System.out.printf("   %s %s%n", toDos[taskCounter].getStatusIcon(), line);
+                    System.out.println(" Do these tasks distract you from a glaring lack of meaning\n in your life?" +
+                            "\n Anyway, I added" + " it to the list.");
+                    System.out.printf("   %s %s%n", toDos.get(taskCounter).getStatusIcon(), line);
                     taskCounter++;
                     System.out.println(" There are now " + taskCounter + " tasks in the list.");
                     System.out.println(underscoreLine);
@@ -119,10 +129,11 @@ public class Duke {
                 }
                 String description = line.substring(9, separationLocation); //first half of command
                 String doBy = line.substring((separationLocation + 3));
-                toDos[taskCounter] = new Deadline(description, doBy);
+                //toDos.get(taskCounter) = new Deadline(description, doBy);
+                toDos.add(new Deadline(description, doBy));
                 System.out.println(underscoreLine);
                 System.out.println(" Great, something else for you to procrastinate:");
-                System.out.printf("   %s %s(by:%s)%n", toDos[taskCounter].getStatusIcon(), description, doBy);
+                System.out.printf("   %s %s(by:%s)%n", toDos.get(taskCounter).getStatusIcon(), description, doBy);
                 taskCounter++;
                 System.out.printf(" There are now %d tasks in the list.%n", taskCounter);
                 System.out.println(underscoreLine);
@@ -137,10 +148,11 @@ public class Duke {
                 }
                 description = line.substring(6, separationLocation);
                 String doAt = line.substring((separationLocation + 3));
-                toDos[taskCounter] = new Event(description, doAt);
+                //toDos.get(taskCounter) = new Event(description, doAt);
+                toDos.add(new Event(description, doAt));
                 System.out.println(underscoreLine);
                 System.out.println(" An event! Perhaps it can distract you from your self-inflicted prison:");
-                System.out.printf("   %s %s(at:%s)%n", toDos[taskCounter].getStatusIcon(), description, doAt);
+                System.out.printf("   %s %s(at:%s)%n", toDos.get(taskCounter).getStatusIcon(), description, doAt);
                 taskCounter++;
                 System.out.printf(" There are now %d tasks in the list.%n", taskCounter);
                 System.out.println(underscoreLine);
