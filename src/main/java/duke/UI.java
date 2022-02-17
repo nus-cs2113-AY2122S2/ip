@@ -1,39 +1,46 @@
 package duke;
 
+import duke.common.Messages;
+
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.util.Scanner;
+
 public class UI {
-    // String assets for Dukebot GUI
-    final static String BORDER = "__________________________________________________";
-    final static String INTRO_LOGO = "   ___             _               ___             _     \n" +
-            "  |   \\   _  _    | |__    ___    | _ )    ___    | |_   \n" +
-            "  | |) | | +| |   | / /   / -_)   | _ \\   / _ \\   |  _|  \n" +
-            "  |___/   \\_,_|   |_\\_\\   \\___|   |___/   \\___/   _\\__|  \n" +
-            "_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"| \n" +
-            "\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-' ";
-    final static String OUTRO_LOGO = "                               __\n" +
-            "                            _ / /\n" +
-            "  __ ___      ____      __ (_) |\n" +
-            " / _` \\ \\ /\\ / /\\ \\ /\\ / /   | |\n" +
-            "| (_| |\\ V  V /  \\ V  V /   _| |\n" +
-            " \\__,_| \\_/\\_/    \\_/\\_/   (_) |\n" +
-            "                              \\_\\";
+    private final Scanner in;
+    private final PrintStream out;
 
-    public static void printIntro() {
-        System.out.println(INTRO_LOGO);
-        printBorder();
-        System.out.println(" Good Morning sir, I am DukeBot, your personal assistant! " +
-                "\n What can I do for you today?");
-        printBorder();
+    public UI() {
+        this(System.in, System.out);
     }
 
-    public static void printOutro() {
-        System.out.println(OUTRO_LOGO);
-        printBorder();
-        System.out.println(" I guess it's time to say good bye..." +
-                "\n Please come again soon!");
-        printBorder();
+    public UI(InputStream in, PrintStream out) {
+        this.in = new Scanner(in);
+        this.out = out;
     }
 
-    public static void printBorder(){
-        System.out.println(BORDER);
+    public String getUserCommand() {
+        String input = in.nextLine();
+        return input;
+    }
+
+    public void printIntro() {
+        out.println(Messages.INTRO_LOGO);
+        printMessageWithBorder(Messages.WELCOME_MESSAGE);
+    }
+
+    public void printOutro() {
+        out.println(Messages.OUTRO_LOGO);
+        printMessageWithBorder(Messages.GOODBYE_MESSAGE);
+    }
+
+    public void printMessageWithBorder(String message){
+        out.println(Messages.BORDER);
+        out.println(message);
+        out.println(Messages.BORDER);
+    }
+
+    public static void printBorder() {
+        System.out.println(Messages.BORDER);
     }
 }

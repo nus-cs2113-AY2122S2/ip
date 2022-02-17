@@ -19,13 +19,15 @@ import static java.nio.file.StandardOpenOption.CREATE;
 
 public class LocalStorage {
     private static final String HOME_PATH = System.getProperty("user.dir");
-    private static final String FILE_NAME = "localStorage.csv";
     private static Path PATH_NAME;
     private static BufferedReader csvFileReader;
     private static BufferedWriter csvFileWriter;
     private static final String[] CSV_HEADER = {"TaskType", "MarkStatus", "TaskDescription", "TaskDate"};
 
-    public static void initializeLocalFileStorage() {
+    private String filePath;
+
+    public LocalStorage(String filePath) {
+        this.filePath = filePath;
         try {
             initializeReaderAndWriter();
             writeCSVHeaderIntoFile();
@@ -35,7 +37,7 @@ public class LocalStorage {
         }
     }
 
-    public static ArrayList<Task> getTaskFromFile() {
+    public ArrayList<Task> getTasksFromFile() {
         ArrayList<Task> listOfStoredTask = new ArrayList<>();
         ArrayList<String[]> storedTask = getTaskStringFromFile();
         // start from 1 to skip header of CSV
@@ -50,7 +52,7 @@ public class LocalStorage {
         return listOfStoredTask;
     }
 
-    private static Task getTask(String[] fileInput) {
+    private Task getTask(String[] fileInput) {
         String taskType = fileInput[0];
         boolean markStatus = Boolean.parseBoolean(fileInput[1]);
         String taskDescription = fileInput[2];
@@ -59,7 +61,7 @@ public class LocalStorage {
         return newTask;
     }
 
-    private static Task createTaskObject(String taskType, boolean markStatus, String taskDescription, String taskDate){
+    private Task createTaskObject(String taskType, boolean markStatus, String taskDescription, String taskDate){
         Task newTask = null;
         switch (taskType) {
         case "todo":
@@ -78,7 +80,7 @@ public class LocalStorage {
         return newTask;
     }
 
-    private static ArrayList<String[]> getTaskStringFromFile() {
+    private ArrayList<String[]> getTaskStringFromFile() {
         ArrayList<String[]> listOfStringTask = new ArrayList<>();
         try {
             String currentLine = csvFileReader.readLine();
@@ -93,16 +95,16 @@ public class LocalStorage {
         return listOfStringTask;
     }
 
-    private static void writeCSVHeaderIntoFile() throws IOException {
+    private void writeCSVHeaderIntoFile() throws IOException {
         String csvHeader = String.join(",", CSV_HEADER);
         csvFileWriter.append(csvHeader);
         csvFileWriter.append(System.lineSeparator());
         csvFileWriter.flush();
     }
 
-    private static void initializeReaderAndWriter() {
+    private void initializeReaderAndWriter() {
         try {
-            PATH_NAME = Paths.get(HOME_PATH,FILE_NAME);
+            PATH_NAME = Paths.get(HOME_PATH, filePath);
             // Writer will create new file if file does not exist
             csvFileWriter = Files.newBufferedWriter(PATH_NAME, CREATE);
             csvFileReader = Files.newBufferedReader(PATH_NAME);
@@ -121,7 +123,7 @@ public class LocalStorage {
         }
     }
 
-    private static String convertTaskToStringForCSVFile(Task taskToBeConverted) {
+    private String convertTaskToStringForCSVFile(Task taskToBeConverted) {
         String[] taskDetails = new String[4];
         taskDetails[0] = taskToBeConverted.getTaskType();
         taskDetails[1] = String.valueOf(taskToBeConverted.getStatus());
@@ -131,7 +133,7 @@ public class LocalStorage {
         return taskAsString;
     }
 
-    public static void saveCurrentTaskListToFile(ArrayList<Task> taskList) throws IOException{
+    public void saveCurrentTaskListToFile(ArrayList<Task> taskList) throws IOException{
         File toBeDeleted = new File(PATH_NAME.toString());
         toBeDeleted.delete();
         csvFileWriter = Files.newBufferedWriter(PATH_NAME, CREATE);

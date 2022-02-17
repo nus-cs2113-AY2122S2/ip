@@ -1,37 +1,41 @@
 package duke;
 
-import java.util.Scanner;
-
 public class Duke {
-    private static final Scanner SC = new Scanner(System.in);
+    private UI ui;
+    protected LocalStorage localStorage;
+    private TaskList taskList;
+
+    public Duke(String filePath) {
+        this.localStorage = new LocalStorage(filePath);
+        this.taskList = new TaskList(localStorage);
+    }
+
+    public void run() {
+        start();
+        runCommandUntilExitCommand();
+        exit();
+    }
+
+    public void start() {
+        this.ui = new UI();
+        ui.printIntro();
+    }
+
+    public void runCommandUntilExitCommand() {
+        String command;
+        do {
+            String input = ui.getUserCommand();
+            command = CommandParser.getCommandFromUserInput(input);
+            CommandParser.executeCommand(input, command, taskList);
+        } while (!command.equalsIgnoreCase("bye"));
+    }
+
+    public void exit() {
+        ui.printOutro();
+        System.exit(0);
+    }
 
     public static void main(String[] args) {
-        LocalStorage.initializeLocalFileStorage();
-        TaskList.loadTaskFromFileToProgram();
-
-        UI.printIntro();
-        while (true) {
-            String input = SC.nextLine();
-            String command = CommandParser.getCommand(input);
-            switch (command) {
-            case "bye":
-                UI.printOutro();
-                System.exit(0);
-                break;
-            case "mark":
-            case "unmark":
-                TaskList.markTask(input, command);
-                break;
-            case "list":
-                TaskList.printTaskList();
-                break;
-            case "delete":
-                TaskList.deleteTask(input);
-                break;
-            default:
-                TaskList.addTaskToTaskList(input, command);
-                break;
-            }
-        }
+        new Duke("localStorage.csv").run();
     }
 }
