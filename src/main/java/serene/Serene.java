@@ -98,7 +98,7 @@ public class Serene {
         case "D":
             timeIndex = descriptionAndTime.indexOf(" (by: ");
             description = descriptionAndTime.substring(0, timeIndex);
-            String by = descriptionAndTime.substring(timeIndex + TIME_OFFSET);
+            String by = descriptionAndTime.substring(timeIndex + TIME_OFFSET, descriptionAndTime.length() - 1);
             Deadline deadline = new Deadline(description, by);
             if (marker.equals("X")) {
                 deadline.markDone();
@@ -108,7 +108,7 @@ public class Serene {
         case "E":
             timeIndex = descriptionAndTime.indexOf(" (at: ");
             description = descriptionAndTime.substring(0, timeIndex);
-            String at = descriptionAndTime.substring(timeIndex + TIME_OFFSET);
+            String at = descriptionAndTime.substring(timeIndex + TIME_OFFSET, descriptionAndTime.length() - 1);
             Event event = new Event(description, at);
             if (marker.equals("X")) {
                 event.markDone();
