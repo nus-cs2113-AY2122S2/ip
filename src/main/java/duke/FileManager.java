@@ -27,7 +27,7 @@ public class FileManager {
             records.add(s.nextLine());
         }
 
-        if(records.get(records.size()-1).equals(System.lineSeparator())){
+        if(!records.isEmpty() && records.get(records.size()-1).equals(System.lineSeparator())){
             records.remove(records.size()-1);
         }
         return records;
