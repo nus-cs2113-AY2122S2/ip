@@ -5,4 +5,9 @@ public class Todo extends Task{
         super(description);
         symbol = "[T]";
     }
+
+    public Todo(String description, boolean isDone){
+        super(description, isDone);
+        symbol = "[T]";
+    }
 }

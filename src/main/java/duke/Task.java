@@ -11,6 +11,12 @@ public class Task {
         System.out.println("Got it. I've added this task:");
     }
 
+    public Task(String description, boolean isDone){
+        this.description = description;
+        this.isDone = isDone;
+        System.out.println("Got it. I've added this task:");
+    }
+
     public String getStatusIcon() {
         return (isDone ? "[X] " : "[ ] "); // mark done task with X
     }
@@ -21,6 +27,10 @@ public class Task {
 
     public String getDescription(){
         return this.description;
+    }
+
+    public boolean getIsDone(){
+        return isDone;
     }
 
     public void markAsDone(){

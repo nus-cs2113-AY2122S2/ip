@@ -7,6 +7,12 @@ public class Deadline extends Task{
         symbol = "[D]";
     }
 
+    public Deadline(String description, boolean isDone){
+        super(description, isDone);
+        this.description = addInDate(description);
+        symbol = "[D]";
+    }
+
     public String addInDate(String task){
         int marker = task.indexOf("/");
         String date;
@@ -14,6 +20,6 @@ public class Deadline extends Task{
         description = task.substring(0,marker);
         date = task.substring(marker+3);
 
-        return description + " (by: " + date + ")";
+        return description + "(by:" + date + ")";
     }
 }
