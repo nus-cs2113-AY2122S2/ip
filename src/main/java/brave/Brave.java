@@ -49,7 +49,8 @@ public class Brave {
                 break;
             case "todo":
                 try {
-                    tasks.addTask(new Todo(splitInputs[1]));
+                    description = splitInputs[1];
+                    tasks.addTask(new Todo(description));
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println(" ☹ OOPS!!! The description of a todo cannot be empty.");
                 }
