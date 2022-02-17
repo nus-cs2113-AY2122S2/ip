@@ -5,7 +5,7 @@ public class Task {
     protected boolean isDone;
 
     public Task(String description) throws NullPointerException {
-        if (description.isBlank()){
+        if (description.isBlank()) {
             throw new NullPointerException();
         }
         this.description = description;
@@ -28,4 +28,16 @@ public class Task {
     public String toString() {
         return " [" + this.getStatusIcon() + "] " + this.description;
     }
+
+    //@@author quitejasper-reused
+    //Reused from https://github.com/FaliciaOng/ip/blob/master/src/main/java/TaskFileManager.java
+    //with minor modifications
+    public String toFileString() {
+        return "| " + getStatusNumber() + " | " + this.description;
+    }
+
+    private int getStatusNumber() {
+        return (isDone ? 1 : 0);
+    }
+    //@@author
 }
