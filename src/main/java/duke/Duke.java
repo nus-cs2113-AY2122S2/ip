@@ -39,9 +39,15 @@ public class Duke {
                 input = in.nextLine();
                 continue;
             }
+            if (input.startsWith("delete")) {
+                int number = Integer.parseInt(input.substring(input.length() - 1));
+                deleteTask(number);
+                input = in.nextLine();
+                continue;
+            }
             try {
                 checkCommand(input);
-            } catch (DukeInvalidCommandException | DukeEmptyDescriptionException e) {
+            } catch (InvalidCommandException | EmptyDescriptionException e) {
                 input = in.nextLine();
                 continue;
             }
@@ -58,15 +64,15 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
     }
 
-    private static void checkCommand(String line) throws DukeEmptyDescriptionException, DukeInvalidCommandException {
+    private static void checkCommand(String line) throws EmptyDescriptionException, InvalidCommandException {
         Set<String> validCommands = Set.of("todo", "deadline", "event");
         String[] splitLine = line.split(" ");
         String type = splitLine[0];
         if (!validCommands.contains(type)) {
-            throw new DukeInvalidCommandException();
+            throw new InvalidCommandException();
         }
         if (splitLine.length == 1) {
-            throw new DukeEmptyDescriptionException();
+            throw new EmptyDescriptionException();
         }
     }
 
@@ -159,6 +165,38 @@ public class Duke {
         default:
             System.out.println("       Unknown Type");
         }
+        System.out.println("    ____________________________________________________________");
+    }
+
+    private static void deleteTask(int number) {
+        System.out.println("    ____________________________________________________________");
+        System.out.println("     Noted. I've removed this task:");
+        int index = number - 1;
+        String description = descriptions.get(index);
+        String date = dates.get(index);
+        String type = types.get(index);
+        boolean done = dones.get(index);
+        switch (type) {
+            case "T":
+                Todo todo = new Todo(description);
+                System.out.println("       " + todo.toString(done));
+                break;
+            case "D":
+                Deadline deadline = new Deadline(description, date);
+                System.out.println("       " + deadline.toString(done));
+                break;
+            case "E":
+                Event event = new Event(description, date);
+                System.out.println("       " + event.toString(done));
+                break;
+            default:
+                System.out.println("       Unknown Type");
+        }
+        descriptions.remove(index);
+        dates.remove(index);
+        types.remove(index);
+        dones.remove(index);
+        System.out.println("     Now you have " + descriptions.size() + " tasks in the list.");
         System.out.println("    ____________________________________________________________");
     }
 
