@@ -1,13 +1,19 @@
 package duke;
 
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import exceptions.UnknownCommandException;
 
 public class Duke {
     private static ArrayList<Task> tasks = new ArrayList<>();
+    private static TaskFileManager taskFileManager = new TaskFileManager();
+
 
     public static void main(String[] args) {
+        loadTaskFile();
         showWelcomeMessage();
         greet();
         converse();
@@ -61,23 +67,47 @@ public class Duke {
         }
     }
 
+    //@@author quitejasper-reused
+    //Reused from https://github.com/FaliciaOng/ip/blob/master/src/main/java/Duke.java
+    //with minor modifications
+    private static void updateToFile() {
+        try {
+            taskFileManager.saveTaskList("duke.txt", tasks);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void loadTaskFile() {
+        try {
+            taskFileManager.loadTaskList("duke.txt", tasks);
+        } catch (IOException e) {
+            System.out.println("--not valid file--");
+        }
+    }
+    //@@author
+
     private static void runCommand(String response) throws UnknownCommandException {
         String[] words = response.split(" ", 2);
         String command = words[0];
         String detail = (words.length > 1) ? words[1] : null;
+
+        boolean hasAddedTask = false;
+        boolean hasUpdate = false;
 
         switch (command) {
         case "list":
             listTasks();
             break;
         case "mark":
-            markTask(response);
+            hasUpdate = markTask(response);
             break;
         case "unmark":
-            unmarkTask(response);
+            hasUpdate = unmarkTask(response);
             break;
         case "todo":
             addTask(new Todo(detail));
+            hasAddedTask = true;
             break;
         case "deadline":
             addDeadline(detail);
@@ -90,6 +120,10 @@ public class Duke {
             break;
         default:
             throw new UnknownCommandException();
+        }
+
+        if (hasAddedTask || hasUpdate) {
+            updateToFile();
         }
     }
 
@@ -139,7 +173,8 @@ public class Duke {
         }
     }
 
-    public static void markTask(String response) {
+
+    public static boolean markTask(String response) {
         printLine();
 
         try {
@@ -150,7 +185,7 @@ public class Duke {
             if (isNotIndex) {
                 System.out.println("Sorry, seems like there's no such task with that index.");
                 printLine();
-                return;
+                return false;
             } else {
                 Task t = tasks.get(taskIndex - 1); //list indexing to the user starts from 1 but list indexing in fact starts from 0 internally
                 boolean isNotDone = !t.isDone;
@@ -168,12 +203,13 @@ public class Duke {
         }
 
         printLine();
+        return true;
     }
 
-    public static void unmarkTask(String response) {
+    public static boolean unmarkTask(String response) {
         printLine();
 
-        try{
+        try {
             String[] words = response.split(" ");
             int taskIndex = Integer.parseInt(words[1]);
             boolean isNotIndex = taskIndex > tasks.size() || taskIndex == 0;
@@ -181,7 +217,7 @@ public class Duke {
             if (isNotIndex) {
                 System.out.println("Sorry, seems like there's no such task with that index.");
                 printLine();
-                return;
+                return false;
             } else {
                 Task t = tasks.get(taskIndex - 1); //list indexing to the user starts from 1 but list indexing in fact starts from 0 internally
                 boolean isDone = t.isDone;
@@ -199,6 +235,7 @@ public class Duke {
         }
 
         printLine();
+        return true;
     }
 
     private static void deleteTask(String response) {

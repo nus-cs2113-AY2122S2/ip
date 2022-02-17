@@ -12,4 +12,13 @@ public class Deadline extends Task {
     public String toString() {
         return " [D][" + this.getStatusIcon() + "] " + this.description + " (by: " + this.by + ")";
     }
+
+    //@@author quitejasper-reused
+    //Reused from https://github.com/FaliciaOng/ip/blob/master/src/main/java/Deadline.java
+    //with minor modifications
+    @Override
+    public String toFileString() {
+        return "D " + super.toFileString() + " | " + by;
+    }
+    //@@author
 }
