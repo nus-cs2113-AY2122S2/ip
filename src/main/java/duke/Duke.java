@@ -8,17 +8,33 @@ import duke.tasks.Event;
 import duke.tasks.ToDo;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import java.util.Scanner;
 
 public class Duke {
 
+    public static void fileWrite(String fileString, ArrayList<ToDo> toDos) {
+        try {
+            //new FileWriter(fileString, false).close();
+            FileWriter myWriter = new FileWriter(fileString);
+            for (int i = 0; i < toDos.size(); i++) {
+                myWriter.write(toDos.get(i).getStatusIcon() + toDos.get(i).getDescription() + "\n");
+            }
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("File not found.");
+            System.exit(1);
+        }
+    }
+
     public static void main(String[] args) throws InputLengthException {
         Scanner sc = new Scanner(System.in);
         //ToDo[] toDos = new ToDo[100]; //holds all tasks given
         ArrayList<ToDo> toDos = new ArrayList<>();
         int taskCounter = 0; //counts number of tasks
+
         String greeting = "____________________________________________________________\n"
                 + " Hello! I'm Duke\n"
                 + " What can I do for you?\n"
@@ -28,7 +44,7 @@ public class Duke {
         System.out.println(greeting);
 
         while (true) {
-            System.out.println(taskCounter);
+            fileWrite("src/main/java/duke/taskList.txt", toDos);
             String line = sc.nextLine();
             String[] commands = line.split(" ");
             int commandNumber;
