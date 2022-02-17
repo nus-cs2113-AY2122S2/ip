@@ -4,7 +4,13 @@ import java.util.Locale;
 import java.util.Scanner;
 
 import Components.Task;
-import Exceptions.*;
+
+import Exceptions.BadDateTimeFormatException;
+import Exceptions.BadIndexException;
+import Exceptions.BaoUnknownCommand;
+import Exceptions.MaxTaskException;
+import Exceptions.NoDateTimeException;
+import Exceptions.NoTaskDescriptionException;
 
 import static Constants.BaoConstants.LOGO;
 import static Constants.BaoConstants.LINE_BREAK;
@@ -39,6 +45,8 @@ public class Bao {
                     addDeadline(userInput);
                 } else if (userInput.toLowerCase().startsWith("event")) {
                     addEvent(userInput);
+                } else if (userInput.toLowerCase().startsWith("delete")) {
+                    deleteTask(userInput);
                 } else {
                     throw new BaoUnknownCommand(userInput + " is an unknown command.");
                 }
@@ -64,6 +72,29 @@ public class Bao {
                           + "annnd there we go, it's been added!" + System.lineSeparator()
                           + "You have " + TaskManager.getNumTasks() + " tasks in the list.");
         System.out.print(LINE_BREAK);
+    }
+
+    private static void deleteTaskMessage(Task task) {
+        System.out.print(LINE_BREAK);
+        System.out.println("You wanna see a magic trick? Now you see this: " + System.lineSeparator()
+                + task.toString() + "," + System.lineSeparator()
+                + "AND NOW, you don't!" + System.lineSeparator()
+                + "Check behind your ear, for you still have " + TaskManager.getNumTasks() + " tasks in the list.");
+        System.out.print(LINE_BREAK);
+    }
+
+    private static void deleteTask(String msg) {
+        try{
+            Task deletedTask = TaskManager.deleteTask(msg);
+            deleteTaskMessage(deletedTask);
+        } catch (NumberFormatException e) {
+            System.out.print(LINE_BREAK);
+            System.out.println("I need a task number to work with.");
+            System.out.print(LINE_BREAK);
+        } catch (BadIndexException e) {
+            System.out.println("Give me a task number, just, any other number.");
+            listTasks();
+        }
     }
 
     private static void addToDo(String msg) {
