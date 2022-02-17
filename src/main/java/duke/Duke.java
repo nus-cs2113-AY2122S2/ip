@@ -8,7 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Duke {
-    private static ArrayList<String> descriptions = new ArrayList<>();
+    private static ArrayList<String> tasks = new ArrayList<>();
     private static ArrayList<Boolean> dones = new ArrayList<>();
     private static ArrayList<String> types = new ArrayList<>();
     private static ArrayList<String> dates = new ArrayList<>();
@@ -49,6 +49,12 @@ public class Duke {
                 input = in.nextLine();
                 continue;
             }
+            if (input.startsWith("delete")) {
+                int number = Integer.parseInt(input.substring(input.length() - 1));
+                deleteTask(number);
+                input = in.nextLine();
+                continue;
+            }
             try {
                 checkCommand(input);
             } catch (InvalidCommandException | EmptyDescriptionException e) {
@@ -60,7 +66,8 @@ public class Duke {
             System.out.println("     Got it. I've added this task: ");
             handleCommand(input);
             saveTasks();
-            System.out.println("     Now you have " + descriptions.size() + " tasks in the list.");
+            System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
             System.out.println("    ____________________________________________________________");
             input = in.nextLine();
         }
@@ -86,9 +93,9 @@ public class Duke {
         String fileName = "duke.txt";
         String separator = " | ";
         flushFile(pathName, fileName);
-        for (int i = 0; i < descriptions.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             StringBuilder sb = new StringBuilder();
-            String description = descriptions.get(i);
+            String description = tasks.get(i);
             boolean done = dones.get(i);
             String type = types.get(i);
             String date = dates.get(i);
@@ -134,7 +141,7 @@ public class Duke {
             types.add("T");
             description = line.substring(5);
             Todo todo = new Todo(description);
-            descriptions.add(description);
+            tasks.add(description);
             dates.add("");
             System.out.println("       " + todo.toString(false));
         } else if (line.startsWith("deadline")) {
@@ -143,7 +150,7 @@ public class Duke {
             description = line.substring(9, separator - 1);
             date = line.substring(separator + 4);
             Deadline deadline = new Deadline(description, date);
-            descriptions.add(description);
+            tasks.add(description);
             dates.add(date);
             System.out.println("       " + deadline.toString(false));
         } else if (line.startsWith("event")) {
@@ -152,7 +159,7 @@ public class Duke {
             description = line.substring(6, separator - 1);
             date = line.substring(separator + 4);
             Event event = new Event(description, date);
-            descriptions.add(description);
+            tasks.add(description);
             dates.add(date);
             System.out.println("       " + event.toString(false));
         } else {
@@ -163,8 +170,8 @@ public class Duke {
     private static void showList() {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Here are the tasks in your list:");
-        for (int i = 0; i < descriptions.size(); i++) {
-            String description = descriptions.get(i);
+        for (int i = 0; i < tasks.size(); i++) {
+            String description = tasks.get(i);
             String date = dates.get(i);
             String type = types.get(i);
             boolean isDone = dones.get(i);
@@ -193,7 +200,7 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Nice! I've marked this task as done:");
         int index = number - 1;
-        String description = descriptions.get(index);
+        String description = tasks.get(index);
         String date = dates.get(index);
         String type = types.get(index);
         // mark as done
@@ -221,7 +228,7 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Noted. I've removed this task:");
         int index = number - 1;
-        String description = descriptions.get(index);
+        String description = tasks.get(index);
         String date = dates.get(index);
         String type = types.get(index);
         boolean done = dones.get(index);
@@ -241,11 +248,16 @@ public class Duke {
             default:
                 System.out.println("       Unknown Type");
         }
-        descriptions.remove(index);
+        tasks.remove(index);
         dates.remove(index);
         types.remove(index);
         dones.remove(index);
-        System.out.println("     Now you have " + descriptions.size() + " tasks in the list.");
+        System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
+        tasks.remove(index);
+        dates.remove(index);
+        types.remove(index);
+        dones.remove(index);
+        System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("    ____________________________________________________________");
     }
 
