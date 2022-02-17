@@ -53,25 +53,24 @@ public class Duke {
                 break;
             default:
                 if (!line.equalsIgnoreCase("bye")) {
-                    System.out.println("Sorry, I did not understand that command. Input help to find out more");
+                    System.out.println("Sorry, I did not understand that command. Input help to find out more.");
                 }
                 break;
             }
-        } while ((!line.equalsIgnoreCase("bye")) && Task.getNumOfTasks() < 100);
+        } while ((!line.equalsIgnoreCase("bye")) && tasks.size() < 100);
     }
 
     private static void deleteTask(String[] deleteTaskParameters) {
         try {
             int taskNumber = Integer.parseInt(deleteTaskParameters[1]);
             int taskIndex = taskNumber - 1;
-            if (taskNumber > Task.getNumOfTasks()) {
+            if (taskNumber > tasks.size()) {
                 System.out.println("You don't have that many tasks ><!");
                 return;
             }
             System.out.println("I have removed:\n" + tasks.get(taskIndex));
             tasks.remove(taskIndex);
-            Task.deleteTask();
-            System.out.println("Now you have " + Task.getNumOfTasks() + " task(s) on the list.\n");
+            System.out.println("Now you have " + tasks.size() + " task(s) on the list.\n");
         } catch (NumberFormatException e) {
             System.out.println("Please enter a number after delete");
         }
@@ -124,7 +123,7 @@ public class Duke {
         try {
             int taskNumber = Integer.parseInt(unmarkTaskParameters[1]);
             int taskIndex = taskNumber - 1;
-            if (taskNumber > Task.getNumOfTasks()) {
+            if (taskNumber > tasks.size()) {
                 System.out.println("You don't have that many tasks ><!");
                 return;
             }
@@ -140,7 +139,7 @@ public class Duke {
         try {
             int taskNumber = Integer.parseInt(markTaskParameters[1]);
             int taskIndex = taskNumber - 1;
-            if (taskNumber > Task.getNumOfTasks()) {
+            if (taskNumber > tasks.size()) {
                 System.out.println("You don't have that many tasks ><!");
                 return;
             }
@@ -154,10 +153,10 @@ public class Duke {
 
     private static void printTasks() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < Task.getNumOfTasks(); i += 1) {
+        for (int i = 0; i < tasks.size(); i += 1) {
             System.out.println(i + 1 + ". " + tasks.get(i));
         }
-        System.out.println("You have " + Task.getNumOfTasks() + " task(s) on the list.\n");
+        System.out.println("You have " + tasks.size() + " task(s) on the list.\n");
     }
 
     private static void printWelcomeMessage() {
@@ -195,6 +194,7 @@ public class Duke {
         System.out.println("todo: adds a todo. (e.g. todo <description>)");
         System.out.println("deadline: adds a deadline. (e.g. deadline <description> /by <date>)");
         System.out.println("event: adds an event. (e.g. event <description> /at <date>)");
+        System.out.println("delete: delete a task. (e.g. delete <task number>)");
     }
 
     private static void readSaveData() throws FileNotFoundException {
@@ -219,24 +219,23 @@ public class Duke {
     }
 
     private static void loadData(String command, boolean isDone, String description, String date) {
-        int numOfTasks = Task.getNumOfTasks();
         switch(command) {
         case "todo":
             tasks.add(new ToDo(description));
             if (isDone) {
-                tasks.get(numOfTasks).setDone();
+                tasks.get(tasks.size() - 1).setDone();
             }
             break;
         case "deadline":
             tasks.add(new Deadline(description, date));
             if (isDone) {
-                tasks.get(numOfTasks).setDone();
+                tasks.get(tasks.size() - 1).setDone();
             }
             break;
         case "event":
             tasks.add(new Event(description, date));
             if (isDone) {
-                tasks.get(numOfTasks).setDone();
+                tasks.get(tasks.size() - 1).setDone();
             }
             break;
         default:
@@ -248,11 +247,11 @@ public class Duke {
         createSaveDirectory();
         createSaveFile();
         FileWriter writer = new FileWriter("data/duke.txt", false);
-        for (int i = 0; i < Task.getNumOfTasks(); i += 1) {
-            writer.write(tasks.get(i).getTaskType() + " | " + tasks.get(i).getStatusIcon() + "| "
-                    + tasks.get(i).getTaskDescription());
-            if (tasks.get(i) instanceof Deadline || tasks.get(i) instanceof Event) {
-                writer.write(" | " + tasks.get(i).getTime());
+        for (Task task : tasks) {
+            writer.write(task.getTaskType() + " | " + task.getStatusIcon() + "| "
+                    + task.getTaskDescription());
+            if (task instanceof Deadline || task instanceof Event) {
+                writer.write(" | " + task.getTime());
             }
             writer.write("\n");
         }
@@ -278,7 +277,6 @@ public class Duke {
     public static void main(String[] args) {
         printWelcomeMessage();
         Scanner in = new Scanner(System.in);
-        //Task[] tasks = new Task[100];
         try {
             readSaveData();
         } catch (FileNotFoundException e) {
