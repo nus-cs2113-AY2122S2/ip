@@ -1,8 +1,28 @@
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
 
+    private static final String filePath = "data/Duke.txt";
+
+    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        fw.write(textToAdd);
+        fw.close();
+    }
+
     public static void main(String[] args) {
+
+        File f = new File(filePath);
+        File folder = new File("data");
+        if (!folder.exists()) {
+            folder.mkdir();
+        }
+
+        System.out.println("full path: " + f.getAbsolutePath());
         String logo = " ____        _        \n"
                     + "|  _ \\ _   _| | _____ \n"
                     + "| | | | | | | |/ / _ \\\n"
