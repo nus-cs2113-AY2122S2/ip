@@ -33,11 +33,17 @@ public class Duke {
                     String[] commands = line.split("by");
                     toDos.add(new Deadline(line.substring(6, line.indexOf('(')),
                             line.substring(line.indexOf('(') + 5, line.length() - 1)));
+                    if (line.charAt(4) == 'X') {
+                        toDos.get(taskCounter).setDone(true);
+                    }
                     taskCounter++;
                 } else if (line.charAt(1) == 'E') {
                     String[] commands = line.split("at");
                     toDos.add(new Event(line.substring(6, line.indexOf('(')),
                             line.substring(line.indexOf('(') + 5, line.length() - 1)));
+                    if (line.charAt(4) == 'X') {
+                        toDos.get(taskCounter).setDone(true);
+                    }
                     taskCounter++;
                 }
             }
