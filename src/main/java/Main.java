@@ -1,7 +1,8 @@
-import static Managers.Bao.initiateBao;
+import Managers.Bao;
 
 public class Main {
     public static void main(String[] args){
-        initiateBao();
+        Bao bao = new Bao();
+        bao.initiateBao();
     }
 }

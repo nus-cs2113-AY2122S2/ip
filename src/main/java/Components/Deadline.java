@@ -12,6 +12,10 @@ public class Deadline extends Task {
         return dateTime;
     }
 
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
     public String toString() {
         return "[D]" + super.toString() + " (by: " + getDateTime() + ")";
     }

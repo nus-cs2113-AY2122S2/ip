@@ -12,6 +12,10 @@ public class Event extends Task {
         return dateTime;
     }
 
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
     public String toString() {
         return "[E]" + super.toString() + " (at: " + getDateTime() + ")";
     }

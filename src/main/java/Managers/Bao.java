@@ -11,6 +11,11 @@ import static Constants.BaoConstants.LINE_BREAK;
 
 public class Bao {
     private static Scanner in = new Scanner(System.in);
+    private static TaskManager taskManager;
+
+    public static void Bao() {
+        taskManager = new TaskManager();
+    }
 
     private static void greet() {
         System.out.print(LINE_BREAK);
@@ -62,14 +67,14 @@ public class Bao {
         System.out.println("Yup yup yup, " + System.lineSeparator()
                           + task.toString() + "," + System.lineSeparator()
                           + "annnd there we go, it's been added!" + System.lineSeparator()
-                          + "You have " + TaskManager.getNumTasks() + " tasks in the list.");
+                          + "You have " + taskManager.getNumTasks() + " tasks in the list.");
         System.out.print(LINE_BREAK);
     }
 
     private static void addToDo(String msg) {
         try{
-            TaskManager.addToDo(msg);
-            addedTaskMessage(TaskManager.getLastTask());
+            taskManager.addToDo(msg);
+            addedTaskMessage(taskManager.getLastTask());
         } catch (NoTaskDescriptionException e) {
             System.out.println("You ain't fooling me with empty tasks!");
         } catch (MaxTaskException e) {
@@ -79,8 +84,8 @@ public class Bao {
 
     private static void addDeadline(String msg) {
         try {
-            TaskManager.addDeadline(msg);
-            addedTaskMessage(TaskManager.getLastTask());
+            taskManager.addDeadline(msg);
+            addedTaskMessage(taskManager.getLastTask());
         } catch (BadDateTimeFormatException e) {
             System.out.print(LINE_BREAK);
             System.out.println("Include a deadline with \"/by\".");
@@ -102,8 +107,8 @@ public class Bao {
 
     private static void addEvent(String msg) {
         try {
-            TaskManager.addEvent(msg);
-            addedTaskMessage(TaskManager.getLastTask());
+            taskManager.addEvent(msg);
+            addedTaskMessage(taskManager.getLastTask());
         } catch (BadDateTimeFormatException e) {
             System.out.print(LINE_BREAK);
             System.out.println("Include a date with \"/at\".");
@@ -126,7 +131,7 @@ public class Bao {
     private static void markTask(String msg) {
         try {
             System.out.print(LINE_BREAK);
-            TaskManager.markTask(msg);
+            taskManager.markTask(msg);
             System.out.println("Boom! Another task done already???");
             System.out.print(LINE_BREAK);
         } catch (NumberFormatException e) {
@@ -141,7 +146,7 @@ public class Bao {
     private static void unmarkTask(String msg) {
         try {
             System.out.print(LINE_BREAK);
-            TaskManager.unmarkTask(msg);
+            taskManager.unmarkTask(msg);
             System.out.println("Oh oops, overlooked that one did we?");
             System.out.print(LINE_BREAK);
         } catch (NumberFormatException e) {
@@ -156,11 +161,16 @@ public class Bao {
     private static void listTasks() {
         System.out.print(LINE_BREAK);
         System.out.println("Here are your tasks:");
-        TaskManager.listTasks();
+        taskManager.listTasks();
         System.out.print(LINE_BREAK);
     }
 
+    private static void loadTasks() {
+        taskManager.loadTasklist();
+    }
+
     public static void initiateBao() {
+        loadTasks();
         greet();
         serveUser();
         farewell();

@@ -6,6 +6,8 @@ import Components.Deadline;
 import Components.Event;
 import Exceptions.*;
 
+import java.io.IOException;
+
 import static Constants.TaskManagerConstants.MAX_TASKS;
 import static Constants.TaskManagerConstants.TODO_LENGTH;
 import static Constants.TaskManagerConstants.DEADLINE_LENGTH;
@@ -13,8 +15,12 @@ import static Constants.TaskManagerConstants.EVENT_LENGTH;
 import static Constants.TaskManagerConstants.DATETIME_DELIMITER_LENGTH;
 
 public class TaskManager {
-    private static Task[] tasks = new Task[MAX_TASKS];
-    private static int numTasks = 0;
+    private static Task[] tasks = new Task[100];
+    private static int numTasks;
+
+    public static void TaskManager() {
+        numTasks = 0;
+    }
 
     public static void addTask(Task task) throws MaxTaskException {
         try {
@@ -23,10 +29,10 @@ public class TaskManager {
             }
 
             tasks[numTasks++] = task;
+            saveTasklist();
         } catch (Exception e) {
             throw e;
         }
-
     }
 
     public static void addToDo(String msg) throws NoTaskDescriptionException, MaxTaskException {
@@ -130,6 +136,7 @@ public class TaskManager {
             int ind = getMarkIndex(msg);
             tasks[ind].setIsDone(true);
             System.out.println(tasks[ind].toString());
+            saveTasklist();
         } catch (Exception e) {
             throw e;
         }
@@ -140,6 +147,7 @@ public class TaskManager {
             int ind = getMarkIndex(msg);
             tasks[ind].setIsDone(false);
             System.out.println(tasks[ind].toString());
+            saveTasklist();
         } catch (Exception e) {
             throw e;
         }
@@ -157,5 +165,21 @@ public class TaskManager {
 
     public static Task getLastTask() {
         return tasks[numTasks - 1];
+    }
+
+    public static void loadTasklist() {
+        try {
+            numTasks = TaskListFileManager.loadTasklist(tasks);
+        } catch (IOException e) {
+            System.out.println("Loading failed.");
+        }
+    }
+
+    public static void saveTasklist() {
+        try {
+            TaskListFileManager.saveTasklist(tasks);
+        } catch (IOException e) {
+            System.out.println("Saving failed.");
+        }
     }
 }
