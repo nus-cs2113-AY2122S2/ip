@@ -1,6 +1,9 @@
 package duke;
 
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import duke.task.Task;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -77,6 +80,8 @@ public class Duke {
     public static void tryAddTask(String request) {
         try {
             addTask(request.trim());
+            System.out.println(boundary + "I'm adding the task into duke.txt...");
+            appendToFile("./data/duke.txt", taskList[countTask - 1].toString());
         } catch (GeneralException e) {
             System.out.print(boundary + "Hmm...I'm sorry but I cannot understand this :("
                                      + System.lineSeparator() + boundary);
@@ -88,6 +93,9 @@ public class Duke {
                                      + System.lineSeparator() + boundary);
         } catch (EventFormatException e) {
             System.out.print(boundary + "Hmm...hi dear, when is this event happening?"
+                                     + System.lineSeparator() + boundary);
+        } catch (IOException e) {
+            System.out.print("Hmm...I cannot write to duke.txt :("
                                      + System.lineSeparator() + boundary);
         }
     }
@@ -107,10 +115,18 @@ public class Duke {
         System.out.print(boundary + "Bye. Hope to see you again soon!" + System.lineSeparator() + boundary);
     }
 
+    public static void appendToFile(String filePath, String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
+        fw.write(textToAppend);
+        fw.close();
+    }
+
     public static void main(String[] args) {
         sayHello();
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
+
+        // File f = new File("data/fruits.txt");
 
         while (!line.equalsIgnoreCase("bye")) {
             if (line.equalsIgnoreCase("list")) {
