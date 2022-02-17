@@ -60,7 +60,7 @@ public class Controller {
     /**
      * Listen the instruction and operate during the session
      */
-    public void listen() throws DukeExceptions{
+    public void listen() throws DukeExceptions {
         Scanner msg = new Scanner(System.in);
         this.recvMsg = msg.nextLine();
         try {
@@ -89,10 +89,10 @@ public class Controller {
                 manager.addToDo(analyst.taskName);
                 break;
             //case "delete":
-                //this.deleteTask();
+            //this.deleteTask();
             }
-            //manager.saveTask();
-        } catch (IllegalInstructionException e){
+            manager.saveTask();
+        } catch (IllegalInstructionException e) {
             chatbox.setContent("Sorry, I don't understand your instruction :(");
             chatbox.chatboxPrinter();
         } catch (IllegalFormatException e) {
@@ -107,7 +107,8 @@ public class Controller {
         } catch (IllegalTaskIndexException e) {
             chatbox.setContent("Please specify the index of the task :(");
             chatbox.chatboxPrinter();
-         }
+        }
+    }
 
 
 }
