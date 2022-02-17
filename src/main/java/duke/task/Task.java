@@ -5,16 +5,16 @@ public abstract class Task {
     private boolean isDone;
     private String taskTypeSymbol;
 
-    public Task(String description, String taskTypeSymbol){
+    public Task(String description, String taskTypeSymbol) {
         this.description = description;
         this.isDone = false;
 
-        // Here we assign a String to taskTypeSymbol, which will be passed
-        // by the constructor of the subclasses Event("E"), Deadline("D"), Todo("T")
+
+        // taskTypeSymbol is either "E"(Event), "D"(Deadline) or "T"(Todo)
         this.taskTypeSymbol = taskTypeSymbol;
     }
 
-    public String getStatusIcon(){
+    public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
@@ -34,12 +34,12 @@ public abstract class Task {
         isDone = true;
     }
 
-    public void unmarkAsDone(){
+    public void unmarkAsDone() {
         isDone = false;
     }
 
     // overriding method toString in Object class
-    public String toString(){
-        return "["+taskTypeSymbol+"][" + getStatusIcon() + "] " + description;
+    public String toString() {
+        return "[" + taskTypeSymbol + "][" + getStatusIcon() + "] " + description;
     }
 }

@@ -2,8 +2,8 @@ package duke.task;
 
 public class Deadline extends DynamicTask {
 
-    public Deadline(String description,String dueDate){
-        super(description,"D",dueDate);
+    public Deadline(String description, String dueDate) {
+        super(description, "D", dueDate);
     }
 
     public void setDueDate(String dueDate) {
@@ -15,7 +15,7 @@ public class Deadline extends DynamicTask {
     }
 
     // overriding method toString in Object class
-    public String toString(){
-        return super.toString()+" (by: "+this.getTime()+")";
+    public String toString() {
+        return super.toString() + " (by: " + this.getTime() + ")";
     }
 }

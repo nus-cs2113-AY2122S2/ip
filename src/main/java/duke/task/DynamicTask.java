@@ -9,7 +9,7 @@ public abstract class DynamicTask extends Task {
         this.time = time;
     }
 
-    public String getTime(){
+    public String getTime() {
         return time;
     }
 
