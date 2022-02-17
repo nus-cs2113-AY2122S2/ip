@@ -1,8 +1,10 @@
-class Deadline extends Task {
+package duke.task;
+
+public class Deadline extends Task {
 
     protected String deadline;
 
-    Deadline(String description, String deadline) {
+    public Deadline(String description, String deadline) {
         super(description);
         this.deadline = deadline;
     }

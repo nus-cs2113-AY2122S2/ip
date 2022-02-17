@@ -1,10 +1,12 @@
-class Task {
+package duke.task;
+
+public class Task {
 
     public String description;
     public Boolean isDone = false;
     public String mark = " ";
 
-    Task(String description) {
+    public Task(String description) {
         this.description = description;
     }
 

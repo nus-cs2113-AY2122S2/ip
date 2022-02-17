@@ -1,13 +1,15 @@
-class Event extends Task {
+package duke.task;
+
+public class Event extends Task {
     
     protected String time;
 
-    Event(String description, String time) {
+    public Event(String description, String time) {
         super(description);
         this.time = time;
     }
 
-    protected String getTime() {
+    public  String getTime() {
         return this.time;
     }
 

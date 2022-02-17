@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import duke.task.*;
+import duke.exception.*;
 
 public class Duke {
 
