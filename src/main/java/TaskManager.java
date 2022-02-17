@@ -1,9 +1,38 @@
+import java.io.File;
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileWriter;
+import java.io.FileOutputStream;
 public class TaskManager {
     private static final ArrayList<Task> Tasks = new ArrayList<Task>();
     //response of adding
     protected String ADD_RES = "Got it. I've added this task:\n";
     Chatbox chatbox = new Chatbox();
+
+    public void saveTask() throws DukeException{
+        String content = "";
+        for(int i = 0;i < Tasks.size();i++){
+            content += Tasks.get(i).getListName();
+            content += "\n";
+        }
+        if(null != content){
+            try{
+                File file = new File("data/Duke.txt");
+                if(!file.exists()){
+                    File dir = new File(file.getParent());
+                    dir.mkdirs();
+                    file.createNewFile();
+                }
+                FileWriter outStream = new FileWriter(file);
+                outStream.write(content);
+                outStream.close();
+            } catch (Exception e){
+                throw new IllegalSavingAction();
+            }
+        }
+
+    }
 
     /**
      * Adds a general task in the list
@@ -86,7 +115,7 @@ public class TaskManager {
      * @param n refers to the index of the task in adding time order
      */
     public void markTask(int n) {
-        System.out.println(n);
+        //System.out.println(n);
         String content = "";
         if(n < 1 || n > Tasks.size()) {
             //Beyonds boundaries
@@ -111,6 +140,21 @@ public class TaskManager {
         }else {
             Tasks.get(n - 1).unmark();
             content = "OK, I've marked this task as not done yet:\n" + Tasks.get(n - 1).listName;
+        }
+        chatbox.setContent(content);
+        chatbox.chatboxPrinter();
+    }
+
+    public void deleteTask(int n) {
+        String content = "";
+        if(n < 1 || n > Tasks.size()) {
+            //Beyonds boundaries
+            content = "Sorry, I could not find the task :/";
+        }else {
+            content = "Okay! I've deleted this task:\n" + Tasks.get(n - 1).listName;
+            Tasks.remove(n-1);
+            int s = Tasks.size();
+            content += "\nNow you have " + String.valueOf(s) + " tasks in your list";
         }
         chatbox.setContent(content);
         chatbox.chatboxPrinter();
