@@ -1,2 +1,0 @@
-T | false | eat
-D | true | have lunch | 12pm

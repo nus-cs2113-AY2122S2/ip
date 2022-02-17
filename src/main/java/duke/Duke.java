@@ -1,6 +1,8 @@
 package duke;// import libraries here
 import duke.Deadline;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Set;
@@ -21,6 +23,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         greeting();
+        loadTasks();
         getCommand();
     }
 
@@ -67,7 +70,6 @@ public class Duke {
             handleCommand(input);
             saveTasks();
             System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
-            System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
             System.out.println("    ____________________________________________________________");
             input = in.nextLine();
         }
@@ -85,6 +87,46 @@ public class Duke {
         }
         if (splitLine.length == 1) {
             throw new EmptyDescriptionException();
+        }
+    }
+
+    private static void loadTasks() {
+        String pathName = "./data/";
+        String fileName = "duke.txt";
+        File file = new File(pathName + fileName);
+        try {
+            Scanner sc = new Scanner(file);
+            while (sc.hasNext()) {
+                String line = sc.nextLine();
+                String[] splitLine = line.split(" \\| ");
+                String type = splitLine[0];
+                boolean done = Boolean.parseBoolean(splitLine[1]);
+                String description = splitLine[2];
+                String date;
+                types.add(type);
+                dones.add(done);
+                tasks.add(description);
+                if (!type.equals("T")) {
+                    date = splitLine[3];
+                } else {
+                    date = "";
+                }
+                dates.add(date);
+            }
+        } catch (FileNotFoundException e) {
+            createFileOrFolder(pathName, fileName);
+        }
+    }
+
+    private static void createFileOrFolder(String pathName, String fileName) {
+        try {
+            Path path = Paths.get(pathName);
+            Files.createDirectory(path);
+            Path file = Paths.get(pathName + fileName);
+            Files.createFile(file);
+        } catch (FileAlreadyExistsException ignored) {
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
         }
     }
 
@@ -248,11 +290,6 @@ public class Duke {
             default:
                 System.out.println("       Unknown Type");
         }
-        tasks.remove(index);
-        dates.remove(index);
-        types.remove(index);
-        dones.remove(index);
-        System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
         tasks.remove(index);
         dates.remove(index);
         types.remove(index);
