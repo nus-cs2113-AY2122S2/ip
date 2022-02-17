@@ -13,16 +13,7 @@ public class TaskManager {
     public void start() {
         Scanner sc = new Scanner(System.in);
         int idx;
-        // Supported commands
-        System.out.println("\t Supported commands:");
-        System.out.println("\t Type \"todo <task>\" to add a todo task");
-        System.out.println("\t Type \"deadline <task> /by <time>\" to add a deadline task");
-        System.out.println("\t Type \"event <task> /at <time>\" to add a event task");
-        System.out.println("\t Type \"list\" to list all tasks");
-        System.out.println("\t Type \"mark <task number>\" to mark a task");
-        System.out.println("\t Type \"unmark <task number>\" to unmark a task");
-        System.out.println("\t Type \"bye\" to exit");
-        System.out.println("\t" + "-".repeat(60));
+        displaySupportedCmds();
 
         String input = sc.nextLine();
         String[] inputs = input.split(" ", 2);
@@ -88,6 +79,19 @@ public class TaskManager {
             input = sc.nextLine();
             inputs = input.split(" ", 2);
         }
+    }
+
+    private void displaySupportedCmds() {
+        // Supported commands
+        System.out.println("\t Supported commands:");
+        System.out.println("\t Type \"todo <task>\" to add a todo task");
+        System.out.println("\t Type \"deadline <task> /by <time>\" to add a deadline task");
+        System.out.println("\t Type \"event <task> /at <time>\" to add a event task");
+        System.out.println("\t Type \"list\" to list all tasks");
+        System.out.println("\t Type \"mark <task number>\" to mark a task");
+        System.out.println("\t Type \"unmark <task number>\" to unmark a task");
+        System.out.println("\t Type \"bye\" to exit");
+        System.out.println("\t" + "-".repeat(60));
     }
 
     public void addTask(String option, String taskDescription) throws DukeException{
