@@ -52,11 +52,20 @@ public class Duke {
      * @param command The command given from input.
      */
     public static void handleMark(String command) {
-        int taskPosition = Integer.parseInt(command.substring(5)) - 1;
-        tasks[taskPosition].setDone(true);
-        System.out.println("Ok! I hamve markemd the tamsk:");
-        System.out.println(tasks[taskPosition]);
-        System.out.println(SEPARATOR);
+        try{
+            int taskPosition = Integer.parseInt(command.substring(5)) - 1;
+            tasks[taskPosition].setDone(true);
+            System.out.println("Ok! I hamve markemd the tamsk:");
+            System.out.println(tasks[taskPosition]);
+        } catch (NullPointerException e) {
+            System.out.println("Error! You don't have that many tasks");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Error! Please enter a valid task number");
+        } catch (NumberFormatException e) {
+            System.out.println("Error! Please input a number");
+        } finally{
+            System.out.println(SEPARATOR);
+        }
     }
 
     /**
@@ -65,11 +74,20 @@ public class Duke {
      * @param command The command given from input.
      */
     public static void handleUnmark(String command) {
-        int taskPosition = Integer.parseInt(command.substring(7)) - 1;
-        tasks[taskPosition].setDone(false);
-        System.out.println("Oof! I hamve unmarkemd the tamsk: ");
-        System.out.println(tasks[taskPosition]);
-        System.out.println(SEPARATOR);
+        try{
+            int taskPosition = Integer.parseInt(command.substring(7)) - 1;
+            tasks[taskPosition].setDone(false);
+            System.out.println("Oof! I hamve unmarkemd the tamsk: ");
+            System.out.println(tasks[taskPosition]);
+        } catch (NullPointerException e) {
+            System.out.println("Error! Please enter a valid task number");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Error! Please enter a valid task number");
+        } catch (NumberFormatException e) {
+            System.out.println("Error! Please enter a valid task number");
+        } finally{
+            System.out.println(SEPARATOR);
+        }
     }
 
     /**
@@ -78,14 +96,22 @@ public class Duke {
      * @param command The command given from input
      */
     public static void addDeadline(String command) {
-        int dueDateIndex = command.indexOf("/") + 1;
-        String dueDate = command.substring(dueDateIndex);
-        String description = command.substring(9, dueDateIndex - 1);
-        Deadline newDeadline = new Deadline(description, dueDate);
-        tasks[numberOfTasks++] = newDeadline;
-        System.out.println("I hamve addemd: ");
-        System.out.println(newDeadline);
-        System.out.println(SEPARATOR);
+        try{
+            int dueDateIndex = command.indexOf("/") + 1;
+            if (dueDateIndex == 0) {
+                throw new CheemsException();
+            } 
+            String dueDate = command.substring(dueDateIndex);
+            String description = command.substring(9, dueDateIndex - 1);
+            Deadline newDeadline = new Deadline(description, dueDate);
+            tasks[numberOfTasks++] = newDeadline;
+            System.out.println("I hamve addemd: ");
+            System.out.println(newDeadline);
+        } catch (CheemsException e) {
+            System.out.println("Error! Please follow the format given");
+        } finally {
+            System.out.println(SEPARATOR);
+        }
     }
 
     /**
@@ -94,12 +120,17 @@ public class Duke {
      * @param command The command given from input
      */
     public static void addToDo(String command) {
-        String description = command.substring(5);
-        ToDo newToDo = new ToDo(description);
-        tasks[numberOfTasks++] = newToDo;
-        System.out.println("I hamve addemd: ");
-        System.out.println(newToDo);
-        System.out.println(SEPARATOR);
+        try {
+            String description = command.substring(5);
+            ToDo newToDo = new ToDo(description);
+            tasks[numberOfTasks++] = newToDo;
+            System.out.println("I hamve addemd: ");
+            System.out.println(newToDo);
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Error! Tomdo cannomt be empty");
+        } finally {
+            System.out.println(SEPARATOR);
+        }
     }
 
     /**
@@ -108,14 +139,22 @@ public class Duke {
      * @param command The command given from input
      */
     public static void addEvent(String command) {
-        int timingIndex = command.indexOf("/") + 1;
-        String timing = command.substring(timingIndex);
-        String description = command.substring(6, timingIndex - 1);
-        Event newEvent = new Event(description, timing);
-        tasks[numberOfTasks++] = newEvent;
-        System.out.println("I hamve addemd: ");
-        System.out.println(newEvent);
-        System.out.println(SEPARATOR);
+        try {
+            int timingIndex = command.indexOf("/") + 1;
+            if (timingIndex == 0) {
+                throw new CheemsException();
+            }
+            String timing = command.substring(timingIndex);
+            String description = command.substring(6, timingIndex - 1);
+            Event newEvent = new Event(description, timing);
+            tasks[numberOfTasks++] = newEvent;
+            System.out.println("I hamve addemd: ");
+            System.out.println(newEvent);
+        } catch (CheemsException e) {
+            System.out.println("Error! Please follow the format given");
+        } finally {
+            System.out.println(SEPARATOR);
+        }
     }
 
     /**
@@ -125,20 +164,25 @@ public class Duke {
         String command = in.nextLine();
         System.out.println(SEPARATOR);
         do {
-            if (command.startsWith("list")) {
-                printTasks();
-            } else if (command.startsWith("mark")) {
-                handleMark(command);
-            } else if (command.startsWith("unmark")) {
-                handleUnmark(command);
-            } else if (command.startsWith("deadline")) {
-                addDeadline(command);
-            } else if (command.startsWith("todo")) {
-                addToDo(command);
-            } else if (command.startsWith("event")) {
-                addEvent(command);
-            } else {
-                System.out.println("Unknomwn command! Try agaimn.");
+            try{
+                if (command.startsWith("list")) {
+                    printTasks();
+                } else if (command.startsWith("mark")) {
+                    handleMark(command);
+                } else if (command.startsWith("unmark")) {
+                    handleUnmark(command);
+                } else if (command.startsWith("deadline")) {
+                    addDeadline(command);
+                } else if (command.startsWith("todo")) {
+                    addToDo(command);
+                } else if (command.startsWith("event")) {
+                    addEvent(command);
+                } else {
+                    throw new CheemsException();
+                }
+            } catch (CheemsException e) {
+                System.out.println("I don't know what that means sorry :(");
+                System.out.println(SEPARATOR);
             }
             command = in.nextLine();
             System.out.println(SEPARATOR);
