@@ -1,9 +1,11 @@
 package duke;// import libraries here
 import duke.Deadline;
-
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Set;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
     private static ArrayList<String> descriptions = new ArrayList<>();
@@ -36,12 +38,20 @@ public class Duke {
             if (input.startsWith("done")) {
                 int number = Integer.parseInt(input.substring(input.length() - 1));
                 markAsDone(number);
+                saveTasks();
+                input = in.nextLine();
+                continue;
+            }
+            if (input.startsWith("delete")) {
+                int number = Integer.parseInt(input.substring(input.length() - 1));
+                deleteTask(number);
+                saveTasks();
                 input = in.nextLine();
                 continue;
             }
             try {
                 checkCommand(input);
-            } catch (DukeInvalidCommandException | DukeEmptyDescriptionException e) {
+            } catch (InvalidCommandException | EmptyDescriptionException e) {
                 input = in.nextLine();
                 continue;
             }
@@ -49,6 +59,7 @@ public class Duke {
             System.out.println("    ____________________________________________________________");
             System.out.println("     Got it. I've added this task: ");
             handleCommand(input);
+            saveTasks();
             System.out.println("     Now you have " + descriptions.size() + " tasks in the list.");
             System.out.println("    ____________________________________________________________");
             input = in.nextLine();
@@ -58,18 +69,62 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
     }
 
-    private static void checkCommand(String line) throws DukeEmptyDescriptionException, DukeInvalidCommandException {
+    private static void checkCommand(String line) throws EmptyDescriptionException, InvalidCommandException {
         Set<String> validCommands = Set.of("todo", "deadline", "event");
         String[] splitLine = line.split(" ");
         String type = splitLine[0];
         if (!validCommands.contains(type)) {
-            throw new DukeInvalidCommandException();
+            throw new InvalidCommandException();
         }
         if (splitLine.length == 1) {
-            throw new DukeEmptyDescriptionException();
+            throw new EmptyDescriptionException();
         }
     }
 
+    private static void saveTasks() {
+        String pathName = "./data/";
+        String fileName = "duke.txt";
+        String separator = " | ";
+        flushFile(pathName, fileName);
+        for (int i = 0; i < descriptions.size(); i++) {
+            StringBuilder sb = new StringBuilder();
+            String description = descriptions.get(i);
+            boolean done = dones.get(i);
+            String type = types.get(i);
+            String date = dates.get(i);
+            sb.append(type);
+            sb.append(separator);
+            sb.append(done);
+            sb.append(separator);
+            sb.append(description);
+            if (!date.equals("")) {
+                sb.append(separator);
+                sb.append(date);
+            }
+            String textToAppend = sb.toString();
+            try {
+                appendToFile(pathName + fileName, textToAppend + System.lineSeparator());
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
+        }
+    }
+
+    private static void flushFile(String pathName, String fileName) {
+        File file = new File(pathName + fileName);
+        try {
+            FileWriter fw = new FileWriter(file);
+            fw.write("");
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private static void appendToFile(String filePath, String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(textToAppend);
+        fw.close();
+    }
 
     private static void handleCommand(String line) {
         String description;
@@ -159,6 +214,38 @@ public class Duke {
         default:
             System.out.println("       Unknown Type");
         }
+        System.out.println("    ____________________________________________________________");
+    }
+
+    private static void deleteTask(int number) {
+        System.out.println("    ____________________________________________________________");
+        System.out.println("     Noted. I've removed this task:");
+        int index = number - 1;
+        String description = descriptions.get(index);
+        String date = dates.get(index);
+        String type = types.get(index);
+        boolean done = dones.get(index);
+        switch (type) {
+            case "T":
+                Todo todo = new Todo(description);
+                System.out.println("       " + todo.toString(done));
+                break;
+            case "D":
+                Deadline deadline = new Deadline(description, date);
+                System.out.println("       " + deadline.toString(done));
+                break;
+            case "E":
+                Event event = new Event(description, date);
+                System.out.println("       " + event.toString(done));
+                break;
+            default:
+                System.out.println("       Unknown Type");
+        }
+        descriptions.remove(index);
+        dates.remove(index);
+        types.remove(index);
+        dones.remove(index);
+        System.out.println("     Now you have " + descriptions.size() + " tasks in the list.");
         System.out.println("    ____________________________________________________________");
     }
 
