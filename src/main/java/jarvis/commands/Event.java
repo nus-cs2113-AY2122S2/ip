@@ -23,4 +23,9 @@ public class Event extends Task {
         String message = super.getDescription() + " (at: " + getEventDate() + ")";
         return message;
     }
+
+    public String exportData() {
+        String status = isDone ? "YES" : "NO";
+        return getTypeIcon() + " " + status + " " + super.getDescription() + " | " + this.getEventDate();
+    }
 }

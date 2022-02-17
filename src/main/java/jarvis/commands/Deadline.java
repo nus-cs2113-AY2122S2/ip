@@ -25,4 +25,9 @@ public class Deadline extends Task{
         String message = super.getDescription() + " (by: " + getDeadlineDate() + ")";
         return message;
     }
+
+    public String exportData() {
+        String status = isDone ? "YES" : "NO";
+        return getTypeIcon() + " " + status + " " + super.getDescription() + " | " + this.getDeadlineDate();
+    }
 }

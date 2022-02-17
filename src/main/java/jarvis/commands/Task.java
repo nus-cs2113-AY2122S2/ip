@@ -26,6 +26,7 @@ public class Task {
         boolean isTaskDone = this.isDone == true;
         if (isTaskDone) {
             DisplayMessages.unmarkError();
+            DisplayMessages.horizontalLine();
             return false;
         }
         this.isDone = true;
@@ -44,5 +45,11 @@ public class Task {
 
     public String getFullTask() {
         return "[" + getTypeIcon() + "]" + "[" + getStatusIcon() + "] " + getDescription();
+    }
+
+    public String exportData() {
+        String status = isDone ? "YES" : "NO";
+        String temp = getTypeIcon() + " " + status + " " + getDescription();
+        return temp;
     }
 }
