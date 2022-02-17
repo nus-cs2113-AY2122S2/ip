@@ -43,7 +43,7 @@ public class TodoCommand extends Command {
             String description = arguments.get("");
             Todo todoTask = new Todo(description);
             taskList.add(todoTask);
-            System.out.printf((TASK_ADDED_MESSAGE_FORMAT) + "%n", todoTask);
+            System.out.printf(TASK_ADDED_MESSAGE_FORMAT + "%n", todoTask);
         } catch (InvalidArgumentException e) {
             System.out.println(e.getMessage());
         }

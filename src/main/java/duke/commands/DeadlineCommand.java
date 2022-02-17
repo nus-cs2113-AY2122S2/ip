@@ -52,7 +52,7 @@ public class DeadlineCommand extends Command {
             String byDate = arguments.get("/by");
             Deadline deadlineTask = new Deadline(description, byDate);
             taskList.add(deadlineTask);
-            System.out.printf(TASK_ADDED_MESSAGE_FORMAT, deadlineTask);
+            System.out.printf(TASK_ADDED_MESSAGE_FORMAT + "%n", deadlineTask);
         } catch (InvalidArgumentException e) {
             System.out.println(e.getMessage());
         }

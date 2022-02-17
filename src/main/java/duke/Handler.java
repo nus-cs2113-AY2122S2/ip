@@ -3,21 +3,18 @@ package duke;
 import duke.commands.Command;
 
 import duke.tasks.Task;
-
-import java.util.ArrayList;
-
-
+import duke.tasks.TaskList;
 
 public class Handler {
 
-    protected ArrayList<Task> taskList;
+    protected TaskList<Task> taskList;
 
     /**
      * Initialises a Handler instance with an empty lists of task
      * Functions as a singleton class (without the appropriate code), instantiate only one
      */
     public Handler() {
-        this.taskList = new ArrayList<Task>();
+        this.taskList = new TaskList<Task>();
     }
 
     /**

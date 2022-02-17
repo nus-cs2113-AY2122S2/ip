@@ -2,12 +2,11 @@ package duke.commands;
 
 import duke.exceptions.InvalidArgumentException;
 import duke.tasks.Task;
-
-import java.util.ArrayList;
+import duke.tasks.TaskList;
 
 public abstract class Command {
     // The task list to act on. May or may not be used.
-    protected ArrayList<Task> taskList;
+    protected TaskList<Task> taskList;
 
     /**
      * Classes should override and implement this as needed, namely those that requires additional user arguments
@@ -22,7 +21,7 @@ public abstract class Command {
      * Setter for taskList
      * @param taskList to set
      */
-    public void setTaskList(ArrayList<Task> taskList) {
+    public void setTaskList(TaskList<Task> taskList) {
         this.taskList = taskList;
     }
 
