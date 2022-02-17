@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Duke {
@@ -16,29 +17,63 @@ public class Duke {
         Scanner in = new Scanner(System.in);
         String userInput;
         String lowerCaseUserInput;
-        boolean isLastInput;
-        boolean isListRequest;
-        boolean isMarkRequest;
-        boolean isUnmarkRequest;
+        boolean isLastInput = false;
+        boolean isListRequest = false;
+        boolean isMarkRequest = false;
+        boolean isUnmarkRequest = false;
         String taskType;
         do {
             userInput = in.nextLine().trim();
+            try {
+                checkEmptyInput(userInput);
+            } catch(DukeException e) {
+                System.out.println("____________________________________________________________\n");
+                System.out.println("☹ OOPS!!! You didn't enter anything. Please key in something!");
+                System.out.println("____________________________________________________________");
+                continue;
+            }
             lowerCaseUserInput = userInput.toLowerCase();
             String[] splitUserInput = lowerCaseUserInput.split(" ");
             isLastInput = detectLastInput(lowerCaseUserInput);
             isListRequest = detectListRequest(lowerCaseUserInput);
             isMarkRequest = detectMarkRequest(lowerCaseUserInput);
             isUnmarkRequest = detectUnmarkRequest(lowerCaseUserInput);
+
             if (isListRequest) {
                 list();
-            } else if (isMarkRequest) {
-                int taskNumber = Integer.parseInt(splitUserInput[1]);
-                tasks[taskNumber - 1].markTaskAsDone();
-                System.out.println(tasks[taskNumber - 1]);
-                System.out.println("____________________________________________________________");
-            } else if (isUnmarkRequest) {
-                int taskNumber = Integer.parseInt(splitUserInput[1]);
-                tasks[taskNumber - 1].markTaskAsUndone();
+            } else if (isMarkRequest || isUnmarkRequest) {
+                boolean isEmptyTaskList = checkTaskListSize();
+                if (isEmptyTaskList) {
+                    System.out.println("____________________________________________________________\n");
+                    System.out.println("☹ OOPS!!! There are currently no tasks to mark or unmark! Please add a task first.");
+                    System.out.println("____________________________________________________________");
+                    continue;
+                }
+                int taskNumber = -1;
+                try {
+                    taskNumber = Integer.parseInt(splitUserInput[1]); // need to make sure there's even a number
+                    checkTaskNumberValidity(taskNumber);
+                    if (isMarkRequest) {
+                        tasks[taskNumber - 1].markTaskAsDone();
+                    } else {
+                        tasks[taskNumber - 1].markTaskAsUndone();
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("____________________________________________________________\n");
+                    System.out.println("☹ OOPS!!! You haven't entered a task number. Please enter a task number!");
+                    System.out.println("____________________________________________________________");
+                    continue;
+                } catch (InputMismatchException e) {
+                    System.out.println("____________________________________________________________\n");
+                    System.out.println("☹ OOPS!!! You haven't entered a valid task number to mark or unmark. Please enter a task number!");
+                    System.out.println("____________________________________________________________");
+                    continue;
+                } catch (DukeException e) {
+                    System.out.println("____________________________________________________________\n");
+                    System.out.println("☹ OOPS!!! The task number that you have entered is out of range. Please enter a different task number!");
+                    System.out.println("____________________________________________________________");
+                    continue;
+                }
                 System.out.println(tasks[taskNumber - 1]);
                 System.out.println("____________________________________________________________");
             } else {
@@ -48,7 +83,7 @@ public class Duke {
                 } catch(DukeException e) {
                     System.out.println("____________________________________________________________\n");
                     System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-( Please enter something else!");
-                    System.out.println("____________________________________________________________\n");
+                    System.out.println("____________________________________________________________");
                     continue;
                 }
                 String taskDescription;
@@ -110,6 +145,26 @@ public class Duke {
             throw new DukeException();
         }
         return description;
+    }
+
+    private static boolean checkTaskListSize() {
+        if (taskCount == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private static void checkEmptyInput(String userInput) throws DukeException {
+        if (userInput.length() == 0) {
+            throw new DukeException();
+        }
+    }
+
+    private static void checkTaskNumberValidity(int taskNumber) throws DukeException {
+        if (taskNumber > taskCount || taskNumber <= 0) {
+            throw new DukeException();
+        }
     }
 
     private static void checkInputValidity(String taskType) throws DukeException {
