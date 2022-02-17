@@ -143,5 +143,20 @@ public class TaskManager {
         chatbox.chatboxPrinter();
     }
 
+    public void deleteTask(int n) {
+        String content = "";
+        if(n < 1 || n > Tasks.size()) {
+            //Beyonds boundaries
+            content = "Sorry, I could not find the task :/";
+        }else {
+            content = "Okay! I've deleted this task:\n" + Tasks.get(n - 1).listName;
+            Tasks.remove(n-1);
+            int s = Tasks.size();
+            content += "\nNow you have " + String.valueOf(s) + " tasks in your list";
+        }
+        chatbox.setContent(content);
+        chatbox.chatboxPrinter();
+    }
+
 
 }
