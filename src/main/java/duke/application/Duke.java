@@ -4,10 +4,11 @@ import duke.entity.Deadline;
 import duke.entity.Event;
 import duke.entity.Todo;
 import duke.entity.Task;
-import duke.exception.IllegalTodoException;
-import duke.exception.IllegalEventException;
-import duke.exception.IllegalDeadlineException;
 import duke.exception.DukeException;
+import duke.exception.IllegalDeadlineException;
+import duke.exception.IllegalDeleteException;
+import duke.exception.IllegalEventException;
+import duke.exception.IllegalTodoException;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -69,6 +70,21 @@ public class Duke {
                     } catch (IllegalTodoException e) {
                         System.out.println("OOPS!!! The description of todo cannot be empty");
                     }
+                } else if (userInput.startsWith("delete")) {
+                    try {
+                        int indexToDelete = getIndexToDelete(userInput);
+                        Task task = taskList.get(indexToDelete);
+                        taskList.remove(indexToDelete);
+                        System.out.println("Noted. Olivia has removed this task:");
+                        System.out.println(task);
+                        printTotalNumberOfTasks(taskList);
+                    } catch (IllegalDeleteException e) {
+                        System.out.println("To delete a task, please enter in the following format: delete <Task Number>");
+                    } catch (NumberFormatException e) {
+                        System.out.println("You must enter a task number to delete it");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("The task number you entered does not exist");
+                    }
                 }
                 userInput = sc.nextLine();
                 checkUserInputValidity(userInput);
@@ -79,6 +95,15 @@ public class Duke {
         printGoodbyeMessage();
     }
 
+    private static int getIndexToDelete(String userInput) throws IllegalDeleteException {
+        String[] tokenArray = stringToToken(userInput," ");
+        if (tokenArray.length != 2) {
+            throw new IllegalDeleteException();
+        }
+        return Integer.parseInt(tokenArray[1].trim()) - 1;
+    }
+
+
     private static void printIllegalCommandErrorMessage() {
         System.out.println("OOPS you have confused Olivia, please enter a valid command");
         System.out.println("Please make sure your command starts with todo, event, deadline, mark,"
@@ -87,7 +112,7 @@ public class Duke {
 
     private static void checkUserInputValidity(String userInput) throws DukeException {
         //checking validity of commands which uses "start with"
-        List<String> validCommandsForStartsWith = Arrays.asList("todo", "event","deadline","mark","unmark");
+        List<String> validCommandsForStartsWith = Arrays.asList("todo", "event","deadline","mark","unmark","delete");
         boolean isStartWithCommandValid = validCommandsForStartsWith.stream().anyMatch(userInput::startsWith);
         //checking validity of commands which uses "equals"
         List<String> validCommandsForEquals = Arrays.asList("list","bye");
@@ -168,9 +193,11 @@ public class Duke {
     }
 
     private static void displayAllTasks(ArrayList<Task> taskList) {
+        int i = 1;
         for (Task task : taskList) {
-            System.out.print(task.getTaskId() + ".");
+            System.out.print(i + ".");
             System.out.println(task);
+            ++i;
         }
         System.out.println("-----------------------------");
     }
