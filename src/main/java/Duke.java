@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Duke {
     public static void userInterface() throws DukeException {
         ArrayList<Task> userLists = new ArrayList<>();
-        //Task[] userLists = new Task[]{};
+        loadSaveFile(userLists);
         Scanner input = new Scanner(System.in);
         String userInput = input.nextLine();
 
@@ -87,6 +89,7 @@ public class Duke {
             }
             userInput = input.nextLine();
         }
+        saveList(userLists);
     }
 
     /**
@@ -104,7 +107,6 @@ public class Duke {
                                 " Now you have %d tasks in the list\n",
                         task.toString(), userLists.size()));
         System.out.println(userInput);
-        saveList(userLists);
     }
 
     /**
@@ -123,7 +125,6 @@ public class Duke {
                                     " Now you have %d tasks in the list\n",
                             removedTask, userLists.size()));
             System.out.println(userInput);
-            saveList(userLists);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeExceptionMarkBounds();
         }
@@ -138,10 +139,10 @@ public class Duke {
         File file = new File(pathName);
         try {
             if (file.createNewFile()) {
-                //file has already been created
+                //new file created
                 writeToFile(pathName, userLists);
             } else {
-                //new file created
+                //file has already been created
                 writeToFile(pathName, userLists);
             }
         } catch (IOException e) {
@@ -149,19 +150,90 @@ public class Duke {
             boolean isDirCreated = directory.mkdir();
             if (isDirCreated) {
                 saveList(userLists);
-            } else {
-                e.printStackTrace();
             }
         }
     }
 
     /**
      *
+     * @param pathName
+     * @param list
+     * @throws IOException
      */
     public static void writeToFile(String pathName, ArrayList<Task> list) throws IOException {
         FileWriter fileWriter = new FileWriter(pathName);
         fileWriter.write(listTask(list));
         fileWriter.close();
+    }
+
+    /**
+     *
+     */
+    private static void loadSaveFile(ArrayList<Task> userLists) {
+        String pathName = "./data/duke.txt";
+        File file = new File(pathName);
+        try {
+            if (file.exists()) {
+                //save file exists, load in save file
+                Scanner fileContent = new Scanner(file);
+                while (fileContent.hasNext()) {
+                    String listContent = fileContent.nextLine();
+                    String regexTask = "(?<task>\\[[TDE]])";
+                    Matcher matcher =  regexMatching(regexTask, listContent);
+                    if (!matcher.find()) {
+                        return;
+                    }
+                    String task = matcher.group("task");
+                    switch (task) {
+                    case "[T]":
+                        String regexTodo = "(?<task>\\[[TDE]])(?<mark>\\[[\\s|X]])(?<description>\\D*)";
+                        Matcher matcherTodo =  regexMatching(regexTodo, listContent);
+                        matcherTodo.find();
+                        String description = matcherTodo.group("description").trim();
+                        Todo newTodo = new Todo(description);
+                        if (matcherTodo.group("mark").equals("[X]")) {
+                            newTodo.setMark();
+                        }
+                        userLists.add(newTodo);
+                        break;
+                    case "[D]":
+                        String regexDeadline = "(?<task>\\[[TDE]])(?<mark>\\[[\\s|X]])(?<description>\\D*)(?<time>\\(at\\S*)";
+                        Matcher matcherDeadline =  regexMatching(regexDeadline, listContent);
+                        matcherDeadline.find();
+                        description = matcherDeadline.group("description").trim();
+                        String time = matcherDeadline.group("time");
+                        Deadline newDeadline = new Deadline(description, time);
+                        if (matcherDeadline.group("mark").equals("[X]")) {
+                            newDeadline.setMark();
+                        }
+                        userLists.add(newDeadline);
+                        break;
+                    case "[E]":
+                        String regexEvent = "(?<task>\\[[TDE]])(?<mark>\\[[\\s|X]])(?<description>\\D*)(?<time>\\(at\\S*)";
+                        Matcher matcherEvent =  regexMatching(regexEvent, listContent);
+                        matcherEvent.find();
+                        description = matcherEvent.group("description").trim();
+                        time = matcherEvent.group("time");
+                        Event newEvent = new Event(description, time);
+                        if (matcherEvent.group("mark").equals("[X]")) {
+                            newEvent.setMark();
+                        }
+                        userLists.add(newEvent);
+                        break;
+                    }
+                }
+            } else {
+                //save file does not exist, do nothing
+                return;
+            }
+        } catch (IOException e) {
+            //do nothing
+        }
+    }
+
+    public static Matcher regexMatching(String regex, String input) {
+        Pattern pattern = Pattern.compile(regex);
+        return pattern.matcher(input);
     }
 
     /**
