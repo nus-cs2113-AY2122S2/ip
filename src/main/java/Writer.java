@@ -11,18 +11,18 @@ public class Writer {
             dir.mkdir();
             File file = new File(PATH + "/" + FILE);
             file.createNewFile();
-        } catch (Exception e) { //IO exception
-            System.out.println(e.toString());
+        } catch (Exception e) { //Future task: exception
+            System.out.println(e);
         }
     }
 
-    public void write(String str) {
+    public void writeFile(String str) {
         try {
             FileWriter fileWriter = new FileWriter(PATH + "/" + FILE, false);
             fileWriter.write(str);
             fileWriter.close();
-        } catch (Exception e) {
-            System.out.println(e.toString());
+        } catch (Exception e) { //Future task: exception
+            System.out.println(e);
         }
     }
 }

@@ -41,14 +41,14 @@ public class Duke {
         Reader reader = new Reader();
         taskManager = new TaskManager();
         if (reader.isFileExists()) {
-            taskManager = reader.read(taskManager);
+            taskManager = reader.readFile(taskManager);
         }
         parser = new Parser();
     }
 
     private static void terminateDuke() {
         Writer writer = new Writer();
-        writer.write(taskManager.getList());
+        writer.writeFile(taskManager.getList());
     }
 
     private static void showOutput(String string) {

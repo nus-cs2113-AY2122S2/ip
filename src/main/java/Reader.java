@@ -17,7 +17,7 @@ public class Reader {
         return isFileExists;
     }
 
-    public TaskManager read(TaskManager taskManager) {
+    public TaskManager readFile(TaskManager taskManager) {
         try {
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -25,8 +25,8 @@ public class Reader {
             while ((line = bufferedReader.readLine()) != null) {
                 taskManager.addTask(getTaskFromLine(line));
             }
-        } catch (Exception e) {
-            System.out.println(e.toString());
+        } catch (Exception e) { //Future task: exception
+            System.out.println(e);
         }
         return taskManager;
     }
@@ -34,17 +34,17 @@ public class Reader {
     public Task getTaskFromLine(String line) {
         Task task;
         String[] splitline = splitStringBySlash(line);
-        switch (getType(splitline)) {
+        switch (getTaskType(splitline)) {
         case "E":
-            task = new Event(getDescription(splitline), getDate(splitline));
+            task = new Event(getTaskDescription(splitline), getTaskDate(splitline));
             break;
         case "D":
-            task = new Deadline(getDescription(splitline), getDate(splitline));
+            task = new Deadline(getTaskDescription(splitline), getTaskDate(splitline));
             break;
         default:
-            task = new Todo(getDescription(splitline));
+            task = new Todo(getTaskDescription(splitline));
         }
-        if (isTaskDone(getDone(splitline))) {
+        if (isTaskDone(getTaskDone(splitline))) {
             task.setDone(true);
         }
         return task;
@@ -59,19 +59,19 @@ public class Reader {
         return splitLine;
     }
 
-    private String getType(String[] splitLine) {
+    private String getTaskType(String[] splitLine) {
         return splitLine[0].trim();
     }
 
-    private String getDescription(String[] splitLine) {
+    private String getTaskDescription(String[] splitLine) {
         return splitLine[2].trim();
     }
 
-    private String getDate(String[] splitLine) {
+    private String getTaskDate(String[] splitLine) {
         return splitLine[3].trim();
     }
 
-    private int getDone(String[] splitLine) {
+    private int getTaskDone(String[] splitLine) {
         return Integer.parseInt(splitLine[1].trim());
     }
 }

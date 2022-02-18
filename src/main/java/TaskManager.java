@@ -1,7 +1,7 @@
 public class TaskManager {
     private static TaskList taskList;
 
-    TaskManager() {
+    public TaskManager() {
         taskList = new TaskList();
     }
 
