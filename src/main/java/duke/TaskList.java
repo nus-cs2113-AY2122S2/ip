@@ -9,7 +9,7 @@ import duke.task.ToDo;
 
 import java.util.ArrayList;
 
-public class TaskManager {
+public class TaskList {
 
     private static final String MARKED_THIS_TASK_AS_DONE = "Nice! I've marked this task as done:";
     private static final String UNMARKED_THIS_TASK_AS_UNDONE = "Nice! I've unmarked this task as undone:";

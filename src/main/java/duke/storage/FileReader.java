@@ -1,6 +1,6 @@
 package duke.storage;
 
-import duke.RequestProcessor;
+import duke.parser.FileParser;
 import duke.exception.AdditionalException;
 
 import java.io.File;
@@ -30,7 +30,7 @@ public class FileReader extends Storage {
 
     private static void readAndFilterRequest(String nextLine, int taskNumber) {
         try {
-            RequestProcessor.filterRequestsFromFile(nextLine, taskNumber);
+            FileParser.filterRequestsFromFile(nextLine, taskNumber);
         } catch(AdditionalException error) {
             System.out.println("Error transferring from file to tasks");
         }

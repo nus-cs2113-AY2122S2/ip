@@ -1,6 +1,7 @@
 package duke;
 
 import duke.exception.AdditionalException;
+import duke.parser.RequestParser;
 
 import java.util.Scanner;
 
@@ -46,7 +47,7 @@ public class Ui {
     private static boolean isCompleted(String request) {
         boolean hasExited = false;
         try {
-            hasExited = RequestProcessor.filterNewRequest(request);
+            hasExited = RequestParser.filterNewRequest(request);
         } catch(AdditionalException error) {
             System.out.println(error.getMessage());
             System.out.println(LINE);
