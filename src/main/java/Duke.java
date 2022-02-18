@@ -1,10 +1,11 @@
-import java.util.ArrayList;
 import java.io.IOException;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.io.File;
+import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -47,12 +48,13 @@ public class Duke {
                                                    + "> bye\n";
     public static final String FILE_PATH = "data/duke.txt";
     public static final String FOLDER_NAME = "data/";
+    public static final String READABLE_FILE_PATH = "data/list.txt";
 
-    public static void printList(ArrayList<Task> list, int listCounter) {
-        if (listCounter == 0) {
+    public static void printList(ArrayList<Task> list) {
+        if (list.size() == 0) {
             System.out.println("There are no tasks yet!\n");
         } else {
-            for (int i = 0; i < listCounter; i++) {
+            for (int i = 0; i < list.size(); i++) {
                 int listIndex = i + 1;
                 System.out.println(listIndex + "." + list.get(i));
             }
@@ -66,9 +68,8 @@ public class Duke {
     }
 
     private static void markTask(ArrayList<Task> list, String userInput) {
-        int taskIndex;
         try {
-            taskIndex = getTaskIndex(userInput);
+            int taskIndex = getTaskIndex(userInput);
             list.get(taskIndex).markAsDone();
         } catch (IndexOutOfBoundsException e) {
             System.out.println(WRONG_FORMAT_MESSAGE);
@@ -76,33 +77,33 @@ public class Duke {
     }
 
     private static void unmarkTask(ArrayList<Task> list, String userInput) {
-        int taskIndex;
         try {
-            taskIndex = getTaskIndex(userInput);
+            int taskIndex = getTaskIndex(userInput);
             list.get(taskIndex).markAsUndone();
         } catch (IndexOutOfBoundsException e) {
             System.out.println(WRONG_FORMAT_MESSAGE);
         }
     }
 
-    private static void printListCounter(int listCounter) {
-        if (listCounter == 0) {
+    private static void printListSize(ArrayList<Task> list) {
+        if (list.size() == 0) {
             System.out.println("Now you have no tasks in the list\n");
-        } else if (listCounter == 1) {
+        } else if (list.size() == 1) {
             System.out.println("Now you have 1 task in the list\n");
         } else {
-            System.out.println("Now you have " + listCounter + " tasks in the list.\n");
+            System.out.println("Now you have " + list.size() + " tasks in the list.\n");
         }
     }
 
-    public static void deleteTask(ArrayList<Task> list, String userInput, int listCounter) {
-        int taskIndex = getTaskIndex(userInput);
-        Task deleteTarget = list.get(taskIndex);
-        list.remove(taskIndex);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(deleteTarget);
-        listCounter--;
-        printListCounter(listCounter);
+    public static void deleteTask(ArrayList<Task> list, String userInput) {
+        try {
+            int taskIndex = getTaskIndex(userInput);
+            System.out.println("Got it. Removing this task:" + System.lineSeparator() + list.get(taskIndex));
+            list.remove(taskIndex);
+            printListSize(list);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(WRONG_FORMAT_MESSAGE);
+        }
     }
 
     public static String[] parseAdditionalParameters (String parsedUserInput, String indicator) {
@@ -112,14 +113,13 @@ public class Duke {
         return additionalParameters;
     }
 
-    private static void printAddToList(ArrayList<Task> list, int listCounter) {
-        System.out.println("Got it. I've added this task:" + System.lineSeparator() + list.get(listCounter));
-        listCounter++;
-        printListCounter(listCounter);
+    private static void printAddToList(ArrayList<Task> list) {
+        System.out.println("Got it. I've added this task:" + System.lineSeparator() + list.get(list.size() - 1));
+        printListSize(list);
     }
 
     //Check what kind of task the user intends to add and process accordingly
-    public static void parseInput(ArrayList<Task> list, int listCounter, String userInput) throws DukeException {
+    public static void parseInput(ArrayList<Task> list, String userInput) throws DukeException {
         String[] parsedUserInputs = userInput.split(" ", 2);
         parsedUserInputs[0] = parsedUserInputs[0].toLowerCase();
         switch (parsedUserInputs[0]) {
@@ -147,42 +147,50 @@ public class Duke {
         default:
             throw new DukeException();
         }
-        printAddToList(list, listCounter);
+        printAddToList(list);
     }
 
-    private static void writeToFile(ArrayList<Task> list) {
+    private static void saveListState(ArrayList<Task> list) throws IOException {
+        FileOutputStream fileOut = new FileOutputStream(FILE_PATH);
+        ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+        objectOut.writeObject(list);
+        objectOut.close();
+    }
+
+    public static void saveReadableList(ArrayList<Task> list) throws IOException {
+        FileWriter fw = new FileWriter(READABLE_FILE_PATH);
+        for (int i = 0; i < list.size(); i++) {
+            int listIndex = i + 1;
+            fw.write(listIndex + "." + list.get(i) + System.lineSeparator());
+        }
+        fw.close();
+    }
+
+    private static void writeToFiles(ArrayList<Task> list) {
         File dir = new File(FOLDER_NAME);
         dir.mkdirs();
         try {
-            FileOutputStream fileOut = new FileOutputStream(FILE_PATH);
-            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-            objectOut.writeObject(list);
-            objectOut.close();
+            saveListState(list);
+            saveReadableList(list);
         } catch (IOException e) {
             System.out.println("IO Error");
         }
         System.out.println("Task File Updated");
     }
 
-    private static void processInput(ArrayList<Task> list, String userInput, Scanner in, int listCounter) {
+    private static void processInput(ArrayList<Task> list, String userInput, Scanner in) {
         while(!userInput.equalsIgnoreCase(EXIT_MESSAGE)){
             if (userInput.startsWith(PRINT_MESSAGE)) {
-                printList(list, listCounter);
+                printList(list);
             } else if (userInput.startsWith(MARK_MESSAGE)) {
                 markTask(list, userInput);
             } else if (userInput.startsWith(UNMARK_MESSAGE)) {
                 unmarkTask(list, userInput);
             } else if (userInput.startsWith(DELETE_MESSAGE)) {
-                try {
-                    deleteTask(list, userInput, listCounter);
-                    listCounter--;
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println(WRONG_FORMAT_MESSAGE);
-                }
+                deleteTask(list, userInput);
             } else {
                 try {
-                    parseInput(list, listCounter, userInput);
-                    listCounter++;
+                    parseInput(list, userInput);
                 } catch (DukeException e) {
                     System.out.println(WRONG_INPUT_MESSAGE);
                 } catch (IndexOutOfBoundsException e) {
@@ -191,14 +199,13 @@ public class Duke {
             }
             userInput = in.nextLine();
         }
-        writeToFile(list);
+        writeToFiles(list);
         System.out.println("Bye. Hope to see you again soon!");
     }
 
     private static void acceptInput() {
         Object obj;
         ArrayList<Task> list = new ArrayList<>();
-        int listCounter = 0;
         try {
             FileInputStream fileIn = new FileInputStream(FILE_PATH);
             ObjectInputStream objectIn = new ObjectInputStream(fileIn);
@@ -206,13 +213,12 @@ public class Duke {
             objectIn.close();
             System.out.println("Task File Uploaded\n");
             list = (ArrayList<Task>) obj;
-            listCounter = list.size();
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("No input file located\n");
         }
         Scanner in = new Scanner(System.in);
         String userInput = in.nextLine();
-        processInput(list, userInput, in, listCounter);
+        processInput(list, userInput, in);
     }
 
     public static void main(String[] args) {
