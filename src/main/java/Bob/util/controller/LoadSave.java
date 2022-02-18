@@ -159,11 +159,11 @@ public class LoadSave {
             break;
         case "D":
             tokenDetails = getTokenDetails(type, details);
-            task = new Deadlines(tokenDetails[0], status, tokenDetails[1]);
+            task = new Deadlines(tokenDetails[0], status, Parser.parseDate(tokenDetails[1]));
             break;
         case "E":
             tokenDetails = getTokenDetails(type, details);
-            task = new Events(tokenDetails[0], status, tokenDetails[1]);
+            task = new Events(tokenDetails[0], status, Parser.parseDate(tokenDetails[1]));
             break;
         default:
             throw new BobInvalidLoadValue();
@@ -206,7 +206,7 @@ public class LoadSave {
             File file = new File(FILEPATH);
             Scanner in = new Scanner(file);
             while (in.hasNext()) {
-                if (list.size() < Command.MAX_TASK_ID) {
+                if (list.size() >= Command.MAX_TASK_ID) {
                     printLoadError(MESSAGE_SAVE_DATA_EXCEEDED);
                     break;
                 }

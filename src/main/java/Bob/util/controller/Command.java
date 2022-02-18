@@ -22,7 +22,6 @@ public class Command {
     // Magic numbers
     public static final int MIN_TASK_ID = 1;
     public static final int MAX_TASK_ID = 100;
-    public static final int TOKEN_LENGTH = 2;
 
     /**
      * Ensures that the given task id is currently in use.
@@ -174,7 +173,7 @@ public class Command {
 
         // check that the deadline is not empty
         if (tokenDetails[1] != null) {
-            Task task = new Deadlines(tokenDetails[0], tokenDetails[1]);
+            Task task = new Deadlines(tokenDetails[0], Parser.parseDate(tokenDetails[1]));
             addTaskToList(list, task);
             UI.printBorder();
         } else {
@@ -193,7 +192,7 @@ public class Command {
 
         // check that the event period is not empty
         if (tokenDetails[1] != null) {
-            Task task = new Events(tokenDetails[0], tokenDetails[1]);
+            Task task = new Events(tokenDetails[0], Parser.parseDate(tokenDetails[1]));
             addTaskToList(list, task);
             UI.printBorder();
         } else {

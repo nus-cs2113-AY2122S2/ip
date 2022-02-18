@@ -1,11 +1,16 @@
 package bob.util.task;
 
+import bob.util.controller.UI;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a task with a specific deadline.
  */
 public class Deadlines extends Task {
     /** Deadline of a task */
-    protected String by;
+    protected LocalDate by;
 
     /**
      * Class constructor
@@ -13,7 +18,7 @@ public class Deadlines extends Task {
      * @param description the Task description.
      * @param by          the Task deadline.
      */
-    public Deadlines(String description, String by) {
+    public Deadlines(String description, LocalDate by) {
         super(description);
         this.by = by;
     }
@@ -25,7 +30,7 @@ public class Deadlines extends Task {
      * @param isDone      the completion status.
      * @param by          the Task deadline.
      */
-    public Deadlines(String description, boolean isDone, String by) {
+    public Deadlines(String description, boolean isDone, LocalDate by) {
         super(description, isDone);
         this.by = by;
     }
@@ -36,16 +41,7 @@ public class Deadlines extends Task {
      * @return a deadline text.
      */
     public String getBy() {
-        return by;
-    }
-
-    /**
-     * Updates the task's deadline.
-     *
-     * @param by the Task deadline.
-     */
-    public void setBy(String by) {
-        this.by = by;
+        return by.format(DateTimeFormatter.ofPattern(UI.DATE_FORMAT));
     }
 
     /**
