@@ -91,9 +91,7 @@ public class Handler {
             ArrayList<Task> bufferTaskList = new ArrayList<Task>();
             while (dataFileReader.hasNextLine()) {
                 String data = dataFileReader.nextLine();
-                System.out.println("Data: "+data);
                 String[] splitData = data.split(" \\| ");
-                System.out.println(Arrays.toString(splitData));
                 String taskType = splitData[0];
                 Task taskToAdd;
                 boolean isDone = splitData[1].equals("1") ? true : false;
