@@ -167,7 +167,7 @@ public final class SailfishUI {
             System.out.println("Search parameter cannot be blank!");
             return;
         }
-        
+
         List<Task> tasks = this.manager.findTasks(commandParser.getDesc());
         if (tasks.size() == 0) {
             System.out.println("No tasks matched your keyword!");
