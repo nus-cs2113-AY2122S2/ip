@@ -29,6 +29,8 @@ public class UI {
     public static final String MESSAGE_DEADLINE_USAGE = "Usage: deadline <task> /by <deadline>";
     public static final String MESSAGE_EVENT_USAGE = "Usage: event <task> /at <date,time>";
     public static final String MESSAGE_TASK_LIMIT_REACHED = "No more tasks can be created :(";
+    public static final String MESSAGE_FOUND_MATCHING_TASK = "The following tasks matches your search:";
+    public static final String MESSAGE_FOUND_NO_MATCH = "No tasks matches your description OTZ";
 
     /**
      * Prints the message prepended by a tab.
