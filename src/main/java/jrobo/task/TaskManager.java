@@ -1,9 +1,15 @@
 package jrobo.task;
 
 
+import jrobo.command.InputParser;
 import jrobo.exception.InvalidTypeException;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class TaskManager {
     ArrayList<Task> tasks;
@@ -78,7 +84,8 @@ public class TaskManager {
         }
     }
 
-    public void addTask(String description, String detail, String type) throws InvalidTypeException {
+    public void addTask(String description, String detail, String type, boolean loadFlag)
+            throws InvalidTypeException {
         Task task;
         switch (type) {
         case "todo":
@@ -94,7 +101,10 @@ public class TaskManager {
             throw new InvalidTypeException("Invalid command!");
         }
         tasks.add(task);
-        printWithSeparator("Got it. I've added this task:", "\t" + task, "Now, you have " + tasks.size() + " in the list.");
+        if (!loadFlag) {
+            printWithSeparator("Got it. I've added this task:", "\t" + task,
+                    "Now, you have " + tasks.size() + " in the list.");
+        }
     }
 
     public void deleteTask(int index) {
@@ -113,5 +123,47 @@ public class TaskManager {
 
     public void giveError() {
         printWithSeparator("Invalid command!");
+    }
+
+    public void save() {
+        try {
+            FileWriter fileWriter = new FileWriter("./ip/data/tasks.txt", true);
+            clear();
+            for (Task task : tasks) {
+                fileWriter.write(task.toString() + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            printWithSeparator(e.getMessage());
+        }
+    }
+
+    public void load() {
+        try {
+            File file = new File("./ip/data/tasks.txt");
+
+            Scanner scanner = new Scanner(file);
+
+            while (scanner.hasNext()) {
+                String taskStr = scanner.nextLine();
+                InputParser parser = new InputParser(taskStr);
+                String[] taskDetails = parser.loadParse(taskStr);
+                addTask(taskDetails[0], taskDetails[1], taskDetails[2], true);
+            }
+        } catch (IOException | InvalidTypeException e) {
+            printWithSeparator(e.getMessage());
+        }
+    }
+
+    public void clear() {
+        try {
+            FileWriter fwOb = new FileWriter("./ip/data/tasks.txt", false);
+            PrintWriter pwOb = new PrintWriter(fwOb, false);
+            pwOb.flush();
+            pwOb.close();
+            fwOb.close();
+        } catch (IOException e) {
+            printWithSeparator(e.getMessage());
+        }
     }
 }

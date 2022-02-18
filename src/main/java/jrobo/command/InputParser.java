@@ -73,6 +73,27 @@ public class InputParser {
         throw new InvalidFormatException("Invalid command format!");
     }
 
+    public String[] loadParse(String taskStr) {
+        int index = taskStr.lastIndexOf(']');
+        String prefix = taskStr.substring(0, index);
+        String body;
+        String suffix;
+        boolean isDeadline = prefix.contains("D");
+        boolean isEvent = prefix.contains("E");
+        if (isEvent) {
+            suffix = taskStr.substring(taskStr.indexOf("at:") + 3, taskStr.length() - 1);
+            body = taskStr.substring(index + 1, taskStr.indexOf('(') - 1);
+            return new String[] {body, suffix, "event"};
+        } else if (isDeadline) {
+            suffix = taskStr.substring(taskStr.indexOf("by:") + 3, taskStr.length() - 1);
+            body = taskStr.substring(index + 1, taskStr.indexOf('(') - 1);
+            return new String[] {body, suffix, "deadline"};
+        } else {
+            body = taskStr.substring(index + 1);
+            return new String[] {body, "", "todo"};
+        }
+    }
+
     private int findSuffixIndex() {
         int found = -1;
         for (int i = 0; i < args.length; i++) {

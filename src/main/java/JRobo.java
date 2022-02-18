@@ -1,13 +1,18 @@
 import jrobo.command.InputParser;
+import jrobo.task.Task;
 import jrobo.task.TaskManager;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class JRobo {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         TaskManager manager = new TaskManager();
+        manager.load();
         run(scanner, manager);
+        manager.save();
         scanner.close();
     }
 
@@ -48,7 +53,7 @@ public class JRobo {
                     break label;
                 default:
 
-                    manager.addTask(parser.getBody(), parser.getSuffix(), parser.getType());
+                    manager.addTask(parser.getBody(), parser.getSuffix(), parser.getType(), false);
                     break;
                 }
             } catch (jrobo.exception.InvalidFormatException | jrobo.exception.InvalidTypeException | NumberFormatException e) {
