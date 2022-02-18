@@ -46,7 +46,8 @@ Users may delete any task by specifying the task's index:
 Users may find tasks based on keywords.
 - `>>> find search terms`
 
-Note that multiple words are allowed!
+Note that multiple words are allowed and that the case does not matter. 
+The program will search for tasks per word.
 
 Examples:
 - `>>> find book`
