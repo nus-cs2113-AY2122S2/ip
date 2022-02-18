@@ -10,8 +10,8 @@ import java.time.format.DateTimeParseException;
 public class Parser {
 
     public static final String UNKNOWN_DATE_FORMAT = "Date format unknown, setting default date 1 month ahead.";
-    public static final String[] POSSIBLE_FORMAT_ONE = {"yyyy-MM-dd", "yyyy/MM/dd", "dd/MM/yyyy", "dd-MM-yyyy",
-        "MM/dd/yyyy", "MM-dd-yyyy"};
+    public static final String[] POSSIBLE_FORMAT_ONE = {"yyyy-MM-dd", "yyyy/MM/dd", "E, MMM dd yyyy",
+            "dd/MM/yyyy", "dd-MM-yyyy", "MM/dd/yyyy", "MM-dd-yyyy"};
     public static final int COMMAND_TOKEN_LENGTH = 2;
 
     /**
