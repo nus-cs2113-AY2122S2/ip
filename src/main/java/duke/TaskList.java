@@ -15,33 +15,50 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * A method to delete task from taskList
+     * @param taskOrder
+     */
     public void delete(int taskOrder) {
         tasks.remove(taskOrder - 1);
     }
 
+    /**
+     * A method to add task to taskList
+     * @param task
+     */
     public void add(Task task) {
         tasks.add(task);
     }
 
-    public TaskList link(TaskList newList) {
-        int n = newList.size();
-        for(int i = 1; i <= n; i++) {
-            this.add(newList.getTask(i));
-        }
-        return this;
-    }
-
+    /**
+     * A method to return the size of the taskList
+     * @return The size of the taskList
+     */
     public int amountOfTasks() {
         return tasks.size();
     }
 
+    /**
+     * A method to get task from the taskList
+     * @param n the index of the task to be gotten
+     * @return The gotten task
+     */
     public Task getTask(int n) {
         return tasks.get(n - 1);
     }
-
+    /**
+     * A method to return the size of the taskList
+     * @return The size of the taskList
+     */
     public int size() {
         return tasks.size();
     }
+
+    /**
+     * A method to convert taskList to String format
+     * @return
+     */
     @Override
     public String toString() {
         int n = tasks.size();

@@ -13,6 +13,11 @@ public class Duke {
     private static TaskList tasklist = new TaskList();
     private static Command command;
 
+    /**
+     * The main method to run Duke
+     * @param args
+     * @throws DukeException
+     */
     public static void main(String[] args) throws DukeException {
         System.out.println(ui.printLogo());
         System.out.println(ui.greet());

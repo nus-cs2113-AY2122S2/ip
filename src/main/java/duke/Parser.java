@@ -14,6 +14,10 @@ public class Parser {
         ;
     }
 
+    /**
+     * A method to get fullCommand from the user
+     * @return The fullCommand get from the user
+     */
     public static String getCommand() {
         String command;
         Scanner in = new Scanner(System.in);
@@ -21,6 +25,12 @@ public class Parser {
         return command;
     }
 
+    /**
+     * A method to parse fullCommand
+     * @param fullCommand
+     * @return The command typed by the user
+     * @throws DukeException
+     */
     public Command parse(String fullCommand) throws DukeException {
         if(fullCommand.trim().equals("list")) {
             return new ListCommand();
@@ -86,9 +96,14 @@ public class Parser {
         }
     }
 
-    public static String echo(String command) {
+    /**
+     * A method will repeat user's word
+     * @param fullCommand The fullCommand get from the user
+     * @return A string as same as teh fullCommand
+     */
+    public static String echo(String fullCommand) {
         String line = "____________________________________________________________";
-        return line + "\n" + command + "\n" + line + "\n";
+        return line + "\n" + fullCommand + "\n" + line + "\n";
     }
 
 }

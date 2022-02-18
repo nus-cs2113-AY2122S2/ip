@@ -19,6 +19,11 @@ public class Storage {
     private static final Path filePath = Paths.get(root, "data", "duke.txt");
     private static final Path dirPath = Paths.get(root, "data");
 
+    /**
+     * The constructor of storage
+     * @throws DukeException
+     */
+
     public Storage() throws DukeException {
         try {
             File fileDirectory = new File(dirPath.toString());
@@ -33,21 +38,11 @@ public class Storage {
         }
     }
 
-    private File createFile(String filePath) throws DukeException {
-        try{
-            File file = new File(filePath);
-            if(!file.getParentFile().exists()) {
-                boolean hasDir = file.getParentFile().mkdir();
-            }
-            if(!file.exists()) {
-                file.createNewFile();
-            }
-            return file;
-        } catch (IOException e) {
-            throw new DukeException("Cannot edit or create this file.");
-        }
-    }
-
+    /**
+     * A method that will save the taskList into the duke.txt
+     * @param tasks duke's taskList
+     * @throws DukeException
+     */
     public void saveTaskList(TaskList tasks) throws DukeException {
         try {
             FileWriter fw = new FileWriter(filePath.toString());
@@ -79,6 +74,11 @@ public class Storage {
         }
     }
 
+    /**
+     * A method that will load duke.txt and store the taskList into the current duke's taskList
+     * @return The taskList of the duke.txt
+     * @throws DukeException
+     */
     public TaskList loadTaskList() throws DukeException {
         try {
             File dataFile = new File(filePath.toString());

@@ -32,6 +32,11 @@ public class Ui {
         return "Hello! I'm Duke,\nWhat can I do for you?";
     }
 
+    /**
+     * A method to generate response of the ui
+     * @param messages A string returned by different command
+     * @return The response of the ui
+     */
     public String generateResponse(String messages) {
         return line + messages + line;
     }
