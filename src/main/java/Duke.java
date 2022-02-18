@@ -16,6 +16,12 @@ public class Duke {
         fw.close();
     }
 
+    private static void appendToFile(String filePath, String textToAppend) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
+        fw.write(textToAppend);
+        fw.close();
+    }
+
     public static void main(String[] args) {
 
         File f = new File(filePath);
@@ -94,14 +100,7 @@ public class Duke {
 
                     System.out.println("Here are the task(s) in your list:");
                     for (int j = 1; j <= task.number; j++) {
-                        System.out.print(j + ". ");
-                        System.out.println(instructionsList.get(j - 1));
-                    }
-
-                    try {
-                        writeToFile(filePath, "testing");
-                    } catch (IOException e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(j + ". " + instructionsList.get(j - 1));
                     }
 
                 } else if (isMark) {
@@ -135,6 +134,13 @@ public class Duke {
                     System.out.println("Got it. I've added this task: ");
                     System.out.println(updatedInstructionLine);
                     System.out.println("Now you have " + task.number + " task(s) in the list.");
+
+                    try {
+                        appendToFile(filePath, updatedInstructionLine + System.lineSeparator());
+                    } catch (IOException e) {
+                        System.out.println(e.getMessage());
+                    }
+
                 } else if (isDelete){
                     if (arrOfStr.length == 1) {
                         throw new DukeException("☹ OOPS!!! You have not entered your task!");
@@ -170,6 +176,12 @@ public class Duke {
                     System.out.println(deadline);
                     System.out.println("Now you have " + task.number + " task(s) in the list.");
 
+                    try {
+                        appendToFile(filePath, updatedInstructionLine + System.lineSeparator());
+                    } catch (IOException e) {
+                        System.out.println(e.getMessage());
+                    }
+
                 } else if (isEvent) {
 
                     if (arrOfStr.length == 1){
@@ -192,6 +204,12 @@ public class Duke {
                     event.getAt();
                     System.out.println(event);
                     System.out.println("Now you have " + task.number + " task(s) in the list.");
+
+                    try {
+                        appendToFile(filePath, updatedInstructionLine + System.lineSeparator());
+                    } catch (IOException e) {
+                        System.out.println(e.getMessage());
+                    }
 
                 } else {
                     System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means.");
