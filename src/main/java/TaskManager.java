@@ -57,4 +57,12 @@ public class TaskManager {
     public String listTask() {
         return taskList.toString();
     }
+
+    public String getList() {
+        String list = "";
+        for (int i = 0; i < taskList.getSize(); i++) {
+            list += taskList.getTask(i).toStringInFormat() + "\n";
+        }
+        return list;
+    }
 }

@@ -23,7 +23,7 @@ public class TaskList {
     public int getSize() {
         return tasks.size();
     }
-
+    
     @Override
     public String toString() {
         String taskListString = "Here are the tasks in your list:\n";

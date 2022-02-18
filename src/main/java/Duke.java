@@ -34,11 +34,17 @@ public class Duke {
         }
 
         showExitMessage();
+        terminateDuke();
     }
 
     private static void initDuke() {
         parser = new Parser();
         taskManager = new TaskManager();
+    }
+
+    private static void terminateDuke() {
+        Writer writer = new Writer();
+        writer.write(taskManager.getList());
     }
 
     private static void showOutput(String string) {
