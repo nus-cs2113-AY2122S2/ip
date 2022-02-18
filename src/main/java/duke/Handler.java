@@ -2,14 +2,17 @@ package duke;
 
 import duke.commands.Command;
 
+import duke.tasks.Deadline;
+import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
+import duke.tasks.Todo;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class Handler {
 
@@ -21,6 +24,7 @@ public class Handler {
      */
     public Handler() {
         this.taskList = new TaskList<Task>();
+        loadOnStartup();
     }
 
     /**
@@ -41,10 +45,7 @@ public class Handler {
     private boolean writeListToFile() {
         //Create the directory
         File directory = new File("./data");
-        if (!directory.mkdir()) {
-            return false;
-            //should throw exception here maybe??
-        }
+        directory.mkdir();
         File fileToWriteTo = new File("./data/duke.txt");
         try {
             fileToWriteTo.createNewFile();
@@ -79,5 +80,45 @@ public class Handler {
             return false;
         }
         return true;
+    }
+
+    // todo: cleanup
+    private void loadOnStartup() {
+        // load data into taskList
+        try {
+            File dataFile = new File("./data/duke.txt");
+            Scanner dataFileReader = new Scanner(dataFile);
+            ArrayList<Task> bufferTaskList = new ArrayList<Task>();
+            while (dataFileReader.hasNextLine()) {
+                String data = dataFileReader.nextLine();
+                System.out.println("Data: "+data);
+                String[] splitData = data.split(" \\| ");
+                System.out.println(Arrays.toString(splitData));
+                String taskType = splitData[0];
+                Task taskToAdd;
+                boolean isDone = splitData[1].equals("1") ? true : false;
+                switch (taskType) {
+                case "T":
+                    taskToAdd = new Todo(splitData[2]);
+                    taskToAdd.setIsDone(isDone);
+                    break;
+                case "E":
+                    taskToAdd = new Event(splitData[2], splitData[3]);
+                    taskToAdd.setIsDone(isDone);
+                    break;
+                case "D":
+                    taskToAdd = new Deadline(splitData[2], splitData[3]);
+                    taskToAdd.setIsDone(isDone);
+                    break;
+                default:
+                    taskToAdd = null;
+                    break;
+                }
+                bufferTaskList.add(taskToAdd);
+            }
+            taskList.addAll(bufferTaskList);
+        } catch (FileNotFoundException e) {
+            // no action needed
+        }
     }
 }

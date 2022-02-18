@@ -10,15 +10,20 @@ public class TaskList<E> extends ArrayList<E> {
         this.listHasChanged = false;
     }
 
+    public E get(int index, boolean mark) {
+        setListHasChanged(mark);
+        return super.get(index);
+    }
+
     @Override
     public boolean add(E element) {
-        this.listHasChanged = true;
+        setListHasChanged(true);
         return super.add(element);
     }
 
     @Override
     public boolean remove(Object o) {
-        this.listHasChanged = true;
+        setListHasChanged(true);
         return super.remove(o);
     }
 
