@@ -162,6 +162,12 @@ public final class SailfishUI {
      * @param commandParser Command object containing parsed information.
      */
     private void find(CommandParser commandParser) {
+        // Do not allow search with empty search string.
+        if (commandParser.getDesc().isEmpty()) {
+            System.out.println("Search parameter cannot be blank!");
+            return;
+        }
+        
         List<Task> tasks = this.manager.findTasks(commandParser.getDesc());
         if (tasks.size() == 0) {
             System.out.println("No tasks matched your keyword!");
