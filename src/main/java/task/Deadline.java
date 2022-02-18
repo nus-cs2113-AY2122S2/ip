@@ -21,4 +21,10 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + "(by: " + by + ")";
     }
 
+    public String getTypeIcon(){return "D";}
+
+    public String getTime(){
+        return by;
+    }
+
 }

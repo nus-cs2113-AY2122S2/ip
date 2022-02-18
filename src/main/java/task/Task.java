@@ -13,6 +13,10 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public void markAsDone(){
         this.isDone=true;
     }
@@ -24,5 +28,10 @@ public class Task {
     public String toString(){
         return "[" + getStatusIcon() + "] " + description;
     }
+
+    public String getTypeIcon(){return null;}
+
+    public String getTime(){return null;}
+
 
 }
