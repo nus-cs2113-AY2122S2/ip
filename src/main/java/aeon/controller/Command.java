@@ -14,6 +14,10 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.time.LocalDate;
 
+/**
+ * The core function of parsing and executing the user's commands into Aeon, and automatically
+ * saving/loading all tasks to a text file on disk
+ */
 public class Command {
 
     public static final String TASK_NOT_FOUND = "Task not found! Perhaps try listing out the available tasks first...";
@@ -49,6 +53,10 @@ public class Command {
     private static ArrayList<String> rawDescriptions = new ArrayList<>();
     public static final String TASK_DELETED = "Task deleted!";
 
+    /**
+     * Processes each command input by the user and executes the respective methods depending
+     * on the task specified
+     */
     public static void CommandProcessor() {
         ArrayList<Task> list = new ArrayList<>();
         readSavedTaskList(list);
@@ -61,6 +69,11 @@ public class Command {
         }
     }
 
+    /**
+     * Determines which method to execute based on the user's input, and executes it
+     * @param list List of tasks entered by the user
+     * @param words Command itself
+     */
     private static void executeCommand(ArrayList<Task> list, String[] words) {
         switch (words[COMMAND_WORD]) {
         case TASK_LIST:
@@ -94,6 +107,11 @@ public class Command {
         }
     }
 
+    /**
+     * Performs the deletion of a task based on its index
+     * @param list List of tasks entered by the user
+     * @param words Command itself
+     */
     private static void executeDelete(ArrayList<Task> list, String[] words) {
         try {
             deleteTask(list, words);
@@ -105,6 +123,11 @@ public class Command {
         }
     }
 
+    /**
+     * Inserts a new event into the list of tasks
+     * @param list List of tasks entered by the user
+     * @param words Command itself
+     */
     private static void executeEvent(ArrayList<Task> list, String[] words) {
         try {
             addEventTask(list, words);
@@ -114,6 +137,11 @@ public class Command {
         }
     }
 
+    /**
+     * Inserts a new deadline into the list of tasks
+     * @param list List of tasks entered by the user
+     * @param words Command itself
+     */
     private static void executeDeadline(ArrayList<Task> list, String[] words) {
         try {
             addDeadlineTask(list, words);
@@ -123,6 +151,11 @@ public class Command {
         }
     }
 
+    /**
+     * Inserts a new 'To-Do' task into the list of tasks
+     * @param list List of tasks entered by the user
+     * @param words Command itself
+     */
     private static void executeTodo(ArrayList<Task> list, String[] words) {
         try {
             addTodoTask(list, words);
@@ -132,6 +165,12 @@ public class Command {
         }
     }
 
+    /**
+     * Marks a task as Done based on its index.
+     * Users may only mark tasks that are currently existing in the list
+     * @param list List of tasks entered by the user
+     * @param words Command itself
+     */
     private static void executeMark(ArrayList<Task> list, String[] words) {
         try {
             markTask(list, words);
@@ -143,6 +182,12 @@ public class Command {
         }
     }
 
+    /**
+     * Marks a task as Not Done based on its index.
+     * Users may only unmark tasks that are currently existing in the list
+     * @param list List of tasks entered by the user
+     * @param words Command itself
+     */
     private static void executeUnmark(ArrayList<Task> list, String[] words) {
         try {
             unmarkTask(list, words);
@@ -154,6 +199,11 @@ public class Command {
         }
     }
 
+    /**
+     * Looks for all existing tasks that contain a specific keyword.
+     * @param list List of tasks entered by the user
+     * @param target The keyword to look for among the list of tasks
+     */
     private static void executeFind(ArrayList<Task> list, String target) {
         for (Task task : list) {
             if (task.getDescription().contains(target)) {
@@ -162,6 +212,11 @@ public class Command {
         }
     }
 
+    /**
+     * Loads an existing list of tasks from a previously saved text file
+     * and stores it in the list of tasks
+     * @param list List of tasks to store the tasks read from the text file
+     */
     private static void readSavedTaskList(ArrayList<Task> list) {
         File FILE = new File(FILE_PATH);
         File DIRECTORY = new File(DIR_PATH);
@@ -188,6 +243,12 @@ public class Command {
         }
     }
 
+    /**
+     * Opens the target file in order to read its contents
+     * @param FILE The file to be read
+     * @param fileScanner A pointer to the file
+     * @return The pointer to the file if said file exists
+     */
     private static Scanner openTaskFile(File FILE, Scanner fileScanner) {
         try {
             fileScanner = getScanner(FILE, fileScanner);
@@ -197,6 +258,10 @@ public class Command {
         return fileScanner;
     }
 
+    /**
+     * Checks if target file exists, and creates a new one if it does not exist yet
+     * @param FILE The target file
+     */
     private static void checkFileExists(File FILE) {
         if (!FILE.exists()) {
             try {
@@ -207,6 +272,10 @@ public class Command {
         }
     }
 
+    /**
+     * Checks if target directory exists, and creates a new one if it does not exist yet
+     * @param DIRECTORY The target directory
+     */
     private static void checkDirExists(File DIRECTORY) {
         if (!DIRECTORY.exists()) {
                 DIRECTORY.mkdir();
@@ -223,21 +292,44 @@ public class Command {
         return fileScanner;
     }
 
+    /**
+     * Inserts an event from the saved list of tasks
+     * @param list List of tasks to store the tasks read from the text file
+     * @param taskType
+     * @param isDone Boolean to represent if the task was previously marked as done
+     */
     private static void readFromFileEvent(ArrayList<Task> list, String[] taskType, String isDone) {
         addEventTask(list, taskType);
         fileMarkTask(list, isDone);
     }
 
+    /**
+     * Inserts a deadline from the saved list of tasks
+     * @param list List of tasks to store the tasks read from the text file
+     * @param taskType
+     * @param isDone Boolean to represent if the task was previously marked as done
+     */
     private static void readFromFileDeadline(ArrayList<Task> list, String[] taskType, String isDone) {
         addDeadlineTask(list, taskType);
         fileMarkTask(list, isDone);
     }
 
+    /**
+     * Inserts a ToDo task from the saved list of tasks
+     * @param list List of tasks to store the tasks read from the text file
+     * @param taskType
+     * @param isDone Boolean to represent if the task was previously marked as done
+     */
     private static void readFromFileTodo(ArrayList<Task> list, String[] taskType, String isDone) {
         addTodoTask(list, taskType);
         fileMarkTask(list, isDone);
     }
 
+    /**
+     * Checks if task from text file was marked as done before, and mark it if true
+     * @param list List of tasks to store the tasks read from the text file
+     * @param isDone Boolean to represent if the task was previously marked as done
+     */
     private static void fileMarkTask(ArrayList<Task> list, String isDone) {
         if (isDone.equals("1")) {
             Integer index = Task.getNoOfItems();
@@ -245,6 +337,13 @@ public class Command {
         }
     }
 
+    /**
+     * Adds a task to the list
+     * @param list List of tasks itself
+     * @param t The task object to be added
+     * @param taskType
+     * @param rawDesc The actual user input itself, to be saved into the text file
+     */
     public static void addToList(ArrayList<Task> list, Task t, String taskType, String rawDesc) {
         list.add(t);
         rawDescriptions.add(taskType + " " + rawDesc);
@@ -258,6 +357,12 @@ public class Command {
 
     }
 
+    /**
+     * Saves the current list of tasks into a text file on disk
+     * @param list The list of tasks to be saved
+     * @param rawDesc The actual user input itself, to be saved into the text file
+     * @throws IOException If writing to file fails
+     */
     private static void writeToFile(ArrayList<Task> list, ArrayList<String> rawDesc) throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
         Integer noOfItems = Task.getNoOfItems();
@@ -318,6 +423,15 @@ public class Command {
         addToList(list, t, "T", words[1]);
     }
 
+    /**
+     *
+     *Marks a task as Done based on its index.
+     *Users may only mark tasks that are currently existing in the list
+     * @param list
+     * @param words
+     * @throws IndexOutOfBoundsException If task is not found in the list
+     * @throws NumberFormatException If the index of the targeted task is not a valid integer
+     */
     private static void markTask(ArrayList<Task> list, String[] words) throws IndexOutOfBoundsException,
             NumberFormatException {
         int index;
@@ -332,6 +446,14 @@ public class Command {
         }
     }
 
+    /**
+     *Marks a task as Not Done based on its index.
+     *Users may only unmark tasks that are currently existing in the list
+     * @param list
+     * @param words
+     * @throws IndexOutOfBoundsException If task is not found in the list
+     * @throws NumberFormatException If the index of the targeted task is not a valid integer
+     */
     private static void unmarkTask(ArrayList<Task> list, String[] words)
             throws IndexOutOfBoundsException, NumberFormatException {
         int index = Integer.parseInt(words[1]);
@@ -345,6 +467,10 @@ public class Command {
         }
     }
 
+    /**
+     * Prints out all tasks that are currently saved in the list
+     * @param list The list of tasks to be printed out
+     */
     private static void printListOfTasks(ArrayList<Task> list) {
         Integer noOfItems = Task.getNoOfItems();
         if (noOfItems == 0) {
@@ -355,6 +481,14 @@ public class Command {
         }
     }
 
+    /**
+     * Deletes a task from the list of tasks.
+     * Task can only be deleted if it exists in the list.
+     * @param list
+     * @param words
+     * @throws IndexOutOfBoundsException
+     * @throws NumberFormatException
+     */
     private static void deleteTask(ArrayList<Task> list, String[] words)
             throws IndexOutOfBoundsException, NumberFormatException {
         int index = Integer.parseInt(words[1]);

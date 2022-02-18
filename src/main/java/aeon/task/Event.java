@@ -1,5 +1,8 @@
 package aeon.task;
 
+/**
+ * Represents an upcoming event, with a targeted future date using the delimiter '/at'
+ */
 public class Event extends Task {
 
     protected String eventDate;

@@ -2,6 +2,10 @@ package aeon;
 
 import static aeon.controller.Command.CommandProcessor;
 
+/**
+ * Represents Aeon itself, displaying a welcome message before making sense
+ * of user inputs that are typed in. Upon exit, displays goodbye message.
+ */
 public class Aeon {
 
     public static void main(String[] args) {

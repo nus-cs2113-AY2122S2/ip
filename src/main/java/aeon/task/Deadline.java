@@ -1,6 +1,9 @@
 package aeon.task;
 import aeon.task.Task;
 
+/**
+ * Represents a deadline task which needs to include a deadline itself delimited by the keyword '/by'
+ */
 public class Deadline extends Task {
 
     protected String by;

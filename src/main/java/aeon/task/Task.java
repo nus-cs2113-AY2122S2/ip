@@ -1,5 +1,9 @@
 package aeon.task;
 
+/**
+ * An abstract class of a task, as all tasks need to belong in one of the 3 subclasses of Deadline, Event or Todo
+ * This class also keeps track of the total number of tasks in the list already
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
