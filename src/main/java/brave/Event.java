@@ -16,4 +16,13 @@ public class Event extends Task {
     public String getDescription() {
         return super.getDescription() + String.format(" (at: %s)", this.eventTime);
     }
+
+    @Override
+    public String getSaveFormat() {
+        if (!isDone) {
+            return "E , 0 , " + this.description + " , " + this.eventTime;
+        } else {
+            return "E , 1 , " + this.description + " , " + this.eventTime;
+        }
+    }
 }

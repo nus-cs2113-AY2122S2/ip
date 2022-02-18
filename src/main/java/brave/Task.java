@@ -24,4 +24,6 @@ public abstract class Task {
     public void unmarkAsDone() {
         isDone = false;
     }
+
+    public abstract String getSaveFormat();
 }
