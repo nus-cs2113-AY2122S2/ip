@@ -48,6 +48,9 @@ public class Duke {
             String eventTime = userArguments[1]; // eg. Mon 2-4pm
             currChat.addTask(new Event(description, eventTime));
             break;
+        case "delete":
+            currChat.deleteTaskIndex(Integer.parseInt(userInputArr[1]));
+            break;
         default:
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

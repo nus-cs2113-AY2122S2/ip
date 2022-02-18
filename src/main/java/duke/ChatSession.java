@@ -62,6 +62,15 @@ public class ChatSession {
         System.out.println("____________________________________________________________");
     }
 
+    public void deleteTaskIndex(int taskID) {
+        String output = taskList.remove(taskID - 1).toString();
+        System.out.println("____________________________________________________________");
+        System.out.println("Noted. I've removed this task");
+        System.out.println(output);
+        System.out.println(String.format("Now you have %d tasks in the list.", taskList.size()));
+        System.out.println("____________________________________________________________");
+    }
+
     // If the chat session receives invalid input
     public void printInvalidTask(DukeException e) {
         System.out.println("____________________________________________________________");
