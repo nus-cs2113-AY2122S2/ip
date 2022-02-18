@@ -33,7 +33,7 @@ public class TaskListFileManager {
             event.setIsDone(isDone);
             return event;
         case 'D':
-            String[] deadlineDescSplit = taskStringSplit[1].split(" \\(at: ");
+            String[] deadlineDescSplit = taskStringSplit[1].split(" \\(by: ");
             deadlineDescSplit[1] = deadlineDescSplit[1].substring(0,deadlineDescSplit[1].length()-1);
             Deadline deadline = new Deadline(deadlineDescSplit[0], deadlineDescSplit[1]);
             deadline.setIsDone(isDone);
@@ -76,7 +76,7 @@ public class TaskListFileManager {
             fw = new FileWriter(FILE_PATH,true);
 
             for (int i = 0; i < tasks.size(); i++) {
-                fw.write(tasks.get(i).toString());
+                fw.write(tasks.get(i).toString() + System.lineSeparator());
             }
             fw.close();
         } catch (IOException e) {
