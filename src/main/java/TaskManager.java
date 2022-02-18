@@ -19,12 +19,12 @@ public class TaskManager {
         System.out.println(horiLine + goodbye + horiLine);//bye
     }
 
-    public void addTask(Task description) {
-        this.tManager[this.taskCount] = description;
+    public void addTask(Task newT) {
+        this.tManager[this.taskCount] = newT;
         System.out.println(horiLine);
-        System.out.println(" Got it. I've added this task: \n"+
-                            this.tManager[this.taskCount].description+"\n" +
-                            "Now you have " + (this.taskCount+1) + " tasks in the list.");
+        System.out.println(" Got it. I've added this task: \n"+ this.tManager[this.taskCount].getStatusIcon()+
+                            this.tManager[this.taskCount]. getDescription()+"\n" +
+                            "Now you have " +  + (this.taskCount+1) + " tasks in the list.");
         System.out.println(horiLine);
         this.taskCount++;
     }
@@ -52,6 +52,18 @@ public class TaskManager {
         System.out.println(this.tManager[taskIndex].getStatusIcon() + " " +
                            this.tManager[taskIndex].getDescription());
     }
+
+//    public void deleteTask (int taskIndex) {
+//
+//        Task deleted = tManager.get(taskIndex - 1);
+//        tManager.remove(taskIndex - 1);
+//
+//        System.out.println(horiLine);
+//        System.out.println("\t Noted. I've removed this task:");
+//        System.out.println("\t\t " + deleted.toString());
+//        System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
+//        System.out.println(horiLine);
+//    }
 
 }
 
