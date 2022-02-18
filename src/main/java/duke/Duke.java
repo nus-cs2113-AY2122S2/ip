@@ -49,7 +49,7 @@ public class Duke {
             }
             reader.close();
         } catch (IOException e) {
-            System.out.println("File not found");
+            System.out.println("list creation: File not found");
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("string out of bounds");
             return;
@@ -66,7 +66,6 @@ public class Duke {
             myWriter.close();
         } catch (IOException e) {
             System.out.println("File not found.");
-            System.exit(1);
         }
     }
 
@@ -84,11 +83,11 @@ public class Duke {
 
         System.out.println(greeting);
 
-        listCreate("src/main/java/duke/taskList.txt", toDos, taskCounter);
+        listCreate("taskList.txt", toDos, taskCounter);
 
         while (true) {
 
-            fileWrite("src/main/java/duke/taskList.txt", toDos);
+            fileWrite("taskList.txt", toDos);
 
             String line = sc.nextLine();
             String[] commands = line.split(" ");
