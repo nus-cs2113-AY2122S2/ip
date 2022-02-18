@@ -16,4 +16,10 @@ public class Event extends Task {
     public String getDescription() {
         return super.getDescription()+ "( at: "+ time + ")";
     }
+
+    @Override
+    public String saveInfo(){
+        String sep =" / ";
+        return "E" + sep + super.saveInfo() + this.time;
+    }
 }

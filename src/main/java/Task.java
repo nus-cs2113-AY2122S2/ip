@@ -22,4 +22,10 @@ public class Task {
     public void unmarkTaskDone() {
         isDone = false;
     }
+
+    public String saveInfo(){
+        String sep = " / ";
+        String printT = sep + (isDone ? "1" : "0") + sep + this.description;
+        return printT;
+    }
 }

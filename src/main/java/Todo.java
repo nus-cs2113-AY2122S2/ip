@@ -7,4 +7,10 @@ public class Todo extends Task{
     public String getStatusIcon() {
         return "[T]" + super.getStatusIcon();
     }
+
+    @Override
+    public String saveInfo(){
+        String sep =" / ";
+        return "T" + sep + super.saveInfo() ;
+    }
 }
