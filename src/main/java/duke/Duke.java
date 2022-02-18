@@ -1,11 +1,12 @@
 import java.util.Scanner;
 import duke.task.*;
 import duke.exception.*;
+import java.util.ArrayList;
 
 public class Duke {
 
     private static Scanner sc = new Scanner(System.in);
-    private static Task[] list = new Task[100];
+    private static ArrayList<Task> list = new ArrayList<Task>();
     private static int taskCounter = 0;
     private static String HORIZONTAL_LINE = "____________________________________________________________";
 
@@ -67,8 +68,8 @@ public class Duke {
                 handleCommand();
             } else {
                 throw new SingleWordCommandException();
-            }
-
+            } 
+            
         } else {
             printFormat("OOPS!!! I'm sorry, but I don't know what that means :-(",
                     "Please type in 'commands' if you are not sure of the commands");
@@ -79,24 +80,20 @@ public class Duke {
     private static void handleList() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < list.length; i++) {
-            if (list[i] != null) {
-                System.out.println(String.valueOf(i + 1) + "." + list[i]);
-            } else {
-                System.out.println(HORIZONTAL_LINE);
-                break;
-            }
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(String.valueOf(i + 1) + "." + list.get(i).toString());
         }
+        System.out.println(HORIZONTAL_LINE);
     }
 
     private static void handleUnmark(String input) throws AlreadyUnmarkedException, InvalidNumberException {
         int markInt = Integer.parseInt(input.substring(7)) - 1;
-        if (markInt + 1> taskCounter) {
+        if (markInt + 1 > taskCounter) {
             throw new InvalidNumberException();
-        } else if (list[markInt].isDone()) {
-            list[markInt].setDone(false);
+        } else if (list.get(markInt).isDone()) {
+            list.get(markInt).setDone(false);
             printFormat("OK, I've marked this task as not done yet:",
-                list[markInt].toString());
+                list.get(markInt).toString());
         } else {
             throw new AlreadyUnmarkedException();
         }
@@ -106,19 +103,19 @@ public class Duke {
         int markInt = Integer.parseInt(input.substring(5)) - 1;
         if (markInt + 1> taskCounter) {
             throw new InvalidNumberException();
-        } else if (list[markInt].isDone()) {
+        } else if (list.get(markInt).isDone()) {
             throw new AlreadyMarkedException();
         } else {
-            list[markInt].setDone(true);
+            list.get(markInt).setDone(true);
             printFormat("Nice! I've marked this task as done:",
-                    list[markInt].toString());
+                    list.get(markInt).toString());
         }
     }
 
     private static void handleToDo(String input) {
         String[] subStrings = input.split(" ", 2);
         Task newTask = new ToDo(subStrings[1]);
-        list[taskCounter] = newTask;
+        list.add(newTask);
         taskCounter++;
         printFormat("Got it. I've added this task:", 
                 "  " + newTask.toString(),
@@ -133,7 +130,7 @@ public class Duke {
         String inputPreposition = subStrings[0];
         String inputDate = subStrings[1];
         Task newTask = new Deadline(inputString, inputDate);
-        list[taskCounter] = newTask;
+        list.add(newTask);
         taskCounter++;
         printFormat("Got it. I've added this task:", 
                 "  " + newTask.toString(),
@@ -148,7 +145,7 @@ public class Duke {
         String inputPreposition = subStrings[0];
         String inputDate = subStrings[1];
         Task newTask = new Event(inputString, inputDate);
-        list[taskCounter] = newTask;
+        list.add(newTask);
         taskCounter++;
         printFormat("Got it. I've added this task:", 
                 "  " + newTask.toString(),
