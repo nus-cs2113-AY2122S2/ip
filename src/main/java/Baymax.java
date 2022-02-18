@@ -54,14 +54,20 @@ public class Baymax {
                     break;
                 case "mark":
                     System.out.println(horiLine);
-                    tManager.markTask(Integer.parseInt(word_split[1]) - 1);
+                    try {
+                        tManager.markTask(Integer.parseInt(word_split[1]) - 1);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Please input an integer for task index.");
+                    } catch (BaymaxException b){
+                        System.out.println( b.getMessage() +" ☹ OOPS!!! Let's do it again.");
+                    }
                     System.out.println(horiLine);
                     break;
                 case "unmark":
                     System.out.println(horiLine);
                     try {
                         tManager.unmarkTask(Integer.parseInt(word_split[1]) - 1);
-                    } catch (IndexOutOfBoundsException e) {
+                    } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println("Please input an integer for task index.");
                     } catch (BaymaxException b){
                         System.out.println( b.getMessage() +" ☹ OOPS!!! Let's do it again.");
@@ -70,7 +76,13 @@ public class Baymax {
                     break;
                 case "delete":
                     System.out.println(horiLine);
-                    tManager.deleteTask(Integer.parseInt(word_split[1]) - 1);
+                    try {
+                        tManager.deleteTask(Integer.parseInt(word_split[1]) - 1);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("Please input an integer for task index.");
+                    } catch (BaymaxException b){
+                        System.out.println( b.getMessage() +" ☹ OOPS!!! Let's do it again.");
+                    }
                     System.out.println(horiLine);
                     break;
                 default:
