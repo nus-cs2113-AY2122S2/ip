@@ -1,13 +1,6 @@
 package duke;
 
-import duke.commands.ByeCommand;
-import duke.commands.Command;
-import duke.commands.DeadlineCommand;
-import duke.commands.EventCommand;
-import duke.commands.ListCommand;
-import duke.commands.MarkCommand;
-import duke.commands.TodoCommand;
-import duke.commands.UnmarkCommand;
+import duke.commands.*;
 
 import duke.exceptions.EmptyCommandException;
 import duke.exceptions.InvalidCommandException;
@@ -89,6 +82,9 @@ public class Parser {
         case "event":
             parsedArguments = argumentParser(inputArguments);
             return new EventCommand(parsedArguments);
+        case "delete":
+            parsedArguments = argumentParser(inputArguments);
+            return new DeleteCommand(parsedArguments);
         }
         throw new InvalidCommandException(inputCommand);
     }
