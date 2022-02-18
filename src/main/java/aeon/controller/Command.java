@@ -44,6 +44,7 @@ public class Command {
     public static final String TASKTYPE_EVENT = "E";
     public static final String USER_BYE = "bye";
     public static final String TASK_MARKED = "X";
+    public static final int TARGET_WORD = 1;
 
     private static ArrayList<String> rawDescriptions = new ArrayList<>();
     public static final String TASK_DELETED = "Task deleted!";
@@ -82,6 +83,10 @@ public class Command {
             break;
         case TASK_DELETE:
             executeDelete(list, words);
+            break;
+        case TASK_FIND:
+            String target = words[TARGET_WORD];
+            executeFind(list, target);
             break;
         default:
             System.out.println(INVALID_COMMAND);
@@ -146,6 +151,14 @@ public class Command {
             System.out.println(TASK_NOT_FOUND);
         } catch (NumberFormatException e) {
             System.out.println(INVALID_INTEGER_MSG);
+        }
+    }
+
+    private static void executeFind(ArrayList<Task> list, String target) {
+        for (Task task : list) {
+            if (task.getDescription().contains(target)) {
+                System.out.println(task);
+            }
         }
     }
 
