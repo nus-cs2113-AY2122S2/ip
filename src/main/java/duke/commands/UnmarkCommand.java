@@ -46,7 +46,7 @@ public class UnmarkCommand extends Command {
     public void execute() {
         try {
             assertArguments();
-            Task taskToMark = this.taskList.get(index);
+            Task taskToMark = this.taskList.get(index, true);
             taskToMark.setIsDone(false);
             System.out.printf((TASK_UNMARKED_MESSAGE_FORMAT) + "%n", taskToMark);
         } catch (InvalidArgumentException e) {

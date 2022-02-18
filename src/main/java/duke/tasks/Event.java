@@ -1,9 +1,10 @@
 package duke.tasks;
 
+import java.util.Queue;
+
 public class Event extends Task {
 
-    // toString format string
-    public static final String FORMAT_STRING = "[E][%c] %s (at: %s)";
+    private static final String FORMAT_STRING = "[%c][%c] %s (at: %s)";
 
     protected String atDate;
 
@@ -17,6 +18,7 @@ public class Event extends Task {
         this.description = description;
         this.isDone = false;
         this.atDate = atDate;
+        this.tag = 'E';
     }
 
     /**
@@ -30,6 +32,12 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format(FORMAT_STRING, this.getIsDone(), this.getDescription(), this.getAtDate());
+        return String.format(FORMAT_STRING, this.getTag(), this.getIsDone(), this.getDescription(), this.getAtDate());
+    }
+
+    @Override
+    public void getFileWriterFormatString(Queue<String> infoToWrite) {
+        super.getFileWriterFormatString(infoToWrite);
+        infoToWrite.add(atDate);
     }
 }

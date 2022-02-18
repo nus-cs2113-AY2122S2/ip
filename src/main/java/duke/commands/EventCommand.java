@@ -52,7 +52,7 @@ public class EventCommand extends Command {
             String byDate = arguments.get("/at");
             Event eventTask = new Event(description, byDate);
             taskList.add(eventTask);
-            System.out.printf((TASK_ADDED_MESSAGE_FORMAT) + "%n", eventTask);
+            System.out.printf(TASK_ADDED_MESSAGE_FORMAT + "%n", eventTask);
         } catch (InvalidArgumentException e) {
             System.out.println(e.getMessage());
         }
