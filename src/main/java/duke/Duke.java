@@ -27,6 +27,7 @@ public class Duke {
                 try {
                     tasks.get(taskStartIndex-1).markAsDone();
                     System.out.println(tasks.get(taskStartIndex-1).printTask());
+                    saveTasks();
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("This task does not exist!");
                 } catch (NumberFormatException e){
@@ -37,6 +38,7 @@ public class Duke {
                 try {
                     tasks.get(taskStartIndex-1).markAsUndone();
                     System.out.println(tasks.get(taskStartIndex-1).printTask());
+                    saveTasks();
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("This task does not exist!");
                 } catch (NumberFormatException e){
@@ -51,6 +53,7 @@ public class Duke {
                     System.out.println("Noted. I've removed this task:");
                     System.out.println(message);
                     System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    saveTasks();
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("This task does not exist!");
                 } catch (NumberFormatException e){
@@ -72,6 +75,7 @@ public class Duke {
                             System.out.println(tasks.get(taskCount).printTask());
                             taskCount++;
                             System.out.println("Now you have " + (taskCount) + " tasks in the list.");
+                            saveTasks();
                         }else{
                             System.out.println("Please try again!");
                         }
