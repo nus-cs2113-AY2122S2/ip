@@ -1,5 +1,7 @@
 package bob.util.controller;
 
+import java.time.format.DateTimeFormatter;
+
 /**
  * A helper that handles the printing of messages.
  */
@@ -13,24 +15,25 @@ public class UI {
             + "\t|  |_)  | |  `--'  | |  |_)  |\n"
             + "\t|______/   \\______/  |______/\n";
     // Messages
-    public static final String INTRO_GREETING = "Hello! I'm Bob ʘ‿ʘ";
+    public static final String INTRO_GREETING = "Hello! I'm Bob \\[T]/";
     public static final String INTRO_QUESTION = "What can I do for you today?";
-    public static final String OUTRO_GOODBYE = "See you next time. /|\\(◦.◦)/|\\";
+    public static final String OUTRO_GOODBYE = "See you next time. /|\\(::,,::)/|\\";
     public static final String MESSAGE_TASK_LIST = "Task list:";
-    public static final String MESSAGE_NO_TASKS = "There are currently no tasks. ¯\\_(ツ)_/¯";
+    public static final String MESSAGE_NO_TASKS = "There are currently no tasks. \\_('3')_/";
     public static final String MESSAGE_TASK_MARKED = "The following task has been checked off:";
     public static final String MESSAGE_TASK_UNMARKED = "The following task has yet to be completed:";
     public static final String MESSAGE_TASK_COUNT = "The number of tasks amounts to: ";
     public static final String MESSAGE_DELETE_SUCCESS = "The following task has been deleted:";
     public static final String MESSAGE_INVALID_COMMAND = "Sorry, I do not understand.";
-    public static final String MESSAGE_INVALID_ARGC = "Invalid number of arguments. ( °□°)";
-    public static final String MESSAGE_INVALID_ID_NUMBER = "Invalid task id. ┬┴┬┴┤ω・)";
-    public static final String MESSAGE_INVALID_ID_FORMAT = "The task id needs to be a number! (╯°□°）╯︵";
+    public static final String MESSAGE_INVALID_ARGC = "Invalid number of arguments. p( `v`)";
+    public static final String MESSAGE_INVALID_ID_NUMBER = "Invalid task id. ┬┴┬┴┤w')";
+    public static final String MESSAGE_INVALID_ID_FORMAT = "The task id needs to be a number! (/`c`）/";
     public static final String MESSAGE_DEADLINE_USAGE = "Usage: deadline <task> /by <deadline>";
     public static final String MESSAGE_EVENT_USAGE = "Usage: event <task> /at <date,time>";
     public static final String MESSAGE_TASK_LIMIT_REACHED = "No more tasks can be created :(";
     public static final String MESSAGE_FOUND_MATCHING_TASK = "The following tasks matches your search:";
     public static final String MESSAGE_FOUND_NO_MATCH = "No tasks matches your description OTZ";
+    public static final String DATE_FORMAT = "E, MMM dd yyyy";
 
     /**
      * Prints the message prepended by a tab.
