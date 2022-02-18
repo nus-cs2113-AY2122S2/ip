@@ -12,7 +12,7 @@ The following subsections highlight the main features of the application and
 how to use them.
 
 ### Add Tasks
-The application provides multiple support for storing multiple task types.
+The application provides support for storing multiple task types.
 - Add a `Todo` task.
   - `>>> todo description`
 - Add a `Deadline` task.
@@ -22,7 +22,7 @@ The application provides multiple support for storing multiple task types.
 
 ### List Tasks
 To list all stored tasks, simply input the following command:
-- `list`
+- `>>> list`
 
 This command is useful for figuring out the index of the task, which is required
 for many other features.
@@ -35,5 +35,9 @@ Tasks can be marked as done or undone by specifying their index.
   - `>>> unmark task_index`
 
 ### Delete Tasks
-Users may delete any task they need by specifying the index to delete:
+Users may delete any task by specifying the task's index:
 - `>>> delete task_index`
+
+### Find Tasks
+Users may find tasks based on keywords.
+- `>>> find search terms`
