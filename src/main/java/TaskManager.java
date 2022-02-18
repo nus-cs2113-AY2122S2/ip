@@ -27,7 +27,7 @@ public class TaskManager {
         if (taskDescription[2].isEmpty()) {
             throw new DukeException(Ui.missingDate());
         }
-        Task task = new Deadline(taskDescription[0], taskDescription[3]);
+        Task task = new Deadline(taskDescription[0], taskDescription[2]);
         return addTask(task);
     }
 
@@ -38,7 +38,7 @@ public class TaskManager {
         if (taskDescription[2].isEmpty()) {
             throw new DukeException(Ui.missingDate());
         }
-        Task task = new Event(taskDescription[0], taskDescription[3]);
+        Task task = new Event(taskDescription[0], taskDescription[2]);
         return addTask(task);
     }
 
