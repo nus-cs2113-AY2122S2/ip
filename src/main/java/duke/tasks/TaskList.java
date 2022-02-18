@@ -11,9 +11,9 @@ public class TaskList<E> extends ArrayList<E> {
     }
 
     @Override
-    public void add(int index, E element) {
-        listHasChanged = true;
-        super.add(index, element);
+    public boolean add(E element) {
+        this.listHasChanged = true;
+        return super.add(element);
     }
 
     @Override
@@ -26,6 +26,10 @@ public class TaskList<E> extends ArrayList<E> {
     public E remove(int index) {
         this.listHasChanged = true;
         return super.remove(index);
+    }
+
+    public boolean getListHasChanged() {
+        return this.listHasChanged;
     }
 
     public void setListHasChanged(boolean changed) {

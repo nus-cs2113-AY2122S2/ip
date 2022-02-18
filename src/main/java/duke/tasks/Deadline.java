@@ -1,9 +1,11 @@
 package duke.tasks;
 
+import java.util.Queue;
+
 public class Deadline extends Task {
 
     // toString format string
-    public static final String FORMAT_STRING = "[D][%c] %s (by: %s)";
+    private static final String FORMAT_STRING = "[%c][%c] %s (by: %s)";
 
     protected String byDate;
 
@@ -17,6 +19,7 @@ public class Deadline extends Task {
         this.description = description;
         this.isDone = false;
         this.byDate = byDate;
+        this.tag = 'D';
     }
 
     /**
@@ -30,6 +33,12 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format(FORMAT_STRING, this.getIsDone(), this.getDescription(), this.getByDate());
+        return String.format(FORMAT_STRING, this.getTag(), this.getIsDone(), this.getDescription(), this.getByDate());
+    }
+
+    @Override
+    public void getFileWriterFormatString(Queue<String> infoToWrite) {
+        super.getFileWriterFormatString(infoToWrite);
+        infoToWrite.add(this.byDate);
     }
 }
