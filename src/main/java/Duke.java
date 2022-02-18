@@ -10,11 +10,11 @@ public class Duke {
 
     private static final String filePath = "data/duke.txt";
 
-    private static void writeToFile(String filePath, String textToAdd) throws IOException {
+    /*private static void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
         fw.close();
-    }
+    }*/
 
     private static void appendToFile(String filePath, String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
@@ -56,8 +56,6 @@ public class Duke {
 
         System.out.println(GREET);
 
-        //String[] instructions = new String[100];
-        //List<String> instructionsList = Arrays.asList(instructions);
         ArrayList<String> instructionsList = new ArrayList<>();
 
         Task task = new Task("hello");
