@@ -1,42 +1,59 @@
 package brave;
 
+import java.util.ArrayList;
+
 public class TaskManager {
-    public static final int MAX_TASK = 100;
+//    public static final int MAX_TASK = 100;
     public static final String LINE_SPLIT = "\t____________________________________________________________";
-    private final Task[] tasks = new Task[MAX_TASK];
-    private int tasksCount = 0;
+    private final ArrayList<Task> tasks = new ArrayList<>();
+//    private final Task[] tasks = new Task[MAX_TASK];
+//    private int tasksCount = 0;
 
     public TaskManager() {
     }
 
-    public void addTask(Task description) {
-        this.tasks[this.tasksCount] = description;
+    public void addTask(Task task) {
+        tasks.add(task);
         System.out.println(LINE_SPLIT);
         System.out.println("\tYepp, I have added task below!");
-        System.out.println("\t" + tasks[tasksCount].description);
-        System.out.println("\tYou currenly have " + (tasksCount + 1) + " task in the list");
+        System.out.println("\t" + task.description);
+        System.out.println("\tYou currenly have " + tasks.size() + " task in the list");
         System.out.println(LINE_SPLIT);
-        this.tasksCount++;
     }
 
     public void printTaskList() {
+        if (tasks.size() == 0) {
+            System.out.println("You currently have no task!");
+            return;
+        }
         System.out.println(LINE_SPLIT);
-        for (int i = 0; i < tasksCount; i++) {
-            System.out.println(String.format("\t%d.%s %s", i + 1, tasks[i].getStatusIcon(), tasks[i].getDescription()));
+        for (Task task : tasks) {
+            System.out.println(String.format("\t%d.%s %s", tasks.indexOf(task) + 1, task.getStatusIcon(), task.getDescription()));
         }
         System.out.println(LINE_SPLIT);
     }
 
     public void markTask(int taskIndex) {
-        this.tasks[taskIndex].markAsDone();
+        Task selected_task = tasks.get(taskIndex);
+        selected_task.markAsDone();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(tasks[taskIndex].getStatusIcon() + " " + tasks[taskIndex].getDescription());
+        System.out.println(selected_task.getStatusIcon() + " " + selected_task.getDescription());
     }
 
     public void unmarkTask(int taskIndex) {
-        this.tasks[taskIndex].unmarkAsDone();
+        Task selected_task = tasks.get(taskIndex);
+        selected_task.unmarkAsDone();
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(this.tasks[taskIndex].getStatusIcon() + " " + this.tasks[taskIndex].getDescription());
+        System.out.println(selected_task.getStatusIcon() + " " + selected_task.getDescription());
+    }
+
+    public void deleteTask(int taskIndex) {
+        Task selected_task = tasks.get(taskIndex);
+        System.out.println(LINE_SPLIT);
+        System.out.println("Successfully deleted task below");
+        System.out.println(String.format("\t%d.%s %s", taskIndex + 1, selected_task.getStatusIcon(), selected_task.getDescription()));
+        tasks.remove(taskIndex);
+        System.out.println("You now have " + tasks.size() + " task remaining");
     }
 
     public void showWelcomeMessage() {

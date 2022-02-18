@@ -49,7 +49,8 @@ public class Brave {
                 break;
             case "todo":
                 try {
-                    tasks.addTask(new Todo(splitInputs[1]));
+                    description = splitInputs[1];
+                    tasks.addTask(new Todo(description));
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println(" ☹ OOPS!!! The description of a todo cannot be empty.");
                 }
@@ -67,6 +68,15 @@ public class Brave {
                 description = arguments[0];
                 String eventTime = arguments[1];
                 tasks.addTask(new Event(description, eventTime));
+                break;
+            case "delete":
+                try {
+                    tasks.deleteTask(Integer.parseInt(splitInputs[1]) - 1); // 0 indexing
+                } catch (NumberFormatException e) {
+                    System.out.println("Please put in integer value");
+                } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Please put in valid number of task");
+                }
                 break;
             default:
                 try {
