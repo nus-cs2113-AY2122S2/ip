@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class Duke {
 
-    private static final String filePath = "data/Duke.txt";
+    private static final String filePath = "data/duke.txt";
 
     private static void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
@@ -20,6 +20,13 @@ public class Duke {
         File folder = new File("data");
         if (!folder.exists()) {
             folder.mkdir();
+        }
+        if (!f.exists()) {
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Failed to create file to save tasks.");
+            }
         }
 
         System.out.println("full path: " + f.getAbsolutePath());
@@ -84,6 +91,12 @@ public class Duke {
                     for (int j = 1; j <= task.number; j++) {
                         System.out.print(j + ". ");
                         System.out.println(instructions[j - 1]);
+                    }
+
+                    try {
+                        writeToFile(filePath, "testing");
+                    } catch (IOException e) {
+                        System.out.println(e.getMessage());
                     }
 
                 } else if (isMark) {
