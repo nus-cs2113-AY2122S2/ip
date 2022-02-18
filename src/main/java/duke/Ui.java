@@ -22,6 +22,9 @@ public class Ui {
     private static final String LINE = "-----------------------------";
     private static final String GOODBYE = "Bye! Hope to see you soon :D";
 
+    public Ui() {
+    }
+
     public static void printGreeting() {
         System.out.println(FIRST_GREETING + LOGO);
         System.out.println(LINE);

@@ -2,8 +2,6 @@ package duke;
 
 import duke.exception.AdditionalException;
 
-import java.util.Locale;
-
 public class RequestProcessor {
 
     public static boolean filterNewRequest(String request) throws AdditionalException {

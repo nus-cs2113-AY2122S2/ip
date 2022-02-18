@@ -1,10 +1,12 @@
 package duke;
 
+import duke.storage.FileReader;
+
 public class Duke {
 
     public static void main(String[] args) {
         Ui.printGreeting();
-        FileEditor.retrieveTasks();
+        FileReader.retrieveTasks();
         Ui.getRequest();
         Ui.printGoodbye();
     }

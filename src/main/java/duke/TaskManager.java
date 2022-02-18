@@ -1,6 +1,7 @@
 package duke;
 
 import duke.exception.AdditionalException;
+import duke.storage.Storage;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -52,7 +53,7 @@ public class TaskManager {
 
     private static void saveDataToFile(String typeOfTask) {
         int indexOfLastTask = listOfTasks.size() - 1;
-        FileEditor.saveData(typeOfTask, listOfTasks.get(indexOfLastTask), listOfTasks);
+        Storage.saveData(typeOfTask, listOfTasks.get(indexOfLastTask), listOfTasks);
     }
 
     public static void markOrDeleteItem(String[] words, String typeOfTask, boolean isNewRequest) {
@@ -85,7 +86,7 @@ public class TaskManager {
             System.out.println(WRONG_TYPE_OF_TASK);
         }
         if (isNewRequest) {
-            FileEditor.saveData("markOrDelete", taskToMarkOrDelete, listOfTasks);
+            Storage.saveData("markOrDelete", taskToMarkOrDelete, listOfTasks);
         }
     }
 
