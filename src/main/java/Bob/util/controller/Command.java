@@ -58,14 +58,14 @@ public class Command {
         UI.printBorder();
         int count = list.size();
 
-        if (count > 0) {
-            UI.printlnTab(UI.MESSAGE_TASK_LIST);
-            for (int i = 0; i < count; i++) {
-                printListId(i);
-                System.out.println(list.get(i));
-            }
-        } else {
-            UI.printlnTab(UI.MESSAGE_NO_TASKS);
+        if (count == 0) {
+            UI.printError(UI.MESSAGE_NO_TASKS);
+            return;
+        }
+        UI.printlnTab(UI.MESSAGE_TASK_LIST);
+        for (int i = 0; i < count; i++) {
+            printListId(i);
+            System.out.println(list.get(i));
         }
         UI.printBorder();
     }
@@ -104,6 +104,37 @@ public class Command {
         } catch (BobInvalidIdException e) {
             UI.printError(UI.MESSAGE_INVALID_ID_NUMBER);
         }
+    }
+
+    public static void findTasks(ArrayList<Task> list, String command) {
+        UI.printBorder();
+        String[] commandToken = Parser.parseCommand(command, DELIMIT_COMMAND);
+
+        if (commandToken[1] == null) {
+            UI.printError(UI.MESSAGE_INVALID_ARGC);
+            return;
+        }
+        int count = list.size();
+        if (count == 0) {
+            UI.printError(UI.MESSAGE_NO_TASKS);
+            return;
+        }
+        boolean taskFound = false;
+        for (int i = 0; i < count; i++) {
+            Task currentTask = list.get(i);
+            if (currentTask.getDescription().contains(commandToken[1])) {
+                if (!taskFound) {
+                    UI.printlnTab(UI.MESSAGE_FOUND_MATCHING_TASK);
+                    taskFound = true;
+                }
+                printListId(i);
+                System.out.println(currentTask);
+            }
+        }
+        if (!taskFound) {
+            UI.printlnTab(UI.MESSAGE_FOUND_NO_MATCH);
+        }
+        UI.printBorder();
     }
 
     /**
@@ -265,6 +296,9 @@ public class Command {
                 break;
             case "delete":
                 deleteTask(list, command);
+                break;
+            case "find":
+                findTasks(list, command);
                 break;
             case "bye":
                 break;
