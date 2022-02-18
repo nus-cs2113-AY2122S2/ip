@@ -4,6 +4,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.Scanner;
+
+import aeon.Aeon;
+import aeon.exception.AeonException;
 import aeon.task.Task;
 import aeon.task.Event;
 import aeon.task.Todo;
@@ -20,11 +23,14 @@ import java.time.LocalDate;
  */
 public class Command {
 
-    public static final String TASK_NOT_FOUND = "Task not found! Perhaps try listing out the available tasks first...";
+    public static final String TASK_NOT_FOUND =
+            "Task not found! Perhaps try listing out the available tasks first...";
     public static final String INVALID_INTEGER_MSG = "Please type in a valid integer!";
     public static final String TODO_DESC_ERROR = "Description of TODO cannot be empty!!!";
-    public static final String DEADLINE_FORMAT_ERR = "Please try again in this format: deadline /by <date>";
-    public static final String EVENT_FORMAT_ERR = "Please try again in this format: event /at <date>";
+    public static final String DEADLINE_FORMAT_ERR =
+            "Please try again in this format: deadline <description> /by <date>";
+    public static final String EVENT_FORMAT_ERR =
+            "Please try again in this format: event <description> /at <date>";
     public static final String INVALID_COMMAND = "Not sure what you were trying to do...";
     public static final String TASK_ADDED = "Task added!";
     public static final String CONGRATULATIONS_MSG = "Congrats on completing this task!:";
@@ -49,7 +55,12 @@ public class Command {
     public static final String USER_BYE = "bye";
     public static final String TASK_MARKED = "X";
     public static final int TARGET_WORD = 1;
-
+    public static final String EMPTY_KEYWORD_MSG = "Keyword to look for cannot be empty!!!";
+    public static final String TASK_DETAILS_MISSING_MSG = "Details of task not complete!!!";
+    public static final String TEXT_FILE_INCORRECT_CONTENTS =
+            "Some content(s) of text file do not match the correct format! Ignoring faulty commands...";
+    public static final String UNKNOWN_COMMAND_TEXT_FILE =
+            "Unknown command found in text file! Ignoring and moving on...";
     private static ArrayList<String> rawDescriptions = new ArrayList<>();
     public static final String TASK_DELETED = "Task deleted!";
 
@@ -59,7 +70,11 @@ public class Command {
      */
     public static void CommandProcessor() {
         ArrayList<Task> list = new ArrayList<>();
-        readSavedTaskList(list);
+        try {
+            readSavedTaskList(list);
+        } catch (AeonException e) {
+            System.out.println(TEXT_FILE_INCORRECT_CONTENTS);
+        }
         Scanner in = new Scanner(System.in);
         String response = in.nextLine();
         while (!response.equals(USER_BYE)) {
@@ -98,8 +113,8 @@ public class Command {
             executeDelete(list, words);
             break;
         case TASK_FIND:
-            String target = words[TARGET_WORD];
-            executeFind(list, target);
+            //String target = words[TARGET_WORD];
+            executeFind(list, words);
             break;
         default:
             System.out.println(INVALID_COMMAND);
@@ -134,6 +149,8 @@ public class Command {
             System.out.println(TASK_ADDED);
         } catch (IndexOutOfBoundsException e) {
             System.out.println(EVENT_FORMAT_ERR);
+        } catch (AeonException e) {
+            System.out.println(TASK_DETAILS_MISSING_MSG);
         }
     }
 
@@ -148,6 +165,8 @@ public class Command {
             System.out.println(TASK_ADDED);
         } catch (IndexOutOfBoundsException e) {
             System.out.println(DEADLINE_FORMAT_ERR);
+        } catch (AeonException e) {
+            System.out.println(TASK_DETAILS_MISSING_MSG);
         }
     }
 
@@ -160,8 +179,8 @@ public class Command {
         try {
             addTodoTask(list, words);
             System.out.println(TASK_ADDED);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println(TODO_DESC_ERROR);
+        } catch (IndexOutOfBoundsException | AeonException e) {
+            System.out.println(TASK_DETAILS_MISSING_MSG);
         }
     }
 
@@ -202,13 +221,27 @@ public class Command {
     /**
      * Looks for all existing tasks that contain a specific keyword.
      * @param list List of tasks entered by the user
-     * @param target The keyword to look for among the list of tasks
+     * @param words Command itself
      */
-    private static void executeFind(ArrayList<Task> list, String target) {
+    private static void executeFind(ArrayList<Task> list, String[] words) {
+        try {
+            lookForTasks(list, words);
+        } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println(EMPTY_KEYWORD_MSG);
+            }
+        }
+
+    private static void lookForTasks(ArrayList<Task> list, String[] words) {
+        String target = words[TARGET_WORD];
+        boolean isFound = false;
         for (Task task : list) {
             if (task.getDescription().contains(target)) {
+                isFound = true;
                 System.out.println(task);
             }
+        }
+        if (!isFound) {
+            System.out.println("No tasks found!");
         }
     }
 
@@ -217,7 +250,7 @@ public class Command {
      * and stores it in the list of tasks
      * @param list List of tasks to store the tasks read from the text file
      */
-    private static void readSavedTaskList(ArrayList<Task> list) {
+    private static void readSavedTaskList(ArrayList<Task> list) throws AeonException {
         File FILE = new File(FILE_PATH);
         File DIRECTORY = new File(DIR_PATH);
         checkDirExists(DIRECTORY);
@@ -227,19 +260,32 @@ public class Command {
         while (fileScanner.hasNext()) {
             String taskInFile = fileScanner.nextLine();
             String[] taskInFileArray = taskInFile.split(" ", 2);
-            String[] taskType = taskInFileArray[1].split(" ", 2);
-            String isDone = taskInFileArray[0];
-            switch (taskType[TASK_TYPE]) {
-            case TASKTYPE_TODO:
-                readFromFileTodo(list, taskType, isDone);
-                break;
-            case TASKTYPE_DEADLINE:
-                readFromFileDeadline(list, taskType, isDone);
-                break;
-            case TASKTYPE_EVENT:
-                readFromFileEvent(list, taskType, isDone);
-                break;
+            if (checkDetails(taskInFileArray)) {
+                throw new AeonException();
             }
+            try {
+                parseSavedTaskList(list, taskInFileArray);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println(TEXT_FILE_INCORRECT_CONTENTS);
+            }
+        }
+    }
+
+    private static void parseSavedTaskList(ArrayList<Task> list, String[] taskInFileArray) {
+        String[] taskType = taskInFileArray[1].split(" ", 2);
+        String isDone = taskInFileArray[0];
+        switch (taskType[TASK_TYPE]) {
+        case TASKTYPE_TODO:
+            readFromFileTodo(list, taskType, isDone);
+            break;
+        case TASKTYPE_DEADLINE:
+            readFromFileDeadline(list, taskType, isDone);
+            break;
+        case TASKTYPE_EVENT:
+            readFromFileEvent(list, taskType, isDone);
+            break;
+        default:
+            System.out.println(UNKNOWN_COMMAND_TEXT_FILE);
         }
     }
 
@@ -299,7 +345,13 @@ public class Command {
      * @param isDone Boolean to represent if the task was previously marked as done
      */
     private static void readFromFileEvent(ArrayList<Task> list, String[] taskType, String isDone) {
-        addEventTask(list, taskType);
+        try {
+            addEventTask(list, taskType);
+        } catch (AeonException e) {
+            System.out.println(TASK_DETAILS_MISSING_MSG);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(EVENT_FORMAT_ERR);
+        }
         fileMarkTask(list, isDone);
     }
 
@@ -310,7 +362,14 @@ public class Command {
      * @param isDone Boolean to represent if the task was previously marked as done
      */
     private static void readFromFileDeadline(ArrayList<Task> list, String[] taskType, String isDone) {
-        addDeadlineTask(list, taskType);
+        try {
+            addDeadlineTask(list, taskType);
+        } catch (AeonException e) {
+            System.out.println(TASK_DETAILS_MISSING_MSG);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(DEADLINE_FORMAT_ERR);
+        }
+
         fileMarkTask(list, isDone);
     }
 
@@ -321,7 +380,11 @@ public class Command {
      * @param isDone Boolean to represent if the task was previously marked as done
      */
     private static void readFromFileTodo(ArrayList<Task> list, String[] taskType, String isDone) {
-        addTodoTask(list, taskType);
+        try {
+            addTodoTask(list, taskType);
+        } catch (AeonException e) {
+            System.out.println(TASK_DETAILS_MISSING_MSG);
+        }
         fileMarkTask(list, isDone);
     }
 
@@ -381,8 +444,11 @@ public class Command {
     }
 
 
-    private static void addEventTask(ArrayList<Task> list, String[] words) throws IndexOutOfBoundsException {
+    private static void addEventTask(ArrayList<Task> list, String[] words) throws IndexOutOfBoundsException, AeonException {
         String[] eventDateTask = words[1].split(" /at ", 2);
+        if (checkDetails(eventDateTask)) {
+            throw new AeonException();
+        }
         String rawDate = eventDateTask[1].trim();
         try {
             String eventDate = reformatDate(rawDate);
@@ -390,14 +456,29 @@ public class Command {
             System.out.println(e);
             addToList(list, e, "E", words[1]);
         } catch (DateTimeParseException x) {
-            Task e = new Deadline(eventDateTask[0].trim(), rawDate);
+            Task e = new Event(eventDateTask[0].trim(), rawDate);
             System.out.println(e);
             addToList(list, e, "E", words[1]);
         }
     }
 
-    private static void addDeadlineTask(ArrayList<Task> list, String[] words) throws IndexOutOfBoundsException {
+    private static boolean checkDetails(String[] taskDetails) {
+        boolean isEmpty = false;
+        for (String element : taskDetails) {
+            if (element.trim().length() == 0)
+            {
+                isEmpty = true;
+            }
+        }
+        return isEmpty;
+    }
+
+    private static void addDeadlineTask(ArrayList<Task> list, String[] words)
+            throws IndexOutOfBoundsException, AeonException {
         String[] deadlineTask = words[1].split(" /by ", 2);
+        if (checkDetails(deadlineTask)) {
+            throw new AeonException();
+        }
         String rawDate = deadlineTask[1].trim();
         try {
             String dueDate = reformatDate(rawDate);
@@ -411,14 +492,23 @@ public class Command {
         }
     }
 
+    /**
+     * Changes the date format from YYYY-MM-DD to MM-DD-YYYY for Deadline and Event tasks
+     * @param rawDate The date that the user inputs
+     * @return The reformatted date in the form of MM-DD-YYYY
+     */
     private static String reformatDate(String rawDate) {
         LocalDate deadline = LocalDate.parse(rawDate);
         String dueDate = deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         return dueDate;
     }
 
-    private static void addTodoTask(ArrayList<Task> list, String[] words) throws IndexOutOfBoundsException {
+    private static void addTodoTask(ArrayList<Task> list, String[] words)
+            throws IndexOutOfBoundsException, AeonException {
         Task t = new Todo(words[1]);
+        if (checkDetails(words)) {
+            throw new AeonException();
+        }
         System.out.println(t);
         addToList(list, t, "T", words[1]);
     }
