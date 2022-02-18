@@ -28,7 +28,7 @@ public class Duke {
     public static void main(String[] args) throws IOException {
         printWelcomeMessage();
         ArrayList<Task> taskList;
-        taskList = TaskDatabase.getInstance().read("src/main/java/taskdata.txt");
+        taskList = TaskDatabase.getInstance().read("taskdata.txt");
         Scanner sc = new Scanner(System.in);
         String userInput = sc.nextLine();
         while (!userInput.equals("bye")) {
@@ -105,7 +105,7 @@ public class Duke {
                 printIllegalCommandErrorMessage();
             }
         }
-        TaskDatabase.getInstance().save("src/main/java/taskdata.txt",taskList);
+        TaskDatabase.getInstance().save("taskdata.txt",taskList);
         printGoodbyeMessage();
     }
 
