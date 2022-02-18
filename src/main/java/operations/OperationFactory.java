@@ -17,8 +17,10 @@ public class OperationFactory {
     private static final String EVENT_COMMAND = "event";
     private static final String DELETE_COMMAND = "delete";
     private static final String SAVE_COMMAND = "save";
-
     private static final String FIND_COMMAND = "find";
+    private static final String HELP_COMMAND = "help";
+
+    private static final String[] ORDER_LIST = {BYE_COMMAND,LIST_COMMAND,MARK_COMMAND,UNMARK_COMMAND,TODO_COMMAND, DEADLINE_COMMAND, EVENT_COMMAND, DELETE_COMMAND, SAVE_COMMAND, FIND_COMMAND, HELP_COMMAND};
     public OperationFactory(String orderLocal) {
 
         order = orderLocal;
@@ -66,5 +68,6 @@ public class OperationFactory {
             throw new UnknownOrderDukeException();
         }
     }
+
 
 }

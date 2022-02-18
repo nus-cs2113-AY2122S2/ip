@@ -48,6 +48,14 @@ public abstract class Operation {
         return result;
     }
 
+    /**
+     * Sets the result to certain value
+     * @param result
+     */
+    public void setResult(String result) {
+        this.result = result;
+    }
+
 
     /**
      *  Prints the result of the operation, for the operations.Operation abstract class, just print the operation name
