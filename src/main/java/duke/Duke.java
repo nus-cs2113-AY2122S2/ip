@@ -111,12 +111,15 @@ public class Duke {
             break;
         case "deadline":
             addDeadline(detail);
+            hasAddedTask = true;
             break;
         case "event":
             addEvent(detail);
+            hasAddedTask = true;
             break;
         case "delete":
             deleteTask(response);
+            hasUpdate = true;
             break;
         default:
             throw new UnknownCommandException();
