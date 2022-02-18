@@ -59,15 +59,14 @@ public class Baymax {
                     break;
                 case "unmark":
                     System.out.println(horiLine);
-                    tManager.unmarkTask(Integer.parseInt(word_split[1]) - 1);
-                    System.out.println(horiLine);
                     try {
-                        tManager.markTask(Integer.parseInt(word_split[1]) - 1);
+                        tManager.unmarkTask(Integer.parseInt(word_split[1]) - 1);
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("Please input an integer for task index.");
                     } catch (BaymaxException b){
                         System.out.println( b.getMessage() +" ☹ OOPS!!! Let's do it again.");
                     }
+                    System.out.println(horiLine);
                     break;
 //                case "delete":
 //                    System.out.println(horiLine);

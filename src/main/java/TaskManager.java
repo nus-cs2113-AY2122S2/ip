@@ -1,8 +1,10 @@
+import java.util.ArrayList;
+
 public class TaskManager {
 
     String horiLine = "____________________________________________________________\n";
-    private final Task[] tManager = new Task[100];
-    private int taskCount = 0;
+
+    private final ArrayList<Task> tasks = new ArrayList<>();
 
     public TaskManager() {
     }
@@ -20,37 +22,37 @@ public class TaskManager {
     }
 
     public void addTask(Task newT) {
-        this.tManager[this.taskCount] = newT;
+        tasks.add(newT);
         System.out.println(horiLine);
-        System.out.println(" Got it. I've added this task: \n"+ this.tManager[this.taskCount].getStatusIcon()+
-                            this.tManager[this.taskCount]. getDescription()+"\n" +
-                            "Now you have " +  + (this.taskCount+1) + " tasks in the list.");
+        System.out.println(" Got it. I've added this task: \n"+ newT.getStatusIcon()+
+                            newT.getDescription()+"\n" +
+                            "Now you have " +  + tasks.size() + " tasks in the list.");
         System.out.println(horiLine);
-        this.taskCount++;
     }
 
     public void printTaskList() {
         System.out.println(horiLine);
         System.out.println("Here are the tasks in your list:");
-        for (int i=0; i<taskCount; i++) {
-            System.out.println((i+1) + "." + this.tManager[i].getStatusIcon() +
-                                " " + this.tManager[i].getDescription());
+        for (Task task: tasks) {
+            System.out.println(String.format("%d. %s %s", tasks.indexOf(task)+1, task.getStatusIcon(), task.getDescription()));
         }
         System.out.println(horiLine);
     }
 
     public void markTask (int taskIndex) {
-        this.tManager[taskIndex].markTaskDone();
+        Task temp = tasks.get(taskIndex);
+        temp.markTaskDone();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(this.tManager[taskIndex].getStatusIcon() + " " +
-                           this.tManager[taskIndex].getDescription());
+        System.out.println(temp.getStatusIcon() + " " +
+                           temp.getDescription());
     }
 
     public void unmarkTask (int taskIndex) {
-        this.tManager[taskIndex].unmarkTaskDone();
+        Task temp = tasks.get(taskIndex);
+        temp.unmarkTaskDone();
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(this.tManager[taskIndex].getStatusIcon() + " " +
-                           this.tManager[taskIndex].getDescription());
+        System.out.println(temp.getStatusIcon() + " " +
+                           temp.getDescription());
     }
 
 //    public void deleteTask (int taskIndex) {
