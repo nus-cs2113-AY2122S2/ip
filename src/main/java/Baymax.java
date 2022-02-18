@@ -83,6 +83,7 @@ public class Baymax {
                     } catch (BaymaxException b){
                         System.out.println( b.getMessage() +" ☹ OOPS!!! Let's do it again.");
                     }
+                    //check branch merge
                     System.out.println(horiLine);
                     break;
                 default:
