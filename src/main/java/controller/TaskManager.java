@@ -5,13 +5,16 @@ import task.Event;
 import task.Task;
 import task.Todo;
 
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class TaskManager {
     private static final String INDENT = "    ";
     private static final String LINE="-------------------------------------------";
     public static final String SPACE = " ";
     private static final int MAX_TASK_COUNT = 100;
+    private static final String DIR = "data/task-file";
+    private static final String FILE_SEPARATOR = " | ";
 
 
     private static int taskCount=0;
@@ -19,7 +22,7 @@ public class TaskManager {
     private static Scanner sc = new Scanner(System.in);
 
 
-    public static void main(String[] args) {       
+    public static void main(String[] args) {
         greet();
         String input = getInput();
         String action = getAction(input);
@@ -53,6 +56,7 @@ public class TaskManager {
     }
 
     private static void bye() {
+        save(DIR, new ArrayList<>(Arrays.asList(taskList)));
         System.out.println(INDENT + "Bye. Hope to see you again soon!");
         printLine();
     }
@@ -145,8 +149,152 @@ public class TaskManager {
         }
         addTask(newTask);
     }
-    
+
+//    private static void retrieveData() {
+//        File f = new File(DIR);
+//        if(f.exists()){
+//            taskList = load(f);
+//        }else{
+//            f.getParentFile().mkdir();
+//            f.createNewFile();
+//            taskList = new ArrayList<Task>();
+//            save(DIR, taskList);
+//        }
+//    }
+
+    private static void save(String filename, ArrayList<Task> al){
+        StringBuilder sb = new StringBuilder();
+        List newList = new ArrayList();
+        for(int i = 0; i < al.size(); i++){
+            Task task = al.get(i);
+            if(task == null) break;
+            String taskType = task.getTypeIcon();
+            String taskStatus = task.getStatusIcon();
+            String taskDetails = task.getDescription();
+            sb.append(taskType);
+            sb.append(FILE_SEPARATOR);
+            sb.append(taskStatus);
+            sb.append(FILE_SEPARATOR);
+            sb.append(taskDetails);
+            if(taskType.equals("D") || taskType.equals("E")){
+                sb.append(FILE_SEPARATOR);
+                sb.append(task.getTime());
+            }
+            sb.append(System.lineSeparator());
+        }
+        try {
+            writeToFile(filename, sb.toString());
+        } catch (IOException e) {
+            System.out.println("Something went wrong:" + e.getMessage());
+        }
+    }
+
+    public static void writeToFile(String fileName, String data) throws IOException {
+        FileWriter fw = new FileWriter(fileName);
+        fw.write(data);
+        fw.close();
+    }
+
+
+//
+//    public static List read(String filename) throws IOException{
+//        File f = new File(filename);
+//        Scanner s = new Scanner(f);
+//        while(s.hasNext()) {
+//            String newLine = s.nextLine();
+//            Task newTask;
+//            StringTokenizer st = new StringTokenizer(newLine, FILE_SEPARATOR);
+//
+//            String taskType = st.nextToken();
+//            String taskStatus = st.nextToken();
+//            String description = st.nextToken();
+//            if(taskType.equals("D")) {
+//                String time = st.nextToken();
+//                newTask = new Deadline(description,time);
+//                newTask.
+//            }
+//
+//
+//
+//        }
+//        try{
+//            List data = new ArrayList();
+//            Scanner scanner = new Scanner(new FileInputStream(filename));
+//            try {
+//                while (scanner.hasNextLine()) {
+//                    data.add(scanner.nextLine());
+//                }
+//            } finally {
+//                scanner.close();
+//            }
+//            return data;
+//        }catch(IOException e){
+//            System.out.println("reading file unsuccessfully");
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+
+
+
+
+//    try {
+//        File file = new File(dir);
+//        if (file.exists()) {
+//            orders = load(dir);
+//        } else {
+//            file.getParentFile().mkdir();
+//            file.createNewFile();
+//            orders = new ArrayList<Order>();
+//            save(dir, orders);
+//        }
+//    } catch (IOException e) {
+//        e.printStackTrace();
+//    }
 }
+
+
+//
+//    /**
+//     * This method is to load orders from external files
+//     * @param filename
+//     *            specifies where the external files stored
+//     * @return all reservations read from the file
+//     */
+//    @Override
+//    public ArrayList load(String filename) {
+//        ArrayList stringArray = (ArrayList) read(filename);
+//        ArrayList alr = new ArrayList();
+//
+//        for (int i = 0; i < stringArray.size(); i++) {
+//            String st = (String) stringArray.get(i);
+//            StringTokenizer star = new StringTokenizer(st, "|");
+//
+//            int orderId = Integer.parseInt(star.nextToken().trim());
+//            int staffId = Integer.parseInt(star.nextToken().trim());
+//            int tableId = Integer.parseInt(star.nextToken().trim());
+//            int numberOfPax = Integer.parseInt(star.nextToken().trim());
+//            int orderSize = Integer.parseInt(star.nextToken().trim());  // write the orderSize in the file in order to read different size of order items
+//            boolean isActive = Boolean.parseBoolean(star.nextToken().trim());
+//
+//            //create order with no order item
+//            Order order = new Order(orderId, staffId, tableId, numberOfPax, isActive);
+//            //add order item in order
+//            for (int j = 0; j < orderSize; j++) {
+//                int itemId = Integer.parseInt(star.nextToken().trim());
+//                String name = star.nextToken().trim();
+//                int quantity = Integer.parseInt(star.nextToken().trim());
+//                double price = Double.parseDouble(star.nextToken().trim());
+//                order.addOrderItem(itemId, quantity, name, price);
+//            }
+//            //add order to order list
+//            alr.add(order);
+//        }
+//        return alr;
+//
+//    }
+    
+
 //
 //public class Cup<T>{
 //    private T item;
