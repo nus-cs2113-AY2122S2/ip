@@ -16,6 +16,8 @@ public class Parser {
             // Fallthrough
         case "list":
             break;
+        case "delete":
+            // Fallthrough
         case "mark":
             // Fallthrough
         case "unmark":

@@ -8,7 +8,7 @@ public class Duke {
         Scanner userInput = new Scanner(System.in);
         String line;
         ArrayList<Task> tasks = new ArrayList<>();
-
+        Storage.storageSetup(tasks);
         line = userInput.nextLine();
         while (!"bye".equals(line)) {
             try {
@@ -44,13 +44,18 @@ public class Duke {
                     break;
                 case "mark":
                     int taskIndex = Integer.parseInt(parsedInput.getParsedInput()[1]) - 1;
-                    tasks.get(taskIndex).setCompleted();
-                    wrapAndPrintText("Marked this task as done!\n" + tasks.get(taskIndex).toString());
+                    tasks.get(taskIndex).setCompleted(true);
+                    wrapAndPrintText("Marked this task as done!\n " + tasks.get(taskIndex).toString());
                     break;
                 case "unmark":
                     taskIndex = Integer.parseInt(parsedInput.getParsedInput()[1]) - 1;
-                    tasks.get(taskIndex).revertCompleted();
-                    wrapAndPrintText("Guess you messed up huh? Reverted that task!\n" + tasks.get(taskIndex).toString());
+                    tasks.get(taskIndex).setCompleted(false);
+                    wrapAndPrintText("Guess you messed up huh? Reverted that task!\n " + tasks.get(taskIndex).toString());
+                    break;
+                case "delete":
+                    taskIndex = Integer.parseInt(parsedInput.getParsedInput()[1]) - 1;
+                    wrapAndPrintText("Either you're done with that task or gave up. Anyways its gone!\n " + tasks.get(taskIndex).toString());
+                    tasks.remove(taskIndex);
                     break;
                 }
             } catch (InvalidCommandException e) {
@@ -61,6 +66,7 @@ public class Duke {
             System.out.println();
             line = userInput.nextLine();
         }
+        Storage.writeTasksToFile(tasks);
         endDuke();
     }
 
