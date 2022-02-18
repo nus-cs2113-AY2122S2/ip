@@ -58,27 +58,41 @@ public class Duke {
     }
 
     // Read previous data
-    public static void readData(ChatSession currChat, String filepath) throws FileNotFoundException, IOException {
-        File f = new File(filepath);
-        // Create file if not found
-        f.createNewFile();
-        Scanner s = new Scanner(f);
-        while (s.hasNext()) {
-            String userInput = s.nextLine();
-            String[] userInputArr = userInput.split(" \\| ");
-            String taskType = userInputArr[0];
-            boolean isDone = userInputArr[1].equals("1");
+    public static void readData(ChatSession currChat, String folderPath, String fileName) {
+        try {
+            File f = new File(folderPath + "/" + fileName);
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String userInput = s.nextLine();
+                String[] userInputArr = userInput.split(" \\| ");
+                String taskType = userInputArr[0];
+                boolean isDone = userInputArr[1].equals("1");
 
-            switch (taskType) {
-            case "T":
-                currChat.addInitialTask(new Todo(isDone, userInputArr[2]));
-                break;
-            case "D":
-                currChat.addInitialTask(new Deadline(isDone, userInputArr[2], userInputArr[3]));
-                break;
-            case "E":
-                currChat.addInitialTask(new Event(isDone, userInputArr[2], userInputArr[3]));
-                break;
+                switch (taskType) {
+                case "T":
+                    currChat.addInitialTask(new Todo(isDone, userInputArr[2]));
+                    break;
+                case "D":
+                    currChat.addInitialTask(new Deadline(isDone, userInputArr[2], userInputArr[3]));
+                    break;
+                case "E":
+                    currChat.addInitialTask(new Event(isDone, userInputArr[2], userInputArr[3]));
+                    break;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            File directory = new File(folderPath);
+            // Create directory if not found
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+
+            File f = new File(folderPath + "/" + fileName);
+            // Create file if not found. If IOError, print error message
+            try {
+                f.createNewFile();
+            } catch (IOException err) {
+                System.out.println(err);
             }
         }
     }
@@ -89,13 +103,7 @@ public class Duke {
         currChat.startSession();
 
         // Read previous data
-        try {
-            readData(currChat, "data/duke.txt");
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        } catch (IOException e) {
-            System.out.println("IO Error");
-        }
+        readData(currChat, "data", "duke.txt");
 
         // Get user input
         Scanner sc = new Scanner(System.in);
