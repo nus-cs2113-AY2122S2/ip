@@ -9,8 +9,13 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task (boolean isDone, String description) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
+    // Mark done task with X
     public String getStatusIcon() {
-        // mark done task with X
         return (isDone ? "X" : " ");
     }
 
@@ -24,6 +29,12 @@ public class Task {
     public String unmarkTask() {
         this.isDone = false;
         return this.toString();
+    }
+
+    // Output string when saved
+    public String saveString() {
+        int isDoneStr = isDone ? 1 : 0;
+        return String.format(" | %d | %s", isDoneStr, this.description);
     }
 
     @Override

@@ -3,6 +3,10 @@ package duke;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
@@ -16,7 +20,7 @@ public class Duke {
         userInputArr = userInput.split(" ", 2);
         userCommand = userInputArr[0];
 
-        switch(userCommand) {
+        switch (userCommand) {
         case "list":
             currChat.printTaskList();
             break;
@@ -56,11 +60,53 @@ public class Duke {
         }
     }
 
+    // Read previous data
+    public static void readData(ChatSession currChat, String folderPath, String fileName) {
+        try {
+            File f = new File(folderPath + "/" + fileName);
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String userInput = s.nextLine();
+                String[] userInputArr = userInput.split(" \\| ");
+                String taskType = userInputArr[0];
+                boolean isDone = userInputArr[1].equals("1");
+
+                switch (taskType) {
+                case "T":
+                    currChat.addInitialTask(new Todo(isDone, userInputArr[2]));
+                    break;
+                case "D":
+                    currChat.addInitialTask(new Deadline(isDone, userInputArr[2], userInputArr[3]));
+                    break;
+                case "E":
+                    currChat.addInitialTask(new Event(isDone, userInputArr[2], userInputArr[3]));
+                    break;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            File directory = new File(folderPath);
+            // Create directory if not found
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+
+            File f = new File(folderPath + "/" + fileName);
+            // Create file if not found. If IOError, print error message
+            try {
+                f.createNewFile();
+            } catch (IOException err) {
+                System.out.println(err);
+            }
+        }
+    }
 
     public static void main(String[] args) {
         // Start chat session
         ChatSession currChat = new ChatSession();
         currChat.startSession();
+
+        // Read previous data
+        readData(currChat, "data", "duke.txt");
 
         // Get user input
         Scanner sc = new Scanner(System.in);

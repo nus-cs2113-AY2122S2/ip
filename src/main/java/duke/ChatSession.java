@@ -2,6 +2,8 @@ package duke;
 
 import duke.task.Task;
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class ChatSession {
     // Store subclasses of tasks
@@ -24,9 +26,21 @@ public class ChatSession {
         System.out.println("____________________________________________________________");
     }
 
+    public void addInitialTask(Task task) {
+        taskList.add(task);
+    }
+
     public void addTask(Task task) {
         // Create a new Task, append to taskList
         taskList.add(task);
+
+        // Add and save to offline file
+        try {
+            this.addToFile(task);
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+
         // Return the added task
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task:");
@@ -76,5 +90,13 @@ public class ChatSession {
         System.out.println("____________________________________________________________");
         System.out.println(e.getMessage());
         System.out.println("____________________________________________________________");
+    }
+
+    // Save file to data directory
+    public void addToFile(Task task) throws IOException {
+        FileWriter fw = new FileWriter("data/duke.txt", true);
+        String output = task.saveString() + System.lineSeparator();
+        fw.write(output);
+        fw.close();
     }
 }
