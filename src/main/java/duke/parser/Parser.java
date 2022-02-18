@@ -1,6 +1,9 @@
 package duke.parser;
 
-import duke.TaskList;
+import duke.tasklist.AddTask;
+import duke.tasklist.ListTask;
+import duke.tasklist.MarkOrDeleteTask;
+import duke.tasklist.TaskList;
 import duke.exception.AdditionalException;
 
 public class Parser {
@@ -9,27 +12,27 @@ public class Parser {
                 throws AdditionalException {
         switch(command) {
         case "list":
-            TaskList.printList();
+            ListTask.printList();
             break;
         case "mark":
-            TaskList.markOrDeleteItem(words, "mark", isNewRequest);
+            MarkOrDeleteTask.markOrDeleteItem(words, "mark", isNewRequest);
             break;
         case "unmark":
-            TaskList.markOrDeleteItem(words, "unmark", isNewRequest);
+            MarkOrDeleteTask.markOrDeleteItem(words, "unmark", isNewRequest);
             break;
         case "delete":
-            TaskList.markOrDeleteItem(words, "delete", isNewRequest);
+            MarkOrDeleteTask.markOrDeleteItem(words, "delete", isNewRequest);
             break;
         case "todo":
-            TaskList.addTask(request, "todo", isNewRequest);
+            AddTask.addTask(request, "todo", isNewRequest);
             printConfirmationIfNewRequest(isNewRequest);
             break;
         case "deadline":
-            TaskList.addTask(request, "deadline", "/by", isNewRequest);
+            AddTask.addTask(request, "deadline", "/by", isNewRequest);
             printConfirmationIfNewRequest(isNewRequest);
             break;
         case "event":
-            TaskList.addTask(request, "event", "/at", isNewRequest);
+            AddTask.addTask(request, "event", "/at", isNewRequest);
             printConfirmationIfNewRequest(isNewRequest);
             break;
         default:

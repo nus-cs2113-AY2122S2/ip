@@ -1,12 +1,7 @@
-package duke;
+package duke.tasklist;
 
 import duke.exception.AdditionalException;
-import duke.storage.Storage;
-import duke.task.Deadline;
-import duke.task.Event;
 import duke.task.Task;
-import duke.task.ToDo;
-
 import java.util.ArrayList;
 
 public class TaskList {
@@ -16,105 +11,26 @@ public class TaskList {
     private static final String ADDED = "Got it. I have added this task: ";
     private static final String NUMBER_OF_TASKS_FIRST_HALF = "Now you have ";
     private static final String NUMBER_OF_TASKS_SECOND_HALF = " tasks in the list.";
-    private static final String INVALID_INDEX = "The index is missing or out of range, please try again.";
-    private static final String NOT_AN_INTEGER = "The index should be an integer, please try again.";
     private static final String LINE = "-----------------------------";
     private static final String WRONG_TYPE_OF_TASK = "Something is wrong with the typeOfTask";
     private static final String DELETED = "Noted. I've removed this task: ";
 
-    private static ArrayList<Task> listOfTasks = new ArrayList<>();
+    protected static ArrayList<Task> listOfTasks = new ArrayList<>();
 
-    public static void addTask(String request, String typeOfTask, boolean isNewRequest) throws AdditionalException {
-        String description = getDescription(request, typeOfTask);
-        listOfTasks.add(new ToDo(description, typeOfTask));
-        if (isNewRequest) {
-            saveDataToFile(typeOfTask);
-        }
-    }
-
-    public static void addTask(String request, String typeOfTask, String preposition, boolean isNewRequest)
-                throws AdditionalException {
-        String description = getDescription(request, typeOfTask, preposition);
-        String timing = getTiming(request, preposition);
-        switch (typeOfTask) {
-        case "deadline":
-            listOfTasks.add(new Deadline(description, timing, typeOfTask));
-            break;
-        case "event":
-            listOfTasks.add(new Event(description, timing, typeOfTask));
-            break;
-        default:
-            System.out.println("Oh no D: There seems to be a problem creating the task");
-        }
-        if (isNewRequest) {
-            saveDataToFile(typeOfTask);
-        }
-    }
-
-    private static void saveDataToFile(String typeOfTask) {
-        int indexOfLastTask = listOfTasks.size() - 1;
-        Storage.saveData(typeOfTask, listOfTasks.get(indexOfLastTask), listOfTasks);
-    }
-
-    public static void markOrDeleteItem(String[] words, String typeOfTask, boolean isNewRequest) {
-        try {
-            int indexToMarkOrDelete = Integer.parseInt(words[1]) - 1;
-            Task taskToMarkOrDelete = listOfTasks.get(indexToMarkOrDelete);
-            markOrDelete(typeOfTask, taskToMarkOrDelete, isNewRequest);
-        } catch(IndexOutOfBoundsException error) {
-            System.out.println(INVALID_INDEX + System.lineSeparator() + LINE);
-        } catch (NumberFormatException error) {
-            System.out.println(NOT_AN_INTEGER + System.lineSeparator()+ LINE);
-        }
-    }
-
-    private static void markOrDelete(String typeOfTask, Task taskToMarkOrDelete, boolean isNewRequest) {
-        switch (typeOfTask) {
-        case "mark":
-            taskToMarkOrDelete.markAsDone();
-            printMarkOrUnmarkIsCompleted(taskToMarkOrDelete, "mark", isNewRequest);
-            break;
-        case "unmark":
-            taskToMarkOrDelete.markAsUndone();
-            printMarkOrUnmarkIsCompleted(taskToMarkOrDelete, "unmark", isNewRequest);
-            break;
-        case "delete":
-            listOfTasks.remove(taskToMarkOrDelete);
-            printConfirmationForDeletingTask(taskToMarkOrDelete, isNewRequest);
-            break;
-        default:
-            System.out.println(WRONG_TYPE_OF_TASK);
-        }
-        if (isNewRequest) {
-            Storage.saveData("markOrDelete", taskToMarkOrDelete, listOfTasks);
-        }
-    }
-
-    public static void printList() throws AdditionalException {
-        if (listOfTasks.isEmpty()) {
-            throw new AdditionalException("YAY!!! you do not have any tasks at the moment hehe");
-        }
-        for (int i = 0; i < listOfTasks.size(); i++) {
-            int numbering = i + 1;
-            System.out.println(numbering + ". " + listOfTasks.get(i));
-        }
-        System.out.println(LINE);
-    }
-
-    private static String getDescription(String request, String typeOfTask) throws AdditionalException {
+    protected static String getDescription(String request, String typeOfTask) throws AdditionalException {
         int lengthOfTypeOfTask = typeOfTask.length();
         int lengthOfRequest = request.length();
         return checkLength(request, lengthOfTypeOfTask, lengthOfRequest, "description");
     }
 
-    private static String getDescription(String request, String typeOfTask, String preposition)
+    public static String getDescription(String request, String typeOfTask, String preposition)
                 throws AdditionalException {
         int indexOfPreposition = checkIndexOfPreposition(request, preposition);
         int lengthOfTypeOfTask = typeOfTask.length();
         return checkLength(request, lengthOfTypeOfTask, indexOfPreposition, "description");
     }
 
-    private static String getTiming(String request, String preposition) throws AdditionalException {
+    public static String getTiming(String request, String preposition) throws AdditionalException {
         int indexOfPreposition = checkIndexOfPreposition(request, preposition);
         int lengthOfPreposition = preposition.length();
         int startingIndexOfTiming = indexOfPreposition + lengthOfPreposition;
