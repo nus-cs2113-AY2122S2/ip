@@ -11,6 +11,6 @@ public class Todo extends Task{
     @Override
     public String saveInfo(){
         String sep =" / ";
-        return "T" + sep + super.saveInfo() ;
+        return "T" + super.saveInfo() + sep;
     }
 }

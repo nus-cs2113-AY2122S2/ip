@@ -20,6 +20,6 @@ public class Deadline extends Task {
     @Override
     public String saveInfo(){
         String sep = " / ";
-        return "D" + sep + super.saveInfo() + this.ddl;
+        return "D" + super.saveInfo() + sep + this.ddl;
     }
 }

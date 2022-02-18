@@ -20,6 +20,6 @@ public class Event extends Task {
     @Override
     public String saveInfo(){
         String sep =" / ";
-        return "E" + sep + super.saveInfo() + this.time;
+        return "E" + super.saveInfo() + sep + this.time;
     }
 }

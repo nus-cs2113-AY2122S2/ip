@@ -92,6 +92,7 @@ public class TaskManager {
             taskIndex++;
             Task temp;
             String[] word_split = initTask.nextLine().split(" / ");
+            //System.out.println(word_split[0]+" sdf " + word_split[1] + " df "+ word_split[2]+ " df "+ word_split[3]);
             switch(word_split[0]){
                 case "T":
                     tasks.add(new Todo(word_split[2]));
