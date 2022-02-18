@@ -68,10 +68,11 @@ public class Baymax {
                     }
                     System.out.println(horiLine);
                     break;
-//                case "delete":
-//                    System.out.println(horiLine);
-//                    tManager.deleteTask(Integer.parseInt(word_split[1]) - 1);
-//                    System.out.println(horiLine);
+                case "delete":
+                    System.out.println(horiLine);
+                    tManager.deleteTask(Integer.parseInt(word_split[1]) - 1);
+                    System.out.println(horiLine);
+                    break;
                 default:
                     System.out.println(horiLine);
                     System.out.println("Error. Please retry");

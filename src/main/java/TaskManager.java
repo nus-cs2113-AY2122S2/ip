@@ -55,17 +55,14 @@ public class TaskManager {
                            temp.getDescription());
     }
 
-//    public void deleteTask (int taskIndex) {
-//
-//        Task deleted = tManager.get(taskIndex - 1);
-//        tManager.remove(taskIndex - 1);
-//
-//        System.out.println(horiLine);
-//        System.out.println("\t Noted. I've removed this task:");
-//        System.out.println("\t\t " + deleted.toString());
-//        System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
-//        System.out.println(horiLine);
-//    }
+    public void deleteTask (int taskIndex) {
 
+        Task deleted = tasks.get(taskIndex);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(String.format("%s %s", deleted.getStatusIcon(), deleted.getDescription()));
+        tasks.remove(taskIndex);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+
+    }
 }
 
