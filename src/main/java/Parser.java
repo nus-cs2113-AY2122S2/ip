@@ -2,7 +2,7 @@ public class Parser {
     private String command;
     private String description;
     private boolean isExiting;
-    // split.(" ", limit)
+
     Parser() {
         this.command = "";
         this.description = "";
@@ -40,7 +40,7 @@ public class Parser {
     }
 
     public String[] getTaskDescription() throws DukeException {
-        String[] splitDescription = splitStringBySlash(description);
+        String[] splitDescription = splitString(description);
         if (splitDescription[0].isEmpty()) {
             throw new DukeException(Ui.missingDescription(command));
         }
@@ -58,9 +58,8 @@ public class Parser {
         }
     }
 
-    private String[] splitStringBySlash(String input) {
-        String[] splitInput = input.split(" ");
-        String[] splitOutput = new String[3];
+    private String[] splitString(String input) {
+        String[] splitInput = input.split(" "); // Future task: split.(" ", limit)
         String taskDescription = "";
         String op = "";
         String date = "";
@@ -79,6 +78,7 @@ public class Parser {
             }
         }
 
+        String[] splitOutput = new String[3];
         splitOutput[0] = taskDescription.trim();
         splitOutput[1] = op.trim();
         splitOutput[2] = date.trim();

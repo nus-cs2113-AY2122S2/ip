@@ -19,6 +19,17 @@ public abstract class Task {
         return icon;
     }
 
+    public String toStringInFormat() {
+        String formatted = "";
+        if (isDone) {
+            formatted += String.valueOf(1);
+        } else {
+            formatted += String.valueOf(0);
+        }
+        formatted += " / " + description;
+        return formatted;
+    }
+
     @Override
     public String toString() {
         return getDoneIcon() + description;

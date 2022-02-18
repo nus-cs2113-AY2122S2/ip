@@ -34,11 +34,21 @@ public class Duke {
         }
 
         showExitMessage();
+        terminateDuke();
     }
 
     private static void initDuke() {
-        parser = new Parser();
+        Reader reader = new Reader();
         taskManager = new TaskManager();
+        if (reader.isFileExists()) {
+            taskManager = reader.readFile(taskManager);
+        }
+        parser = new Parser();
+    }
+
+    private static void terminateDuke() {
+        Writer writer = new Writer();
+        writer.writeFile(taskManager.getList());
     }
 
     private static void showOutput(String string) {

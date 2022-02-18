@@ -1,7 +1,7 @@
 public class TaskManager {
     private static TaskList taskList;
 
-    TaskManager() {
+    public TaskManager() {
         taskList = new TaskList();
     }
 
@@ -49,12 +49,20 @@ public class TaskManager {
         return Ui.delTaskMsg(task, taskList.getSize());
     }
 
-    private String addTask(Task task) {
+    public String addTask(Task task) {
         taskList.addTask(task);
         return Ui.addTaskMsg(task, taskList.getSize());
     }
 
     public String listTask() {
         return taskList.toString();
+    }
+
+    public String getList() {
+        String list = "";
+        for (int i = 0; i < taskList.getSize(); i++) {
+            list += taskList.getTask(i).toStringInFormat() + "\n";
+        }
+        return list;
     }
 }
