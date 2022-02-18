@@ -1,5 +1,8 @@
 package bob.util.task;
 
+/**
+ * Represents a task with a specific deadline.
+ */
 public class Deadlines extends Task {
     /** Deadline of a task */
     protected String by;

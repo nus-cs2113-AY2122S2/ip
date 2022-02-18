@@ -1,5 +1,8 @@
 package bob.util.task;
 
+/**
+ * Represents a happening that will occur at a certain period.
+ */
 public class Events extends Task {
     /** Period of a task */
     protected String period;

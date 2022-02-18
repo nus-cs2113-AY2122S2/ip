@@ -14,19 +14,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * A helper class for the purpose of loading and saving the user's task list to a local file.
+ */
 public class LoadSave {
     public static final String FILEPATH = "data/data.txt";
     public static final String MESSAGE_IO_ERROR = "File IO error occurred.";
     public static final String MESSAGE_LOAD_ERROR = "Load Error: ";
     public static final String MESSAGE_LOAD_STOPPED = "Loading data terminated";
     public static final String MESSAGE_INVALID_VALUES = "Unknown values detected.";
-    public static final String MESSAGE_INVALID_LENGTH = "Invalid task length";
+    public static final String MESSAGE_INVALID_LENGTH = "Invalid task length.";
+    private static final String MESSAGE_SAVE_DATA_EXCEEDED = "Maximum amount of saved data reached.";
 
     public static final String DELIMIT_LOAD_DEADLINE = " by: ";
     public static final String DELIMIT_LOAD_EVENT = " at: ";
 
     public static final Integer MIN_TASK_LENGTH = 8;
-    public static final Integer MIN_DETAILS_LENGTH = 7;
+    public static final Integer MIN_DETAILS_LENGTH = 8;
     public static final Integer TASK_INDICATOR = 1;
     public static final Integer TASK_INDICATOR_END = 2;
     public static final Integer STATUS_INDICATOR = 4;
@@ -62,8 +66,8 @@ public class LoadSave {
      */
     public static void writeDataToFile(ArrayList<Task> list) throws IOException {
         FileWriter writer = new FileWriter(FILEPATH);
-        for (int i = 0; i < list.size(); i++) {
-            writer.write(String.valueOf(list.get(i)));
+        for (Task task : list) {
+            writer.write(String.valueOf(task));
             writer.write(System.lineSeparator());
         }
         writer.close();
@@ -130,7 +134,7 @@ public class LoadSave {
         else {
             delimiter = DELIMIT_LOAD_EVENT;
         }
-        String[] tokenDetails = Command.parseCommand(removeRoundBrackets(details), delimiter);
+        String[] tokenDetails = Parser.parseCommand(removeRoundBrackets(details), delimiter);
         if (tokenDetails[1] != null) {
             return tokenDetails;
         }
@@ -202,6 +206,10 @@ public class LoadSave {
             File file = new File(FILEPATH);
             Scanner in = new Scanner(file);
             while (in.hasNext()) {
+                if (list.size() < Command.MAX_TASK_ID) {
+                    printLoadError(MESSAGE_SAVE_DATA_EXCEEDED);
+                    break;
+                }
                 addToList(list, in.nextLine());
             }
         } catch (BobInvalidLoadLength e) {
