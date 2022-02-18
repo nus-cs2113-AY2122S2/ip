@@ -4,7 +4,7 @@ import jrobo.exception.InvalidFormatException;
 
 public class InputParser {
     protected String[] args;
-    protected static String[] validCommands = {"mark", "m", "unmark", "um", "todo", "t", "deadline", "d", "event", "e", "list", "ls", "bye", "exit", "quit", "q"};
+    protected static String[] validCommands = {"mark", "m", "unmark", "um", "todo", "t", "deadline", "d", "event", "e", "list", "ls", "bye", "exit", "quit", "q", "delete", "del"};
 
     public InputParser(String input) {
         this.args = input.split(" ");

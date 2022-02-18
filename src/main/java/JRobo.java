@@ -23,31 +23,36 @@ public class JRobo {
                 continue;
             }
             String command = parser.getPrefix();
-            switch (command) {
-            case "mark":
-            case "m":
-                manager.markTask(parser.getBody());
-                break;
-            case "unmark":
-            case "um":
-                manager.unmarkTask(parser.getBody());
-                break;
-            case "list":
-            case "ls":
-                manager.displayTaskList();
-                break;
-            case "bye":
-            case "b":
-            case "quit":
-            case "q":
-                break label;
-            default:
-                try {
+            try {
+                switch (command) {
+                case "mark":
+                case "m":
+                    manager.markTask(parser.getBody());
+                    break;
+                case "unmark":
+                case "um":
+                    manager.unmarkTask(parser.getBody());
+                    break;
+                case "list":
+                case "ls":
+                    manager.displayTaskList();
+                    break;
+                case "delete":
+                case "del":
+                    manager.deleteTask(Integer.parseInt(parser.getBody().trim()));
+                    break;
+                case "bye":
+                case "b":
+                case "quit":
+                case "q":
+                    break label;
+                default:
+
                     manager.addTask(parser.getBody(), parser.getSuffix(), parser.getType());
-                } catch (jrobo.exception.InvalidFormatException | jrobo.exception.InvalidTypeException e) {
-                    manager.printWithSeparator(e.getMessage());
+                    break;
                 }
-                break;
+            } catch (jrobo.exception.InvalidFormatException | jrobo.exception.InvalidTypeException | NumberFormatException e) {
+                manager.printWithSeparator(e.getMessage());
             }
         }
         manager.farewellUser();

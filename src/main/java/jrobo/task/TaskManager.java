@@ -32,7 +32,7 @@ public class TaskManager {
         }
         System.out.println("\t____________________________________________________________");
         System.out.println("\tHere are the tasks in your list:");
-        int taskCount = Task.getTaskCount();
+        int taskCount = tasks.size();
         for (int i = 0; i < taskCount; i++) {
             Task t = tasks.get(i);
             System.out.println("\t" + (i + 1) + "." + t);
@@ -94,7 +94,17 @@ public class TaskManager {
             throw new InvalidTypeException("Invalid command!");
         }
         tasks.add(task);
-        printWithSeparator("Got it. I've added this task:", "\t" + task, "Now, you have " + Task.taskCount + " in the list.");
+        printWithSeparator("Got it. I've added this task:", "\t" + task, "Now, you have " + tasks.size() + " in the list.");
+    }
+
+    public void deleteTask(int index) {
+        if (tasks.size() == 0) {
+            printWithSeparator("Invalid command! Nothing to delete.");
+            return;
+        }
+        printWithSeparator("Noted. I've removed this task:", "\t" + tasks.get(index - 1).toString(),
+                "Now you have " + (tasks.size() - 1) + " tasks in the list.");
+        tasks.remove(index - 1);
     }
 
     public void farewellUser() {
