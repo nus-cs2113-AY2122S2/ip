@@ -5,7 +5,6 @@ import tasks.Task;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * TaskManager is a wrapper around the list of tasks kept by the bot.
@@ -81,10 +80,25 @@ public class TaskManager {
         this.tasks.remove(task);
     }
 
-    protected List<Task> findTasks(String keyword) {
-        return this.tasks.stream().
-                filter(task -> task.taskDescription.toLowerCase().contains(keyword)).
-                collect(Collectors.toList());
+    /**
+     * Find tasks using keywords.
+     *
+     * @param input Keyword string from user.
+     * @return List of tasks that match keywords.
+     */
+    protected List<Task> findTasks(String input) {
+        // Split the keywords by space.
+        String[] keywords = input.toLowerCase().split(" ");
+
+        List<Task> matched = new ArrayList<>();
+        for (Task task: this.tasks) {
+            for (String word: keywords) {
+                if (task.taskDescription.toLowerCase().contains(word)) {
+                    matched.add(task);
+                }
+            }
+        }
+        return matched;
     }
 
     /**
