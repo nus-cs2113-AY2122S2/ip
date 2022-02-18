@@ -12,3 +12,5 @@ out/production/ip/duke/Duke.class
 out/production/ip/duke/FileEditor.class
 out/production/ip/duke/RequestProcessor.class
 out/production/ip/duke/TaskManager.class
+.idea/
+out/

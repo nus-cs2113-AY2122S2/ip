@@ -1,13 +1,16 @@
 package duke;
 
+import duke.exception.AdditionalException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class FileEditor {
 
@@ -89,6 +92,33 @@ public class FileEditor {
         } catch(IOException error) {
             System.out.println("Error creating file");
             error.printStackTrace();
+        }
+    }
+
+    public static void retrieveTasks() {
+        try {
+            readFromFile();
+        } catch (FileNotFoundException error) {
+            System.out.println("Duke.txt doesn't exist so I'M GOING TO CREATE ONE FOR YOU");
+        }
+    }
+
+    private static void readFromFile() throws FileNotFoundException {
+        int taskNumber = 1;
+        File file = new File(FILE_PATH);
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNextLine()) {
+            String nextLine = scanner.nextLine();
+            readLineByLineFromFile(nextLine, taskNumber);
+            taskNumber++;
+        }
+    }
+
+    private static void readLineByLineFromFile(String nextLine, int taskNumber) {
+        try {
+            RequestProcessor.filterRequestsFromFile(nextLine, taskNumber);
+        } catch(AdditionalException error) {
+            System.out.println("Error transferring from file to tasks");
         }
     }
 }
