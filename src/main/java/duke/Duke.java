@@ -17,7 +17,7 @@ public class Duke {
         welcomeMessage();
         int taskStartIndex, taskDeleteIndex;
 
-        String userInput;
+        String userInput, message;
         Scanner in = new Scanner(System.in);
         do{
             userInput = in.nextLine();
@@ -45,10 +45,11 @@ public class Duke {
             }else if(userInput.startsWith("delete")){
                 taskDeleteIndex = Integer.parseInt(userInput.substring(7));
                 try {
-                    deleteTask(taskDeleteIndex);
-                    System.out.println("Noted. I've removed this task:");
-                    System.out.println(tasks.get(taskDeleteIndex-1).printTask());
+                    message = tasks.get(taskDeleteIndex-1).printTask();
+                    deleteTask(taskDeleteIndex-1);
                     taskCount--;
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(message);
                     System.out.println("Now you have " + taskCount + " tasks in the list.");
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("This task does not exist!");
@@ -66,10 +67,14 @@ public class Duke {
                 default:
                     System.out.println("================================================");
                     try {
-                        tasks.add(addTask(userInput));
-                        System.out.println(tasks.get(taskCount).printTask());
-                        taskCount++;
-                        System.out.println("Now you have " + (taskCount) + " tasks in the list.");
+                        if(addTask(userInput) != null) {
+                            tasks.add(addTask(userInput));
+                            System.out.println(tasks.get(taskCount).printTask());
+                            taskCount++;
+                            System.out.println("Now you have " + (taskCount) + " tasks in the list.");
+                        }else{
+                            System.out.println("Please try again!");
+                        }
                     } catch (NullPointerException e) {
                         System.out.println("Please try again!");
                     }
