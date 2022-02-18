@@ -49,7 +49,7 @@ public class TaskManager {
         return Ui.delTaskMsg(task, taskList.getSize());
     }
 
-    private String addTask(Task task) {
+    public String addTask(Task task) {
         taskList.addTask(task);
         return Ui.addTaskMsg(task, taskList.getSize());
     }

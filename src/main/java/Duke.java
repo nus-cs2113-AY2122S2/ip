@@ -38,8 +38,12 @@ public class Duke {
     }
 
     private static void initDuke() {
-        parser = new Parser();
+        Reader reader = new Reader();
         taskManager = new TaskManager();
+        if (reader.isFileExists()) {
+            taskManager = reader.read(taskManager);
+        }
+        parser = new Parser();
     }
 
     private static void terminateDuke() {

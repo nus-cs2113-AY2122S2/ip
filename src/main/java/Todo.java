@@ -7,7 +7,7 @@ public class Todo extends Task {
 
     @Override
     public String toStringInFormat() {
-        return icon + " | " + super.toStringInFormat();
+        return icon + " / " + super.toStringInFormat();
     }
 
     @Override

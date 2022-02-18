@@ -9,7 +9,7 @@ public class Deadline extends Task {
 
     @Override
     public String toStringInFormat() {
-        return icon + " | " + super.toStringInFormat() + " | " + date;
+        return icon + " / " + super.toStringInFormat() + " / " + date;
     }
 
     @Override

@@ -26,7 +26,7 @@ public abstract class Task {
         } else {
             formatted += String.valueOf(0);
         }
-        formatted += " | " + description;
+        formatted += " / " + description;
         return formatted;
     }
 

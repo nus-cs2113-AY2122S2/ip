@@ -5,13 +5,13 @@ public class Writer {
     private static final String PATH = "./data/";
     private static final String FILE = "duke.txt";
 
-    Writer() {
+    public Writer() {
         try {
             File dir = new File(PATH);
             dir.mkdir();
             File file = new File(PATH + "/" + FILE);
             file.createNewFile();
-        } catch (Exception e) {
+        } catch (Exception e) { //IO exception
             System.out.println(e.toString());
         }
     }
