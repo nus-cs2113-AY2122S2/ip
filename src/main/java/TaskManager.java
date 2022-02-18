@@ -34,7 +34,8 @@ public class TaskManager {
         System.out.println(horiLine);
         System.out.println("Here are the tasks in your list:");
         for (Task task: tasks) {
-            System.out.println(String.format("%d. %s %s", tasks.indexOf(task)+1, task.getStatusIcon(), task.getDescription()));
+            String text = String.format("%d. %s %s", tasks.indexOf(task)+1, task.getStatusIcon(), task.getDescription());
+            System.out.println(text);
         }
         System.out.println(horiLine);
     }
@@ -59,7 +60,8 @@ public class TaskManager {
 
         Task deleted = tasks.get(taskIndex);
         System.out.println("Noted. I've removed this task:");
-        System.out.println(String.format("%s %s", deleted.getStatusIcon(), deleted.getDescription()));
+        String text = String.format("%s %s", deleted.getStatusIcon(), deleted.getDescription());
+        System.out.println(text);
         tasks.remove(taskIndex);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
