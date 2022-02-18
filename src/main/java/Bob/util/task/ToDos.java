@@ -1,5 +1,8 @@
 package bob.util.task;
 
+/**
+ * Represents a task with no specific time requirements.
+ */
 public class ToDos extends Task {
     /**
      * Class constructor

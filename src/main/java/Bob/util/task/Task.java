@@ -1,5 +1,8 @@
 package bob.util.task;
 
+/**
+ * Represents a task that a user has done or wants to carry out.
+ */
 public abstract class Task {
     /** Description of a task */
     protected String description;
