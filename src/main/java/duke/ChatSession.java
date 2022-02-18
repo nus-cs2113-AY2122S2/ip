@@ -86,7 +86,7 @@ public class ChatSession {
     // Save file to data directory
     public void addToFile(Task task) throws IOException {
         FileWriter fw = new FileWriter("data/duke.txt", true);
-        String output = System.lineSeparator() + task.saveString() ;
+        String output = task.saveString() + System.lineSeparator();
         fw.write(output);
         fw.close();
     }

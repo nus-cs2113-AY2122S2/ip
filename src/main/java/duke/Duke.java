@@ -6,6 +6,7 @@ import duke.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
@@ -57,8 +58,10 @@ public class Duke {
     }
 
     // Read previous data
-    public static void readData(ChatSession currChat, String filepath) throws FileNotFoundException {
+    public static void readData(ChatSession currChat, String filepath) throws FileNotFoundException, IOException {
         File f = new File(filepath);
+        // Create file if not found
+        f.createNewFile();
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
             String userInput = s.nextLine();
@@ -90,6 +93,8 @@ public class Duke {
             readData(currChat, "data/duke.txt");
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("IO Error");
         }
 
         // Get user input
