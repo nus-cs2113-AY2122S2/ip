@@ -68,8 +68,11 @@ public class Duke {
                 handleCommand();
             } else {
                 throw new SingleWordCommandException();
-            } 
-            
+            }
+
+        } else if (input.contains("delete")) {
+            handleDelete(input);
+
         } else {
             printFormat("OOPS!!! I'm sorry, but I don't know what that means :-(",
                     "Please type in 'commands' if you are not sure of the commands");
@@ -109,6 +112,19 @@ public class Duke {
             list.get(markInt).setDone(true);
             printFormat("Nice! I've marked this task as done:",
                     list.get(markInt).toString());
+        }
+    }
+
+    private static void handleDelete(String input) throws InvalidNumberException {
+        int deleteInt = Integer.parseInt(input.substring(7)) - 1;
+        if (deleteInt + 1 > taskCounter) {
+            throw new InvalidNumberException();
+        } else {
+            Task deletedTask = list.get(deleteInt);
+            list.remove(deleteInt);
+            taskCounter--;
+            printFormat("Noted. I've removed this task:", deletedTask.toString(), 
+                    "Now you have " + String.valueOf(taskCounter) + " tasks in the list.");
         }
     }
 
