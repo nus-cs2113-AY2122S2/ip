@@ -4,7 +4,7 @@ import jrobo.exception.InvalidFormatException;
 
 public class InputParser {
     protected String[] args;
-    protected static String[] validCommands = {"mark", "m", "unmark", "um", "todo", "t", "deadline", "d", "event", "e", "list", "ls", "bye", "exit", "quit", "q"};
+    protected static String[] validCommands = {"mark", "m", "unmark", "um", "todo", "t", "deadline", "d", "event", "e", "list", "ls", "bye", "exit", "quit", "q", "delete", "del"};
 
     public InputParser(String input) {
         this.args = input.split(" ");
@@ -71,6 +71,27 @@ public class InputParser {
             return "event";
         }
         throw new InvalidFormatException("Invalid command format!");
+    }
+
+    public String[] loadParse(String taskStr) {
+        int index = taskStr.lastIndexOf(']');
+        String prefix = taskStr.substring(0, index);
+        String body;
+        String suffix;
+        boolean isDeadline = prefix.contains("D");
+        boolean isEvent = prefix.contains("E");
+        if (isEvent) {
+            suffix = taskStr.substring(taskStr.indexOf("at:") + 3, taskStr.length() - 1);
+            body = taskStr.substring(index + 1, taskStr.indexOf('(') - 1);
+            return new String[] {body, suffix, "event"};
+        } else if (isDeadline) {
+            suffix = taskStr.substring(taskStr.indexOf("by:") + 3, taskStr.length() - 1);
+            body = taskStr.substring(index + 1, taskStr.indexOf('(') - 1);
+            return new String[] {body, suffix, "deadline"};
+        } else {
+            body = taskStr.substring(index + 1);
+            return new String[] {body, "", "todo"};
+        }
     }
 
     private int findSuffixIndex() {
