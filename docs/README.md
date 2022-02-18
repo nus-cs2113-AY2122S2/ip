@@ -20,6 +20,10 @@ The application provides support for storing multiple task types.
 - Add an `Event` task.
   - `>>> event description /at at_description`
 
+Examples:
+- `>>> todo return book`
+- `>>> deadline finish assignment /by next monday`
+
 ### List Tasks
 To list all stored tasks, simply input the following command:
 - `>>> list`
@@ -41,3 +45,9 @@ Users may delete any task by specifying the task's index:
 ### Find Tasks
 Users may find tasks based on keywords.
 - `>>> find search terms`
+
+Note that multiple words are allowed!
+
+Examples:
+- `>>> find book`
+- `>>> find school assignment`
