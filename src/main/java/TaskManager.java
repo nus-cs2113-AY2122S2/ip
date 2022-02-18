@@ -1,9 +1,13 @@
+import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
+
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class TaskManager {
 
     String horiLine = "____________________________________________________________\n";
-
     private final ArrayList<Task> tasks = new ArrayList<>();
 
     public TaskManager() {
@@ -65,6 +69,68 @@ public class TaskManager {
         tasks.remove(taskIndex);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
+    }
+
+    public void initialiseNewFile() throws IOException {
+        System.out.println(horiLine);
+        System.out.println("Record accessing......");
+        File dir = new File("data");
+        if(!dir.exists()){
+            dir.mkdir();
+            System.out.println("create a new directory \"data\"...... ");
+        }
+        File file = new File("data/Baymax.txt");
+        if(!file.exists()) {
+            file.createNewFile();
+            System.out.println("create a new file \"Baymax.txt\"...... ");
+            System.out.println(horiLine);
+            return;
+        }
+        Scanner initTask = new Scanner(file);
+        int taskIndex = -1;
+        while(initTask.hasNext()){
+            taskIndex++;
+            Task temp;
+            String[] word_split = initTask.nextLine().split(" / ");
+            switch(word_split[0]){
+                case "T":
+                    tasks.add(new Todo(word_split[2]));
+                    if (word_split[1].equals("1")) {
+                        temp = tasks.get(taskIndex);
+                        temp.markTaskDone();
+                    }
+                    break;
+                case "D":
+                    tasks.add(new Deadline(word_split[2],word_split[3]));
+                    if (word_split[1].equals("1")) {
+                        temp = tasks.get(taskIndex);
+                        temp.markTaskDone();
+                    }
+                    break;
+                case "E":
+                    tasks.add(new Event(word_split[2],word_split[3]));
+                    if (word_split[1].equals("1")) {
+                        temp = tasks.get(taskIndex);
+                        temp.markTaskDone();
+                    }
+                    break;
+                default:
+                    System.out.println(horiLine);
+                    System.out.println("Error accur, please check.");
+                    System.out.println(horiLine);
+                    break;
+            }
+        }
+        System.out.println(horiLine);
+    }
+
+    public void saveTask() throws IOException {
+
+        FileWriter fw = new FileWriter("data/Baymax.txt");
+        for(int i = 0; i < tasks.size(); i++){
+            fw.write(tasks.get(i).saveInfo() + "\n");
+        }
+        fw.close();
     }
 }
 

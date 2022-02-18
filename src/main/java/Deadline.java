@@ -16,4 +16,10 @@ public class Deadline extends Task {
     public String getDescription() {
         return super.getDescription()+ "( by: "+ ddl + ")";
     }
+
+    @Override
+    public String saveInfo(){
+        String sep = " / ";
+        return "D" + sep + super.saveInfo() + this.ddl;
+    }
 }

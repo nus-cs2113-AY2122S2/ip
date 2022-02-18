@@ -1,8 +1,11 @@
 import java.lang.String;
 import java.util.Scanner;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class Baymax {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Scanner in = new Scanner(System.in);
         String command;
@@ -10,6 +13,15 @@ public class Baymax {
         String[] taskWord;
         TaskManager tManager = new TaskManager();
         String horiLine = "____________________________________________________________\n";
+
+        //load record
+        try {
+            tManager.initialiseNewFile();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         tManager.welcome(); //greating
 
@@ -95,6 +107,8 @@ public class Baymax {
             command = in.nextLine();
 
         }
+        tManager.saveTask();
         tManager.bye(); //bye
     }
+
 }
