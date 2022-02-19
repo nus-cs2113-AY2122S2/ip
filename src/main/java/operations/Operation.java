@@ -26,10 +26,16 @@ public abstract class Operation {
         } catch (DukeException e) {
             throw e;
         }
-
-
     }
 
+
+    public void executeOperation() throws DukeException {
+        try {
+            this.result = operate();
+        } catch (DukeException  e){
+            throw e;
+        }
+    }
 
     /**
      * Gets the Order of the operations.Operation
@@ -38,6 +44,15 @@ public abstract class Operation {
      */
     public String getOperationName() {
         return operationName;
+    }
+
+
+    /**
+     * Sets the order of the operation
+     * @param newOrder the new order
+     */
+    public void setOrder(String newOrder) {
+        order = newOrder;
     }
 
 

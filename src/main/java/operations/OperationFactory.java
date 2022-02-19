@@ -1,6 +1,6 @@
 package operations;
 
-
+import java.util.HashMap;
 import exceptions.DukeException;
 import exceptions.UnknownOrderDukeException;
 
@@ -19,20 +19,34 @@ public class OperationFactory {
     private static final String SAVE_COMMAND = "save";
     private static final String FIND_COMMAND = "find";
     private static final String HELP_COMMAND = "help";
-
     private static final String[] ORDER_LIST = {BYE_COMMAND,LIST_COMMAND,MARK_COMMAND,UNMARK_COMMAND,TODO_COMMAND, DEADLINE_COMMAND, EVENT_COMMAND, DELETE_COMMAND, SAVE_COMMAND, FIND_COMMAND, HELP_COMMAND};
+    private HashMap<String,Operation> operationCache;
+    private String[] helpMessages;
+
     public OperationFactory(String orderLocal) {
-
         order = orderLocal;
-
     }
 
     public OperationFactory() {
-
+        helpMessages = new String[ORDER_LIST.length];
+        operationCache = new HashMap<>();
     }
 
     public void setOrder(String orderLocal) {
         order = orderLocal;
+    }
+
+    public Operation getOperation() throws DukeException {
+        String orderName = order.split(" ", 2)[0];
+        if (operationCache.containsKey(orderName)==true) {
+            operationCache.get(orderName).setOrder(order);
+            operationCache.get(orderName).executeOperation();
+            return operationCache.get(orderName);
+        } else
+        {
+            operationCache.put(orderName, makeOperation(orderName, order));
+            return operationCache.get(orderName);
+        }
     }
 
     /**
@@ -40,9 +54,7 @@ public class OperationFactory {
      *
      * @return Certain operation
      */
-    public Operation makeOperation() throws DukeException {
-        String orderName = order.split(" ", 2)[0];
-
+    private Operation makeOperation(String orderName,String order) throws DukeException {
         switch (orderName) {
         case BYE_COMMAND:
             return new ByeOperation(orderName, order);

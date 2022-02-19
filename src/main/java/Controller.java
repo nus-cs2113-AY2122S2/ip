@@ -46,7 +46,7 @@ public class Controller {
             try {
                 String order = sc.nextLine();
                 operationFactory.setOrder(order);
-                Operation operation = operationFactory.makeOperation();
+                Operation operation = operationFactory.getOperation();
                 ChatBox.printChatBox(operation.getResult());
                 if (operation.getOperationName().equals(EXIT_COMMAND)) {
                     break;
