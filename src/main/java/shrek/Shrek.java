@@ -21,12 +21,14 @@ public class Shrek {
     private static final int INDEX_OF_TASK_NAME = 1;
     private static final int INDEX_OF_TASK_COMMAND = 0;
     private static final int INDEX_OF_TASK_INPUT = 1;
+    private static final int FIND_TASK_OR_TIME = 0;
+    private static final int FIND_CONTENT = 1;
     private static final int INDEX_OF_TASK_MARKED = 0;
     private static final int NUMBER_OF_TERMS_IN_SPLIT = 2;
     private static final int LIST_INDEX_CORRECTION = -1;
     public static final String NEW_LINE = System.lineSeparator();
     private static int errorCount = 0;
-    private static final String[] listOfCommands = {"todo", "deadline", "event", "mark", "unmark", "delete", "save"};
+    private static final String[] listOfCommands = {"todo", "deadline", "event", "mark", "unmark", "delete", "save", "find", "list"};
     private static String OUTPUT_FILE_PATH;
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_RESET = "\u001B[0m";
@@ -62,9 +64,9 @@ public class Shrek {
         File outputFile = new File(OUTPUT_FILE_PATH);
         Scanner lineScanner = new Scanner(outputFile);
         while (lineScanner.hasNext()) {
-            String[] splitMarkAndContent = lineScanner.nextLine().split(" ", NUMBER_OF_TERMS_IN_SPLIT);
-            takeInput(splitMarkAndContent[INDEX_OF_TASK_INPUT], false);
-            if (splitMarkAndContent[INDEX_OF_TASK_MARKED].equals("marked")) {
+            String[] splitMarkAndContents = lineScanner.nextLine().split(" ", NUMBER_OF_TERMS_IN_SPLIT);
+            takeInput(splitMarkAndContents[INDEX_OF_TASK_INPUT], false);
+            if (splitMarkAndContents[INDEX_OF_TASK_MARKED].equals("marked")) {
                 lists.get(lists.size() + LIST_INDEX_CORRECTION).setMark();
             }
         }
@@ -140,6 +142,73 @@ public class Shrek {
         outputFile.close();
     }
 
+    public static void findTaskOrTime(String input) {
+        try {
+            String[] splitTaskOrTimeInputs = input.split(" ", NUMBER_OF_TERMS_IN_SPLIT);
+            if (splitTaskOrTimeInputs[FIND_CONTENT].equals("")) {
+                throw new InvalidCommandException("Did you forget to input time or task?", errorCount);
+            }
+            switch (splitTaskOrTimeInputs[FIND_TASK_OR_TIME]) {
+            case "time":
+                findTime(splitTaskOrTimeInputs[FIND_CONTENT]);
+                break;
+            case "task":
+                findTask(splitTaskOrTimeInputs[FIND_CONTENT]);
+                break;
+            default:
+                throw new InvalidCommandException("Did you type time or task wrongly?", errorCount);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidCommandException("Did you forget to declare the time or task?", errorCount);
+        }
+    }
+
+    public static void findTask(String inputToSearchFor) {
+        ArrayList<UserContent> listOfFoundTasks = new ArrayList<>();
+        for (UserContent item : lists) {
+            if (item.getContent().contains(inputToSearchFor)) {
+                listOfFoundTasks.add(item);
+            }
+        }
+        if(listOfFoundTasks.size() == 0){
+            System.out.println("The task \"" + inputToSearchFor + "\" was not found in the list, sorry!");
+        } else {
+            printList(listOfFoundTasks, "Here are the tasks containing \""
+                    + inputToSearchFor + "\" in the list");
+        }
+    }
+
+    public static void findTime(String inputToSearchFor) {
+        ArrayList<UserContent> listOfFoundTimes = new ArrayList<>();
+        for (UserContent item : lists) {
+            String taskName = item.getTaskName();
+            switch (taskName) {
+            case "T":
+                break;
+            case "D":
+                Deadlines deadlineTask = (Deadlines) item;
+                if (deadlineTask.getBy().contains(inputToSearchFor)) {
+                    listOfFoundTimes.add(item);
+                }
+                break;
+            case "E":
+                Events eventTask = (Events) item;
+                if (eventTask.getAt().contains(inputToSearchFor)) {
+                    listOfFoundTimes.add(item);
+                }
+                break;
+            default:
+                throw new InvalidCommandException("Not a valid task to find!", errorCount);
+            }
+        }
+        if(listOfFoundTimes.size() == 0){
+            System.out.println("No task has the deadline or occurs at \"" + inputToSearchFor + "\", sorry!");
+        } else {
+            printList(listOfFoundTimes, "Here are the times containing \""
+                    + inputToSearchFor + "\" in the list");
+        }
+    }
+
     public static void printGreeting() {
         String logo = "███████╗██╗  ██╗██████╗ ███████╗██╗  ██╗\n" +
                 "██╔════╝██║  ██║██╔══██╗██╔════╝██║ ██╔╝\n" +
@@ -176,10 +245,10 @@ public class Shrek {
         System.out.print(LINE + bye + NEW_LINE + LINE);
     }
 
-    public static void printList() {
-        System.out.println("Go finish these tasks, NOW:");
+    public static void printList(ArrayList<UserContent> listToPrint, String messageToPrint) {
+        System.out.println(messageToPrint);
         int indexOfList = 1;
-        for (UserContent i : lists) {
+        for (UserContent i : listToPrint) {
             System.out.println(indexOfList + ". " + i);
             indexOfList++;
         }
@@ -196,21 +265,22 @@ public class Shrek {
 
     public static void addDeadlineOrEventToList(String input, String taskTimeReference)
             throws InvalidCommandException {
-        String[] chunkOfInput;
+        String[] splitDeadlineOrEventInputs;
         try {
-            chunkOfInput = input.split(taskTimeReference);
-            if (chunkOfInput.length > NUMBER_OF_TERMS_IN_SPLIT) {
+            splitDeadlineOrEventInputs = input.split(taskTimeReference);
+            if (splitDeadlineOrEventInputs.length > NUMBER_OF_TERMS_IN_SPLIT) {
                 throw new InvalidCommandException("Did you add in more than one \""
                         + taskTimeReference + "\"?", errorCount);
-            } else if (chunkOfInput[INDEX_OF_TASK_CONTENT].equals("") || chunkOfInput[INDEX_OF_TASK_NAME].equals("")) {
+            } else if (splitDeadlineOrEventInputs[INDEX_OF_TASK_CONTENT].equals("") ||
+                    splitDeadlineOrEventInputs[INDEX_OF_TASK_NAME].equals("")) {
                 throw new InvalidCommandException("Did you forget to add in the time or task?", errorCount);
             }
             if (taskTimeReference.equals("/at ")) {
-                lists.add(new Events(chunkOfInput[INDEX_OF_TASK_CONTENT],
-                        chunkOfInput[INDEX_OF_TASK_NAME]));
+                lists.add(new Events(splitDeadlineOrEventInputs[INDEX_OF_TASK_CONTENT],
+                        splitDeadlineOrEventInputs[INDEX_OF_TASK_NAME]));
             } else {
-                lists.add(new Deadlines(chunkOfInput[INDEX_OF_TASK_CONTENT],
-                        chunkOfInput[INDEX_OF_TASK_NAME]));
+                lists.add(new Deadlines(splitDeadlineOrEventInputs[INDEX_OF_TASK_CONTENT],
+                        splitDeadlineOrEventInputs[INDEX_OF_TASK_NAME]));
             }
         } catch (ArrayIndexOutOfBoundsException err) {
             if (!input.contains(taskTimeReference)) {
@@ -237,7 +307,7 @@ public class Shrek {
             isTaskRanSuccessful = false;
         }
         if (isTaskRanSuccessful) {
-            if(toPrint){
+            if (toPrint) {
                 System.out.println("Done putting this in the list:");
                 System.out.println(lists.get(lists.size() + LIST_INDEX_CORRECTION));
                 System.out.println("Go do the " + lists.size() + " task(s)!!");
@@ -296,41 +366,42 @@ public class Shrek {
             System.out.print(LINE);
         }
         try {
-            String[] words = userInput.split(" ", NUMBER_OF_TERMS_IN_SPLIT);
-            if (words[INDEX_OF_TASK_COMMAND].equals("list")) {
-                printList();
-                System.out.print(LINE);
-                return;
-            } else if (words[INDEX_OF_TASK_COMMAND].equals("save")) {
-                saveToOutput();
-                System.out.println("List saved!");
-                System.out.print(LINE);
-                return;
-            } else if (!isCommandInList(words[INDEX_OF_TASK_COMMAND])) {
+            String[] splitUserInputs = userInput.split(" ", NUMBER_OF_TERMS_IN_SPLIT);
+            if (!isCommandInList(splitUserInputs[INDEX_OF_TASK_COMMAND])) {
                 throw new InvalidCommandException("Input a command from the list", errorCount);
-            } else if (words.length < NUMBER_OF_TERMS_IN_SPLIT) {
-                throw new InvalidCommandException("Missing input after the command!", errorCount);
             }
-            switch (words[INDEX_OF_TASK_COMMAND]) {
+            switch (splitUserInputs[INDEX_OF_TASK_COMMAND]) {
+            case "list":
+                printList(lists, "Go finish these tasks, NOW:");
+                break;
+            case "save":
+                saveToOutput();
+                break;
+            case "find":
+                findTaskOrTime(splitUserInputs[INDEX_OF_TASK_INPUT]);
+                break;
             case "unmark":
-                unmarkTask(words[INDEX_OF_TASK_INPUT]);
+                unmarkTask(splitUserInputs[INDEX_OF_TASK_INPUT]);
                 break;
             case "mark":
-                markTask(words[INDEX_OF_TASK_INPUT]);
+                markTask(splitUserInputs[INDEX_OF_TASK_INPUT]);
                 break;
             case "todo":
-                addToList(words[INDEX_OF_TASK_INPUT], "todo", toPrint);
+                addToList(splitUserInputs[INDEX_OF_TASK_INPUT], "todo", toPrint);
                 break;
             case "deadline":
-                addToList(words[INDEX_OF_TASK_INPUT], "deadline", toPrint);
+                addToList(splitUserInputs[INDEX_OF_TASK_INPUT], "deadline", toPrint);
                 break;
             case "event":
-                addToList(words[INDEX_OF_TASK_INPUT], "event", toPrint);
+                addToList(splitUserInputs[INDEX_OF_TASK_INPUT], "event", toPrint);
                 break;
             case "delete":
-                deleteFromList(words[INDEX_OF_TASK_INPUT]);
+                deleteFromList(splitUserInputs[INDEX_OF_TASK_INPUT]);
                 break;
             default:
+                if (splitUserInputs.length < NUMBER_OF_TERMS_IN_SPLIT) {
+                    throw new InvalidCommandException("Missing input after the command!", errorCount);
+                }
                 throw new InvalidCommandException("How did you get here?", errorCount);
             }
         } catch (InvalidCommandException e) {
