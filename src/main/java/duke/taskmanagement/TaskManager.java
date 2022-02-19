@@ -1,4 +1,4 @@
-package duke.taskmanager;
+package duke.taskmanagement;
 
 import duke.customexceptions.EmptyDescriptionException;
 import duke.customexceptions.EmptyTimingDetailsException;
@@ -11,6 +11,7 @@ public class TaskManager {
     private final static int MAXTASKCOUNT = 100;
     private int taskCount = 0;
     private Task[] taskList = new Task[MAXTASKCOUNT];
+    private TaskRecorder taskRecorder = new TaskRecorder();
 
     public void addTodo(String userInput) {
         try {

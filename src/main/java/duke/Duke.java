@@ -1,6 +1,6 @@
 package duke;
 
-import duke.taskmanager.TaskManager;
+import duke.taskmanagement.TaskManager;
 
 import java.util.Scanner;
 
