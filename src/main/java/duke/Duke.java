@@ -172,6 +172,13 @@ public class Duke {
                 throw new IllegalCommandException();
             }
             Command.mark(Integer.parseInt(arrOfInput[1]));
+            break;
+        case "delete":
+            if (arrOfInput.length < 2){
+                throw new IllegalCommandException();
+            }
+            Command.delete(Integer.parseInt(arrOfInput[1]));
+            break;
 
         default:
             throw new NonExistentCommandException();
