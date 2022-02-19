@@ -94,6 +94,25 @@ public class TaskList {
         }
     }
 
+    public void findTaskInTaskList(String input) {
+        String searchString = CommandParser.getSearchStringFromUserInput(input);
+        if (searchString == null) {
+            return;
+        }
+        ArrayList<Task> listOfMatchedTask = getSearchedList(searchString);
+        if (listOfMatchedTask == null) {
+            System.out.println("Oops! It seems that we could not find " +
+                    "what you were looking for! Please try again.");
+        } else {
+            System.out.println("The tasks that matched your inputs are:");
+            printTaskList(listOfMatchedTask);
+        }
+    }
+
+    public void printTasksFromTaskList() {
+        printTaskList(listOfTask);
+    }
+
     private Deadline createDeadlineTask(String input) {
         Deadline newDeadlineTask = null;
         try {
