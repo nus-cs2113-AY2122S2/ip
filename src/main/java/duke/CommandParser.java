@@ -29,6 +29,24 @@ public class CommandParser {
         return input.split(" ")[0].toLowerCase();
     }
 
+    public static String getSearchStringFromUserInput(String userInput) {
+        String userSearchString;
+        String input = userInput.strip();
+        int indexOfSpace = input.indexOf(" ");
+        try {
+            if (indexOfSpace == -1) {
+                throw new DukeException("Oops! It seems that you did " +
+                        "not type anything! Please try again!");
+            }
+            userSearchString = input.substring(indexOfSpace + 1);
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+
+        return userSearchString;
+    }
+
     public static String getDeadlineTaskDescription(String input) throws DukeException, StringIndexOutOfBoundsException {
         if (input.contains("/by")) {
             int firstSpaceIndex = input.indexOf(" ");
