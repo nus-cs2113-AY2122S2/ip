@@ -17,4 +17,8 @@ public class Deadline extends Task{
     public String getCategory(){
         return "D";
     }
+
+    public String getBy() {
+        return by;
+    }
 }

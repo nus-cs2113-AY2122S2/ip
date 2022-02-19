@@ -16,4 +16,8 @@ public class Event extends Task{
     public String getCategory(){
         return "E";
     }
+
+    public String getStartEndTime() {
+        return startEndTime;
+    }
 }
