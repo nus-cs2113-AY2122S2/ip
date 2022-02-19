@@ -1,2 +1,4 @@
-[T][X] watch tv
-[D][ ] more oop  by:  today)
+[T][X]  watch tv
+[D][ ] more oop by: today)
+[T][ ] sell tv
+[E][ ] sold tv  at:  yesterday

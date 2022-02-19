@@ -53,6 +53,18 @@ public class Duke {
                     ui.displayListWithStatus(allTasks, allTasks.size());
                     break;
 
+                case "find":
+                    ArrayList<Task> foundTasks = new ArrayList<Task>();
+                    String keyword = command.split(" ")[1].trim();
+                    for (int i = 0; i < allTasks.size(); i++){
+                        Task task = allTasks.get(i);
+                        if(task.description.contains(keyword)){
+                            foundTasks.add(task);
+                        }
+                    }
+                    ui.displayFoundTasks(foundTasks);
+                    break;
+
                 case "delete":
                     index = Integer.parseInt(command.split(" ")[1]) - 1;
                     ui.deleteAndDisplayTask(allTasks.get(index), allTasks.size() - 1);

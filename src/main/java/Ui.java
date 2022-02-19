@@ -53,6 +53,15 @@ public class Ui {
         this.printLine();
     }
 
+    public void displayFoundTasks(ArrayList<Task> foundTasks) {
+        this.printLine();
+        System.out.println("Here are the matching tasks in your list:");
+        for(int i = 1; i <= foundTasks.size(); i++){
+            System.out.println(i + ". " + foundTasks.get(i - 1));
+        }
+        this.printLine();
+    }
+
     public void markAndDisplayTask(Task t) {
         t.markAsDone();
         this.printLine();
