@@ -17,7 +17,7 @@ public class Deadlines extends Task {
      */
     public Deadlines(String description, String by, boolean isDone) {
         super(description);
-        LocalDate date = LocalDate.parse(by);
+        LocalDate date = LocalDate.parse(by, DateTimeFormatter.ofPattern("MMM d yyyy"));
 
         this.by = date;
         this.isDone = isDone;

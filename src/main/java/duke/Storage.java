@@ -52,20 +52,21 @@ public class Storage {
                 Task currTask = tasks.getTask(i);
                 if(currTask instanceof Deadlines) {
                     fw.write(String.format("%d. Deadline:\n", i));
-                    fw.write(currTask.getDescription());
+                    fw.write(currTask.getDescription() + "\n");
                     fw.write(String.format("[%s]\n", currTask.getStatusIcon()));
                     fw.write(((Deadlines) currTask).getBy() + "\n");
                 }
                 else if(currTask instanceof Events) {
                     fw.write(String.format("%d. Event:\n", i));
-                    fw.write(currTask.getDescription());
+                    fw.write(currTask.getDescription() + "\n");
                     fw.write(String.format("[%s]\n", currTask.getStatusIcon()));
                     fw.write(((Events) currTask).getDuration() + "\n");
                 }
                 else {
                     fw.write(String.format("%d. Todo:\n", i));
-                    fw.write(currTask.getDescription());
+                    fw.write(currTask.getDescription() + "\n");
                     fw.write(String.format("[%s]\n", currTask.getStatusIcon()));
+                    fw.write(" \n");
                 }
             }
             fw.close();
@@ -88,11 +89,11 @@ public class Storage {
                 return result;
             }
             int n = scanner.nextInt();
+            scanner.nextLine();//read enter
             String data;
-            String taskType;
             boolean isDone;
-            String taskDescription;
             String taskTime;
+
             for(int i = 0; i < n; i++) {
                 data = scanner.nextLine();
                 if(data.contains("Deadline")) {
@@ -127,6 +128,7 @@ public class Storage {
                     else {
                         isDone = false;
                     }
+                    taskTime = scanner.nextLine();
                     Task todo = new Task(description, isDone);
                     result.add(todo);
                 }
