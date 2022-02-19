@@ -11,6 +11,8 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.time.LocalDate;
 
+import static java.util.stream.Collectors.toList;
+
 public class TaskList {
     private LocalStorage localInstance;
     private ArrayList<Task> listOfTask;
@@ -54,12 +56,12 @@ public class TaskList {
         }
         if (newTask != null) {
             listOfTask.add(newTask);
-            printTaskListUpdate(newTask, "added");
+            printTaskUpdate(newTask, "added");
             saveTaskListToFile();
         }
     }
 
-    public void markTask(String input, String taskStatus) {
+    public void markTaskInTaskList(String input, String taskStatus) {
         try {
             int taskNumber = getTaskNumberFromInput(input);
             // true if it is "mark", set to false if it's not "mark"
@@ -80,12 +82,12 @@ public class TaskList {
         }
     }
 
-    public void deleteTask(String input) {
+    public void deleteTaskInTaskList(String input) {
         try {
             int taskNumber = getTaskNumberFromInput(input);
             Task toBeDeletedTask = getTaskFromListOfTask(taskNumber);
             listOfTask.remove(toBeDeletedTask);
-            printTaskListUpdate(toBeDeletedTask, "deleted");
+            printTaskUpdate(toBeDeletedTask, "deleted");
             saveTaskListToFile();
         } catch (IndexOutOfBoundsException idxError) {
             System.out.println("Invalid task number to be marked!");
@@ -176,7 +178,7 @@ public class TaskList {
         }
     }
 
-    public void printTaskListUpdate(Task taskObject, String commandType) {
+    public void printTaskUpdate(Task taskObject, String commandType) {
         UI.printBorder();
         if (commandType.equalsIgnoreCase("added")) {
             System.out.println("Got it!. I've added this task:");
@@ -188,12 +190,15 @@ public class TaskList {
         UI.printBorder();
     }
 
-    public void printTaskList() {
-        if (listOfTask.size() == 0) {
+    private void printTaskList(ArrayList<Task> listOfTaskToBePrinted) {
+        if (listOfTaskToBePrinted.size() == 0) {
             System.out.println("No task available!");
         }
-        for (int i = 0 ; i < listOfTask.size(); i++) {
-            System.out.println(" " +(i + 1) +"." + listOfTask.get(i));
+        for (int i = 0 ; i < listOfTaskToBePrinted.size(); i++) {
+            System.out.println(" " +(i + 1) +"." + listOfTaskToBePrinted.get(i));
+        }
+    }
+
     private ArrayList<Task> getSearchedList(String stringToMatch) {
         ArrayList<Task> listOfFilteredTask = (ArrayList<Task>) listOfTask.stream()
                 .filter((t) -> t.getDescription().contains(stringToMatch))
