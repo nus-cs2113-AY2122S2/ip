@@ -35,7 +35,11 @@ public class Task {
         return "task";
     }
 
-    public String getDate() {
+    public String getDateFormattedString() {
+        return "-";
+    }
+
+    public String getDateForStorage() {
         return "-";
     }
 

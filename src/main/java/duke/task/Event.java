@@ -1,16 +1,20 @@
 package duke.task;
 
-public class Event extends Task {
-    protected String at;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String at) {
+public class Event extends Task {
+
+    protected LocalDate datetime;
+
+    public Event(String description, LocalDate datetime) {
         super(description);
-        this.at = at;
+        this.datetime = datetime;
     }
 
-    public Event(String description, Boolean isDone, String at) {
+    public Event(String description, Boolean isDone, LocalDate datetime) {
         super(description, isDone);
-        this.at = at;
+        this.datetime = datetime;
     }
 
     @Override
@@ -19,12 +23,17 @@ public class Event extends Task {
     }
 
     @Override
-    public String getDate() {
-        return at;
+    public String getDateFormattedString() {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d MMM yyyy");
+        String formattedDatetime =  datetime.format(dateFormat);
+        return formattedDatetime;
+    }
+
     }
 
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (at: " + at + ")";
+        return "[E]" + super.toString() + " (at: " + getDateFormattedString() + ")";
     }
 }
