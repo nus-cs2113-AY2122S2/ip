@@ -18,6 +18,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String getTaskType() {
+        return "deadline";
+    }
+
+    @Override
     public String getDateFormattedString() {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d MMM yyyy");
         String formattedDate =  datetime.format(dateFormat);
@@ -27,11 +32,6 @@ public class Deadline extends Task {
     @Override
     public String getDateForStorage() {
         return datetime.toString();
-    }
-
-    @Override
-    public String getTaskType() {
-        return "deadline";
     }
 
     @Override

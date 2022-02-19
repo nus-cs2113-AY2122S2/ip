@@ -10,13 +10,19 @@ public class Todo extends Task {
         super(description, isDone);
     }
 
+    @Override
+    public String getTaskType() {
+        return "todo";
+    }
+
+    @Override
     public String getDateFormattedString() {
         return "-";
     }
 
     @Override
-    public String getTaskType() {
-        return "todo";
+    public String getDateForStorage() {
+        return "-";
     }
 
     @Override
