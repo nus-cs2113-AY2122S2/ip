@@ -2,7 +2,7 @@
 Duke application aims to help users manage their tasks and store them in a local
  text file via a Command Line Interface.
 
-##Quick start
+## Quick start
 1. Ensure you have Java `11` installed in your computer.
 2. Download the latest release file from [.jar](https://github.com/wang1351/ip/releases/download/A-Jar/ip.jar) or [.tar.gz](https://github.com/wang1351/ip/archive/refs/tags/A-Jar.tar.gz) or [.zip](https://github.com/wang1351/ip/archive/refs/tags/A-Jar.zip).
 3. Click
