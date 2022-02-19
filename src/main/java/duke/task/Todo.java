@@ -10,7 +10,7 @@ public class Todo extends Task {
         super(description, isDone);
     }
 
-    public String getDate() {
+    public String getDateFormattedString() {
         return "-";
     }
 
