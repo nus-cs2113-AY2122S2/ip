@@ -3,11 +3,11 @@ package duke.task;
 public abstract class Task {
     protected String description;
     protected boolean isMarked;
-    protected int taskNumber;
+    protected int taskUniqueID;
 
-    public Task(String description, int taskNumber) {
+    public Task(String description, int taskUniqueID) {
         this.description = description;
-        this.taskNumber = taskNumber;
+        this.taskUniqueID = taskUniqueID;
         this.isMarked = false;
     }
 
@@ -27,12 +27,12 @@ public abstract class Task {
         this.description = description;
     }
 
-    public int getTaskNumber() {
-        return taskNumber;
+    public int getTaskUniqueID() {
+        return taskUniqueID;
     }
 
-    public void setTaskNumber(int taskNumber) {
-        this.taskNumber = taskNumber;
+    public void setTaskUniqueID(int taskUniqueID) {
+        this.taskUniqueID = taskUniqueID;
     }
 
     public boolean getIsDone() {

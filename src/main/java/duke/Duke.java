@@ -32,6 +32,9 @@ public class Duke {
             case "unmark":
                 taskList.markOrUnmarkTask(userInput);
                 break;
+            case "delete":
+                taskList.deleteTask(userInput);
+                break;
             case "bye":
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
@@ -51,13 +54,13 @@ public class Duke {
 
     private static void printGreeting() {
         printLine();
-        System.out.println("Hello! I'm duke.Duke.");
+        System.out.println("Hello! I'm Duke.");
         System.out.println("What can I do for you?");
     }
 
     private static void printHelpMessage() {
         System.out.println("Sorry I don't know what you mean.");
-        System.out.println("There are currently six keyword commands: ");
-        System.out.println("1. list, 2. todo, 3. deadline, 4. mark, 5. unmark, 6. bye");
+        System.out.println("There are currently eight keyword commands: ");
+        System.out.println("1. list, 2. todo, 3. deadline, 4.event, 5. mark, 6. unmark, 7. delete, 8. bye");
     }
 }

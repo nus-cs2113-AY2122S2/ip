@@ -3,8 +3,8 @@ package duke.task;
 public class Deadline extends Task {
     protected String by;
 
-    public Deadline(String description, int id, String by) {
-        super(description, id);
+    public Deadline(String description, int taskUniqueID, String by) {
+        super(description, taskUniqueID);
         this.by = by;
     }
 
