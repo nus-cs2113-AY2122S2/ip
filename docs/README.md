@@ -168,7 +168,7 @@ Bye. Hope to see you again soon!
 
 
 
-##FAQ
+## FAQ
 **Q**: What if my input is in wrong format?
 
 **A**: When encountering unfamiliar format of input, Duke application provides a warm notice to the user
