@@ -1,0 +1,6 @@
+unmarked todo borrow book
+unmarked deadline return book /by Sunday
+unmarked event project meeting /at Mon 2-4pm
+unmarked deadline do homework /by no idea :-p
+unmarked deadline 1/by 1234
+unmarked event 4/at 1234
