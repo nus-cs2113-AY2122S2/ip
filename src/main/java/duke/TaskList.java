@@ -194,6 +194,13 @@ public class TaskList {
         }
         for (int i = 0 ; i < listOfTask.size(); i++) {
             System.out.println(" " +(i + 1) +"." + listOfTask.get(i));
+    private ArrayList<Task> getSearchedList(String stringToMatch) {
+        ArrayList<Task> listOfFilteredTask = (ArrayList<Task>) listOfTask.stream()
+                .filter((t) -> t.getDescription().contains(stringToMatch))
+                .collect(toList());
+        if (listOfFilteredTask.size() == 0) {
+            return null;
         }
+        return listOfFilteredTask;
     }
 }
