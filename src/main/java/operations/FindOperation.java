@@ -13,7 +13,7 @@ public class FindOperation extends Operation{
      */
     public FindOperation(String operationNameLocal, String order) throws DukeException {
         super(operationNameLocal, order);
-        result = operate();
+        helpMessage = "     find <keyword>                                     --find task(s) containing the keyword\n";
     }
 
     @Override

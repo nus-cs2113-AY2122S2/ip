@@ -19,7 +19,9 @@ public class OperationFactory {
     private static final String SAVE_COMMAND = "save";
     private static final String FIND_COMMAND = "find";
     private static final String HELP_COMMAND = "help";
-    private static final String[] ORDER_LIST = {BYE_COMMAND,LIST_COMMAND,MARK_COMMAND,UNMARK_COMMAND,TODO_COMMAND, DEADLINE_COMMAND, EVENT_COMMAND, DELETE_COMMAND, SAVE_COMMAND, FIND_COMMAND, HELP_COMMAND};
+    private static final String NULL_PARAMETER = "";
+    private static final String NULL_ORDER = "";
+    private static final String[] OPERATION_NAME_LIST = {BYE_COMMAND,LIST_COMMAND,MARK_COMMAND,UNMARK_COMMAND,TODO_COMMAND, DEADLINE_COMMAND, EVENT_COMMAND, DELETE_COMMAND, SAVE_COMMAND, FIND_COMMAND, HELP_COMMAND};
     private HashMap<String,Operation> operationCache;
     private String[] helpMessages;
 
@@ -28,7 +30,7 @@ public class OperationFactory {
     }
 
     public OperationFactory() {
-        helpMessages = new String[ORDER_LIST.length];
+        helpMessages = new String[OPERATION_NAME_LIST.length];
         operationCache = new HashMap<>();
     }
 
@@ -36,6 +38,13 @@ public class OperationFactory {
         order = orderLocal;
     }
 
+    /**
+     * Checks whether there are catched operation firstly
+     *      if so it will not make duplicate operation and will return the existed one
+     *      else it will call makeOperation.
+     * @return  The required operation
+     * @throws DukeException Exception of getting operation
+     */
     public Operation getOperation() throws DukeException {
         String orderName = order.split(" ", 2)[0];
         if (operationCache.containsKey(orderName)==true) {
@@ -47,6 +56,28 @@ public class OperationFactory {
             operationCache.put(orderName, makeOperation(orderName, order));
             return operationCache.get(orderName);
         }
+    }
+
+    private Operation getHelpList() throws DukeException{
+        try {
+            HelpOperation helpOperation = new HelpOperation(HELP_COMMAND,HELP_COMMAND);
+            if (operationCache.containsKey(HELP_COMMAND)==false) {
+                operationCache.put(HELP_COMMAND, helpOperation);
+            }
+            for (String operationName: OPERATION_NAME_LIST) {
+                if (operationCache.containsKey(operationName)==true) {
+                    helpOperation.appendHelpMessage(operationCache.get(operationName).getHelpMessage());
+                } else {
+                    operationCache.put(operationName, makeOperation(operationName,NULL_ORDER));
+                    helpOperation.appendHelpMessage(operationCache.get(operationName).getHelpMessage());
+                }
+            }
+            operationCache.put(HELP_COMMAND, helpOperation);
+            return helpOperation;
+        } catch (DukeException e) {
+            throw e;
+        }
+
     }
 
     /**
@@ -76,6 +107,9 @@ public class OperationFactory {
             return new RemoveOperation(orderName, order);
         case FIND_COMMAND:
             return new FindOperation(orderName,order);
+        case HELP_COMMAND:
+            // A method that make a helpOperation containing the help information.
+            return getHelpList();
         default:
             throw new UnknownOrderDukeException();
         }

@@ -14,6 +14,7 @@ public class UnmarkOperation extends Operation {
      */
     public UnmarkOperation(String operationNameLocal, String order) throws DukeException {
         super(operationNameLocal, order);
+        helpMessage = "     unmark <i>                                         --set the ith task as uncompleted (1-based)\n";
     }
 
     @Override public String operate() throws DukeException{

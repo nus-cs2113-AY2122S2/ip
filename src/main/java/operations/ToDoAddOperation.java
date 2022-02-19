@@ -15,6 +15,7 @@ public class ToDoAddOperation extends AddOperation {
      */
     public ToDoAddOperation(String operationNameLocal, String order) throws DukeException {
         super(operationNameLocal, order);
+        helpMessage = "     todo <task description>                            --add a todo type task\n";
     }
 
     /**

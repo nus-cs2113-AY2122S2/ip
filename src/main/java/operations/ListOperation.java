@@ -15,7 +15,7 @@ public class ListOperation extends Operation {
      */
     public ListOperation(String operationNameLocal, String order) throws DukeException {
         super(operationNameLocal, order);
-        result = operate();
+        helpMessage = "     list                                               --list all tasks\n";
     }
 
     @Override

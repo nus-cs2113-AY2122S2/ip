@@ -12,6 +12,7 @@ public class ByeOperation extends Operation {
      */
     public ByeOperation(String operationName, String order) throws DukeException {
         super(operationName, order);
+        helpMessage = "     bye                                                --exit Duke\n";
     }
 
     @Override

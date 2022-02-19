@@ -13,6 +13,7 @@ public class SaveOperation extends Operation{
      */
     public SaveOperation(String operationNameLocal, String order) throws DukeException {
         super(operationNameLocal, order);
+        helpMessage = "     save                                               --save the current records\n";
     }
 
     /**

@@ -11,6 +11,9 @@ public abstract class Operation {
     protected String operationName = "";
     protected String order = "";
     protected String result = "";
+    protected String helpMessage = "Duke operation\n";
+    private static final String NULL_ORDER = "";
+    private static final String NULL_RESULT = "not executed yet";
 
 
     /**
@@ -19,14 +22,30 @@ public abstract class Operation {
      * @param order Order given by User
      */
     public Operation(String operationNameLocal, String order) throws DukeException {
-        try {
-            this.operationName = operationNameLocal;
-            this.order = order;
-            this.result = operate();
-        } catch (DukeException e) {
-            throw e;
+        this.operationName = operationNameLocal;
+        this.helpMessage = "     " + operationNameLocal + "                                             --help message not defined\n";
+        if (order == "" ){
+
+            this.result =  operationNameLocal + " " + NULL_RESULT;
+        } else {
+            try {
+                this.order = order;
+                this.result = operate();
+            } catch (DukeException e) {
+                throw e;
+            }
         }
     }
+
+    /**
+     * A lazy constructor that will creates
+     * @param operationNameLocal
+     */
+    public Operation(String operationNameLocal) {
+        this.operationName = operationNameLocal;
+    }
+
+
 
 
     public void executeOperation() throws DukeException {
@@ -79,13 +98,21 @@ public abstract class Operation {
         ChatBox.printChatBox(operationName);
     }
 
+
+    /**
+     *  Gets the help message of the operation
+     * @return help message of the operation
+     */
+    public String getHelpMessage() {
+        return helpMessage;
+    }
+
     public String operate() throws DukeException {
         try {
             return operationName;
         } catch (Exception e) {
             throw e;
         }
-
     }
 
 }

@@ -12,8 +12,8 @@ public class MarkOperation extends Operation {
      * @param order          Order given by User
      */
     public MarkOperation(String operationNameLocal, String order) throws DukeException {
-
         super(operationNameLocal, order);
+        helpMessage = "     mark <i>                                           --set the ith task as completed (1-based)\n";
     }
 
     @Override

@@ -14,6 +14,7 @@ public class RemoveOperation extends Operation {
      */
     public RemoveOperation(String operationNameLocal, String order) throws DukeException {
         super(operationNameLocal, order);
+        helpMessage = "     delete <i>                                         --delete the ith task (1-based)\n";
     }
 
     @Override
