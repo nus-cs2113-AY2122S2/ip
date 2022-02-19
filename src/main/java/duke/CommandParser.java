@@ -11,13 +11,16 @@ public class CommandParser {
         switch (command) {
         case "mark":
         case "unmark":
-            taskList.markTask(input, command);
+            taskList.markTaskInTaskList(input, command);
             break;
         case "list":
-            taskList.printTaskList();
+            taskList.printTasksFromTaskList();
             break;
         case "delete":
-            taskList.deleteTask(input);
+            taskList.deleteTaskInTaskList(input);
+            break;
+        case "find":
+            taskList.findTaskInTaskList(input);
             break;
         default:
             taskList.addTaskToTaskList(input, command);
@@ -27,6 +30,24 @@ public class CommandParser {
 
     public static String getCommandFromUserInput(String input) {
         return input.split(" ")[0].toLowerCase();
+    }
+
+    public static String getSearchStringFromUserInput(String userInput) {
+        String userSearchString;
+        String input = userInput.strip();
+        int indexOfSpace = input.indexOf(" ");
+        try {
+            if (indexOfSpace == -1) {
+                throw new DukeException("Oops! It seems that you did " +
+                        "not type anything! Please try again!");
+            }
+            userSearchString = input.substring(indexOfSpace + 1);
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+
+        return userSearchString;
     }
 
     public static String getDeadlineTaskDescription(String input) throws DukeException, StringIndexOutOfBoundsException {
