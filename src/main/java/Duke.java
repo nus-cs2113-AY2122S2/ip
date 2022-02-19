@@ -34,21 +34,22 @@ public class Duke {
         ui.greeting();
 
         while (notQuit) {
-            String command = ui.readCommand();
+            String command = ui.readCommand().replaceAll("( )+", " ");
             switch (command.split(" ")[0]) {
                 case "bye":
                     ui.sayGoobye();
+                    storage.writeToDukeFile(allTasks);
                     notQuit = false;
                     break;
 
                 case "mark":
-                    index = Integer.parseInt(command.split(" ")[1]) - 1;
+                    index = Integer.parseInt(command.split(" ")[1].trim()) - 1;
                     t = allTasks.get(index);
                     ui.markAndDisplayTask(t);
                     break;
 
                 case "unmark":
-                    index = Integer.parseInt(command.split(" ")[1]) - 1;
+                    index = Integer.parseInt(command.split(" ")[1].trim()) - 1;
                     t = allTasks.get(index);
                     ui.unmarkAndDisplayTask(t);
                     break;
@@ -70,10 +71,9 @@ public class Duke {
                     break;
 
                 case "delete":
-                    index = Integer.parseInt(command.split(" ")[1]) - 1;
+                    index = Integer.parseInt(command.split(" ")[1].trim()) - 1;
                     ui.deleteAndDisplayTask(allTasks.get(index), allTasks.size() - 1);
                     allTasks.remove(index);
-                    storage.writeToDukeFile(allTasks);
                     break;
 
                 case "todo":
@@ -91,7 +91,6 @@ public class Duke {
                     t = new Todo(description);
                     allTasks.add(allTasks.size(), t);
                     ui.displayTask(t, allTasks.size());
-                    storage.writeToDukeFile(allTasks);
                     break;
 
                 case "deadline":
@@ -120,7 +119,6 @@ public class Duke {
                     t = new Deadline(description, by);
                     allTasks.add(t);
                     ui.displayTask(t, allTasks.size());
-                    storage.writeToDukeFile(allTasks);
                     break;
 
                 case "event":
@@ -149,7 +147,6 @@ public class Duke {
                     t = new Event(description, at);
                     allTasks.add(t);
                     ui.displayTask(t, allTasks.size());
-                    storage.writeToDukeFile(allTasks);
                     break;
 
                 default:

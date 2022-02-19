@@ -1,4 +1,3 @@
-[T][X]  watch tv
-[D][ ] more oop by: today)
-[T][ ] sell tv
-[E][ ] sold tv  at:  yesterday
+[T][ ] read book
+[D][X] borrow book (by: today))
+[E][ ] make presentation (at: Mondays))

@@ -91,20 +91,20 @@ public class Storage {
      */
     private Deadline convertDeadline(String taskDetail){
         String description, by;
-        description = taskDetail.split("by:")[0].trim();
+        description = taskDetail.split("by:")[0].replace("(", "").trim();
         by = taskDetail.split("by:")[1].trim();
         Deadline deadline = new Deadline(description, by);
         return deadline;
     }
 
     /**
-     * 
+     *
      * @param taskDetail
      * @return
      */
     private Event convertEvent(String taskDetail){
         String description, at;
-        description = taskDetail.split("at:")[0].trim();
+        description = taskDetail.split("at:")[0].replace("(", "").trim();
         at = taskDetail.split("at:")[1].trim();
         Event event = new Event(description, at);
         return event;

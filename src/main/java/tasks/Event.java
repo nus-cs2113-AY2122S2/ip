@@ -6,11 +6,11 @@ public class Event extends Task {
 
     public Event(String description, String at) {
         super(description);
-        this.at = at;
+        this.at = at.trim();
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " at: " + at ;
+        return "[E]" + super.toString() + " (at: " + at + ")";
     }
 }
