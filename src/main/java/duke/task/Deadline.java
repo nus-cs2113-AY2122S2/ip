@@ -25,12 +25,12 @@ public class Deadline extends Task {
     @Override
     public String getDateFormattedString() {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d MMM yyyy");
-        String formattedDate =  datetime.format(dateFormat);
-        return formattedDate;
+        String dateFormatString =  datetime.format(dateFormat);
+        return dateFormatString;
     }
 
     @Override
-    public String getDateForStorage() {
+    public String getDateForStorageFile() {
         return datetime.toString();
     }
 

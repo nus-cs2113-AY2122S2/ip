@@ -5,8 +5,8 @@ public class Duke {
     protected LocalStorage localStorage;
     private TaskList taskList;
 
-    public Duke(String filePath) {
-        this.localStorage = new LocalStorage(filePath);
+    public Duke(String fileStoragePath) {
+        this.localStorage = new LocalStorage(fileStoragePath);
         this.taskList = new TaskList(localStorage);
     }
 
@@ -24,9 +24,9 @@ public class Duke {
     public void runCommandUntilExitCommand() {
         String command;
         do {
-            String input = ui.getUserCommand();
-            command = CommandParser.getCommandFromUserInput(input);
-            CommandParser.executeCommand(input, command, taskList);
+            String userInput = ui.getUserCommand();
+            command = CommandParser.getCommandFromUserInput(userInput);
+            CommandParser.executeCommand(userInput, command, taskList);
         } while (!command.equalsIgnoreCase("bye"));
     }
 

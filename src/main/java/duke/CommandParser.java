@@ -7,29 +7,29 @@ import java.time.format.DateTimeParseException;
 
 public class CommandParser {
 
-    public static void executeCommand(String input, String command, TaskList taskList) {
+    public static void executeCommand(String userInput, String command, TaskList taskList) {
         switch (command) {
         case "mark":
         case "unmark":
-            taskList.markTaskInTaskList(input, command);
+            taskList.markTaskInTaskList(userInput, command);
             break;
         case "list":
             taskList.printTasksFromTaskList();
             break;
         case "delete":
-            taskList.deleteTaskInTaskList(input);
+            taskList.deleteTaskInTaskList(userInput);
             break;
         case "find":
-            taskList.findTaskInTaskList(input);
+            taskList.findTaskInTaskList(userInput);
             break;
         default:
-            taskList.addTaskToTaskList(input, command);
+            taskList.addTaskToTaskList(userInput, command);
             break;
         }
     }
 
-    public static String getCommandFromUserInput(String input) {
-        return input.split(" ")[0].toLowerCase();
+    public static String getCommandFromUserInput(String userInput) {
+        return userInput.split(" ")[0].toLowerCase();
     }
 
     public static String getSearchStringFromUserInput(String userInput) {
@@ -46,16 +46,15 @@ public class CommandParser {
             System.out.println(e.getMessage());
             return null;
         }
-
         return userSearchString;
     }
 
-    public static String getDeadlineTaskDescription(String input) throws DukeException, StringIndexOutOfBoundsException {
-        if (input.contains("/by")) {
-            int firstSpaceIndex = input.indexOf(" ");
-            int slashIndex = input.indexOf("/by");
+    public static String getDeadlineDescription(String userInput) throws DukeException, StringIndexOutOfBoundsException {
+        if (userInput.contains("/by")) {
+            int indexOfFirstSpace = userInput.indexOf(" ");
+            int indexOfSlash = userInput.indexOf("/by");
             // +1 to exclude " " and -1 to exclude "/"
-            String description = input.substring(firstSpaceIndex + 1, slashIndex - 1).trim();
+            String description = userInput.substring(indexOfFirstSpace + 1, indexOfSlash - 1).trim();
             if (description.isEmpty()) {
                 throw new StringIndexOutOfBoundsException();
             }
@@ -67,28 +66,28 @@ public class CommandParser {
         throw new DukeException("Oops! It seems that you left out the /by in your command!");
     }
 
-    public static String getDeadlineDate(String input) throws DukeException, StringIndexOutOfBoundsException {
-        if (input.contains("/by")) {
-            int slashIndex = input.indexOf("/by");
+    public static String getDeadlineDate(String userInput) throws DukeException, StringIndexOutOfBoundsException {
+        if (userInput.contains("/by")) {
+            int slashIndex = userInput.indexOf("/by");
             // +3 to exclude "/by"
-            String date = input.substring(slashIndex + 3).trim();
-            if (date.isEmpty()) {
+            String deadlineDate = userInput.substring(slashIndex + 3).trim();
+            if (deadlineDate.isEmpty()) {
                 throw new StringIndexOutOfBoundsException();
             }
-            if (date.contains(",")) {
+            if (deadlineDate.contains(",")) {
                 throw new DukeException("Please do not use ',' in the date");
             }
-            return date;
+            return deadlineDate;
         }
         throw new DukeException("Oops! It seems that you left out the date for the /by command!");
     }
 
-    public static String getEventTaskDescription(String input) throws DukeException, StringIndexOutOfBoundsException {
-        if (input.contains(" ") && input.contains("/at")) {
-            int firstSpaceIndex = input.indexOf(" ");
-            int slashIndex = input.indexOf("/at");
+    public static String getEventDescription(String userInput) throws DukeException, StringIndexOutOfBoundsException {
+        if (userInput.contains(" ") && userInput.contains("/at")) {
+            int indexOfFirstSpace = userInput.indexOf(" ");
+            int indexOfSlash = userInput.indexOf("/at");
             // +1 to exclude " " and -1 to exclude "/"
-            String description = input.substring(firstSpaceIndex + 1, slashIndex - 1).trim();
+            String description = userInput.substring(indexOfFirstSpace + 1, indexOfSlash - 1).trim();
             if (description.isEmpty()) {
                 throw new StringIndexOutOfBoundsException();
             }
@@ -100,38 +99,27 @@ public class CommandParser {
         throw new DukeException("Oops! It seems that you left out the /at in your command!");
     }
 
-    public static String getEventDateTime(String input) throws DukeException, StringIndexOutOfBoundsException {
-        if (input.contains("/at")) {
-            int slashIndex = input.indexOf("/at");
+    public static String getEventDate(String userInput) throws DukeException, StringIndexOutOfBoundsException {
+        if (userInput.contains("/at")) {
+            int indexOfSlash = userInput.indexOf("/at");
             // +3 to exclude "/at"
-            String dateTime = input.substring(slashIndex + 3).trim();
-            if (dateTime.isEmpty()) {
+            String eventDate = userInput.substring(indexOfSlash + 3).trim();
+            if (eventDate.isEmpty()) {
                 throw new StringIndexOutOfBoundsException();
             }
-            if (dateTime.contains(",")) {
+            if (eventDate.contains(",")) {
                 throw new DukeException("Please do not use ',' in the date");
             }
-            return dateTime;
+            return eventDate;
         }
         throw new DukeException("Oops! It seems that you left out the date time for the /at command!");
     }
 
-    public static LocalDate getDateFormat(String dateTime) {
-        LocalDate date = null;
-        try {
-            date = LocalDate.parse(dateTime);
-        } catch (DateTimeParseException e) {
-            throw new DateTimeParseException("Oops! Date Format should be in yyyy-mm-dd. " +
-                    "E.g (2021-12-05)", e.getParsedString(), e.getErrorIndex());
-        }
-        return date;
-    }
-
-    public static String getToDoTaskDescription(String input) throws DukeException, StringIndexOutOfBoundsException {
-        if (input.contains(" ")) {
-            int firstSpaceIndex = input.indexOf(" ");
+    public static String getToDoDescription(String userInput) throws DukeException, StringIndexOutOfBoundsException {
+        if (userInput.contains(" ")) {
+            int indexOfFirstSpace = userInput.indexOf(" ");
             // +1 to exclude " "
-            String description = input.substring(firstSpaceIndex + 1).trim();
+            String description = userInput.substring(indexOfFirstSpace + 1).trim();
             if (description.isEmpty()) {
                 throw new StringIndexOutOfBoundsException();
             }
@@ -141,5 +129,16 @@ public class CommandParser {
             return description;
         }
         throw new DukeException("Oops! The description of a todo task cannot be empty!");
+    }
+
+    public static LocalDate getDateFormat(String dateTime) {
+        LocalDate date = null;
+        try {
+            date = LocalDate.parse(dateTime);
+        } catch (DateTimeParseException e) {
+            throw new DateTimeParseException("Oops! Date Format should be in yyyy-mm-dd. " +
+                    "E.g (2022-02-19)", e.getParsedString(), e.getErrorIndex());
+        }
+        return date;
     }
 }

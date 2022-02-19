@@ -25,10 +25,10 @@ public class LocalStorage {
     private static BufferedWriter csvFileWriter;
     private static final String[] CSV_HEADER = {"TaskType", "MarkStatus", "TaskDescription", "TaskDate"};
 
-    private String filePath;
+    private String fileStoragePath;
 
-    public LocalStorage(String filePath) {
-        this.filePath = filePath;
+    public LocalStorage(String fileStoragePath) {
+        this.fileStoragePath = fileStoragePath;
         try {
             initializeReaderAndWriter();
             writeCSVHeaderIntoFile();
@@ -40,11 +40,11 @@ public class LocalStorage {
 
     public ArrayList<Task> getTasksFromFile() {
         ArrayList<Task> listOfStoredTask = new ArrayList<>();
-        ArrayList<String[]> storedTask = getTaskStringFromFile();
+        ArrayList<String[]> listOfTaskString = getListOfTaskStringFromFile();
         // start from 1 to skip header of CSV
         int taskIndex = 1;
-        while (taskIndex < (storedTask.size())) {
-            Task newTaskFromFile = getTask(storedTask.get(taskIndex));
+        while (taskIndex < (listOfTaskString.size())) {
+            Task newTaskFromFile = getTaskFromListOfTaskString(listOfTaskString.get(taskIndex));
             if (newTaskFromFile != null) {
                 listOfStoredTask.add(newTaskFromFile);
             }
@@ -53,14 +53,28 @@ public class LocalStorage {
         return listOfStoredTask;
     }
 
-    private Task getTask(String[] fileInput) {
-        String taskType = fileInput[0];
-        boolean markStatus = Boolean.parseBoolean(fileInput[1]);
-        String taskDescription = fileInput[2];
-        String taskDate = fileInput[3];
-        System.out.println(taskDate);
+    private ArrayList<String[]> getListOfTaskStringFromFile() {
+        ArrayList<String[]> listOfStringTask = new ArrayList<>();
+        try {
+            String currentLine = csvFileReader.readLine();
+            while (currentLine != null) {
+                String[] stringOutput = currentLine.split(",");
+                listOfStringTask.add(stringOutput);
+                currentLine = csvFileReader.readLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Oops! IO exception occurred at: " +e.getMessage());
+        }
+        return listOfStringTask;
+    }
+
+    private Task getTaskFromListOfTaskString(String[] taskString) {
+        String taskType = taskString[0];
+        boolean isMarked = Boolean.parseBoolean(taskString[1]);
+        String taskDescription = taskString[2];
+        String taskDate = taskString[3];
         LocalDate dateTime = CommandParser.getDateFormat(taskDate);
-        Task newTask = createTaskObject(taskType, markStatus, taskDescription, dateTime);
+        Task newTask = createTaskObject(taskType, isMarked, taskDescription, dateTime);
         return newTask;
     }
 
@@ -83,21 +97,6 @@ public class LocalStorage {
         return newTask;
     }
 
-    private ArrayList<String[]> getTaskStringFromFile() {
-        ArrayList<String[]> listOfStringTask = new ArrayList<>();
-        try {
-            String currentLine = csvFileReader.readLine();
-            while (currentLine != null) {
-                String[] stringOutput = currentLine.split(",");
-                listOfStringTask.add(stringOutput);
-                currentLine = csvFileReader.readLine();
-            }
-        } catch (IOException e) {
-            System.out.println("Oops! IO exception occurred at: " +e.getMessage());
-        }
-        return listOfStringTask;
-    }
-
     private void writeCSVHeaderIntoFile() throws IOException {
         String csvHeader = String.join(",", CSV_HEADER);
         csvFileWriter.append(csvHeader);
@@ -106,8 +105,10 @@ public class LocalStorage {
     }
 
     private void initializeReaderAndWriter() {
+        boolean isFileExist = false;
         try {
-            PATH_NAME = Paths.get(HOME_PATH, filePath);
+            PATH_NAME = Paths.get(HOME_PATH, fileStoragePath);
+            isFileExist = Files.exists(PATH_NAME);
             // Writer will create new file if file does not exist
             csvFileWriter = Files.newBufferedWriter(PATH_NAME, CREATE);
             csvFileReader = Files.newBufferedReader(PATH_NAME);
@@ -115,10 +116,10 @@ public class LocalStorage {
             System.out.println("Oops! It appears that the path to " +
                     "file is not found! Please try again!");
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Oops! IO exception occurred at: " +e.getMessage());
         }
 
-        if (Files.exists(PATH_NAME)) {
+        if (isFileExist) {
             System.out.println("Data file was found!");
         } else {
             System.out.println("No present data file was present, " +
@@ -131,7 +132,7 @@ public class LocalStorage {
         taskDetails[0] = taskToBeConverted.getTaskType();
         taskDetails[1] = String.valueOf(taskToBeConverted.getStatus());
         taskDetails[2] = taskToBeConverted.getDescription();
-        taskDetails[3] = taskToBeConverted.getDateForStorage();
+        taskDetails[3] = taskToBeConverted.getDateForStorageFile();
         String taskAsString = String.join(",", taskDetails);
         return taskAsString;
     }

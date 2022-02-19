@@ -25,12 +25,12 @@ public class Event extends Task {
     @Override
     public String getDateFormattedString() {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d MMM yyyy");
-        String formattedDatetime =  datetime.format(dateFormat);
-        return formattedDatetime;
+        String dateFormatString =  datetime.format(dateFormat);
+        return dateFormatString;
     }
 
     @Override
-    public String getDateForStorage() {
+    public String getDateForStorageFile() {
         return datetime.toString();
     }
 

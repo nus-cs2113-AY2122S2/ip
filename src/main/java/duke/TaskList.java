@@ -30,25 +30,25 @@ public class TaskList {
     }
 
     private int getTaskNumberFromInput(String input) throws IndexOutOfBoundsException, NumberFormatException {
-        int index = Integer.parseInt(input.split(" ")[1]);
+        int indexOfTask = Integer.parseInt(input.split(" ")[1]);
         // check to see if an index of < 0 was given
-        if (index <= 0 || index > listOfTask.size()) {
+        if (indexOfTask <= 0 || indexOfTask > listOfTask.size()) {
             throw new IndexOutOfBoundsException("Invalid task to be marked!");
         }
-        return index;
+        return indexOfTask;
     }
 
-    public void addTaskToTaskList(String input, String type) {
-        Task newTask;
-        switch (type.toLowerCase()){
+    public void addTaskToTaskList(String userInput, String taskType) {
+        Task newTask = null;
+        switch (taskType.toLowerCase()){
         case "deadline":
-            newTask = createDeadlineTask(input);
+            newTask = createDeadlineTask(userInput);
             break;
         case "event":
-            newTask = createEventTask(input);
+            newTask = createEventTask(userInput);
             break;
         case "todo":
-            newTask = createTodoTask(input);
+            newTask = createTodoTask(userInput);
             break;
         default:
             System.out.println("Invalid type of task given!");
@@ -61,19 +61,19 @@ public class TaskList {
         }
     }
 
-    public void markTaskInTaskList(String input, String taskStatus) {
+    public void markTaskInTaskList(String userInput, String taskStatus) {
         try {
-            int taskNumber = getTaskNumberFromInput(input);
-            // true if it is "mark", set to false if it's not "mark"
+            int indexOfTaskInList = getTaskNumberFromInput(userInput);
+            // true if it is "mark", set to false if it is "unmark"
             boolean isTaskDone = taskStatus.equalsIgnoreCase("mark");
-            Task markedTask = getTaskFromListOfTask(taskNumber);
-            markedTask.setDone(isTaskDone);
+            Task taskToBeMark = getTaskFromListOfTask(indexOfTaskInList);
+            taskToBeMark.setDone(isTaskDone);
             if (isTaskDone) {
                 System.out.println("Nice! I'v marked this task as done:");
             } else {
                 System.out.println("Okay! I'v marked this task as not done:");
             }
-            System.out.println(markedTask);
+            System.out.println(taskToBeMark);
             saveTaskListToFile();
         } catch (IndexOutOfBoundsException idxError) {
             System.out.println("Invalid task number to be marked!");
@@ -82,12 +82,12 @@ public class TaskList {
         }
     }
 
-    public void deleteTaskInTaskList(String input) {
+    public void deleteTaskInTaskList(String userInput) {
         try {
-            int taskNumber = getTaskNumberFromInput(input);
-            Task toBeDeletedTask = getTaskFromListOfTask(taskNumber);
-            listOfTask.remove(toBeDeletedTask);
-            printTaskUpdate(toBeDeletedTask, "deleted");
+            int indexOfTaskInList = getTaskNumberFromInput(userInput);
+            Task taskToBeDeleted = getTaskFromListOfTask(indexOfTaskInList);
+            listOfTask.remove(taskToBeDeleted);
+            printTaskUpdate(taskToBeDeleted, "deleted");
             saveTaskListToFile();
         } catch (IndexOutOfBoundsException idxError) {
             System.out.println("Invalid task number to be marked!");
@@ -96,8 +96,8 @@ public class TaskList {
         }
     }
 
-    public void findTaskInTaskList(String input) {
-        String searchString = CommandParser.getSearchStringFromUserInput(input);
+    public void findTaskInTaskList(String userInput) {
+        String searchString = CommandParser.getSearchStringFromUserInput(userInput);
         if (searchString == null) {
             return;
         }
@@ -115,16 +115,15 @@ public class TaskList {
         printTaskList(listOfTask);
     }
 
-    private Deadline createDeadlineTask(String input) {
+    private Deadline createDeadlineTask(String userInput) {
         Deadline newDeadlineTask = null;
         try {
-            String deadlineDescription = CommandParser.getDeadlineTaskDescription(input);
-            String dueDateTime = CommandParser.getDeadlineDate(input);
-            LocalDate deadlineDate = CommandParser.getDateFormat(dueDateTime);
+            String deadlineDescription = CommandParser.getDeadlineDescription(userInput);
+            String deadlineDateString = CommandParser.getDeadlineDate(userInput);
+            LocalDate deadlineDate = CommandParser.getDateFormat(deadlineDateString);
             newDeadlineTask = new Deadline(deadlineDescription, deadlineDate);
         } catch (DukeException dukeError) {
             System.out.println(dukeError.getMessage());
-            return null;
         } catch (StringIndexOutOfBoundsException idxError) {
             System.out.println("Please check your command and formatting again!");
         } catch (DateTimeParseException dateError) {
@@ -134,16 +133,15 @@ public class TaskList {
         return newDeadlineTask;
     }
 
-    private Event createEventTask(String input) {
+    private Event createEventTask(String userInput) {
         Event newEventTask = null;
         try {
-            String eventDescription = CommandParser.getEventTaskDescription(input);
-            String dueDate = CommandParser.getEventDateTime(input);
-            LocalDate eventDate = CommandParser.getDateFormat(dueDate);
+            String eventDescription = CommandParser.getEventDescription(userInput);
+            String eventDateString = CommandParser.getEventDate(userInput);
+            LocalDate eventDate = CommandParser.getDateFormat(eventDateString);
             newEventTask = new Event(eventDescription, eventDate);
         } catch (DukeException dukeError) {
             System.out.println(dukeError.getMessage());
-            return null;
         } catch (StringIndexOutOfBoundsException idxError) {
             System.out.println("Please check your command and formatting again!");
         } catch (DateTimeParseException dateError) {
@@ -153,20 +151,28 @@ public class TaskList {
         return newEventTask;
     }
 
-    private Todo createTodoTask(String input) {
-        Todo newTodoTask;
+    private Todo createTodoTask(String userInput) {
+        Todo newTodoTask = null;
         try {
-            String todoDescription = CommandParser.getToDoTaskDescription(input);
+            String todoDescription = CommandParser.getToDoDescription(userInput);
             newTodoTask = new Todo(todoDescription);
         } catch (DukeException dukeError) {
             System.out.println(dukeError.getMessage());
-            return null;
         } catch (StringIndexOutOfBoundsException idxError) {
             System.out.println("Please check your command and formatting again!");
-            return null;
         }
 
         return newTodoTask;
+    }
+
+    private ArrayList<Task> getSearchedList(String stringToMatch) {
+        ArrayList<Task> listOfSearchedTask = (ArrayList<Task>) listOfTask.stream()
+                .filter((t) -> t.getDescription().contains(stringToMatch))
+                .collect(toList());
+        if (listOfSearchedTask.size() == 0) {
+            return null;
+        }
+        return listOfSearchedTask;
     }
 
     public void saveTaskListToFile() {
@@ -197,15 +203,5 @@ public class TaskList {
         for (int i = 0 ; i < listOfTaskToBePrinted.size(); i++) {
             System.out.println(" " +(i + 1) +"." + listOfTaskToBePrinted.get(i));
         }
-    }
-
-    private ArrayList<Task> getSearchedList(String stringToMatch) {
-        ArrayList<Task> listOfFilteredTask = (ArrayList<Task>) listOfTask.stream()
-                .filter((t) -> t.getDescription().contains(stringToMatch))
-                .collect(toList());
-        if (listOfFilteredTask.size() == 0) {
-            return null;
-        }
-        return listOfFilteredTask;
     }
 }

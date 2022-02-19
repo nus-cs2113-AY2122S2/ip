@@ -35,7 +35,7 @@ public abstract class Task {
 
     public abstract String getDateFormattedString();
 
-    public abstract String getDateForStorage();
+    public abstract String getDateForStorageFile();
 
     @Override
     public String toString(){
