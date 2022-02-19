@@ -25,8 +25,8 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String getDate() {
-        return by;
+    public String getDateForStorage() {
+        return datetime.toString();
     }
 
     @Override
@@ -36,6 +36,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + getDateFormattedString() + ")";
     }
 }

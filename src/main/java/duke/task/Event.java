@@ -29,11 +29,13 @@ public class Event extends Task {
         return formattedDatetime;
     }
 
+    @Override
+    public String getDateForStorage() {
+        return datetime.toString();
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
         return "[E]" + super.toString() + " (at: " + getDateFormattedString() + ")";
     }
 }
