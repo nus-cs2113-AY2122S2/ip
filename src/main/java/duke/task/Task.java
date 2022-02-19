@@ -1,6 +1,6 @@
 package duke.task;
 
-public class Task {
+public abstract class Task {
 
     private String description;
     private boolean isDone;
@@ -31,17 +31,11 @@ public class Task {
         return isDone;
     }
 
-    public String getTaskType() {
-        return "task";
-    }
+    public abstract String getTaskType();
 
-    public String getDateFormattedString() {
-        return "-";
-    }
+    public abstract String getDateFormattedString();
 
-    public String getDateForStorage() {
-        return "-";
-    }
+    public abstract String getDateForStorage();
 
     @Override
     public String toString(){
