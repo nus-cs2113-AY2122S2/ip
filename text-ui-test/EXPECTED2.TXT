@@ -2,8 +2,7 @@ Data directory found!
 Data file found!
 Successfully loaded 2 tasks from file.
 ------------------------------------------------------------
-Hi, I'm Robit!
-What would you like me to do?
+Hi, I'm Robit! What would you like me to do?
 ------------------------------------------------------------
 > ------------------------------------------------------------
 Here are your tasks:
