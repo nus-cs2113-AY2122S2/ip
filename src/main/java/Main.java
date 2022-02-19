@@ -2,6 +2,9 @@ import bot.SailfishUI;
 
 import java.io.IOException;
 
+/**
+ * Bot starts here.
+ */
 public class Main {
     public static void main(String[] args) {
         try {
