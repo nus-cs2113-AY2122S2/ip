@@ -23,17 +23,19 @@ public class UI {
     public static final String MESSAGE_TASK_MARKED = "The following task has been checked off:";
     public static final String MESSAGE_TASK_UNMARKED = "The following task has yet to be completed:";
     public static final String MESSAGE_TASK_COUNT = "The number of tasks amounts to: ";
+    public static final String MESSAGE_TASK_ADDED = "Task successfully added~!";
     public static final String MESSAGE_DELETE_SUCCESS = "The following task has been deleted:";
     public static final String MESSAGE_INVALID_COMMAND = "Sorry, I do not understand.";
     public static final String MESSAGE_INVALID_ARGC = "Invalid number of arguments. p( `v`)";
     public static final String MESSAGE_INVALID_ID_NUMBER = "Invalid task id. ┬┴┬┴┤w')";
-    public static final String MESSAGE_INVALID_ID_FORMAT = "The task id needs to be a number! (/`c`）/";
+    public static final String MESSAGE_INVALID_ID_FORMAT = "The task id needs to be a number! (/`c`)/";
     public static final String MESSAGE_DEADLINE_USAGE = "Usage: deadline <task> /by <deadline>";
     public static final String MESSAGE_EVENT_USAGE = "Usage: event <task> /at <date,time>";
     public static final String MESSAGE_TASK_LIMIT_REACHED = "No more tasks can be created :(";
     public static final String MESSAGE_FOUND_MATCHING_TASK = "The following tasks matches your search:";
     public static final String MESSAGE_FOUND_NO_MATCH = "No tasks matches your description OTZ";
     public static final String DATE_FORMAT = "E, MMM dd yyyy";
+
 
     /**
      * Prints the message prepended by a tab.

@@ -178,6 +178,7 @@ public class Command {
     public static void addTaskToList(ArrayList<Task> list, Task task) {
         list.add(task);
         System.out.println("\t" + task);
+        UI.printlnTab(UI.MESSAGE_TASK_ADDED);
         UI.printlnTab(UI.MESSAGE_TASK_COUNT + list.size());
     }
 
