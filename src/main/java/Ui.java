@@ -3,11 +3,31 @@
 import tasks.Task;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class DialogGenerator {
-
+public class Ui {
     public void printLine() {
         System.out.println("____________________________________________________________");
+    }
+
+    public void greeting() {
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println(""+logo);
+        this.printLine();
+        System.out.println("Hello I'm Duke.");
+        System.out.println("What can I do for you?");
+        this.printLine();
+        System.out.println();
+    }
+
+    public String readCommand(){
+        Scanner in = new Scanner(System.in);
+        String command = in.nextLine();
+        return command;
     }
 
     public void sayGoobye() {
@@ -78,6 +98,12 @@ public class DialogGenerator {
     public void raiseExceptionInCommand(){
         this.printLine();
         System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-()");
+        this.printLine();
+    }
+
+    public void showLoadingError(){
+        this.printLine();
+        System.out.println("NO file found.");
         this.printLine();
     }
 }
