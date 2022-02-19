@@ -18,6 +18,8 @@ public class CommandParser {
             break;
         case "delete":
             taskList.deleteTask(input);
+        case "find":
+            taskList.findTaskInTaskList(input);
             break;
         default:
             taskList.addTaskToTaskList(input, command);
