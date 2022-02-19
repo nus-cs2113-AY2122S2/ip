@@ -1,21 +1,32 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
 
-    protected String by;
+    protected LocalDate datetime;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, LocalDate datetime) {
         super(description);
-        this.by = by;
+        this.datetime = datetime;
     }
 
-    public Deadline(String description, Boolean isDone, String by) {
+    public Deadline(String description, Boolean isDone, LocalDate datetime) {
         super(description, isDone);
-        this.by = by;
+        this.datetime = datetime;
     }
+
     @Override
-    public String getDate() {
-        return by;
+    public String getDateFormattedString() {
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d MMM yyyy");
+        String formattedDate =  datetime.format(dateFormat);
+        return formattedDate;
+    }
+
+    @Override
+    public String getDateForStorage() {
+        return datetime.toString();
     }
 
     @Override
@@ -25,6 +36,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + getDateFormattedString() + ")";
     }
 }

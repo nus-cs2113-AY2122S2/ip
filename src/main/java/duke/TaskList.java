@@ -7,7 +7,9 @@ import duke.task.Task;
 import duke.task.Todo;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class TaskList {
     private LocalStorage localInstance;
@@ -97,12 +99,15 @@ public class TaskList {
         try {
             String deadlineDescription = CommandParser.getDeadlineTaskDescription(input);
             String dueDateTime = CommandParser.getDeadlineDate(input);
-            newDeadlineTask = new Deadline(deadlineDescription, dueDateTime);
+            LocalDate deadlineDate = CommandParser.getDateFormat(dueDateTime);
+            newDeadlineTask = new Deadline(deadlineDescription, deadlineDate);
         } catch (DukeException dukeError) {
             System.out.println(dukeError.getMessage());
             return null;
         } catch (StringIndexOutOfBoundsException idxError) {
             System.out.println("Please check your command and formatting again!");
+        } catch (DateTimeParseException dateError) {
+            System.out.println(dateError.getMessage());
         }
 
         return newDeadlineTask;
@@ -113,12 +118,15 @@ public class TaskList {
         try {
             String eventDescription = CommandParser.getEventTaskDescription(input);
             String dueDate = CommandParser.getEventDateTime(input);
-            newEventTask = new Event(eventDescription, dueDate);
+            LocalDate eventDate = CommandParser.getDateFormat(dueDate);
+            newEventTask = new Event(eventDescription, eventDate);
         } catch (DukeException dukeError) {
             System.out.println(dukeError.getMessage());
             return null;
         } catch (StringIndexOutOfBoundsException idxError) {
             System.out.println("Please check your command and formatting again!");
+        } catch (DateTimeParseException dateError) {
+            System.out.println(dateError.getMessage());
         }
 
         return newEventTask;

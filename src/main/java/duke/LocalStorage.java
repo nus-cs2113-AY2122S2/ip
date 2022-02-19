@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static java.nio.file.StandardOpenOption.CREATE;
@@ -57,11 +58,13 @@ public class LocalStorage {
         boolean markStatus = Boolean.parseBoolean(fileInput[1]);
         String taskDescription = fileInput[2];
         String taskDate = fileInput[3];
-        Task newTask = createTaskObject(taskType, markStatus, taskDescription, taskDate);
+        System.out.println(taskDate);
+        LocalDate dateTime = CommandParser.getDateFormat(taskDate);
+        Task newTask = createTaskObject(taskType, markStatus, taskDescription, dateTime);
         return newTask;
     }
 
-    private Task createTaskObject(String taskType, boolean markStatus, String taskDescription, String taskDate){
+    private Task createTaskObject(String taskType, boolean markStatus, String taskDescription, LocalDate taskDate){
         Task newTask = null;
         switch (taskType) {
         case "todo":
@@ -128,7 +131,7 @@ public class LocalStorage {
         taskDetails[0] = taskToBeConverted.getTaskType();
         taskDetails[1] = String.valueOf(taskToBeConverted.getStatus());
         taskDetails[2] = taskToBeConverted.getDescription();
-        taskDetails[3] = taskToBeConverted.getDate();
+        taskDetails[3] = taskToBeConverted.getDateForStorage();
         String taskAsString = String.join(",", taskDetails);
         return taskAsString;
     }

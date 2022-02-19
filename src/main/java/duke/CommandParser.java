@@ -2,6 +2,9 @@ package duke;
 
 import duke.exceptions.DukeException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class CommandParser {
 
     public static void executeCommand(String input, String command, TaskList taskList) {
@@ -90,6 +93,17 @@ public class CommandParser {
             return dateTime;
         }
         throw new DukeException("Oops! It seems that you left out the date time for the /at command!");
+    }
+
+    public static LocalDate getDateFormat(String dateTime) {
+        LocalDate date = null;
+        try {
+            date = LocalDate.parse(dateTime);
+        } catch (DateTimeParseException e) {
+            throw new DateTimeParseException("Oops! Date Format should be in yyyy-mm-dd. " +
+                    "E.g (2021-12-05)", e.getParsedString(), e.getErrorIndex());
+        }
+        return date;
     }
 
     public static String getToDoTaskDescription(String input) throws DukeException, StringIndexOutOfBoundsException {
