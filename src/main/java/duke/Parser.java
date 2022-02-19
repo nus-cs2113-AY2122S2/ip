@@ -82,13 +82,13 @@ public class Parser {
 
     private static Event processEvent(String[] processedString) {
         String at = processTime(processedString, "/at");
-        String task = processDescription(processedString, "/at");
+        String task = processDescription(processedString, "event");
         return new Event(task, at);
     }
 
     private static Deadline processDeadline(String[] processedString) {
         String by = processTime(processedString, "/by");
-        String task = processDescription(processedString, "/by");
+        String task = processDescription(processedString, "deadline");
         return new Deadline(task, by);
     }
 }
