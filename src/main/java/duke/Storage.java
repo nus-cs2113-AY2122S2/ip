@@ -30,13 +30,13 @@ public class Storage {
     /**
      * Writes the tasks in task list to the save file
      * 
-     * @param store
+     * @param list
      *            Task list
      */
-    public void storeToFile(ArrayList<Task> store) {
+    public void convertListToFile(ArrayList<Task> list) {
         String text = "";
-        for (int i = 0; i < store.size(); i++) {
-            Task currentTask = store.get(i);
+        for (int i = 0; i < list.size(); i++) {
+            Task currentTask = list.get(i);
             text = text + currentTask.toString() + System.lineSeparator();
         }
         try {
@@ -53,8 +53,8 @@ public class Storage {
      * 
      * @return ArrayList of tasks
      */
-    public ArrayList<Task> fileToStore() {
-        ArrayList<Task> store = new ArrayList<>();
+    public ArrayList<Task> convertFileToList() {
+        ArrayList<Task> list = new ArrayList<>();
         File f = new File(filePath);
         try {
             Scanner s = new Scanner(f);
@@ -65,27 +65,51 @@ public class Storage {
                 Task newTask;
                 switch (taskType) {
                 case "T":
-                    newTask = new ToDo(arrayElements[2].trim(), arrayElements[1].trim().equals("1"));
-                    store.add(newTask);
-                    newTask.getTask();
+                    newTask = convertToDo(arrayElements);
+                    list.add(newTask);
                     break;
                 case "D":
-                    newTask = new Deadline(arrayElements[2].trim(), arrayElements[1].trim().equals("1"),
-                            arrayElements[3].trim());
-                    store.add(newTask);
+                    newTask = convertDeadline(arrayElements);
+                    list.add(newTask);
                     break;
                 case "E":
-                    newTask = new Event(arrayElements[2].trim(), arrayElements[1].trim().equals("1"),
-                            arrayElements[3].trim());
-                    store.add(newTask);
+                    newTask = convertEvent(arrayElements);
+                    list.add(newTask);
                     break;
                 default:
                     break;
                 }
             }
-            return store;
+            return list;
         } catch (FileNotFoundException e) {
-            return store;
+            return list;
         }
+    }
+
+    private String getDescription(String[] arrayElements) {
+        int descriptionIndex = 2;
+        return arrayElements[descriptionIndex].trim();
+    }
+
+    private boolean getIsDone(String[] arrayElements) {
+        int booleanIndex = 1;
+        return arrayElements[booleanIndex].trim().equals("1");
+    }
+
+    private String getTime(String[] arrayElements) {
+        int timeIndex = 3;
+        return arrayElements[timeIndex].trim();
+    }
+
+    private ToDo convertToDo(String[] arrayElements) {
+        return new ToDo(getDescription(arrayElements), getIsDone(arrayElements));
+    }
+
+    private Deadline convertDeadline(String[] arrayElements) {
+        return new Deadline(getDescription(arrayElements), getIsDone(arrayElements), getTime(arrayElements));
+    }
+
+    private Event convertEvent(String[] arrayElements) {
+        return new Event(getDescription(arrayElements), getIsDone(arrayElements), getTime(arrayElements));
     }
 }

@@ -13,7 +13,7 @@ public class Duke {
 
     public Duke() {
         storage = new Storage("list.txt");
-        tasks = new TaskList(storage.fileToStore());
+        tasks = new TaskList(storage.convertFileToList());
         ui = new Ui();
     }
 
