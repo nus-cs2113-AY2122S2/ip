@@ -18,6 +18,14 @@ public class Duke {
         storage = new Storage(filePath);
 
         try {
+            File dataDir = new File("./data");
+            File dataText = new File("./data/duke.txt");
+            if (!dataDir.exists()){
+                dataDir.mkdirs();
+            }
+            if (!dataText.exists()){
+                dataText.createNewFile();
+            }
             allTasks = new ArrayList<Task>(storage.load());
         } catch (IOException e) {
             ui.showLoadingError();
