@@ -9,6 +9,10 @@ public class Duke {
     private ArrayList<Task> allTasks = new ArrayList<Task>();
     private Ui ui;
 
+    /**
+     *
+     * @param filePath
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);

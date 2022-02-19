@@ -14,6 +14,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     *
+     * @param allTasks
+     * @throws IOException
+     */
     public void writeToDukeFile(ArrayList<Task> allTasks) throws IOException {
         FileWriter fw = new FileWriter("./data/duke.txt");
         for(Task t:allTasks){
@@ -22,6 +27,11 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     *
+     * @return
+     * @throws IOException
+     */
     public ArrayList<Task> load() throws IOException {
         Task t;
         BufferedReader bufReader = new BufferedReader(new FileReader(this.filePath));
@@ -64,11 +74,21 @@ public class Storage {
         return allTasks;
     }
 
+    /**
+     *
+     * @param taskDetail
+     * @return
+     */
     private Todo convertTodo(String taskDetail){
         Todo todo = new Todo(taskDetail);
         return todo;
     }
 
+    /**
+     *
+     * @param taskDetail
+     * @return
+     */
     private Deadline convertDeadline(String taskDetail){
         String description, by;
         description = taskDetail.split("by:")[0].trim();
@@ -76,6 +96,12 @@ public class Storage {
         Deadline deadline = new Deadline(description, by);
         return deadline;
     }
+
+    /**
+     * 
+     * @param taskDetail
+     * @return
+     */
     private Event convertEvent(String taskDetail){
         String description, at;
         description = taskDetail.split("at:")[0].trim();

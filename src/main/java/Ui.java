@@ -36,6 +36,11 @@ public class Ui {
         this.printLine();
     }
 
+    /**
+     *
+     * @param t
+     * @param taskCount
+     */
     public void displayTask(Task t, int taskCount) {
         this.printLine();
         System.out.println("Got it. I've added this task: ");
@@ -44,6 +49,11 @@ public class Ui {
         this.printLine();
     }
 
+    /**
+     *
+     * @param allTasks
+     * @param taskCount
+     */
     public void displayListWithStatus(ArrayList<Task> allTasks, int taskCount) {
         this.printLine();
         System.out.println("Here are the tasks in your list:");
@@ -53,6 +63,10 @@ public class Ui {
         this.printLine();
     }
 
+    /**
+     *
+     * @param foundTasks
+     */
     public void displayFoundTasks(ArrayList<Task> foundTasks) {
         this.printLine();
         System.out.println("Here are the matching tasks in your list:");
@@ -62,6 +76,10 @@ public class Ui {
         this.printLine();
     }
 
+    /**
+     *
+     * @param t
+     */
     public void markAndDisplayTask(Task t) {
         t.markAsDone();
         this.printLine();
@@ -70,6 +88,10 @@ public class Ui {
         this.printLine();
     }
 
+    /**
+     *
+     * @param t
+     */
     public void unmarkAndDisplayTask(Task t) {
         t.markAsUnDone();
         this.printLine();
@@ -78,6 +100,11 @@ public class Ui {
         this.printLine();
     }
 
+    /**
+     *
+     * @param t
+     * @param taskCount
+     */
     public void deleteAndDisplayTask(Task t, int taskCount) {
         this.printLine();
         System.out.println("Noted. I've removed this task: ");
