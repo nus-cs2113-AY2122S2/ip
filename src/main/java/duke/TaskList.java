@@ -149,11 +149,11 @@ public class TaskList {
         }
     }
 
-    public void printTaskListUpdate(Task taskObject, String type) {
+    public void printTaskListUpdate(Task taskObject, String commandType) {
         UI.printBorder();
-        if (type.equalsIgnoreCase("added")) {
+        if (commandType.equalsIgnoreCase("added")) {
             System.out.println("Got it!. I've added this task:");
-        } else if (type.equalsIgnoreCase("deleted")) {
+        } else if (commandType.equalsIgnoreCase("deleted")) {
             System.out.println("Got it!. I've removed this task:");
         }
         System.out.println(taskObject);
