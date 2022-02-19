@@ -1,13 +1,19 @@
-todo borrow book
-deadline return book /by Sunday
-mark 1
+todo update user guide
+Spongebob
+deadline update text-ui-test /by 2022/02/19
+deadline build the updated .jar /by 2022/02/20
 list
-event project meeting /at Monday noon
-todo
-deadline iP
-unmark 100
-mark two
-todo 4
+mark
+mark a
+mark 1
+event test /by abc
+delete D
+delete 4
+event midterms /at 2022-02-28
+find
+find update
+find a
+find 123
 todo 5
 todo 6
 todo 7
