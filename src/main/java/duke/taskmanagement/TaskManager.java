@@ -1,4 +1,4 @@
-package duke.taskmanager;
+package duke.taskmanagement;
 
 import duke.customexceptions.EmptyDescriptionException;
 import duke.customexceptions.EmptyTimingDetailsException;
@@ -23,6 +23,7 @@ public class TaskManager {
             System.out.println("Wow, such empty");
         }
     }
+
 
     public void addTodo(String userInput) {
         try {
