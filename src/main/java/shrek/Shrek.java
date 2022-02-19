@@ -7,12 +7,21 @@ import shrek.task.ToDo;
 import shrek.constant.PrintStrings;
 import shrek.exception.InvalidCommandException;
 
+import java.text.ParseException;
+import java.time.DateTimeException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.time.temporal.ChronoUnit;
+
 
 public class Shrek {
     private static final ArrayList<UserContent> lists = new ArrayList<>();
@@ -24,6 +33,8 @@ public class Shrek {
     private static final int FIND_TASK_OR_TIME = 0;
     private static final int FIND_CONTENT = 1;
     private static final int INDEX_OF_TASK_MARKED = 0;
+    private static final int INDEX_OF_TIME_INPUT = 1;
+    private static final int INDEX_OF_DATE_INPUT = 0;
     private static final int NUMBER_OF_TERMS_IN_SPLIT = 2;
     private static final int LIST_INDEX_CORRECTION = -1;
     public static final String NEW_LINE = System.lineSeparator();
@@ -99,6 +110,8 @@ public class Shrek {
             throw new InvalidCommandException("Invalid task name", errorCount);
         } catch (ClassCastException e) {
             throw new InvalidCommandException("Cannot anyhow typecast leh", errorCount);
+        } catch (ParseException e) {
+            throw new InvalidCommandException("date time error", errorCount);
         } catch (InvalidCommandException e) {
             errorCount++;
         }
@@ -112,21 +125,29 @@ public class Shrek {
         writeToFile(baseString);
     }
 
-    public static void saveDeadlineToOutput(Deadlines task) throws IOException {
+    public static String revertDatetime(String datetime) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        Date date = new SimpleDateFormat("MMM d yyyy hh:mma").parse(datetime);
+        return formatter.format(date);
+    }
+
+    public static void saveDeadlineToOutput(Deadlines task) throws IOException, ParseException {
         String baseString = "deadline";
         String mark = convertMark(task);
         String taskContent = task.getContent();
         String taskBy = task.getBy();
-        baseString = mark + " " + baseString + " " + taskContent + "/by " + taskBy;
+        String userInputStyleDatetime = revertDatetime(taskBy);
+        baseString = mark + " " + baseString + " " + taskContent + "/by " + userInputStyleDatetime;
         writeToFile(baseString);
     }
 
-    public static void saveEventToOutput(Events task) throws IOException {
+    public static void saveEventToOutput(Events task) throws IOException, ParseException {
         String baseString = "event";
         String mark = convertMark(task);
         String taskContent = task.getContent();
         String taskAt = task.getAt();
-        baseString = mark + " " + baseString + " " + taskContent + "/at " + taskAt;
+        String userInputStyleDatetime = revertDatetime(taskAt);
+        baseString = mark + " " + baseString + " " + taskContent + "/at " + userInputStyleDatetime;
         writeToFile(baseString);
     }
 
@@ -263,6 +284,32 @@ public class Shrek {
         return false;
     }
 
+    public static String modifyDatetime(String inputTime) throws InvalidCommandException {
+        String[] timeAndDate = inputTime.split(" ");
+        String refinedDatetimeFormat = "";
+        LocalDate date;
+        try {
+            date = LocalDate.parse(timeAndDate[INDEX_OF_DATE_INPUT]);
+            if (date.isBefore(LocalDate.now())) {
+                throw new InvalidCommandException("Invalid date! The date is past current date", errorCount);
+            }
+            refinedDatetimeFormat += date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " ";
+        } catch (DateTimeException e) {
+            throw new InvalidCommandException("Wrong date format! Remember to input date as yyyy-mm-dd",
+                    errorCount);
+        }
+        try {
+            LocalTime time = LocalTime.parse(timeAndDate[INDEX_OF_TIME_INPUT]);
+            if (date.isEqual(LocalDate.now()) && time.isBefore(LocalTime.now())) {
+                throw new InvalidCommandException("Invalid time! The time is past current time", errorCount);
+            }
+            refinedDatetimeFormat += time.format(DateTimeFormatter.ofPattern("h:mma"));
+        } catch (DateTimeException e) {
+            throw new InvalidCommandException("Wrong time format! Remember to input time in 24hr format", errorCount);
+        }
+        return refinedDatetimeFormat;
+    }
+
     public static void addDeadlineOrEventToList(String input, String taskTimeReference)
             throws InvalidCommandException {
         String[] splitDeadlineOrEventInputs;
@@ -275,6 +322,7 @@ public class Shrek {
                     splitDeadlineOrEventInputs[INDEX_OF_TASK_NAME].equals("")) {
                 throw new InvalidCommandException("Did you forget to add in the time or task?", errorCount);
             }
+            String Datetime = modifyDatetime(chunkOfInput[INDEX_OF_TASK_NAME]);
             if (taskTimeReference.equals("/at ")) {
                 lists.add(new Events(splitDeadlineOrEventInputs[INDEX_OF_TASK_CONTENT],
                         splitDeadlineOrEventInputs[INDEX_OF_TASK_NAME]));
@@ -311,6 +359,7 @@ public class Shrek {
                 System.out.println("Done putting this in the list:");
                 System.out.println(lists.get(lists.size() + LIST_INDEX_CORRECTION));
                 System.out.println("Go do the " + lists.size() + " task(s)!!");
+                saveToOutput();
             }
 
         }
