@@ -11,13 +11,14 @@ public class CommandParser {
         switch (command) {
         case "mark":
         case "unmark":
-            taskList.markTask(input, command);
+            taskList.markTaskInTaskList(input, command);
             break;
         case "list":
-            taskList.printTaskList();
+            taskList.printTasksFromTaskList();
             break;
         case "delete":
-            taskList.deleteTask(input);
+            taskList.deleteTaskInTaskList(input);
+            break;
         case "find":
             taskList.findTaskInTaskList(input);
             break;
