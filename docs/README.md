@@ -16,6 +16,7 @@ Here are some commands you can try:
    - `list` : List all current tasks.
    - `todo Read Book` : Adds a todo task of reading book.
    - `delete 1` : Deletes the first task from list.
+
 ---
 
 ### Features
