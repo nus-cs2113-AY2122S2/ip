@@ -80,4 +80,8 @@ public class Ui {
     public void showFormatError() {
         System.out.println("The index should be an integer, please try again.");
     }
+
+    public void showDateError() {
+        System.out.println("Please input the deadline in the following format: yyyy-mm-dd");
+    }
 }

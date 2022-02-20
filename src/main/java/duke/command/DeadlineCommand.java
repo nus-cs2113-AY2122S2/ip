@@ -8,6 +8,8 @@ import duke.task.Deadline;
 import duke.task.Task;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class DeadlineCommand extends Command {
@@ -22,10 +24,12 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AdditionalException, IOException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws AdditionalException, IOException,
+            DateTimeParseException {
         String description = getDescription();
         String by = getBy();
-        Deadline deadline = new Deadline(description, by, TYPE_OF_TASK);
+        LocalDate dateOfDeadline = LocalDate.parse(by);
+        Deadline deadline = new Deadline(description, dateOfDeadline, TYPE_OF_TASK);
         tasks.addTask(deadline);
         ui.showAddDone(deadline, tasks.getSize());
         storage.save(deadline);
@@ -40,7 +44,8 @@ public class DeadlineCommand extends Command {
     public void executeFromFile(ArrayList<Task> listOfTasks) throws AdditionalException {
         String description = getDescription();
         String by = getBy();
-        listOfTasks.add(new Deadline(description, by, TYPE_OF_TASK));
+        LocalDate dateOfDeadline = LocalDate.parse(by);
+        listOfTasks.add(new Deadline(description, dateOfDeadline, TYPE_OF_TASK));
     }
 
     private String getDescription() throws AdditionalException {
@@ -62,12 +67,12 @@ public class DeadlineCommand extends Command {
         int lengthOfPreposition = PREPOSITION.length();
         int startingIndexOfTiming = indexOfPreposition + lengthOfPreposition;
         int lengthOfRequest = fullCommand.length();
-        String timing = fullCommand.substring(startingIndexOfTiming, lengthOfRequest);
-        String trimmedTiming = timing.trim();
-        if (trimmedTiming.length() < 1) {
-            throw new AdditionalException("OOPS!!! The timing of the deadline cannot be empty.");
+        String by = fullCommand.substring(startingIndexOfTiming, lengthOfRequest);
+        String trimmedBy = by.trim();
+        if (trimmedBy.length() < 1) {
+            throw new AdditionalException("OOPS!!! The date of the deadline cannot be empty.");
         }
-        return trimmedTiming;
+        return trimmedBy;
     }
 
 }

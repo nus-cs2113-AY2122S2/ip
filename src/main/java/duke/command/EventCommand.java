@@ -63,12 +63,12 @@ public class EventCommand extends Command {
         int lengthOfPreposition = PREPOSITION.length();
         int startingIndexOfTiming = indexOfPreposition + lengthOfPreposition;
         int lengthOfRequest = fullCommand.length();
-        String timing = fullCommand.substring(startingIndexOfTiming, lengthOfRequest);
-        String trimmedTiming = timing.trim();
-        if (trimmedTiming.length() < 1) {
+        String at = fullCommand.substring(startingIndexOfTiming, lengthOfRequest);
+        String trimmedAt = at.trim();
+        if (trimmedAt.length() < 1) {
             throw new AdditionalException("OOPS!!! The timing of the event cannot be empty.");
         }
-        return trimmedTiming;
+        return trimmedAt;
     }
 
 }
