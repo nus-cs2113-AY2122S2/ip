@@ -27,8 +27,8 @@ public class DeadlineCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AdditionalException, IOException,
             DateTimeParseException {
         String description = getDescription();
-        String by = getBy();
-        LocalDate dateOfDeadline = LocalDate.parse(by);
+        String date = getDate();
+        LocalDate dateOfDeadline = LocalDate.parse(date);
         Deadline deadline = new Deadline(description, dateOfDeadline, TYPE_OF_TASK);
         tasks.addTask(deadline);
         ui.showAddDone(deadline, tasks.getSize());
@@ -43,8 +43,8 @@ public class DeadlineCommand extends Command {
     @Override
     public void executeFromFile(ArrayList<Task> listOfTasks) throws AdditionalException {
         String description = getDescription();
-        String by = getBy();
-        LocalDate dateOfDeadline = LocalDate.parse(by);
+        String date = getDate();
+        LocalDate dateOfDeadline = LocalDate.parse(date);
         listOfTasks.add(new Deadline(description, dateOfDeadline, TYPE_OF_TASK));
     }
 
@@ -52,7 +52,7 @@ public class DeadlineCommand extends Command {
         int lengthOfTypeOfTask = TYPE_OF_TASK.length();
         int indexOfPreposition = fullCommand.indexOf(PREPOSITION);
         if (indexOfPreposition == -1) {
-            throw new AdditionalException("OOPS!!! You seem to have forgotten your preposition.");
+            throw new AdditionalException("OOPS!!! You seem to have forgotten your preposition \"by\".");
         }
         String description = fullCommand.substring(lengthOfTypeOfTask, indexOfPreposition);
         String trimmedDescription = description.trim();
@@ -62,17 +62,17 @@ public class DeadlineCommand extends Command {
         return trimmedDescription;
     }
 
-    private String getBy() throws AdditionalException {
+    private String getDate() throws AdditionalException {
         int indexOfPreposition = fullCommand.indexOf(PREPOSITION);
         int lengthOfPreposition = PREPOSITION.length();
-        int startingIndexOfTiming = indexOfPreposition + lengthOfPreposition;
+        int startingIndexOfDate = indexOfPreposition + lengthOfPreposition;
         int lengthOfRequest = fullCommand.length();
-        String by = fullCommand.substring(startingIndexOfTiming, lengthOfRequest);
-        String trimmedBy = by.trim();
-        if (trimmedBy.length() < 1) {
+        String date = fullCommand.substring(startingIndexOfDate, lengthOfRequest);
+        String trimmedDate = date.trim();
+        if (trimmedDate.length() < 1) {
             throw new AdditionalException("OOPS!!! The date of the deadline cannot be empty.");
         }
-        return trimmedBy;
+        return trimmedDate;
     }
 
 }

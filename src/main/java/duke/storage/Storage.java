@@ -91,7 +91,7 @@ public class Storage {
         case "event":
             Event event = (Event) task;
             fileWriter.write(typeOfTask + "|" + task.isDone() + "|" + task.getDescription() +
-                    "|/at " + event.getAt() + "\n");
+                    "|/at " + event.getLocation() + "|/on " + event.getDate() + "\n");
             break;
         default:
             System.out.println("Error writing data to file");

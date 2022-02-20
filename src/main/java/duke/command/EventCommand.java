@@ -4,17 +4,19 @@ import duke.TaskList;
 import duke.Ui;
 import duke.exception.AdditionalException;
 import duke.storage.Storage;
-import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class EventCommand extends Command {
 
     private static final String TYPE_OF_TASK = "event";
-    private static final String PREPOSITION = "/at";
+    private static final String PREPOSITION_AT = "/at";
+    private static final String PREPOSITION_ON = "/on";
 
     private String fullCommand;
 
@@ -23,10 +25,13 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AdditionalException, IOException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws AdditionalException, IOException,
+            DateTimeParseException {
         String description = getDescription();
-        String at = getAt();
-        Event event = new Event(description, at, TYPE_OF_TASK);
+        String location = getLocation();
+        String date = getDate();
+        LocalDate dateOfEvent = LocalDate.parse(date);
+        Event event = new Event(description, location, dateOfEvent, TYPE_OF_TASK);
         tasks.addTask(event);
         ui.showAddDone(event, tasks.getSize());
         storage.save(event);
@@ -40,15 +45,17 @@ public class EventCommand extends Command {
     @Override
     public void executeFromFile(ArrayList<Task> listOfTasks) throws AdditionalException {
         String description = getDescription();
-        String at = getAt();
-        listOfTasks.add(new Event(description, at, TYPE_OF_TASK));
+        String at = getLocation();
+        String date = getDate();
+        LocalDate dateOfEvent = LocalDate.parse(date);
+        listOfTasks.add(new Event(description, at, dateOfEvent, TYPE_OF_TASK));
     }
 
     private String getDescription() throws AdditionalException {
         int lengthOfTypeOfTask = TYPE_OF_TASK.length();
-        int indexOfPreposition = fullCommand.indexOf(PREPOSITION);
+        int indexOfPreposition = fullCommand.indexOf(PREPOSITION_AT);
         if (indexOfPreposition == -1) {
-            throw new AdditionalException("OOPS!!! You seem to have forgotten your preposition.");
+            throw new AdditionalException("OOPS!!! You seem to have forgotten your preposition \"at\".");
         }
         String description = fullCommand.substring(lengthOfTypeOfTask, indexOfPreposition);
         String trimmedDescription = description.trim();
@@ -58,17 +65,33 @@ public class EventCommand extends Command {
         return trimmedDescription;
     }
 
-    private String getAt() throws AdditionalException {
-        int indexOfPreposition = fullCommand.indexOf(PREPOSITION);
-        int lengthOfPreposition = PREPOSITION.length();
+    private String getLocation() throws AdditionalException {
+        int indexOfPrepositionAt = fullCommand.indexOf(PREPOSITION_AT);
+        int lengthOfPrepositionAt = PREPOSITION_AT.length();
+        int startingIndexOfTiming = indexOfPrepositionAt + lengthOfPrepositionAt;
+        int indexOfPrepositionOn = fullCommand.indexOf(PREPOSITION_ON);
+        String location = fullCommand.substring(startingIndexOfTiming, indexOfPrepositionOn);
+        String trimmedLocation = location.trim();
+        if (trimmedLocation.length() < 1) {
+            throw new AdditionalException("OOPS!!! The location of the event cannot be empty.");
+        }
+        return trimmedLocation;
+    }
+
+    private String getDate() throws AdditionalException {
+        int indexOfPreposition = fullCommand.indexOf(PREPOSITION_ON);
+        int lengthOfPreposition = PREPOSITION_ON.length();
+        if (indexOfPreposition == -1) {
+            throw new AdditionalException("OOPS!!! You seem to have forgotten your preposition \"on\".");
+        }
         int startingIndexOfTiming = indexOfPreposition + lengthOfPreposition;
         int lengthOfRequest = fullCommand.length();
-        String at = fullCommand.substring(startingIndexOfTiming, lengthOfRequest);
-        String trimmedAt = at.trim();
-        if (trimmedAt.length() < 1) {
-            throw new AdditionalException("OOPS!!! The timing of the event cannot be empty.");
+        String date = fullCommand.substring(startingIndexOfTiming, lengthOfRequest);
+        String trimmedDate = date.trim();
+        if (trimmedDate.length() < 1) {
+            throw new AdditionalException("OOPS!!! The date of the event cannot be empty.");
         }
-        return trimmedAt;
+        return trimmedDate;
     }
 
 }

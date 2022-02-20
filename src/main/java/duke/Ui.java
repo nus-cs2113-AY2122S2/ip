@@ -82,6 +82,6 @@ public class Ui {
     }
 
     public void showDateError() {
-        System.out.println("Please input the deadline in the following format: yyyy-mm-dd");
+        System.out.println("Please input the date in the following format: yyyy-mm-dd and ");
     }
 }
