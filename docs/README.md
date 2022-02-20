@@ -15,12 +15,12 @@ Note that the data file would also be created in the same folder.
 Here are some commands you can try:
    - `list` : List all current tasks.
    - `todo Read Book` : Adds a todo task of reading book.
-   - `delete 1` : Deletes the 1st task in the list.
+   - `delete 1` : Deletes the first task from list.
 ---
 
 ### Features
 
->**Notes about command format**:
+> :warning: **Notes about command format**:
 >- Words in `UPPER_CASE` are parameters to be supplied by the user.
     e.g. in `todo TASKNAME`, `TASKNAME` is a parameter which can be used as 
    `todo Read Book`.
@@ -38,7 +38,9 @@ Here are some commands you can try:
 * Deleting a task: `delete`
 * Finding a task: `find`
 * Exiting the program: `bye`
+
 ---
+
 ### Feature - Listing all tasks
 
 
