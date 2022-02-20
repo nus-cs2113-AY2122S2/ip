@@ -1,5 +1,9 @@
 package Duke;
 
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 /**
  * Duke.Tokenise is to help split user input
  * into individual strings for sanitisation
@@ -9,7 +13,8 @@ public class Parser {
     private String[] tokens = new String[]{};
     private int markIndex;
     private String description;
-    private String time;
+    private LocalDateTime dateTime;
+    private boolean hasTime;
 
     public Parser(String userInput) throws DukeException {
         tokens = userInput.split(" ");
@@ -26,8 +31,9 @@ public class Parser {
             int deadlineBy = findIndex(tokens, "/by");
             if (deadlineBy > 0) {
                 //remove keyword deadline and deadline time from raw user input
-                this.description = combineToken(tokens, 1, deadlineBy);
-                this.time = combineToken(tokens, deadlineBy + 1);
+                description = combineToken(tokens, 1, deadlineBy);
+                String timeStr = combineToken(tokens, deadlineBy + 1);
+                dateTime = LocalDateTime.parse(timeStr);
             } else {
                 throw new DukeExceptionTiming();
             }
@@ -39,8 +45,8 @@ public class Parser {
             int eventAt = findIndex(tokens, "/at");
             if (eventAt > 0) {
                 //remove keyword deadline and deadline time from raw user input
-                this.description = combineToken(tokens, 1, eventAt);
-                this.time = combineToken(tokens, eventAt + 1);
+                description = combineToken(tokens, 1, eventAt);
+                time = combineToken(tokens, eventAt + 1);
             } else {
                 throw new DukeExceptionTiming();
             }
@@ -49,7 +55,7 @@ public class Parser {
             if (tokens.length < 2) {
                 throw new DukeExceptionDescription();
             }
-            this.description = combineToken(tokens, 1);
+            description = combineToken(tokens, 1);
             break;
         case "mark":
         case "unmark":
@@ -77,8 +83,12 @@ public class Parser {
         return description;
     }
 
-    public String getTime() {
-        return time;
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public boolean isHasTime() {
+        return hasTime;
     }
 
     public String[] getTokens() {
@@ -130,5 +140,25 @@ public class Parser {
             combinedToken = combinedToken + tokens[i] + " ";
         }
         return combinedToken.trim();
+    }
+
+    public LocalDateTime timeFormatter(String dateTime) {
+        LocalDateTime localDateTime;
+        if (dateTime.contains("-")) {
+
+        } else if (dateTime.contains("/")) {
+
+        } else {
+
+        }
+
+        return localDateTime;
+    }
+
+    public static boolean hasTime(String dateTime) {
+        if (dateTime.contains("pm") ||
+        dateTime.contains("am")) {
+            return true;
+        }
     }
 }

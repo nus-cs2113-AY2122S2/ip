@@ -30,14 +30,16 @@ public class UserInterface {
                 case "deadline":
                     Deadline newDeadline = new Deadline(
                             userInputTokens.getDescription(),
-                            userInputTokens.getTime());
+                            userInputTokens.getDateTime(),
+                            userInputTokens.isHasTime());
                     TaskList.addTask(newDeadline, userLists);
                     break;
                 case "event":
                     //find index in user input tokens which contains the time separator
                     Event newEvent = new Event(
                             userInputTokens.getDescription(),
-                            userInputTokens.getTime());
+                            userInputTokens.getDateTime(),
+                            userInputTokens.isHasTime());
                     TaskList.addTask(newEvent, userLists);
                     break;
                 case "mark":

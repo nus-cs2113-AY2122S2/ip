@@ -1,11 +1,15 @@
 package Duke;
 
-public class Event extends Task {
-    protected String at;
+import java.time.LocalDateTime;
 
-    public Event (String taskName, String at) {
+public class Event extends Task {
+    protected LocalDateTime at;
+    protected boolean hasTime;
+
+    public Event (String taskName, LocalDateTime at, boolean hasTime) {
         super(taskName);
         this.at = at;
+        this.hasTime = hasTime;
     }
 
     @Override

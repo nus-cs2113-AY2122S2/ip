@@ -3,6 +3,7 @@ package Duke;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -91,7 +92,9 @@ public class Storage {
                         matcherDeadline.find();
                         description = matcherDeadline.group("description").trim();
                         String time = matcherDeadline.group("time");
-                        Deadline newDeadline = new Deadline(description, time);
+                        Deadline newDeadline = new Deadline(description,
+                                LocalDateTime.parse(time),
+                                Parser.hasTime(time));
                         if (matcherDeadline.group("mark").equals("[X]")) {
                             newDeadline.setMark();
                         }
@@ -104,7 +107,9 @@ public class Storage {
                         matcherEvent.find();
                         description = matcherEvent.group("description").trim();
                         time = matcherEvent.group("time");
-                        Event newEvent = new Event(description, time);
+                        Event newEvent = new Event(description,
+                                LocalDateTime.parse(time),
+                                Parser.hasTime(time));
                         if (matcherEvent.group("mark").equals("[X]")) {
                             newEvent.setMark();
                         }

@@ -1,11 +1,15 @@
 package Duke;
 
-public class Deadline extends Task {
-    protected String by;
+import java.time.LocalDateTime;
 
-    public Deadline(String description, String by) {
+public class Deadline extends Task {
+    protected LocalDateTime by;
+    protected boolean hasTime;
+
+    public Deadline(String description, LocalDateTime by, boolean hasTime) {
         super(description);
         this.by = by;
+        this.hasTime = hasTime;
     }
 
     @Override
