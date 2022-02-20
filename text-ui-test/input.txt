@@ -31,12 +31,17 @@ deadlinesubmit homework /by 2022-02-20
 event
 event /at
 event /at home later
+event /at /on
 event eat dinner /at
 event eat dinner /at /on
 event eat dinner /at /on later
 event eat dinner /at home /on
 event eat dinner /at home /on later
 event eat dinner /at home /on 20/02/2022
+event /on
+event /on 2022-02-20
+event eat dinner /on 2022-02-20
+event eat dinner home /on 2022-02-20
 eventeat dinner /at home /on 2022-02-20
 mark
 mark 4

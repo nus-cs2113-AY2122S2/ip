@@ -90,15 +90,15 @@ Now you have 2 tasks in the list.
 1. [E][] read book (at: library on: Feb 20 2022)
 2. [D][] return book (by: Feb 20 2022)
 -----------------------------
-OOPS!!! The description cannot be empty.
+What are you going to do? LOL
 -----------------------------
-OOPS!!! You seem to have forgotten your preposition "by".
+You don't know basic grammar or what?
 -----------------------------
-OOPS!!! The description cannot be empty.
+What is your deadline for..?
 -----------------------------
-OOPS!!! The description cannot be empty.
+What is your deadline for..?
 -----------------------------
-OOPS!!! The date of the deadline cannot be empty.
+You have a deadline but you don't have a deadline?
 -----------------------------
 Please input the date in the following format: yyyy-mm-dd
 -----------------------------
@@ -106,23 +106,33 @@ Please input the date in the following format: yyyy-mm-dd
 -----------------------------
 OOPS!!! I'm sorry, but I don't know what that means :-(
 -----------------------------
-OOPS!!! You seem to have forgotten your preposition "at".
+You don't know basic grammar or what?
 -----------------------------
-OOPS!!! The description cannot be empty.
+Yea... I know you don't have an event because you're a loner.
 -----------------------------
-OOPS!!! The description cannot be empty.
+Yea... I know you don't have an event because you're a loner.
 -----------------------------
-OOPS!!! You seem to have forgotten your preposition "on".
+Yea... I know you don't have an event because you're a loner.
 -----------------------------
-OOPS!!! The location of the event cannot be empty.
+The event has to be ON a certain date right?
 -----------------------------
-OOPS!!! The location of the event cannot be empty.
+So your event is at nowhere-land?
 -----------------------------
-OOPS!!! The date of the event cannot be empty.
+So your event is at nowhere-land?
+-----------------------------
+YAY! Your event is never going to happen :DDDD
 -----------------------------
 Please input the date in the following format: yyyy-mm-dd
 -----------------------------
 Please input the date in the following format: yyyy-mm-dd
+-----------------------------
+You don't know basic grammar or what?
+-----------------------------
+You don't know basic grammar or what?
+-----------------------------
+You don't know basic grammar or what?
+-----------------------------
+You don't know basic grammar or what?
 -----------------------------
 OOPS!!! I'm sorry, but I don't know what that means :-(
 -----------------------------
