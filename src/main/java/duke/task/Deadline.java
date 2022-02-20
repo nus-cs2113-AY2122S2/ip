@@ -25,9 +25,9 @@ public class Deadline extends Task{
     }
 
     /**
-     * This is the toString method that returns a particular format to represent this Event task.
+     * This is the toString method that returns a particular format to represent this task.
      *
-     * @return The printing format of this Event task.
+     * @return The printing format of this task.
      */
     @Override
     public String toString() {

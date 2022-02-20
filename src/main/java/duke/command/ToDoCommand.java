@@ -54,7 +54,7 @@ public class ToDoCommand extends Command {
     }
 
     /**
-     * This is the executeFromFile method that takes in a list of tasks and adds a new ToDo task to the list of tasks.
+     * This is the executeFromFile method that takes in a list of tasks and adds a new task to the list of tasks.
      *
      * @param listOfTasks This is the list of tasks that the new task is to be added to.
      * @throws AdditionalException If there is no description provided in the fullCommand.

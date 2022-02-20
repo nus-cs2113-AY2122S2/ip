@@ -20,8 +20,8 @@ public class ListCommand extends Command {
      * @param tasks The TaskList object that contains the list of tasks.
      * @param ui The user interface object that allows for printing of the confirmation message.
      * @param storage The storage object which allows for the saving of the tasks to the file.
-     * @throws IOException If there is an error saving tasks to the file.
-     * @see IOException
+     * @throws AdditionalException If there are no tasks.
+     * @see AdditionalException
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AdditionalException {

@@ -47,8 +47,8 @@ public class Duke {
      * It returns true when the user input is "bye"
      * Using the command object returned from the parser, it will the run the execute method.
      *
-     * @param fullCommand The full command which is the user input
-     * @return true if user input is "bye"
+     * @param fullCommand The full command which is the user input.
+     * @return true if user input is "bye".
      */
     private boolean runFullCommand(String fullCommand) {
         boolean isBye = false;

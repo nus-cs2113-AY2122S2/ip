@@ -30,8 +30,8 @@ public class Storage {
      * This is the load method that loads the tasks from a file to a new list of tasks.
      * It creates a new list of tasks and passes it to the readFromFile method.
      *
-     * @return The list of tasks that was stored in the file initially
-     * @throws FileNotFoundException If no file with the filepath is found
+     * @return The list of tasks that was stored in the file initially.
+     * @throws FileNotFoundException If no file with the filepath is found.
      * @throws AdditionalException
      * @see FileNotFoundException
      * @see AdditionalException
@@ -46,7 +46,7 @@ public class Storage {
      * This is the readFromFile method that reads the commands line by line from the file.
      * Using the command object returned from the parser, it will the run the executeFromFile method.
      *
-     * @throws FileNotFoundException If no file with the filepath is found
+     * @throws FileNotFoundException If no file with the filepath is found.
      * @throws AdditionalException
      * @see FileNotFoundException
      * @see AdditionalException
@@ -62,6 +62,15 @@ public class Storage {
         }
     }
 
+    /**
+     * This is the executeIfMarked method that will check if the task that is loaded form file is marked.
+     * If the task is marked, a command object is created and the method executeFromFile of the object will run.
+     *
+     * @param nextLine The next line from the file.
+     * @param listOfTasks The list of tasks that was stored in the file initially.
+     * @throws AdditionalException If there is an error when marking the file.
+     * @see AdditionalException
+     */
     private void executeIfMarked(String nextLine, ArrayList<Task> listOfTasks) throws AdditionalException {
         String[] words = nextLine.split("\\|");
         String toMark = words[1].toLowerCase();
@@ -75,8 +84,8 @@ public class Storage {
     /**
      * This is the save method that takes in a task and saves this task to the file.
      *
-     * @param task This is the task to be saved to the file
-     * @throws IOException If there is an error writing to the file
+     * @param task This is the task to be saved to the file.
+     * @throws IOException If there is an error writing to the file.
      * @see IOException
      */
     public void save(Task task) throws IOException {
@@ -87,11 +96,11 @@ public class Storage {
 
     /**
      * This is the saveAll function that saves all the tasks after the tasks have been marked, unmarked or deleted.
-     * The method takes in the Tasklist tasks, creates and new FileWriter and passes both to another method
+     * The method takes in the TaskList tasks, creates and new FileWriter and passes both to another method
      * saveAllTasksToFile.
      *
-     * @param tasks This is the TaskList tasks that contains all the tasks
-     * @throws IOException If there is an error writing to the file
+     * @param tasks This is the TaskList tasks that contains all the tasks.
+     * @throws IOException If there is an error writing to the file.
      * @see IOException
      */
     public void saveAll(TaskList tasks) throws IOException {
@@ -105,9 +114,9 @@ public class Storage {
      * This is the saveAllTasksToFile that iterates through all the tasks in the TaskList and write it to file by
      * passing the task, the type of task of the description and the fileWriter to writeDataToFile method.
      *
-     * @param fileWriter The fileWriter is used to write the data to file
-     * @param tasks The Task List that contains the list of tasks
-     * @throws IOException If there is an error writing to the file
+     * @param fileWriter The fileWriter is used to write the data to file.
+     * @param tasks The Task List that contains the list of tasks.
+     * @throws IOException If there is an error writing to the file.
      * @see IOException
      */
     private void saveAllTasksToFile(FileWriter fileWriter, TaskList tasks) throws IOException {
@@ -121,10 +130,10 @@ public class Storage {
      * This is the writeDataToFile method that takes in the task, the typeOfTask and fileWriter.
      * It parses the task and saves it in a format such that it can be easily read in the future.
      *
-     * @param task The task to be saved to the file
-     * @param typeOfTask The type of task to be saved to the file
-     * @param fileWriter The fileWriter is used to write the data to the file
-     * @throws IOException If there is an error writing to the file
+     * @param task The task to be saved to the file.
+     * @param typeOfTask The type of task to be saved to the file.
+     * @param fileWriter The fileWriter is used to write the data to the file.
+     * @throws IOException If there is an error writing to the file.
      * @see IOException
      */
     private void writeDataToFile(Task task, String typeOfTask, FileWriter fileWriter) throws IOException {

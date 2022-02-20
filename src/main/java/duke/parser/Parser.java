@@ -12,9 +12,9 @@ public class Parser {
      * This is the parse method that takes in the fullCommand and makes sense of what type of command it is.
      * It then creates a Command object, depending on the type of command, and returns in to the caller.
      *
-     * @param fullCommand The user input
-     * @return The Command object, depending on the type of the command
-     * @throws AdditionalException If the command is invalid
+     * @param fullCommand The user input.
+     * @return The Command object, depending on the type of the command.
+     * @throws AdditionalException If the command is invalid.
      * @see AdditionalException
      */
     public static Command parse(String fullCommand) throws AdditionalException {

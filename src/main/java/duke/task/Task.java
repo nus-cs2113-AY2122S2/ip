@@ -49,7 +49,7 @@ public class Task {
     /**
      * This is the isDone method that returns whether this task is done.
      *
-     * @return True if this task is done and false if this task is not done
+     * @return True if this task is done and false if this task is not done.
      */
     public boolean isDone() {
         return isDone;
@@ -58,7 +58,7 @@ public class Task {
     /**
      * This is the getTypeOfTask method that returns the type of task for this task.
      *
-     * @return The type of task for this task
+     * @return The type of task for this task.
      */
     public String getTypeOfTask() {
         return typeOfTask;

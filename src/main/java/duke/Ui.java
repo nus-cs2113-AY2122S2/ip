@@ -49,7 +49,7 @@ public class Ui {
     /**
      * This is the readCommand method that reads the user input from the command line.
      *
-     * @return The user input as a String
+     * @return The user input as a String.
      */
     public String readCommand() {
         return in.nextLine();
@@ -86,11 +86,11 @@ public class Ui {
     }
 
     /**
-     * This is the showMarkDone method that prints the confirmation that a task has been marked as done.
+     * This is the showMarkCompleted method that prints the confirmation that a task has been marked as done.
      *
      * @param taskMarked The task that is marked as done.
      */
-    public void showMarkDone(Task taskMarked) {
+    public void showMarkCompleted(Task taskMarked) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(taskMarked);
     }
@@ -144,11 +144,20 @@ public class Ui {
         System.out.println("The index should be an integer, please try again.");
     }
 
-    public void showNoResuts() {
+    /**
+     * This is the showNoResults method that prints the error message when the keyword cannot be found in any of the
+     * tasks.
+     */
+    public void showNoResults() {
         System.out.println("I'm afraid that it is a 404 not found kinda scenario");
     }
-      
+
+    /**
+     * This is the showDateError method that prints the error message when the date which the user input is in the
+     * incorrect format.
+     */
     public void showDateError() {
         System.out.println("Please input the date in the following format: yyyy-mm-dd");
     }
+
 }
