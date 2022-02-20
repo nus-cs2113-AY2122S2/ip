@@ -36,7 +36,10 @@ public class ToDoCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AdditionalException, IOException {
-        String description = getDescription();
+        String description = getDescription(TYPE_OF_TASK, fullCommand);
+        if (description.length() < 1) {
+            throw new AdditionalException("What are you going to do? LOL");
+        }
         ToDo toDo = new ToDo(description, TYPE_OF_TASK);
         tasks.addTask(toDo);
         ui.showAddDone(toDo, tasks.getSize());
@@ -57,31 +60,16 @@ public class ToDoCommand extends Command {
      * This is the executeFromFile method that takes in a list of tasks and adds a new task to the list of tasks.
      *
      * @param listOfTasks This is the list of tasks that the new task is to be added to.
-     * @throws AdditionalException If there is no description provided in the fullCommand.
+     * @throws AdditionalException If the file has been edited and hence the fullCommand is incorrect.
      * @see AdditionalException
      */
     @Override
     public void executeFromFile(ArrayList<Task> listOfTasks) throws AdditionalException {
-        String description = getDescription();
-        listOfTasks.add(new ToDo(description, TYPE_OF_TASK));
-    }
-
-    /**
-     * This is the getDescription method that returns the description of the task from the fullCommand.
-     *
-     * @return The description of the task to be added.
-     * @throws AdditionalException If there is no description provided in the fullCommand.
-     * @see AdditionalException
-     */
-    private String getDescription() throws AdditionalException {
-        int lengthOfTypeOfTask = TYPE_OF_TASK.length();
-        int lengthOfRequest = fullCommand.length();
-        String description = fullCommand.substring(lengthOfTypeOfTask, lengthOfRequest);
-        String trimmedDescription = description.trim();
-        if (trimmedDescription.length() < 1) {
-            throw new AdditionalException("OOPS!!! The description cannot be empty.");
+        String description = getDescription(TYPE_OF_TASK, fullCommand);
+        if (description.length() < 1) {
+            throw new AdditionalException("Did you accidentally edit the file?");
         }
-        return trimmedDescription;
+        listOfTasks.add(new ToDo(description, TYPE_OF_TASK));
     }
 
 }

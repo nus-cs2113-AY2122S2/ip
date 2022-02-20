@@ -40,8 +40,14 @@ public class DeadlineCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AdditionalException, IOException,
             DateTimeParseException {
-        String description = getDescription();
-        String date = getDate();
+        String description = getDescription(TYPE_OF_TASK, PREPOSITION, fullCommand);
+        if (description.length() < 1) {
+            throw new AdditionalException("What is your deadline for..?");
+        }
+        String date = getDate(PREPOSITION, fullCommand);
+        if (date.length() < 1) {
+            throw new AdditionalException("You have a deadline but you don't have a deadline?");
+        }
         LocalDate dateOfDeadline = LocalDate.parse(date);
         Deadline deadline = new Deadline(description, dateOfDeadline, TYPE_OF_TASK);
         tasks.addTask(deadline);
@@ -69,52 +75,13 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public void executeFromFile(ArrayList<Task> listOfTasks) throws AdditionalException {
-        String description = getDescription();
-        String date = getDate();
+        String description = getDescription(TYPE_OF_TASK, PREPOSITION, fullCommand);
+        String date = getDate(PREPOSITION, fullCommand);
+        if (description.length() < 1 | date.length() < 1) {
+            throw new AdditionalException("Did you accidentally edit the file?");
+        }
         LocalDate dateOfDeadline = LocalDate.parse(date);
         listOfTasks.add(new Deadline(description, dateOfDeadline, TYPE_OF_TASK));
-    }
-
-    /**
-     * This is the getDescription method that returns the description of the task from the fullCommand.
-     *
-     * @return The description of the task to be added.
-     * @throws AdditionalException If there is no description provided in the fullCommand.
-     * @see AdditionalException
-     */
-    private String getDescription() throws AdditionalException {
-        int lengthOfTypeOfTask = TYPE_OF_TASK.length();
-        int indexOfPreposition = fullCommand.indexOf(PREPOSITION);
-        if (indexOfPreposition == -1) {
-            throw new AdditionalException("OOPS!!! You seem to have forgotten your preposition \"by\".");
-        }
-        String description = fullCommand.substring(lengthOfTypeOfTask, indexOfPreposition);
-        String trimmedDescription = description.trim();
-        if (trimmedDescription.length() < 1) {
-            throw new AdditionalException("OOPS!!! The description cannot be empty.");
-        }
-        return trimmedDescription;
-    }
-
-
-    /**
-     * This is the getDate method that returns the date of the task from the fullCommand.
-     *
-     * @return The date of the task to be added.
-     * @throws AdditionalException If there is no date provided in the fullCommand.
-     * @see AdditionalException
-     */
-    private String getDate() throws AdditionalException {
-        int indexOfPreposition = fullCommand.indexOf(PREPOSITION);
-        int lengthOfPreposition = PREPOSITION.length();
-        int startingIndexOfDate = indexOfPreposition + lengthOfPreposition;
-        int lengthOfRequest = fullCommand.length();
-        String date = fullCommand.substring(startingIndexOfDate, lengthOfRequest);
-        String trimmedDate = date.trim();
-        if (trimmedDate.length() < 1) {
-            throw new AdditionalException("OOPS!!! The date of the deadline cannot be empty.");
-        }
-        return trimmedDate;
     }
 
 }
