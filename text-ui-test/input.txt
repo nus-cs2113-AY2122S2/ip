@@ -21,6 +21,7 @@ delete 1
 list
 date 2022-02-20
 todo
+todonothing
 deadline
 deadline /by
 deadline /by tonight 2359
