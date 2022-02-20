@@ -3,9 +3,8 @@ package duke;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import duke.FileSaver;
+import java.util.ArrayList;
 import duke.task.Task;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -16,27 +15,27 @@ import duke.exceptions.EventFormatException;
 import duke.exceptions.DeadlineFormatException;
 
 public class Duke {
-    private static final String boundary = "____________________________________________________________" + System.lineSeparator();
-    private static Task[] taskList = new Task[100];
-    private static int countTask = 0;
+    public static String boundary = "____________________________________________________________" + System.lineSeparator();
+    public static ArrayList<Task> taskList = new ArrayList<>();
+    public static int countTask = 0;
 
     public static void printList() {
         System.out.println(boundary + "Here are the tasks in your list:");
         for (int i = 0; i < countTask; i++) {
-            System.out.println((i + 1) + ". " + taskList[i]);
+            System.out.println((i + 1) + ". " + taskList.get(i));
         }
         System.out.print("Now you have " + countTask + " tasks in the list."+ System.lineSeparator() + boundary);
     }
 
     public static void markTask(int toMark) {
-        taskList[toMark].markDone();
-        System.out.println(boundary + "Nice! I've marked this task as done:" + System.lineSeparator() + taskList[toMark]);
+        taskList.get(toMark).markDone();
+        System.out.println(boundary + "Nice! I've marked this task as done:" + System.lineSeparator() + taskList.get(toMark));
         System.out.print(boundary);
     }
 
     public static void unmarkTask(int toUnmark) {
-        taskList[toUnmark].markNotDone();
-        System.out.println(boundary + "OK, I've marked this task as not done yet:" + System.lineSeparator() + taskList[toUnmark]);
+        taskList.get(toUnmark).markNotDone();
+        System.out.println(boundary + "OK, I've marked this task as not done yet:" + System.lineSeparator() + taskList.get(toUnmark));
         System.out.print(boundary);
     }
 
@@ -58,7 +57,7 @@ public class Duke {
                 throw new TaskEmptyException();
             }
             int byPosition = request.indexOf("/");
-            taskList[countTask] = new Deadline(request.substring(9, byPosition - 1), request.substring(byPosition + 4));
+            taskList.add(new Deadline(request.substring(9, byPosition - 1), request.substring(byPosition + 4)));
         } else if (request.toLowerCase().startsWith("event")) {
             if (!request.contains("/at")) {
                 throw new EventFormatException();
@@ -66,16 +65,16 @@ public class Duke {
                 throw new TaskEmptyException();
             }
             int atPosition = request.indexOf("/");
-            taskList[countTask] = new Event(request.substring(6, atPosition - 1), request.substring(atPosition + 4));
+            taskList.add(new Event(request.substring(6, atPosition - 1), request.substring(atPosition + 4)));
         } else if (request.toLowerCase().startsWith("todo")) {
-            taskList[countTask] = new Todo(request.substring(5));
+            taskList.add(new Todo(request.substring(5)));
         } else {
             throw new GeneralException();
         }
 
         countTask++;
 
-        System.out.println(boundary + "Got it. I've added this task: " + System.lineSeparator() + taskList[countTask - 1]);
+        System.out.println(boundary + "Got it. I've added this task: " + System.lineSeparator() + taskList.get(countTask - 1));
         System.out.print("Now you have " + countTask + " tasks in the list."+ System.lineSeparator() + boundary);
     }
 
@@ -100,7 +99,7 @@ public class Duke {
     public static void writeData(FileSaver dataFile) {
         StringBuilder toWrite = new StringBuilder();
         for (int i = 0; i < countTask; i++) {
-            toWrite.append(taskList[i]).append(System.lineSeparator());
+            toWrite.append(taskList.get(i)).append(System.lineSeparator());
         }
 
         try {
@@ -112,31 +111,39 @@ public class Duke {
     }
 
     public static void readToList() throws FileNotFoundException {
-            File f = new File("./data/dukeData.txt");
-            Scanner s = new Scanner(f);
-            while (s.hasNext()) {
-                String currentLine = s.nextLine();
-                switch (currentLine.charAt(1)) {
-                case 'T':
-                    taskList[countTask] = new Todo(currentLine.substring(7));
-                    break;
-                case 'D':
-                    int byIndex = currentLine.indexOf("(");
-                    String by = currentLine.substring(byIndex + 5, currentLine.length() - 1);
-                    taskList[countTask] = new Deadline(currentLine.substring(7, byIndex - 1), by);
-                    break;
-                case 'E':
-                    int atIndex = currentLine.indexOf("(");
-                    String at = currentLine.substring(atIndex + 5, currentLine.length() - 1);
-                    taskList[countTask] = new Event(currentLine.substring(7, atIndex - 1), at);
-                    break;
-                default:
-                }
-                if (currentLine.charAt(4) == 'X') {
-                    taskList[countTask].markDone();
-                }
-                countTask += 1;
+        File f = new File("./data/dukeData.txt");
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            String currentLine = s.nextLine();
+            switch (currentLine.charAt(1)) {
+            case 'T':
+                taskList.add(new Todo(currentLine.substring(7)));
+                break;
+            case 'D':
+                int byIndex = currentLine.indexOf("(");
+                String by = currentLine.substring(byIndex + 5, currentLine.length() - 1);
+                taskList.add(new Deadline(currentLine.substring(7, byIndex - 1), by));
+                break;
+            case 'E':
+                int atIndex = currentLine.indexOf("(");
+                String at = currentLine.substring(atIndex + 5, currentLine.length() - 1);
+                taskList.add(new Event(currentLine.substring(7, atIndex - 1), at));
+                break;
+            default:
             }
+            if (currentLine.charAt(4) == 'X') {
+                taskList.get(countTask).markDone();
+            }
+            countTask += 1;
+        }
+    }
+
+    public static void deleteTask(int index) {
+        System.out.println(boundary + "Noted. I've removed this task:");
+        System.out.println(taskList.get(index));
+        System.out.print("Now you have " + (countTask - 1) + " tasks in the list." + System.lineSeparator() + boundary);
+        taskList.remove(index);
+        countTask -= 1;
     }
 
     public static void sayHello() {
@@ -176,6 +183,8 @@ public class Duke {
                 markTask(Integer.parseInt(line.substring(5)) - 1);
             } else if (line.toLowerCase().startsWith("unmark")) {
                 unmarkTask(Integer.parseInt(line.substring(7)) - 1);
+            } else if (line.toLowerCase().startsWith("delete")) {
+                deleteTask(Integer.parseInt(line.substring(7)) - 1);
             } else {
                 tryAddTask(line);
             }
