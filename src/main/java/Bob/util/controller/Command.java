@@ -6,6 +6,7 @@ import bob.util.task.Events;
 import bob.util.task.Task;
 import bob.util.task.ToDos;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -205,7 +206,8 @@ public class Command {
 
         // check that the deadline is not empty
         if (tokenDetails[1] != null) {
-            Task task = new Deadlines(tokenDetails[0], Parser.parseDate(tokenDetails[1]));
+            LocalDate deadline = Parser.parseDeadline(tokenDetails[1]);
+            Task task = new Deadlines(tokenDetails[0], deadline);
             addTaskToList(list, task);
             UI.printBorder();
         } else {
@@ -224,7 +226,8 @@ public class Command {
 
         // check that the event period is not empty
         if (tokenDetails[1] != null) {
-            Task task = new Events(tokenDetails[0], Parser.parseDate(tokenDetails[1]));
+            LocalDate[] eventDates = Parser.parseEventDate(tokenDetails[1]);
+            Task task = new Events(tokenDetails[0], eventDates[0], eventDates[1]);
             addTaskToList(list, task);
             UI.printBorder();
         } else {

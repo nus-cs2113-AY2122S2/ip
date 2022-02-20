@@ -10,17 +10,20 @@ import java.time.format.DateTimeFormatter;
  */
 public class Events extends Task {
     /** Period of a task */
-    protected LocalDate period;
+    protected LocalDate periodStart;
+    protected LocalDate periodEnd;
 
     /**
      * Class constructor
      *
      * @param description the Task description.
-     * @param period      the Task period.
+     * @param periodStart the start of the Task period.
+     * @param periodEnd   the end of the Task period.
      */
-    public Events(String description, LocalDate period) {
+    public Events(String description, LocalDate periodStart, LocalDate periodEnd) {
         super(description);
-        this.period = period;
+        this.periodStart = periodStart;
+        this.periodEnd = periodEnd;
     }
 
     /**
@@ -28,11 +31,22 @@ public class Events extends Task {
      *
      * @param description the Task description.
      * @param isDone      the completion status.
-     * @param period      the Task period.
+     * @param periodStart the start of the Task period.
+     * @param periodEnd   the end of the Task period.
      */
-    public Events(String description, boolean isDone, LocalDate period) {
+    public Events(String description, boolean isDone, LocalDate periodStart, LocalDate periodEnd) {
         super(description, isDone);
-        this.period = period;
+        this.periodStart = periodStart;
+        this.periodEnd = periodEnd;
+    }
+
+    /**
+     * Returns the task's start period.
+     *
+     * @return a period text.
+     */
+    public String getPeriodStart() {
+        return periodStart.format(DateTimeFormatter.ofPattern(UI.DATE_FORMAT));
     }
 
     /**
@@ -40,8 +54,8 @@ public class Events extends Task {
      *
      * @return a period text.
      */
-    public String getPeriod() {
-        return period.format(DateTimeFormatter.ofPattern(UI.DATE_FORMAT));
+    public String getPeriodEnd() {
+        return periodEnd.format(DateTimeFormatter.ofPattern(UI.DATE_FORMAT));
     }
 
     /**
@@ -49,6 +63,7 @@ public class Events extends Task {
      */
     @Override
     public String toString() {
-        return ("[E]" + super.toString() + " (at: " + getPeriod() + ")");
+        return ("[E]" + super.toString() + " (at: "
+                + getPeriodStart() + " to " + getPeriodEnd() + ")");
     }
 }

@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -159,11 +160,13 @@ public class LoadSave {
             break;
         case "D":
             tokenDetails = getTokenDetails(type, details);
-            task = new Deadlines(tokenDetails[0], status, Parser.parseDate(tokenDetails[1]));
+            LocalDate deadline = Parser.parseDeadline(tokenDetails[1]);
+            task = new Deadlines(tokenDetails[0], status, deadline);
             break;
         case "E":
             tokenDetails = getTokenDetails(type, details);
-            task = new Events(tokenDetails[0], status, Parser.parseDate(tokenDetails[1]));
+            LocalDate[] eventDates = Parser.parseEventDate(tokenDetails[1]);
+            task = new Events(tokenDetails[0], eventDates[0], eventDates[1]);
             break;
         default:
             throw new BobInvalidLoadValue();

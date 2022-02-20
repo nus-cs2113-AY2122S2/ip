@@ -30,11 +30,13 @@ public class UI {
     public static final String MESSAGE_INVALID_ID_NUMBER = "Invalid task id. ┬┴┬┴┤w')";
     public static final String MESSAGE_INVALID_ID_FORMAT = "The task id needs to be a number! (/`c`)/";
     public static final String MESSAGE_DEADLINE_USAGE = "Usage: deadline <task> /by <deadline>";
-    public static final String MESSAGE_EVENT_USAGE = "Usage: event <task> /at <date,time>";
+    public static final String MESSAGE_EVENT_USAGE = "Usage: event <task> /at <date_start> to <date_end>";
     public static final String MESSAGE_TASK_LIMIT_REACHED = "No more tasks can be created :(";
     public static final String MESSAGE_FOUND_MATCHING_TASK = "The following tasks matches your search:";
     public static final String MESSAGE_FOUND_NO_MATCH = "No tasks matches your description OTZ";
     public static final String DATE_FORMAT = "E, MMM dd yyyy";
+    public static final String UNKNOWN_DATE_FORMAT = "Unknown format, use yyyy-mm-dd, setting default date.";
+    public static final String INCORRECT_DATE_SEQUENCE = "Non-chronological dates detected, swapping dates around.";
 
 
     /**
