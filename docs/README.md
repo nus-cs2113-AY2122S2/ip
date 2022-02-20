@@ -18,13 +18,29 @@ Here are some commands you can try:
    - `delete 1` : Deletes the 1<sup>st</sup> task in the list.
 ---
 
-## Features 
+### Features
 
-### Feature-ABC
+>**Notes about command format**:
+>- Words in `UPPER_CASE` are parameters to be supplied by the user.
+    e.g. in `todo TASKNAME`, `TASKNAME` is a parameter which can be used as 
+   `todo Read Book`.
+>- Parameters order must follow the command format.
+   e.g. given the command `deadline TASKNAME /by TASKDATE`, the command must be
+   `deadline Assignment /by 2022-02-20`
 
-Description of the feature.
+* Listing all tasks: `list`
+* Adding a new task:
+   * Todo task: `todo`
+   * Deadline task: `deadline`
+   * Event task: `event`
+* Marking a task as done: `mark`
+* Marking a task as not done: `unmark`
+* Deleting a task: `delete`
+* Finding a task: `find`
+* Exiting the program: `bye`
+---
+### Feature - Listing all tasks
 
-### Feature-XYZ
 
 Description of the feature.
 
