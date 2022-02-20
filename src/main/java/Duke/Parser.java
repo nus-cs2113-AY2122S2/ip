@@ -1,16 +1,17 @@
-import java.util.Arrays;
+package Duke;
+
 /**
- * Tokenise is to help split user input
+ * Duke.Tokenise is to help split user input
  * into individual strings for sanitisation
  * and other checks
  */
-public class Tokenise {
+public class Parser {
     private String[] tokens = new String[]{};
     private int markIndex;
     private String description;
     private String time;
 
-    public Tokenise(String userInput) throws DukeException {
+    public Parser(String userInput) throws DukeException {
         tokens = userInput.split(" ");
         switch (tokens[0]) {
         case "list":
@@ -101,7 +102,7 @@ public class Tokenise {
     }
 
     /**
-     * This will combine the Token into a String for the actual Task
+     * This will combine the Token into a String for the actual Duke.Task
      *
      * @param tokens User input token
      * @param startIndex Where to start copying the tokens
@@ -116,7 +117,7 @@ public class Tokenise {
     }
 
     /**
-     * This will combine the Token into a String for the actual Task
+     * This will combine the Token into a String for the actual Duke.Task
      *
      * @param tokens User input token
      * @param startIndex Where to start copying the tokens

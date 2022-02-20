@@ -1,3 +1,5 @@
+package Duke;
+
 public class Task {
     private Boolean isMarked = false;
     private String taskName;
