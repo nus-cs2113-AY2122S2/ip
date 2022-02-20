@@ -42,16 +42,25 @@ mark
 mark 4
 mark hello
 mark 4 2
+mark4
 unmark
 unmark 4
 unmark hello
 unmark 4 2
+unmark4
 delete
 delete 4
 delete hello
 delete 4 2
+delete4
 date
 date tonight 2359
 date 20/02/2022
+date20/02/2022
+find
+find asdf
+find book
+find read book
+findread book
 asdf
 bye

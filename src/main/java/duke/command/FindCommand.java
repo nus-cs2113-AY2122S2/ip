@@ -36,7 +36,7 @@ public class FindCommand extends Command {
         int endingIndex = fullCommand.length();
         String keyword = fullCommand.substring(startingIndex, endingIndex).trim();
         if (keyword.length() == 0) {
-            throw new AdditionalException("Please key in exactly one keyword!");
+            throw new AdditionalException("You want me to find nothing or everything...?");
         }
         ArrayList<Task> listOfTasks = new ArrayList<>();
         for (int i = 0; i < tasks.getSize(); i++) {
