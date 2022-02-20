@@ -111,3 +111,13 @@ Delete a task from list of task.
 
 ---
 
+---
+
+### Feature - Listing all current Tasks
+List all the current Tasks that Duke is tracking.
+* Format: `list`
+  <br>![Listing Task](https://raw.githubusercontent.com/froststein/ip/master/images/listCommand.PNG)
+
+
+---
+
