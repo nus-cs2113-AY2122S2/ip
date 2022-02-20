@@ -111,6 +111,16 @@ Delete a task from list of task.
 
 ---
 
+### Feature - Finding a Task
+Finds all task from the list of task that matches the given keyword.
+* Format: `find KEYWORD`
+  * The `KEYWORD` refers to the search parameter. If the keyword is part 
+  of any task's description, it would return part as the result. 
+  * The keyword is **case sensitive** such that `Morning` would only match with `Morning` and not `morning`.
+* Example: `find Programming`
+  <br>![Finding Task](https://raw.githubusercontent.com/froststein/ip/master/images/findCommand.PNG)
+
+
 ---
 
 ### Feature - Listing all current Tasks
