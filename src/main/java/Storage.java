@@ -12,6 +12,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Reads, parses, and loads the tasks on the saved file.
+     *
+     * @return tasks: ArrayList of tasks in the saved file
+     */
     public ArrayList<Task> loadFile(){
         ArrayList<Task> tasks = new ArrayList<>();
         System.out.println("Initialising...");
@@ -55,6 +60,12 @@ public class Storage {
 
         return tasks;
     }
+
+    /**
+     * Saves current task list into file.
+     *
+     * @param tasks: current task list
+     */
 
     public void saveFile(TaskList tasks){
         String toFile = "";

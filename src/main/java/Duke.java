@@ -67,6 +67,12 @@ public class Duke {
         new Duke("tasks.txt").run();
     }
 
+    /**
+     * Prints a list of tasks that are currently in the task list.
+     *
+     * @param ui
+     * @param tasks
+     */
     public static void printTasks(Ui ui, TaskList tasks) {
         int numTasks = tasks.getSize();
         if (numTasks == 0) {
@@ -81,6 +87,12 @@ public class Duke {
         ui.showLineBreak();
     }
 
+    /**
+     * Prompts the user for input to create a todo.
+     *
+     * @param ui
+     * @param tasks
+     */
     public static void addTodo(Ui ui, TaskList tasks) {
         System.out.println("Okie, what should I call the task?");
         String str = ui.getInput();
@@ -93,6 +105,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Prompts the user for input to create a deadline.
+     *
+     * @param ui
+     * @param tasks
+     */
     public static void addDeadline(Ui ui, TaskList tasks) {
         System.out.println("Okie, what should I call the task?");
         String str = ui.getInput();
@@ -111,6 +129,12 @@ public class Duke {
         System.out.println("Added!");
     }
 
+    /**
+     * Prompts the user for input to create an event.
+     *
+     * @param ui
+     * @param tasks
+     */
     public static void addEvent(Ui ui, TaskList tasks) {
         System.out.println("Okie, what should I call the task?");
         String str = ui.getInput();
@@ -133,7 +157,12 @@ public class Duke {
         System.out.println("Added!");
     }
 
-
+    /**
+     * Prompts the user for input to mark a specific task.
+     *
+     * @param ui
+     * @param tasks
+     */
     public static void markTask(Ui ui, TaskList tasks) {
         printTasks(ui, tasks);
         System.out.println("Which task would you like to mark as completed?");
@@ -153,6 +182,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Prompts the user for input to unmark a specific task.
+     *
+     * @param ui
+     * @param tasks
+     */
     public static void unmarkTask(Ui ui, TaskList tasks) {
         printTasks(ui, tasks);
         System.out.println("Which task would you like to mark as incomplete?");
@@ -173,6 +208,12 @@ public class Duke {
 
     }
 
+    /**
+     * Prompts the user for input to delete a specific task.
+     *
+     * @param ui
+     * @param tasks
+     */
     public static void deleteTask(Ui ui, TaskList tasks) {
         printTasks(ui, tasks);
         System.out.println("Which task would you like to remove?");
@@ -192,6 +233,11 @@ public class Duke {
         }
     }
 
+
+    /**
+     * Checking for valid input by user.
+     *
+     */
     private static boolean isInt(String str) {
         try {
             Integer.parseInt(str);
@@ -201,6 +247,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Prompts the user for input to find a list of matching tasks.
+     *
+     * @param ui
+     * @param tasks
+     */
     public static void findTask(Ui ui, TaskList tasks){
         int numTasks = tasks.getSize();
         if (numTasks == 0) {
