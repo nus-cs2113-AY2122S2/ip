@@ -30,6 +30,7 @@ public class Duke {
         } catch (IOException e) {
             ui.showLoadingError();
             allTasks = new ArrayList<Task>();
+
         }
     }
 
