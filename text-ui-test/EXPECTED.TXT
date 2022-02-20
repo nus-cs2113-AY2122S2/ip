@@ -24,108 +24,137 @@ Now you have 1 tasks in the list.
 1. [T][] borrow book
 -----------------------------
 Got it. I have added this task: 
-[E][] read book (at: library tonight)
+[E][] read book (at: library on: Feb 20 2022)
 Now you have 2 tasks in the list.
 -----------------------------
 1. [T][] borrow book
-2. [E][] read book (at: library tonight)
+2. [E][] read book (at: library on: Feb 20 2022)
 -----------------------------
 Got it. I have added this task: 
-[D][] return book (by: tomorrow 2359)
+[D][] return book (by: Feb 20 2022)
 Now you have 3 tasks in the list.
 -----------------------------
 1. [T][] borrow book
-2. [E][] read book (at: library tonight)
-3. [D][] return book (by: tomorrow 2359)
+2. [E][] read book (at: library on: Feb 20 2022)
+3. [D][] return book (by: Feb 20 2022)
 -----------------------------
 Nice! I've marked this task as done:
 [T][X] borrow book
 -----------------------------
 1. [T][X] borrow book
-2. [E][] read book (at: library tonight)
-3. [D][] return book (by: tomorrow 2359)
+2. [E][] read book (at: library on: Feb 20 2022)
+3. [D][] return book (by: Feb 20 2022)
 -----------------------------
 Nice! I've marked this task as done:
-[E][X] read book (at: library tonight)
+[E][X] read book (at: library on: Feb 20 2022)
 -----------------------------
 1. [T][X] borrow book
-2. [E][X] read book (at: library tonight)
-3. [D][] return book (by: tomorrow 2359)
+2. [E][X] read book (at: library on: Feb 20 2022)
+3. [D][] return book (by: Feb 20 2022)
 -----------------------------
 Nice! I've marked this task as done:
-[D][X] return book (by: tomorrow 2359)
+[D][X] return book (by: Feb 20 2022)
 -----------------------------
 1. [T][X] borrow book
-2. [E][X] read book (at: library tonight)
-3. [D][X] return book (by: tomorrow 2359)
+2. [E][X] read book (at: library on: Feb 20 2022)
+3. [D][X] return book (by: Feb 20 2022)
 -----------------------------
 Nice! I've marked this task as NOT done:
-[D][] return book (by: tomorrow 2359)
+[D][] return book (by: Feb 20 2022)
 -----------------------------
 1. [T][X] borrow book
-2. [E][X] read book (at: library tonight)
-3. [D][] return book (by: tomorrow 2359)
+2. [E][X] read book (at: library on: Feb 20 2022)
+3. [D][] return book (by: Feb 20 2022)
 -----------------------------
 Nice! I've marked this task as NOT done:
-[E][] read book (at: library tonight)
+[E][] read book (at: library on: Feb 20 2022)
 -----------------------------
 1. [T][X] borrow book
-2. [E][] read book (at: library tonight)
-3. [D][] return book (by: tomorrow 2359)
+2. [E][] read book (at: library on: Feb 20 2022)
+3. [D][] return book (by: Feb 20 2022)
 -----------------------------
 Nice! I've marked this task as NOT done:
 [T][] borrow book
 -----------------------------
 1. [T][] borrow book
-2. [E][] read book (at: library tonight)
-3. [D][] return book (by: tomorrow 2359)
+2. [E][] read book (at: library on: Feb 20 2022)
+3. [D][] return book (by: Feb 20 2022)
 -----------------------------
 Noted. I've removed this task: 
 [T][] borrow book
 Now you have 2 tasks in the list.
 -----------------------------
-1. [E][] read book (at: library tonight)
-2. [D][] return book (by: tomorrow 2359)
+1. [E][] read book (at: library on: Feb 20 2022)
+2. [D][] return book (by: Feb 20 2022)
+-----------------------------
+1. [E][] read book (at: library on: Feb 20 2022)
+2. [D][] return book (by: Feb 20 2022)
 -----------------------------
 OOPS!!! The description cannot be empty.
 -----------------------------
-OOPS!!! You seem to have forgotten your preposition.
+OOPS!!! You seem to have forgotten your preposition "by".
 -----------------------------
 OOPS!!! The description cannot be empty.
 -----------------------------
-OOPS!!! The timing of the event cannot be empty.
------------------------------
 OOPS!!! The description cannot be empty.
+-----------------------------
+OOPS!!! The date of the deadline cannot be empty.
+-----------------------------
+Please input the date in the following format: yyyy-mm-dd
+-----------------------------
+Please input the date in the following format: yyyy-mm-dd
 -----------------------------
 OOPS!!! I'm sorry, but I don't know what that means :-(
 -----------------------------
-OOPS!!! You seem to have forgotten your preposition.
+OOPS!!! You seem to have forgotten your preposition "at".
 -----------------------------
 OOPS!!! The description cannot be empty.
 -----------------------------
-OOPS!!! The timing of the deadline cannot be empty.
------------------------------
 OOPS!!! The description cannot be empty.
+-----------------------------
+OOPS!!! You seem to have forgotten your preposition "on".
+-----------------------------
+OOPS!!! The location of the event cannot be empty.
+-----------------------------
+OOPS!!! The location of the event cannot be empty.
+-----------------------------
+OOPS!!! The date of the event cannot be empty.
+-----------------------------
+Please input the date in the following format: yyyy-mm-dd
+-----------------------------
+Please input the date in the following format: yyyy-mm-dd
 -----------------------------
 OOPS!!! I'm sorry, but I don't know what that means :-(
 -----------------------------
-The index is missing or out of range, please try again.
+Please input the index and only the index
 -----------------------------
-The index is missing or out of range, please try again.
------------------------------
-The index should be an integer, please try again.
------------------------------
-The index is missing or out of range, please try again.
------------------------------
-The index is missing or out of range, please try again.
+The index is out of range, please try again.
 -----------------------------
 The index should be an integer, please try again.
 -----------------------------
-The index is missing or out of range, please try again.
+Please input the index and only the index
 -----------------------------
-The index is missing or out of range, please try again.
+Please input the index and only the index
+-----------------------------
+The index is out of range, please try again.
 -----------------------------
 The index should be an integer, please try again.
+-----------------------------
+Please input the index and only the index
+-----------------------------
+Please input the index and only the index
+-----------------------------
+The index is out of range, please try again.
+-----------------------------
+The index should be an integer, please try again.
+-----------------------------
+Please input the index and only the index
+-----------------------------
+Please input the date in the correct format and only the date
+-----------------------------
+Please input the date in the correct format and only the date
+-----------------------------
+Please input the date in the following format: yyyy-mm-dd
 -----------------------------
 OOPS!!! I'm sorry, but I don't know what that means :-(
 -----------------------------

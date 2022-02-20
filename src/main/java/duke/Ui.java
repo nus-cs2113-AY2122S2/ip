@@ -82,7 +82,7 @@ public class Ui {
     }
 
     public void showIndexError() {
-        System.out.println("The index is missing, please try again.");
+        System.out.println("The index is out of range, please try again.");
     }
 
     public void showFormatError() {
@@ -90,6 +90,6 @@ public class Ui {
     }
 
     public void showDateError() {
-        System.out.println("Please input the date in the following format: yyyy-mm-dd and ");
+        System.out.println("Please input the date in the following format: yyyy-mm-dd");
     }
 }
