@@ -24,12 +24,10 @@ public class TaskManager {
         }
     }
 
-
     public void addTodo(String userInput) {
         try {
             String description = getDescription(userInput);
             taskList.add(new Todo(description, taskUniqueID));
-            //taskList[taskUniqueID] = new Todo(description, taskUniqueID);
             printMessageForAdding(taskList.get(taskList.size() - 1));
             taskUniqueID++;
         } catch (EmptyDescriptionException e) {
