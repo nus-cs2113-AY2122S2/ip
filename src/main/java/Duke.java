@@ -49,6 +49,9 @@ public class Duke {
                 case "save":
                     storage.saveFile(tasks);
                     break;
+                case "find":
+                    findTask(ui, tasks);
+                    break;
                 default:
                     ui.showUnknownCommand();
                     break;
@@ -68,13 +71,14 @@ public class Duke {
         int numTasks = tasks.getSize();
         if (numTasks == 0) {
             System.out.println("Looks like you don't have any tasks for now!");
-            System.out.println("______________________________________");
+            ui.showLineBreak();
             return;
         }
         for (int i = 0; i < numTasks; i++) {
             System.out.print((i + 1) + ". ");
             tasks.getTask(i).printTask();
         }
+        ui.showLineBreak();
     }
 
     public static void addTodo(Ui ui, TaskList tasks) {
@@ -195,6 +199,27 @@ public class Duke {
         } catch (NumberFormatException nfe) {
             return false;
         }
+    }
+
+    public static void findTask(Ui ui, TaskList tasks){
+        int numTasks = tasks.getSize();
+        if (numTasks == 0) {
+            System.out.println("Looks like you don't have any tasks for now!");
+            ui.showLineBreak();
+            return;
+        }
+        System.out.println("What would you like to find?");
+        String task = ui.getInput();
+        int index = 1;
+        for (int i = 0; i < numTasks; i++) {
+            String desc = tasks.getTask(i).getDescription();
+            if (desc.contains(task)) {
+                System.out.print((index) + ". ");
+                index++;
+                tasks.getTask(i).printTask();
+            }
+        }
+        ui.showLineBreak();
     }
 
 }
