@@ -28,162 +28,111 @@ ____________________________________________________________
  Oh! Hello there! I'm Shrek
  What can I do for you?
 ____________________________________________________________
-
 Done putting this in the list:
-1. [T][ ] borrow book
+[T][ ] borrow book
 Go do the 1 task(s)!!
 ____________________________________________________________
 ____________________________________________________________
-
 Go finish these tasks, NOW:
 1. [T][ ] borrow book
 ____________________________________________________________
 ____________________________________________________________
-
-Done putting this in the list:
-2. [D][ ] return book  (by: Sunday)
-Go do the 2 task(s)!!
+UwU *whats this?* : Wrong date format! Remember to input date as yyyy-mm-dd
 ____________________________________________________________
 ____________________________________________________________
-
-Done putting this in the list:
-3. [E][ ] project meeting  (at: Mon 2-4pm)
-Go do the 3 task(s)!!
+UwU *whats this?* : Wrong date format! Remember to input date as yyyy-mm-dd
 ____________________________________________________________
 ____________________________________________________________
-
-Done putting this in the list:
-4. [D][ ] do homework  (by: no idea :-p)
-Go do the 4 task(s)!!
+UwU *whats this?* : Wrong date format! Remember to input date as yyyy-mm-dd
 ____________________________________________________________
 ____________________________________________________________
-
 UwU *whats this?* : Input a command from the list
 ____________________________________________________________
 ____________________________________________________________
-
 UwU *whats this?* : Did you forget "/by "?
 ____________________________________________________________
 ____________________________________________________________
-
-UwU *whats this?* : Did you forget "/at "?
+OwO *notices error* : Did you forget "/at "?
 ____________________________________________________________
 ____________________________________________________________
-
 OwO *notices error* : Input a command from the list
 ____________________________________________________________
 ____________________________________________________________
-
 Go finish these tasks, NOW:
 1. [T][ ] borrow book
-2. [D][ ] return book  (by: Sunday)
-3. [E][ ] project meeting  (at: Mon 2-4pm)
-4. [D][ ] do homework  (by: no idea :-p)
 ____________________________________________________________
 ____________________________________________________________
-
 OwO *notices error* : Input a command from the list
 ____________________________________________________________
 ____________________________________________________________
-
 OwO *notices error* : Did you forget to add in the time or task?
 ____________________________________________________________
 ____________________________________________________________
-
-Done putting this in the list:
-5. [D][ ] 1 (by: 1234)
-Go do the 5 task(s)!!
+OwO *notices error* : Wrong date format! Remember to input date as yyyy-mm-dd
 ____________________________________________________________
 ____________________________________________________________
-
-OwO *notices error* : Did you forget "/by "?
+“w” *intensifies* : Did you forget "/by "?
 ____________________________________________________________
 ____________________________________________________________
-
-OwO *notices error* : Did you forget "/by "?
+“w” *intensifies* : Did you forget "/by "?
 ____________________________________________________________
 ____________________________________________________________
-
 “w” *intensifies* : Input a command from the list
 ____________________________________________________________
 ____________________________________________________________
-
 “w” *intensifies* : Did you forget to add in the time or task?
 ____________________________________________________________
 ____________________________________________________________
-
-Done putting this in the list:
-6. [E][ ] 4 (at: 1234)
-Go do the 6 task(s)!!
+“w” *intensifies* : Wrong date format! Remember to input date as yyyy-mm-dd
 ____________________________________________________________
 ____________________________________________________________
-
-“w” *intensifies* : Did you forget "/at "?
+Quit fuzzing me!: Did you forget "/at "?
 ____________________________________________________________
 ____________________________________________________________
-
-“w” *intensifies* : Did you forget "/at "?
+Quit fuzzing me!: Did you forget "/at "?
 ____________________________________________________________
 ____________________________________________________________
-
 So you've done this task, that's great I guess?
-1. [T][X] borrow book
+[T][X] borrow book
 ____________________________________________________________
 ____________________________________________________________
-
 You have done this task already!
-1. [T][X] borrow book
+[T][X] borrow book
 ____________________________________________________________
 ____________________________________________________________
-
-“w” *intensifies* : You do not have that many items in the list!
+Quit fuzzing me!: You do not have that many items in the list!
 ____________________________________________________________
 ____________________________________________________________
-
-“w” *intensifies* : You do not have that many items in the list!
+Quit fuzzing me!: You do not have that many items in the list!
 ____________________________________________________________
 ____________________________________________________________
-
-“w” *intensifies* : You do not have that many items in the list!
+Quit fuzzing me!: You do not have that many items in the list!
 ____________________________________________________________
 ____________________________________________________________
-
 Go finish these tasks, NOW:
 1. [T][X] borrow book
-2. [D][ ] return book  (by: Sunday)
-3. [E][ ] project meeting  (at: Mon 2-4pm)
-4. [D][ ] do homework  (by: no idea :-p)
-5. [D][ ] 1 (by: 1234)
-6. [E][ ] 4 (at: 1234)
 ____________________________________________________________
 ____________________________________________________________
-
 What do you mean you've undone
-1. [T][ ] borrow book
+[T][ ] borrow book
 ____________________________________________________________
 ____________________________________________________________
-
 How can you undo something you've never did?
-1. [T][ ] borrow book
+[T][ ] borrow book
 ____________________________________________________________
 ____________________________________________________________
-
 Quit fuzzing me!: You do not have that many items in the list!
 ____________________________________________________________
 ____________________________________________________________
-
 Quit fuzzing me!: You do not have that many items in the list!
 ____________________________________________________________
 ____________________________________________________________
-
 Quit fuzzing me!: You do not have that many items in the list!
 ____________________________________________________________
 ____________________________________________________________
-
 Quit fuzzing me!: Did you add in more than one "/at "?
 ____________________________________________________________
 ____________________________________________________________
-
 Quit fuzzing me!: Did you add in more than one "/by "?
 ____________________________________________________________
 ____________________________________________________________

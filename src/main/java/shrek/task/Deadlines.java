@@ -1,20 +1,20 @@
 package shrek.task;
 
 public class Deadlines extends UserContent {
-    protected String by;
+    protected String taskDueBy;
 
     public Deadlines(String description, String by) {
         super(description);
         setTaskName("D");
-        this.by = by;
+        this.taskDueBy = taskDueBy;
     }
 
-    public String getBy() {
-        return by;
+    public String getTaskDueBy() {
+        return taskDueBy;
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (by: " + by + ")";
+        return super.toString() + " (by: " + taskDueBy + ")";
     }
 }

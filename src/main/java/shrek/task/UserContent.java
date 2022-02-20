@@ -6,11 +6,11 @@ public class UserContent {
     private int listIndex;
     private String taskName;
 
-    public UserContent(){
+    public UserContent() {
         this("");
     }
 
-    public UserContent(String content){
+    public UserContent(String content) {
         setContent(content);
         setUnmark();
         setTaskName(" ");
@@ -52,6 +52,6 @@ public class UserContent {
         } else {
             mark = " ";
         }
-        return ("[" + this.taskName + "]" + "[" + mark +"] " + getContent());
+        return ("[" + this.taskName + "]" + "[" + mark + "] " + getContent());
     }
 }

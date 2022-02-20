@@ -1,20 +1,20 @@
 package shrek.task;
 
 public class Events extends UserContent {
-    protected String at;
+    protected String eventOccurAt;
 
-    public Events(String description, String at) {
+    public Events(String description, String eventOccurAt) {
         super(description);
         setTaskName("E");
-        this.at = at;
+        this.eventOccurAt = eventOccurAt;
     }
 
-    public String getAt() {
-        return at;
+    public String getEventOccurAt() {
+        return eventOccurAt;
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (at: " + at + ")";
+        return super.toString() + " (at: " + eventOccurAt + ")";
     }
 }
