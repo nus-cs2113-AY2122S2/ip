@@ -1,27 +1,27 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a Deadline task.
  */
 public class Deadline extends Task{
-    private static final String DEADLINE_LOGO = "[D]";
-    private static final String BY_FIRST_HALF = " (by: ";
-    private static final String BY_SECOND_HALF = ")";
 
-    protected String by;
+    private LocalDate dateOfDeadline;
 
-    public Deadline(String description, String by, String typeOfTask) {
+    public Deadline(String description, LocalDate dateOfDeadline, String typeOfTask) {
         super(description, typeOfTask);
-        this.by = by;
+        this.dateOfDeadline = dateOfDeadline;
     }
 
     /**
-     * This is the getBy method that returns the deadline of this deadline task.
+     * This is the getDate method that returns the date of this task.
      *
-     * @return The deadline of this deadline task.
+     * @return The date of deadline of this task.
      */
-    public String getBy() {
-        return by;
+    public LocalDate getDate() {
+        return dateOfDeadline;
     }
 
     /**
@@ -31,6 +31,8 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return DEADLINE_LOGO + super.toString() + BY_FIRST_HALF + by + BY_SECOND_HALF;
+        String deadline = dateOfDeadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return "[D]" + super.toString() + " (by: " + deadline + ")";
     }
+
 }

@@ -2,6 +2,7 @@ package duke;
 
 import duke.task.Task;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -70,23 +71,33 @@ public class Ui {
 
     /**
      * This is the showError method that prints the error message.
+     *
      * @param message The error message to be printed.
      */
     public void showError(String message) {
         System.out.println(message);
     }
 
+    public void showList(ArrayList<Task> listOfTasks) {
+        for (int i = 0; i < listOfTasks.size(); i++) {
+            int numbering = i + 1;
+            System.out.println(numbering + ". " + listOfTasks.get(i));
+        }
+    }
+
     /**
-     * This is the showMarkCompleted method that prints the confirmation that a task has been marked as done.
+     * This is the showMarkDone method that prints the confirmation that a task has been marked as done.
+     *
      * @param taskMarked The task that is marked as done.
      */
-    public void showMarkCompleted(Task taskMarked) {
+    public void showMarkDone(Task taskMarked) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(taskMarked);
     }
 
     /**
      * This is the showUnmarkCompleted method that prints the confirmation that a task has been marked as NOT done.
+     *
      * @param taskUnmarked The task that is marked as NOT done.
      */
     public void showUnmarkCompleted(Task taskUnmarked) {
@@ -96,6 +107,7 @@ public class Ui {
 
     /**
      * This is the showDeleteDone method that prints the confirmation that a task has been deleted.
+     *
      * @param taskDeleted The task that is deleted.
      * @param numberOfTasks The number of tasks left in the list of tasks.
      */
@@ -107,6 +119,7 @@ public class Ui {
 
     /**
      * This is the showAddDone method that prints the confirmation that a task has been added.
+     *
      * @param task The task that is added.
      * @param numberOfTasks The number of tasks in the list of tasks.
      */
@@ -120,7 +133,7 @@ public class Ui {
      * This is the showIndexError method that prints the error message when the index is out of range.
      */
     public void showIndexError() {
-        System.out.println("The index is missing or out of range, please try again.");
+        System.out.println("The index is out of range, please try again.");
     }
 
     /**
@@ -129,5 +142,13 @@ public class Ui {
      */
     public void showFormatError() {
         System.out.println("The index should be an integer, please try again.");
+    }
+
+    public void showNoResuts() {
+        System.out.println("I'm afraid that it is a 404 not found kinda scenario");
+    }
+      
+    public void showDateError() {
+        System.out.println("Please input the date in the following format: yyyy-mm-dd");
     }
 }

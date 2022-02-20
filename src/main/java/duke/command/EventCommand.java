@@ -8,6 +8,8 @@ import duke.task.Event;
 import duke.task.Task;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -16,7 +18,8 @@ import java.util.ArrayList;
 public class EventCommand extends Command {
 
     private static final String TYPE_OF_TASK = "event";
-    private static final String PREPOSITION = "/at";
+    private static final String PREPOSITION_AT = "/at";
+    private static final String PREPOSITION_ON = "/on";
 
     private String fullCommand;
 
@@ -36,10 +39,13 @@ public class EventCommand extends Command {
      * @see IOException
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AdditionalException, IOException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws AdditionalException, IOException,
+            DateTimeParseException {
         String description = getDescription();
-        String at = getAt();
-        Event event = new Event(description, at, TYPE_OF_TASK);
+        String location = getLocation();
+        String date = getDate();
+        LocalDate dateOfEvent = LocalDate.parse(date);
+        Event event = new Event(description, location, dateOfEvent, TYPE_OF_TASK);
         tasks.addTask(event);
         ui.showAddDone(event, tasks.getSize());
         storage.save(event);
@@ -65,8 +71,10 @@ public class EventCommand extends Command {
     @Override
     public void executeFromFile(ArrayList<Task> listOfTasks) throws AdditionalException {
         String description = getDescription();
-        String at = getAt();
-        listOfTasks.add(new Event(description, at, TYPE_OF_TASK));
+        String at = getLocation();
+        String date = getDate();
+        LocalDate dateOfEvent = LocalDate.parse(date);
+        listOfTasks.add(new Event(description, at, dateOfEvent, TYPE_OF_TASK));
     }
 
     /**
@@ -78,9 +86,9 @@ public class EventCommand extends Command {
      */
     private String getDescription() throws AdditionalException {
         int lengthOfTypeOfTask = TYPE_OF_TASK.length();
-        int indexOfPreposition = fullCommand.indexOf(PREPOSITION);
+        int indexOfPreposition = fullCommand.indexOf(PREPOSITION_AT);
         if (indexOfPreposition == -1) {
-            throw new AdditionalException("OOPS!!! You seem to have forgotten your preposition.");
+            throw new AdditionalException("OOPS!!! You seem to have forgotten your preposition \"at\".");
         }
         String description = fullCommand.substring(lengthOfTypeOfTask, indexOfPreposition);
         String trimmedDescription = description.trim();
@@ -91,23 +99,46 @@ public class EventCommand extends Command {
     }
 
     /**
-     * This is the getAt method that returns the timing of the task from the fullCommand.
+     * This is the getLocation method that returns the location of the task from the fullCommand.
      *
-     * @return The timing of the task to be added.
-     * @throws AdditionalException If there is no timing provided in the fullCommand.
+     * @return The location of the task to be added.
+     * @throws AdditionalException If there is no location provided in the fullCommand.
      * @see AdditionalException
      */
-    private String getAt() throws AdditionalException {
-        int indexOfPreposition = fullCommand.indexOf(PREPOSITION);
-        int lengthOfPreposition = PREPOSITION.length();
-        int startingIndexOfTiming = indexOfPreposition + lengthOfPreposition;
-        int lengthOfRequest = fullCommand.length();
-        String timing = fullCommand.substring(startingIndexOfTiming, lengthOfRequest);
-        String trimmedTiming = timing.trim();
-        if (trimmedTiming.length() < 1) {
-            throw new AdditionalException("OOPS!!! The timing of the event cannot be empty.");
+    private String getLocation() throws AdditionalException {
+        int indexOfPrepositionAt = fullCommand.indexOf(PREPOSITION_AT);
+        int lengthOfPrepositionAt = PREPOSITION_AT.length();
+        int startingIndexOfLocation = indexOfPrepositionAt + lengthOfPrepositionAt;
+        int indexOfPrepositionOn = fullCommand.indexOf(PREPOSITION_ON);
+        if (indexOfPrepositionOn == -1) {
+            throw new AdditionalException("OOPS!!! You seem to have forgotten your preposition \"on\".");
         }
-        return trimmedTiming;
+        String location = fullCommand.substring(startingIndexOfLocation, indexOfPrepositionOn);
+        String trimmedLocation = location.trim();
+        if (trimmedLocation.length() < 1) {
+            throw new AdditionalException("OOPS!!! The location of the event cannot be empty.");
+        }
+        return trimmedLocation;
+    }
+
+    /**
+     * This is the getDate method that returns the date of the task from the fullCommand.
+     *
+     * @return The date of the task to be added.
+     * @throws AdditionalException If there is no date provided in the fullCommand.
+     * @see AdditionalException
+     */
+    private String getDate() throws AdditionalException {
+        int indexOfPreposition = fullCommand.indexOf(PREPOSITION_ON);
+        int lengthOfPreposition = PREPOSITION_ON.length();
+        int startingIndexOfDate = indexOfPreposition + lengthOfPreposition;
+        int lengthOfRequest = fullCommand.length();
+        String date = fullCommand.substring(startingIndexOfDate, lengthOfRequest);
+        String trimmedDate = date.trim();
+        if (trimmedDate.length() < 1) {
+            throw new AdditionalException("OOPS!!! The date of the event cannot be empty.");
+        }
+        return trimmedDate;
     }
 
 }

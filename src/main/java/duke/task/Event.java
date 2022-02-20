@@ -1,17 +1,38 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents an Event task.
  */
 public class Event extends Task{
-    public static final String EVENT_LOGO = "[E]";
-    public static final String AT_FIRST_HALF = " (at: ";
-    public static final String AT_SECOND_HALF = ")";
-    protected String at;
 
-    public Event(String description, String at, String typeOfTask) {
+    private String location;
+    private LocalDate dateOfEvent;
+
+    public Event(String description, String location, LocalDate dateOfEvent, String typeOfTask) {
         super(description, typeOfTask);
-        this.at = at;
+        this.location = location;
+        this.dateOfEvent = dateOfEvent;
+    }
+
+    /**
+     * This is the getLocation method that returns the location of this Event task.
+     *
+     * @return The location of this Event task.
+     */
+    public String getLocation() {
+        return location;
+    }
+
+    /**
+     * This is the getDate method that returns the location of this Event task.
+     *
+     * @return The date of this Event task.
+     */
+    public LocalDate getDate() {
+        return dateOfEvent;
     }
 
     /**
@@ -21,15 +42,8 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return EVENT_LOGO + super.toString() + AT_FIRST_HALF + at + AT_SECOND_HALF;
+        String date = dateOfEvent.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return "[E]" + super.toString() + " (at: " + location + " on: " + date + ")";
     }
 
-    /**
-     * This is the getAt method that returns the location of this Event task.
-     *
-     * @return The location of this Event task.
-     */
-    public String getAt() {
-        return at;
-    }
 }

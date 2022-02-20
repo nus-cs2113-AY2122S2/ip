@@ -7,6 +7,7 @@ import duke.storage.Storage;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents a Personal Assistant Chat bot that helps a person to keep track of various things.
@@ -61,6 +62,8 @@ public class Duke {
             ui.showIndexError();
         } catch (NumberFormatException e) {
             ui.showFormatError();
+        } catch (DateTimeParseException e) {
+            ui.showDateError();
         } finally {
             ui.showLine();
         }
