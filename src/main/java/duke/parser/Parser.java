@@ -16,6 +16,9 @@ public class Parser {
         case "list":
             c = new ListCommand();
             break;
+        case "date":
+            c = new DateCommand(fullCommand);
+            break;
         case "mark":
             c = new MarkCommand(fullCommand);
             break;

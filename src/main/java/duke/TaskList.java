@@ -1,7 +1,11 @@
 package duke;
 
 import duke.exception.AdditionalException;
+import duke.task.Deadline;
+import duke.task.Event;
 import duke.task.Task;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -16,14 +20,11 @@ public class TaskList {
         this.listOfTasks = listOfTasks;
     }
 
-    public void printList() throws AdditionalException {
+    public ArrayList<Task> getList() throws AdditionalException {
         if (listOfTasks.isEmpty()) {
             throw new AdditionalException("YAY!!! you do not have any tasks at the moment hehe");
         }
-        for (int i = 0; i < listOfTasks.size(); i++) {
-            int numbering = i + 1;
-            System.out.println(numbering + ". " + listOfTasks.get(i));
-        }
+        return listOfTasks;
     }
 
     public Task getTask(int index) {
@@ -42,4 +43,35 @@ public class TaskList {
         listOfTasks.add(task);
     }
 
+    public ArrayList<Task> getListOfSameDates(LocalDate date) {
+        int count = 0;
+        ArrayList<Task> listOfTasksWithSameDate = new ArrayList<>();
+        for (int i = 0; i < listOfTasks.size(); i++) {
+            addToList(listOfTasksWithSameDate, date, i);
+        }
+        return listOfTasksWithSameDate;
+    }
+
+    private void addToList(ArrayList<Task> tasksWithSameDate, LocalDate date, int index) {
+        Task task = listOfTasks.get(index);
+        LocalDate dateOfTask;
+        if (task instanceof Deadline) {
+            Deadline deadline = (Deadline) task;
+            dateOfTask = deadline.getDate();
+            addIfSameDate(tasksWithSameDate, date, dateOfTask, deadline);
+        } else if (task instanceof Event) {
+            Event event = (Event) task;
+            dateOfTask = event.getDate();
+            addIfSameDate(tasksWithSameDate, date, dateOfTask, event);
+        } else {
+            return;
+        }
+
+    }
+
+    private void addIfSameDate(ArrayList<Task> tasksWithSameDate, LocalDate date, LocalDate dateOfTask, Task task) {
+        if (date.equals(dateOfTask)) {
+            tasksWithSameDate.add(task);
+        }
+    }
 }

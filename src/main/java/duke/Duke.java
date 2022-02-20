@@ -7,6 +7,7 @@ import duke.storage.Storage;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 public class Duke {
     private Storage storage;
@@ -46,6 +47,8 @@ public class Duke {
             ui.showIndexError();
         } catch (NumberFormatException e) {
             ui.showFormatError();
+        } catch (DateTimeParseException e) {
+            ui.showDateError();
         } finally {
             ui.showLine();
         }

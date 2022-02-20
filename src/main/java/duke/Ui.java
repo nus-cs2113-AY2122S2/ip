@@ -2,6 +2,7 @@ package duke;
 
 import duke.task.Task;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -51,6 +52,13 @@ public class Ui {
         System.out.println(message);
     }
 
+    public void showList(ArrayList<Task> listOfTasks) {
+        for (int i = 0; i < listOfTasks.size(); i++) {
+            int numbering = i + 1;
+            System.out.println(numbering + ". " + listOfTasks.get(i));
+        }
+    }
+
     public void showMarkDone(Task taskMarked) {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(taskMarked);
@@ -74,10 +82,14 @@ public class Ui {
     }
 
     public void showIndexError() {
-        System.out.println("The index is missing or out of range, please try again.");
+        System.out.println("The index is out of range, please try again.");
     }
 
     public void showFormatError() {
         System.out.println("The index should be an integer, please try again.");
+    }
+
+    public void showDateError() {
+        System.out.println("Please input the date in the following format: yyyy-mm-dd");
     }
 }
