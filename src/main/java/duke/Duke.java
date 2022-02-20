@@ -1,9 +1,11 @@
 package duke;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import duke.FileSaver;
 import duke.task.Task;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -14,9 +16,9 @@ import duke.exceptions.EventFormatException;
 import duke.exceptions.DeadlineFormatException;
 
 public class Duke {
-    public static String boundary = "____________________________________________________________" + System.lineSeparator();
-    public static Task[] taskList = new Task[100];
-    public static int countTask = 0;
+    private static final String boundary = "____________________________________________________________" + System.lineSeparator();
+    private static Task[] taskList = new Task[100];
+    private static int countTask = 0;
 
     public static void printList() {
         System.out.println(boundary + "Here are the tasks in your list:");
@@ -80,8 +82,6 @@ public class Duke {
     public static void tryAddTask(String request) {
         try {
             addTask(request.trim());
-            System.out.println(boundary + "I'm adding the task into duke.txt...");
-            appendToFile("./data/duke.txt", taskList[countTask - 1].toString());
         } catch (GeneralException e) {
             System.out.print(boundary + "Hmm...I'm sorry but I cannot understand this :("
                                      + System.lineSeparator() + boundary);
@@ -94,10 +94,49 @@ public class Duke {
         } catch (EventFormatException e) {
             System.out.print(boundary + "Hmm...hi dear, when is this event happening?"
                                      + System.lineSeparator() + boundary);
+        }
+    }
+
+    public static void writeData(FileSaver dataFile) {
+        StringBuilder toWrite = new StringBuilder();
+        for (int i = 0; i < countTask; i++) {
+            toWrite.append(taskList[i]).append(System.lineSeparator());
+        }
+
+        try {
+            dataFile.writeToFile(toWrite.toString());
         } catch (IOException e) {
-            System.out.print("Hmm...I cannot write to duke.txt :("
+            System.out.print(boundary + "Hmm...I cannot write to the data file."
                                      + System.lineSeparator() + boundary);
         }
+    }
+
+    public static void readToList() throws FileNotFoundException {
+            File f = new File("./data/dukeData.txt");
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String currentLine = s.nextLine();
+                switch (currentLine.charAt(1)) {
+                case 'T':
+                    taskList[countTask] = new Todo(currentLine.substring(7));
+                    break;
+                case 'D':
+                    int byIndex = currentLine.indexOf("(");
+                    String by = currentLine.substring(byIndex + 5, currentLine.length() - 1);
+                    taskList[countTask] = new Deadline(currentLine.substring(7, byIndex - 1), by);
+                    break;
+                case 'E':
+                    int atIndex = currentLine.indexOf("(");
+                    String at = currentLine.substring(atIndex + 5, currentLine.length() - 1);
+                    taskList[countTask] = new Event(currentLine.substring(7, atIndex - 1), at);
+                    break;
+                default:
+                }
+                if (currentLine.charAt(4) == 'X') {
+                    taskList[countTask].markDone();
+                }
+                countTask += 1;
+            }
     }
 
     public static void sayHello() {
@@ -115,18 +154,20 @@ public class Duke {
         System.out.print(boundary + "Bye. Hope to see you again soon!" + System.lineSeparator() + boundary);
     }
 
-    public static void appendToFile(String filePath, String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
-        fw.write(textToAppend);
-        fw.close();
-    }
-
     public static void main(String[] args) {
         sayHello();
+        FileSaver dataFile = new FileSaver();
+
+        try {
+            System.out.println("Adding existing tasks (if any)...");
+            readToList();
+            System.out.print(boundary);
+        } catch (FileNotFoundException e) {
+            System.out.println("Hmm...File creation failed, I cannot write to the data file.");
+        }
+
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
-
-        // File f = new File("data/fruits.txt");
 
         while (!line.equalsIgnoreCase("bye")) {
             if (line.equalsIgnoreCase("list")) {
@@ -141,6 +182,7 @@ public class Duke {
             in = new Scanner(System.in);
             line = in.nextLine();
         }
+        writeData(dataFile);
         sayGoodbye();
     }
 }
