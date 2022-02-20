@@ -1,8 +1,11 @@
 # User Guide
-Duke is a desktop app, that allows you to track all your tasks.
-As Duke is designed to be use in the Command Line (CLI), 
-this application would benefit users who are able to type fast.
+Duke is a *desktop app for tracking tasks, 
+optimized for use via a Command Line Interface* (CLI).
+As Duke is designed to be use in a CLI, this 
+application would benefit users who are able to type fast.
+
 ---
+
 ## Quick Start
 1. Ensure you have Java 11 or above installed on your Computer
 2. Download the latest JAR file from GitHub.
@@ -19,16 +22,17 @@ Here are some commands you can try:
 
 ---
 
-### Features
+## Features
 
-> :warning: **Notes about command format**:
+>  **Notes about command format**:
 >- Words in `UPPER_CASE` are parameters to be supplied by the user.
-    e.g. in `todo TASKNAME`, `TASKNAME` is a parameter which can be used as 
+    e.g. in `todo TASKDESCRIPTION`, `TASKDESCRIPTION` is a parameter which can be used as 
    `todo Read Book`.
 >- Parameters order must follow the command format.
-   e.g. given the command `deadline TASKNAME /by TASKDATE`, the command must be
+   e.g. given the command `deadline TASKDESCRIPTION /by TASKDATE`, the command must be
    `deadline Assignment /by 2022-02-20`
 
+####Feature list:
 * Listing all tasks: `list`
 * Adding a new task:
    * Todo task: `todo`
@@ -42,25 +46,29 @@ Here are some commands you can try:
 
 ---
 
-### Feature - Listing all tasks
+### Feature - Adding a new Task
+
+To add a task, the task has to be one of the following types, `todo`,`deadline` or `event`.
+Each task types has its own format. For the `todo` task it does not have a date associated with it
+, whilst `deadline` and `event` do.
+
+* Todo
+  * Format: `todo TASKDESCRIPTION`
+  * Example: `todo Programming Homework`
+    <br>![Adding Todo Task](https://raw.githubusercontent.com/froststein/ip/master/images/todoCommand.PNG)
 
 
-Description of the feature.
+* Deadline
+  * Format: `deadline TASKDESCRIPTION /by TASKDATE`
+  * Example: `deadline Programming Assignment /by 2022-02-25`
+    <br>![Adding Deadline Task](https://raw.githubusercontent.com/froststein/ip/master/images/deadlineCommand.PNG)   
 
-## Usage
 
-### `Keyword` - Describe action
+* Event
+  * Format: `event TASKDESCRIPTION /at TASKDATE`
+  * Example: `event Class Outing /at 2022-02-26`
+    <br>![Adding Event Task](https://raw.githubusercontent.com/froststein/ip/master/images/eventCommand.PNG)
 
-Describe the action and its outcome.
 
-Example of usage: 
+---
 
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
-```
