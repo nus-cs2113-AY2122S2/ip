@@ -1,6 +1,6 @@
 # User Guide
-Duke is a *desktop app for tracking tasks, 
-optimized for use via a Command Line Interface* (CLI).
+Duke is a **desktop app for tracking tasks, 
+optimized for use via a Command Line Interface** (CLI).
 As Duke is designed to be use in a CLI, this 
 application would benefit users who are able to type fast.
 
@@ -33,7 +33,7 @@ Here are some commands you can try:
    `deadline Assignment /by 2022-02-20`
 
 
-####Feature list:
+#### Feature list:
 * Listing all tasks: `list`
 * Adding a new task:
    * Todo task: `todo`
@@ -61,7 +61,7 @@ Each task types has its own format. For the `todo` task it does not have a date 
 
 * Deadline
   * Format: `deadline TASK_DESCRIPTION /by DATE`
-    * The `DATE` **must be in the format of ** `yyyy-mm-dd` 
+    * The `DATE` **must be in the format of** `yyyy-mm-dd` 
     (e.g. For the date `25th of Feb, 2022` you would key in `2022-02-25`)
   * Example: `deadline Programming Assignment /by 2022-02-25`
     <br>![Adding Deadline Task](https://raw.githubusercontent.com/froststein/ip/master/images/deadlineCommand.PNG)   
@@ -69,7 +69,7 @@ Each task types has its own format. For the `todo` task it does not have a date 
 
 * Event
   * Format: `event TASK_DESCRIPTION /at DATE`
-    * The `DATE` **must be in the format of ** `yyyy-mm-dd`
+    * The `DATE` **must be in the format of** `yyyy-mm-dd`
       (e.g. For the date `26th of Feb, 2022` you would key in `2022-02-26`)
   * Example: `event Class Outing /at 2022-02-26`
     <br>![Adding Event Task](https://raw.githubusercontent.com/froststein/ip/master/images/eventCommand.PNG)
