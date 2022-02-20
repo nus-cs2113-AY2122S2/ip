@@ -24,6 +24,10 @@ public class Task {
         this.isDone = isDone;
     }
 
+    public String getDescription() {
+        return taskDescription;
+    }
+
     public boolean isMatchingDate(LocalDate date) {
         if (date == null || savedDate == null) {
             return false;
