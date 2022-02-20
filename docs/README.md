@@ -6,7 +6,8 @@
 3. Copy the file to the folder you want to use as the home folder for your Duke.
 4. Open cmd.exe type: java -jar [absolute path of Duke] will start Duke.
 5. Type the command in the command box and press Enter to execute it.
-6. Refer to the Features below for details of each command.
+6. Type the 'bye' command can help you to store the tasks you added into a txt file
+7. Refer to the Features below for details of each command.
 ## Features
 
 ### 1. Add tasks
