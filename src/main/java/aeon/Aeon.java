@@ -1,7 +1,7 @@
 package aeon;
 
-import static aeon.controller.Command.CommandProcessor;
-
+import aeon.controller.Command;
+import aeon.controller.UI;
 /**
  * Represents Aeon itself, displaying a welcome message before making sense
  * of user inputs that are typed in. Upon exit, displays goodbye message.
@@ -9,25 +9,13 @@ import static aeon.controller.Command.CommandProcessor;
 public class Aeon {
 
     public static void main(String[] args) {
-            printWelcomeMessage();
-            CommandProcessor();
-            printGoodbyeMessage();
+            UI.printWelcomeMessage();
+            Command.CommandProcessor();
+            UI.printGoodbyeMessage();
     }
 
-    public static void printWelcomeMessage() {
-        String logo = "     /\\   |  ____/ __ \\| \\ | |\n"
-                + "    /  \\  | |__ | |  | |  \\| |\n"
-                + "   / /\\ \\ |  __|| |  | | . ` |\n"
-                + "  / ____ \\| |___| |__| | |\\  |\n"
-                + " /_/    \\_\\______\\____/|_| \\_|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm AEON, your personal TO-DO list bot!\nWhat can I do for you?");
-    }
 
-    public static void printGoodbyeMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________________________\n");
-    }
+
+
 }
 
