@@ -16,8 +16,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import static duke.common.Strings.*;
-import static duke.common.Strings.MESSAGE_CLOSE_TO_FIX;
 
+/**
+ * Represents the data file in which tasks are stored.
+ */
 public class DataStorage {
     public static final String DEFAULT_DIRECTORY = "./data/";
     public static final String DEFAULT_FILENAME = "duke.txt";
@@ -36,6 +38,10 @@ public class DataStorage {
         dataLoadFeedback = new ArrayList<>();
     }
 
+    /**
+     * Checks if the data directory exists.
+     * @return true if the directory already exists, or false otherwise.
+     */
     public boolean checkDirectoryExists() {
         return directory.exists();
     }
@@ -46,14 +52,28 @@ public class DataStorage {
         }
     }
 
+    /**
+     * Checks if the data file exists.
+     * @return true if the file already exists, or false otherwise.
+     */
     public boolean checkFileExists() {
         return dataFile.exists();
     }
 
+    /**
+     * Creates the data file.
+     * @throws IOException
+     */
     public void createFile() throws IOException {
         dataFile.createNewFile();
     }
 
+    /**
+     * Loads data from the data file.
+     * Feedback messages (including malformed tasks and other errors) are stored in dataLoadFeedback.
+     * @return a TaskList containing all tasks successfully parsed from the file.
+     * @throws FileNotFoundException
+     */
     public TaskList load() throws FileNotFoundException {
         TaskList tasks = new TaskList();
         Scanner sc = new Scanner(dataFile);
@@ -126,6 +146,11 @@ public class DataStorage {
         return dataLoadFeedback;
     }
 
+    /**
+     * Writes data to the data file.
+     * @param tasks TaskList containing the tasks to be saved.
+     * @throws IOException
+     */
     public void save(TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(dataFile);
         for (Task t : tasks.getTaskList()) {

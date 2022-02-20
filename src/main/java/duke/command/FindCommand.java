@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import static duke.common.Strings.*;
 
+/**
+ * Searches for tasks containing a given substring and lists only those that match.
+ */
 public class FindCommand extends Command {
     protected final String searchString;
 
@@ -12,6 +15,7 @@ public class FindCommand extends Command {
         this.searchString = searchString;
     }
 
+    @Override
     public ArrayList<String> execute() {
         if (taskList == null) {
             commandFeedback.add(MESSAGE_IMPOSSIBLE);

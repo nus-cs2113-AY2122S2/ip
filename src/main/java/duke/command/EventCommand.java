@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import static duke.common.Strings.MESSAGE_EVENT_ADDED;
 import static duke.common.Strings.MESSAGE_IMPOSSIBLE;
 
+/**
+ * Adds a new event task.
+ */
 public class EventCommand extends Command {
     private final Event newEvent;
 
@@ -15,6 +18,7 @@ public class EventCommand extends Command {
         newEvent = new Event(taskDescription, time);
     }
 
+    @Override
     public ArrayList<String> execute() {
         if (taskList == null) {
             commandFeedback.add(MESSAGE_IMPOSSIBLE);

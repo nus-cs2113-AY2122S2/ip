@@ -6,6 +6,9 @@ import java.util.ArrayList;
 
 import static duke.common.Strings.*;
 
+/**
+ * Deletes the task with the specified index from the task list.
+ */
 public class DeleteCommand extends Command {
     private final int index;
 
@@ -14,6 +17,7 @@ public class DeleteCommand extends Command {
         this.index = index;
     }
 
+    @Override
     public ArrayList<String> execute() {
         if (taskList == null) {
             commandFeedback.add(MESSAGE_IMPOSSIBLE);

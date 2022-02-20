@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import static duke.common.Strings.*;
 
+/**
+ * Mark a specified task as completed.
+ */
 public class MarkCommand extends Command {
     private final int index;
 
@@ -12,6 +15,7 @@ public class MarkCommand extends Command {
         this.index = index;
     }
 
+    @Override
     public ArrayList<String> execute() {
         if (taskList == null) {
             commandFeedback.add(MESSAGE_IMPOSSIBLE);

@@ -9,7 +9,15 @@ import java.time.format.DateTimeParseException;
 
 import static duke.common.Strings.*;
 
+/**
+ * Parses user input.
+ */
 public class Parser {
+    /**
+     * Parses user input into the relevant command object.
+     * @param input a String array of the form {command word, command arguments}.
+     * @return command based on user input.
+     */
     public static Command parseCommand(String[] input) {
         final String command = input[0];
         final String args = input[1];
@@ -37,6 +45,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Performs input validation for the "bye" command.
+     * @param args user-supplied command arguments.
+     * @return the prepared command.
+     */
     private static Command prepareBye(String args) {
         try {
             if (!args.equals("")) {
@@ -48,6 +61,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Performs input validation for the "list" command.
+     * @param args user-supplied command arguments.
+     * @return the prepared command.
+     */
     private static Command prepareList(String args) {
         try {
             if (args.equals("")) {
@@ -64,6 +82,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Performs input validation for the "todo" command.
+     * @param args user-supplied command arguments.
+     * @return the prepared command.
+     */
     private static Command prepareTodo(String args) {
         try {
             if (args.equals("")) {
@@ -75,6 +98,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Performs input validation for the "deadline" command.
+     * @param args user-supplied command arguments.
+     * @return the prepared command.
+     */
     private static Command prepareDeadline(String args) {
         try {
             String[] parsedArgs = args.trim().split(DEADLINE_SEPARATOR, 2);
@@ -89,6 +117,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Performs input validation for the "event" command.
+     * @param args user-supplied command arguments.
+     * @return the prepared command.
+     */
     private static Command prepareEvent(String args) {
         try {
             String[] parsedArgs = args.trim().split(EVENT_SEPARATOR, 2);
@@ -103,6 +136,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Performs input validation for the "mark" command.
+     * @param args user-supplied command arguments.
+     * @return the prepared command.
+     */
     public static Command prepareMark(String args) {
         try {
             int index = Integer.parseInt(args);
@@ -112,6 +150,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Performs input validation for the "unmark" command.
+     * @param args user-supplied command arguments.
+     * @return the prepared command.
+     */
     public static Command prepareUnmark(String args) {
         try {
             int index = Integer.parseInt(args);
@@ -121,6 +164,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Performs input validation for the "delete" command.
+     * @param args user-supplied command arguments.
+     * @return the prepared command.
+     */
     public static Command prepareDelete(String args) {
         try {
             int index = Integer.parseInt(args);
@@ -130,6 +178,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Performs input validation for the "find" command.
+     * @param args user-supplied command arguments.
+     * @return the prepared command.
+     */
     private static Command prepareFind(String args) {
         try {
             if (args.equals("")) {
