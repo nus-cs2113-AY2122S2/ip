@@ -131,3 +131,34 @@ List all the current Tasks that Duke is tracking.
 
 ---
 
+### Feature - Closing the program
+Closes the Duke program.
+* Format: `bye`
+
+
+---
+
+## Saving the data
+Tasks data are saved in the hard disk automatically after any command that changes the Task.
+There is no need to save it manually.
+
+---
+## Editing the data file
+Duke data are saved as a CSV file `[JAR file location]/localStorage.csv`. 
+Advanced users are welcome to update data directly by editing the data file.
+
+> **Caution**: If your changes to the data file makes its format invalid, 
+> Duke will discard that row of task and not load it into the program.
+---
+
+## Command Summary
+|      **Action**       | **Format, Examples**                                                                  |
+|:---------------------:|:--------------------------------------------------------------------------------------|
+|         List          | `list`                                                                                |
+|     Add todo task     | `todo TASK_DESCRIPTION` <br/>(e.g. `todo Borrow Book`)                                |
+|   Add deadline task   | `deadline TASK_DESCRIPTION /by DATE`<br/>(e.g. `deadline Return book /by 2022-02-25`) |
+|    Add event task     | `event TASK_DESCRIPTION /at DATE`<br/>(e.g. `event Project Meeting /at 2022-02-26`)   |
+|   Mark task as done   | `mark TASK_NUMBER`<br/>(e.g. `mark 2`)                                                |
+| Mark task as not done | `unmark TASK_NUMBER`<br/>(e.g. `unmark 2`)                                            |
+|        Delete         | `delete TASK_NUMBER`<br/>(e.g. `delete 2`)                                            |
+|         Find          | `find KEYWORD`<br/>(e.g. `find Book`)                                                 |
