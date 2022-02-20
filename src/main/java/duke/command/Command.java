@@ -85,6 +85,20 @@ public abstract class Command {
         return date.trim();
     }
 
-
+    /**
+     * This is the getIndex method that is used to get the index for mark and unmark commands.
+     *
+     * @param fullCommand This is the full command that the user input.
+     * @return The index to mark or unmark.
+     * @throws AdditionalException If the user did not input exactly 1 index.
+     */
+    public int getIndex(String fullCommand) throws AdditionalException {
+        String[] words = fullCommand.split(" ");
+        if (words.length != 2) {
+            throw new AdditionalException("Please input the index and only the index");
+        }
+        int index = Integer.parseInt(words[1]) - 1;
+        return index;
+    }
 
 }

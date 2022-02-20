@@ -33,11 +33,7 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, AdditionalException {
-        String[] words = fullCommand.split(" ");
-        if (words.length != 2) {
-            throw new AdditionalException("Please input the index and only the index");
-        }
-        int indexToUnmark = Integer.parseInt(words[1]) - 1;
+        int indexToUnmark = getIndex(fullCommand);
         Task taskToUnmark = tasks.getTask(indexToUnmark);
         taskToUnmark.markAsUndone();
         ui.showUnmarkCompleted(taskToUnmark);

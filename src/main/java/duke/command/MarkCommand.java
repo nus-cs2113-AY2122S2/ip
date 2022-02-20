@@ -33,11 +33,7 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, AdditionalException {
-        String[] words = fullCommand.split(" ");
-        if (words.length != 2) {
-            throw new AdditionalException("Please input the index and only the index");
-        }
-        int indexToMark = Integer.parseInt(words[1]) - 1;
+        int indexToMark = getIndex(fullCommand);
         Task taskToMark = tasks.getTask(indexToMark);
         taskToMark.markAsDone();
         ui.showMarkCompleted(taskToMark);
