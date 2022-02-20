@@ -61,17 +61,17 @@ ____________________________________________________________
 ### Adding a dated event : `event`
 
 Adds an event that occurs on a certain date using the keyword `event`.
-The event date is delimited by a `/at` and in the YYYY-MM-DD format.
+The event period is delimited by a `/at` and in the YYYY-MM-DD format, separated by a `to`.
 
-Format: `event EVENTDETAILS /at EVENTDATE`
+Format: `event EVENTDETAILS /at STARTEVENTDATE to ENDEVENTDATE`
 
 Examples:
-- `event Buy new phone during 3.3 /at 2022-03-03`
+- `event Buy new phone during 3.3 /at 2022-03-03 to 2022-03-04`
 
 Expected output:
 ```
 ____________________________________________________________
-[E][ ] Buy new phone during 3.3 (at: Thu, Mar 03 2022)
+[E][ ] Buy new phone during 3.3 (at: Thu, Mar 03 2022 to Fri, Mar 04 2022)
 Task successfully added~!
 The number of tasks amounts to: 3
 ____________________________________________________________
@@ -89,7 +89,7 @@ ____________________________________________________________
 Task list:
 1.  [T][ ] Buy groceries
 2.  [D][ ] Pay bills (by: Tue, Mar 01 2022)
-3.  [E][ ] Buy new phone during 3.3 (at: Thu, Mar 03 2022)
+3.  [E][ ] Buy new phone during 3.3 (at: Thu, Mar 03 2022 to Fri, Mar 04 2022)
 ____________________________________________________________
 ```
 
@@ -126,7 +126,7 @@ Expected output:
 ____________________________________________________________
 The following tasks matches your search:
 1.  [T][X] Buy groceries
-3.  [E][ ] Buy new phone during 3.3 (at: Thu, Mar 03 2022)
+3.  [E][ ] Buy new phone during 3.3 (at: Thu, Mar 03 2022 to Fri, Mar 04 2022)
 ____________________________________________________________
 ```
 
@@ -169,19 +169,24 @@ Saved data will be overwritten from there if any further modifications are made 
 
 ---
 ## FAQ
-**Q**: How do I transfer my data to another Computer?
+**Q1**: How do I transfer my data to another Computer?
 
-**A**: Download Bob in the other computer and overwrite the empty data file it creates with the
+**A1**: Download Bob in the other computer and overwrite the empty data file it creates with the
 file that contains the data of the Bob home folder that you wish to import.
+
+**Q2**: What are these load errors I am facing?
+
+**A2**: Your data file may have incompatible entries or the file permissions may be insufficient,
+so Bob was unable to load or save the data as intended.
 
 ---
 ## Command Summary
-| Action | Format                                                                              |
-|--------|-------------------------------------------------------------------------------------|
-| Add    | `todo TASK` <br/>`deadline TASK /by yyyy-mm-dd` <br/>`event DETAILS /at yyyy-mm-dd` |
-| List   | `list`                                                                              |
-| Mark   | `mark TASKID`<br/>`unmark TASKID`                                                   |
-| Find   | `find SEARCHSTRING`                                                                 |
-| Delete | `delete TASKID`                                                                     |
-| Exit   | `bye`                                                                               |
+| Action | Format                                                                                            |
+|--------|---------------------------------------------------------------------------------------------------|
+| Add    | `todo TASK` <br/>`deadline TASK /by yyyy-mm-dd` <br/>`event DETAILS /at yyyy-mm-dd to yyyy-mm-dd` |
+| List   | `list`                                                                                            |
+| Mark   | `mark TASKID`<br/>`unmark TASKID`                                                                 |
+| Find   | `find SEARCHSTRING`                                                                               |
+| Delete | `delete TASKID`                                                                                   |
+| Exit   | `bye`                                                                                             |
 
