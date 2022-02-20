@@ -2,10 +2,7 @@ package aeon.controller;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
 import java.util.Scanner;
-
-import aeon.Aeon;
 import aeon.exception.AeonException;
 import aeon.task.Task;
 import aeon.task.Event;
@@ -61,7 +58,7 @@ public class Command {
             "Some content(s) of text file do not match the correct format! Ignoring faulty commands...";
     public static final String UNKNOWN_COMMAND_TEXT_FILE =
             "Unknown command found in text file! Ignoring and moving on...";
-    private static ArrayList<String> rawDescriptions = new ArrayList<>();
+    private static final ArrayList<String> rawDescriptions = new ArrayList<>();
     public static final String TASK_DELETED = "Task deleted!";
 
     /**
@@ -86,8 +83,8 @@ public class Command {
 
     /**
      * Determines which method to execute based on the user's input, and executes it
-     * @param list List of tasks entered by the user
-     * @param words Command itself
+     * @param list list of tasks entered by the user
+     * @param words command itself
      */
     private static void executeCommand(ArrayList<Task> list, String[] words) {
         switch (words[COMMAND_WORD]) {
@@ -122,26 +119,12 @@ public class Command {
         }
     }
 
-    /**
-     * Performs the deletion of a task based on its index
-     * @param list List of tasks entered by the user
-     * @param words Command itself
-     */
-    private static void executeDelete(ArrayList<Task> list, String[] words) {
-        try {
-            deleteTask(list, words);
-            System.out.println(TASK_DELETED);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println(TASK_NOT_FOUND);
-        } catch (NumberFormatException e) {
-            System.out.println(INVALID_INTEGER_MSG);
-        }
-    }
+
 
     /**
      * Inserts a new event into the list of tasks
-     * @param list List of tasks entered by the user
-     * @param words Command itself
+     * @param list list of tasks entered by the user
+     * @param words command itself
      */
     private static void executeEvent(ArrayList<Task> list, String[] words) {
         try {
@@ -156,8 +139,8 @@ public class Command {
 
     /**
      * Inserts a new deadline into the list of tasks
-     * @param list List of tasks entered by the user
-     * @param words Command itself
+     * @param list list of tasks entered by the user
+     * @param words command itself
      */
     private static void executeDeadline(ArrayList<Task> list, String[] words) {
         try {
@@ -172,8 +155,8 @@ public class Command {
 
     /**
      * Inserts a new 'To-Do' task into the list of tasks
-     * @param list List of tasks entered by the user
-     * @param words Command itself
+     * @param list list of tasks entered by the user
+     * @param words command itself
      */
     private static void executeTodo(ArrayList<Task> list, String[] words) {
         try {
@@ -187,8 +170,8 @@ public class Command {
     /**
      * Marks a task as Done based on its index.
      * Users may only mark tasks that are currently existing in the list
-     * @param list List of tasks entered by the user
-     * @param words Command itself
+     * @param list list of tasks entered by the user
+     * @param words command itself
      */
     private static void executeMark(ArrayList<Task> list, String[] words) {
         try {
@@ -204,8 +187,8 @@ public class Command {
     /**
      * Marks a task as Not Done based on its index.
      * Users may only unmark tasks that are currently existing in the list
-     * @param list List of tasks entered by the user
-     * @param words Command itself
+     * @param list list of tasks entered by the user
+     * @param words command itself
      */
     private static void executeUnmark(ArrayList<Task> list, String[] words) {
         try {
@@ -219,9 +202,9 @@ public class Command {
     }
 
     /**
-     * Looks for all existing tasks that contain a specific keyword.
-     * @param list List of tasks entered by the user
-     * @param words Command itself
+     * Tries to look for all existing tasks that contain a specified keyword.
+     * @param list list of tasks entered by the user
+     * @param words command itself
      */
     private static void executeFind(ArrayList<Task> list, String[] words) {
         try {
@@ -231,6 +214,27 @@ public class Command {
             }
         }
 
+    /**
+     * Performs the deletion of a task based on its index
+     * @param list list of tasks entered by the user
+     * @param words command itself
+     */
+    private static void executeDelete(ArrayList<Task> list, String[] words) {
+        try {
+            deleteTask(list, words);
+            System.out.println(TASK_DELETED);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(TASK_NOT_FOUND);
+        } catch (NumberFormatException e) {
+            System.out.println(INVALID_INTEGER_MSG);
+        }
+    }
+
+    /**
+     * Looks for all existing tasks that contain a specific keyword.
+     * @param list list of tasks entered by the user
+     * @param words command itself
+     */
     private static void lookForTasks(ArrayList<Task> list, String[] words) {
         String target = words[TARGET_WORD];
         boolean isFound = false;
@@ -248,7 +252,7 @@ public class Command {
     /**
      * Loads an existing list of tasks from a previously saved text file
      * and stores it in the list of tasks
-     * @param list List of tasks to store the tasks read from the text file
+     * @param list list of tasks to store the tasks read from the text file
      */
     private static void readSavedTaskList(ArrayList<Task> list) throws AeonException {
         File FILE = new File(FILE_PATH);
@@ -275,8 +279,8 @@ public class Command {
     /**
      * Ensures the tasklist file and directory are both readable and writeable, in the event the user changes the file
      * permissions directly
-     * @param FILE The file object to store the list of tasks
-     * @param DIRECTORY The directory object which stores the text file
+     * @param FILE the file object to store the list of tasks
+     * @param DIRECTORY the directory object which stores the text file
      */
     private static void setReadAndWritePermissions(File FILE, File DIRECTORY) {
         FILE.setWritable(true);
@@ -285,6 +289,11 @@ public class Command {
         DIRECTORY.setReadable(true);
     }
 
+    /**
+     * Reads in each task from a saved list of task and determines how it should be added to the list
+     * @param list list of tasks to store the tasks read from the text file
+     * @param taskInFileArray list of tasks in the text file
+     */
     private static void parseSavedTaskList(ArrayList<Task> list, String[] taskInFileArray) {
         String[] taskType = taskInFileArray[1].split(" ", 2);
         String isDone = taskInFileArray[0];
@@ -305,9 +314,9 @@ public class Command {
 
     /**
      * Opens the target file in order to read its contents
-     * @param FILE The file to be read
-     * @param fileScanner A pointer to the file
-     * @return The pointer to the file if said file exists
+     * @param FILE the file to be read
+     * @param fileScanner a pointer to the file
+     * @return the pointer to the file if said file exists
      */
     private static Scanner openTaskFile(File FILE, Scanner fileScanner) {
         try {
@@ -320,7 +329,7 @@ public class Command {
 
     /**
      * Checks if target file exists, and creates a new one if it does not exist yet
-     * @param FILE The target file
+     * @param FILE the target file
      */
     private static void checkFileExists(File FILE) {
         if (!FILE.exists()) {
@@ -334,7 +343,7 @@ public class Command {
 
     /**
      * Checks if target directory exists, and creates a new one if it does not exist yet
-     * @param DIRECTORY The target directory
+     * @param DIRECTORY the target directory
      */
     private static void checkDirExists(File DIRECTORY) {
         if (!DIRECTORY.exists()) {
@@ -342,21 +351,32 @@ public class Command {
         }
     }
 
-
-    private static void createTaskFile(File f) throws IOException {
-            f.createNewFile();
+    /**
+     * Creates a new text file to save the list of tasks to
+     * @param fileobj the file to be created
+     * @throws IOException if file creation fails
+     */
+    private static void createTaskFile(File fileobj) throws IOException {
+            fileobj.createNewFile();
     }
 
-    private static Scanner getScanner(File f, Scanner fileScanner) throws FileNotFoundException {
-        fileScanner = new Scanner(f);
+    /**
+     * Places a pointer at the beginning of the file to begin reading of its contents
+     * @param fileobj the file itself
+     * @param fileScanner the name of the pointer
+     * @return the pointer to the beginning of the file
+     * @throws FileNotFoundException if file currently does not exist
+     */
+    private static Scanner getScanner(File fileobj, Scanner fileScanner) throws FileNotFoundException {
+        fileScanner = new Scanner(fileobj);
         return fileScanner;
     }
 
     /**
      * Inserts an event from the saved list of tasks
-     * @param list List of tasks to store the tasks read from the text file
-     * @param taskType
-     * @param isDone Boolean to represent if the task was previously marked as done
+     * @param list list of tasks to store the tasks read from the text file
+     * @param taskType the type of task, whether its a Todo, Deadline or Event task
+     * @param isDone boolean to represent if the task was previously marked as done
      */
     private static void readFromFileEvent(ArrayList<Task> list, String[] taskType, String isDone) {
         try {
@@ -371,9 +391,9 @@ public class Command {
 
     /**
      * Inserts a deadline from the saved list of tasks
-     * @param list List of tasks to store the tasks read from the text file
-     * @param taskType
-     * @param isDone Boolean to represent if the task was previously marked as done
+     * @param list list of tasks to store the tasks read from the text file
+     * @param taskType the type of task, whether its a Todo, Deadline or Event task
+     * @param isDone boolean to represent if the task was previously marked as done
      */
     private static void readFromFileDeadline(ArrayList<Task> list, String[] taskType, String isDone) {
         try {
@@ -389,9 +409,9 @@ public class Command {
 
     /**
      * Inserts a ToDo task from the saved list of tasks
-     * @param list List of tasks to store the tasks read from the text file
-     * @param taskType
-     * @param isDone Boolean to represent if the task was previously marked as done
+     * @param list list of tasks to store the tasks read from the text file
+     * @param taskType the type of task, whether its a Todo, Deadline or Event task
+     * @param isDone boolean to represent if the task was previously marked as done
      */
     private static void readFromFileTodo(ArrayList<Task> list, String[] taskType, String isDone) {
         try {
@@ -404,8 +424,8 @@ public class Command {
 
     /**
      * Checks if task from text file was marked as done before, and mark it if true
-     * @param list List of tasks to store the tasks read from the text file
-     * @param isDone Boolean to represent if the task was previously marked as done
+     * @param list list of tasks to store the tasks read from the text file
+     * @param isDone boolean to represent if the task was previously marked as done
      */
     private static void fileMarkTask(ArrayList<Task> list, String isDone) {
         if (isDone.equals("1")) {
@@ -416,10 +436,10 @@ public class Command {
 
     /**
      * Adds a task to the list
-     * @param list List of tasks itself
-     * @param t The task object to be added
-     * @param taskType
-     * @param rawDesc The actual user input itself, to be saved into the text file
+     * @param list list of tasks itself
+     * @param t the task object to be added
+     * @param taskType the type of task, whether its a Todo, Deadline or Event task
+     * @param rawDesc the actual user input itself, to be saved into the text file
      */
     public static void addToList(ArrayList<Task> list, Task t, String taskType, String rawDesc) {
         list.add(t);
@@ -431,14 +451,13 @@ public class Command {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
     /**
      * Saves the current list of tasks into a text file on disk
-     * @param list The list of tasks to be saved
-     * @param rawDesc The actual user input itself, to be saved into the text file
-     * @throws IOException If writing to file fails
+     * @param list the list of tasks to be saved
+     * @param rawDesc the actual user input itself, to be saved into the text file
+     * @throws IOException if writing to file fails
      */
     private static void writeToFile(ArrayList<Task> list, ArrayList<String> rawDesc) throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
@@ -457,7 +476,13 @@ public class Command {
         fw.close();
     }
 
-
+    /**
+     * Parses the task knowing that it is of Event type
+     * @param list list of tasks itself
+     * @param words command itself
+     * @throws IndexOutOfBoundsException if some parameters of the task is missing
+     * @throws AeonException if user tries to add blank parameters
+     */
     private static void addEventTask(ArrayList<Task> list, String[] words) throws IndexOutOfBoundsException, AeonException {
         String[] eventDateTask = words[1].split(" /at ", 2);
         if (checkDetails(eventDateTask)) {
@@ -476,17 +501,13 @@ public class Command {
         }
     }
 
-    private static boolean checkDetails(String[] taskDetails) {
-        boolean isEmpty = false;
-        for (String element : taskDetails) {
-            if (element.trim().length() == 0)
-            {
-                isEmpty = true;
-            }
-        }
-        return isEmpty;
-    }
-
+    /**
+     * Parses the task knowing that it is of Deadline type
+     * @param list list of tasks itself
+     * @param words command itself
+     * @throws IndexOutOfBoundsException if some parameters of the task is missing
+     * @throws AeonException if user tries to add blank parameters
+     */
     private static void addDeadlineTask(ArrayList<Task> list, String[] words)
             throws IndexOutOfBoundsException, AeonException {
         String[] deadlineTask = words[1].split(" /by ", 2);
@@ -507,16 +528,10 @@ public class Command {
     }
 
     /**
-     * Changes the date format from YYYY-MM-DD to MM-DD-YYYY for Deadline and Event tasks
-     * @param rawDate The date that the user inputs
-     * @return The reformatted date in the form of MM-DD-YYYY
+     * Parses the task knowing that it is of Todo type
+     * @param list list of tasks itself
+     * @param words command itself
      */
-    private static String reformatDate(String rawDate) {
-        LocalDate deadline = LocalDate.parse(rawDate);
-        String dueDate = deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        return dueDate;
-    }
-
     private static void addTodoTask(ArrayList<Task> list, String[] words)
             throws IndexOutOfBoundsException, AeonException {
         Task t = new Todo(words[1]);
@@ -528,13 +543,12 @@ public class Command {
     }
 
     /**
-     *
      *Marks a task as Done based on its index.
      *Users may only mark tasks that are currently existing in the list
-     * @param list
-     * @param words
-     * @throws IndexOutOfBoundsException If task is not found in the list
-     * @throws NumberFormatException If the index of the targeted task is not a valid integer
+     * @param list list of tasks itself
+     * @param words command itself
+     * @throws IndexOutOfBoundsException if task is not found in the list
+     * @throws NumberFormatException if the index of the targeted task is not a valid integer
      */
     private static void markTask(ArrayList<Task> list, String[] words) throws IndexOutOfBoundsException,
             NumberFormatException {
@@ -553,10 +567,10 @@ public class Command {
     /**
      *Marks a task as Not Done based on its index.
      *Users may only unmark tasks that are currently existing in the list
-     * @param list
-     * @param words
-     * @throws IndexOutOfBoundsException If task is not found in the list
-     * @throws NumberFormatException If the index of the targeted task is not a valid integer
+     * @param list list of tasks itself
+     * @param words command itself
+     * @throws IndexOutOfBoundsException if task is not found in the list
+     * @throws NumberFormatException if the index of the targeted task is not a valid integer
      */
     private static void unmarkTask(ArrayList<Task> list, String[] words)
             throws IndexOutOfBoundsException, NumberFormatException {
@@ -573,7 +587,7 @@ public class Command {
 
     /**
      * Prints out all tasks that are currently saved in the list
-     * @param list The list of tasks to be printed out
+     * @param list the list of tasks to be printed out
      */
     private static void printListOfTasks(ArrayList<Task> list) {
         Integer noOfItems = Task.getNoOfItems();
@@ -588,15 +602,14 @@ public class Command {
     /**
      * Deletes a task from the list of tasks.
      * Task can only be deleted if it exists in the list.
-     * @param list
-     * @param words
-     * @throws IndexOutOfBoundsException
-     * @throws NumberFormatException
+     * @param list list of tasks itself
+     * @param words command itself
+     * @throws IndexOutOfBoundsException if task is not found in the list of tasks
+     * @throws NumberFormatException if index is not of integer data type
      */
     private static void deleteTask(ArrayList<Task> list, String[] words)
             throws IndexOutOfBoundsException, NumberFormatException {
         int index = Integer.parseInt(words[1]);
-
         System.out.println(list.get(index - 1));
         list.remove(index - 1);
         Task.setNoOfItems(Task.getNoOfItems() - 1);
@@ -608,5 +621,31 @@ public class Command {
         }
     }
 
+    /**
+     * Changes the date format from YYYY-MM-DD to MM-DD-YYYY for Deadline and Event tasks
+     * @param rawDate The date that the user inputs
+     * @return The reformatted date in the form of MM-DD-YYYY
+     */
+    private static String reformatDate(String rawDate) {
+        LocalDate deadline = LocalDate.parse(rawDate);
+        String dueDate = deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return dueDate;
+    }
+
+    /**
+     * Checks if the user tries to input blank parameters
+     * @param taskDetails a list of parameters belonging to a single task
+     * @return boolean if task is considered valid or not
+     */
+    private static boolean checkDetails(String[] taskDetails) {
+        boolean isEmpty = false;
+        for (String element : taskDetails) {
+            if (element.trim().length() == 0)
+            {
+                isEmpty = true;
+            }
+        }
+        return isEmpty;
+    }
 
 }
