@@ -7,11 +7,47 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskManager {
     private int taskUniqueID = 0;
     private static ArrayList<Task> taskList = new ArrayList<>();
+    private static TaskRecorder taskRecorder = new TaskRecorder();
+
+    public TaskManager() {
+        try {
+            ArrayList<String[]> fileData = taskRecorder.loadData();
+            for (String[] data : fileData) {
+                String input = data[1];
+                String command = data[1].split(" ")[0];
+                String description = getDescription(input);
+                switch (command) {
+                case "todo":
+                    taskList.add(new Todo(description, taskUniqueID));
+                    break;
+                case "deadline":
+                    String by = getTimingDetails(input);
+                    taskList.add(new Deadline(description, taskUniqueID, by));
+                    break;
+                case "event":
+                    String at = getTimingDetails(input);
+                    taskList.add(new Event(description, taskUniqueID, at));
+                    break;
+                }
+                if (data[0].equals("1")) {
+                    taskList.get(taskList.size() - 1).setIsMarked();
+                }
+                taskUniqueID++;
+            }
+        } catch (IOException e) {
+            System.out.println("Oops! Something went wrong while loading the data!");
+        } catch (EmptyDescriptionException e) {
+            System.out.println("Oops! Please type in a description!");
+        } catch (EmptyTimingDetailsException e) {
+            System.out.println("Oops! Please indicate the time for the deadline you want to add!");
+        }
+    }
 
     public void listTasks() {
         if (taskList.size() > 0) {
@@ -29,9 +65,12 @@ public class TaskManager {
             String description = getDescription(userInput);
             taskList.add(new Todo(description, taskUniqueID));
             printMessageForAdding(taskList.get(taskList.size() - 1));
+            taskRecorder.addData(userInput);
             taskUniqueID++;
         } catch (EmptyDescriptionException e) {
             System.out.println("Oops! Please type in a description!");
+        } catch (IOException e) {
+            System.out.println("Oops! Something went wrong writing to the file!");
         }
     }
 
@@ -41,11 +80,14 @@ public class TaskManager {
             String by = getTimingDetails(userInput);
             taskList.add(new Deadline(description, taskUniqueID, by));
             printMessageForAdding(taskList.get(taskList.size() - 1));
+            taskRecorder.addData(userInput);
             taskUniqueID++;
         } catch (EmptyDescriptionException e) {
             System.out.println("Oops! Please give a description for the deadline you want to add!");
         } catch (EmptyTimingDetailsException e) {
             System.out.println("Oops! Please indicate the time for the deadline you want to add!");
+        } catch (IOException e) {
+            System.out.println("Oops! Something went wrong writing to the file!");
         }
     }
 
@@ -55,11 +97,14 @@ public class TaskManager {
             String at = getTimingDetails(userInput);
             taskList.add(new Event(description, taskUniqueID, at));
             printMessageForAdding(taskList.get(taskList.size() - 1));
+            taskRecorder.addData(userInput);
             taskUniqueID++;
         } catch (EmptyDescriptionException e) {
             System.out.println("Oops! Please give a description for the event you want to add!");
         } catch (EmptyTimingDetailsException e) {
             System.out.println("Oops! Please indicate the time for the event you want to add!");
+        } catch (IOException e) {
+            System.out.println("Oops! Something went wrong writing to the file!");
         }
     }
 
@@ -76,11 +121,14 @@ public class TaskManager {
                 taskList.get(number).unsetIsMarked();
                 System.out.println("Nice! I've unmarked this task as done:");
             }
+            taskRecorder.markOrUnmarkData(number);
             System.out.println(number + 1 + "." + taskList.get(number).toString());
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             System.out.println("Oops! The task number given is not in range. Try again!");
         } catch (NumberFormatException e) {
             System.out.println("Oops! Please give an integer value. Try again!");
+        } catch (IOException e) {
+            System.out.println("Oops! Something went wrong writing to the file to mark or unmark a task!");
         }
     }
 
@@ -91,11 +139,14 @@ public class TaskManager {
             int number = Integer.parseInt(taskNumber) - 1;
             System.out.println("Noted. I've removed this task:\n" + taskList.get(number).toString());
             taskList.remove(number);
+            taskRecorder.deleteData(number);
             System.out.println("Now you have " + taskList.size() + " tasks in the list.");
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             System.out.println("Oops! The task number given is not in range. Try again!");
         } catch (NumberFormatException e) {
             System.out.println("Oops! Please give an integer value. Try again!");
+        } catch (IOException e) {
+            System.out.println("Oops! Something went wrong with deleting a task from the file");
         }
     }
 

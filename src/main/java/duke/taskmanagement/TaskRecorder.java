@@ -1,7 +1,5 @@
 package duke.taskmanagement;
 
-import duke.task.Task;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -11,9 +9,7 @@ public class TaskRecorder {
     private static final String HOME = System.getProperty("user.dir");
     private static final java.nio.file.Path PATH = java.nio.file.Paths.get(HOME, "data","duke.txt");
 
-    private static ArrayList<Task> taskList = new ArrayList<>();
-
-    public static ArrayList<String[]> loadData() throws IOException {
+    public ArrayList<String[]> loadData() throws IOException {
         checkFileExists();
         ArrayList<String[]> output = new ArrayList<>();
         List<String> lines = Files.readAllLines(PATH);
@@ -24,22 +20,37 @@ public class TaskRecorder {
         return output;
     }
 
-    public static void addData(String userInput, int taskCount) throws IOException {
+    public void addData(String userInput) throws IOException {
         checkFileExists();
         List<String> lines = Files.readAllLines(PATH);
-        String extraLine = taskCount + ".0." + userInput;
+        String extraLine = "0|" + userInput;
         lines.add(extraLine);
         Files.write(PATH, lines);
     }
 
-    public static void deleteData(int taskCount) throws IOException {
+    public void deleteData(int taskCount) throws IOException {
         checkFileExists();
         List<String> lines = Files.readAllLines(PATH);
         lines.remove(taskCount);
         Files.write(PATH, lines);
     }
-    
-    public static void checkFileExists() {
+
+    public void markOrUnmarkData(int taskNumber) throws IOException {
+        checkFileExists();
+        List<String> lines = Files.readAllLines(PATH);
+        if (lines.get(taskNumber).startsWith("0")) {
+            String editedData = lines.get(taskNumber).replaceFirst("0","1");
+            lines.remove(taskNumber);
+            lines.add(taskNumber, editedData);
+        } else {
+            String editedData = lines.get(taskNumber).replaceFirst("1","0");
+            lines.remove(taskNumber);
+            lines.add(taskNumber, editedData);
+        }
+        Files.write(PATH, lines);
+    }
+
+    public void checkFileExists() {
         try {
             // create parent folder if it does not exist
             if (!Files.exists(PATH.getParent())) {
@@ -52,11 +63,5 @@ public class TaskRecorder {
         } catch (IOException e) {
             System.out.println("There appears to be a problem creating the data file in the data folder!");
         }
-    }
-
-    public static void main(String[] args) throws IOException {
-        ArrayList<String[]> test = loadData();
-        System.out.println(test.get(0)[2]);
-        System.out.println(test.get(1)[2]);
     }
 }
