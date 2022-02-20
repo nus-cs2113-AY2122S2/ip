@@ -33,13 +33,25 @@ public class DateCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AdditionalException {
+        LocalDate date = getDate();
+        ArrayList<Task> listOfTasks = tasks.getListOfSameDates(date);
+        ui.showList(listOfTasks);
+    }
+
+    /**
+     * This is the getDate method that gets the date the user is requesting to search for.
+     *
+     * @return The date that to be searched for.
+     * @throws AdditionalException If the date is in an incorrect format.
+     * @see AdditionalException
+     */
+    private LocalDate getDate() throws AdditionalException {
         String[] words = fullCommand.split(" ");
         if (words.length != 2) {
             throw new AdditionalException("Please input the date in the correct format and only the date");
         }
         LocalDate date = LocalDate.parse(words[1]);
-        ArrayList<Task> listOfTasks = tasks.getListOfSameDates(date);
-        ui.showList(listOfTasks);
+        return date;
     }
 
     /**
