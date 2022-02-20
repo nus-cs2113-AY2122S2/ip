@@ -33,8 +33,8 @@ public class Command {
             "Please try again in this format: event <description> /at <date>";
     public static final String INVALID_COMMAND = "Not sure what you were trying to do...";
     public static final String TASK_ADDED = "Task added!";
-    public static final String CONGRATULATIONS_MSG = "Congrats on completing this task!:";
-    public static final String MARK_UNDONE = "Alright, marked as undone!:";
+    public static final String CONGRATULATIONS_MSG = "Congrats on completing this task!";
+    public static final String MARK_UNDONE = "Alright, marked as undone!";
     public static final String NO_TASKS = "No tasks!";
     public static final String FILE_PATH = "./data/tasklist.txt";
     public static final String DIR_PATH = "./data/";
@@ -255,6 +255,7 @@ public class Command {
         File DIRECTORY = new File(DIR_PATH);
         checkDirExists(DIRECTORY);
         checkFileExists(FILE);
+        setReadAndWritePermissions(FILE, DIRECTORY);
         Scanner fileScanner = null;
         fileScanner = openTaskFile(FILE, fileScanner);
         while (fileScanner.hasNext()) {
@@ -269,6 +270,19 @@ public class Command {
                 System.out.println(TEXT_FILE_INCORRECT_CONTENTS);
             }
         }
+    }
+
+    /**
+     * Ensures the tasklist file and directory are both readable and writeable, in the event the user changes the file
+     * permissions directly
+     * @param FILE The file object to store the list of tasks
+     * @param DIRECTORY The directory object which stores the text file
+     */
+    private static void setReadAndWritePermissions(File FILE, File DIRECTORY) {
+        FILE.setWritable(true);
+        FILE.setReadable(true);
+        DIRECTORY.setWritable(true);
+        DIRECTORY.setReadable(true);
     }
 
     private static void parseSavedTaskList(ArrayList<Task> list, String[] taskInFileArray) {
