@@ -1,3 +1,4 @@
 T,1,read book
-E,0,mug,never,now
-D,0,mug more,always
+E,0,mug,01/01/2001 01:01,01/01/2001 01:01
+D,0,mug more,01/01/2001 01:01
+E,0,submit ip,11/02/1234 00:00,11/12/1234 11:11

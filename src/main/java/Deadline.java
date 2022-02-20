@@ -1,16 +1,30 @@
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 public class Deadline extends Todo {
-    private String by;
+    private Date by;
 
     public Deadline(String description, String by) {
+        super(description);
+        SimpleDateFormat formatter1=new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        try{
+            Date date = formatter1.parse(by);
+            this.by = date;
+        } catch (Exception e){
+        }
+    }
+
+    public Deadline(String description, Date by) {
         super(description);
         this.by = by;
     }
 
-    public void setBy(String by) {
+    public void setBy(Date by) {
         this.by = by;
     }
 
-    public String getBy() {
+    public Date getBy() {
         return by;
     }
 
@@ -19,11 +33,13 @@ public class Deadline extends Todo {
         if (isDone) {
             done = "1";
         }
-        return ("D," + done + "," + description + "," + by);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        return ("D," + done + "," + description + "," + dateFormat.format(by));
     }
 
     public String toString() {
-        return (super.toString() + " (by: " + by + ")");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        return (super.toString() + " (by: " + dateFormat.format(by) + ")");
     }
 
     public void printTask() {

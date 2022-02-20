@@ -1,3 +1,5 @@
+import java.util.Date;
+
 public class Duke {
     private Storage storage;
     private TaskList tasks;
@@ -94,9 +96,9 @@ public class Duke {
             System.out.println("Oops! The description of a Deadline cannot be empty.");
             return;
         }
-        System.out.println("Okie, when is this due by?");
-        String by = ui.getInput();
-        if (by.isEmpty()) {
+        System.out.println("Okie, when is this due by? (dd/mm/yyyy HH:mm)");
+        Date by = ui.getDate();
+        if (by == null) {
             System.out.println("Oops! The due date of a Deadline cannot be empty.");
             return;
         }
@@ -112,16 +114,14 @@ public class Duke {
             System.out.println("Oops! The description of a Deadline cannot be empty.");
             return;
         }
-        System.out.println("Okie, when does the event start?");
-        String start = ui.getInput();
-        if (start.isEmpty()) {
-            System.out.println("Oops! The start date of a Deadline cannot be empty.");
+        System.out.println("Okie, when does the event start? (dd/mm/yyyy HH:mm)");
+        Date start = ui.getDate();
+        if (start == null) {
             return;
         }
-        System.out.println("Okie, when does the event end?");
-        String by = ui.getInput();
-        if (by.isEmpty()) {
-            System.out.println("Oops! The due date of a Deadline cannot be empty.");
+        System.out.println("Okie, when does the event end? (dd/mm/yyyy HH:mm)");
+        Date by = ui.getDate();
+        if (by == null) {
             return;
         }
         Event e = new Event(str, by, start);
@@ -196,6 +196,5 @@ public class Duke {
             return false;
         }
     }
-
 
 }

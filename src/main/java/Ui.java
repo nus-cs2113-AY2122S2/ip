@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Ui {
 
@@ -17,6 +19,10 @@ public class Ui {
         System.out.println("______________________________________");
     }
 
+    public void showUnknownDate(){
+        System.out.println("Sorry, please enter the date in the correct format!");
+        System.out.println("______________________________________");
+    }
     public void showLineBreak(){
         System.out.println("______________________________________");
     }
@@ -31,5 +37,18 @@ public class Ui {
     public String getInput(){
         Scanner sc = new Scanner(System.in);
         return sc.nextLine();
+    }
+
+    public Date getDate(){
+        Scanner sc = new Scanner(System.in);
+        String date = sc.nextLine();
+        SimpleDateFormat formatter1=new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        try{
+            Date date1 = formatter1.parse(date);
+            return date1;
+        } catch (Exception e){
+            showUnknownDate();
+        }
+        return null;
     }
 }
