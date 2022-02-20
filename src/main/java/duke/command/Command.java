@@ -9,6 +9,9 @@ import duke.task.Task;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents the command which is to be executed.
+ */
 public abstract class Command {
 
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws AdditionalException, IOException;

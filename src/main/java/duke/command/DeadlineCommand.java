@@ -10,6 +10,9 @@ import duke.task.Task;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents the deadline command which is to be executed.
+ */
 public class DeadlineCommand extends Command {
 
     private static final String TYPE_OF_TASK = "deadline";
@@ -21,6 +24,17 @@ public class DeadlineCommand extends Command {
         this.fullCommand = fullCommand;
     }
 
+    /**
+     * This is the execute method that runs when there is an deadline command.
+     * The method will add the task to the list of tasks in the TaskList object.
+     * It will then print the confirmation for adding the task and updates the file.
+     *
+     * @param tasks The TaskList object that contains the list of tasks.
+     * @param ui The user interface object that allows for printing of the confirmation message.
+     * @param storage The storage object which allows for the saving of the tasks to the file.
+     * @throws IOException If there is an error saving tasks to the file.
+     * @see IOException
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AdditionalException, IOException {
         String description = getDescription();
@@ -31,11 +45,24 @@ public class DeadlineCommand extends Command {
         storage.save(deadline);
     }
 
+    /**
+     * This is the isBye method that returns whether the command is "bye".
+     *
+     * @return False because the command is "deadline".
+     */
     @Override
     public boolean isBye() {
         return false;
     }
 
+    /**
+     * This is the executeFromFile method that takes in a list of tasks and adds a new deadline task to the
+     * list of tasks.
+     *
+     * @param listOfTasks This is the list of tasks that the new task is to be added to.
+     * @throws AdditionalException If there is no description provided in the fullCommand.
+     * @see AdditionalException
+     */
     @Override
     public void executeFromFile(ArrayList<Task> listOfTasks) throws AdditionalException {
         String description = getDescription();
@@ -43,6 +70,13 @@ public class DeadlineCommand extends Command {
         listOfTasks.add(new Deadline(description, by, TYPE_OF_TASK));
     }
 
+    /**
+     * This is the getDescription method that returns the description of the task from the fullCommand.
+     *
+     * @return The description of the task to be added.
+     * @throws AdditionalException If there is no description provided in the fullCommand.
+     * @see AdditionalException
+     */
     private String getDescription() throws AdditionalException {
         int lengthOfTypeOfTask = TYPE_OF_TASK.length();
         int indexOfPreposition = fullCommand.indexOf(PREPOSITION);
@@ -57,6 +91,13 @@ public class DeadlineCommand extends Command {
         return trimmedDescription;
     }
 
+    /**
+     * This is the getAt method that returns the timing of the task from the fullCommand.
+     *
+     * @return The timing of the task to be added.
+     * @throws AdditionalException If there is no timing provided in the fullCommand.
+     * @see AdditionalException
+     */
     private String getBy() throws AdditionalException {
         int indexOfPreposition = fullCommand.indexOf(PREPOSITION);
         int lengthOfPreposition = PREPOSITION.length();
