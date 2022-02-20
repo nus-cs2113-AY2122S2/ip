@@ -3,8 +3,26 @@
 
 
 ## Outline
-
-[TOC]
+* [Outline](#outline)
+* [Quick Start](#quick-start)
+* [Features](#features)
+	* [Feature: Add task](#feature-add-task)
+	* [Feature: List all tasks](#feature-list-all-tasks)
+	* [Feature: Mark task](#feature-mark-task)
+	* [Feature: Find task(s)](#feature-find-tasks)
+	* [Feature: Delete tasks](#feature-delete-tasks)
+	* [Feature: Delete tasks](#feature-delete-tasks)
+* [Usage](#usage)
+	* [todo - add a todo task](#todo---add-a-todo-task)
+	* [event - add a event task](#event---add-a-event-task)
+	* [deadline - add a deadline task](#deadline---add-a-deadline-task)
+	* [list - list all tasks](#list---list-all-tasks)
+	* [mark - mark a task as completed](#mark---mark-a-task-as-completed)
+	* [unmark - mark a task as uncompleted](#unmark---mark-a-task-as-uncompleted)
+	* [find - search task(s) with keywords](#find---search-tasks-with-keywords)
+	* [delete - delete a task from the list](#delete---delete-a-task-from-the-list)
+	* [save - save the task records i](#save---save-the-task-records-i)
+	* [bye - Exit the program](#bye---exit-the-program)
 
 ## Quick Start
 
@@ -14,7 +32,6 @@
 
    ```sh
    java -v
-
 2. Download the latest `ip.jar` from [Duke](https://github.com/Ch40gRv1-Mu/ip/releases/tag/A-Jar). A command line is as follows:
 
    ```sh
@@ -43,216 +60,150 @@ Each task may have the following two states:
 
 - `[X]`: A task is completed 
 - `[ ]`: A task is uncompleted
-
-Check [Usage-todo](###`Keyword` - todo),  [Usage-event](###`Keyword` - event),  [Usage-deadline](###`Keyword` - deadline), for further usage guide of adding tasks.
+Check [Usage-todo](#todo---add-a-todo-task),  [Usage-event](#event---add-a-event-task),  [Usage-deadline](#deadline---add-a-deadline-task), for further usage guide of adding tasks.
 
 
 
 ### Feature: List all tasks
 
-Users can list of all tasks with one command. Check [Usage-list](###`Keyword` - list) for further usage guide of list.
+Users can list of all tasks with one command. Check [Usage-list](#list---list-all-tasks) for further usage guide of list.
 
 
 
 ### Feature: Mark task
 
-A task can be marked as completed or uncompleted. Check [Usage-mark](###`Keyword` - mark), [Usage-unmark](###`Keyword` - unmark) for further usage guide of marking tasks.
+A task can be marked as completed or uncompleted. Check [Usage-mark](#mark---mark-a-task-as-completed), [Usage-unmark](#unmark---mark-a-task-as-uncompleted) for further usage guide of marking tasks.
 
 
 
 ### Feature: Find task(s)
-
-Give users a way to find a task by searching for a keyword. Check [`Usage-find`](###`Keyword` - find) for further usage guide of marking tasks.
+Give users a way to find a task by searching for a keyword. Check [`Usage-find`](#feature-find-tasks) for further usage guide of marking tasks.
 
 
 
 ### Feature: Delete tasks
 
-Duke supports for deleting tasks from the list. Check 
-
-
-
-
+Duke supports for deleting tasks from the list. Check [`Usage-delete`](#delete---delete-a-task-from-the-list)
 
 ## Usage
 
 ### `todo` - add a todo task
 
-Describe the action and its outcome.
 
-Example of usage: 
+This command helps you create a todo task!
 
-`keyword (optional arguments)`
+##### Syntax:
 
-Expected outcome:
+`todo <task_name>`
 
-Description of the outcome.
-
-```
-expected output
-```
 
 
 
 ### `event` - add a event task
 
-Describe the action and its outcome.
+This command helps you create an event!
 
-Example of usage: 
+##### Syntax:
 
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
+```sh
+event <task_name> /at <time_in_any_format>
 ```
-expected output
-```
-
 
 
 ### `deadline` - add a deadline task
 
-Describe the action and its outcome.
 
-Example of usage: 
+This command helps you create a deadline!
 
-`keyword (optional arguments)`
+##### Syntax:
 
-Expected outcome:
+`deadline <task_name> /by <YYYY-MM-DD>`
 
-Description of the outcome.
 
-```
-expected output
-```
+This should create a new deadline in your task list.
 
 
 
 ### `list` - list all tasks
 
-Describe the action and its outcome.
 
-Example of usage: 
+This command helps you list down all the tasks in your list.
 
-`keyword (optional arguments)`
+##### Syntax:
 
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
-```
+`list`
 
 
 
 ### `mark` - mark a task as completed
 
-Describe the action and its outcome.
 
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
+This command helps you mark a task as done.
+##### syntax
+```sh
+mark <task_id>
 ```
-expected output
-```
+This should mark the task with the specified task id as done, if the id exists. It will throw error if the task id does not exist.
 
 
 
 ### `unmark` - mark a task as uncompleted
 
-Describe the action and its outcome.
 
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
+This command helps you mark a task as uncompleted.
+##### syntax
+```sh
+unmark <task_id>
 ```
-expected output
-```
+This should mark the task with the specified task id as uncompleted, if the id exists. It will throw error if the task id does not exist.
+
 
 
 
 ### `find` - search task(s) with keywords
 
-Describe the action and its outcome.
 
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
+This command helps you search for a task with the specified keyword.
+##### syntax
+```sh
+find <keyword>
 ```
-expected output
-```
-
-
+A list of tasks will be displayed that contain the provided keyword.
 
 ### `delete` - delete a task from the list
 
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
+This command helps you delete a task from your list.
+##### syntax
+```sh
+delete <task_id>
 ```
-expected output
+This should mark the task with the specified task id as uncompleted, if the id exists. It will throw error if the task id does not exist.
+
+
+
+
+### `save` - save the task records
+
+This command save your current records so that the record can be revealed the next time you use Duke.
+##### Syntax:
+```sh
+save
 ```
 
-
-
-### `save` - save the task records in storage
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
-```
 
 
 
 ### `bye` - Exit the program
 
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
+This command helps you quit the application.
+##### Syntax:
+```sh
+bye
 ```
 
-
-
+### `help` - Display the help summary
+Simply type help and hit enter if you're not sure what syntax to use. After that, you'll see Duke's syntax overview!
+##### Syntax:
+```sh
+help
+```
