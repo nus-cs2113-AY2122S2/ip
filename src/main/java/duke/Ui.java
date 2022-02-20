@@ -80,4 +80,8 @@ public class Ui {
     public void showFormatError() {
         System.out.println("The index should be an integer, please try again.");
     }
+
+    public void showNoResuts() {
+        System.out.println("I'm afraid that it is a 404 not found kinda scenario");
+    }
 }
