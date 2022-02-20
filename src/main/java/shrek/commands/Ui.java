@@ -1,11 +1,13 @@
 package shrek.commands;
 
 import shrek.constant.PrintStrings;
+import shrek.storage.SaveToOutput;
 import shrek.task.UserContent;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class PrintOutput {
+public class Ui {
     private static final String LINE = PrintStrings.LINE;
     public static final String NEW_LINE = System.lineSeparator();
     public static final String ANSI_GREEN = "\u001B[32m";
@@ -31,5 +33,15 @@ public class PrintOutput {
         System.out.println(ANSI_GREEN + PrintStrings.logo + NEW_LINE);
         System.out.println(PrintStrings.shrekLogo + NEW_LINE + ANSI_RESET);
         System.out.println(LINE + greet);
+    }
+
+    public static void readCommand() {
+        Scanner in = new Scanner(System.in);
+        String userInput = in.nextLine();
+        while (!userInput.equals("bye")) {
+            Parser.handleInput(userInput, true);
+            userInput = in.nextLine();
+        }
+        SaveToOutput.saveData();
     }
 }

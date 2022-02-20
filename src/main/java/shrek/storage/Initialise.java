@@ -1,4 +1,4 @@
-package shrek.initialisation;
+package shrek.storage;
 
 import shrek.data.CurrentDirectory;
 import shrek.data.ErrorCount;

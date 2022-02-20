@@ -4,11 +4,11 @@ import shrek.constant.Indexes;
 import shrek.data.ErrorCount;
 import shrek.exception.InvalidCommandException;
 import shrek.helper.Time;
-import shrek.initialisation.SaveToOutput;
+import shrek.storage.SaveToOutput;
 import shrek.task.Deadlines;
 import shrek.task.Events;
 import shrek.task.ToDo;
-import shrek.data.ListOfTasks;
+import shrek.data.TaskList;
 
 public class AddCommand {
 
@@ -20,7 +20,7 @@ public class AddCommand {
             throws InvalidCommandException {
         String[] splitDeadlineOrEventInputs;
         try {
-            splitDeadlineOrEventInputs = input.split(taskTimeReference);
+            splitDeadlineOrEventInputs = input.split(taskTimeReference, Indexes.NUMBER_OF_TERMS_IN_SPLIT);
             if (splitDeadlineOrEventInputs.length > Indexes.NUMBER_OF_TERMS_IN_SPLIT) {
                 throw new InvalidCommandException("Did you add in more than one \""
                         + taskTimeReference + "\"?", ErrorCount.errorCount);
@@ -30,10 +30,10 @@ public class AddCommand {
             }
             String Datetime = Time.modifyDatetime(splitDeadlineOrEventInputs[Indexes.INDEX_OF_SECOND_ITEM_IN_STRING]);
             if (taskTimeReference.equals("/at ")) {
-                ListOfTasks.lists.add(new Events(splitDeadlineOrEventInputs[Indexes.INDEX_OF_FIRST_ITEM_IN_STRING],
+                TaskList.lists.add(new Events(splitDeadlineOrEventInputs[Indexes.INDEX_OF_FIRST_ITEM_IN_STRING],
                         Datetime));
             } else {
-                ListOfTasks.lists.add(new Deadlines(splitDeadlineOrEventInputs[Indexes.INDEX_OF_FIRST_ITEM_IN_STRING],
+                TaskList.lists.add(new Deadlines(splitDeadlineOrEventInputs[Indexes.INDEX_OF_FIRST_ITEM_IN_STRING],
                         Datetime));
             }
         } catch (ArrayIndexOutOfBoundsException err) {
@@ -48,7 +48,7 @@ public class AddCommand {
         boolean isTaskRanSuccessful = true;
         switch (taskName) {
         case "todo":
-            ListOfTasks.lists.add(new ToDo(input));
+            TaskList.lists.add(new ToDo(input));
             break;
         case "deadline":
             addDeadlineOrEventToList(input, "/by ");
@@ -63,8 +63,8 @@ public class AddCommand {
         if (isTaskRanSuccessful) {
             if (toPrint) {
                 System.out.println("Done putting this in the list:");
-                System.out.println(ListOfTasks.lists.get(ListOfTasks.lists.size() + Indexes.LIST_INDEX_CORRECTION));
-                System.out.println("Go do the " + ListOfTasks.lists.size() + " task(s)!!");
+                System.out.println(TaskList.lists.get(TaskList.lists.size() + Indexes.LIST_INDEX_CORRECTION));
+                System.out.println("Go do the " + TaskList.lists.size() + " task(s)!!");
                 SaveToOutput.saveData();
             }
 

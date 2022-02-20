@@ -1,4 +1,4 @@
-package shrek.initialisation;
+package shrek.storage;
 
 import shrek.data.ErrorCount;
 import shrek.exception.InvalidCommandException;
@@ -7,7 +7,7 @@ import shrek.helper.Time;
 import shrek.task.Deadlines;
 import shrek.task.Events;
 import shrek.task.UserContent;
-import shrek.data.ListOfTasks;
+import shrek.data.TaskList;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -20,7 +20,7 @@ public class SaveToOutput {
     public static void saveData() throws InvalidCommandException {
         try {
             FileLogic.clearOutput();
-            for (UserContent task : ListOfTasks.lists) {
+            for (UserContent task : TaskList.lists) {
                 String taskName = task.getTaskName();
                 switch (taskName) {
                 case TODO_TASK_NAME:
@@ -41,7 +41,7 @@ public class SaveToOutput {
         } catch (IOException e) {
             throw new InvalidCommandException("Cannot write to file!", ErrorCount.errorCount);
         } catch (NullPointerException e) {
-            throw new InvalidCommandException("Invalid task name", ErrorCount.errorCount);
+            throw new InvalidCommandException("Invalid time or task name", ErrorCount.errorCount);
         } catch (ClassCastException e) {
             throw new InvalidCommandException("Cannot anyhow typecast leh", ErrorCount.errorCount);
         } catch (ParseException e) {

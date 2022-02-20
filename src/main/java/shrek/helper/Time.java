@@ -14,7 +14,7 @@ import java.util.Date;
 
 public class Time {
     public static String modifyDatetime(String inputTime) throws InvalidCommandException {
-        String[] timeAndDate = inputTime.split(" ");
+        String[] timeAndDate = inputTime.split(" ", Indexes.NUMBER_OF_TERMS_IN_SPLIT);
         String refinedDatetimeFormat = "";
         LocalDate date;
         try {
