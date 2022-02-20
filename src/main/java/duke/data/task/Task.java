@@ -1,15 +1,19 @@
-package duke.task;
+package duke.data.task;
+
+import java.time.LocalDate;
 
 public class Task {
-    protected static final String INDICATOR_MARKED = "[✓]";
+    protected static final String INDICATOR_MARKED = "[+]";
     protected static final String INDICATOR_UNMARKED = "[ ]";
 
     protected String taskDescription;
     protected boolean isDone;
+    protected LocalDate savedDate;
 
     public Task(String description) {
         this.taskDescription = description;
         this.isDone = false;
+        this.savedDate = null;
     }
 
     public boolean getIsDone() {
@@ -18,6 +22,13 @@ public class Task {
 
     public void setIsDone(boolean isDone) {
         this.isDone = isDone;
+    }
+
+    public boolean isMatchingDate(LocalDate date) {
+        if (date == null || savedDate == null) {
+            return false;
+        }
+        return savedDate.equals(date);
     }
 
     public String formatAsData(String FS) {
