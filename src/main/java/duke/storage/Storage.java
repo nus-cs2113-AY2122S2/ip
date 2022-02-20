@@ -89,7 +89,7 @@ public class Storage {
      * @see IOException
      */
     public void save(Task task) throws IOException {
-        FileWriter fileWriter = new FileWriter(filePath);
+        FileWriter fileWriter = new FileWriter(filePath, true);
         writeDataToFile(task, task.getTypeOfTask(), fileWriter);
         fileWriter.close();
     }
