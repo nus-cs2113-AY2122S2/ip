@@ -12,6 +12,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Represents the event command which is to be executed.
+ */
 public class EventCommand extends Command {
 
     private static final String TYPE_OF_TASK = "event";
@@ -24,6 +27,17 @@ public class EventCommand extends Command {
         this.fullCommand = fullCommand;
     }
 
+    /**
+     * This is the execute method that runs when there is an event command.
+     * The method will add the task to the list of tasks in the TaskList object.
+     * It will then print the confirmation for adding the task and updates the file.
+     *
+     * @param tasks The TaskList object that contains the list of tasks.
+     * @param ui The user interface object that allows for printing of the confirmation message.
+     * @param storage The storage object which allows for the saving of the tasks to the file.
+     * @throws IOException If there is an error saving tasks to the file.
+     * @see IOException
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AdditionalException, IOException,
             DateTimeParseException {
@@ -37,11 +51,23 @@ public class EventCommand extends Command {
         storage.save(event);
     }
 
+    /**
+     * This is the isBye method that returns whether the command is "bye".
+     *
+     * @return False because the command is "event".
+     */
     @Override
     public boolean isBye() {
         return false;
     }
 
+    /**
+     * This is the executeFromFile method that takes in a list of tasks and adds a new event task to the list of tasks.
+     *
+     * @param listOfTasks This is the list of tasks that the new task is to be added to.
+     * @throws AdditionalException If there is no description provided in the fullCommand.
+     * @see AdditionalException
+     */
     @Override
     public void executeFromFile(ArrayList<Task> listOfTasks) throws AdditionalException {
         String description = getDescription();
@@ -51,6 +77,13 @@ public class EventCommand extends Command {
         listOfTasks.add(new Event(description, at, dateOfEvent, TYPE_OF_TASK));
     }
 
+    /**
+     * This is the getDescription method that returns the description of the task from the fullCommand.
+     *
+     * @return The description of the task to be added.
+     * @throws AdditionalException If there is no description provided in the fullCommand.
+     * @see AdditionalException
+     */
     private String getDescription() throws AdditionalException {
         int lengthOfTypeOfTask = TYPE_OF_TASK.length();
         int indexOfPreposition = fullCommand.indexOf(PREPOSITION_AT);
@@ -65,6 +98,13 @@ public class EventCommand extends Command {
         return trimmedDescription;
     }
 
+    /**
+     * This is the getLocation method that returns the location of the task from the fullCommand.
+     *
+     * @return The location of the task to be added.
+     * @throws AdditionalException If there is no location provided in the fullCommand.
+     * @see AdditionalException
+     */
     private String getLocation() throws AdditionalException {
         int indexOfPrepositionAt = fullCommand.indexOf(PREPOSITION_AT);
         int lengthOfPrepositionAt = PREPOSITION_AT.length();
@@ -81,6 +121,13 @@ public class EventCommand extends Command {
         return trimmedLocation;
     }
 
+    /**
+     * This is the getDate method that returns the date of the task from the fullCommand.
+     *
+     * @return The date of the task to be added.
+     * @throws AdditionalException If there is no date provided in the fullCommand.
+     * @see AdditionalException
+     */
     private String getDate() throws AdditionalException {
         int indexOfPreposition = fullCommand.indexOf(PREPOSITION_ON);
         int lengthOfPreposition = PREPOSITION_ON.length();
