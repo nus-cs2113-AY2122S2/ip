@@ -27,6 +27,10 @@ public class Task {
         this.isDone = isDone;
     }
 
+    public String getDescription() {
+        return taskDescription;
+    }
+
     /**
      * Checks if the task's date matches the date being queried.
      * @param date the date being queried.

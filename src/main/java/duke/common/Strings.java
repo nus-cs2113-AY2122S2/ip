@@ -26,8 +26,9 @@ public class Strings {
     public static final String MESSAGE_WELCOME = "Hi, I'm Robit! What would you like me to do?";
     public static final String MESSAGE_FILTERABLE_EXPLANATION = "Filterable tasks are marked with a ^.";
     public static final String MESSAGE_SHOW_DATE_FILTER = "Showing only tasks on %s...";
+    public static final String MESSAGE_SHOW_STRING_FILTER = "Showing only tasks matching search pattern: \"%s\"...";
     public static final String MESSAGE_SHOW_TASKS = "Here are your tasks:";
-    public static final String MESSAGE_NO_TASKS = "You don't have any tasks!";
+    public static final String MESSAGE_NO_TASKS = "No tasks found!";
     public static final String MESSAGE_INCORRECT_COMMAND_FORMAT = "Incorrect command format for %s.";
     public static final String MESSAGE_COMMAND_USAGE = "Usage: \"%s\"";
     public static final String MESSAGE_COMMAND_USAGE_ALT = "Usage: \"%s\" or \"%s\"";
@@ -62,6 +63,7 @@ public class Strings {
     public static final String COMMAND_MARK = "mark";
     public static final String COMMAND_UNMARK = "unmark";
     public static final String COMMAND_DELETE = "delete";
+    public static final String COMMAND_FIND = "find";
 
     // Argument separators
     public static final String DEADLINE_SEPARATOR = " /by ";
@@ -78,4 +80,5 @@ public class Strings {
     public static final String USAGE_MARK = COMMAND_MARK + " <task index>";
     public static final String USAGE_UNMARK = COMMAND_UNMARK + " <task index>";
     public static final String USAGE_DELETE = COMMAND_DELETE + " <task index>";
+    public static final String USAGE_FIND = COMMAND_FIND + " <search pattern>";
 }

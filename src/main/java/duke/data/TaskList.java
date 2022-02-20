@@ -67,4 +67,14 @@ public class TaskList {
         }
         return numTasks;
     }
+
+    public int getNumMatchingTasks(String searchString) {
+        int numTasks = 0;
+        for (Task t : list) {
+            if (t.getDescription().contains(searchString)) {
+                numTasks++;
+            }
+        }
+        return numTasks;
+    }
 }
