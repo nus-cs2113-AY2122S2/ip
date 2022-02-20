@@ -30,6 +30,8 @@ public class Parser {
             return prepareUnmark(args);
         case COMMAND_DELETE:
             return prepareDelete(args);
+        case COMMAND_FIND:
+            return prepareFind(args);
         default:
             return new InvalidCommand();
         }
@@ -125,6 +127,17 @@ public class Parser {
             return new DeleteCommand(index);
         } catch (NumberFormatException e) {
             return new InvalidCommand(COMMAND_DELETE, USAGE_DELETE);
+        }
+    }
+
+    private static Command prepareFind(String args) {
+        try {
+            if (args.equals("")) {
+                throw new InvalidCommandFormatException();
+            }
+            return new FindCommand(args.trim());
+        } catch (InvalidCommandFormatException e) {
+            return new InvalidCommand(COMMAND_FIND, USAGE_FIND);
         }
     }
 }

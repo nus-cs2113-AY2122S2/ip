@@ -1,8 +1,12 @@
 deadline task 4 /by 1/1/2000
-event task 5 /at 1/1/2000
-event task 6 /at 2/1/2000
+event ask 5 /at 1/1/2000
+event ask 6 /at 2/1/2000
 list
 list 1/1/2000
 list 2/1/2000
 list 3/1/2000
+find
+find task
+find ask
+find task 5
 bye
