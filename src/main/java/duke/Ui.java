@@ -1,7 +1,6 @@
 package duke;
 
-import duke.exception.AdditionalException;
-import duke.parser.RequestParser;
+import duke.task.Task;
 
 import java.util.Scanner;
 
@@ -17,46 +16,68 @@ public class Ui {
             ".-._)   \\|  .___.'  \\ |  | |  |  \\ |  | |  ||  .   \\   |   /  /\\_  \n" +
             "\\       /|  |        `'  '-'  '   `'  '-'  '|  |\\   \\  `-./  /.__) \n" +
             " `-----' `--'          `-----'      `-----' `--' '--'    `--'      \n";
-    private static final String FIRST_GREETING = "Hello from\n";
-    private static final String SECOND_GREETING = "Hi there! I'm Spooky :D";
-    private static final String PROVIDE_SERVICE = "What can I do for you?";
-    private static final String LINE = "-----------------------------";
-    private static final String GOODBYE = "Bye! Hope to see you soon :D";
+
+    private static Scanner in;
 
     public Ui() {
+        in = new Scanner(System.in);
     }
 
-    public static void printGreeting() {
-        System.out.println(FIRST_GREETING + LOGO);
-        System.out.println(LINE);
-        System.out.println(SECOND_GREETING);
-        System.out.println(PROVIDE_SERVICE);
-        System.out.println(LINE);
+    public void showLoadingError() {
+        System.out.println("Duke.txt doesn't exist so I'M GOING TO CREATE ONE FOR YOU LATER");
     }
 
-    public static void getRequest() {
-        Scanner in = new Scanner(System.in);
-        boolean hasExited = false;
-        while (!hasExited) {
-            String request = in.nextLine();
-            request = request.trim();
-            hasExited = isCompleted(request);
-        }
+    public void printGreeting() {
+        System.out.println("Hello from\n" + LOGO);
+        showLine();
+        System.out.println("Hi there! I'm Spooky :D");
+        System.out.println("What can I do for you?");
+        showLine();
     }
 
-    private static boolean isCompleted(String request) {
-        boolean hasExited = false;
-        try {
-            hasExited = RequestParser.filterNewRequest(request);
-        } catch(AdditionalException error) {
-            System.out.println(error.getMessage());
-            System.out.println(LINE);
-        }
-        return hasExited;
+    public String readCommand() {
+        return in.nextLine();
     }
 
-    public static void printGoodbye() {
-        System.out.println(GOODBYE);
-        System.out.println(LINE);
+    public void printGoodbye() {
+        System.out.println("Bye! Hope to see you soon :D");
+    }
+
+    public void showLine() {
+        System.out.println("-----------------------------");
+    }
+
+    public void showError(String message) {
+        System.out.println(message);
+    }
+
+    public void showMarkDone(Task taskMarked) {
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(taskMarked);
+    }
+
+    public void showUnmarkDone(Task taskUnmarked) {
+        System.out.println("Nice! I've marked this task as NOT done:");
+        System.out.println(taskUnmarked);
+    }
+
+    public void showDeleteDone(Task taskDeleted, int numberOfTasks) {
+        System.out.println("Noted. I've removed this task: ");
+        System.out.println(taskDeleted);
+        System.out.println("Now you have " + numberOfTasks + " tasks in the list.");
+    }
+
+    public void showAddDone(Task task, int numberOfTasks) {
+        System.out.println("Got it. I have added this task: ");
+        System.out.println(task);
+        System.out.println("Now you have " + numberOfTasks + " tasks in the list.");
+    }
+
+    public void showIndexError() {
+        System.out.println("The index is missing or out of range, please try again.");
+    }
+
+    public void showFormatError() {
+        System.out.println("The index should be an integer, please try again.");
     }
 }

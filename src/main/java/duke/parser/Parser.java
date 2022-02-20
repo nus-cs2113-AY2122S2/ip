@@ -1,49 +1,73 @@
 package duke.parser;
 
-import duke.tasklist.AddTask;
-import duke.tasklist.ListTask;
-import duke.tasklist.MarkOrDeleteTask;
-import duke.tasklist.TaskList;
+import duke.command.*;
 import duke.exception.AdditionalException;
 
 public class Parser {
 
-    public static void filter(String request, String[] words, String command, boolean isNewRequest)
-                throws AdditionalException {
-        switch(command) {
+    public static Command parse(String fullCommand) throws AdditionalException {
+        String[] words = fullCommand.split(" ");
+        String command = words[0].toLowerCase();
+        Command c;
+        switch (command) {
+        case "bye":
+            c = new ByeCommand();
+            break;
         case "list":
-            ListTask.printList();
+            c = new ListCommand();
             break;
         case "mark":
-            MarkOrDeleteTask.markOrDeleteItem(words, "mark", isNewRequest);
+            c = new MarkCommand(fullCommand);
             break;
         case "unmark":
-            MarkOrDeleteTask.markOrDeleteItem(words, "unmark", isNewRequest);
+            c = new UnmarkCommand(fullCommand);
             break;
         case "delete":
-            MarkOrDeleteTask.markOrDeleteItem(words, "delete", isNewRequest);
+            c = new DeleteCommand(fullCommand);
             break;
         case "todo":
-            AddTask.addTask(request, "todo", isNewRequest);
-            printConfirmationIfNewRequest(isNewRequest);
+            c = new TodoCommand(fullCommand);
             break;
         case "deadline":
-            AddTask.addTask(request, "deadline", "/by", isNewRequest);
-            printConfirmationIfNewRequest(isNewRequest);
+            c = new DeadlineCommand(fullCommand);
             break;
         case "event":
-            AddTask.addTask(request, "event", "/at", isNewRequest);
-            printConfirmationIfNewRequest(isNewRequest);
+            c = new EventCommand(fullCommand);
             break;
         default:
             throw new AdditionalException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+        return c;
     }
 
-    private static void printConfirmationIfNewRequest(boolean isNewRequest) {
-        if (isNewRequest) {
-            TaskList.printConfirmationForAddingTasks();
+    public static Command parseFromFile(String nextLine) throws AdditionalException {
+        String[] words = nextLine.split("\\|");
+        String command = words[0].toLowerCase();
+        String fullCommand = getFullCommand(words);
+        Command c;
+        switch (command) {
+        case "todo":
+            c = new TodoCommand(fullCommand);
+            break;
+        case "deadline":
+            c = new DeadlineCommand(fullCommand);
+            break;
+        case "event":
+            c = new EventCommand(fullCommand);
+            break;
+        default:
+            throw new AdditionalException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+        return c;
+    }
+
+    private static String getFullCommand(String[] words) {
+        String fullCommand = words[0];
+        for (int i = 2; i < words.length; i++) {
+            fullCommand += " ";
+            fullCommand += words[i];
+        }
+        return fullCommand;
     }
 
 }

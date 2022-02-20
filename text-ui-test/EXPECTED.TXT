@@ -14,7 +14,7 @@ Hello from
 Hi there! I'm Spooky :D
 What can I do for you?
 -----------------------------
-Duke.txt doesn't exist so I'M GOING TO CREATE ONE FOR YOU
+Duke.txt doesn't exist so I'M GOING TO CREATE ONE FOR YOU LATER
 YAY!!! you do not have any tasks at the moment hehe
 -----------------------------
 Got it. I have added this task: 
@@ -59,21 +59,21 @@ Nice! I've marked this task as done:
 2. [E][X] read book (at: library tonight)
 3. [D][X] return book (by: tomorrow 2359)
 -----------------------------
-Nice! I've unmarked this task as undone:
+Nice! I've marked this task as NOT done:
 [D][] return book (by: tomorrow 2359)
 -----------------------------
 1. [T][X] borrow book
 2. [E][X] read book (at: library tonight)
 3. [D][] return book (by: tomorrow 2359)
 -----------------------------
-Nice! I've unmarked this task as undone:
+Nice! I've marked this task as NOT done:
 [E][] read book (at: library tonight)
 -----------------------------
 1. [T][X] borrow book
 2. [E][] read book (at: library tonight)
 3. [D][] return book (by: tomorrow 2359)
 -----------------------------
-Nice! I've unmarked this task as undone:
+Nice! I've marked this task as NOT done:
 [T][] borrow book
 -----------------------------
 1. [T][] borrow book
@@ -93,7 +93,7 @@ OOPS!!! You seem to have forgotten your preposition.
 -----------------------------
 OOPS!!! The description cannot be empty.
 -----------------------------
-OOPS!!! The timing cannot be empty
+OOPS!!! The timing of the event cannot be empty.
 -----------------------------
 OOPS!!! The description cannot be empty.
 -----------------------------
@@ -103,7 +103,7 @@ OOPS!!! You seem to have forgotten your preposition.
 -----------------------------
 OOPS!!! The description cannot be empty.
 -----------------------------
-OOPS!!! The timing cannot be empty
+OOPS!!! The timing of the deadline cannot be empty.
 -----------------------------
 OOPS!!! The description cannot be empty.
 -----------------------------
@@ -129,5 +129,5 @@ The index should be an integer, please try again.
 -----------------------------
 OOPS!!! I'm sorry, but I don't know what that means :-(
 -----------------------------
-Bye! Hope to see you soon :D
 -----------------------------
+Bye! Hope to see you soon :D
