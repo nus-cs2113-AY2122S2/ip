@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import static duke.common.Strings.MESSAGE_DEADLINE_ADDED;
 import static duke.common.Strings.MESSAGE_IMPOSSIBLE;
 
+/**
+ * Adds a new deadline task.
+ */
 public class DeadlineCommand extends Command {
     private final Deadline newDeadline;
 
@@ -15,6 +18,7 @@ public class DeadlineCommand extends Command {
         newDeadline = new Deadline(taskDescription, dueBy);
     }
 
+    @Override
     public ArrayList<String> execute() {
         if (taskList == null) {
             commandFeedback.add(MESSAGE_IMPOSSIBLE);

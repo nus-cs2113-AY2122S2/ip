@@ -12,18 +12,21 @@ import java.util.ArrayList;
 
 import static duke.common.Strings.*;
 
+/**
+ * Main entry point of the program.
+ */
 public class Duke {
     private TextUi ui;
     private DataStorage storage;
     private TaskList savedTasks = new TaskList();
 
-    /**
-     * Main entry point of the program.
-     */
     public static void main(String[] args) {
         new Duke().start();
     }
 
+    /**
+     * Initialises required objects, loads data from the storage file and starts the program.
+     */
     public void start() {
         ui = new TextUi();
         storage = new DataStorage();
@@ -44,6 +47,9 @@ public class Duke {
         acceptUserCommands();
     }
 
+    /**
+     * Accept user commands in a loop until program exit is requested or some other fatal error occurs.
+     */
     private void acceptUserCommands() {
         ArrayList<String> commandResult;
         do {
@@ -61,8 +67,8 @@ public class Duke {
     }
 
     /**
-     * Checks for existence of the data file and attempts to create it if it doesn't already exist.
-     * @return true if data file already exists or could be created in specified location, false otherwise.
+     * Checks for existence of data file and creates it if it doesn't already exist.
+     * @return true if data file already exists or could be created in the specified location, or false otherwise.
      */
     private boolean dataFileExists() {
         if (!storage.checkDirectoryExists()) {

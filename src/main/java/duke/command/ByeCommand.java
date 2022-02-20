@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import static duke.common.Strings.MESSAGE_GOODBYE;
 
+/**
+ * Requests program termination.
+ */
 public class ByeCommand extends Command {
     public ByeCommand() {
         super();
@@ -11,6 +14,7 @@ public class ByeCommand extends Command {
         commandFeedback.add(null);
     }
 
+    @Override
     public ArrayList<String> execute() {
         return commandFeedback;
     }

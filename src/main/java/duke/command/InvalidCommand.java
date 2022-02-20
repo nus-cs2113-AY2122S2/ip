@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import static duke.common.Strings.*;
 
+/**
+ * Represents an invalid command. Prints error message upon execution.
+ */
 public class InvalidCommand extends Command {
     public InvalidCommand(String commandWord, String commandFormat) {
         this(commandWord, commandFormat, false);
@@ -28,6 +31,7 @@ public class InvalidCommand extends Command {
         commandFeedback.add(MESSAGE_UNKNOWN_COMMAND);
     }
 
+    @Override
     public ArrayList<String> execute() {
         return commandFeedback;
     }

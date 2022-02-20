@@ -1,5 +1,8 @@
 package duke.common;
 
+/**
+ * Utility class for string constants.
+ */
 public class Strings {
 
     // Misc text elements

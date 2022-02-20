@@ -8,6 +8,9 @@ import java.time.format.DateTimeParseException;
 import static duke.common.Strings.FORMAT_DATE;
 import static duke.common.Strings.FORMAT_DATETIME;
 
+/**
+ * Represents a task with a deadline.
+ */
 public class Deadline extends Task {
     protected String dueBy;
 

@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import static duke.common.Strings.MESSAGE_IMPOSSIBLE;
 import static duke.common.Strings.MESSAGE_TODO_ADDED;
 
+/**
+ * Adds a new todo task.
+ */
 public class TodoCommand extends Command {
     private final Todo newTodo;
 
@@ -15,6 +18,7 @@ public class TodoCommand extends Command {
         newTodo = new Todo(taskDescription);
     }
 
+    @Override
     public ArrayList<String> execute() {
         if (taskList == null) {
             commandFeedback.add(MESSAGE_IMPOSSIBLE);

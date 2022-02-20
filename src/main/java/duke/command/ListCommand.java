@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import static duke.common.Strings.*;
 import static duke.common.Strings.MESSAGE_ITEMIZED_TASK;
 
+/**
+ * Lists tasks in the task list.
+ */
 public class ListCommand extends Command {
     protected LocalDate queryDate;
 
@@ -19,6 +22,7 @@ public class ListCommand extends Command {
         this.queryDate = queryDate;
     }
 
+    @Override
     public ArrayList<String> execute() {
         if (taskList == null) {
             commandFeedback.add(MESSAGE_IMPOSSIBLE);

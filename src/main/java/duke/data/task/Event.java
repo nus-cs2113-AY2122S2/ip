@@ -8,6 +8,9 @@ import java.time.format.DateTimeParseException;
 import static duke.common.Strings.FORMAT_DATE;
 import static duke.common.Strings.FORMAT_DATETIME;
 
+/**
+ * Represents an event occurring at a given date or time.
+ */
 public class Event extends Task {
     protected String time;
 
