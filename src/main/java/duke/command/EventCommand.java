@@ -68,9 +68,12 @@ public class EventCommand extends Command {
     private String getLocation() throws AdditionalException {
         int indexOfPrepositionAt = fullCommand.indexOf(PREPOSITION_AT);
         int lengthOfPrepositionAt = PREPOSITION_AT.length();
-        int startingIndexOfTiming = indexOfPrepositionAt + lengthOfPrepositionAt;
+        int startingIndexOfLocation = indexOfPrepositionAt + lengthOfPrepositionAt;
         int indexOfPrepositionOn = fullCommand.indexOf(PREPOSITION_ON);
-        String location = fullCommand.substring(startingIndexOfTiming, indexOfPrepositionOn);
+        if (indexOfPrepositionOn == -1) {
+            throw new AdditionalException("OOPS!!! You seem to have forgotten your preposition \"on\".");
+        }
+        String location = fullCommand.substring(startingIndexOfLocation, indexOfPrepositionOn);
         String trimmedLocation = location.trim();
         if (trimmedLocation.length() < 1) {
             throw new AdditionalException("OOPS!!! The location of the event cannot be empty.");
@@ -81,12 +84,9 @@ public class EventCommand extends Command {
     private String getDate() throws AdditionalException {
         int indexOfPreposition = fullCommand.indexOf(PREPOSITION_ON);
         int lengthOfPreposition = PREPOSITION_ON.length();
-        if (indexOfPreposition == -1) {
-            throw new AdditionalException("OOPS!!! You seem to have forgotten your preposition \"on\".");
-        }
-        int startingIndexOfTiming = indexOfPreposition + lengthOfPreposition;
+        int startingIndexOfDate = indexOfPreposition + lengthOfPreposition;
         int lengthOfRequest = fullCommand.length();
-        String date = fullCommand.substring(startingIndexOfTiming, lengthOfRequest);
+        String date = fullCommand.substring(startingIndexOfDate, lengthOfRequest);
         String trimmedDate = date.trim();
         if (trimmedDate.length() < 1) {
             throw new AdditionalException("OOPS!!! The date of the event cannot be empty.");

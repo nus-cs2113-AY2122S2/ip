@@ -12,7 +12,7 @@ public class Deadline extends Task{
         this.dateOfDeadline = dateOfDeadline;
     }
 
-    public LocalDate getBy() {
+    public LocalDate getDate() {
         return dateOfDeadline;
     }
 

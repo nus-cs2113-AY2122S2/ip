@@ -1,14 +1,6 @@
 package duke.parser;
 
-import duke.command.ByeCommand;
-import duke.command.Command;
-import duke.command.DeadlineCommand;
-import duke.command.DeleteCommand;
-import duke.command.EventCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.TodoCommand;
-import duke.command.UnmarkCommand;
+import duke.command.*;
 import duke.exception.AdditionalException;
 
 public class Parser {
@@ -23,6 +15,9 @@ public class Parser {
             break;
         case "list":
             c = new ListCommand();
+            break;
+        case "date":
+            c = new DateCommand(fullCommand);
             break;
         case "mark":
             c = new MarkCommand(fullCommand);
