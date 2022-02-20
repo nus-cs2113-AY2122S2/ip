@@ -99,3 +99,15 @@ Marks a task as done.
 
 
 ---
+
+### Feature - Deleting a Task
+Delete a task from list of task.
+* Format: `delete TASK_NUMBER`
+  * The `TASK_NUMBER` refers to the number shown when listing task.
+    * The index can be retrieved with the `list` command.
+    * The index **must be a positive number** 1,2,3,...
+* Example: `delete 3` - Deletes the 3rd task in the list.
+  <br>![Deleting Task](https://raw.githubusercontent.com/froststein/ip/master/images/deleteCommand.PNG)
+
+---
+
