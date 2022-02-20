@@ -77,24 +77,24 @@ Each task types has its own format. For the `todo` task it does not have a date 
 
 ---
 
-### Feature - Marking a task as done
+### Feature - Marking a Task as done
 Marks a task as done.
 * Format : `mark TASK_NUMBER`
   * The `TASK_NUMBER` refers to the number shown when listing task. 
     * The index can be retrieved with the `list` command. 
     * The index **must be a positive number** 1,2,3,...
-* Example : `mark 2` - Marks the 3rd task in the list as done.
+* Example : `mark 2` - Marks the 2nd task in the list as done.
   <br>![Marking Task](https://raw.githubusercontent.com/froststein/ip/master/images/markCommand.PNG)
 
 ---
 
-### Feature - Marking a task as not done
+### Feature - Marking a Task as not done
 Marks a task as done.
 * Format : `unmark TASK_NUMBER`
     * The `TASK_NUMBER` refers to the number shown when listing task.
         * The index can be retrieved with the `list` command.
         * The index **must be a positive number** 1,2,3,...
-* Example : `unmark 2` - Marks the 3rd task in the list as done.
+* Example : `unmark 2` - Marks the 2nd task in the list as done.
   <br>![Unmarking Task](https://raw.githubusercontent.com/froststein/ip/master/images/unmarkCommand.PNG)
 
 
