@@ -1,73 +1,69 @@
-import java.util.Objects;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
-import java.io.*;
-
 public class Duke {
-    static List<Task> tasks = new ArrayList<>();
-    static int numTasks = 0;
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
 
-    public static void main(String[] args) {
-        initialiseTasks();
-
-        System.out.println("Hello! I'm KaiKai.");
-        System.out.println("What can I do for you?");
-        System.out.println("______________________________________");
-
-        Scanner sc = new Scanner(System.in);
-        String str = sc.nextLine();
-
-
-        while (!str.equals("bye")) {
-            switch (str) {
-            case "list":
-                printTasks();
-                break;
-            case "mark":
-                markTask();
-                break;
-            case "unmark":
-                unmarkTask();
-                break;
-            case "add":
-                System.out.println("Okie, what type of task is this?");
-                System.out.println("1.Todo");
-                System.out.println("2.Deadline");
-                System.out.println("3.Event");
-                str = sc.nextLine();
-                switch (str) {
-                case "1":
-                    addTodo();
-                    break;
-                case "2":
-                    addDeadline();
-                    break;
-                case "3":
-                    addEvent();
-                    break;
-                default:
-                    System.out.println("Uh oh, please enter a valid number!");
-                }
-                System.out.println("______________________________________");
-                break;
-            case "delete":
-                deleteTask();
-            case "save":
-                saveTasks();
-                break;
-            default:
-                System.out.println("Sorry, I don't recognise that command. Please try again!");
-                System.out.println("______________________________________");
-                break;
-            }
-            str = sc.nextLine();
-        }
-        System.out.println("Bye! Hope to see you again!");
-        saveTasks();
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        tasks = new TaskList(storage.loadFile());
     }
 
-    public static void printTasks() {
+    public void run() {
+        ui.showWelcome();
+        String cmd = ui.getInput();
+        while (!cmd.equals("bye")) {
+            while (!cmd.equals("bye")) {
+                switch (cmd) {
+                case "list":
+                    printTasks(ui, tasks);
+                    break;
+                case "mark":
+                    markTask(ui, tasks);
+                    break;
+                case "unmark":
+                    unmarkTask(ui, tasks);
+                    break;
+                case "add":
+                    ui.showAddOptions();
+                    String str = ui.getInput();
+                    switch (str) {
+                    case "1":
+                        addTodo(ui, tasks);
+                        break;
+                    case "2":
+                        addDeadline(ui, tasks);
+                        break;
+                    case "3":
+                        addEvent(ui, tasks);
+                        break;
+                    default:
+                        System.out.println("Uh oh, please enter a valid number!");
+                    }
+                    ui.showLineBreak();
+                    break;
+                case "delete":
+                    deleteTask(ui, tasks);
+                case "save":
+                    storage.saveFile(tasks);
+                    break;
+                default:
+                    ui.showUnknownCommand();
+                    break;
+                }
+                cmd = ui.getInput();
+            }
+        }
+        ui.showBye();
+
+    }
+
+    public static void main(String[] args) {
+        new Duke("tasks.txt").run();
+    }
+
+    public static void printTasks(Ui ui, TaskList tasks) {
+        int numTasks = tasks.getSize();
         if (numTasks == 0) {
             System.out.println("Looks like you don't have any tasks for now!");
             System.out.println("______________________________________");
@@ -75,127 +71,120 @@ public class Duke {
         }
         for (int i = 0; i < numTasks; i++) {
             System.out.print((i + 1) + ". ");
-            tasks.get(i).printTask();
+            tasks.getTask(i).printTask();
         }
     }
 
-    public static void addTodo() {
-        Scanner sc = new Scanner(System.in);
+    public static void addTodo(Ui ui, TaskList tasks) {
         System.out.println("Okie, what should I call the task?");
-        String str = sc.nextLine();
+        String str = ui.getInput();
         if (!str.isEmpty()) {
             Todo t = new Todo(str);
-            tasks.add(t);
-            numTasks++;
+            tasks.addTask(t);
             System.out.println("Added!");
         } else {
             System.out.println("Oops! The description of a Todo cannot be empty.");
         }
     }
 
-    public static void addDeadline() {
-        Scanner sc = new Scanner(System.in);
+    public static void addDeadline(Ui ui, TaskList tasks) {
         System.out.println("Okie, what should I call the task?");
-        String str = sc.nextLine();
+        String str = ui.getInput();
         if (str.isEmpty()) {
             System.out.println("Oops! The description of a Deadline cannot be empty.");
             return;
         }
         System.out.println("Okie, when is this due by?");
-        String by = sc.nextLine();
+        String by = ui.getInput();
         if (by.isEmpty()) {
             System.out.println("Oops! The due date of a Deadline cannot be empty.");
             return;
         }
         Deadline d = new Deadline(str, by);
-        tasks.add(d);
-        numTasks++;
+        tasks.addTask(d);
         System.out.println("Added!");
     }
 
-    public static void addEvent() {
-        Scanner sc = new Scanner(System.in);
+    public static void addEvent(Ui ui, TaskList tasks) {
         System.out.println("Okie, what should I call the task?");
-        String str = sc.nextLine();
+        String str = ui.getInput();
         if (str.isEmpty()) {
             System.out.println("Oops! The description of a Deadline cannot be empty.");
             return;
         }
         System.out.println("Okie, when does the event start?");
-        String start = sc.nextLine();
+        String start = ui.getInput();
         if (start.isEmpty()) {
             System.out.println("Oops! The start date of a Deadline cannot be empty.");
             return;
         }
         System.out.println("Okie, when does the event end?");
-        String by = sc.nextLine();
+        String by = ui.getInput();
         if (by.isEmpty()) {
             System.out.println("Oops! The due date of a Deadline cannot be empty.");
             return;
         }
         Event e = new Event(str, by, start);
-        tasks.add(e);
-        numTasks++;
+        tasks.addTask(e);
         System.out.println("Added!");
     }
 
 
-    public static void markTask() {
-        Scanner sc = new Scanner(System.in);
-        printTasks();
+    public static void markTask(Ui ui, TaskList tasks) {
+        printTasks(ui, tasks);
         System.out.println("Which task would you like to mark as completed?");
-        String taskNum = sc.nextLine();
+        String taskNum = ui.getInput();
         if (!isInt(taskNum)) {
             System.out.println("Uh oh! Please enter a valid input!");
             return;
         }
         int num = Integer.parseInt(taskNum);
+        int numTasks = tasks.getSize();
         if (num > numTasks || num <= 0) {
             System.out.println("Uh oh! It seems like that task doesn't exist!");
         } else {
-            tasks.get(num - 1).setDone(true);
+            tasks.getTask(num - 1).setDone(true);
             System.out.println("Nice! I've marked this task as done: ");
-            tasks.get(num - 1).printTask();
+            tasks.getTask(num - 1).printTask();
         }
     }
 
-    public static void unmarkTask() {
-        Scanner sc = new Scanner(System.in);
-        printTasks();
+    public static void unmarkTask(Ui ui, TaskList tasks) {
+        printTasks(ui, tasks);
         System.out.println("Which task would you like to mark as incomplete?");
-        String taskNum = sc.nextLine();
+        String taskNum = ui.getInput();
         if (!isInt(taskNum)) {
             System.out.println("Uh oh! Please enter a valid input!");
             return;
         }
         int num = Integer.parseInt(taskNum);
+        int numTasks = tasks.getSize();
         if (num > numTasks || num <= 0) {
             System.out.println("Uh oh! It seems like that task doesn't exist!");
         } else {
-            tasks.get(num - 1).setDone(false);
+            tasks.getTask(num - 1).setDone(false);
             System.out.println("Okie, I've marked this task as not done yet:");
-            tasks.get(num - 1).printTask();
+            tasks.getTask(num - 1).printTask();
         }
 
     }
 
-    public static void deleteTask() {
-        Scanner sc = new Scanner(System.in);
-        printTasks();
+    public static void deleteTask(Ui ui, TaskList tasks) {
+        printTasks(ui, tasks);
         System.out.println("Which task would you like to remove?");
-        String taskNum = sc.nextLine();
+        String taskNum = ui.getInput();
         if (!isInt(taskNum)) {
             System.out.println("Uh oh! Please enter a valid input!");
             return;
         }
         int num = Integer.parseInt(taskNum);
+        int numTasks = tasks.getSize();
         if (num > numTasks || num <= 0) {
             System.out.println("Uh oh! It seems like that task doesn't exist!");
         } else {
             System.out.println("Okay! I have removed this task: ");
-            tasks.get(num - 1).printTask();
-            tasks.remove(num - 1);
-            numTasks--;
+            tasks.getTask(num - 1).printTask();
+            tasks.removeTask(num - 1);
         }
     }
 
@@ -206,68 +195,6 @@ public class Duke {
         } catch (NumberFormatException nfe) {
             return false;
         }
-    }
-
-
-    public static void initialiseTasks() {
-        System.out.println("Initialising...");
-
-        String filePath = "src/main/java/tasks.txt";
-        File file = new File(filePath);
-        try {
-            Scanner sc = new Scanner(file);
-            sc.useDelimiter("\n");
-            while (sc.hasNextLine()) {
-                String task = sc.nextLine();
-                String[] details = task.split(",", 0);
-                switch (details[0]) {
-                case "T":
-                    tasks.add(new Todo(details[2]));
-                    if (Objects.equals(details[1], "1")) {
-                        tasks.get(numTasks).setDone(true);
-                    }
-                    numTasks++;
-                    break;
-                case "D":
-                    tasks.add(new Deadline(details[2], details[3]));
-                    if (Objects.equals(details[1], "1")) {
-                        tasks.get(numTasks).setDone(true);
-                    }
-                    numTasks++;
-                    break;
-                case "E":
-                    tasks.add(new Event(details[2], details[3], details[4]));
-                    if (Objects.equals(details[1], "1")) {
-                        tasks.get(numTasks).setDone(true);
-                    }
-                    numTasks++;
-                    break;
-                }
-            }
-            System.out.println("Done!");
-        } catch (Exception e) {
-            System.out.println(e);
-            System.out.println("No saved file found!");
-        }
-        System.out.println("______________________________________");
-    }
-
-    public static void saveTasks() {
-        String toFile = "";
-        try {
-            FileWriter writer = new FileWriter("src/main/java/tasks.txt");
-            for (int i = 0; i < numTasks; i++) {
-                toFile += tasks.get(i).getString() + "\n";
-            }
-            writer.write(toFile);
-            writer.close();
-            System.out.println("Saved!");
-            System.out.println("______________________________________");
-        } catch (Exception e) {
-            System.out.println("An error has occurred when saving!");
-        }
-
-
     }
 
 
