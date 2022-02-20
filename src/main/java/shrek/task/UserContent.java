@@ -3,12 +3,7 @@ package shrek.task;
 public class UserContent {
     private String content;
     private boolean isMark;
-    private int listIndex;
     private String taskName;
-
-    public UserContent() {
-        this("");
-    }
 
     public UserContent(String content) {
         setContent(content);

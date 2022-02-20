@@ -5,9 +5,9 @@ import shrek.data.ErrorCount;
 import shrek.exception.InvalidCommandException;
 import shrek.constant.PrintStrings;
 import shrek.constant.Indexes;
-import shrek.data.ListOfTasks;
+import shrek.data.TaskList;
 
-public class HandleCommands {
+public class Parser {
     public static void handleInput(String userInput, boolean toPrint) throws InvalidCommandException {
         if (toPrint) {
             System.out.print(PrintStrings.LINE);
@@ -19,7 +19,7 @@ public class HandleCommands {
             }
             switch (splitUserInputs[Indexes.INDEX_OF_FIRST_ITEM_IN_STRING]) {
             case "list":
-                PrintOutput.printList(ListOfTasks.lists, "Go finish these tasks, NOW:");
+                Ui.printList(TaskList.lists, "Go finish these tasks, NOW:");
                 break;
             case "find":
                 FindCommand.findTaskOrTime(splitUserInputs[Indexes.INDEX_OF_SECOND_ITEM_IN_STRING]);

@@ -5,7 +5,7 @@ import shrek.task.Deadlines;
 import shrek.task.Events;
 import shrek.task.UserContent;
 import shrek.constant.Indexes;
-import shrek.data.ListOfTasks;
+import shrek.data.TaskList;
 import shrek.data.ErrorCount;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class FindCommand {
 
     public static void findTask(String inputToSearchFor) {
         ArrayList<UserContent> listOfFoundTasks = new ArrayList<>();
-        for (UserContent item : ListOfTasks.lists) {
+        for (UserContent item : TaskList.lists) {
             if (item.getContent().contains(inputToSearchFor)) {
                 listOfFoundTasks.add(item);
             }
@@ -42,14 +42,14 @@ public class FindCommand {
         if (listOfFoundTasks.size() == 0) {
             System.out.println("The task \"" + inputToSearchFor + "\" was not found in the list, sorry!");
         } else {
-            PrintOutput.printList(listOfFoundTasks, "Here are the tasks containing \""
+            Ui.printList(listOfFoundTasks, "Here are the tasks containing \""
                     + inputToSearchFor + "\" in the list");
         }
     }
 
     public static void findTime(String inputToSearchFor) {
         ArrayList<UserContent> listOfFoundTimes = new ArrayList<>();
-        for (UserContent item : ListOfTasks.lists) {
+        for (UserContent item : TaskList.lists) {
             String taskName = item.getTaskName();
             switch (taskName) {
             case "T":
@@ -73,7 +73,7 @@ public class FindCommand {
         if (listOfFoundTimes.size() == 0) {
             System.out.println("No task has the deadline or occurs at \"" + inputToSearchFor + "\", sorry!");
         } else {
-            PrintOutput.printList(listOfFoundTimes, "Here are the times containing \""
+            Ui.printList(listOfFoundTimes, "Here are the times containing \""
                     + inputToSearchFor + "\" in the list");
         }
     }
