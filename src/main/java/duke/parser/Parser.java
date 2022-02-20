@@ -178,6 +178,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Performs input validation for the "find" command.
+     * @param args user-supplied command arguments.
+     * @return the prepared command.
+     */
     private static Command prepareFind(String args) {
         try {
             if (args.equals("")) {

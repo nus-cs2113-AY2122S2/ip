@@ -68,6 +68,11 @@ public class TaskList {
         return numTasks;
     }
 
+    /**
+     * Counts the number of tasks containing a given substring.
+     * @param searchString the search pattern to be matched.
+     * @return the number of tasks in the task list matching the search pattern.
+     */
     public int getNumMatchingTasks(String searchString) {
         int numTasks = 0;
         for (Task t : list) {
