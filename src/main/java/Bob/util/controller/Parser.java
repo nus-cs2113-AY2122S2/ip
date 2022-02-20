@@ -82,7 +82,7 @@ public class Parser {
 
     /**
      * Parses the date string for an event and attempts to match it through possible formats.
-     * A default event period of 1 month ahead of the current will be returned if issues detected.
+     * A default event period of 1 month, 1 month ahead of the current will be returned if issues detected.
      *
      * @param date a Date string.
      * @return a correct date period without any formatting issues.
