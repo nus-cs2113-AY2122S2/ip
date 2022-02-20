@@ -1,22 +1,31 @@
 package duke.task;
 
-public class Event extends Task{
-    public static final String EVENT_LOGO = "[E]";
-    public static final String AT_FIRST_HALF = " (at: ";
-    public static final String AT_SECOND_HALF = ")";
-    protected String at;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Event(String description, String at, String typeOfTask) {
+public class Event extends Task{
+
+    private String location;
+    private LocalDate dateOfEvent;
+
+    public Event(String description, String location, LocalDate dateOfEvent, String typeOfTask) {
         super(description, typeOfTask);
-        this.at = at;
+        this.location = location;
+        this.dateOfEvent = dateOfEvent;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public LocalDate getDate() {
+        return dateOfEvent;
     }
 
     @Override
     public String toString() {
-        return EVENT_LOGO + super.toString() + AT_FIRST_HALF + at + AT_SECOND_HALF;
+        String date = dateOfEvent.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return "[E]" + super.toString() + " (at: " + location + " on: " + date + ")";
     }
 
-    public String getAt() {
-        return at;
-    }
 }

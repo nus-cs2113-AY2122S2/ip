@@ -19,6 +19,9 @@ public class Parser {
         case "find":
             c = new FindCommand(fullCommand);
             break;
+        case "date":
+            c = new DateCommand(fullCommand);
+            break;
         case "mark":
             c = new MarkCommand(fullCommand);
             break;

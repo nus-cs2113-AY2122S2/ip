@@ -50,15 +50,6 @@ public class Storage {
         }
     }
 
-    private String removeToMark(String[] words, String[] actualRequest, String request) {
-        for (int i = 2; i < words.length; i++) {
-            actualRequest[i - 1] = words[i];
-            request += " ";
-            request += words[i];
-        }
-        return request;
-    }
-
     public void save(Task task) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath);
         writeDataToFile(task, task.getTypeOfTask(), fileWriter);
@@ -86,12 +77,12 @@ public class Storage {
         case "deadline":
             Deadline deadline = (Deadline) task;
             fileWriter.write(typeOfTask + "|" + task.isDone() + "|" + task.getDescription() +
-                    "|/by " + deadline.getBy() + "\n");
+                    "|/by " + deadline.getDate() + "\n");
             break;
         case "event":
             Event event = (Event) task;
             fileWriter.write(typeOfTask + "|" + task.isDone() + "|" + task.getDescription() +
-                    "|/at " + event.getAt() + "\n");
+                    "|/at " + event.getLocation() + "|/on " + event.getDate() + "\n");
             break;
         default:
             System.out.println("Error writing data to file");

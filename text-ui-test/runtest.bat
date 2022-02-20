@@ -19,3 +19,7 @@ java -classpath ..\bin duke.Duke < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT
+FC duke.txt expectedduke.txt
+
+REM delete duke file afterwards
+DEL duke.txt

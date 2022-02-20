@@ -8,6 +8,8 @@ import duke.task.Deadline;
 import duke.task.Task;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class DeadlineCommand extends Command {
@@ -22,10 +24,12 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws AdditionalException, IOException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws AdditionalException, IOException,
+            DateTimeParseException {
         String description = getDescription();
-        String by = getBy();
-        Deadline deadline = new Deadline(description, by, TYPE_OF_TASK);
+        String date = getDate();
+        LocalDate dateOfDeadline = LocalDate.parse(date);
+        Deadline deadline = new Deadline(description, dateOfDeadline, TYPE_OF_TASK);
         tasks.addTask(deadline);
         ui.showAddDone(deadline, tasks.getSize());
         storage.save(deadline);
@@ -39,15 +43,16 @@ public class DeadlineCommand extends Command {
     @Override
     public void executeFromFile(ArrayList<Task> listOfTasks) throws AdditionalException {
         String description = getDescription();
-        String by = getBy();
-        listOfTasks.add(new Deadline(description, by, TYPE_OF_TASK));
+        String date = getDate();
+        LocalDate dateOfDeadline = LocalDate.parse(date);
+        listOfTasks.add(new Deadline(description, dateOfDeadline, TYPE_OF_TASK));
     }
 
     private String getDescription() throws AdditionalException {
         int lengthOfTypeOfTask = TYPE_OF_TASK.length();
         int indexOfPreposition = fullCommand.indexOf(PREPOSITION);
         if (indexOfPreposition == -1) {
-            throw new AdditionalException("OOPS!!! You seem to have forgotten your preposition.");
+            throw new AdditionalException("OOPS!!! You seem to have forgotten your preposition \"by\".");
         }
         String description = fullCommand.substring(lengthOfTypeOfTask, indexOfPreposition);
         String trimmedDescription = description.trim();
@@ -57,17 +62,17 @@ public class DeadlineCommand extends Command {
         return trimmedDescription;
     }
 
-    private String getBy() throws AdditionalException {
+    private String getDate() throws AdditionalException {
         int indexOfPreposition = fullCommand.indexOf(PREPOSITION);
         int lengthOfPreposition = PREPOSITION.length();
-        int startingIndexOfTiming = indexOfPreposition + lengthOfPreposition;
+        int startingIndexOfDate = indexOfPreposition + lengthOfPreposition;
         int lengthOfRequest = fullCommand.length();
-        String timing = fullCommand.substring(startingIndexOfTiming, lengthOfRequest);
-        String trimmedTiming = timing.trim();
-        if (trimmedTiming.length() < 1) {
-            throw new AdditionalException("OOPS!!! The timing of the deadline cannot be empty.");
+        String date = fullCommand.substring(startingIndexOfDate, lengthOfRequest);
+        String trimmedDate = date.trim();
+        if (trimmedDate.length() < 1) {
+            throw new AdditionalException("OOPS!!! The date of the deadline cannot be empty.");
         }
-        return trimmedTiming;
+        return trimmedDate;
     }
 
 }

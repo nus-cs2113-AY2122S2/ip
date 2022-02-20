@@ -1,9 +1,9 @@
 list
 todo borrow book
 list
-event read book /at library tonight
+event read book /at library /on 2022-02-20
 list
-deadline return book /by tomorrow 2359
+deadline return book /by 2022-02-20
 list
 mark 1
 list
@@ -19,25 +19,39 @@ unmark 1
 list
 delete 1
 list
+date 2022-02-20
 todo
-event
-event /at
-event eat dinner /at
-event /at home later
-eventeat dinner /at home later
 deadline
 deadline /by
-deadline submit homework /by
 deadline /by tonight 2359
-deadlinesubmit homework /by tonight 2359
+deadline submit homework /by
+deadline submit homework /by tonight
+deadline submit homework /by 20/02/2022
+deadlinesubmit homework /by 2022-02-20
+event
+event /at
+event /at home later
+event eat dinner /at
+event eat dinner /at /on
+event eat dinner /at /on later
+event eat dinner /at home /on
+event eat dinner /at home /on later
+event eat dinner /at home /on 20/02/2022
+eventeat dinner /at home /on 2022-02-20
 mark
 mark 4
 mark hello
+mark 4 2
 unmark
 unmark 4
 unmark hello
+unmark 4 2
 delete
 delete 4
 delete hello
+delete 4 2
+date
+date tonight 2359
+date 20/02/2022
 asdf
 bye
