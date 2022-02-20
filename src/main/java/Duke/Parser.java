@@ -144,9 +144,11 @@ public class Parser {
 
     public LocalDateTime timeFormatter(String dateTime) {
         LocalDateTime localDateTime;
+        String regex = "(?<year>\\d{4})";
         if (dateTime.contains("-")) {
-
+            String[] dateTimeArray = dateTime.split("-");
         } else if (dateTime.contains("/")) {
+            String[] dateTimeArray = dateTime.split("/");
 
         } else {
 
