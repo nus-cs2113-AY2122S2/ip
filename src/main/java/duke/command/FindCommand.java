@@ -32,9 +32,26 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AdditionalException {
-        String keyword = getKeyword();
+        String keyword = getDescription("find", fullCommand);
+        if (keyword.length() < 1) {
+            throw new AdditionalException("You want me to find nothing or everything...?");
+        }
         ArrayList<Task> listOfTasks = getTasks(tasks, ui, keyword);
         ui.showList(listOfTasks);
+    }
+
+    /**
+     * This is the isBye method that returns whether the command is "bye".
+     *
+     * @return False because the command is "find".
+     */
+    @Override
+    public boolean isBye() {
+        return false;
+    }
+
+    @Override
+    public void executeFromFile(ArrayList<Task> listOfTasks) throws AdditionalException {
     }
 
     /**
@@ -60,23 +77,6 @@ public class FindCommand extends Command {
     }
 
     /**
-     * This is the getKeyword function that gets the keyword to be searched for from the user input.
-     *
-     * @return The keyword to be search for.
-     * @throws AdditionalException If there are no keywords to search for.
-     * @see AdditionalException
-     */
-    private String getKeyword() throws AdditionalException {
-        int startingIndex = "find".length();
-        int endingIndex = fullCommand.length();
-        String keyword = fullCommand.substring(startingIndex, endingIndex).trim();
-        if (keyword.length() == 0) {
-            throw new AdditionalException("You want me to find nothing or everything...?");
-        }
-        return keyword;
-    }
-
-    /**
      * This is the addTaskIfContains method that checks if the description of the task contains the keyword.
      * If it contains, the method will add the task to the list of tasks.
      *
@@ -90,18 +90,4 @@ public class FindCommand extends Command {
         }
     }
 
-    /**
-     * This is the isBye method that returns whether the command is "bye".
-     *
-     * @return False because the command is "find".
-     */
-    @Override
-    public boolean isBye() {
-        return false;
-    }
-
-    @Override
-    public void executeFromFile(ArrayList<Task> listOfTasks) throws AdditionalException {
-
-    }
 }
