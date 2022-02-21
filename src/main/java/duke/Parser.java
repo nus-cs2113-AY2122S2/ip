@@ -46,5 +46,4 @@ public abstract class Parser {
             throw new DukeException("Command not found.");
         }
     }
-
 }

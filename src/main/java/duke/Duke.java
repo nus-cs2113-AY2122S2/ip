@@ -29,14 +29,14 @@ public class Duke {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                ui.printDivider();
+                Ui.printDivider();
                 Command c = Parser.parse(fullCommand);
                 c.execute(ui, tasks, storage);
                 isExit = c.isExit();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-            ui.printDivider();
+            Ui.printDivider();
         }
         try {
             storage.updateSaveFile();

@@ -8,10 +8,8 @@ import duke.task.ToDo;
 
 import java.util.ArrayList;
 
-import static duke.Ui.printDivider;
-
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
@@ -41,7 +39,7 @@ public class TaskList {
      *                        The first element of this list should contain the subclass of task to be constructed.
      * @return a subclass of Task determined by the first element of taskStringArray.
      */
-    static Task buildTask(ArrayList<String> taskStringArray) throws DukeException {
+    public static Task buildTask(ArrayList<String> taskStringArray) throws DukeException {
         String taskType = taskStringArray.get(0);
         ArrayList<StringBuilder> taskParts = splitTask(taskStringArray);
         validateTask(taskType, taskParts);
@@ -191,7 +189,7 @@ public class TaskList {
 
     /**
      * Deletes a task based on its visual index in the list.
-     * @param task
+     * @param task Visual index in the list, starting from 1.
      */
     public void deleteTask(String task) {
         if (task == null) {
@@ -208,9 +206,4 @@ public class TaskList {
             System.out.println("Error: " + e.getMessage());
         }
     }
-
-
-
-
-
 }
