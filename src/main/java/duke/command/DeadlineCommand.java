@@ -4,8 +4,7 @@ import duke.data.task.Deadline;
 
 import java.util.ArrayList;
 
-import static duke.common.Strings.MESSAGE_DEADLINE_ADDED;
-import static duke.common.Strings.MESSAGE_IMPOSSIBLE;
+import static duke.common.Strings.*;
 
 /**
  * Adds a new deadline task.

@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import static duke.common.Strings.*;
-import static duke.common.Strings.MESSAGE_ITEMIZED_TASK;
 
 /**
  * Lists tasks in the task list.

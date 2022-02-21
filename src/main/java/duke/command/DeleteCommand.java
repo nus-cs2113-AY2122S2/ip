@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import static duke.common.Strings.*;
 
+
 /**
  * Deletes the task with the specified index from the task list.
  */

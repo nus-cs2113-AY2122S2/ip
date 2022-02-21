@@ -4,8 +4,7 @@ import duke.data.task.Event;
 
 import java.util.ArrayList;
 
-import static duke.common.Strings.MESSAGE_EVENT_ADDED;
-import static duke.common.Strings.MESSAGE_IMPOSSIBLE;
+import static duke.common.Strings.*;
 
 /**
  * Adds a new event task.

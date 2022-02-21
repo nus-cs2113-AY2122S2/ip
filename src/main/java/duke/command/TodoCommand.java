@@ -4,8 +4,7 @@ import duke.data.task.Todo;
 
 import java.util.ArrayList;
 
-import static duke.common.Strings.MESSAGE_IMPOSSIBLE;
-import static duke.common.Strings.MESSAGE_TODO_ADDED;
+import static duke.common.Strings.*;
 
 /**
  * Adds a new todo task.

@@ -5,8 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import static duke.common.Strings.FORMAT_DATE;
-import static duke.common.Strings.FORMAT_DATETIME;
+import static duke.common.Strings.*;
 
 /**
  * Represents an event occurring at a given date or time.

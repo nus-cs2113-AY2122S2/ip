@@ -5,8 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import static duke.common.Strings.FORMAT_DATE;
-import static duke.common.Strings.FORMAT_DATETIME;
+import static duke.common.Strings.*;
 
 /**
  * Represents a task with a deadline.

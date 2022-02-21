@@ -2,7 +2,7 @@ package duke.command;
 
 import java.util.ArrayList;
 
-import static duke.common.Strings.MESSAGE_GOODBYE;
+import static duke.common.Strings.*;
 
 /**
  * Requests program termination.

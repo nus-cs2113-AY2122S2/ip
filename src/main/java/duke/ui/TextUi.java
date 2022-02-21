@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import static duke.common.Strings.*;
-import static duke.common.Strings.FS;
 
 /**
  * Text UI of the application.
