@@ -18,7 +18,7 @@ public class Sora {
 
     private TasksManager tasksManager;
     private SoraUI soraUI;
-    private SoraParser soraParser
+    private SoraParser soraParser;
     private SoraStorage soraStorage;
     private SoraExceptionHandler exceptionHandler;
 
