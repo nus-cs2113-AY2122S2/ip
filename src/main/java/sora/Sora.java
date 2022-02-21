@@ -1,6 +1,8 @@
 package sora;
 
 import java.io.IOException;
+
+import tasks.EmptyListException;
 import tasks.Task;
 import tasks.TaskList;
 
@@ -13,7 +15,7 @@ public class Sora {
      * When IN_TESTING_MODE is set to true, certain features of Sora will be limited to
      * improve the automated text UI testing.
      */
-    protected static final boolean IN_TESTING_MODE = true;
+    protected static final boolean IN_TESTING_MODE = false;
     private boolean isUserExiting = false;
 
     private TaskList taskList;
@@ -144,6 +146,8 @@ public class Sora {
             throw e;
         } catch (ArrayIndexOutOfBoundsException e) {
             soraExceptionHandler.handleOutOfRangeListReferences();
+        } catch (EmptyListException e) {
+            soraExceptionHandler.handleEmptyListException();
         }
     }
 

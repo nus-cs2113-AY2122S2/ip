@@ -1,5 +1,6 @@
 package sora;
 
+import tasks.EmptyListException;
 import tasks.Task;
 import tasks.TaskList;
 import util.Helper;
@@ -305,11 +306,10 @@ public class SoraUI {
         System.out.printf(SoraUI.ADD_TASK_FAILURE_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
-    protected void displayTaskList(TaskList taskList) {
+    protected void displayTaskList(TaskList taskList) throws EmptyListException {
         // Check if the task list is empty
         if (taskList.isEmpty()) {
-            System.out.printf(EMPTY_LIST_RESPONSE, getRandomNegativeAcknowledgement());
-            return;
+            throw new EmptyListException(EmptyListException.EMPTY_LIST_MSG);
         }
 
         System.out.printf(LIST_PRE_EXECUTION_RESPONSE, getRandomPositiveAcknowledgement(),
@@ -387,5 +387,9 @@ public class SoraUI {
 
     public void printIllegalCharacterResponse() {
         System.out.printf(SoraUI.ILLEGAL_CHARACTER_RESPONSE, getRandomNegativeAcknowledgement());
+    }
+
+    public void printEmptyListExceptionResponse() {
+        System.out.printf(SoraUI.EMPTY_LIST_RESPONSE, getRandomNegativeAcknowledgement());
     }
 }

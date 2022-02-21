@@ -313,11 +313,6 @@ public class TaskList {
      * @return
      */
     public boolean updateDoneStatus(int taskNum, boolean status) throws ArrayIndexOutOfBoundsException {
-        if (isEmpty()) {
-            // TODO: throw EmptyListException instead
-            return false;
-        }
-
         // Check if task number is within the range of the list
         boolean taskNumWithinRange = checkTaskNumberWithinRange(taskNum);
         if (!taskNumWithinRange) {
@@ -332,9 +327,9 @@ public class TaskList {
         return true;
     }
 
-    public Task deleteTask(int taskNum) {
+    public Task deleteTask(int taskNum) throws EmptyListException {
         if (isEmpty()) {
-            // TODO: throw EmptyListException instead
+            throw new EmptyListException(EmptyListException.EMPTY_LIST_MSG);
         }
 
         // Check if task number is within the range of the list
@@ -360,11 +355,6 @@ public class TaskList {
     }
 
     public void displayTask(int taskNum) {
-        if (isEmpty()) {
-            // TODO: throw EmptyListException instead
-            return;
-        }
-
         int taskIndex = taskNum - 1;
         Task taskToDisplay = getList().get(taskIndex);
         System.out.println("\t" + taskToDisplay.toString());

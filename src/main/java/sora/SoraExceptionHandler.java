@@ -55,4 +55,8 @@ public class SoraExceptionHandler {
     public void handleIllegalCharacterException() {
         soraUI.printIllegalCharacterResponse();
     }
+
+    public void handleEmptyListException() {
+        soraUI.printEmptyListExceptionResponse();
+    }
 }
