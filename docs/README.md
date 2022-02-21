@@ -14,7 +14,7 @@ It can be accessed via a **Command Line Interface (CLI)**.
    - You may wish to download the switchJava.bat file and change the file path to reflect the file path where 
    jdk is stored at.
    - Open Command Prompt in the folder which you have placed the switchJava.bat file.
-   - Run the switchJava.bat to make sure that Java 11 is activated by entering the follow command:      
+   - Run the switchJava.bat to make sure that Java 11 is activated by entering the follow command:
      <br />```switchJava.bat```
 4. Open Command Prompt in the folder which you have placed the JAR file and enter the following command to 
 run the jar file:
