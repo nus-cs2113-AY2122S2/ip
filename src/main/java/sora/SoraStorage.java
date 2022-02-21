@@ -47,7 +47,7 @@ public class SoraStorage {
         return this.filePath;
     }
 
-    protected void loadTaskListFromFile(TasksManager tasksManager) throws IOException {
+    protected void loadTaskListFromFile(TaskList taskList) throws IOException {
         // Check if required directory and file exist
         boolean directoryAlreadyExists = checkAndCreateDataDirectory(getDirectoryPath());
         boolean fileAlreadyExists = checkAndCreateDataFile(getFilePath(), directoryAlreadyExists);
@@ -69,7 +69,7 @@ public class SoraStorage {
             String[] parsedLineData = parseFileLineData(rawLineData);
 
             // Add this line of text data into Sora's task list
-            tasksManager.addTask(parsedLineData);
+            taskList.addTask(parsedLineData);
         }
 
         soraUI.printLoadedFileDataResponse();
@@ -186,10 +186,10 @@ public class SoraStorage {
      * I hope to implement a more efficient version, that is, search for the task to be updated
      * in the file and updated it directly.
      *
-     * @param tasksManager
+     * @param taskList
      */
-    public void rewriteAllTasksToFile(TasksManager tasksManager) throws IOException {
-        ArrayList<Task> tasksList = tasksManager.getList();
+    public void rewriteAllTasksToFile(TaskList taskList) throws IOException {
+        ArrayList<Task> tasksList = taskList.getList();
 
         try {
             FileWriter fileWriter = new FileWriter(filePath.toString());

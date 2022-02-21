@@ -2,7 +2,7 @@ package sora;
 
 import java.io.IOException;
 import tasks.Task;
-import tasks.TasksManager;
+import tasks.TaskList;
 
 /**
  * Main 'brains' of Sora. Focuses on taking in user input and passing commands
@@ -13,10 +13,10 @@ public class Sora {
      * When IN_TESTING_MODE is set to true, certain features of Sora will be limited to
      * improve the automated text UI testing.
      */
-    protected static final boolean IN_TESTING_MODE = false;
+    protected static final boolean IN_TESTING_MODE = true;
     private boolean isUserExiting = false;
 
-    private TasksManager tasksManager;
+    private TaskList taskList;
     private SoraUI soraUI;
     private SoraParser soraParser;
     private SoraStorage soraStorage;
@@ -24,7 +24,7 @@ public class Sora {
 
     public Sora() throws IOException {
         // Instantiate components
-        tasksManager = new TasksManager();
+        taskList = new TaskList();
         soraUI = new SoraUI();
         soraParser = new SoraParser();
         soraStorage = new SoraStorage();
@@ -50,8 +50,8 @@ public class Sora {
         this.isUserExiting = true;
     }
 
-    protected TasksManager getTasksManager() {
-        return this.tasksManager;
+    protected TaskList getTasksManager() {
+        return this.taskList;
     }
 
     public void startContinuousUserPrompt() throws IOException {

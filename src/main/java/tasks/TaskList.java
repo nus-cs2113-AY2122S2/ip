@@ -7,7 +7,7 @@ import util.Helper;
 
 import java.util.ArrayList;
 
-public class TasksManager {
+public class TaskList {
     private static final int EVENT_DEADLINE_TASK_NUMBER_OF_PARAMETERS = 2;
     public static final int FILE_DATA_TASK_TYPE_INDEX_NUM = 0;
     public static final int FILE_DATA_DESCRIPTION_INDEX_NUM = 2;
@@ -17,7 +17,7 @@ public class TasksManager {
     private int numberOfTasks;
     SoraStorage soraStorage;
 
-    public TasksManager() {
+    public TaskList() {
         this.list = new ArrayList<Task>();
         this.numberOfTasks = 0;
     }

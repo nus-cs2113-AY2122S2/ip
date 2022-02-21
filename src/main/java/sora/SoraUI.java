@@ -1,7 +1,7 @@
 package sora;
 
 import tasks.Task;
-import tasks.TasksManager;
+import tasks.TaskList;
 import util.Helper;
 
 import java.nio.file.Path;
@@ -261,11 +261,11 @@ public class SoraUI {
         return NEGATIVE_ACKNOWLEDGEMENT_WORDS[randNum];
     }
 
-    protected void printMarkTaskResponseMessage(boolean isSuccessful, TasksManager tasksManager, int taskNum) {
+    protected void printMarkTaskResponseMessage(boolean isSuccessful, TaskList taskList, int taskNum) {
         if (isSuccessful) {
             System.out.printf(SoraUI.MARK_TASK_DONE_SUCCESS_RESPONSE, getRandomPositiveAcknowledgement());
             System.out.println();
-            tasksManager.displayTask(taskNum);
+            taskList.displayTask(taskNum);
             System.out.println();
             return;
         }
@@ -274,11 +274,11 @@ public class SoraUI {
         System.out.printf(SoraUI.MARK_TASK_DONE_FAILURE_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
-    protected void printUnmarkTaskResponseMessage(boolean isSuccessful, TasksManager tasksManager, int taskNum) {
+    protected void printUnmarkTaskResponseMessage(boolean isSuccessful, TaskList taskList, int taskNum) {
         if (isSuccessful) {
             System.out.printf(SoraUI.UNMARK_TASK_DONE_SUCCESS_RESPONSE, getRandomPositiveAcknowledgement());
             System.out.println();
-            tasksManager.displayTask(taskNum);
+            taskList.displayTask(taskNum);
             System.out.println();
             return;
         }
@@ -287,10 +287,10 @@ public class SoraUI {
         System.out.printf(SoraUI.UNMARK_TASK_DONE_FAILURE_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
-    protected void printDeleteTaskResponseMessage(Task taskRemoved, TasksManager tasksManager) {
+    protected void printDeleteTaskResponseMessage(Task taskRemoved, TaskList taskList) {
         System.out.printf(SoraUI.DELETE_TASK_SUCCESS_RESPONSE, getRandomPositiveAcknowledgement());
         System.out.println();
-        tasksManager.displayTask(taskRemoved);
+        taskList.displayTask(taskRemoved);
         System.out.println();
     }
 
@@ -307,17 +307,17 @@ public class SoraUI {
         System.out.printf(SoraUI.ADD_TASK_FAILURE_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
-    protected void displayTaskList(TasksManager tasksManager) {
+    protected void displayTaskList(TaskList taskList) {
         // Check if the task list is empty
-        if (tasksManager.isEmpty()) {
+        if (taskList.isEmpty()) {
             System.out.printf(EMPTY_LIST_RESPONSE, getRandomNegativeAcknowledgement());
             return;
         }
 
         System.out.printf(LIST_PRE_EXECUTION_RESPONSE, getRandomPositiveAcknowledgement(),
-                tasksManager.getNumberOfTasks());
+                taskList.getNumberOfTasks());
         System.out.println();
-        tasksManager.displayAllTasks();
+        taskList.displayAllTasks();
         System.out.println();
     }
 
