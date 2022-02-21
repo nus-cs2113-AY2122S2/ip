@@ -51,9 +51,8 @@ run the jar file.
   - \[DESCRIPTION\]: The description of the ToDo.
 - Errors:
   - If no description is provided, the following error message will be printed:
-    ```diff
+    diff
     - What are you going to do? LOL
-    ```
 
 ### Feature - Add a Deadline
 > A Deadline is a task that is to be done by a certain date.
