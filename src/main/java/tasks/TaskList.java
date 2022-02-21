@@ -372,4 +372,22 @@ public class TaskList {
             System.out.println("\t" + (i + 1) + "." + getList().get(i).toString());
         }
     }
+
+    public ArrayList<String> searchTasks(String searchPhrase) throws EmptyListException {
+        if (isEmpty()) {
+            throw new EmptyListException(EmptyListException.EMPTY_LIST_MSG);
+        }
+
+        ArrayList<String> searchResult = new ArrayList<>();
+
+        for (int i = 0; i < getList().size(); i += 1) {
+            int taskNum = i + 1;
+            String taskAsShownToUser = taskNum + "." + getList().get(i).toString();
+            if (taskAsShownToUser.contains(searchPhrase)) {
+                searchResult.add(taskAsShownToUser);
+            }
+        }
+
+        return searchResult;
+    }
 }

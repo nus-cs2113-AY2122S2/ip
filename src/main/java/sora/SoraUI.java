@@ -6,6 +6,7 @@ import tasks.TaskList;
 import util.Helper;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class SoraUI {
@@ -58,6 +59,8 @@ public class SoraUI {
 
     public static final String LIST_COMMAND_KEYWORD = "list";
 
+    public static final String FIND_COMMAND_KEYWORD = "find";
+
     public static final String ADD_TODO_COMMAND_KEYWORD = "todo";
     public static final String ADD_EVENT_COMMAND_KEYWORD = "event";
     public static final String ADD_EVENT_FLAG_KEYWORD = "/at";
@@ -82,11 +85,21 @@ public class SoraUI {
      */
     protected static final String LIST_PRE_EXECUTION_RESPONSE =
             "%s, here's a list of %d tasks that you have given to me:\n";
+
     protected static final String EMPTY_LIST_RESPONSE =
             "%s, my list is empty at the moment...\n";
+
     protected static final String TASK_NUMBER_OUT_OF_LIST_RANGE_RESPONSE =
-            "%s, the task number you've given me is out of the range\nof the current list of tasks."
-            + " Could you re-enter a\nvalid task number?\n";
+            "%s, the task number you've given me is out of the range\nof the current list of tasks." +
+                    " Could you re-enter a\nvalid task number?\n";
+
+    protected static final String STANDARD_SEARCH_RESULT_RESPONSE =
+            "%s, I have found %d %s that matches your search\nphrase:\n";
+    protected static final String NO_RESULT_FOUND_RESPONSE =
+            "%s, there are no tasks that match your search phrase.\n" +
+                    "Perhaps you could refine your search parameters?\n";
+    protected static final String MISSING_SEARCH_STRING_RESPONSE =
+            "%s, please provide me with a search string for me to find.\n";
 
     protected static final String ADD_TASK_SUCCESS_RESPONSE =
             "%s, I've added your new task to my list:\n";
@@ -306,7 +319,7 @@ public class SoraUI {
         System.out.printf(SoraUI.ADD_TASK_FAILURE_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
-    protected void displayTaskList(TaskList taskList) throws EmptyListException {
+    protected void printTaskList(TaskList taskList) throws EmptyListException {
         // Check if the task list is empty
         if (taskList.isEmpty()) {
             throw new EmptyListException(EmptyListException.EMPTY_LIST_MSG);
@@ -317,6 +330,27 @@ public class SoraUI {
         System.out.println();
         taskList.displayAllTasks();
         System.out.println();
+    }
+
+    public void printSearchResults(ArrayList<String> searchResults) {
+        if (searchResults.size() == 0) {
+            System.out.printf(NO_RESULT_FOUND_RESPONSE, getRandomNegativeAcknowledgement());
+            return;
+        }
+
+        String taskOrTasks = (searchResults.size() > 1) ? "tasks" : "task";
+
+        System.out.printf(STANDARD_SEARCH_RESULT_RESPONSE, getRandomPositiveAcknowledgement(),
+                searchResults.size(), taskOrTasks);
+        System.out.println();
+        printSearchResultsArrayList(searchResults);
+        System.out.println();
+    }
+
+    private void printSearchResultsArrayList(ArrayList<String> searchResults) {
+        for (String result : searchResults) {
+            System.out.println("\t" + result);
+        }
     }
 
     protected void printCommandNotUnderstood() {
@@ -391,5 +425,9 @@ public class SoraUI {
 
     public void printEmptyListExceptionResponse() {
         System.out.printf(SoraUI.EMPTY_LIST_RESPONSE, getRandomNegativeAcknowledgement());
+    }
+
+    public void printMissingSearchStringResponse() {
+        System.out.printf(SoraUI.MISSING_SEARCH_STRING_RESPONSE, getRandomNegativeAcknowledgement());
     }
 }

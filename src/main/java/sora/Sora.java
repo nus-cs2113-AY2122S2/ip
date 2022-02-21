@@ -1,6 +1,7 @@
 package sora;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import tasks.EmptyListException;
 import tasks.Task;
@@ -15,7 +16,7 @@ public class Sora {
      * When IN_TESTING_MODE is set to true, certain features of Sora will be limited to
      * improve the automated text UI testing.
      */
-    protected static final boolean IN_TESTING_MODE = false;
+    protected static final boolean IN_TESTING_MODE = true;
     private boolean isUserExiting = false;
 
     private TaskList taskList;
@@ -99,7 +100,12 @@ public class Sora {
                 setUserExit();
                 break;
             case SoraUI.LIST_COMMAND_KEYWORD:
-                soraUI.displayTaskList(getTasksManager());
+                soraUI.printTaskList(getTasksManager());
+                break;
+            case SoraUI.FIND_COMMAND_KEYWORD:
+                String searchString = soraParser.getSearchString(userRawInput);
+                ArrayList<String> searchResult = taskList.searchTasks(searchString);
+                soraUI.printSearchResults(searchResult);
                 break;
             case SoraUI.MARK_TASK_AS_DONE_COMMAND_KEYWORD:
                 int taskNum = soraParser.getTaskNumberFromCommand(userRawInput);
@@ -150,6 +156,4 @@ public class Sora {
             soraExceptionHandler.handleEmptyListException();
         }
     }
-
-
 }
