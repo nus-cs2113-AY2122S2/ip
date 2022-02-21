@@ -19,7 +19,7 @@ It can be accessed via a **Command Line Interface (CLI)**.
 4. Open Command Prompt in the folder which you have placed the JAR file and enter the following command to 
 run the jar file:
    <br />```java -jar spooky.jar```
-   <br />![Welcome]()
+   <br />![Welcome](https://github.com/ivanaitzliddat/ip/blob/master/docs/images/welcome.png)
 
 ---
 
@@ -46,7 +46,7 @@ run the jar file:
 - Format: `todo [DESCRIPTION]`
 - Example: 
   ```todo CS2113T ip```
-  <br />![Add ToDo]()
+  <br />![Add ToDo](https://github.com/ivanaitzliddat/ip/blob/master/docs/images/add_todo.png)
 - Arguments:
   - \[DESCRIPTION\]: The description of the ToDo.
 - Errors:
@@ -59,7 +59,7 @@ run the jar file:
 - Format: `deadline [DESCRIPTION] /by [DATE]`
 - Example:
   ```deadline CS2113T ip /by 2022-03-04```
-  <br />![Add Deadline]()
+  <br />![Add Deadline](https://github.com/ivanaitzliddat/ip/blob/master/docs/images/add_deadline.png)
 - Arguments:
   - \[DESCRIPTION\]: The description of the ToDo.
   - /by \[DATE]\: The date of the deadline. The format of the date has to be in the YYYY-MM-DD format.
@@ -80,7 +80,7 @@ run the jar file:
 - Format: `event [DESCRIPTION] /at [LOCATION] /on [DATE]`
 - Example:
   ```event CS2113T Practical Exam /at NUS COM1 /on 2022-04-16```
-  <br />![Add Event]()
+  <br />![Add Event](https://github.com/ivanaitzliddat/ip/blob/master/docs/images/add_event.png)
 - Arguments:
   - \[DESCRIPTION\]: The description of the Event.
   - /by \[DATE]\: The date of the Event. The format of the date has to be in the YYYY-MM-DD format.
@@ -107,7 +107,7 @@ run the jar file:
 - Format: `list`
 - Example:
   ```list```
-  <br />![List Tasks]()
+  <br />![List Tasks](https://github.com/ivanaitzliddat/ip/blob/master/docs/images/list_tasks.png)
 
 ---
 
@@ -117,7 +117,7 @@ run the jar file:
 - Format: `delete [INDEX]`
 - Example:
   ```delete 1```
-  <br />![Delete Task]()
+  <br />![Delete Task](https://github.com/ivanaitzliddat/ip/blob/master/docs/images/delete_tasks.png)
 - Arguments:
   - \[INDEX\]: The index of the task to be deleted.
 - Errors:
@@ -136,7 +136,7 @@ run the jar file:
 - Format: `mark [INDEX]`
 - Example:
   ```mark 1```
-  <br />![Mark Task As Done]()
+  <br />![Mark Task As Done](https://github.com/ivanaitzliddat/ip/blob/master/docs/images/mark_task_as_done.png)
 - Arguments:
   - \[INDEX\]: The index of the task to be marked as done.
 - Errors:
@@ -155,7 +155,7 @@ run the jar file:
 - Format: `unmark [INDEX]`
 - Example:
   ```unmark 1```
-  <br />![Mark Task As NOT Done]()
+  <br />![Mark Task As NOT Done](https://github.com/ivanaitzliddat/ip/blob/master/docs/images/mark_task_as_not_done.png)
 - Arguments:
   - \[INDEX\]: The index of the task to be marked as NOT done.
 - Errors:
@@ -175,7 +175,7 @@ run the jar file:
 - Format: `find [KEYWORD]`
 - Example:
   ```find CS2113T```
-  <br />![Find Tasks]()
+  <br />![Find Tasks](https://github.com/ivanaitzliddat/ip/blob/master/docs/images/find_tasks.png)
 - Arguments:
   - \[KEYWORD\]: The keyword to be searched for among the list of tasks.
 - Errors:
@@ -190,7 +190,7 @@ run the jar file:
 - Format: `date [DATE]`
 - Example:
   ```date 2022-03-04```
-  <br />![Filter Tasks]()
+  <br />![Filter Tasks](https://github.com/ivanaitzliddat/ip/blob/master/docs/images/filter_tasks.png)
 - Arguments:
   - \[DATE\]: The date used to filter the tasks. The format of the date has to be in the YYYY-MM-DD format.
 - Errors:
@@ -207,7 +207,7 @@ run the jar file:
 - Format: `bye`
 - Example:
   ```bye```
-  <br />![Exit Program]()
+  <br />![Exit Program](https://github.com/ivanaitzliddat/ip/blob/master/docs/images/exit_program.png)
 
 ---
 
