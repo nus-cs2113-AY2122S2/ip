@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class SoraReaderWriter {
+public class SoraStorage {
     private static final String USER_HOME_PROPERTY = "user.home";
     private static final String DATA_DIRECTORY = "CS2113T_iP_Sora_Resources";
     private static final String DATA_FILENAME = "data.txt";
@@ -26,11 +26,12 @@ public class SoraReaderWriter {
     private SoraUI soraUI;
     private Scanner reader = new Scanner(System.in);
 
+
     private String homeDir;
     private Path directoryPath;
     private Path filePath;
 
-    public SoraReaderWriter() {
+    public SoraStorage() {
         this.soraUI = new SoraUI();
 
         // Get user system's home directory

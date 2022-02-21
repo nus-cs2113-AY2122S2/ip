@@ -1,6 +1,6 @@
 package tasks;
 
-import sora.SoraReaderWriter;
+import sora.SoraStorage;
 import sora.SoraUI;
 import sora.InvalidCommandException;
 import util.Helper;
@@ -15,7 +15,7 @@ public class TasksManager {
 
     private ArrayList<Task> list;
     private int numberOfTasks;
-    SoraReaderWriter soraReaderWriter;
+    SoraStorage soraStorage;
 
     public TasksManager() {
         this.list = new ArrayList<Task>();
@@ -135,11 +135,11 @@ public class TasksManager {
 
     private String getTaskType(String abbreviation) {
         switch (abbreviation) {
-        case SoraReaderWriter.TODO_TYPE_FILE_ABBREVIATION:
+        case SoraStorage.TODO_TYPE_FILE_ABBREVIATION:
             return SoraUI.ADD_TODO_COMMAND_KEYWORD;
-        case SoraReaderWriter.EVENT_TYPE_FILE_ABBREVIATION:
+        case SoraStorage.EVENT_TYPE_FILE_ABBREVIATION:
             return SoraUI.ADD_EVENT_COMMAND_KEYWORD;
-        case SoraReaderWriter.DEADLINE_TYPE_FILE_ABBREVIATION:
+        case SoraStorage.DEADLINE_TYPE_FILE_ABBREVIATION:
             return SoraUI.ADD_DEADLINE_COMMAND_KEYWORD;
         default:
             // TODO: Implement exception?
