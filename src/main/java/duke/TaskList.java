@@ -8,6 +8,8 @@ import duke.task.ToDo;
 
 import java.util.ArrayList;
 
+import static duke.Ui.printDivider;
+
 public class TaskList {
     private ArrayList<Task> tasks;
 
@@ -21,10 +23,10 @@ public class TaskList {
      * @param inputTasks ArrayList<String> containing input from stdin. The first String in task should represent the type of
      *                   Task that must be added to the list of Tasks. Supported tasks: todo, deadline, event
      */
-    static void addTask(ArrayList<String> inputTasks) {
+    public void addTask(ArrayList<String> inputTasks) {
         try {
             printDivider();
-            this.tasks.add(buildTask(inputTasks));
+            tasks.add(buildTask(inputTasks));
             System.out.println("Got it. I've added this task:\n  " + this.tasks.get(this.tasks.size() - 1));
             System.out.println("Now you have " + tasks.size()
                     + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
@@ -135,14 +137,17 @@ public class TaskList {
     /**
      * Prints all tasks stored in memory by addTask(Task) to stdout
      */
-    static void listTasks() {
+    public void listTasks() {
         printDivider();
         System.out.println("Here are the tasks in your list:");
         printTasks();
         printDivider();
     }
 
-    private static void printTasks() {
+    public void printTasks() {
+        if (tasks.isEmpty()) {
+            return;
+        }
         for (int i = 1; i <= this.tasks.size(); i++) {
             System.out.println(i + "." + this.tasks.get(i - 1));
         }
@@ -154,7 +159,7 @@ public class TaskList {
      *
      * @param task The index of the task to be marked done.
      */
-    static void doTask(String task) {
+    public void doTask(String task) {
         if (task == null) {
             System.out.println(("Task to be done is null."));
             return;
@@ -176,7 +181,7 @@ public class TaskList {
      *
      * @param task The index of the task to be marked done.
      */
-    static void undoTask(String task) {
+    public void undoTask(String task) {
         if (task == null) {
             System.out.println("Error: Task to be undone is null.");
             return;
@@ -194,21 +199,20 @@ public class TaskList {
 
     /**
      * Deletes a task based on its visual index in the list.
-      * @param ui
      * @param task
      */
-    static void deleteTask(Ui ui, String task) {
+    public void deleteTask(String task) {
         if (task == null) {
             System.out.println(("Task to be done is null."));
             return;
         }
         try {
-            ui.printDivider();
+            printDivider();
             System.out.println("Noted. I've removed this task:");
-            System.out.println(ui.tasks.get(Integer.parseInt(task) - 1));
-            ui.tasks.remove(Integer.parseInt(task) - 1);
-            System.out.println("Now you have " + ui.tasks.size() + " tasks in the list.");
-            ui.printDivider();
+            System.out.println(tasks.get(Integer.parseInt(task) - 1));
+            tasks.remove(Integer.parseInt(task) - 1);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            printDivider();
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }

@@ -1,6 +1,5 @@
 package duke;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Duke {
@@ -9,21 +8,24 @@ public class Duke {
     TaskList tasks;
 
     public Duke(String filePath) {
-        ui = new Ui();
-        storage = new Storage();
-        this.tasks = storage.getTasks();
-        tasks = new TaskList();
+        storage = new Storage(filePath);
+        tasks = new TaskList(storage.getTasks());
+        ui = new Ui(tasks);
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
-        new Duke("data/tasks.txt").start();
+    public static void main(String[] args) {
+        try {
+            new Duke("data/duke.txt").start();
+        } catch (Exception e) {
+            System.out.print(e.getMessage());
+        }
     }
 
     public void start() {
         ui.printGreeting();
         ui.loopCommandInput();
         try {
-            Storage.updateSaveFile();
+            storage.updateSaveFile();
         } catch (IOException e) {
             e.printStackTrace();
         }

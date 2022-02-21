@@ -15,29 +15,38 @@ import java.util.Scanner;
 
 public class Storage {
 
+    private final ArrayList<Task> tasks;
+
+    public Storage(String filePath) {
+        tasks = new ArrayList<>();
+        try {
+            loadSaveFile(filePath);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
     /**
      * Loads tasks saved in a save file, currently hardcoded to data/duke.txt.
-     * @return A list of tasks found in the save file.
-     * @throws FileNotFoundException
-     * @throws DukeException
+     * @throws FileNotFoundException if save file not found.
+     * @throws DukeException if a Duke error occurs.
      */
-    private static ArrayList<Task> loadSaveFile() throws IOException, DukeException {
-        File saveFile = new File("data/duke.txt");
+    private void loadSaveFile(String filePath) throws IOException, DukeException {
+        File saveFile = new File(filePath);
         saveFile.getParentFile().mkdirs();
         saveFile.createNewFile();
         Scanner fileScan = new Scanner(saveFile);
-        ArrayList<Task> tasks = new ArrayList<>();
         while (fileScan.hasNextLine()) {
             tasks.add(loadTask(fileScan.nextLine()));
         }
-        return tasks;
     }
 
     /**
      * Reads a single line from the save file and returns a Task representing it.
      * @param nextLine The line to be read from the save file.
      * @return A task representing a line from the save file.
-     * @throws DukeException
+     * @throws DukeException if a Duke error occurs.
      */
     private static Task loadTask(String nextLine) throws DukeException {
         String[] pieces = nextLine.split("\\|");
@@ -68,8 +77,8 @@ public class Storage {
 
     /**
      * converts the shorthand Task char from a line in the save file to a class name.
-     * @param taskType
-     * @return
+     * @param taskType a char representing the task type.
+     * @return a String representing the task type.
      */
     private static String loadTaskType(String taskType) {
         switch (taskType) {
@@ -89,34 +98,21 @@ public class Storage {
      * @return true if the task is done, false if not.
      */
     private static Boolean loadCompletionStatus(String isDone) {
-        if (isDone.equals("1")) {
-            return true;
-        }
-        return false;
+        return isDone.equals("1");
     }
 
     /**
      * Replaces the save file with the current list of tasks.
-     * @throws IOException
+     * @throws IOException if the save file cannot be written to.
      */
-    public static void updateSaveFile() throws IOException {
-        FileWriter fileToWriteTo = new FileWriter(new File("data/duke.txt"));
-        String saveFile = "";
+    public void updateSaveFile() throws IOException {
+        FileWriter fileToWriteTo = new FileWriter("data/duke.txt");
+        StringBuilder saveFile = new StringBuilder();
         for (Task task: this.tasks) {
-            saveFile += (taskToString(task) + System.lineSeparator());
+            saveFile.append(taskToString(task)).append(System.lineSeparator());
         }
-        fileToWriteTo.write(saveFile);
+        fileToWriteTo.write(saveFile.toString());
         fileToWriteTo.close();
-    }
-
-    public File loadOrCreateSaveFile(String path) {
-        File saveFile = new File(path);
-        try {
-            saveFile.createNewFile();
-        } catch (Exception e) {
-            System.out.println("Error loading/creating save file: " + e.getMessage());
-        }
-        return saveFile;
     }
 
     /**
@@ -124,7 +120,7 @@ public class Storage {
      * @param task An arraylist that will be built into a task.
      * @param pieces An array containing the '|' delimited chunks from a line of the save file.
      * @return a Task
-     * @throws DukeException
+     * @throws DukeException if a Duke error occurs.
      */
     private static Task loadToDoDetails(ArrayList<String> task, String[] pieces) throws DukeException {
         task.add(pieces[2]);
@@ -136,7 +132,7 @@ public class Storage {
      * @param task An arraylist that will be built into a task.
      * @param pieces An array containing the '|' delimited chunks from a line of the save file.
      * @return a Task.
-     * @throws DukeException
+     * @throws DukeException if a Duke error occurs.
      */
     private static Task loadDeadlineDetails(ArrayList<String> task, String[] pieces) throws DukeException {
         // description of task
@@ -188,7 +184,7 @@ public class Storage {
      * @param task An arraylist that will be built into a task.
      * @param pieces An array containing the '|' delimited chunks from a line of the save file.
      * @return a Task.
-     * @throws DukeException
+     * @throws DukeException if a Duke error occurs.
      */
     private static Task loadEventDetails(ArrayList<String> task, String[] pieces) throws DukeException {
         // description of task
@@ -202,7 +198,7 @@ public class Storage {
 
     /**
      *
-     * Turns a Event into save file String format.
+     * Turns an Event into save file String format.
      * @param task the Event to be converted.
      * @return a String in save file format.
      */
@@ -237,6 +233,7 @@ public class Storage {
         return null;
     }
 
-    public TaskList getTasks() {
+    public ArrayList<Task> getTasks() {
+        return tasks;
     }
 }

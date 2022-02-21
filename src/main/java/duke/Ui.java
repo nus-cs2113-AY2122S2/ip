@@ -1,8 +1,4 @@
 package duke;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
 import duke.exception.DukeException;
 
 import java.util.ArrayList;
@@ -19,9 +15,11 @@ public class Ui {
     public static final String COMMAND_EVENT = "event";
     public static final String COMMAND_DELETE = "delete";
     private Scanner uiScan;
+    private TaskList taskList;
 
-    public Ui() {
+    public Ui(TaskList taskList) {
         this.uiScan = new Scanner(System.in);
+        this.taskList = taskList;
     }
 
     /**
@@ -54,30 +52,29 @@ public class Ui {
             printGoodbye();
             break;
         case COMMAND_LIST:
-            TaskList.listTasks();
+            taskList.listTasks();
             break;
         case COMMAND_MARK:
             String taskToMark = pieces.get(1);
-            TaskList.doTask(taskToMark);
+            taskList.doTask(taskToMark);
             break;
         case COMMAND_UNMARK:
             String taskToUnmark = pieces.get(1);
-            TaskList.undoTask(taskToUnmark);
+            taskList.undoTask(taskToUnmark);
             break;
         case COMMAND_DELETE:
             String taskToDelete = pieces.get(1);
-            TaskList.deleteTask(this, taskToDelete);
+            taskList.deleteTask(taskToDelete);
             break;
         case COMMAND_TODO:
         case COMMAND_DEADLINE:
         case COMMAND_EVENT:
-            TaskList.addTask(pieces);
+            taskList.addTask(pieces);
             break;
         default:
             throw new DukeException("Command not found.");
         }
     }
-
 
     /**
      * Prints a goodbye message and returns.
@@ -91,7 +88,7 @@ public class Ui {
     /**
      * Prints 37 underscores to stdout to serve as a divider.
      */
-    private void printDivider() {
+    public static void printDivider() {
         System.out.println("_____________________________________");
     }
 
