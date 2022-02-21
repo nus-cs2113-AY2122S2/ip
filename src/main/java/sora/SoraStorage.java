@@ -24,7 +24,6 @@ public class SoraStorage {
     public static final String DEADLINE_TYPE_FILE_ABBREVIATION = "D";
 
     private SoraUI soraUI;
-    private Scanner reader = new Scanner(System.in);
 
 
     private String homeDir;
@@ -46,12 +45,6 @@ public class SoraStorage {
 
     public Path getFilePath() {
         return this.filePath;
-    }
-
-    protected String getUserInput() {
-        String userInput = reader.nextLine();
-        String userInputTrimmed = userInput.trim();
-        return userInputTrimmed;
     }
 
     protected void loadTaskListFromFile(TasksManager tasksManager) throws IOException {

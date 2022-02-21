@@ -18,6 +18,7 @@ public class Sora {
 
     private TasksManager tasksManager;
     private SoraUI soraUI;
+    private SoraParser soraParser
     private SoraStorage soraStorage;
     private SoraExceptionHandler exceptionHandler;
 
@@ -25,6 +26,7 @@ public class Sora {
         // Instantiate components
         tasksManager = new TasksManager();
         soraUI = new SoraUI();
+        soraParser = new SoraParser();
         soraStorage = new SoraStorage();
         exceptionHandler = new SoraExceptionHandler(soraUI);
 
