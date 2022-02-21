@@ -83,11 +83,11 @@ public class Storage {
     private static String loadTaskType(String taskType) {
         switch (taskType) {
         case "T":
-            return Ui.COMMAND_TODO;
+            return Parser.COMMAND_TODO;
         case "D":
-            return Ui.COMMAND_DEADLINE;
+            return Parser.COMMAND_DEADLINE;
         case "E":
-            return Ui.COMMAND_EVENT;
+            return Parser.COMMAND_EVENT;
         }
         return null;
     }

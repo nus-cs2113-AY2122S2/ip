@@ -25,12 +25,10 @@ public class TaskList {
      */
     public void addTask(ArrayList<String> inputTasks) {
         try {
-            printDivider();
             tasks.add(buildTask(inputTasks));
             System.out.println("Got it. I've added this task:\n  " + this.tasks.get(this.tasks.size() - 1));
             System.out.println("Now you have " + tasks.size()
                     + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
-            printDivider();
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
@@ -49,13 +47,13 @@ public class TaskList {
         validateTask(taskType, taskParts);
         String prepositions = String.valueOf(taskParts.get(taskParts.size() - 1));
         switch (taskType) {
-        case Ui.COMMAND_TODO:
+        case Parser.COMMAND_TODO:
             return new ToDo(String.valueOf(taskParts.get(0)));
-        case Ui.COMMAND_DEADLINE:
+        case Parser.COMMAND_DEADLINE:
             return new Deadline(String.valueOf(taskParts.get(0)),
                     String.valueOf(taskParts.get(1)),
                     prepositions);
-        case Ui.COMMAND_EVENT:
+        case Parser.COMMAND_EVENT:
             return new Event(String.valueOf(taskParts.get(0)),
                     String.valueOf(taskParts.get(1)),
                     prepositions);
@@ -76,18 +74,18 @@ public class TaskList {
         }
         String prepositions = String.valueOf(taskParts.get(taskParts.size() - 1));
         switch (taskType) {
-        case Ui.COMMAND_TODO:
+        case Parser.COMMAND_TODO:
             if (!prepositions.isEmpty()) {
                 throw new DukeException("Todo tasks cannot include the preposition " + prepositions +" in the description.");
             }
             break;
-        case Ui.COMMAND_DEADLINE:
+        case Parser.COMMAND_DEADLINE:
             if (taskParts.get(0).toString().equals("")
                     || taskParts.get(1).toString().equals("")) {
                 throw new DukeException("The description or deadline is incomplete.");
             }
             break;
-        case Ui.COMMAND_EVENT:
+        case Parser.COMMAND_EVENT:
             if (taskParts.get(0).toString().equals("") || taskParts.get(1).toString().equals("")) {
                 throw new DukeException("The description or time of event is incomplete.");
             }
@@ -138,10 +136,8 @@ public class TaskList {
      * Prints all tasks stored in memory by addTask(Task) to stdout
      */
     public void listTasks() {
-        printDivider();
         System.out.println("Here are the tasks in your list:");
         printTasks();
-        printDivider();
     }
 
     public void printTasks() {
@@ -166,10 +162,8 @@ public class TaskList {
         }
         try {
             this.tasks.get(Integer.parseInt(task) - 1).doTask();
-            printDivider();
             System.out.println("Nice! I've marked this task as done:");
             System.out.println(this.tasks.get(Integer.parseInt(task) - 1));
-            printDivider();
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
@@ -188,10 +182,8 @@ public class TaskList {
         }
         try {
             this.tasks.get(Integer.parseInt(task) - 1).undoTask();
-            printDivider();
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println(this.tasks.get(Integer.parseInt(task) - 1));
-            printDivider();
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
@@ -207,12 +199,11 @@ public class TaskList {
             return;
         }
         try {
-            printDivider();
+            Task removedTask = tasks.get(Integer.parseInt(task) -1);
             System.out.println("Noted. I've removed this task:");
-            System.out.println(tasks.get(Integer.parseInt(task) - 1));
+            System.out.println(removedTask);
             tasks.remove(Integer.parseInt(task) - 1);
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-            printDivider();
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }

@@ -1,5 +1,7 @@
 package duke;
 
+import duke.command.Command;
+
 import java.io.IOException;
 
 public class Duke {
@@ -23,7 +25,19 @@ public class Duke {
 
     public void start() {
         ui.printGreeting();
-        ui.loopCommandInput();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.printDivider();
+                Command c = Parser.parse(fullCommand);
+                c.execute(ui, tasks, storage);
+                isExit = c.isExit();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            ui.printDivider();
+        }
         try {
             storage.updateSaveFile();
         } catch (IOException e) {
