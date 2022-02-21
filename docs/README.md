@@ -117,6 +117,7 @@ Robit will ignore any lines containing invalid task data when reading from the d
 
 ---
 ## Command summary
+
 | Action         | Format |
 |----------------|---|
 | Add            | `todo TASK_DESCRIPTION`<br>`deadline TASK_DESCRIPTION /by TASK_DEADLINE`<br>`event EVENT_DESCRIPTION /at EVENT_TIME` |
