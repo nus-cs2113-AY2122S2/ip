@@ -78,7 +78,7 @@ public class Sora {
     }
 
     private void executeCommand(String userRawInput) throws IOException {
-        String userCommand = extractCommand(userRawInput);
+        String userCommand = soraParser.extractCommand(userRawInput);
 
         try {
             switch (userCommand) {
@@ -89,7 +89,7 @@ public class Sora {
                 soraUI.displayTaskList(getTasksManager());
                 break;
             case SoraUI.MARK_TASK_AS_DONE_COMMAND_KEYWORD:
-                int taskNum = getTaskNumberFromCommand(userRawInput);
+                int taskNum = soraParser.getTaskNumberFromCommand(userRawInput);
                 boolean markSuccess = getTasksManager().updateDoneStatus(taskNum, true);
                 // Update entire file
                 soraStorage.rewriteAllTasksToFile(getTasksManager());
@@ -97,7 +97,7 @@ public class Sora {
                 soraUI.printMarkTaskResponseMessage(markSuccess, getTasksManager(), taskNum);
                 break;
             case SoraUI.UNMARK_TASK_AS_DONE_COMMAND_KEYWORD:
-                taskNum = getTaskNumberFromCommand(userRawInput);
+                taskNum = soraParser.getTaskNumberFromCommand(userRawInput);
                 boolean unmarkSuccess = getTasksManager().updateDoneStatus(taskNum, false);
                 // Update entire file
                 soraStorage.rewriteAllTasksToFile(getTasksManager());
@@ -105,7 +105,7 @@ public class Sora {
                 soraUI.printUnmarkTaskResponseMessage(unmarkSuccess, getTasksManager(), taskNum);
                 break;
             case SoraUI.DELETE_TASK_COMMAND_KEYWORD:
-                taskNum = getTaskNumberFromCommand(userRawInput);
+                taskNum = soraParser.getTaskNumberFromCommand(userRawInput);
                 Task taskRemoved = getTasksManager().deleteTask(taskNum);
                 // Update entire file
                 soraStorage.rewriteAllTasksToFile(getTasksManager());
@@ -136,13 +136,5 @@ public class Sora {
         }
     }
 
-    private String extractCommand(String userRawInput) {
-        String userCommand = userRawInput.toLowerCase().split(" ", 2)[0];
-        return userCommand;
-    }
 
-    private int getTaskNumberFromCommand(String userRawInput) {
-        int taskNum = Integer.parseInt(userRawInput.split(" ")[1]);
-        return taskNum;
-    }
 }
