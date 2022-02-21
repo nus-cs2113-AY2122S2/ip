@@ -15,11 +15,11 @@ It can be accessed via a **Command Line Interface (CLI)**.
    jdk is stored at.
    - Open Command Prompt in the folder which you have placed the switchJava.bat file.
    - Run the switchJava.bat to make sure that Java 11 is activated by entering the follow command:      
-   ```switchJava.bat```
+     <br />```switchJava.bat```
 4. Open Command Prompt in the folder which you have placed the JAR file and enter the following command to 
-run the jar file.
-```java -jar spooky.jar```
-<br />![Welcome]()
+run the jar file:
+   <br />```java -jar spooky.jar```
+   <br />![Welcome]()
 
 ---
 
@@ -51,8 +51,7 @@ run the jar file.
   - \[DESCRIPTION\]: The description of the ToDo.
 - Errors:
   - If no description is provided, the following error message will be printed:
-    diff
-    - What are you going to do? LOL
+  <br />***What are you going to do? LOL***
 
 ### Feature - Add a Deadline
 > A Deadline is a task that is to be done by a certain date.
@@ -66,13 +65,13 @@ run the jar file.
   - /by \[DATE]\: The date of the deadline. The format of the date has to be in the YYYY-MM-DD format.
 - Errors:
   - If `/by` is missing, the following error message will be printed:
-    <br />_You don't know basic grammar or what?_.
+    <br />***You don't know basic grammar or what?***
   - If no description is provided, the following error message will be printed:
-    <br />_What is your deadline for..?_
+    <br />***What is your deadline for..?***
   - If no date is provided, the following error message will be printed:
-    <br />_You have a deadline but you don't have a deadline?_
+    <br />***You have a deadline but you don't have a deadline?***
   - If the date is in the wrong format, the following error message will be printed:
-    <br />_Please input the date in the following format: yyyy-mm-dd_
+    <br />***Please input the date in the following format: yyyy-mm-dd***
 
 
 ### Feature - Add an Event
@@ -87,17 +86,17 @@ run the jar file.
   - /by \[DATE]\: The date of the Event. The format of the date has to be in the YYYY-MM-DD format.
 - Errors:
   - If `/at` is missing, the following error message will be printed:
-    <br />_Yea... I know you don't have an event because you're a loner._
+    <br />***Yea... I know you don't have an event because you're a loner.***
   - If no description is provided, the following error message will be printed:
-    <br />_What is your deadline for..?_
+    <br />***What is your deadline for..?***
   - If `/on` is missing, the following error messgae will be printed:
-    <br />_The event has to be ON a certain date right?_
+    <br />***The event has to be ON a certain date right?***
   - If no location is provided, the following message will be printed:
-    <br />_So your event is at nowhere-land?_
+    <br />***So your event is at nowhere-land?***
   - If no date is provided, the following error message will be printed:
-    <br />_YAY! Your event is never going to happen :DDDD_
+    <br />***YAY! Your event is never going to happen :DDDD***
   - If the date is in the wrong format, the following error message will be printed:
-    <br />_Please input the date in the following format: yyyy-mm-dd_
+    <br />***Please input the date in the following format: yyyy-mm-dd***
 
 
 ---
@@ -123,11 +122,11 @@ run the jar file.
   - \[INDEX\]: The index of the task to be deleted.
 - Errors:
   - If no index or more than 1 index is provided, the following error message will be printed:
-    <br />_Please input the index and only the index_
+    <br />***Please input the index and only the index***
   - If the index provided is out of range, the following error message will be printed:
-    <br />_The index is out of range, please try again._
+    <br />***The index is out of range, please try again.***
   - If the index provided is not an integer, the following error message will be printed:
-    <br />_The index should be an integer, please try again._
+    <br />***The index should be an integer, please try again.***
 
 ---
 
@@ -142,11 +141,11 @@ run the jar file.
   - \[INDEX\]: The index of the task to be marked as done.
 - Errors:
   - If no index or more than 1 index is provided, the following error message will be printed:
-    <br />_Please input the index and only the index_
+    <br />***Please input the index and only the index***
   - If the index provided is out of range, the following error message will be printed:
-    <br />_The index is out of range, please try again._
+    <br />***The index is out of range, please try again.***
   - If the index provided is not an integer, the following error message will be printed:
-    <br />_The index should be an integer, please try again._
+    <br />***The index should be an integer, please try again.***
 
 ---
 
@@ -161,11 +160,11 @@ run the jar file.
   - \[INDEX\]: The index of the task to be marked as NOT done.
 - Errors:
   - If no index or more than 1 index is provided, the following error message will be printed:
-    <br />_Please input the index and only the index_
+    <br />***Please input the index and only the index***
   - If the index provided is out of range, the following error message will be printed:
-    <br />_The index is out of range, please try again._
+    <br />***The index is out of range, please try again.***
   - If the index provided is not an integer, the following error message will be printed:
-    <br />_The index should be an integer, please try again._
+    <br />***The index should be an integer, please try again.***
 
 
 ---
@@ -181,7 +180,7 @@ run the jar file.
   - \[KEYWORD\]: The keyword to be searched for among the list of tasks.
 - Errors:
   - If no keyword is provided, the following error message will be printed:
-    <br />_You want me to find nothing or everything...?_
+    <br />***You want me to find nothing or everything...?***
 
 ---
 
@@ -196,9 +195,9 @@ run the jar file.
   - \[DATE\]: The date used to filter the tasks. The format of the date has to be in the YYYY-MM-DD format.
 - Errors:
   - If no date is provided or more than one 1 date is provided, the following error will be printed:
-    <br />_Please input the date in the correct format and only the date_
+    <br />***Please input the date in the correct format and only the date***
   - If the date provided is in the wrong format, the following error will be printed:
-    <br />_Please input the date in the following format: yyyy-mm-dd_
+    <br />***Please input the date in the following format: yyyy-mm-dd***
 
 ---
 
