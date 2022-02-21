@@ -26,7 +26,7 @@ run the jar file:
 ## Features
 > In order for the features to be used, the format has to be followed strictly, else error will be thrown.
 
-### Feature list:
+### Feature list
 1. Add a ToDo: `todo`
 2. Add a Deadline: `deadline`
 3. Add an Event: `event`
