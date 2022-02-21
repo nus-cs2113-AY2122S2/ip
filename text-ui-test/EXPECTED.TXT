@@ -70,7 +70,7 @@ ____________________________________________________________
 ____________________________________________________________
 Oops! It seems that you've already added this task.
 Would you like to override the
-existing time and/or date with the new input? [Y/N]
+existing time and/or date with the new input? (Y/N)
 ____________________________________________________________
 ____________________________________________________________
 Okay, we'll keep it as it is.
@@ -78,7 +78,7 @@ ____________________________________________________________
 ____________________________________________________________
 Oops! It seems that you've already added this task.
 Would you like to override the
-existing time and/or date with the new input? [Y/N]
+existing time and/or date with the new input? (Y/N)
 ____________________________________________________________
 ____________________________________________________________
 Understood. Proceeding to change
@@ -90,7 +90,7 @@ ____________________________________________________________
 ____________________________________________________________
 Oops! It seems that you've already added this task.
 Would you like to override the
-existing time and/or date with the new input? [Y/N]
+existing time and/or date with the new input? (Y/N)
 ____________________________________________________________
 ____________________________________________________________
 Please confirm your choice with either Y (Yes) or N (No).
@@ -113,48 +113,48 @@ For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
-☹ Oops! The description of a TODO cannot be empty.
+☹ Oops! The description of a todo cannot be empty.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
-☹ Oops! The description of a TODO cannot be empty.
-
-For more information on the command you wish to execute,
-enter 'help <command>' e.g. help todo
-____________________________________________________________
-____________________________________________________________
-☹ Oops! The description and date
- of a DEADLINE cannot be empty.
+☹ Oops! The description of a todo cannot be empty.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
 ☹ Oops! The description and date
- of a DEADLINE cannot be empty.
+ of a deadline cannot be empty.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
 ☹ Oops! The description and date
- of a EVENT cannot be empty.
+ of a deadline cannot be empty.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
 ☹ Oops! The description and date
- of a EVENT cannot be empty.
+ of a event cannot be empty.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
 ☹ Oops! The description and date
- of a EVENT cannot be empty.
+ of a event cannot be empty.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+☹ Oops! The description and date
+ of a event cannot be empty.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
@@ -179,7 +179,7 @@ enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
 ☹ Oops! The description and date
- of a DEADLINE cannot be empty.
+ of a deadline cannot be empty.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
@@ -190,6 +190,65 @@ Please key in a valid task number to mark/unmark your task.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+Oops! It seems that you've given
+an invalid index to delete the task.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+Oops! It seems that you've given
+an invalid index to delete the task.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+Oops! It seems that you've given
+an invalid index to delete the task.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+Oops! It seems that you've given
+an invalid index to delete the task.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+Oops! It seems that you've given
+an invalid index to delete the task.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+Bzzt!
+Please key in a valid task number to mark/unmark your task.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+Bzzt!
+Please key in a valid task number to mark/unmark your task.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+Okay. I've removed this task:
+  [T] [X] read book
+Now you have 4 task(s) in the list.
+____________________________________________________________
+____________________________________________________________
+Okay. I've removed this task:
+  [T] [ ] borrow book
+Now you have 3 task(s) in the list.
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon! :)
