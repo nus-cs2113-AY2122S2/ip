@@ -40,7 +40,7 @@ Okay, I've added your new task to my list:
 What's next?
 ------------------------------------------------------------
 > ------------------------------------------------------------
-Okay, here's a list of tasks that you have given to me:
+Okay, here's a list of 1 tasks that you have given to me:
 
 	1.[T][ ] read book
 
@@ -56,7 +56,7 @@ Okay, I've added your new task to my list:
 What's next?
 ------------------------------------------------------------
 > ------------------------------------------------------------
-Okay, here's a list of tasks that you have given to me:
+Okay, here's a list of 2 tasks that you have given to me:
 
 	1.[T][ ] read book
 	2.[D][ ] return book (due on: Sunday)
@@ -73,7 +73,7 @@ Okay, I've marked this task as done:
 What's next?
 ------------------------------------------------------------
 > ------------------------------------------------------------
-Okay, here's a list of tasks that you have given to me:
+Okay, here's a list of 2 tasks that you have given to me:
 
 	1.[T][X] read book
 	2.[D][ ] return book (due on: Sunday)
@@ -90,7 +90,7 @@ Okay, I've added your new task to my list:
 What's next?
 ------------------------------------------------------------
 > ------------------------------------------------------------
-Okay, here's a list of tasks that you have given to me:
+Okay, here's a list of 3 tasks that you have given to me:
 
 	1.[T][X] read book
 	2.[D][ ] return book (due on: Sunday)
@@ -116,7 +116,7 @@ Okay, I've marked this task as done:
 What's next?
 ------------------------------------------------------------
 > ------------------------------------------------------------
-Okay, here's a list of tasks that you have given to me:
+Okay, here's a list of 3 tasks that you have given to me:
 
 	1.[T][X] read book
 	2.[D][X] return book (due on: Sunday)
@@ -134,7 +134,7 @@ Okay, I've marked this task as not done:
 What's next?
 ------------------------------------------------------------
 > ------------------------------------------------------------
-Okay, here's a list of tasks that you have given to me:
+Okay, here's a list of 3 tasks that you have given to me:
 
 	1.[T][X] read book
 	2.[D][ ] return book (due on: Sunday)
@@ -152,7 +152,7 @@ Okay, I've marked this task as not done:
 What's next?
 ------------------------------------------------------------
 > ------------------------------------------------------------
-Okay, here's a list of tasks that you have given to me:
+Okay, here's a list of 3 tasks that you have given to me:
 
 	1.[T][ ] read book
 	2.[D][ ] return book (due on: Sunday)
@@ -310,7 +310,7 @@ Could you try again?
 What's next?
 ------------------------------------------------------------
 > ------------------------------------------------------------
-Okay, here's a list of tasks that you have given to me:
+Okay, here's a list of 5 tasks that you have given to me:
 
 	1.[T][ ] read book
 	2.[D][ ] return book (due on: Sunday)
