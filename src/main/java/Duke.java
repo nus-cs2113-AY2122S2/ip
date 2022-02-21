@@ -1,13 +1,15 @@
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.nio.file.StandardOpenOption;
+import java.util.*;
 
 import com.sun.source.util.TaskListener;
 import em.exception.EmptyTaskDescriptionException;
 import em.exception.IllegalInputException;
+import em.exception.InvalidContentException;
 import em.exception.TaskOutOfRangeException;
 import task.Deadline;
 import task.Event;
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 public class Duke {
     public static final String LINESEPARATOR = "____________________________________________________________\n";
     public static ArrayList<Task> taskList = new ArrayList<>();
-    public static final Path DATABASE_FILEPATH = Path.of("\\bin\\database\\database.txt");
+    public static final Path DATABASE_FILEPATH = Path.of("database/database.txt");
 
     public static void displayLogo() {
         String logo = "                       ___\n"
@@ -65,10 +67,8 @@ public class Duke {
             System.out.println(LINESEPARATOR + "Got it. I've added this task:");
             System.out.println(taskList.get(taskList.size() - 1).toString());
             System.out.println("Now you have " + taskList.size() + " tasks in the list.\n" + LINESEPARATOR);
-            String basePath = new File("").getAbsolutePath();
-            basePath += DATABASE_FILEPATH;
             try {
-                writeToFile(basePath, formulateDatabaseInput(taskDescription));
+                writeToFile(formulateDatabaseInput(taskDescription));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -79,13 +79,13 @@ public class Duke {
         String databaseInput = null;
         switch (taskDescription[0]) {
         case "todo":
-            databaseInput = "T," + "0," + taskDescription[1];
+            databaseInput = "T," + "0" + ","+ taskDescription[1];
             break;
         case "deadline":
-            databaseInput = "D," + "0," + taskDescription[1] + "," + taskDescription[2];
+            databaseInput = "D," + "0" + "," + taskDescription[1] + "," + taskDescription[2];
             break;
         case "event":
-            databaseInput = "E," + "0," + taskDescription[1] + "," + taskDescription[2];
+            databaseInput = "E," + "0" + "," + taskDescription[1] + "," + taskDescription[2];
             break;
         }
         return databaseInput;
@@ -109,8 +109,6 @@ public class Duke {
             System.out.println(LINESEPARATOR + "Got it. I've added this task:");
             System.out.println(taskList.get(taskList.size() - 1).toString());
             System.out.println("Now you have " + taskList.size() + " tasks in the list.\n" + LINESEPARATOR);
-            String basePath = new File("").getAbsolutePath();
-            basePath += DATABASE_FILEPATH;
             try {
                 String[] databaseInput = new String[3];
                 if (timing[0].equals("by")) {
@@ -120,7 +118,7 @@ public class Duke {
                 }
                 databaseInput[1] = taskDescription[1];
                 databaseInput[2] = timing[1];
-                writeToFile(basePath, formulateDatabaseInput(databaseInput));
+                writeToFile(formulateDatabaseInput(databaseInput));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -136,7 +134,6 @@ public class Duke {
 
     public static String checkValidityOfInput(String userInput) throws EmptyTaskDescriptionException, IllegalInputException {
         String[] arrayOfUserInput = userInput.split(" ");
-        int lengthOfArrayOfUserInput = arrayOfUserInput.length;
         if (arrayOfUserInput.length == 1 && arrayOfUserInput[0].equalsIgnoreCase("list")) {
             return userInput; //list
         } else if (arrayOfUserInput.length > 1 && arrayOfUserInput[0].equalsIgnoreCase("list")) {
@@ -159,82 +156,94 @@ public class Duke {
         return false;
     }
 
-    private static void populateFileContents(String filePath) throws FileNotFoundException {
-        File f = new File(filePath); // create a File for the given file path
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
-        while (s.hasNext()) {
-            String[] token = s.nextLine().split(",", -1);
+    private static void populateFileContents(Path filePath) throws FileNotFoundException, InvalidContentException {
+        List<String> fileContentLines = null;
+        try {
+            fileContentLines = Files.readAllLines(DATABASE_FILEPATH);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (String lines:fileContentLines) {
             String userInput = null;
-            switch (token[0]) {
+            String[] contentsInALine = lines.split(",", -1);
+            if (contentsInALine.length < 1) {
+                throw new InvalidContentException();
+            }
+            switch (contentsInALine[0].trim()) {
             case "T":
-                userInput = "todo " + token[2];
+                userInput = "todo " + contentsInALine[2].trim();
                 addTask(userInput, taskList, false);
                 break;
             case "D":
-                userInput = "deadline " + token[2] + " " + "/by " + token[3];
+                userInput = "deadline " + contentsInALine[2].trim() + " " + "/by " + contentsInALine[3].trim();
                 addTaskAndTime(userInput, taskList, false);
                 break;
             case "E":
-                userInput = "event " + token[2] + " " + "/at " + token[3];
+                userInput = "event " + contentsInALine[2].trim() + " " + "/at " + contentsInALine[3].trim();
                 addTaskAndTime(userInput, taskList, false);
                 break;
+            default:
+                break;
             }
-            if (token[1].equalsIgnoreCase("1")) {
+            if (contentsInALine[1].trim().equalsIgnoreCase("1")) {
                 taskList.get(taskList.size() - 1).markAsDone(taskList.size(), taskList, false);
             }
         }
     }
 
-    public static void writeToFile(String filePath, String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
-        fw.write(System.lineSeparator() + textToAppend);
-        fw.close();
+    public static void writeToFile(String textToAppend) throws IOException {
+        String modifiedContent = System.lineSeparator() + textToAppend;
+        Files.write(DATABASE_FILEPATH, modifiedContent.getBytes(), StandardOpenOption.APPEND);
+        removeSpaces();
     }
 
-    public static void removeSpaces(String filePath) throws IOException {
-        File f = new File(filePath); // create a File for the given file path
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
+    public static void removeSpaces() throws IOException {
         String content = "";
-        while (s.hasNext()) {
-            String line = s.nextLine();
-            line = line.trim();
-            if(line.length() > 0)
-                content += line + System.lineSeparator();
+        List<String> fileContentLines = Files.readAllLines(DATABASE_FILEPATH);
+        for (String lines:fileContentLines) {
+            lines = lines.trim();
+            if(lines.length() > 0) {
+                content += lines + System.lineSeparator();
+            }
+            Files.write(DATABASE_FILEPATH, content.getBytes());
         }
-        FileWriter modifyDatabaseFile = new FileWriter(filePath);
-        modifyDatabaseFile.write(content);
-        modifyDatabaseFile.close();
     }
 
-    public static void modifyDatabase(String filePath, int taskNumber, Boolean isMark, Boolean isDelete) {
+    public static void modifyDatabase(int taskNumber, Boolean isMark, Boolean isDelete) {
+        try {
+            removeSpaces();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         String oldContent = "";
         String newLine = "";
         try {
-            String oldLine = Files.readAllLines(Paths.get(filePath)).get(taskNumber - 1);
             if (isDelete) {
                 newLine = "";
             } else {
-                newLine = modifyContent(filePath, taskNumber, isMark); //oldLine.replaceFirst("1", "0");
+                newLine = modifyContent(taskNumber, isMark);
             }
-            File databaseFile = new File(filePath); // create a File for the given file path
-            Scanner s = new Scanner(databaseFile); // create a Scanner using the File as the source
-            while (s.hasNext()) {
-                oldContent += s.nextLine() + System.lineSeparator();
+            List<String> fileContentLines = Files.readAllLines(DATABASE_FILEPATH);
+            int lineNumber = 1;
+            for (String lines:fileContentLines) {
+                if (taskNumber == lineNumber) {
+                    oldContent += (newLine + "\n");
+                } else {
+                    oldContent += (lines + "\n");
+                }
+                lineNumber += 1;
             }
-            String newContent = oldContent.replaceAll(oldLine, newLine);
-            FileWriter modifyDatabaseFile = new FileWriter(filePath);
-            modifyDatabaseFile.write(newContent);
-            modifyDatabaseFile.close();
-            removeSpaces(filePath);
+            Files.write(DATABASE_FILEPATH, oldContent.getBytes());
+            removeSpaces();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static String modifyContent(String filePath, int taskNumber, Boolean isMark) {
+    public static String modifyContent(int taskNumber, Boolean isMark) {
         String newLine = "";
         try {
-            String oldLine = Files.readAllLines(Paths.get(filePath)).get(taskNumber - 1);
+            String oldLine = Files.readAllLines(DATABASE_FILEPATH).get(taskNumber - 1);
             if (isMark) {
                 newLine = oldLine.replaceFirst("0", "1");
             } else {
@@ -246,13 +255,28 @@ public class Duke {
         return newLine;
     }
 
+    public static void checkFileExists() throws IOException {
+        Path dataDirectory = DATABASE_FILEPATH.getParent();
+        if (!Files.isDirectory(dataDirectory)) {
+            Files.createDirectories(dataDirectory);
+        }
+
+        if (Files.notExists(DATABASE_FILEPATH)) {
+            Files.createFile(DATABASE_FILEPATH);
+        }
+    }
+
     public static void processAction() {
-        String basePath = new File("").getAbsolutePath();
-        basePath += DATABASE_FILEPATH;
         try {
-            populateFileContents(basePath);
-        } catch (FileNotFoundException e) {
-            System.out.println("File not Found");
+            checkFileExists();
+        } catch (IOException e) {
+            System.out.println("failedddd");
+            e.printStackTrace();
+        }
+        try {
+            populateFileContents(DATABASE_FILEPATH);
+        } catch (FileNotFoundException | InvalidContentException e) {
+            System.out.println("File not Found in here");
         }
         String userInput;
         Scanner in = new Scanner(System.in);
@@ -269,14 +293,14 @@ public class Duke {
                     int markTaskNumber = Integer.parseInt(userInput.split(" ")[1]);
                     if (isTaskValid(markTaskNumber)) {
                         taskList.get(markTaskNumber - 1).markAsDone(markTaskNumber, taskList, true);
-                        modifyDatabase(basePath, markTaskNumber, true, false);
+                        modifyDatabase(markTaskNumber, true, false);
                     }
                     break;
                 case "unmark":
                     int unmarkTaskNumber = Integer.parseInt(userInput.split(" ")[1]);
                     if (isTaskValid(unmarkTaskNumber)) {
                         taskList.get(unmarkTaskNumber - 1).markAsUndone(unmarkTaskNumber, taskList, true);
-                        modifyDatabase(basePath, unmarkTaskNumber, false, false);
+                        modifyDatabase(unmarkTaskNumber, false, false);
                     }
                     break;
                 case "todo":
@@ -290,7 +314,7 @@ public class Duke {
                     int deleteTaskNumber = Integer.parseInt(userInput.split(" ")[1]);
                     if (isTaskValid(deleteTaskNumber)) {
                         taskList.get(deleteTaskNumber - 1).deleteTask(deleteTaskNumber, taskList);
-                        modifyDatabase(basePath, deleteTaskNumber, false, true);
+                        modifyDatabase(deleteTaskNumber, false, true);
                     }
                     break;
                 default:
