@@ -13,14 +13,14 @@ public class Sora {
      * When IN_TESTING_MODE is set to true, certain features of Sora will be limited to
      * improve the automated text UI testing.
      */
-    protected static final boolean IN_TESTING_MODE = false;
+    protected static final boolean IN_TESTING_MODE = true;
     private boolean isUserExiting = false;
 
     private TaskList taskList;
     private SoraUI soraUI;
     private SoraParser soraParser;
     private SoraStorage soraStorage;
-    private SoraExceptionHandler exceptionHandler;
+    private SoraExceptionHandler soraExceptionHandler;
 
     public Sora() throws IOException {
         // Instantiate components
@@ -28,7 +28,7 @@ public class Sora {
         soraUI = new SoraUI();
         soraParser = new SoraParser();
         soraStorage = new SoraStorage();
-        exceptionHandler = new SoraExceptionHandler(soraUI);
+        soraExceptionHandler = new SoraExceptionHandler(soraUI);
 
         // Greet user
         soraUI.printGreetings();
@@ -59,9 +59,20 @@ public class Sora {
 
         while (!doesUserWantsToExit()) {
             // Get user input
+            String userRawInput = "";
+
             soraUI.printPrompter(isFirstPrompt);
-            String userRawInput = soraParser.getUserInput();
-            isFirstPrompt = false;
+
+            try {
+                userRawInput = soraParser.getUserInput();
+            } catch (IllegalCharacterException e) {
+                soraUI.printLine();
+                soraExceptionHandler.handleIllegalCharacterException();
+                continue;
+            } finally {
+                isFirstPrompt = false;
+            }
+
             soraUI.printLine();
 
             // Execute command
@@ -127,12 +138,12 @@ public class Sora {
                 throw new InvalidCommandException(InvalidCommandException.NO_SUCH_COMMAND_MSG);
             }
         } catch (InvalidCommandException e) {
-            exceptionHandler.handleInvalidCommandException(e);
+            soraExceptionHandler.handleInvalidCommandException(e);
         } catch (IOException e) {
             // Throw it up to calling method for program termination
             throw e;
         } catch (ArrayIndexOutOfBoundsException e) {
-            exceptionHandler.handleOutOfRangeListReferences();
+            soraExceptionHandler.handleOutOfRangeListReferences();
         }
     }
 

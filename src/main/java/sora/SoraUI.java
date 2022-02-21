@@ -109,6 +109,8 @@ public class SoraUI {
 
     protected static final String COMMAND_NOT_UNDERSTOOD_RESPONSE =
             "%s, I can't understand what you've just typed...\nCould you try again?\n";
+    protected static final String ILLEGAL_CHARACTER_RESPONSE =
+            "%s, it seems like you've entered an illegal character\nin your input... Could you try again?\n";
 
     protected static final String TODO_MISSING_DESCRIPTION_RESPONSE =
             "%s, seems like you didn't give me a description for your\ntodo... Could you try again?\n";
@@ -130,10 +132,6 @@ public class SoraUI {
             "%s, seems like you didn't give me a due date for your\ndeadline... Could you try again?\n";
     protected static final String DEADLINE_INVALID_FLAGS =
             "%s, the flags used in your deadline command is invalid...\nCould you try again?\n";
-
-    protected static final String SELF_LOATHING_ERROR_RESPONSE = "" +
-            "Ah dang. Internal processing in %s failed.\nNot your fault, user. It's the monkey developer's fault.\n" +
-            "If you see the dev, tell him this: %s\n";
 
     protected static final String NO_DIRECTORY_FOUND_RESPONSE =
             "\n%s, I couldn't find the directory that contains my data\nfile. Let me go and create it...\n";
@@ -385,5 +383,9 @@ public class SoraUI {
 
     public void printTaskNumOutOfListRange() {
         System.out.printf(SoraUI.TASK_NUMBER_OUT_OF_LIST_RANGE_RESPONSE, getRandomNegativeAcknowledgement());
+    }
+
+    public void printIllegalCharacterResponse() {
+        System.out.printf(SoraUI.ILLEGAL_CHARACTER_RESPONSE, getRandomNegativeAcknowledgement());
     }
 }

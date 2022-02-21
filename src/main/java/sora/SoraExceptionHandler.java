@@ -44,10 +44,15 @@ public class SoraExceptionHandler {
             break;
         case InvalidCommandException.DEADLINE_INVALID_FLAGS:
             soraUI.printDeadlineInvalidFlags();
+            break;
         }
     }
 
     public void handleOutOfRangeListReferences() {
         soraUI.printTaskNumOutOfListRange();
+    }
+
+    public void handleIllegalCharacterException() {
+        soraUI.printIllegalCharacterResponse();
     }
 }
