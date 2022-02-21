@@ -89,7 +89,7 @@ Marks a task as done.
 ---
 
 ### Feature - Marking a Task as not done
-Marks a task as done.
+Marks a task as not done.
 * Format : `unmark TASK_NUMBER`
     * The `TASK_NUMBER` refers to the number shown when listing task.
         * The index can be retrieved with the `list` command.
