@@ -7,8 +7,7 @@ import tasks.Task;
 import tasks.TaskList;
 
 /**
- * Main 'brains' of Sora. Focuses on taking in user input and passing commands
- * to Sora's relevant components.
+ * The main 'brains' of Sora. Focuses on passing the user's input to her relevant components.
  */
 public class Sora {
     /**
@@ -24,6 +23,13 @@ public class Sora {
     private SoraStorage soraStorage;
     private SoraExceptionHandler soraExceptionHandler;
 
+    /**
+     * Initialises the various components of Sora, greets the user, and loads the tasks from the storage
+     * file (if the storage file exists).
+     *
+     * @throws IOException If the user's command involves reading and/or writing to the storage file and
+     * Sora is unable to open the file.
+     */
     public Sora() throws IOException {
         // Instantiate components
         taskList = new TaskList();
@@ -56,6 +62,12 @@ public class Sora {
         return this.taskList;
     }
 
+    /**
+     * Prompts the user for an input and passes it to executeCommand method for command execution.
+     *
+     * @throws IOException If the user's command involves writing to the storage file and Sora is unable
+     * to open the file.
+     */
     public void startContinuousUserPrompt() throws IOException {
         boolean isFirstPrompt = true;
 
@@ -90,6 +102,14 @@ public class Sora {
         soraUI.printGoodbye();
     }
 
+    /**
+     * Takes in the user's input, processes it with SoraParser class and determines the appropriate courses
+     * of actions to take on the command.
+     *
+     * @param userRawInput The user's input.
+     * @throws IOException If the user's command involves writing to the storage file and Sora is unable
+     * to open the file.
+     */
     private void executeCommand(String userRawInput) throws IOException {
         String userCommand = soraParser.extractCommand(userRawInput);
 
@@ -150,6 +170,4 @@ public class Sora {
             soraExceptionHandler.handleEmptyListException();
         }
     }
-
-
 }

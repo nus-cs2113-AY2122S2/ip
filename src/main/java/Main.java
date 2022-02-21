@@ -2,6 +2,9 @@ import sora.Sora;
 
 import java.io.IOException;
 
+/**
+ * Entry point for Sora chatbot program.
+ */
 public class Main {
     public static void main(String[] args) {
         // Start Sora
