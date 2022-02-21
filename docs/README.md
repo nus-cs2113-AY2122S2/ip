@@ -51,7 +51,9 @@ run the jar file.
   - \[DESCRIPTION\]: The description of the ToDo.
 - Errors:
   - If no description is provided, the following error message will be printed:
-    <br />_What are you going to do? LOL_
+    ```diff
+    - What are you going to do? LOL
+    ```
 
 ### Feature - Add a Deadline
 > A Deadline is a task that is to be done by a certain date.
@@ -65,7 +67,7 @@ run the jar file.
   - /by \[DATE]\: The date of the deadline. The format of the date has to be in the YYYY-MM-DD format.
 - Errors:
   - If `/by` is missing, the following error message will be printed:
-    <br /><span style="color:blue">_You don't know basic grammar or what?_</span>.
+    <br />_You don't know basic grammar or what?_.
   - If no description is provided, the following error message will be printed:
     <br />_What is your deadline for..?_
   - If no date is provided, the following error message will be printed:
