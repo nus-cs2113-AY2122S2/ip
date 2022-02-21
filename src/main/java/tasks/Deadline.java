@@ -1,30 +1,28 @@
 package tasks;
 
-public class Deadline extends Task {
-    // Index values of the task details when reading in from the String array argument in the constructor
-    private static final int DEADLINE_DESCRIPTION = 0;
-    private static final int DEADLINE_DATE = 1;
+import sora.SoraUI;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class Deadline extends Task {
     private static final String DEADLINE_CHECKBOX = "[D]";
 
-    private String dueDate;
+    private LocalDateTime dueDate;
 
-    public Deadline(String description, String dueDate) {
-        super(description);
-        this.dueDate = dueDate;
-    }
-
-    public Deadline(String[] descriptionAndDate) {
-        super(descriptionAndDate[DEADLINE_DESCRIPTION]);
-        this.dueDate = descriptionAndDate[DEADLINE_DATE];
+    public Deadline(String deadlineDescription, LocalDateTime dateAndTime) {
+        super(deadlineDescription);
+        this.dueDate = dateAndTime;
     }
 
     public String getDueDate() {
-        return dueDate;
+        DateTimeFormatter dateTimeFormat= DateTimeFormatter.ofPattern(SoraUI.DATE_TIME_OUTPUT_FORMAT);
+        return dueDate.format(dateTimeFormat);
     }
 
-    public void setDueDate(String dueDate) {
-        this.dueDate = dueDate;
+    public String getDueDateForFileStorage() {
+        DateTimeFormatter dateTimeFormat= DateTimeFormatter.ofPattern(SoraUI.DATE_TIME_INPUT_FORMAT);
+        return dueDate.format(dateTimeFormat);
     }
 
     public String toString() {
