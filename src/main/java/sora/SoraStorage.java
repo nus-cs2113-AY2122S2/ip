@@ -170,9 +170,9 @@ public class SoraStorage {
 
     private String getDate(Task task) {
         if (task instanceof Event) {
-            return ((Event) task).getEventPeriod();
+            return ((Event) task).getEventPeriodForFileStorage();
         } else if (task instanceof Deadline) {
-            return ((Deadline) task).getDueDate();
+            return ((Deadline) task).getDueDateForFileStorage();
         }
 
         // TODO: Implement exception?

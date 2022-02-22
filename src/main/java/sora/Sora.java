@@ -1,6 +1,7 @@
 package sora;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 import tasks.EmptyListException;
 import tasks.Task;
@@ -15,7 +16,7 @@ public class Sora {
      * When IN_TESTING_MODE is set to true, certain features of Sora will be limited to
      * improve the automated text UI testing.
      */
-    protected static final boolean IN_TESTING_MODE = false;
+    protected static final boolean IN_TESTING_MODE = true;
     private boolean isUserExiting = false;
 
     private TaskList taskList;
@@ -141,6 +142,8 @@ public class Sora {
             }
         } catch (InvalidCommandException e) {
             soraExceptionHandler.handleInvalidCommandException(e);
+        } catch (DateTimeParseException e) {
+            soraExceptionHandler.handleInvalidDateTimeInputFormat();
         } catch (IOException e) {
             // Throw it up to calling method for program termination
             throw e;
