@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class TaskManager {
     private int taskUniqueID = 0;
-    private static ArrayList<Task> taskList = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
     private static TaskRecorder taskRecorder = new TaskRecorder();
 
     public TaskManager() {
@@ -24,19 +24,19 @@ public class TaskManager {
                 String description = getDescription(input);
                 switch (command) {
                 case "todo":
-                    taskList.add(new Todo(description, taskUniqueID));
+                    tasks.add(new Todo(description, taskUniqueID));
                     break;
                 case "deadline":
                     String by = getTimingDetails(input);
-                    taskList.add(new Deadline(description, taskUniqueID, by));
+                    tasks.add(new Deadline(description, taskUniqueID, by));
                     break;
                 case "event":
                     String at = getTimingDetails(input);
-                    taskList.add(new Event(description, taskUniqueID, at));
+                    tasks.add(new Event(description, taskUniqueID, at));
                     break;
                 }
                 if (data[0].equals("1")) {
-                    taskList.get(taskList.size() - 1).setIsMarked();
+                    tasks.get(tasks.size() - 1).setIsMarked();
                 }
                 taskUniqueID++;
             }
@@ -50,10 +50,10 @@ public class TaskManager {
     }
 
     public void listTasks() {
-        if (taskList.size() > 0) {
+        if (tasks.size() > 0) {
             System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < taskList.size(); i++) {
-                System.out.println(i + 1 + "." + taskList.get(i).toString());
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println(i + 1 + "." + tasks.get(i).toString());
             }
         } else {
             System.out.println("Wow, such empty");
@@ -63,8 +63,8 @@ public class TaskManager {
     public void addTodo(String userInput) {
         try {
             String description = getDescription(userInput);
-            taskList.add(new Todo(description, taskUniqueID));
-            printMessageForAdding(taskList.get(taskList.size() - 1));
+            tasks.add(new Todo(description, taskUniqueID));
+            printMessageForAdding(tasks.get(tasks.size() - 1));
             taskRecorder.addData(userInput);
             taskUniqueID++;
         } catch (EmptyDescriptionException e) {
@@ -78,8 +78,8 @@ public class TaskManager {
         try {
             String description = getDescription(userInput);
             String by = getTimingDetails(userInput);
-            taskList.add(new Deadline(description, taskUniqueID, by));
-            printMessageForAdding(taskList.get(taskList.size() - 1));
+            tasks.add(new Deadline(description, taskUniqueID, by));
+            printMessageForAdding(tasks.get(tasks.size() - 1));
             taskRecorder.addData(userInput);
             taskUniqueID++;
         } catch (EmptyDescriptionException e) {
@@ -95,8 +95,8 @@ public class TaskManager {
         try {
             String description = getDescription(userInput);
             String at = getTimingDetails(userInput);
-            taskList.add(new Event(description, taskUniqueID, at));
-            printMessageForAdding(taskList.get(taskList.size() - 1));
+            tasks.add(new Event(description, taskUniqueID, at));
+            printMessageForAdding(tasks.get(tasks.size() - 1));
             taskRecorder.addData(userInput);
             taskUniqueID++;
         } catch (EmptyDescriptionException e) {
@@ -115,14 +115,14 @@ public class TaskManager {
             String taskNumber = words[1];
             int number = Integer.parseInt(taskNumber) - 1;
             if (command.equals("mark")) {
-                taskList.get(number).setIsMarked();
+                tasks.get(number).setIsMarked();
                 System.out.println("Nice! I've marked this task as done:");
             } else {
-                taskList.get(number).unsetIsMarked();
+                tasks.get(number).unsetIsMarked();
                 System.out.println("Nice! I've unmarked this task as done:");
             }
             taskRecorder.markOrUnmarkData(number);
-            System.out.println(number + 1 + "." + taskList.get(number).toString());
+            System.out.println(number + 1 + "." + tasks.get(number).toString());
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             System.out.println("Oops! The task number given is not in range. Try again!");
         } catch (NumberFormatException e) {
@@ -137,10 +137,10 @@ public class TaskManager {
             String[] words = userInput.split(" ");
             String taskNumber = words[1];
             int number = Integer.parseInt(taskNumber) - 1;
-            System.out.println("Noted. I've removed this task:\n" + taskList.get(number).toString());
-            taskList.remove(number);
+            System.out.println("Noted. I've removed this task:\n" + tasks.get(number).toString());
+            tasks.remove(number);
             taskRecorder.deleteData(number);
-            System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             System.out.println("Oops! The task number given is not in range. Try again!");
         } catch (NumberFormatException e) {
@@ -180,7 +180,7 @@ public class TaskManager {
 
     private void printMessageForAdding(Task task) {
         System.out.println("Got it. I've added this task:");
-        System.out.println(taskList.size() + "." + task.toString());
-        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        System.out.println(tasks.size() + "." + task.toString());
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 }
