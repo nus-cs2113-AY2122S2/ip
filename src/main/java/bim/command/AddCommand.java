@@ -5,20 +5,22 @@ import bim.Storage;
 import bim.Ui;
 import bim.task.*;
 
+import java.time.LocalDate;
+
 public class AddCommand extends Command {
     private static final String TYPE_DEADLINE = "deadline";
     private static final String TYPE_TODO = "todo";
 
     private String type;
     private String description;
-    private String date;
+    private LocalDate date;
 
     public AddCommand(String type, String description) {
         this.type = type;
         this.description = description;
     }
 
-    public AddCommand(String type, String description, String date) {
+    public AddCommand(String type, String description, LocalDate date) {
         this.type = type;
         this.description = description;
         this.date = date;
