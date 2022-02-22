@@ -50,14 +50,27 @@ public class Sora {
         }
     }
 
+    /**
+     * Gets the isUserExiting field
+     *
+     * @return The isUserExiting field
+     */
     protected boolean doesUserWantsToExit() {
         return this.isUserExiting;
     }
 
+    /**
+     * Sets the isUserExiting field's boolean value to be true.
+     */
     protected void setUserExit() {
         this.isUserExiting = true;
     }
 
+    /**
+     * Returns the taskList field, which contains an instance of the taskList class.
+     *
+     * @return
+     */
     protected TaskList getTasksManager() {
         return this.taskList;
     }
