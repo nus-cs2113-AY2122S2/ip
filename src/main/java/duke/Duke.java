@@ -1,71 +1,18 @@
 package duke;
 
 import duke.taskmanagement.TaskManager;
-
-import java.util.Scanner;
+import duke.userinterface.UserInterface;
 
 public class Duke {
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        String userInput = "";
-        TaskManager taskList = new TaskManager();
         printGreeting();
-        while (!userInput.equals("bye")) {
-            printLine();
-            userInput = in.nextLine().trim();
-            String command = getCommand(userInput);
-            switch (command) {
-            case "list":
-                taskList.listTasks();
-                break;
-            case "todo":
-                taskList.addTodo(userInput);
-                break;
-            case "deadline":
-                taskList.addDeadline(userInput);
-                break;
-            case "event":
-                taskList.addEvent(userInput);
-                break;
-            case "mark":
-            case "unmark":
-                taskList.markOrUnmarkTask(userInput);
-                break;
-            case "delete":
-                taskList.deleteTask(userInput);
-                break;
-            case "bye":
-                System.out.println("Bye. Hope to see you again soon!");
-                break;
-            case "":
-                System.out.println("Well, I'll wait for a command..");
-                break;
-            default:
-                printHelpMessage();
-                break;
-            }
-        }
-    }
-
-    private static String getCommand(String userInput) {
-        String[] words = userInput.split(" ");
-        String command = words[0];
-        return command;
-    }
-
-    private static void printLine() {
-        System.out.println("------------------------------");
+        TaskManager tasks = new TaskManager();
+        UserInterface ui = new UserInterface();
+        ui.run(tasks);
     }
 
     private static void printGreeting() {
-        printLine();
         System.out.println("Hello! I'm Duke.");
         System.out.println("What can I do for you?");
-    }
-
-    private static void printHelpMessage() {
-        System.out.println("Sorry I don't know what you mean.");
-        System.out.println("There are currently eight keyword commands: ");
-        System.out.println("1. list, 2. todo, 3. deadline, 4.event, 5. mark, 6. unmark, 7. delete, 8. bye");
     }
 }
