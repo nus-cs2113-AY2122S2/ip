@@ -13,8 +13,7 @@ public class Duke {
         while (!userInput.equals("bye")) {
             printLine();
             userInput = in.nextLine().trim();
-            String[] words = userInput.split(" ");
-            String command = words[0];
+            String command = getCommand(userInput);
             switch (command) {
             case "list":
                 taskList.listTasks();
@@ -46,6 +45,12 @@ public class Duke {
                 break;
             }
         }
+    }
+
+    private static String getCommand(String userInput) {
+        String[] words = userInput.split(" ");
+        String command = words[0];
+        return command;
     }
 
     private static void printLine() {
