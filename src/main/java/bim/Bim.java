@@ -17,17 +17,18 @@ public class Bim {
         storage = new Storage();
     }
 
-    public void run() {
+    private void run() {
         ui.printWelcomeMessage();
 
         try {
             tasks = new TaskList(storage.loadDataFile());
         } catch (BimException exception) {
             ui.printErrorMessage(exception.getMessage());
+            ui.printLineSeparator();
         }
 
         boolean isExit = false;
-        while(!isExit) {
+        while (!isExit) {
             String fullCommand = parser.readInput();
             Command command = parser.parseCommand(fullCommand);
             ui.printLineSeparator();
@@ -40,7 +41,6 @@ public class Bim {
             }
         }
     }
-
 
     public static void main(String[] args) {
         new Bim().run();

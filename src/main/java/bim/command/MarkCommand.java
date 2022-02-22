@@ -18,6 +18,12 @@ public class MarkCommand extends Command {
         this.type = type;
     }
 
+    /**
+     * Mark or unmark the task specified by the user.
+     * @param tasks The list of tasks
+     * @param ui
+     * @param storage
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {

@@ -24,6 +24,14 @@ public class AddCommand extends Command {
         this.date = date;
     }
 
+    /**
+     * Creates a new task of the given type, writes the new task to
+     * the data file, adds it to the task list and prints out the newly added task
+     *
+     * @param tasks
+     * @param ui
+     * @param storage
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task newTask;

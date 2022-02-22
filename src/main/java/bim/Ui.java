@@ -19,7 +19,8 @@ public class Ui {
     private static final String LINE_SEPARATOR = "----------------------------------";
     private static final String LINE_INDENT = "\t";
 
-    public Ui() {    }
+    public Ui() {
+    }
 
     public void printWelcomeMessage() {
         System.out.println(LINE_SEPARATOR);
