@@ -171,8 +171,9 @@ public class TaskManager {
 
     private String getTimingDetails(String userInput) throws EmptyTimingDetailsException {
         int indexOfSlash = userInput.indexOf("/");
+        int indexOfTimingDetails = indexOfSlash + 4;
         if (indexOfSlash != -1) {
-            return userInput.substring(indexOfSlash + 4);
+            return userInput.substring(indexOfTimingDetails);
         } else {
             throw new EmptyTimingDetailsException();
         }
