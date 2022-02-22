@@ -22,19 +22,22 @@ public class TaskManager {
             ArrayList<String[]> fileData = taskRecorder.loadData();
             for (String[] data : fileData) {
                 String input = data[1];
-                String command = data[1].split(" ")[0];
+                String command = ui.getCommand(input);
                 String description = getDescription(input);
                 switch (command) {
                 case "todo":
-                    tasks.add(new Todo(description, taskUniqueID));
+                    Todo newTodo = new Todo(description, taskUniqueID);
+                    tasks.add(newTodo);
                     break;
                 case "deadline":
                     String by = getTimingDetails(input);
-                    tasks.add(new Deadline(description, taskUniqueID, by));
+                    Deadline newDeadline = new Deadline(description, taskUniqueID, by);
+                    tasks.add(newDeadline);
                     break;
                 case "event":
                     String at = getTimingDetails(input);
-                    tasks.add(new Event(description, taskUniqueID, at));
+                    Event newEvent = new Event(description, taskUniqueID, at);
+                    tasks.add(newEvent);
                     break;
                 }
                 if (data[0].equals("1")) {
@@ -108,19 +111,10 @@ public class TaskManager {
 
     public void markOrUnmarkTask(String userInput) {
         try {
-            String[] words = userInput.split(" ");
-            String command = words[0];
-            String taskNumber = words[1];
-            int number = Integer.parseInt(taskNumber) - 1;
-            if (command.equals("mark")) {
-                tasks.get(number).setIsMarked();
-                System.out.println("Nice! I've marked this task as done:");
-            } else {
-                tasks.get(number).unsetIsMarked();
-                System.out.println("Nice! I've unmarked this task as done:");
-            }
+            String command = ui.getCommand(userInput);
+            int number = getTaskNumber(userInput);
+            ui.printMarkOrUnmarkMessage(tasks, command, number);
             taskRecorder.markOrUnmarkData(number);
-            System.out.println(number + 1 + "." + tasks.get(number).toString());
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             ui.printOutOfBoundsExceptionMessage();
         } catch (NumberFormatException e) {
@@ -132,10 +126,8 @@ public class TaskManager {
 
     public void deleteTask(String userInput) {
         try {
-            String[] words = userInput.split(" ");
-            String taskNumber = words[1];
-            int number = Integer.parseInt(taskNumber) - 1;
-            System.out.println("Noted. I've removed this task:\n" + tasks.get(number).toString());
+            int number = getTaskNumber(userInput);
+            ui.printTask(tasks, number);
             tasks.remove(number);
             taskRecorder.deleteData(number);
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -175,5 +167,12 @@ public class TaskManager {
         } else {
             throw new EmptyTimingDetailsException();
         }
+    }
+
+    private int getTaskNumber(String userInput) {
+        String[] words = userInput.split(" ");
+        String taskNumber = words[1];
+        int number = Integer.parseInt(taskNumber) - 1;
+        return number;
     }
 }
