@@ -53,6 +53,7 @@ public class Duke {
                     break;
                 case "add":
                     tasks.addTask(task);
+                    break;
                 case "delete":
                     tasks.deleteTask(task);
                     break;
