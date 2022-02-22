@@ -55,4 +55,7 @@ find project
 find return book
 find 10 Oct
 find E
+mark huh
+delete 3
+list
 bye
