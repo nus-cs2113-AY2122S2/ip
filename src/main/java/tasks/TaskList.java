@@ -274,11 +274,19 @@ public class TaskList {
         String[] splitByFlag = eventDeadlineUserInput.split(commandFlagKeyword);
         String[] commandAndDescription = splitByFlag[0].split(" ", 2);
 
+        // Check if user input has no description
         boolean hasLessThanTwoElements = commandAndDescription.length < 2;
-        boolean hasEmptySecondElement = commandAndDescription[1].equals("");
+        /**
+         *  This factor has to be checked first before hasEmptySecondElement to avoid an unexpected
+         *  ArrayIndexOutOfBoundsException, which can disrupt the intended flow of the exception handling.
+         */
+        if (hasLessThanTwoElements) {
+            String noDescriptionExceptionMsg = getDeadlineOrEventNoDescriptionExceptionMsg(taskType);
+            throw new InvalidCommandException(noDescriptionExceptionMsg);
+        }
 
-        if (hasLessThanTwoElements || hasEmptySecondElement) {
-            // User input has no description
+        boolean hasEmptySecondElement = commandAndDescription[1].equals("");
+        if (hasEmptySecondElement) {
             String noDescriptionExceptionMsg = getDeadlineOrEventNoDescriptionExceptionMsg(taskType);
             throw new InvalidCommandException(noDescriptionExceptionMsg);
         }
