@@ -10,4 +10,4 @@ I am capable of keeping tabs on the tasks that you need to keep track of.
     - Todo: For things that you plan to do (and hopefully _do_ complete it)
 
 ## My User Guide
-For a more detailed guide on how to interact with me, please refer to my [user guide](docs\README.md).
+For a more detailed guide on how to interact with me, please refer to my [user guide](docs/README.md).
