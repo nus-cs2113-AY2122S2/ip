@@ -217,9 +217,9 @@ public class LoadSave {
             }
         } catch (BobInvalidLoadLength e) {
             printLoadError(MESSAGE_INVALID_LENGTH);
+
         } catch (BobInvalidLoadValue e) {
-            // already handled, catch to stop loop
-        }
+        } // already handled, catch to stop loop
     }
 
     /**

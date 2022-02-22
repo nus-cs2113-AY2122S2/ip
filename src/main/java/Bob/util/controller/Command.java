@@ -39,7 +39,20 @@ public class Command {
         }
         throw new BobInvalidIdException();
     }
-    
+
+    /**
+     * Prints the task found message once.
+     *
+     * @param isFound the task's previous find status.
+     * @return true
+     */
+    public static boolean printFound(boolean isFound) {
+        if (!isFound) {
+            UI.printlnTab(UI.MESSAGE_FOUND_MATCHING_TASK);
+        }
+        return true;
+    }
+
     /**
      * Prints the formatted actual id of a task.
      *
@@ -124,10 +137,7 @@ public class Command {
         for (int i = 0; i < count; i++) {
             Task currentTask = list.get(i);
             if (currentTask.getDescription().contains(commandToken[1])) {
-                if (!taskFound) {
-                    UI.printlnTab(UI.MESSAGE_FOUND_MATCHING_TASK);
-                    taskFound = true;
-                }
+                taskFound = printFound(taskFound);
                 printListId(i);
                 System.out.println(currentTask);
             }
@@ -288,7 +298,6 @@ public class Command {
                 break;
             case "mark":
                 updateStatus(list, command, true);
-
                 break;
             case "unmark":
                 updateStatus(list, command, false);
