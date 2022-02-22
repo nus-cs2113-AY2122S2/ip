@@ -3,10 +3,14 @@ read book
 todo read book
 list
 deadline return book /by Sunday
+deadline return book /by 27/2/2022 2100
+deadline return book /by 27/02/2022 2100
 list
 mark 1
 list
 event project meeting /at Mon 2-4pm
+event project meeting /at 19/9/2022 1400
+event project meeting /at 19/09/2022 1400
 list
 mark 3
 mark 2
@@ -49,6 +53,6 @@ find pancakes
 find read
 find project
 find return book
-find 10/10
+find 10 Oct
 find E
 bye

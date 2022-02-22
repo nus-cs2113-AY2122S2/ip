@@ -61,4 +61,8 @@ public class SoraExceptionHandler {
     public void handleEmptyListException() {
         soraUI.printEmptyListExceptionResponse();
     }
+
+    public void handleInvalidDateTimeInputFormat() {
+        soraUI.printInvalidDateTimeInputFormatResponse();
+    }
 }

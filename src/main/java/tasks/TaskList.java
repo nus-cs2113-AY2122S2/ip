@@ -5,10 +5,16 @@ import sora.SoraUI;
 import sora.InvalidCommandException;
 import util.Helper;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class TaskList {
     private static final int EVENT_DEADLINE_TASK_NUMBER_OF_PARAMETERS = 2;
+    private static final int EVENT_DEADLINE_TASK_DESCRIPTION_INDEX_NUM = 0;
+    private static final int EVENT_DEADLINE_TASK_DATE_INDEX_NUM = 1;
+
     public static final int FILE_DATA_TASK_TYPE_INDEX_NUM = 0;
     public static final int FILE_DATA_DESCRIPTION_INDEX_NUM = 2;
     public static final int FILE_DATA_FLAG_VALUE_INDEX_NUM = 3;
@@ -42,7 +48,7 @@ public class TaskList {
         this.numberOfTasks += 1;
     }
 
-    public Task addTask(String userInput) throws InvalidCommandException {
+    public Task addTask(String userInput) throws InvalidCommandException, DateTimeParseException {
         // Create new Task object with text
         Task newTask = null;
         String taskType = extractTaskType(userInput);
@@ -57,21 +63,32 @@ public class TaskList {
                 break;
             case SoraUI.ADD_EVENT_COMMAND_KEYWORD:
                 checkEventDeadlineCommand(userInput);
-                String[] eventDescriptionAndDate = extractDescriptionAndDate(userInput, SoraUI.ADD_EVENT_FLAG_KEYWORD);
-                newTask = new Event(eventDescriptionAndDate);
+                String[] eventDescriptionAndDate = extractDescriptionAndDate(userInput,
+                        SoraUI.ADD_EVENT_FLAG_KEYWORD);
+                LocalDateTime eventDateTime =
+                        getDateTimeObject(eventDescriptionAndDate[EVENT_DEADLINE_TASK_DATE_INDEX_NUM]);
+                newTask = new Event(eventDescriptionAndDate[EVENT_DEADLINE_TASK_DESCRIPTION_INDEX_NUM],
+                        eventDateTime);
                 list.add(newTask);
                 break;
             case SoraUI.ADD_DEADLINE_COMMAND_KEYWORD:
                 checkEventDeadlineCommand(userInput);
-                String[] deadlineDescriptionAndDate = extractDescriptionAndDate(userInput, SoraUI.ADD_DEADLINE_FLAG_KEYWORD);
-                newTask = new Deadline(deadlineDescriptionAndDate);
+                String[] deadlineDescriptionAndDate = extractDescriptionAndDate(userInput,
+                        SoraUI.ADD_DEADLINE_FLAG_KEYWORD);
+                LocalDateTime deadlineDateTime =
+                        getDateTimeObject(deadlineDescriptionAndDate[EVENT_DEADLINE_TASK_DATE_INDEX_NUM]);
+                newTask = new Deadline(deadlineDescriptionAndDate[EVENT_DEADLINE_TASK_DESCRIPTION_INDEX_NUM],
+                        deadlineDateTime);
                 list.add(newTask);
                 break;
             default:
                 // TODO: Implement exception?
             }
         } catch (InvalidCommandException e) {
-            // Rethrow it to caller method
+            // Re-throw it to caller method
+            throw e;
+        } catch (DateTimeParseException e) {
+            // Re-throw it to caller method
             throw e;
         }
 
@@ -303,6 +320,20 @@ public class TaskList {
         }
 
         return taskDescriptionAndDate;
+    }
+
+    private LocalDateTime getDateTimeObject(String dateTimeString) throws DateTimeParseException {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(SoraUI.DATE_TIME_INPUT_FORMAT);
+        LocalDateTime dateTimeObject = null;
+
+        try {
+            dateTimeObject = LocalDateTime.parse(dateTimeString, dateTimeFormatter);
+        } catch (DateTimeParseException e) {
+            // Re-throw it to calling method to handle
+            throw e;
+        }
+
+        return dateTimeObject;
     }
 
     /**

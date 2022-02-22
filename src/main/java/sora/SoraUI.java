@@ -81,6 +81,12 @@ public class SoraUI {
     };
 
     /**
+     * Date and time format (for event and deadline tasks)
+     */
+    public static final String DATE_TIME_INPUT_FORMAT = "dd/MM/yyyy HHmm";
+    public static final String DATE_TIME_OUTPUT_FORMAT = "E, d MMM yyyy, h:mm a";
+
+    /**
      * List of response messages
      */
     protected static final String LIST_PRE_EXECUTION_RESPONSE =
@@ -100,6 +106,11 @@ public class SoraUI {
                     "Perhaps you could refine your search parameters?\n";
     protected static final String MISSING_SEARCH_STRING_RESPONSE =
             "%s, please provide me with a search string for me to find.\n";
+
+    protected static final String INVALID_DATE_TIME_INPUT_FORMAT_RESPONSE =
+            "%s, the formatting of the date and time you've given me\nis incorrect... " +
+                    "It should be DD/MM/YYYY HHmm, where 'HHmm'\nis the time in 24-hour format." +
+                    "Please try again...\n";
 
     protected static final String ADD_TASK_SUCCESS_RESPONSE =
             "%s, I've added your new task to my list:\n";
@@ -429,5 +440,9 @@ public class SoraUI {
 
     public void printMissingSearchStringResponse() {
         System.out.printf(SoraUI.MISSING_SEARCH_STRING_RESPONSE, getRandomNegativeAcknowledgement());
+    }
+
+    public void printInvalidDateTimeInputFormatResponse() {
+        System.out.printf(SoraUI.INVALID_DATE_TIME_INPUT_FORMAT_RESPONSE, getRandomNegativeAcknowledgement());
     }
 }

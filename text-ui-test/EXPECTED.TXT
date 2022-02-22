@@ -6,7 +6,7 @@
 .----)   |   |  `--'  | |  |\  \----./  _____  \
 |_______/     \______/  | _| `._____/__/     \__\
 ------------------------------------------------------------
-Good afternoon! I'm Sora!
+Good evening. I'm Sora!
 
 Hmm, I couldn't find the directory that contains my data
 file. Let me go and create it...
@@ -48,9 +48,23 @@ Okay, here's a list of 1 tasks that you have given to me:
 What's next?
 ------------------------------------------------------------
 > ------------------------------------------------------------
+Hmm, the formatting of the date and time you've given me
+is incorrect... It should be DD/MM/YYYY HHmm, where 'HHmm'
+is the time in 24-hour format.Please try again...
+------------------------------------------------------------
+What's next?
+------------------------------------------------------------
+> ------------------------------------------------------------
+Hmm, the formatting of the date and time you've given me
+is incorrect... It should be DD/MM/YYYY HHmm, where 'HHmm'
+is the time in 24-hour format.Please try again...
+------------------------------------------------------------
+What's next?
+------------------------------------------------------------
+> ------------------------------------------------------------
 Okay, I've added your new task to my list:
 
-	[D][ ] return book (due on: Sunday)
+	[D][ ] return book (due on: Sun, 27 Feb 2022, 9:00 PM)
 
 ------------------------------------------------------------
 What's next?
@@ -59,7 +73,7 @@ What's next?
 Okay, here's a list of 2 tasks that you have given to me:
 
 	1.[T][ ] read book
-	2.[D][ ] return book (due on: Sunday)
+	2.[D][ ] return book (due on: Sun, 27 Feb 2022, 9:00 PM)
 
 ------------------------------------------------------------
 What's next?
@@ -76,15 +90,29 @@ What's next?
 Okay, here's a list of 2 tasks that you have given to me:
 
 	1.[T][X] read book
-	2.[D][ ] return book (due on: Sunday)
+	2.[D][ ] return book (due on: Sun, 27 Feb 2022, 9:00 PM)
 
+------------------------------------------------------------
+What's next?
+------------------------------------------------------------
+> ------------------------------------------------------------
+Hmm, the formatting of the date and time you've given me
+is incorrect... It should be DD/MM/YYYY HHmm, where 'HHmm'
+is the time in 24-hour format.Please try again...
+------------------------------------------------------------
+What's next?
+------------------------------------------------------------
+> ------------------------------------------------------------
+Hmm, the formatting of the date and time you've given me
+is incorrect... It should be DD/MM/YYYY HHmm, where 'HHmm'
+is the time in 24-hour format.Please try again...
 ------------------------------------------------------------
 What's next?
 ------------------------------------------------------------
 > ------------------------------------------------------------
 Okay, I've added your new task to my list:
 
-	[E][ ] project meeting (scheduled for: Mon 2-4pm)
+	[E][ ] project meeting (scheduled for: Mon, 19 Sep 2022, 2:00 PM)
 
 ------------------------------------------------------------
 What's next?
@@ -93,8 +121,8 @@ What's next?
 Okay, here's a list of 3 tasks that you have given to me:
 
 	1.[T][X] read book
-	2.[D][ ] return book (due on: Sunday)
-	3.[E][ ] project meeting (scheduled for: Mon 2-4pm)
+	2.[D][ ] return book (due on: Sun, 27 Feb 2022, 9:00 PM)
+	3.[E][ ] project meeting (scheduled for: Mon, 19 Sep 2022, 2:00 PM)
 
 ------------------------------------------------------------
 What's next?
@@ -102,7 +130,7 @@ What's next?
 > ------------------------------------------------------------
 Okay, I've marked this task as done:
 
-	[E][X] project meeting (scheduled for: Mon 2-4pm)
+	[E][X] project meeting (scheduled for: Mon, 19 Sep 2022, 2:00 PM)
 
 ------------------------------------------------------------
 What's next?
@@ -110,7 +138,7 @@ What's next?
 > ------------------------------------------------------------
 Okay, I've marked this task as done:
 
-	[D][X] return book (due on: Sunday)
+	[D][X] return book (due on: Sun, 27 Feb 2022, 9:00 PM)
 
 ------------------------------------------------------------
 What's next?
@@ -119,8 +147,8 @@ What's next?
 Okay, here's a list of 3 tasks that you have given to me:
 
 	1.[T][X] read book
-	2.[D][X] return book (due on: Sunday)
-	3.[E][X] project meeting (scheduled for: Mon 2-4pm)
+	2.[D][X] return book (due on: Sun, 27 Feb 2022, 9:00 PM)
+	3.[E][X] project meeting (scheduled for: Mon, 19 Sep 2022, 2:00 PM)
 
 ------------------------------------------------------------
 What's next?
@@ -128,7 +156,7 @@ What's next?
 > ------------------------------------------------------------
 Okay, I've marked this task as not done:
 
-	[D][ ] return book (due on: Sunday)
+	[D][ ] return book (due on: Sun, 27 Feb 2022, 9:00 PM)
 
 ------------------------------------------------------------
 What's next?
@@ -137,8 +165,8 @@ What's next?
 Okay, here's a list of 3 tasks that you have given to me:
 
 	1.[T][X] read book
-	2.[D][ ] return book (due on: Sunday)
-	3.[E][X] project meeting (scheduled for: Mon 2-4pm)
+	2.[D][ ] return book (due on: Sun, 27 Feb 2022, 9:00 PM)
+	3.[E][X] project meeting (scheduled for: Mon, 19 Sep 2022, 2:00 PM)
 
 ------------------------------------------------------------
 What's next?
@@ -155,8 +183,8 @@ What's next?
 Okay, here's a list of 3 tasks that you have given to me:
 
 	1.[T][ ] read book
-	2.[D][ ] return book (due on: Sunday)
-	3.[E][X] project meeting (scheduled for: Mon 2-4pm)
+	2.[D][ ] return book (due on: Sun, 27 Feb 2022, 9:00 PM)
+	3.[E][X] project meeting (scheduled for: Mon, 19 Sep 2022, 2:00 PM)
 
 ------------------------------------------------------------
 What's next?
@@ -198,10 +226,9 @@ Could you try again?
 What's next?
 ------------------------------------------------------------
 > ------------------------------------------------------------
-Okay, I've added your new task to my list:
-
-	[E][ ] test (scheduled for: now)
-
+Hmm, the formatting of the date and time you've given me
+is incorrect... It should be DD/MM/YYYY HHmm, where 'HHmm'
+is the time in 24-hour format.Please try again...
 ------------------------------------------------------------
 What's next?
 ------------------------------------------------------------
@@ -266,10 +293,9 @@ deadline command... Could you try again?
 What's next?
 ------------------------------------------------------------
 > ------------------------------------------------------------
-Okay, I've added your new task to my list:
-
-	[D][ ] test (due on: now)
-
+Hmm, the formatting of the date and time you've given me
+is incorrect... It should be DD/MM/YYYY HHmm, where 'HHmm'
+is the time in 24-hour format.Please try again...
 ------------------------------------------------------------
 What's next?
 ------------------------------------------------------------
@@ -310,13 +336,11 @@ Could you try again?
 What's next?
 ------------------------------------------------------------
 > ------------------------------------------------------------
-Okay, here's a list of 5 tasks that you have given to me:
+Okay, here's a list of 3 tasks that you have given to me:
 
 	1.[T][ ] read book
-	2.[D][ ] return book (due on: Sunday)
-	3.[E][X] project meeting (scheduled for: Mon 2-4pm)
-	4.[E][ ] test (scheduled for: now)
-	5.[D][ ] test (due on: now)
+	2.[D][ ] return book (due on: Sun, 27 Feb 2022, 9:00 PM)
+	3.[E][X] project meeting (scheduled for: Mon, 19 Sep 2022, 2:00 PM)
 
 ------------------------------------------------------------
 What's next?
@@ -330,7 +354,7 @@ What's next?
 > ------------------------------------------------------------
 Okay, I've added your new task to my list:
 
-	[D][ ] project submission (due on: 12/04/2022 2359)
+	[D][ ] project submission (due on: Tue, 12 Apr 2022, 11:59 PM)
 
 ------------------------------------------------------------
 What's next?
@@ -338,21 +362,19 @@ What's next?
 > ------------------------------------------------------------
 Okay, I've added your new task to my list:
 
-	[E][ ] trip to Japan (scheduled for: 10/10/2019 0800)
+	[E][ ] trip to Japan (scheduled for: Thu, 10 Oct 2019, 8:00 AM)
 
 ------------------------------------------------------------
 What's next?
 ------------------------------------------------------------
 > ------------------------------------------------------------
-Okay, here's a list of 7 tasks that you have given to me:
+Okay, here's a list of 5 tasks that you have given to me:
 
 	1.[T][ ] read book
-	2.[D][ ] return book (due on: Sunday)
-	3.[E][X] project meeting (scheduled for: Mon 2-4pm)
-	4.[E][ ] test (scheduled for: now)
-	5.[D][ ] test (due on: now)
-	6.[D][ ] project submission (due on: 12/04/2022 2359)
-	7.[E][ ] trip to Japan (scheduled for: 10/10/2019 0800)
+	2.[D][ ] return book (due on: Sun, 27 Feb 2022, 9:00 PM)
+	3.[E][X] project meeting (scheduled for: Mon, 19 Sep 2022, 2:00 PM)
+	4.[D][ ] project submission (due on: Tue, 12 Apr 2022, 11:59 PM)
+	5.[E][ ] trip to Japan (scheduled for: Thu, 10 Oct 2019, 8:00 AM)
 
 ------------------------------------------------------------
 What's next?
@@ -381,8 +403,8 @@ What's next?
 Okay, I have found 2 tasks that matches your search
 phrase:
 
-	3.[E][X] project meeting (scheduled for: Mon 2-4pm)
-	6.[D][ ] project submission (due on: 12/04/2022 2359)
+	3.[E][X] project meeting (scheduled for: Mon, 19 Sep 2022, 2:00 PM)
+	4.[D][ ] project submission (due on: Tue, 12 Apr 2022, 11:59 PM)
 
 ------------------------------------------------------------
 What's next?
@@ -391,7 +413,7 @@ What's next?
 Okay, I have found 1 task that matches your search
 phrase:
 
-	2.[D][ ] return book (due on: Sunday)
+	2.[D][ ] return book (due on: Sun, 27 Feb 2022, 9:00 PM)
 
 ------------------------------------------------------------
 What's next?
@@ -400,18 +422,17 @@ What's next?
 Okay, I have found 1 task that matches your search
 phrase:
 
-	7.[E][ ] trip to Japan (scheduled for: 10/10/2019 0800)
+	5.[E][ ] trip to Japan (scheduled for: Thu, 10 Oct 2019, 8:00 AM)
 
 ------------------------------------------------------------
 What's next?
 ------------------------------------------------------------
 > ------------------------------------------------------------
-Okay, I have found 3 tasks that matches your search
+Okay, I have found 2 tasks that matches your search
 phrase:
 
-	3.[E][X] project meeting (scheduled for: Mon 2-4pm)
-	4.[E][ ] test (scheduled for: now)
-	7.[E][ ] trip to Japan (scheduled for: 10/10/2019 0800)
+	3.[E][X] project meeting (scheduled for: Mon, 19 Sep 2022, 2:00 PM)
+	5.[E][ ] trip to Japan (scheduled for: Thu, 10 Oct 2019, 8:00 AM)
 
 ------------------------------------------------------------
 What's next?

@@ -2,6 +2,7 @@ package sora;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.time.format.DateTimeParseException;
 
 import tasks.EmptyListException;
 import tasks.Task;
@@ -147,6 +148,8 @@ public class Sora {
             }
         } catch (InvalidCommandException e) {
             soraExceptionHandler.handleInvalidCommandException(e);
+        } catch (DateTimeParseException e) {
+            soraExceptionHandler.handleInvalidDateTimeInputFormat();
         } catch (IOException e) {
             // Throw it up to calling method for program termination
             throw e;

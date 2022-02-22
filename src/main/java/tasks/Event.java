@@ -1,25 +1,28 @@
 package tasks;
 
-public class Event extends Task {
-    // Index values of the task details when reading in from the String array argument in the constructor
-    private static final int EVENT_DESCRIPTION = 0;
-    private static final int EVENT_PERIOD = 1;
+import sora.SoraUI;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class Event extends Task {
     private static final String EVENT_CHECKBOX = "[E]";
 
-    private String eventPeriod;
+    private LocalDateTime eventPeriod;
 
-    public Event(String[] descriptionAndPeriod) {
-        super(descriptionAndPeriod[EVENT_DESCRIPTION]);
-        this.eventPeriod = descriptionAndPeriod[EVENT_PERIOD];
+    public Event(String eventDescription, LocalDateTime dateAndTime) {
+        super(eventDescription);
+        this.eventPeriod = dateAndTime;
     }
 
     public String getEventPeriod() {
-        return eventPeriod;
+        DateTimeFormatter dateTimeFormat= DateTimeFormatter.ofPattern(SoraUI.DATE_TIME_OUTPUT_FORMAT);
+        return eventPeriod.format(dateTimeFormat);
     }
 
-    public void setEventPeriod(String eventPeriod) {
-        this.eventPeriod = eventPeriod;
+    public String getEventPeriodForFileStorage() {
+        DateTimeFormatter dateTimeFormat= DateTimeFormatter.ofPattern(SoraUI.DATE_TIME_INPUT_FORMAT);
+        return eventPeriod.format(dateTimeFormat);
     }
 
     public String toString() {
