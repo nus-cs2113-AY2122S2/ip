@@ -1,8 +1,8 @@
 package tasks;
 
 /**
- * Represents a Task of type Deadline. Deadline tasks contains a description and a date that represents
- * the due date of the task.
+ * Represents a Task of type Deadline. Deadline tasks contain a description of the task
+ * and a date and time that represents the due date of the task.
  */
 public class Deadline extends Task {
     // Index values of the task details when reading in from the String array argument in the constructor
