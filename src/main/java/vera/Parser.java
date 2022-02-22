@@ -54,6 +54,11 @@ public class Parser {
 
     public static Task parseSavedData(String[] rawData) throws InputEmptyException {
         Task parsedData;
+        if (!rawData[SAVE_TASK_MARK_STATUS].equals("0") &&
+                !rawData[SAVE_TASK_MARK_STATUS].equals("1")) {
+            throw new InputEmptyException();
+        }
+
         switch (rawData[SAVE_TASK_TYPE_INDEX].trim()) {
         case "T":
             parsedData = new Todo(rawData[SAVE_TASK_DESCRIPTION_INDEX]);
@@ -69,9 +74,11 @@ public class Parser {
         default:
             throw new InputEmptyException();
         }
+
         if (isReadTaskEmpty(parsedData)) {
             throw new InputEmptyException();
         }
+
         if (rawData[SAVE_TASK_MARK_STATUS].equals("1")) {
             parsedData.markAsDone();
         }
