@@ -6,6 +6,7 @@ import tasks.TaskList;
 import util.Helper;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -64,6 +65,8 @@ public class SoraUI {
 
     public static final String LIST_COMMAND_KEYWORD = "list";
 
+    public static final String FIND_COMMAND_KEYWORD = "find";
+
     public static final String ADD_TODO_COMMAND_KEYWORD = "todo";
     public static final String ADD_EVENT_COMMAND_KEYWORD = "event";
     public static final String ADD_EVENT_FLAG_KEYWORD = "/at";
@@ -90,11 +93,22 @@ public class SoraUI {
     // List of response messages
     protected static final String LIST_PRE_EXECUTION_RESPONSE =
             "%s, here's a list of %d tasks that you have given to me:\n";
+
     protected static final String EMPTY_LIST_RESPONSE =
             "%s, my list is empty at the moment...\n";
+
     protected static final String TASK_NUMBER_OUT_OF_LIST_RANGE_RESPONSE =
             "%s, the task number you've given me is out of the range\nof the current list of tasks." +
                     " Could you re-enter a\nvalid task number?\n";
+
+    protected static final String STANDARD_SEARCH_RESULT_RESPONSE =
+            "%s, I have found %d %s that matches your search\nphrase:\n";
+    protected static final String NO_RESULT_FOUND_RESPONSE =
+            "%s, there are no tasks that match your search phrase.\n" +
+                    "Perhaps you could refine your search parameters?\n";
+    protected static final String MISSING_SEARCH_STRING_RESPONSE =
+            "%s, please provide me with a search string for me to find.\n";
+
     protected static final String INVALID_DATE_TIME_INPUT_FORMAT_RESPONSE =
             "%s, the formatting of the date and time you've given me\nis incorrect... " +
                     "It should be DD/MM/YYYY HHmm, where 'HHmm'\nis the time in 24-hour format." +
@@ -362,7 +376,7 @@ public class SoraUI {
      * @param taskList The instance of TaskList that contains the list of tasks to be printed.
      * @throws EmptyListException If the instance of TaskList does not contain any tasks (i.e. an empty list).
      */
-    protected void displayTaskList(TaskList taskList) throws EmptyListException {
+    protected void printTaskList(TaskList taskList) throws EmptyListException {
         // Check if the task list is empty
         if (taskList.isEmpty()) {
             throw new EmptyListException(EmptyListException.EMPTY_LIST_MSG);
@@ -373,6 +387,38 @@ public class SoraUI {
         System.out.println();
         taskList.displayAllTasks();
         System.out.println();
+    }
+
+    /**
+     * Prints a response and displays a list of the tasks in searchResults, which contains the
+     * tasks that matches a certain search parameter.
+     *
+     * @param searchResults The list of tasks that are part of the search results.
+     */
+    public void printSearchResults(ArrayList<String> searchResults) {
+        if (searchResults.size() == 0) {
+            System.out.printf(NO_RESULT_FOUND_RESPONSE, getRandomNegativeAcknowledgement());
+            return;
+        }
+
+        String taskOrTasks = (searchResults.size() > 1) ? "tasks" : "task";
+
+        System.out.printf(STANDARD_SEARCH_RESULT_RESPONSE, getRandomPositiveAcknowledgement(),
+                searchResults.size(), taskOrTasks);
+        System.out.println();
+        printSearchResultsArrayList(searchResults);
+        System.out.println();
+    }
+
+    /**
+     * Complements printSearchResults. Printing the tasks in searchResults
+     *
+     * @param searchResults A list containing the tasks that are part of the search results.
+     */
+    private void printSearchResultsArrayList(ArrayList<String> searchResults) {
+        for (String result : searchResults) {
+            System.out.println("\t" + result);
+        }
     }
 
     /**
@@ -516,6 +562,10 @@ public class SoraUI {
      */
     public void printInvalidTaskNumber() {
         System.out.printf(INVALID_TASK_NUMBER_RESPONSE, getRandomNegativeAcknowledgement());
+    }
+
+    public void printMissingSearchStringResponse() {
+        System.out.printf(SoraUI.MISSING_SEARCH_STRING_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
     public void printInvalidDateTimeInputFormatResponse() {

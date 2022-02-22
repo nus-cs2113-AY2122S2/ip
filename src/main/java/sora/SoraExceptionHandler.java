@@ -56,7 +56,10 @@ public class SoraExceptionHandler {
         case InvalidCommandException.DEADLINE_INVALID_FLAGS:
             soraUI.printDeadlineInvalidFlags();
             break;
-            // TODO: Add default branch?
+        case InvalidCommandException.FIND_NO_SEARCH_STRING:
+            soraUI.printMissingSearchStringResponse();
+            break;
+        // TODO: Add default branch?
         }
     }
 
