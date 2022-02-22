@@ -9,9 +9,6 @@ package sora;
  * </ul>
  */
 public class InvalidCommandException extends Exception {
-    // Used for when exception was not thrown with specified expected and received values
-    private static final String EMPTY_VALUE_PLACEHOLDER = "N.A.";
-
     /**
      * List of pre-defined error messages
      */
@@ -29,9 +26,6 @@ public class InvalidCommandException extends Exception {
     public static final String DEADLINE_NO_DUE_DATE = "No due date for deadline command was found";
     public static final String DEADLINE_INVALID_FLAGS = "Usage of flags in deadline command was invalid";
 
-    private String expectedValue;
-    private String receivedValue;
-
     /**
      * Constructs an InvalidCommandException with a specified error message.
      *
@@ -39,24 +33,5 @@ public class InvalidCommandException extends Exception {
      */
     public InvalidCommandException(String errorMsg) {
         super(errorMsg);
-        this.expectedValue = EMPTY_VALUE_PLACEHOLDER;
-        this.receivedValue = EMPTY_VALUE_PLACEHOLDER;
-    }
-
-    public InvalidCommandException(String errorMsg, String expectedValue, String receivedValue) {
-        super(errorMsg);
-        this.expectedValue = expectedValue;
-        this.receivedValue = receivedValue;
-    }
-
-    /**
-     * Accessor methods
-     */
-    public String getExpectedValue() {
-        return this.expectedValue;
-    }
-
-    public String getReceivedValue() {
-        return this.receivedValue;
     }
 }
