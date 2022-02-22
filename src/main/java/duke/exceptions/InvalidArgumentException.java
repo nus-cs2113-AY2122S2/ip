@@ -1,14 +1,14 @@
 package duke.exceptions;
 
-public class InvalidArgumentException extends Exception {
+public class InvalidArgumentException extends DukeException {
 
-    private static final String INVALID_COMMAND_MESSAGE =
-            "____________________________________________________________"
-            + "\n☹ OOPS!!! The command entered for %s ran into an error. The error: \n%s"
-            + "\n____________________________________________________________";
+    private static final String INVALID_COMMAND_MESSAGE = "☹ OOPS!!! The command entered for %s ran into an error. The error: \n%s";
 
     /**
-     * Exception to represent any parsing or run-time errors such as indexoutofbounds.
+     * Exception to represent inappropriate arguments to the respective commands
+     * e.g. indexoutofbounds for mark 5 when task 5 does not exist
+     * e.g. missing arguments for description or date for a Task
+     *
      * @param inputCommand representing the user's typed command
      * @param errorMessage representing the error message to show
      */

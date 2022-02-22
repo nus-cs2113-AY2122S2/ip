@@ -1,15 +1,16 @@
 package duke.commands;
 
+import duke.exceptions.DukeException;
 import duke.exceptions.InvalidArgumentException;
 import duke.tasks.Event;
+import duke.tasks.TaskList;
+import duke.Ui;
+import duke.Storage;
 
 import java.util.HashMap;
 
 public class EventCommand extends Command {
-    public static final String TASK_ADDED_MESSAGE_FORMAT =
-            "____________________________________________________________"
-            + "\nadded: %s"
-            + "\n____________________________________________________________";
+    public static final String TASK_ADDED_MESSAGE_FORMAT = "added: %s";
     private static final String COMMAND_NAME = "deadline";
     private static final String EMPTY_ARGUMENTS = "Event must have a description!";
     private static final String EMPTY_BYDATE = "Event must have a valid date for /at!";
@@ -44,17 +45,18 @@ public class EventCommand extends Command {
 
     /**
      * Creates an Event task and adds it to taskList
+     * @param taskList the taskList to act on
+     * @param ui the provided Ui to output on
+     * @param storage the provided filename to update data to
      */
-    public void execute() {
-        try {
-            assertArguments();
-            String description = arguments.get("");
-            String byDate = arguments.get("/at");
-            Event eventTask = new Event(description, byDate);
-            taskList.add(eventTask);
-            System.out.printf(TASK_ADDED_MESSAGE_FORMAT + "%n", eventTask);
-        } catch (InvalidArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        assertArguments();
+        String description = arguments.get("");
+        String byDate = arguments.get("/at");
+        Event eventTask = new Event(description, byDate);
+        taskList.add(eventTask);
+        String output = String.format(TASK_ADDED_MESSAGE_FORMAT, eventTask.toString());
+        ui.showOutput(output);
+        storage.write(taskList);
     }
 }

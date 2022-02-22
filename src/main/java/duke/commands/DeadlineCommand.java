@@ -1,15 +1,17 @@
 package duke.commands;
 
+import duke.exceptions.DukeException;
 import duke.exceptions.InvalidArgumentException;
 import duke.tasks.Deadline;
+import duke.tasks.TaskList;
+import duke.Ui;
+import duke.Storage;
+
 
 import java.util.HashMap;
 
 public class DeadlineCommand extends Command {
-    public static final String TASK_ADDED_MESSAGE_FORMAT =
-            "____________________________________________________________"
-            + "\nadded: %s"
-            + "\n____________________________________________________________";
+    public static final String TASK_ADDED_MESSAGE_FORMAT = "added: %s";
     private static final String COMMAND_NAME = "deadline";
     private static final String EMPTY_ARGUMENTS = "Deadline must have a description!";
     private static final String EMPTY_BYDATE = "Deadline must have a valid date for /by!";
@@ -44,17 +46,18 @@ public class DeadlineCommand extends Command {
 
     /**
      * Creates an Event task and adds it to taskList
+     * @param taskList the taskList to act on
+     * @param ui the provided Ui to output on
+     * @param storage the provided filename to update data to
      */
-    public void execute() {
-        try {
-            assertArguments();
-            String description = arguments.get("");
-            String byDate = arguments.get("/by");
-            Deadline deadlineTask = new Deadline(description, byDate);
-            taskList.add(deadlineTask);
-            System.out.printf(TASK_ADDED_MESSAGE_FORMAT + "%n", deadlineTask);
-        } catch (InvalidArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        assertArguments();
+        String description = arguments.get("");
+        String byDate = arguments.get("/by");
+        Deadline deadlineTask = new Deadline(description, byDate);
+        taskList.add(deadlineTask);
+        String output = String.format(TASK_ADDED_MESSAGE_FORMAT, deadlineTask.toString());
+        ui.showOutput(output);
+        storage.write(taskList);
     }
 }

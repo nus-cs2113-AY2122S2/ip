@@ -1,16 +1,18 @@
 package duke.commands;
 
+import duke.exceptions.DukeException;
 import duke.exceptions.InvalidArgumentException;
 import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.Storage;
+import duke.Ui;
 
 import java.util.HashMap;
 
 public class UnmarkCommand extends Command {
     private static final String TASK_UNMARKED_MESSAGE_FORMAT =
-            "____________________________________________________________"
-            + "\nOK, I've marked this task as not done yet:"
-            + "\n%s"
-            + "\n____________________________________________________________";
+            "OK, I've marked this task as not done yet:"
+            + "\n%s";
     private static final String COMMAND_NAME = "unmark";
     private static final String INVALID_INPUT = "The argument received is not a valid integer.";
     private static final String INVALID_TASK = "The task number given does not exist";
@@ -42,18 +44,21 @@ public class UnmarkCommand extends Command {
 
     /**
      * Marks a task as not done, with index specified by user.
+     * @param taskList the taskList to act on
+     * @param ui the provided Ui to output on
+     * @param storage the provided filename to update data to
      */
-    public void execute() {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try {
             assertArguments();
-            Task taskToMark = this.taskList.get(index, true);
+            Task taskToMark = taskList.get(index);
             taskToMark.setIsDone(false);
-            System.out.printf((TASK_UNMARKED_MESSAGE_FORMAT) + "%n", taskToMark);
-        } catch (InvalidArgumentException e) {
-            System.out.println(e.getMessage());
+            String output = String.format(TASK_UNMARKED_MESSAGE_FORMAT,taskToMark.toString());
+            ui.showOutput(output);
+            storage.write(taskList);
         } catch (IndexOutOfBoundsException e) {
-            InvalidArgumentException error = new InvalidArgumentException(COMMAND_NAME, INVALID_TASK);
-            System.out.println(error.getMessage());
+            InvalidArgumentException exception = new InvalidArgumentException(COMMAND_NAME, INVALID_TASK);
+            throw exception;
         }
     }
 }

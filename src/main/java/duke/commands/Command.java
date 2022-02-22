@@ -1,12 +1,13 @@
 package duke.commands;
 
-import duke.exceptions.InvalidArgumentException;
-import duke.tasks.Task;
+import duke.exceptions.DukeException;
 import duke.tasks.TaskList;
+import duke.Ui;
+import duke.Storage;
+import duke.exceptions.InvalidArgumentException;
 
 public abstract class Command {
-    // The task list to act on. May or may not be used.
-    protected TaskList<Task> taskList;
+    protected boolean isExit;
 
     /**
      * Classes should override and implement this as needed, namely those that requires additional user arguments
@@ -18,15 +19,14 @@ public abstract class Command {
     }
 
     /**
-     * Setter for taskList
-     * @param taskList to set
-     */
-    public void setTaskList(TaskList<Task> taskList) {
-        this.taskList = taskList;
-    }
-
-    /**
      * A command must execute an action.
+     * @param taskList the taskList to act on
+     * @param ui the provided Ui to output on
+     * @param storage the provided filename to update data to
      */
-    public abstract void execute();
+    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
+
+    public boolean isExit() {
+        return this.isExit;
+    }
 }

@@ -1,7 +1,14 @@
 package duke;
 
-import duke.commands.*;
-
+import duke.commands.ByeCommand;
+import duke.commands.Command;
+import duke.commands.DeadlineCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.EventCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkCommand;
+import duke.commands.TodoCommand;
+import duke.commands.UnmarkCommand;
 import duke.exceptions.EmptyCommandException;
 import duke.exceptions.InvalidCommandException;
 
@@ -15,31 +22,17 @@ public class Parser {
     private static final Pattern COMMAND_FORMAT = Pattern.compile("(\\S+)(.*)");
 
     /**
-     * Empty Parser Constructor
-     */
-    public Parser() {
-
-    }
-
-    /**
      * Parses for user command and returns the proper Command object.
      * @param userInput input from user
      */
-    public Command parseInput(String userInput)  {
-        try {
-            // Initiate search, while checking if command is empty
-            Matcher commandMatcher = COMMAND_FORMAT.matcher(userInput);
-            checkForCommand(commandMatcher);
-            // Create the appropriate Command object. Pass in unparsed arguments, will be handled by individual Command classes.
-            String inputCommand = commandMatcher.group(1);
-            String inputArguments = commandMatcher.group(2).strip();
-            return createCommand(inputCommand, inputArguments);
-        } catch (EmptyCommandException e) {
-            System.out.println(e.getMessage());
-        } catch (InvalidCommandException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+    public static Command parse(String userInput) throws EmptyCommandException, InvalidCommandException {
+        // Initiate search, while checking if command is empty
+        Matcher commandMatcher = COMMAND_FORMAT.matcher(userInput);
+        checkForCommand(commandMatcher);
+        // Create the appropriate Command object. Pass in unparsed arguments, will be handled by individual Command classes.
+        String inputCommand = commandMatcher.group(1);
+        String inputArguments = commandMatcher.group(2).strip();
+        return createCommand(inputCommand, inputArguments);
     }
 
     /**
@@ -47,7 +40,7 @@ public class Parser {
      * @param commandMatcher the matcher object to search on
      * @throws EmptyCommandException if command is empty
      */
-    private void checkForCommand(Matcher commandMatcher) throws EmptyCommandException {
+    private static void checkForCommand(Matcher commandMatcher) throws EmptyCommandException {
         if (!commandMatcher.matches()) {
             throw new EmptyCommandException();
         }
@@ -60,7 +53,7 @@ public class Parser {
      * @return a Command object representing the user input command
      * @throws InvalidCommandException when none of the commands are valid
      */
-    private Command createCommand(String inputCommand, String inputArguments) throws InvalidCommandException {
+    private static Command createCommand(String inputCommand, String inputArguments) throws InvalidCommandException {
         HashMap<String, String> parsedArguments;
         switch(inputCommand) {
         case "bye":
@@ -85,8 +78,9 @@ public class Parser {
         case "delete":
             parsedArguments = argumentParser(inputArguments);
             return new DeleteCommand(parsedArguments);
+        default:
+            throw new InvalidCommandException(inputCommand);
         }
-        throw new InvalidCommandException(inputCommand);
     }
 
     /**
@@ -94,10 +88,11 @@ public class Parser {
      * @param inputArguments the raw unparsed user input
      * @return HashMap<String, String> mapping parameter name -> parameter value
      */
-    private HashMap<String, String> argumentParser(String inputArguments) {
+    private static HashMap<String, String> argumentParser(String inputArguments) {
         HashMap<String, String> parsedArguments = new HashMap<String, String>();
         String parameterName = "";
         String parameter = "";
+
         String[] argumentArray = inputArguments.split(" ", 0);
         for (String argument: argumentArray) {
             if (argument.matches("^\\/\\w+$")) {

@@ -1,17 +1,19 @@
 package duke.commands;
 
+import duke.exceptions.DukeException;
 import duke.exceptions.InvalidArgumentException;
 import duke.tasks.Task;
 
 import java.util.HashMap;
+import duke.tasks.TaskList;
+import duke.Storage;
+import duke.Ui;
 
 public class DeleteCommand extends Command {
     private static final String TASK_DELETED_MESSAGE_FORMAT =
-            "____________________________________________________________"
-                    + "\nNoted. I've removed this task:"
+                    "Noted. I've removed this task:"
                     + "\n%s"
-                    + "\nNow you have %d tasks in the list."
-                    + "\n____________________________________________________________";
+                    + "\nNow you have %d tasks in the list.";
     private static final String COMMAND_NAME = "mark";
     private static final String INVALID_INPUT = "The argument received is not a valid integer.";
     public static final String INVALID_TASK = "The task number given does not exist";
@@ -43,18 +45,19 @@ public class DeleteCommand extends Command {
 
     /**
      * Deletes a task using ArrayList's built in remove.
+     * @param taskList the taskList to act on
+     * @param ui the provided Ui to output on
+     * @param storage the provided filename to update data to
      */
-    public void execute() {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         try {
             assertArguments();
-            Task taskToRemove = taskList.get(index);
-            System.out.printf((TASK_DELETED_MESSAGE_FORMAT + "%n"), taskToRemove, taskList.size()-1);
-            taskList.remove(index);
-        } catch (InvalidArgumentException e) {
-            System.out.println(e.getMessage());
+            Task taskToRemove = taskList.remove(index);
+            String output = String.format(TASK_DELETED_MESSAGE_FORMAT, taskToRemove.toString(), taskList.size());
+            ui.showOutput(output);
         } catch (IndexOutOfBoundsException e) {
-            InvalidArgumentException error = new InvalidArgumentException(COMMAND_NAME, INVALID_TASK);
-            System.out.println(error.getMessage());
+            InvalidArgumentException exception = new InvalidArgumentException(COMMAND_NAME, INVALID_TASK);
+            throw exception;
         }
     }
 }

@@ -1,15 +1,17 @@
 package duke.commands;
 
+import duke.exceptions.DukeException;
+import duke.tasks.TaskList;
+import duke.Ui;
+import duke.Storage;
+
 import duke.exceptions.InvalidArgumentException;
 import duke.tasks.Todo;
 
 import java.util.HashMap;
 
 public class TodoCommand extends Command {
-    private static final String TASK_ADDED_MESSAGE_FORMAT =
-            "____________________________________________________________"
-            + "\nadded: %s"
-            + "\n____________________________________________________________";
+    private static final String TASK_ADDED_MESSAGE_FORMAT = "added: %s";
     private static final String COMMAND_NAME = "todo";
     private static final String EMPTY_ARGUMENTS = "Todo must have a description!";
 
@@ -36,16 +38,17 @@ public class TodoCommand extends Command {
 
     /**
      * Creates a Todo task and adds it to taskList
+     * @param taskList the taskList to act on
+     * @param ui the provided Ui to output on
+     * @param storage the provided filename to update data to
      */
-    public void execute() {
-        try {
-            assertArguments();
-            String description = arguments.get("");
-            Todo todoTask = new Todo(description);
-            taskList.add(todoTask);
-            System.out.printf(TASK_ADDED_MESSAGE_FORMAT + "%n", todoTask);
-        } catch (InvalidArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        assertArguments();
+        String description = arguments.get("");
+        Todo todoTask = new Todo(description);
+        taskList.add(todoTask);
+        String output = String.format(TASK_ADDED_MESSAGE_FORMAT, todoTask.toString());
+        ui.showOutput(output);
+        storage.write(taskList);
     }
 }
