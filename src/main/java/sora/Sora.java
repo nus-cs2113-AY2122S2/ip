@@ -9,13 +9,12 @@ import tasks.Task;
 import tasks.TaskList;
 
 /**
- * Main 'brains' of Sora. Focuses on taking in user input and passing commands
- * to Sora's relevant components.
+ * The main 'brains' of Sora. Focuses on passing the user's input to her relevant components.
  */
 public class Sora {
     /**
      * When IN_TESTING_MODE is set to true, certain features of Sora will be limited to
-     * improve the automated text UI testing.
+     * improve the reliability of automated text UI testing.
      */
     protected static final boolean IN_TESTING_MODE = true;
     private boolean isUserExiting = false;
@@ -26,6 +25,13 @@ public class Sora {
     private SoraStorage soraStorage;
     private SoraExceptionHandler soraExceptionHandler;
 
+    /**
+     * Initialises the various components of Sora, greets the user, and loads the tasks from the storage
+     * file (if the storage file exists).
+     *
+     * @throws IOException If the user's command involves reading and/or writing to the storage file and
+     * Sora is unable to open the file.
+     */
     public Sora() throws IOException {
         // Instantiate components
         taskList = new TaskList();
@@ -46,18 +52,37 @@ public class Sora {
         }
     }
 
+    /**
+     * Gets the isUserExiting field
+     *
+     * @return The isUserExiting field
+     */
     protected boolean doesUserWantsToExit() {
         return this.isUserExiting;
     }
 
+    /**
+     * Sets the isUserExiting field's boolean value to be true.
+     */
     protected void setUserExit() {
         this.isUserExiting = true;
     }
 
+    /**
+     * Returns the taskList field, which contains an instance of the taskList class.
+     *
+     * @return
+     */
     protected TaskList getTasksManager() {
         return this.taskList;
     }
 
+    /**
+     * Prompts the user for an input and passes it to executeCommand method for command execution.
+     *
+     * @throws IOException If the user's command involves writing to the storage file and Sora is unable
+     * to open the file.
+     */
     public void startContinuousUserPrompt() throws IOException {
         boolean isFirstPrompt = true;
 
@@ -92,6 +117,14 @@ public class Sora {
         soraUI.printGoodbye();
     }
 
+    /**
+     * Takes in the user's input, processes it with SoraParser class and determines the appropriate courses
+     * of actions to take on the command.
+     *
+     * @param userRawInput The user's input.
+     * @throws IOException If the user's command involves writing to the storage file and Sora is unable
+     * to open the file.
+     */
     private void executeCommand(String userRawInput) throws IOException {
         String userCommand = soraParser.extractCommand(userRawInput);
 
@@ -157,6 +190,8 @@ public class Sora {
             soraExceptionHandler.handleOutOfRangeListReferences();
         } catch (EmptyListException e) {
             soraExceptionHandler.handleEmptyListException();
+        } catch (NumberFormatException e) {
+            soraExceptionHandler.handleInvalidTaskNumber();
         }
     }
 }

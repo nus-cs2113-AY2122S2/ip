@@ -3,20 +3,27 @@ package util;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+/**
+ * A static class that contains helper methods that cannot be properly categorised.
+ */
 public class Helper {
+    /**
+     * Returns the hour of the day in 24-hour format. Uses the GMT+8 timezone.
+     *
+     * @return The hour of the day in 24-hour format.
+     */
     public static int getHourOfDay() {
-        // Returns the hour of the day in 24-hour format. Uses the GMT+8 timezone
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
-
         return cal.get(Calendar.HOUR_OF_DAY);
     }
 
     /**
-     * (WIP) Will include words that contains the keyword.
+     * Checks if the specified string of text contains more than one of the specified keyword.
      *
-     * @param stringText
-     * @param keyword
-     * @return Returns true if more than one occurrence of keyword is found in stringText. False otherwise.
+     * @param stringText The string of text to be searched.
+     * @param keyword The keyword that will be searched for in stringText.
+     * @return true if more than one occurrence of keyword is found in stringText. Otherwise,
+     * false is returned.
      */
     public static boolean checkMultipleOccurrences(String stringText, String keyword) {
         int lastIndexOfString = stringText.length() - 1;
