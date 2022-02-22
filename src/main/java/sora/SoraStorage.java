@@ -20,7 +20,7 @@ import java.util.Scanner;
  */
 public class SoraStorage {
     // Default directory and file names for data storage
-    private static final String USER_HOME_PROPERTY = "user.home";
+    private static final String USER_HOME_PROPERTY = "user.dir";
     private static final String DATA_DIRECTORY = "CS2113T_iP_Sora_Resources";
     private static final String DATA_FILENAME = "data.txt";
 
