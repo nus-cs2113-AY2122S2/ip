@@ -13,7 +13,7 @@ public class IllegalCharacterException extends Exception {
     /**
      * Constructs an IllegalCharacterException with a specified error message.
      *
-     * @param errorMsg The message written by the throwing method.
+     * @param errorMsg The error message written by the throwing method.
      */
     public IllegalCharacterException(String errorMsg) {
         super(errorMsg);
