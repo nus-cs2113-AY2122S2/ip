@@ -16,8 +16,7 @@ public class SoraParser {
         boolean hasIllegalCharacters = checkForIllegalCharacters(userInputTrimmed);
 
         if (hasIllegalCharacters) {
-            throw new IllegalCharacterException(IllegalCharacterException.ILLEGAL_CHARACTER_MSG,
-                    "getUserInput", "SoraParser");
+            throw new IllegalCharacterException(IllegalCharacterException.ILLEGAL_CHARACTER_MSG);
         }
 
         return userInputTrimmed;
