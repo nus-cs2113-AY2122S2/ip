@@ -1,15 +1,16 @@
 package Duke;
 
+import java.sql.Time;
 import java.time.LocalDateTime;
 
 public class Event extends Task {
-    protected LocalDateTime at;
-    protected boolean hasTime;
+    protected String at;
+    protected TimeHandler dateTime;
 
-    public Event (String taskName, LocalDateTime at, boolean hasTime) {
+    public Event (String taskName, String at) {
         super(taskName);
         this.at = at;
-        this.hasTime = hasTime;
+        this.dateTime = new TimeHandler(at);
     }
 
     @Override

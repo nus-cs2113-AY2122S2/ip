@@ -13,8 +13,7 @@ public class Parser {
     private String[] tokens = new String[]{};
     private int markIndex;
     private String description;
-    private LocalDateTime dateTime;
-    private boolean hasTime;
+    private String time;
 
     public Parser(String userInput) throws DukeException {
         tokens = userInput.split(" ");
@@ -32,8 +31,7 @@ public class Parser {
             if (deadlineBy > 0) {
                 //remove keyword deadline and deadline time from raw user input
                 description = combineToken(tokens, 1, deadlineBy);
-                String timeStr = combineToken(tokens, deadlineBy + 1);
-                dateTime = LocalDateTime.parse(timeStr);
+                time = combineToken(tokens, deadlineBy + 1);
             } else {
                 throw new DukeExceptionTiming();
             }
@@ -83,12 +81,8 @@ public class Parser {
         return description;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public boolean isHasTime() {
-        return hasTime;
+    public String getTime() {
+        return time;
     }
 
     public String[] getTokens() {
@@ -140,27 +134,5 @@ public class Parser {
             combinedToken = combinedToken + tokens[i] + " ";
         }
         return combinedToken.trim();
-    }
-
-    public LocalDateTime timeFormatter(String dateTime) {
-        LocalDateTime localDateTime;
-        String regex = "(?<year>\\d{4})";
-        if (dateTime.contains("-")) {
-            String[] dateTimeArray = dateTime.split("-");
-        } else if (dateTime.contains("/")) {
-            String[] dateTimeArray = dateTime.split("/");
-
-        } else {
-
-        }
-
-        return localDateTime;
-    }
-
-    public static boolean hasTime(String dateTime) {
-        if (dateTime.contains("pm") ||
-        dateTime.contains("am")) {
-            return true;
-        }
     }
 }

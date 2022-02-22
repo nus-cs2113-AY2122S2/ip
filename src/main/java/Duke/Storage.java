@@ -69,7 +69,7 @@ public class Storage {
                     String regexTask = "(?<task>\\[[TDE]])";
                     Matcher matcher =  regexMatching(regexTask, listContent);
                     if (!matcher.find()) {
-                        return;
+                        continue;
                     }
                     String task = matcher.group("task");
                     switch (task) {
@@ -77,7 +77,9 @@ public class Storage {
                         String regexTodo = "(?<task>\\[[TDE]])(?<mark>\\[[\\s|X]])"+
                                 "(?<description>\\D*)";
                         Matcher matcherTodo =  regexMatching(regexTodo, listContent);
-                        matcherTodo.find();
+                        if (!matcherTodo.find()) {
+                            continue;
+                        }
                         String description = matcherTodo.group("description").trim();
                         Todo newTodo = new Todo(description);
                         if (matcherTodo.group("mark").equals("[X]")) {
@@ -89,12 +91,12 @@ public class Storage {
                         String regexDeadline = "(?<task>\\[[TDE]])(?<mark>\\[[\\s|X]])"+
                                 "(?<description>\\D*)(?<time>\\(at\\S*)";
                         Matcher matcherDeadline =  regexMatching(regexDeadline, listContent);
-                        matcherDeadline.find();
+                        if (!matcherDeadline.find()) {
+                            continue;
+                        }
                         description = matcherDeadline.group("description").trim();
                         String time = matcherDeadline.group("time");
-                        Deadline newDeadline = new Deadline(description,
-                                LocalDateTime.parse(time),
-                                Parser.hasTime(time));
+                        Deadline newDeadline = new Deadline(description, time);
                         if (matcherDeadline.group("mark").equals("[X]")) {
                             newDeadline.setMark();
                         }
@@ -104,12 +106,12 @@ public class Storage {
                         String regexEvent = "(?<task>\\[[TDE]])(?<mark>\\[[\\s|X]])"+
                                 "(?<description>\\D*)(?<time>\\(at\\S*)";
                         Matcher matcherEvent =  regexMatching(regexEvent, listContent);
-                        matcherEvent.find();
+                        if (matcherEvent.find()) {
+                            continue;
+                        }
                         description = matcherEvent.group("description").trim();
                         time = matcherEvent.group("time");
-                        Event newEvent = new Event(description,
-                                LocalDateTime.parse(time),
-                                Parser.hasTime(time));
+                        Event newEvent = new Event(description, time);
                         if (matcherEvent.group("mark").equals("[X]")) {
                             newEvent.setMark();
                         }
