@@ -1,6 +1,7 @@
 package sora;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 import tasks.EmptyListException;
 import tasks.Task;
@@ -14,7 +15,7 @@ public class Sora {
      * When IN_TESTING_MODE is set to true, certain features of Sora will be limited to
      * improve the reliability of automated text UI testing.
      */
-    protected static final boolean IN_TESTING_MODE = false;
+    protected static final boolean IN_TESTING_MODE = true;
     private boolean isUserExiting = false;
 
     private TaskList taskList;
@@ -163,7 +164,7 @@ public class Sora {
             case SoraUI.ADD_EVENT_COMMAND_KEYWORD:
                 // Fallthrough
             case SoraUI.ADD_DEADLINE_COMMAND_KEYWORD:
-                Task newTask = getTasksManager().addTaskFromFile(userRawInput);
+                Task newTask = getTasksManager().addTask(userRawInput);
                 // Update file
                 soraStorage.writeNewTaskToFile(newTask);
                 // Print response
@@ -174,6 +175,8 @@ public class Sora {
             }
         } catch (InvalidCommandException e) {
             soraExceptionHandler.handleInvalidCommandException(e);
+        } catch (DateTimeParseException e) {
+            soraExceptionHandler.handleInvalidDateTimeInputFormat();
         } catch (IOException e) {
             // Throw it up to calling method for program termination
             throw e;

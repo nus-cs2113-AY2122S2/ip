@@ -1,43 +1,50 @@
 package tasks;
 
+import sora.SoraUI;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a Task of type Event. Event tasks contain a description of the task as well as a date and time
  * that represents the date and time that the event will occur.
  */
 public class Event extends Task {
-    // Index values of the task details when reading in from the String array argument in the constructor
-    private static final int EVENT_DESCRIPTION = 0;
-    private static final int EVENT_PERIOD = 1;
     private static final String EVENT_CHECKBOX = "[E]";
 
-    private String eventPeriod;
+    private LocalDateTime eventPeriod;
 
     /**
      * Constructs an Event task with the specified description and event period.
      *
-     * @param descriptionAndPeriod A string array containing the event description and period.
+     * @param eventDescription The description of the Event task.
+     * @param dateAndTime The date and time that the Event task is expected to take place.
      */
-    public Event(String[] descriptionAndPeriod) {
-        super(descriptionAndPeriod[EVENT_DESCRIPTION]);
-        this.eventPeriod = descriptionAndPeriod[EVENT_PERIOD];
+    public Event(String eventDescription, LocalDateTime dateAndTime) {
+        super(eventDescription);
+        this.eventPeriod = dateAndTime;
     }
 
     /**
-     * Gets the event period of the Event instance.
+     * Returns a string representation of the event period in a format that is meant for displaying
+     * to the user.
      *
-     * @return The event period.
+     * @return The event period of the instance in a format for displaying to the user.
      */
     public String getEventPeriod() {
-        return this.eventPeriod;
+        DateTimeFormatter dateTimeFormat= DateTimeFormatter.ofPattern(SoraUI.DATE_TIME_OUTPUT_FORMAT);
+        return eventPeriod.format(dateTimeFormat);
     }
 
     /**
-     * Sets the event period of the Event instance to a specified period.
+     * Returns a string representation of the event period in a format that is meant for exporting
+     * to the file storage.
      *
-     * @param eventPeriod The new period for the event.
+     * @return The event period of the instance in a format for exporting to the file storage.
      */
-    public void setEventPeriod(String eventPeriod) {
-        this.eventPeriod = eventPeriod;
+    public String getEventPeriodForFileStorage() {
+        DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern(SoraUI.DATE_TIME_INPUT_FORMAT);
+        return eventPeriod.format(dateTimeFormat);
     }
 
     /**

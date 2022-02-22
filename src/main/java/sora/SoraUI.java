@@ -83,14 +83,22 @@ public class SoraUI {
             ADD_DEADLINE_FLAG_KEYWORD
     };
 
+    // Date and time format (for event and deadline tasks)
+    public static final String DATE_TIME_INPUT_FORMAT = "dd/MM/yyyy HHmm";
+    public static final String DATE_TIME_OUTPUT_FORMAT = "E, d MMM yyyy, h:mm a";
+
     // List of response messages
     protected static final String LIST_PRE_EXECUTION_RESPONSE =
             "%s, here's a list of %d tasks that you have given to me:\n";
     protected static final String EMPTY_LIST_RESPONSE =
             "%s, my list is empty at the moment...\n";
     protected static final String TASK_NUMBER_OUT_OF_LIST_RANGE_RESPONSE =
-            "%s, the task number you've given me is out of the range\nof the current list of tasks."
-            + " Could you re-enter a\nvalid task number?\n";
+            "%s, the task number you've given me is out of the range\nof the current list of tasks." +
+                    " Could you re-enter a\nvalid task number?\n";
+    protected static final String INVALID_DATE_TIME_INPUT_FORMAT_RESPONSE =
+            "%s, the formatting of the date and time you've given me\nis incorrect... " +
+                    "It should be DD/MM/YYYY HHmm, where 'HHmm'\nis the time in 24-hour format." +
+                    "Please try again...\n";
 
     protected static final String ADD_TASK_SUCCESS_RESPONSE =
             "%s, I've added your new task to my list:\n";
@@ -508,6 +516,10 @@ public class SoraUI {
      */
     public void printInvalidTaskNumber() {
         System.out.printf(INVALID_TASK_NUMBER_RESPONSE, getRandomNegativeAcknowledgement());
+    }
+
+    public void printInvalidDateTimeInputFormatResponse() {
+        System.out.printf(SoraUI.INVALID_DATE_TIME_INPUT_FORMAT_RESPONSE, getRandomNegativeAcknowledgement());
     }
 }
 

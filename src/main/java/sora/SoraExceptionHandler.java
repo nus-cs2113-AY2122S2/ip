@@ -87,4 +87,11 @@ public class SoraExceptionHandler {
     public void handleInvalidTaskNumber() {
         soraUI.printInvalidTaskNumber();
     }
+
+    /**
+     * Handles situations where the user enters an invalid date-time format.
+     */
+    public void handleInvalidDateTimeInputFormat() {
+        soraUI.printInvalidDateTimeInputFormatResponse();
+    }
 }
