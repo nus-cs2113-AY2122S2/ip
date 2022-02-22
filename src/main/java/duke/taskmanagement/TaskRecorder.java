@@ -1,5 +1,7 @@
 package duke.taskmanagement;
 
+import duke.userinterface.UserInterface;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ import java.util.List;
 public class TaskRecorder {
     private static final String HOME = System.getProperty("user.dir");
     private static final java.nio.file.Path PATH = java.nio.file.Paths.get(HOME, "data","duke.txt");
+    private static UserInterface ui = new UserInterface();
 
     public ArrayList<String[]> loadData() throws IOException {
         checkFileExists();
@@ -61,7 +64,7 @@ public class TaskRecorder {
                 Files.createFile(PATH);
             }
         } catch (IOException e) {
-            System.out.println("There appears to be a problem creating the data file in the data folder!");
+            ui.printIOExceptionMessageLoad();
         }
     }
 }
