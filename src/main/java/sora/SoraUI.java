@@ -8,12 +8,18 @@ import util.Helper;
 import java.nio.file.Path;
 import java.util.Random;
 
-// TODO: Remove all SoraUI references for constants in this class
-
-
+/**
+ * This class handles the bulk of UI-related fields and methods that Sora uses. This includes
+ * (but is not limited to):
+ * <ul>
+ *     <li>aesthetics such as banner logo and lines,</li>
+ *     <li>normal response messages, and</li>
+ *     <li>response messages when an exception is encountered.</li>
+ * </ul>
+ */
 public class SoraUI {
     /**
-     * Banner logo design
+     * Sora's banner logo design
      */
     protected static final String BANNER = "     _______.  ______   .______          ___      \n"
             + "    /       | /  __  \\  |   _  \\        /   \\     \n"
@@ -48,15 +54,12 @@ public class SoraUI {
             "Oops"
     };
 
-    /**
-     * Default parameters for printing formatting lines
-     */
+
+    // Default parameters for printing formatting lines
     protected static final int DEFAULT_LINE_LENGTH = 60;
     protected static final String DEFAULT_LINE_CHAR = "-";
 
-    /**
-     * List of command keywords
-     */
+    // List of command and flag keywords
     public static final String EXIT_COMMAND_KEYWORD = "bye";
 
     public static final String LIST_COMMAND_KEYWORD = "list";
@@ -80,9 +83,7 @@ public class SoraUI {
             ADD_DEADLINE_FLAG_KEYWORD
     };
 
-    /**
-     * List of response messages
-     */
+    // List of response messages
     protected static final String LIST_PRE_EXECUTION_RESPONSE =
             "%s, here's a list of %d tasks that you have given to me:\n";
     protected static final String EMPTY_LIST_RESPONSE =
@@ -159,6 +160,9 @@ public class SoraUI {
 
     /**
      * Prints a line on the console based on the specified length and the character/symbol to use
+     *
+     * @param lineLen The length of the line (measured in 'number of characters').
+     * @param character The character that should be used to print the line.
      */
     protected void printLine(int lineLen, String character) {
         // Generate a line of whitespaces
@@ -209,12 +213,11 @@ public class SoraUI {
     }
 
     /**
-     * Prints a prompt on the console. If isFirstPrompt is false, it indicates that this is not the first time
-     * this method is called and thus will print out an additional line of text before printing out the prompt
-     * symbol.
+     * Prints a prompt on the terminal. The prompt text will differ depending on whether if this method is called
+     * for the first time since this instance of Sora was started.
      *
-     * @param isFirstPrompt boolean value to determine if this method is called for the first time
-     *                      since this Sora instance was started
+     * @param isFirstPrompt Boolean value to determine if this method is called for the first time
+     *                      since this Sora instance was started.
      */
     protected void printPrompter(boolean isFirstPrompt) {
         if (isFirstPrompt) {
@@ -231,16 +234,15 @@ public class SoraUI {
     }
 
     /**
-     * Randomly chooses one of the positive acknowledgement words from the array POSITIVE_ACKNOWLEDGEMENT_WORDS
-     * and returns it.
+     * Randomly chooses one of the positive acknowledgement words from the string array
+     * POSITIVE_ACKNOWLEDGEMENT_WORDS and returns it.
+     * <p>
+     * If Sora.IN_TESTING_MODE is set to true, the first element in the POSITIVE_ACKNOWLEDGEMENT_WORDS
+     * is always chosen. No random choosing will be done in this case.
      *
-     * @return A string containing a randomly chosen acknowledgement word
+     * @return A string containing a (randomly) chosen positive acknowledgement word.
      */
     protected String getRandomPositiveAcknowledgement() {
-        /**
-         * If Sora.IN_TESTING_MODE is set to true, do not choose a random acknowledgement word
-         * and pick the first word in POSITIVE_ACKNOWLEDGEMENT_WORDS
-         */
         if (Sora.IN_TESTING_MODE) {
             return POSITIVE_ACKNOWLEDGEMENT_WORDS[0];
         }
@@ -251,11 +253,16 @@ public class SoraUI {
         return POSITIVE_ACKNOWLEDGEMENT_WORDS[randNum];
     }
 
+    /**
+     * Randomly chooses one of the negative acknowledgement words from the string array
+     * NEGATIVE_ACKNOWLEDGEMENT_WORDS and returns it.
+     * <p>
+     * If Sora.IN_TESTING_MODE is set to true, the first element in the NEGATIVE_ACKNOWLEDGEMENT_WORDS
+     * is always chosen. No random choosing will be done in this case.
+     *
+     * @return A string containing a (randomly) chosen negative acknowledgement word.
+     */
     protected String getRandomNegativeAcknowledgement() {
-        /**
-         * If Sora.IN_TESTING_MODE is set to true, do not choose a random acknowledgement word
-         * and pick the first word in NEGATIVE_ACKNOWLEDGEMENT_WORDS
-         */
         if (Sora.IN_TESTING_MODE) {
             return NEGATIVE_ACKNOWLEDGEMENT_WORDS[0];
         }
@@ -266,52 +273,87 @@ public class SoraUI {
         return NEGATIVE_ACKNOWLEDGEMENT_WORDS[randNum];
     }
 
+    /**
+     * Prints a response when an attempt to mark a task as done was made. The response printed depends
+     * on the success or failure of the attempt made.
+     *
+     * @param isSuccessful Indicates if the marking of the task was successful or not.
+     * @param taskList An instance of TaskList.
+     * @param taskNum The task number in taskList that was attempted to be marked as done.
+     */
     protected void printMarkTaskResponseMessage(boolean isSuccessful, TaskList taskList, int taskNum) {
-        if (isSuccessful) {
-            System.out.printf(SoraUI.MARK_TASK_DONE_SUCCESS_RESPONSE, getRandomPositiveAcknowledgement());
-            System.out.println();
-            taskList.displayTask(taskNum);
-            System.out.println();
+        if (!isSuccessful) {
+            System.out.printf(MARK_TASK_DONE_FAILURE_RESPONSE, getRandomNegativeAcknowledgement());
             return;
         }
 
-        // Mark task was unsuccessful
-        System.out.printf(SoraUI.MARK_TASK_DONE_FAILURE_RESPONSE, getRandomNegativeAcknowledgement());
+        // Mark task was successful
+        System.out.printf(MARK_TASK_DONE_SUCCESS_RESPONSE, getRandomPositiveAcknowledgement());
+        System.out.println();
+        taskList.displayTask(taskNum);
+        System.out.println();
     }
 
+    /**
+     * Prints a response when an attempt to unmark a task as done was made. The response printed depends
+     * on the success or failure of the attempt made.
+     *
+     * @param isSuccessful Indicates if the unmarking of the task was unsuccessful or not.
+     * @param taskList An instance of TaskList.
+     * @param taskNum The task number in taskList that was attempted to be unmarked as done.
+     */
     protected void printUnmarkTaskResponseMessage(boolean isSuccessful, TaskList taskList, int taskNum) {
-        if (isSuccessful) {
-            System.out.printf(SoraUI.UNMARK_TASK_DONE_SUCCESS_RESPONSE, getRandomPositiveAcknowledgement());
-            System.out.println();
-            taskList.displayTask(taskNum);
-            System.out.println();
+        if (!isSuccessful) {
+            System.out.printf(UNMARK_TASK_DONE_FAILURE_RESPONSE, getRandomNegativeAcknowledgement());
             return;
         }
 
-        // Unmark task was unsuccessful
-        System.out.printf(SoraUI.UNMARK_TASK_DONE_FAILURE_RESPONSE, getRandomNegativeAcknowledgement());
+        // Unmark task was successful
+        System.out.printf(UNMARK_TASK_DONE_SUCCESS_RESPONSE, getRandomPositiveAcknowledgement());
+        System.out.println();
+        taskList.displayTask(taskNum);
+        System.out.println();
     }
 
+    /**
+     * Prints a response when a task has been successfully removed from an instance of TaskList.
+     *
+     * @param taskRemoved The Task instance that was removed from taskList.
+     * @param taskList The instance of TaskList that the task was removed from.
+     */
     protected void printDeleteTaskResponseMessage(Task taskRemoved, TaskList taskList) {
-        System.out.printf(SoraUI.DELETE_TASK_SUCCESS_RESPONSE, getRandomPositiveAcknowledgement());
+        System.out.printf(DELETE_TASK_SUCCESS_RESPONSE, getRandomPositiveAcknowledgement());
         System.out.println();
         taskList.displayTask(taskRemoved);
         System.out.println();
     }
 
+    /**
+     * Prints a response when an attempt to add a task to the task list was made. The response printed
+     * depends on the success or failure of the attempt made.
+     *
+     * @param newTask The Task instance that was added to the task list. If this parameter is null, then
+     *                it means that the task was not successfully added.
+     */
     protected void printAddTaskResponseMessage(Task newTask) {
-        if (newTask != null) {
-            System.out.printf(SoraUI.ADD_TASK_SUCCESS_RESPONSE, getRandomPositiveAcknowledgement());
-            System.out.println();
-            System.out.println("\t" + newTask.toString());
-            System.out.println();
+        if (newTask == null) {
+            System.out.printf(ADD_TASK_FAILURE_RESPONSE, getRandomNegativeAcknowledgement());
             return;
         }
 
-        // Adding task was unsuccessful
-        System.out.printf(SoraUI.ADD_TASK_FAILURE_RESPONSE, getRandomNegativeAcknowledgement());
+        // Adding task was successful
+        System.out.printf(ADD_TASK_SUCCESS_RESPONSE, getRandomPositiveAcknowledgement());
+        System.out.println();
+        System.out.println("\t" + newTask.toString());
+        System.out.println();
     }
 
+    /**
+     * Prints a response and displays the entire task list that is stored in the provided instance of TaskList.
+     *
+     * @param taskList The instance of TaskList that contains the list of tasks to be printed.
+     * @throws EmptyListException If the instance of TaskList does not contain any tasks (i.e. an empty list).
+     */
     protected void displayTaskList(TaskList taskList) throws EmptyListException {
         // Check if the task list is empty
         if (taskList.isEmpty()) {
@@ -325,80 +367,145 @@ public class SoraUI {
         System.out.println();
     }
 
+    /**
+     * Prints a response when the user has entered a command that Sora does not understand.
+     */
     protected void printCommandNotUnderstood() {
-        System.out.printf(SoraUI.COMMAND_NOT_UNDERSTOOD_RESPONSE, getRandomNegativeAcknowledgement());
+        System.out.printf(COMMAND_NOT_UNDERSTOOD_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
+    /**
+     * Prints a response when the user enters a todo command without a description of it.
+     */
     protected void printTodoMissingDescription() {
-        System.out.printf(SoraUI.TODO_MISSING_DESCRIPTION_RESPONSE, getRandomNegativeAcknowledgement());
+        System.out.printf(TODO_MISSING_DESCRIPTION_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
+    /**
+     * Prints a response when the user enters an event command without the appropriate flag.
+     */
     public void printEventMissingFlag() {
-        System.out.printf(SoraUI.EVENT_MISSING_FLAG_RESPONSE, getRandomNegativeAcknowledgement());
+        System.out.printf(EVENT_MISSING_FLAG_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
+    /**
+     * Prints a response when the user enters an event command without the description.
+     */
     public void printEventMissingDescription() {
-        System.out.printf(SoraUI.EVENT_NO_DESCRIPTION_RESPONSE, getRandomNegativeAcknowledgement());
+        System.out.printf(EVENT_NO_DESCRIPTION_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
+    /**
+     * Prints a response when the user enters an event command without a date (and time).
+     */
     public void printEventMissingPeriod() {
-        System.out.printf(SoraUI.EVENT_NO_PERIOD_RESPONSE, getRandomNegativeAcknowledgement());
+        System.out.printf(EVENT_NO_PERIOD_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
+    /**
+     * Prints a response when the user enters an event command with invalid flags.
+     */
     public void printEventInvalidFlags() {
-        System.out.printf(SoraUI.EVENT_INVALID_FLAGS, getRandomNegativeAcknowledgement());
+        System.out.printf(EVENT_INVALID_FLAGS, getRandomNegativeAcknowledgement());
     }
 
+    /**
+     * Prints a response when the user enters a deadline command without the appropriate flag.
+     */
     public void printDeadlineMissingFlag() {
-        System.out.printf(SoraUI.DEADLINE_MISSING_FLAG_RESPONSE, getRandomNegativeAcknowledgement());
+        System.out.printf(DEADLINE_MISSING_FLAG_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
+    /**
+     * Prints a response when the user enters a deadline command without the description.
+     */
     public void printDeadlineMissingDescription() {
-        System.out.printf(SoraUI.DEADLINE_NO_DESCRIPTION_RESPONSE, getRandomNegativeAcknowledgement());
+        System.out.printf(DEADLINE_NO_DESCRIPTION_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
+    /**
+     * Prints a response when the user enters a deadline command without a date (and time).
+     */
     public void printDeadlineNoDueDate() {
-        System.out.printf(SoraUI.DEADLINE_NO_DUE_DATE_RESPONSE, getRandomNegativeAcknowledgement());
+        System.out.printf(DEADLINE_NO_DUE_DATE_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
+    /**
+     * Prints a response when the user enters a deadline command with invalid flags.
+     */
     public void printDeadlineInvalidFlags() {
-        System.out.printf(SoraUI.DEADLINE_INVALID_FLAGS, getRandomNegativeAcknowledgement());
+        System.out.printf(DEADLINE_INVALID_FLAGS, getRandomNegativeAcknowledgement());
     }
 
+    /**
+     * Prints a response when the directory that contains the required data file cannot be found.
+     */
     public void printDirectoryNotFound() {
-        System.out.printf(SoraUI.NO_DIRECTORY_FOUND_RESPONSE, getRandomNegativeAcknowledgement());
+        System.out.printf(NO_DIRECTORY_FOUND_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
+    /**
+     * Prints a response when the file that contains the required tasks' data cannot be found. The response
+     * will differ depending on whether the required directory already exists prior to the current running
+     * instance of Sora.
+     *
+     * @param directoryAlreadyExists Indicates if the required directory already exists prior to the current
+     *                               running instance of Sora.
+     */
     public void printFileNotFound(boolean directoryAlreadyExists) {
         if (!directoryAlreadyExists) {
-            System.out.printf(SoraUI.NO_FILE_FOUND_RESPONSE, getRandomNegativeAcknowledgement(), " also",
+            System.out.printf(NO_FILE_FOUND_RESPONSE, getRandomNegativeAcknowledgement(), " also",
                     " too");
         } else {
-            System.out.printf(SoraUI.NO_FILE_FOUND_RESPONSE, getRandomNegativeAcknowledgement(), "", "");
+            System.out.printf(NO_FILE_FOUND_RESPONSE, getRandomNegativeAcknowledgement(), "", "");
         }
     }
 
+    /**
+     * Prints a response when an empty file that is required for storing tasks' data has been successfully
+     * added.
+     *
+     * @param filePathName The path to the newly-created file that will store tasks' data.
+     */
     public void printFileCreatedResponse(Path filePathName) {
-        System.out.printf(SoraUI.FILE_CREATED_REPSONSE, getRandomPositiveAcknowledgement(), filePathName);
+        System.out.printf(FILE_CREATED_REPSONSE, getRandomPositiveAcknowledgement(), filePathName);
     }
 
+    /**
+     * Prints a response when the tasks stored in the file have been successfully loaded into the current
+     * running instance of Sora.
+     */
     public void printLoadedFileDataResponse() {
         System.out.println();
-        System.out.printf(SoraUI.LOADED_FILE_DATA_RESPONSE);
+        System.out.printf(LOADED_FILE_DATA_RESPONSE);
     }
 
+    /**
+     * Prints a response when the user enters a task number that is not within the quantity range of Sora's
+     * task list.
+     */
     public void printTaskNumOutOfListRange() {
-        System.out.printf(SoraUI.TASK_NUMBER_OUT_OF_LIST_RANGE_RESPONSE, getRandomNegativeAcknowledgement());
+        System.out.printf(TASK_NUMBER_OUT_OF_LIST_RANGE_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
+    /**
+     * Prints a response when the user enters an input that contains at least one character that is deemed
+     * as an illegal character.
+     */
     public void printIllegalCharacterResponse() {
-        System.out.printf(SoraUI.ILLEGAL_CHARACTER_RESPONSE, getRandomNegativeAcknowledgement());
+        System.out.printf(ILLEGAL_CHARACTER_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
+    /**
+     * Prints a response when the user tries to interact with an empty list.
+     */
     public void printEmptyListExceptionResponse() {
-        System.out.printf(SoraUI.EMPTY_LIST_RESPONSE, getRandomNegativeAcknowledgement());
+        System.out.printf(EMPTY_LIST_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
+    /**
+     * Prints a response when the user enters an uninterpretable task number.
+     */
     public void printInvalidTaskNumber() {
         System.out.printf(INVALID_TASK_NUMBER_RESPONSE, getRandomNegativeAcknowledgement());
     }
