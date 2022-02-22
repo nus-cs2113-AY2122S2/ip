@@ -12,7 +12,7 @@ import tasks.TaskList;
 public class Sora {
     /**
      * When IN_TESTING_MODE is set to true, certain features of Sora will be limited to
-     * improve the automated text UI testing.
+     * improve the reliability of automated text UI testing.
      */
     protected static final boolean IN_TESTING_MODE = false;
     private boolean isUserExiting = false;
