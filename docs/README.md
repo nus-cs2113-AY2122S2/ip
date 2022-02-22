@@ -21,11 +21,11 @@ The keyword `todo` is used followed by a short description of the task.
 
 Format: `todo TASKDESC`
 
-Example of usage:
+####Example of usage:
 
 `todo Revise for upcoming midterms`
 
-Expected outcome:
+####Expected outcome:
 
 The Todo task will be added to the list of tasks.
 
@@ -45,11 +45,11 @@ followed by the due date, in YYYY-MM-DD format.
 
 Format: `deadline TASKDESC /by DUEDATE`
 
-Example of usage:
+####Example of usage:
 
 `deadline Finish CS2113 iP /by 2022-02-18`
 
-Expected outcome:
+####Expected outcome:
 
 The Deadline task will be added to the list of tasks.
 
@@ -68,11 +68,11 @@ followed by the date of the event , in YYYY-MM-DD format.
 
 Format: `event TASKDESC /at EVENTDATE`
 
-Example of usage:
+####Example of usage:
 
 `event Attend family gathering /at 20-02-2022`
 
-Expected outcome:
+####Expected outcome:
 
 The Event task will be added to the list of tasks.
 
@@ -91,11 +91,11 @@ and the description of the task.
 
 Format: `list`
 
-Example of usage:
+####Example of usage:
 
 `list`
 
-Expected outcome (assuming 3 tasks in list):
+####Expected outcome (assuming 3 tasks in list):
 ```
 1. [D] [ ] Finish CS2113 iP (by: Feb 18 2022)
 
@@ -112,11 +112,11 @@ After deleting a task, the task is shown before it is removed from the list.
 
 Format: `delete INDEX`
 
-Example of usage:
+####Example of usage:
 
 `delete 1`
 
-Expected outcome (assuming same example from `list`):
+####Expected outcome (assuming same example from `list`):
 ```
 [D] [ ] Finish CS2113 iP (by: Feb 18 2022)
 
@@ -133,11 +133,11 @@ displayed containing the keyword.
 
 Format: `find KEYWORD`
 
-Example of usage:
+####Example of usage:
 
 `find midterms`
 
-Expected outcome (assuming same example from `list`):
+####Expected outcome (assuming same example from `list`):
 ```
 [T] [ ] Revise for upcoming midterms
 ```
@@ -151,11 +151,11 @@ Users are advised to use `list` to verify the task's index before attempting to 
 
 Format: `mark INDEX / unmark INDEX`
 
-Example of usage:
+####Example of usage:
 
 `mark 2`
 
-Expected outcome (assuming same example from `list`):
+####Expected outcome (assuming same example from `list`):
 ```
 [T] [X] Revise for upcoming midterms
 
@@ -167,11 +167,11 @@ Close the chatbot by using the keyword `bye`
 
 Format: `bye`
 
-Example of usage:
+####Example of usage:
 
 `bye`
 
-Expected outcome:
+####Expected outcome:
 ```
 Bye. Hope to see you again soon!
 ____________________________________________________________
