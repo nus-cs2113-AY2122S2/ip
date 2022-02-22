@@ -16,5 +16,8 @@ bin/
 /text-ui-test/ACTUAL.txt
 text-ui-test/EXPECTED-UNIX.TXT
 
+# Locally saved file data
+/CS2113T_iP_Sora_Resources/*
+
 # Java class files
 *.class
