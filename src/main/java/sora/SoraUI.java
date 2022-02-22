@@ -8,6 +8,9 @@ import util.Helper;
 import java.nio.file.Path;
 import java.util.Random;
 
+// TODO: Remove all SoraUI references for constants in this class
+
+
 public class SoraUI {
     /**
      * Banner logo design
@@ -102,6 +105,9 @@ public class SoraUI {
             "%s, I've marked this task as not done:\n";
     protected static final String UNMARK_TASK_DONE_FAILURE_RESPONSE =
             "%s, I couldn't mark that task as not done.\nSorry about that...\n";
+
+    protected static final String INVALID_TASK_NUMBER_RESPONSE =
+            "%s, I'm not sure what that task number means.\nCould you try re-entering the task number?\n";
 
     protected static final String DELETE_TASK_SUCCESS_RESPONSE =
             "%s, I've deleted this task:\n";
@@ -392,4 +398,9 @@ public class SoraUI {
     public void printEmptyListExceptionResponse() {
         System.out.printf(SoraUI.EMPTY_LIST_RESPONSE, getRandomNegativeAcknowledgement());
     }
+
+    public void printInvalidTaskNumber() {
+        System.out.printf(INVALID_TASK_NUMBER_RESPONSE, getRandomNegativeAcknowledgement());
+    }
 }
+

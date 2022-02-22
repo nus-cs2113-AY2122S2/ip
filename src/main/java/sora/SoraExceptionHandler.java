@@ -80,4 +80,11 @@ public class SoraExceptionHandler {
     public void handleEmptyListException() {
         soraUI.printEmptyListExceptionResponse();
     }
+
+    /**
+     * Handles situations where the user references an uninterpretable task number.
+     */
+    public void handleInvalidTaskNumber() {
+        soraUI.printInvalidTaskNumber();
+    }
 }

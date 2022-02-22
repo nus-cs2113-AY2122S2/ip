@@ -181,6 +181,8 @@ public class Sora {
             soraExceptionHandler.handleOutOfRangeListReferences();
         } catch (EmptyListException e) {
             soraExceptionHandler.handleEmptyListException();
+        } catch (NumberFormatException e) {
+            soraExceptionHandler.handleInvalidTaskNumber();
         }
     }
 }
