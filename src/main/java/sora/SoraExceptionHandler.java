@@ -45,6 +45,8 @@ public class SoraExceptionHandler {
         case InvalidCommandException.DEADLINE_INVALID_FLAGS:
             soraUI.printDeadlineInvalidFlags();
             break;
+        case InvalidCommandException.FIND_NO_SEARCH_STRING:
+            soraUI.printMissingSearchStringResponse();
         }
     }
 

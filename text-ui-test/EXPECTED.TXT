@@ -6,7 +6,7 @@
 .----)   |   |  `--'  | |  |\  \----./  _____  \
 |_______/     \______/  | _| `._____/__/     \__\
 ------------------------------------------------------------
-Good afternoon! I'm Sora!
+Good evening. I'm Sora!
 
 Hmm, I couldn't find the directory that contains my data
 file. Let me go and create it...
@@ -348,6 +348,92 @@ What's next?
 > ------------------------------------------------------------
 Hmm, it seems like you've entered an illegal character
 in your input... Could you try again?
+------------------------------------------------------------
+What's next?
+------------------------------------------------------------
+> ------------------------------------------------------------
+Okay, I've added your new task to my list:
+
+	[D][ ] project submission (due on: Tue, 12 Apr 2022, 11:59 PM)
+
+------------------------------------------------------------
+What's next?
+------------------------------------------------------------
+> ------------------------------------------------------------
+Okay, I've added your new task to my list:
+
+	[E][ ] trip to Japan (scheduled for: Thu, 10 Oct 2019, 8:00 AM)
+
+------------------------------------------------------------
+What's next?
+------------------------------------------------------------
+> ------------------------------------------------------------
+Okay, here's a list of 5 tasks that you have given to me:
+
+	1.[T][ ] read book
+	2.[D][ ] return book (due on: Sun, 27 Feb 2022, 9:00 PM)
+	3.[E][X] project meeting (scheduled for: Mon, 19 Sep 2022, 2:00 PM)
+	4.[D][ ] project submission (due on: Tue, 12 Apr 2022, 11:59 PM)
+	5.[E][ ] trip to Japan (scheduled for: Thu, 10 Oct 2019, 8:00 AM)
+
+------------------------------------------------------------
+What's next?
+------------------------------------------------------------
+> ------------------------------------------------------------
+Hmm, please provide me with a search string for me to find.
+------------------------------------------------------------
+What's next?
+------------------------------------------------------------
+> ------------------------------------------------------------
+Hmm, there are no tasks that match your search phrase.
+Perhaps you could refine your search parameters?
+------------------------------------------------------------
+What's next?
+------------------------------------------------------------
+> ------------------------------------------------------------
+Okay, I have found 1 task that matches your search
+phrase:
+
+	1.[T][ ] read book
+
+------------------------------------------------------------
+What's next?
+------------------------------------------------------------
+> ------------------------------------------------------------
+Okay, I have found 2 tasks that matches your search
+phrase:
+
+	3.[E][X] project meeting (scheduled for: Mon, 19 Sep 2022, 2:00 PM)
+	4.[D][ ] project submission (due on: Tue, 12 Apr 2022, 11:59 PM)
+
+------------------------------------------------------------
+What's next?
+------------------------------------------------------------
+> ------------------------------------------------------------
+Okay, I have found 1 task that matches your search
+phrase:
+
+	2.[D][ ] return book (due on: Sun, 27 Feb 2022, 9:00 PM)
+
+------------------------------------------------------------
+What's next?
+------------------------------------------------------------
+> ------------------------------------------------------------
+Okay, I have found 1 task that matches your search
+phrase:
+
+	5.[E][ ] trip to Japan (scheduled for: Thu, 10 Oct 2019, 8:00 AM)
+
+------------------------------------------------------------
+What's next?
+------------------------------------------------------------
+> ------------------------------------------------------------
+Okay, I have found 2 tasks that matches your search
+phrase:
+
+	3.[E][X] project meeting (scheduled for: Mon, 19 Sep 2022, 2:00 PM)
+	5.[E][ ] trip to Japan (scheduled for: Thu, 10 Oct 2019, 8:00 AM)
+
 ------------------------------------------------------------
 What's next?
 ------------------------------------------------------------

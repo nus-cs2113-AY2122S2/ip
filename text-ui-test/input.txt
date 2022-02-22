@@ -45,4 +45,14 @@ deadline test /by/by/by now
 deadline test /by/by/by/at/by now
 list
 todo test|test
+deadline project submission /by 12/04/2022 2359
+event trip to Japan /at 10/10/2019 0800
+list
+find
+find pancakes
+find read
+find project
+find return book
+find 10 Oct
+find E
 bye

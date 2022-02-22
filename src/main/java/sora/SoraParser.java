@@ -42,4 +42,15 @@ public class SoraParser {
 
         return false;
     }
+
+    public String getSearchString(String userRawInput) throws InvalidCommandException {
+        String[] commandAndSearchPhrase = userRawInput.split(" ", 2);
+        boolean hasTwoElements = (commandAndSearchPhrase.length == 2);
+
+        if (!hasTwoElements) {
+            throw new InvalidCommandException(InvalidCommandException.FIND_NO_SEARCH_STRING);
+        }
+
+        return commandAndSearchPhrase[1];
+    }
 }

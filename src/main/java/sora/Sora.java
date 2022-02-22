@@ -1,6 +1,7 @@
 package sora;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.time.format.DateTimeParseException;
 
 import tasks.EmptyListException;
@@ -100,7 +101,12 @@ public class Sora {
                 setUserExit();
                 break;
             case SoraUI.LIST_COMMAND_KEYWORD:
-                soraUI.displayTaskList(getTasksManager());
+                soraUI.printTaskList(getTasksManager());
+                break;
+            case SoraUI.FIND_COMMAND_KEYWORD:
+                String searchString = soraParser.getSearchString(userRawInput);
+                ArrayList<String> searchResult = taskList.searchTasks(searchString);
+                soraUI.printSearchResults(searchResult);
                 break;
             case SoraUI.MARK_TASK_AS_DONE_COMMAND_KEYWORD:
                 int taskNum = soraParser.getTaskNumberFromCommand(userRawInput);
@@ -153,6 +159,4 @@ public class Sora {
             soraExceptionHandler.handleEmptyListException();
         }
     }
-
-
 }
