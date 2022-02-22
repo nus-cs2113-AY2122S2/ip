@@ -4,9 +4,9 @@ public class Task {
     public String description;
     protected boolean isDone;
 
-    public Task(String description, int status) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        if (status == 1) {
+        if (isDone) {
             this.isDone = true;
         } else {
             this.isDone = false;
@@ -16,6 +16,7 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
+
 
     public boolean markAsDone() {
         return isDone = true;

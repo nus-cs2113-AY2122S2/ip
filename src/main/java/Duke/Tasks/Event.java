@@ -1,21 +1,21 @@
 package Duke.Tasks;
 
-public class Event extends Task{
-    protected String at;
+public class Event extends Task {
+    protected String date;
 
-    public Event(String description,int status, String at) {
-        super(description, status);
-        this.at = at;
+    public Event(String description,boolean isDone, String date) {
+        super(description, isDone);
+        this.date = date;
     }
 
     @Override
     public String toString () {
-        return "[E]" + super.toString() + " (at: " + this.at + ")";
+        return "[E]" + super.toString() + " (at: " + this.date + ")";
     }
 
     @Override
     public String saveTasks() {
-        return "E " + super.saveTasks() + " | " + this.at + System.lineSeparator();
+        return "E " + super.saveTasks() + " | " + this.date + System.lineSeparator();
     }
 
 }

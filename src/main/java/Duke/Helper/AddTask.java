@@ -10,57 +10,72 @@ import java.util.ArrayList;
 
 public class AddTask {
 
-
-        public static void addTodo (ArrayList<Task> array, String message) throws DukeException {
-            int status = 0;
+        public static void addTodo (ArrayList<Task> listArray, String message) throws DukeException {
+            boolean isDone = false;
             String[] splitMessage = message.split(" ", 2);
+            if (splitMessage.length != 2) {
+                throw new DukeException(DisplayMessageCommand.displayTodoMessage());
+            }
             String getDescription = splitMessage[1];
             if (getDescription.equals("")) {
-                throw new DukeException();
+                throw new DukeException(DisplayMessageCommand.displayTodoMessage());
             } else {
-                Task taskItem = new Todo(getDescription, status);
-                array.add(taskItem);
-                System.out.println(Duke.DISPLAY_LINE + "Okay! I've added this task:");
+                Task taskItem = new Todo(getDescription, isDone);
+                listArray.add(taskItem);
+                System.out.println(Duke.DISPLAY_LINE + System.lineSeparator() + "Okay! I've added this task:");
                 System.out.println(taskItem);
-                System.out.print("Now you have " + array.size() + " tasks in the list.\n" + Duke.DISPLAY_LINE);
+                System.out.println("Now you have " + listArray.size() + " tasks in the list.\n" + Duke.DISPLAY_LINE);
             }
         }
 
-        public static String[] splitLongMessage (String message, String regex) {
+        public static String[] splitLongMessage (String message, String regex, String type) throws DukeException {
             String[] splitMessage = message.split(" ", 2);
+            if (splitMessage.length != 2) {
+                if (type.equals("deadline")) {
+                    throw new DukeException(DisplayMessageCommand.displayDeadlineMessage());
+                } else {
+                    throw new DukeException(DisplayMessageCommand.displayEventMessage());
+                }
+            }
             String getSecondPart = splitMessage[1];
             return getSecondPart.split(regex, 2);
         }
 
-        public static void addDeadline(ArrayList<Task> array, String message) throws DukeException {
-            int status = 0;
-            String[] splitSecondPart = splitLongMessage(message, " /by ");
+        public static void addDeadline(ArrayList<Task> listArray, String message) throws DukeException {
+            boolean isDone = false;
+            String[] splitSecondPart = splitLongMessage(message, " /by ", "deadline");
+            if (splitSecondPart.length != 2) {
+                throw new DukeException(DisplayMessageCommand.displayDeadlineMessage());
+            }
             String getDescription = splitSecondPart[0];
             String getDate = splitSecondPart[1];
-            if (getDate.equals("")) {
-                throw new DukeException();
+            if (getDescription.equals("") | getDate.equals("")) {
+                throw new DukeException(DisplayMessageCommand.displayDeadlineMessage());
             } else {
-                Task taskItem = new Deadline(getDescription, status, getDate);
-                array.add(taskItem);
-                System.out.println(Duke.DISPLAY_LINE + "Okay! I've added this task:");
+                Task taskItem = new Deadline(getDescription, isDone, getDate);
+                listArray.add(taskItem);
+                System.out.println(Duke.DISPLAY_LINE  + System.lineSeparator() + "Okay! I've added this task:");
                 System.out.println(taskItem);
-                System.out.print("Now you have " + array.size() + " tasks in the list.\n" + Duke.DISPLAY_LINE);
+                System.out.println("Now you have " + listArray.size() + " tasks in the list.\n" + Duke.DISPLAY_LINE);
             }
         }
 
-        public static void addEvent(ArrayList<Task> array, String message) throws DukeException {
-            int status = 0;
-            String[] splitSecondPart = splitLongMessage(message, " /at ");
+        public static void addEvent(ArrayList<Task> listArray, String message) throws DukeException {
+            boolean isDone = false;
+            String[] splitSecondPart = splitLongMessage(message, " /at ","event");
+            if (splitSecondPart.length != 2) {
+                throw new DukeException(DisplayMessageCommand.displayEventMessage());
+            }
             String getDescription = splitSecondPart[0];
             String getDate = splitSecondPart[1];
-            if (getDate.equals("")) {
-                throw new DukeException();
+            if (getDescription.equals("") | getDate.equals("")) {
+                throw new DukeException(DisplayMessageCommand.displayEventMessage());
             } else {
-                Task taskItem = new Event(getDescription, status, getDate);
-                array.add(taskItem);
-                System.out.println(Duke.DISPLAY_LINE + "Okay! I've added this task:");
+                Task taskItem = new Event(getDescription, isDone, getDate);
+                listArray.add(taskItem);
+                System.out.println(Duke.DISPLAY_LINE + System.lineSeparator() + "Okay! I've added this task:");
                 System.out.println(taskItem);
-                System.out.print("Now you have " + array.size() + " tasks in the list.\n" + Duke.DISPLAY_LINE);
+                System.out.println("Now you have " + listArray.size() + " tasks in the list.\n" + Duke.DISPLAY_LINE);
             }
         }
 
