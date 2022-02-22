@@ -427,7 +427,7 @@ sessions onto the current one.
 
 The directory and text file will be created in your terminal's **current working directory**.
 Thus, it is highly recommended that you **set your working directory to the directory where
-Sora.jar is located in** before starting up Sora.
+`Sora.jar` is located in** before starting up Sora.
 
 ### Recommendation
 1. Create an empty directory and place `Sora.jar` inside it.
