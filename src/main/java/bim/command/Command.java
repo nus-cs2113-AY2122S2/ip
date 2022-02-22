@@ -1,20 +1,14 @@
 package bim.command;
 
+import bim.BimException;
+import bim.Storage;
+import bim.Ui;
+import bim.task.Task;
 import bim.task.TaskList;
 
 public abstract class Command {
-    private TaskList tasks;
-    private int index;
-    private String ERROR_INVALID_COMMAND = "I did not understand that!";
 
-    public Command(TaskList tasks, int index) {
-        this.tasks = tasks;
-        this.index = index;
-    }
+    public Command() {   }
 
-    public Command() {    }
-
-    public void run() throws UnsupportedOperationException {
-        throw new UnsupportedOperationException(ERROR_INVALID_COMMAND);
-    }
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
 }

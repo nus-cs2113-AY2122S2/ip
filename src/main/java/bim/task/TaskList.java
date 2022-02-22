@@ -3,18 +3,39 @@ package bim.task;
 import java.util.ArrayList;
 
 public class TaskList {
-    private static final ArrayList<Task> tasks = new ArrayList<Task>();
+    private static ArrayList<Task> tasks = new ArrayList<Task>();
     private static final String LIST_DOT = ".";
-    private static final String NEWLINE = "\t";
+    private static final String NEWLINE = "\n";
+    private static final String LINE_INDENT = "\t";
     private static final String EMPTY_LIST = "404 Not Found";
+    private static final String PRINT_LIST = "Here you go!";
 
+    public TaskList(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
 
-    private void addTask(Task newTask) {
+    public void addTask(Task newTask) {
         tasks.add(newTask);
     }
 
-    private void deleteTask(int index) {
+    public void deleteTask(int index) {
         tasks.remove(index);
+    }
+
+    public void markTask(int index) {
+        tasks.get(index).setAsDone();
+    }
+
+    public void unmarkTask(int index) {
+        tasks.get(index).setAsNotDone();
+    }
+
+    public Task getTask(int index) {
+        return tasks.get(index);
+    }
+
+    public int getSize() {
+        return tasks.size();
     }
 
     @Override
@@ -23,11 +44,12 @@ public class TaskList {
             return EMPTY_LIST;
         }
 
-        int i = 1;
-        String output = "";
-        for (Task t : tasks) {
-            output += i + LIST_DOT + t + NEWLINE;
-            ++i;
+        String output = PRINT_LIST + NEWLINE;
+        for(int i = 0; i < tasks.size(); i++) {
+            output += LINE_INDENT + (i+1) + LIST_DOT + tasks.get(i);
+            if (i != tasks.size() - 1) {
+                output += NEWLINE;
+            }
         }
         return output;
     }

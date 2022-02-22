@@ -110,6 +110,7 @@ public class Storage {
             else {
                 writer.write( DATA_FILE_EVENT + DATA_FILE_SEPARATOR + DATA_FILE_UNMARKED_TASK + DATA_FILE_SEPARATOR + newTask.getDescription() + DATA_FILE_SEPARATOR + ((Event) newTask).getDate() + DATA_FILE_NEW_LINE);
             }
+            writer.close();
         } catch (IOException exception) {
             throw new BimException(ERROR_WRITING_DATA_FILE);
         }

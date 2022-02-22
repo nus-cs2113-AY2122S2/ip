@@ -1,15 +1,16 @@
 package bim;
 
 public class BimException extends Exception {
-    private String description;
+    private String message;
 
-    public BimException(String description) {
-        this.description = description;
+    public BimException(String message) {
+        this.message = message;
     }
 
-    public BimException() { this.description = ""; }
+    public BimException() { this.message = ""; }
 
-    public String getDescription() {
-        return description;
+    @Override
+    public String getMessage() {
+        return message;
     }
 }
