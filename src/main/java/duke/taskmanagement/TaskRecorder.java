@@ -11,13 +11,13 @@ public class TaskRecorder {
 
     public ArrayList<String[]> loadData() throws IOException {
         checkFileExists();
-        ArrayList<String[]> output = new ArrayList<>();
+        ArrayList<String[]> tasks = new ArrayList<>();
         List<String> lines = Files.readAllLines(PATH);
         for (String line : lines) {
             String[] lineData = line.split("\\|");
-            output.add(lineData);
+            tasks.add(lineData);
         }
-        return output;
+        return tasks;
     }
 
     public void addData(String userInput) throws IOException {
