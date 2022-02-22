@@ -78,6 +78,13 @@ public class TaskList {
     }
 
     /**
+     * Reduces the number stored in the variable that stores the number of tasks in the list by 1.
+     */
+    public void decrementNumberOfTasks() {
+        this.numberOfTasks -= 1;
+    }
+
+    /**
      * Adds a new task to the task list. Depending on the type of task the user has entered, different checks
      * and procedures will be carried out to ensure that the user's input follows the correct formatting rules
      * before it is added to the task list.
@@ -532,6 +539,8 @@ public class TaskList {
 
         // Remove the task from the list
         Task taskRemoved = getList().remove(indexNum);
+        decrementNumberOfTasks();
+        
         return taskRemoved;
     }
 
