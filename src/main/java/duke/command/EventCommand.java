@@ -3,6 +3,7 @@ package duke.command;
 import duke.TaskList;
 import duke.Ui;
 import duke.exception.AdditionalException;
+import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.Event;
 import duke.task.Task;
@@ -41,15 +42,15 @@ public class EventCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AdditionalException, IOException,
             DateTimeParseException {
-        String description = getDescription(TYPE_OF_TASK, PREPOSITION_AT, fullCommand);
+        String description = Parser.getDescription(TYPE_OF_TASK, PREPOSITION_AT, fullCommand);
         if (description.length() < 1) {
             throw new AdditionalException("Yea... I know you don't have an event because you're a loner.");
         }
-        String location = getLocation(PREPOSITION_AT, PREPOSITION_ON, fullCommand);
+        String location = Parser.getLocation(PREPOSITION_AT, PREPOSITION_ON, fullCommand);
         if (location.length() < 1) {
             throw new AdditionalException("So your event is at nowhere-land?");
         }
-        String date = getDate(PREPOSITION_ON, fullCommand);
+        String date = Parser.getDate(PREPOSITION_ON, fullCommand);
         if (date.length() < 1) {
             throw new AdditionalException("YAY! Your event is never going to happen :DDDD");
         }
@@ -61,16 +62,6 @@ public class EventCommand extends Command {
     }
 
     /**
-     * This is the isBye method that returns whether the command is "bye".
-     *
-     * @return False because the command is "event".
-     */
-    @Override
-    public boolean isBye() {
-        return false;
-    }
-
-    /**
      * This is the executeFromFile method that takes in a list of tasks and adds a new event task to the list of tasks.
      *
      * @param listOfTasks This is the list of tasks that the new task is to be added to.
@@ -79,9 +70,9 @@ public class EventCommand extends Command {
      */
     @Override
     public void executeFromFile(ArrayList<Task> listOfTasks) throws AdditionalException {
-        String description = getDescription(TYPE_OF_TASK, PREPOSITION_AT, fullCommand);
-        String location = getLocation(PREPOSITION_AT, PREPOSITION_ON, fullCommand);
-        String date = getDate(PREPOSITION_ON, fullCommand);
+        String description = Parser.getDescription(TYPE_OF_TASK, PREPOSITION_AT, fullCommand);
+        String location = Parser.getLocation(PREPOSITION_AT, PREPOSITION_ON, fullCommand);
+        String date = Parser.getDate(PREPOSITION_ON, fullCommand);
         if (description.length() < 1 | location.length() < 1 | date.length() < 1) {
             throw new AdditionalException("YAY! Your event is never going to happen :DDDD");
         }

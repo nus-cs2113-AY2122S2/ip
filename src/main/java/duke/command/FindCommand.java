@@ -3,6 +3,7 @@ package duke.command;
 import duke.TaskList;
 import duke.Ui;
 import duke.exception.AdditionalException;
+import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.Task;
 
@@ -32,26 +33,12 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AdditionalException {
-        String keyword = getDescription("find", fullCommand);
+        String keyword = Parser.getDescription("find", fullCommand);
         if (keyword.length() < 1) {
             throw new AdditionalException("You want me to find nothing or everything...?");
         }
         ArrayList<Task> listOfTasks = getTasks(tasks, ui, keyword);
         ui.showList(listOfTasks);
-    }
-
-    /**
-     * This is the isBye method that returns whether the command is "bye".
-     *
-     * @return False because the command is "find".
-     */
-    @Override
-    public boolean isBye() {
-        return false;
-    }
-
-    @Override
-    public void executeFromFile(ArrayList<Task> listOfTasks) throws AdditionalException {
     }
 
     /**

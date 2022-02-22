@@ -3,6 +3,7 @@ package duke.command;
 import duke.TaskList;
 import duke.Ui;
 import duke.exception.AdditionalException;
+import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.ToDo;
@@ -36,7 +37,7 @@ public class ToDoCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AdditionalException, IOException {
-        String description = getDescription(TYPE_OF_TASK, fullCommand);
+        String description = Parser.getDescription(TYPE_OF_TASK, fullCommand);
         if (description.length() < 1) {
             throw new AdditionalException("What are you going to do? LOL");
         }
@@ -44,16 +45,6 @@ public class ToDoCommand extends Command {
         tasks.addTask(toDo);
         ui.showAddDone(toDo, tasks.getSize());
         storage.save(toDo);
-    }
-
-    /**
-     * This is the isBye method that returns whether the command is "bye".
-     *
-     * @return False because the command is "todo".
-     */
-    @Override
-    public boolean isBye() {
-        return false;
     }
 
     /**
@@ -65,7 +56,7 @@ public class ToDoCommand extends Command {
      */
     @Override
     public void executeFromFile(ArrayList<Task> listOfTasks) throws AdditionalException {
-        String description = getDescription(TYPE_OF_TASK, fullCommand);
+        String description = Parser.getDescription(TYPE_OF_TASK, fullCommand);
         if (description.length() < 1) {
             throw new AdditionalException("Did you accidentally edit the file?");
         }

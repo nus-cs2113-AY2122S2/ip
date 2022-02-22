@@ -3,6 +3,7 @@ package duke.command;
 import duke.TaskList;
 import duke.Ui;
 import duke.exception.AdditionalException;
+import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.Task;
 
@@ -33,21 +34,11 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, AdditionalException {
-        int indexToMark = getIndex(fullCommand);
+        int indexToMark = Parser.getIndex(fullCommand);
         Task taskToMark = tasks.getTask(indexToMark);
         taskToMark.markAsDone();
         ui.showMarkCompleted(taskToMark);
         storage.saveAll(tasks);
-    }
-
-    /**
-     * This is the isBye method that returns whether the command is "bye".
-     *
-     * @return False because the command is "mark".
-     */
-    @Override
-    public boolean isBye() {
-        return false;
     }
 
     /**

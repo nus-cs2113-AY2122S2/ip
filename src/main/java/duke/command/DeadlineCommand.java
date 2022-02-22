@@ -3,6 +3,7 @@ package duke.command;
 import duke.TaskList;
 import duke.Ui;
 import duke.exception.AdditionalException;
+import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.task.Deadline;
 import duke.task.Task;
@@ -40,11 +41,11 @@ public class DeadlineCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AdditionalException, IOException,
             DateTimeParseException {
-        String description = getDescription(TYPE_OF_TASK, PREPOSITION, fullCommand);
+        String description = Parser.getDescription(TYPE_OF_TASK, PREPOSITION, fullCommand);
         if (description.length() < 1) {
             throw new AdditionalException("What is your deadline for..?");
         }
-        String date = getDate(PREPOSITION, fullCommand);
+        String date = Parser.getDate(PREPOSITION, fullCommand);
         if (date.length() < 1) {
             throw new AdditionalException("You have a deadline but you don't have a deadline?");
         }
@@ -55,28 +56,10 @@ public class DeadlineCommand extends Command {
         storage.save(deadline);
     }
 
-    /**
-     * This is the isBye method that returns whether the command is "bye".
-     *
-     * @return False because the command is "deadline".
-     */
-    @Override
-    public boolean isBye() {
-        return false;
-    }
-
-    /**
-     * This is the executeFromFile method that takes in a list of tasks and adds a new deadline task to the
-     * list of tasks.
-     *
-     * @param listOfTasks This is the list of tasks that the new task is to be added to.
-     * @throws AdditionalException If there is no description provided in the fullCommand.
-     * @see AdditionalException
-     */
     @Override
     public void executeFromFile(ArrayList<Task> listOfTasks) throws AdditionalException {
-        String description = getDescription(TYPE_OF_TASK, PREPOSITION, fullCommand);
-        String date = getDate(PREPOSITION, fullCommand);
+        String description = Parser.getDescription(TYPE_OF_TASK, PREPOSITION, fullCommand);
+        String date = Parser.getDate(PREPOSITION, fullCommand);
         if (description.length() < 1 | date.length() < 1) {
             throw new AdditionalException("Did you accidentally edit the file?");
         }

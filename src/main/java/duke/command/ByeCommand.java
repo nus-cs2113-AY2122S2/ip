@@ -11,9 +11,6 @@ import java.util.ArrayList;
  * Represents the bye command which is to be executed.
  */
 public class ByeCommand extends Command {
-    @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-    }
 
     /**
      * This is the isBye method that returns whether the command is "bye".
@@ -23,10 +20,6 @@ public class ByeCommand extends Command {
     @Override
     public boolean isBye() {
         return true;
-    }
-
-    @Override
-    public void executeFromFile(ArrayList<Task> listOfTasks) {
     }
 
 }

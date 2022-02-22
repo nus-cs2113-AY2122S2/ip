@@ -29,17 +29,4 @@ public class ListCommand extends Command {
         ui.showList(listOfTasks);
     }
 
-    /**
-     * This is the isBye method that returns whether the command is "bye".
-     *
-     * @return False because the command is "mark".
-     */
-    @Override
-    public boolean isBye() {
-        return false;
-    }
-
-    @Override
-    public void executeFromFile(ArrayList<Task> listOfTasks) {
-    }
 }
