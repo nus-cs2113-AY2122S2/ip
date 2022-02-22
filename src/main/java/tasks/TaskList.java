@@ -540,7 +540,7 @@ public class TaskList {
         // Remove the task from the list
         Task taskRemoved = getList().remove(indexNum);
         decrementNumberOfTasks();
-        
+
         return taskRemoved;
     }
 

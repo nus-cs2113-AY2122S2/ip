@@ -452,7 +452,7 @@ Okay, I've deleted this task:
 What's next?
 ------------------------------------------------------------
 > ------------------------------------------------------------
-Okay, here's a list of 5 tasks that you have given to me:
+Okay, here's a list of 4 tasks that you have given to me:
 
 	1.[T][ ] read book
 	2.[D][ ] return book (due on: Sun, 27 Feb 2022, 9:00 PM)
