@@ -31,6 +31,15 @@ Sora farewell for the day and will be available the next time you start her up.
 
 ---
 
+## Quick Start Guide
+
+1. Download the JAR file for Sora.
+2. (Optional but recommended) Create a new folder and transfer `Sora.jar` into it.
+3. From your terminal, set the new folder as your working directory.
+4. Start up Sora with `java -jar Sora.jar`.
+
+---
+
 ## Usage
 
 ### `deadline` - Create a new deadline task
