@@ -14,7 +14,7 @@ Aeon is a personalized chat bot that helps tracks tasks for the user through a C
 
 ## Features 
 
-### 'todo' - Add a new Todo task
+### `todo` - Add a new Todo task
 
 Adds a new task without a specified timing.
 The keyword `todo` is used followed by a short description of the task.
