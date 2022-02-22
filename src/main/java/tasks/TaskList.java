@@ -178,7 +178,10 @@ public class TaskList {
         String[] splitByFlag = eventDeadlineUserInput.split(commandFlagKeyword);
         String[] commandAndDescription = splitByFlag[0].split(" ", 2);
 
-        if (commandAndDescription.length < 2) {
+        boolean hasLessThanTwoElements = commandAndDescription.length < 2;
+        boolean hasEmptySecondElement = commandAndDescription[1].equals("");
+
+        if (hasLessThanTwoElements || hasEmptySecondElement) {
             // User input has no description
             String noDescriptionExceptionMsg = getDeadlineOrEventNoDescriptionExceptionMsg(taskType);
             throw new InvalidCommandException(noDescriptionExceptionMsg);
