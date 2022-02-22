@@ -163,7 +163,7 @@ public class Sora {
             case SoraUI.ADD_EVENT_COMMAND_KEYWORD:
                 // Fallthrough
             case SoraUI.ADD_DEADLINE_COMMAND_KEYWORD:
-                Task newTask = getTasksManager().addTask(userRawInput);
+                Task newTask = getTasksManager().addTaskFromFile(userRawInput);
                 // Update file
                 soraStorage.writeNewTaskToFile(newTask);
                 // Print response

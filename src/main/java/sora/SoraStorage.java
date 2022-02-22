@@ -96,7 +96,7 @@ public class SoraStorage {
             String[] parsedLineData = parseFileLineData(rawLineData);
 
             // Add this line of text data into Sora's task list
-            taskList.addTask(parsedLineData);
+            taskList.addTaskFromFile(parsedLineData);
         }
 
         soraUI.printLoadedFileDataResponse();

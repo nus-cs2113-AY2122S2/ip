@@ -118,7 +118,7 @@ public class TaskList {
 
         // Add the task to the list
         try {
-            addTask(newTaskCommand);
+            addTaskFromFile(newTaskCommand);
         } catch (InvalidCommandException e) {
             System.out.println("Oh no! I failed to add a task from the saved data file to my task list.");
             System.out.println("Here's some details about the error: ");
