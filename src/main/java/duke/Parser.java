@@ -11,7 +11,15 @@ import duke.commands.TodoCommand;
 import duke.commands.UnmarkCommand;
 import duke.exceptions.EmptyCommandException;
 import duke.exceptions.InvalidCommandException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.TaskType;
+import duke.tasks.Todo;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -20,7 +28,39 @@ public class Parser {
 
     // Used to extract initial command
     private static final Pattern COMMAND_FORMAT = Pattern.compile("(\\S+)(.*)");
+    private static final Pattern FORMAT_ATDATE = Pattern.compile("(\\d+\\/\\d+\\/\\d+) (\\d{4})-(\\d{4})");
 
+    public static LocalDateTime parseByDateTime(String byDateTime) throws DateTimeParseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/y HHmm");
+        LocalDateTime date = LocalDateTime.parse(byDateTime, formatter);
+        return date;
+    }
+
+    public static LocalDateTime[] parseAtDateTime(String atDateTime) throws DateTimeParseException, IllegalStateException {
+        Matcher dateMatcher = FORMAT_ATDATE.matcher(atDateTime);
+        dateMatcher.matches();
+
+        String atDateString = dateMatcher.group(1);
+        String atTimeStartString = dateMatcher.group(2);
+        String atTimeEndString = dateMatcher.group(3);
+
+        String atDateTimeStartString = atDateString + " " + atTimeStartString;
+        String atDateTimeEndString = atDateString + " " + atTimeEndString;
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/y HHmm");
+        LocalDateTime atDateTimeStart = LocalDateTime.parse(atDateTimeStartString, formatter);
+        LocalDateTime atDateTimeEnd = LocalDateTime.parse(atDateTimeEndString, formatter);
+
+        LocalDateTime[] atDateTimes = {atDateTimeStart, atDateTimeEnd};
+        return atDateTimes;
+    }
+
+    public static Task parseDataLine(String dataLine) {
+        // Data Format: <task type> | <0/1 representing unmarked/marked> | <description> | <date if applicable>
+        String[] splitData = dataLine.split(" \\| ");
+        Task taskToAdd = createTask(splitData);
+        return taskToAdd;
+    }
     /**
      * Parses for user command and returns the proper Command object.
      * @param userInput input from user
@@ -106,5 +146,37 @@ public class Parser {
         }
         parsedArguments.put(parameterName, parameter.strip());
         return parsedArguments;
+    }
+
+    private static Task createTask(String[] splitData) {
+        TaskType taskType = TaskType.fromString(splitData[0]);
+        boolean isDone = splitData[1].equals("1");
+        Task taskToCreate;
+        String description;
+        switch (taskType) {
+        case Todo:
+            description = splitData[2];
+            taskToCreate = new Todo(description);
+            taskToCreate.setIsDone(isDone);
+            break;
+        case Event:
+            description = splitData[2];
+            LocalDateTime[] atDateTimes = Parser.parseAtDateTime(splitData[3]);
+            LocalDateTime atDateTimeStart = atDateTimes[0];
+            LocalDateTime atDateTimeEnd = atDateTimes[1];
+            taskToCreate = new Event(description, atDateTimeStart, atDateTimeEnd);
+            taskToCreate.setIsDone(isDone);
+            break;
+        case Deadline:
+            description = splitData[2];
+            LocalDateTime byDateTime = Parser.parseByDateTime(splitData[3]);
+            taskToCreate = new Deadline(description, byDateTime);
+            taskToCreate.setIsDone(isDone);
+            break;
+        default:
+            taskToCreate = null;
+            break;
+        }
+        return taskToCreate;
     }
 }

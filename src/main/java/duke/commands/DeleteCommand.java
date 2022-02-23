@@ -55,6 +55,7 @@ public class DeleteCommand extends Command {
             Task taskToRemove = taskList.remove(index);
             String output = String.format(TASK_DELETED_MESSAGE_FORMAT, taskToRemove.toString(), taskList.size());
             ui.showOutput(output);
+            storage.write(taskList);
         } catch (IndexOutOfBoundsException e) {
             InvalidArgumentException exception = new InvalidArgumentException(COMMAND_NAME, INVALID_TASK);
             throw exception;
