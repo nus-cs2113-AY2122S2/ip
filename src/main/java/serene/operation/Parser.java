@@ -2,9 +2,6 @@ package serene.operation;
 
 import serene.global.Constant;
 import serene.global.Ui;
-import serene.task.Task;
-
-import java.util.ArrayList;
 
 public class Parser {
     public static int parseInput(String userInput, TaskList tasks) {
@@ -47,7 +44,15 @@ public class Parser {
     }
 
     private static boolean isWithinRange(int taskIndex, int taskCount) {
-        return taskIndex >= 0 && taskIndex <= taskCount - 1;
+        return (!isTooLow(taskIndex) && !isTooHigh(taskIndex, taskCount));
+    }
+
+    private static boolean isTooLow(int taskIndex) {
+        return taskIndex < 0;
+    }
+
+    private static boolean isTooHigh(int taskIndex, int taskCount) {
+        return taskIndex > taskCount - 1;
     }
 
     public static boolean isValidDescription(String userInput) {
