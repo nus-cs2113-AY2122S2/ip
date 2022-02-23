@@ -1,7 +1,639 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+     /\   |  ____/ __ \| \ | |
+    /  \  | |__ | |  | |  \| |
+   / /\ \ |  __|| |  | | . ` |
+  / ____ \| |___| |__| | |\  |
+ /_/    \_\______\____/|_| \_|
+
+____________________________________________________________
+Hello! I'm AEON, your personal TO-DO list bot!
+What can I do for you?
+[T] [ ] finish cs2113 proj
+
+Total: 1 task(s) in the list!
+Task added!
+Not sure what you were trying to do...
+[D] [ ] study for midterms (by: 2022/02/22)
+
+Total: 2 task(s) in the list!
+Task added!
+[D] [ ] submit this proj (by: 2022/03/03)
+
+Total: 3 task(s) in the list!
+Task added!
+1. [T] [ ] finish cs2113 proj
+
+2. [D] [ ] study for midterms (by: 2022/02/22)
+
+3. [D] [ ] submit this proj (by: 2022/03/03)
+
+Task not found! Perhaps try listing out the available tasks first...
+Please type in a valid integer!
+[T] [X] finish cs2113 proj
+
+Congrats on completing this task!
+Please try again in this format: event <description> /at <date>
+Please type in a valid integer!
+Task not found! Perhaps try listing out the available tasks first...
+[E] [ ] cs3235 midterms (at: Mar 08 2022)
+
+Total: 4 task(s) in the list!
+Task added!
+Keyword to look for cannot be empty!!!
+[D] [ ] study for midterms (by: 2022/02/22)
+
+[E] [ ] cs3235 midterms (at: Mar 08 2022)
+
+No tasks found!
+No tasks found!
+[T] [ ] 5
+
+Total: 5 task(s) in the list!
+Task added!
+[T] [ ] 6
+
+Total: 6 task(s) in the list!
+Task added!
+[T] [ ] 7
+
+Total: 7 task(s) in the list!
+Task added!
+[T] [ ] 8
+
+Total: 8 task(s) in the list!
+Task added!
+[T] [ ] 9
+
+Total: 9 task(s) in the list!
+Task added!
+[T] [ ] 10
+
+Total: 10 task(s) in the list!
+Task added!
+[T] [ ] 11
+
+Total: 11 task(s) in the list!
+Task added!
+[T] [ ] 12
+
+Total: 12 task(s) in the list!
+Task added!
+[T] [ ] 13
+
+Total: 13 task(s) in the list!
+Task added!
+[T] [ ] 14
+
+Total: 14 task(s) in the list!
+Task added!
+[T] [ ] 15
+
+Total: 15 task(s) in the list!
+Task added!
+[T] [ ] 16
+
+Total: 16 task(s) in the list!
+Task added!
+[T] [ ] 17
+
+Total: 17 task(s) in the list!
+Task added!
+[T] [ ] 18
+
+Total: 18 task(s) in the list!
+Task added!
+[T] [ ] 19
+
+Total: 19 task(s) in the list!
+Task added!
+[T] [ ] 20
+
+Total: 20 task(s) in the list!
+Task added!
+[T] [ ] 21
+
+Total: 21 task(s) in the list!
+Task added!
+[T] [ ] 22
+
+Total: 22 task(s) in the list!
+Task added!
+[T] [ ] 23
+
+Total: 23 task(s) in the list!
+Task added!
+[T] [ ] 24
+
+Total: 24 task(s) in the list!
+Task added!
+[T] [ ] 25
+
+Total: 25 task(s) in the list!
+Task added!
+[T] [ ] 26
+
+Total: 26 task(s) in the list!
+Task added!
+[T] [ ] 27
+
+Total: 27 task(s) in the list!
+Task added!
+[T] [ ] 28
+
+Total: 28 task(s) in the list!
+Task added!
+[T] [ ] 29
+
+Total: 29 task(s) in the list!
+Task added!
+[T] [ ] 30
+
+Total: 30 task(s) in the list!
+Task added!
+[T] [ ] 31
+
+Total: 31 task(s) in the list!
+Task added!
+[T] [ ] 32
+
+Total: 32 task(s) in the list!
+Task added!
+[T] [ ] 33
+
+Total: 33 task(s) in the list!
+Task added!
+[T] [ ] 34
+
+Total: 34 task(s) in the list!
+Task added!
+[T] [ ] 35
+
+Total: 35 task(s) in the list!
+Task added!
+[T] [ ] 36
+
+Total: 36 task(s) in the list!
+Task added!
+[T] [ ] 37
+
+Total: 37 task(s) in the list!
+Task added!
+[T] [ ] 38
+
+Total: 38 task(s) in the list!
+Task added!
+[T] [ ] 39
+
+Total: 39 task(s) in the list!
+Task added!
+[T] [ ] 40
+
+Total: 40 task(s) in the list!
+Task added!
+[T] [ ] 41
+
+Total: 41 task(s) in the list!
+Task added!
+[T] [ ] 42
+
+Total: 42 task(s) in the list!
+Task added!
+[T] [ ] 43
+
+Total: 43 task(s) in the list!
+Task added!
+[T] [ ] 44
+
+Total: 44 task(s) in the list!
+Task added!
+[T] [ ] 45
+
+Total: 45 task(s) in the list!
+Task added!
+[T] [ ] 46
+
+Total: 46 task(s) in the list!
+Task added!
+[T] [ ] 47
+
+Total: 47 task(s) in the list!
+Task added!
+[T] [ ] 48
+
+Total: 48 task(s) in the list!
+Task added!
+[T] [ ] 49
+
+Total: 49 task(s) in the list!
+Task added!
+[T] [ ] 50
+
+Total: 50 task(s) in the list!
+Task added!
+[T] [ ] 51
+
+Total: 51 task(s) in the list!
+Task added!
+[T] [ ] 52
+
+Total: 52 task(s) in the list!
+Task added!
+[T] [ ] 53
+
+Total: 53 task(s) in the list!
+Task added!
+[T] [ ] 54
+
+Total: 54 task(s) in the list!
+Task added!
+[T] [ ] 55
+
+Total: 55 task(s) in the list!
+Task added!
+[T] [ ] 56
+
+Total: 56 task(s) in the list!
+Task added!
+[T] [ ] 57
+
+Total: 57 task(s) in the list!
+Task added!
+[T] [ ] 58
+
+Total: 58 task(s) in the list!
+Task added!
+[T] [ ] 59
+
+Total: 59 task(s) in the list!
+Task added!
+[T] [ ] 60
+
+Total: 60 task(s) in the list!
+Task added!
+[T] [ ] 61
+
+Total: 61 task(s) in the list!
+Task added!
+[T] [ ] 62
+
+Total: 62 task(s) in the list!
+Task added!
+[T] [ ] 63
+
+Total: 63 task(s) in the list!
+Task added!
+[T] [ ] 64
+
+Total: 64 task(s) in the list!
+Task added!
+[T] [ ] 65
+
+Total: 65 task(s) in the list!
+Task added!
+[T] [ ] 66
+
+Total: 66 task(s) in the list!
+Task added!
+[T] [ ] 67
+
+Total: 67 task(s) in the list!
+Task added!
+[T] [ ] 68
+
+Total: 68 task(s) in the list!
+Task added!
+[T] [ ] 69
+
+Total: 69 task(s) in the list!
+Task added!
+[T] [ ] 70
+
+Total: 70 task(s) in the list!
+Task added!
+[T] [ ] 71
+
+Total: 71 task(s) in the list!
+Task added!
+[T] [ ] 72
+
+Total: 72 task(s) in the list!
+Task added!
+[T] [ ] 73
+
+Total: 73 task(s) in the list!
+Task added!
+[T] [ ] 74
+
+Total: 74 task(s) in the list!
+Task added!
+[T] [ ] 75
+
+Total: 75 task(s) in the list!
+Task added!
+[T] [ ] 76
+
+Total: 76 task(s) in the list!
+Task added!
+[T] [ ] 77
+
+Total: 77 task(s) in the list!
+Task added!
+[T] [ ] 78
+
+Total: 78 task(s) in the list!
+Task added!
+[T] [ ] 79
+
+Total: 79 task(s) in the list!
+Task added!
+[T] [ ] 80
+
+Total: 80 task(s) in the list!
+Task added!
+[T] [ ] 81
+
+Total: 81 task(s) in the list!
+Task added!
+[T] [ ] 82
+
+Total: 82 task(s) in the list!
+Task added!
+[T] [ ] 83
+
+Total: 83 task(s) in the list!
+Task added!
+[T] [ ] 84
+
+Total: 84 task(s) in the list!
+Task added!
+[T] [ ] 85
+
+Total: 85 task(s) in the list!
+Task added!
+[T] [ ] 86
+
+Total: 86 task(s) in the list!
+Task added!
+[T] [ ] 87
+
+Total: 87 task(s) in the list!
+Task added!
+[T] [ ] 88
+
+Total: 88 task(s) in the list!
+Task added!
+[T] [ ] 89
+
+Total: 89 task(s) in the list!
+Task added!
+[T] [ ] 90
+
+Total: 90 task(s) in the list!
+Task added!
+[T] [ ] 91
+
+Total: 91 task(s) in the list!
+Task added!
+[T] [ ] 92
+
+Total: 92 task(s) in the list!
+Task added!
+[T] [ ] 93
+
+Total: 93 task(s) in the list!
+Task added!
+[T] [ ] 94
+
+Total: 94 task(s) in the list!
+Task added!
+[T] [ ] 95
+
+Total: 95 task(s) in the list!
+Task added!
+[T] [ ] 96
+
+Total: 96 task(s) in the list!
+Task added!
+[T] [ ] 97
+
+Total: 97 task(s) in the list!
+Task added!
+[T] [ ] 98
+
+Total: 98 task(s) in the list!
+Task added!
+[T] [ ] 99
+
+Total: 99 task(s) in the list!
+Task added!
+[T] [ ] 100
+
+Total: 100 task(s) in the list!
+Task added!
+1. [T] [X] finish cs2113 proj
+
+2. [D] [ ] study for midterms (by: 2022/02/22)
+
+3. [D] [ ] submit this proj (by: 2022/03/03)
+
+4. [E] [ ] cs3235 midterms (at: Mar 08 2022)
+
+5. [T] [ ] 5
+
+6. [T] [ ] 6
+
+7. [T] [ ] 7
+
+8. [T] [ ] 8
+
+9. [T] [ ] 9
+
+10. [T] [ ] 10
+
+11. [T] [ ] 11
+
+12. [T] [ ] 12
+
+13. [T] [ ] 13
+
+14. [T] [ ] 14
+
+15. [T] [ ] 15
+
+16. [T] [ ] 16
+
+17. [T] [ ] 17
+
+18. [T] [ ] 18
+
+19. [T] [ ] 19
+
+20. [T] [ ] 20
+
+21. [T] [ ] 21
+
+22. [T] [ ] 22
+
+23. [T] [ ] 23
+
+24. [T] [ ] 24
+
+25. [T] [ ] 25
+
+26. [T] [ ] 26
+
+27. [T] [ ] 27
+
+28. [T] [ ] 28
+
+29. [T] [ ] 29
+
+30. [T] [ ] 30
+
+31. [T] [ ] 31
+
+32. [T] [ ] 32
+
+33. [T] [ ] 33
+
+34. [T] [ ] 34
+
+35. [T] [ ] 35
+
+36. [T] [ ] 36
+
+37. [T] [ ] 37
+
+38. [T] [ ] 38
+
+39. [T] [ ] 39
+
+40. [T] [ ] 40
+
+41. [T] [ ] 41
+
+42. [T] [ ] 42
+
+43. [T] [ ] 43
+
+44. [T] [ ] 44
+
+45. [T] [ ] 45
+
+46. [T] [ ] 46
+
+47. [T] [ ] 47
+
+48. [T] [ ] 48
+
+49. [T] [ ] 49
+
+50. [T] [ ] 50
+
+51. [T] [ ] 51
+
+52. [T] [ ] 52
+
+53. [T] [ ] 53
+
+54. [T] [ ] 54
+
+55. [T] [ ] 55
+
+56. [T] [ ] 56
+
+57. [T] [ ] 57
+
+58. [T] [ ] 58
+
+59. [T] [ ] 59
+
+60. [T] [ ] 60
+
+61. [T] [ ] 61
+
+62. [T] [ ] 62
+
+63. [T] [ ] 63
+
+64. [T] [ ] 64
+
+65. [T] [ ] 65
+
+66. [T] [ ] 66
+
+67. [T] [ ] 67
+
+68. [T] [ ] 68
+
+69. [T] [ ] 69
+
+70. [T] [ ] 70
+
+71. [T] [ ] 71
+
+72. [T] [ ] 72
+
+73. [T] [ ] 73
+
+74. [T] [ ] 74
+
+75. [T] [ ] 75
+
+76. [T] [ ] 76
+
+77. [T] [ ] 77
+
+78. [T] [ ] 78
+
+79. [T] [ ] 79
+
+80. [T] [ ] 80
+
+81. [T] [ ] 81
+
+82. [T] [ ] 82
+
+83. [T] [ ] 83
+
+84. [T] [ ] 84
+
+85. [T] [ ] 85
+
+86. [T] [ ] 86
+
+87. [T] [ ] 87
+
+88. [T] [ ] 88
+
+89. [T] [ ] 89
+
+90. [T] [ ] 90
+
+91. [T] [ ] 91
+
+92. [T] [ ] 92
+
+93. [T] [ ] 93
+
+94. [T] [ ] 94
+
+95. [T] [ ] 95
+
+96. [T] [ ] 96
+
+97. [T] [ ] 97
+
+98. [T] [ ] 98
+
+99. [T] [ ] 99
+
+100. [T] [ ] 100
+
+[T] [ ] 101
+
+Total: 101 task(s) in the list!
+Task added!
+Bye. Hope to see you again soon!
+____________________________________________________________
 
