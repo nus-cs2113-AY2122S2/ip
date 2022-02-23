@@ -20,9 +20,12 @@
 
 Tasks are categorized into 3 different category.
 
-- Todo - Requires only a description
-- Deadline - Requires a description and a deadline
-- Event - Requires a a description and a date
+| Task type | Requires description | Requires date      |
+|-----------|----------------------|--------------------|
+| Todo      | :heavy_check_mark:   |                    |
+| Deadline  | :heavy_check_mark:   | :heavy_check_mark: |
+| Event     | :heavy_check_mark:   | :heavy_check_mark: |
+
 
 You can add tasks with your own description and date (if applicable) to Bim.
 
@@ -63,6 +66,8 @@ I have added a new task!
     [T][ ] buy groceries
 ```
 
+<br />
+
 ### `deadline` - Add a deadline
 
 Adds a **deadline** to Bim.
@@ -78,6 +83,8 @@ I have added a new task!
     [D][ ] submit project (by: Oct-10-2022)
 ```
 
+<br />
+
 ### `event` - Add an event
 
 Adds an event to Bim.
@@ -90,9 +97,13 @@ I have added a new task!
     [E][ ] project meeting (at: Oct-10-2022)
 ```
 
+<br />
+
 ### `list` - List all tasks
 
 Lists all tasks that Bim is storing.
+
+<br />
 
 
 ### `mark` - Set the task to be completed
@@ -107,17 +118,23 @@ Task has been marked. Well done!
     [T][X] buy groceries
 ```
 
+<br />
+
 ### `unmark` - Set the task to be uncompleted
 
 Sets the task with the given index to be incomplete.
 
 Format: `unmark INDEX`
 
+<br />
+
 ### `delete` - Delete a task
 
 The task with the given index will be deleted
 
 Format: `delete INDEX`
+
+<br />
 
 ### `find` - Find a task with a keyword
 
@@ -133,6 +150,8 @@ These are the tasks containing your keyword!
 	1.[D][ ] submit project (by: Oct-10-2022)
 	2.[E][ ] project meeting (at: Oct-10-2022)
 ```
+
+<br />
 
 ### `bye` - Exit the program
 
