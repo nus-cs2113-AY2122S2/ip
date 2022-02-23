@@ -15,7 +15,7 @@
 4. Exiting the program: [`bye`](#bye---exit-the-program)
 5. Saving tasks
 
-##Quick Start
+## Quick Start
 ### Managing your tasks
 
 Tasks are categorized into 3 different category.
@@ -46,6 +46,7 @@ After any command that modifies the data, the file will be updated automatically
 ##Command Format
 - Words in `UPPERCASE` are parameters to be specified by the user.
 - `INDEX` refers to the number shown in the `list` command.
+
 ## Usage
 
 ### `todo` - Add a todo
