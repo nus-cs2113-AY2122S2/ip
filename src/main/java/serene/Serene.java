@@ -32,8 +32,7 @@ public class Serene {
 
     private static void initiateSerene(TaskList taskList) throws IOException {
         File dataDirectory = new File("data");
-        if (!dataDirectory.exists()) {
-            dataDirectory.mkdir();
+        if (dataDirectory.mkdir()) {
             System.out.println("Data directory created~");
         }
         File save = new File(SAVE_FILE_PATH);

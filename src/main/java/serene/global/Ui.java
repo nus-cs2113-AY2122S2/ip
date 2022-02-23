@@ -1,6 +1,5 @@
 package serene.global;
 
-import serene.Serene;
 import serene.task.Task;
 
 import java.util.ArrayList;
