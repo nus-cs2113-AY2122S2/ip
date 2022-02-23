@@ -61,7 +61,18 @@ public class UserInterface {
                 System.out.println(i + 1 + "." + tasks.get(i).toString());
             }
         } else {
-            System.out.println("Wow, such empty");
+            System.out.println("Wow, such empty.");
+        }
+    }
+
+    public void printMatchingTasks(ArrayList<Task> tasks) {
+        if (tasks.size() > 0) {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println(i + 1 + "." + tasks.get(i).toString());
+            }
+        } else {
+            System.out.println("There are no tasks in the current list that matches the keywords given!");
         }
     }
 

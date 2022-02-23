@@ -58,6 +58,21 @@ public class TaskManager {
         ui.printTasks(tasks);
     }
 
+    public void findTasks(String userInput) {
+        try {
+            String keywords = getDescription(userInput);
+            ArrayList<Task> matchingTasks = new ArrayList<>();
+            for (Task task : tasks) {
+                if (task.getDescription().contains(keywords)) {
+                    matchingTasks.add(task);
+                }
+            }
+            ui.printMatchingTasks(matchingTasks);
+        } catch (EmptyDescriptionException e) {
+            ui.printEmptyDescriptionMessage();
+        }
+    }
+
     public void addTodo(String userInput) {
         try {
             String description = getDescription(userInput);
