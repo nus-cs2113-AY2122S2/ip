@@ -1,6 +1,6 @@
 package serene.global;
 
-public class UI {
+public class Ui {
     public static final String PARTITION_LINE = "____________________________________________________________";
     public static final String INPUT_ERROR_MESSAGE = "Uhm... I'm afraid I don't know what you mean by that :/";
     public static final String INVALID_NUM_ERROR_MESSAGE = "Please enter a valid task number ;-;";
