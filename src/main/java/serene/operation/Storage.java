@@ -15,6 +15,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
+    /**
+     * Reads data from the save file into the supplied task list.
+     *
+     * @param save The file to read from
+     * @param taskList The list to write to
+     * @param taskCount Counter of number of tasks present
+     * @throws FileNotFoundException If Scanner cannot be constructed
+     */
     public static void readSavedContents(File save, ArrayList<Task> taskList,
                                          int taskCount) throws FileNotFoundException {
         Scanner s = new Scanner(save);
@@ -24,6 +32,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Restores the task read from save file to the supplied task list.
+     *
+     * @param savedTask The task read from save file
+     * @param taskList The list to write to
+     */
     private static void recoverTask(String savedTask, ArrayList<Task> taskList) {
         // Extract task type
         String taskType = savedTask.substring(Constant.SAVED_INDEX_TYPE, Constant.SAVED_INDEX_TYPE + 1);
@@ -64,6 +78,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Rewrites the save file with the tasks currently present in the supplied task list.
+     *
+     * @param filePath Path of the save file
+     * @param taskList The task list containing the user's tasks
+     */
     public static void rewriteSaveFile(String filePath, ArrayList<Task> taskList) {
         try {
             // Clear contents of file
@@ -77,6 +97,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Appends the provided task to the save file.
+     *
+     * @param inputTask The task to append
+     * @param filePath Path of the save file
+     * @throws IOException If FileWriter cannot be constructed
+     */
     public static void appendSave(String inputTask, String filePath) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
         fw.write(inputTask + System.lineSeparator());

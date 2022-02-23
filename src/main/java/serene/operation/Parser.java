@@ -10,7 +10,7 @@ public class Parser {
      *
      * @param userInput The user's input
      * @param tasks The task list containing the user's tasks
-     * @return a constant signifying if program should continue to run
+     * @return A constant signifying if program should continue to run
      */
     public static int parseInput(String userInput, TaskList tasks) {
         String[] responsePartition = userInput.split(" ", 2);
@@ -44,7 +44,7 @@ public class Parser {
      *
      * @param userInput The user's input
      * @param taskCount Counter of number of tasks present
-     * @return extracted task index if valid, error code otherwise
+     * @return Extracted task index if valid, error code otherwise
      */
     public static int validateIndex(String[] userInput, int taskCount) {
         // Extract index of task to operate on
@@ -63,7 +63,7 @@ public class Parser {
      *
      * @param taskIndex Index of the targeted task
      * @param taskCount Counter of number of tasks present
-     * @return true if index provided is between 0 to taskCount - 1, false otherwise
+     * @return True if index provided is between 0 to taskCount - 1, false otherwise
      */
     private static boolean isWithinRange(int taskIndex, int taskCount) {
         return (!isTooLow(taskIndex) && !isTooHigh(taskIndex, taskCount));
@@ -73,7 +73,7 @@ public class Parser {
      * Returns if the provided value will cause an out-of-bounds read / write at the lower end.
      *
      * @param taskIndex Index of the targeted task
-     * @return true if index provided is below 0, false otherwise
+     * @return True if index provided is below 0, false otherwise
      */
     private static boolean isTooLow(int taskIndex) {
         return taskIndex < 0;
@@ -84,7 +84,7 @@ public class Parser {
      *
      * @param taskIndex Index of the targeted task
      * @param taskCount Counter of number of tasks present
-     * @return true if index provided is above tackCount - 1, false otherwise
+     * @return True if index provided is above tackCount - 1, false otherwise
      */
     private static boolean isTooHigh(int taskIndex, int taskCount) {
         return taskIndex > taskCount - 1;
@@ -93,7 +93,7 @@ public class Parser {
     /**
      * Returns if the provided task description is compliant with the correct syntax
      * @param userInput The user's input
-     * @return true if there is no "/at" or "/by" as the user's first word, false otherwise
+     * @return True if there is no "/at" or "/by" as the user's first word, false otherwise
      */
     public static boolean isValidDescription(String userInput) {
         String firstWord = userInput.split(" ", 2)[Constant.TASK_INDEX_DESCRIPTION];
@@ -104,7 +104,7 @@ public class Parser {
      * Returns if the input string is empty.
      *
      * @param input The string to check
-     * @return true if string is empty, false otherwise
+     * @return True if string is empty, false otherwise
      */
     public static boolean isEmpty(String input) {
         return input.equals("");
