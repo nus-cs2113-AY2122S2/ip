@@ -7,7 +7,7 @@ import serene.task.Task;
 import java.util.ArrayList;
 
 public class Parser {
-    public static int parseInput(String userInput, ArrayList<Task> taskList) {
+    public static int parseInput(String userInput, TaskList tasks) {
         // Split keyword from the rest of the input
         String[] responsePartition = userInput.split(" ", 2);
         String keyword = responsePartition[Constant.RESPONSE_INDEX_KEYWORD];
@@ -17,7 +17,7 @@ public class Parser {
             operationState = Constant.DONE;
             break;
         case "list":
-            Ui.printTaskList(taskList);
+            Ui.printTaskList(tasks);
             break;
         case "mark":
             TaskList.markTaskDone(responsePartition);

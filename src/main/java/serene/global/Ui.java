@@ -1,5 +1,6 @@
 package serene.global;
 
+import serene.operation.TaskList;
 import serene.task.Task;
 
 import java.util.ArrayList;
@@ -34,13 +35,12 @@ public class Ui {
         System.out.println(PARTITION_LINE);
     }
 
-    public static void printTaskList(ArrayList<Task> taskList) {
+    public static void printTaskList(TaskList tasks) {
+        ArrayList<Task> taskList = tasks.getTaskList();
         System.out.println(PARTITION_LINE);
         System.out.println("Here is your task list:");
-        int i = 1;
-        for (Task task : taskList) {
-            System.out.println((i) + "." + task);
-            i++;
+        for (int i = 0; i < tasks.getTaskCount(); i++) {
+            System.out.println((i + 1) + "." + taskList.get(i));
         }
         System.out.println(PARTITION_LINE);
     }

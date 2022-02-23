@@ -15,17 +15,17 @@ public class Serene {
     private static int statusOfSerene = Constant.CONTINUE;
 
     public static void main(String[] args) {
-        TaskList taskList = new TaskList();
-        statusOfSerene = initiateSerene(taskList);
+        TaskList tasks = new TaskList();
+        statusOfSerene = initiateSerene(tasks);
         if (statusOfSerene == Constant.DONE) {
             return;
         }
         Ui.printWelcomeMessage();
-        operateSerene(taskList);
+        operateSerene(tasks);
         Ui.printExitMessage();
     }
 
-    private static int initiateSerene(TaskList taskList) {
+    private static int initiateSerene(TaskList tasks) {
         try {
             File dataDirectory = new File("data");
             if (dataDirectory.mkdir()) {
@@ -37,7 +37,7 @@ public class Serene {
                 // Return as there will be no data to read from
                 return Constant.CONTINUE;
             }
-            Storage.readSavedContents(save, taskList.getTaskList(), taskList.getTaskCount());
+            Storage.readSavedContents(save, tasks.getTaskList(), tasks.getTaskCount());
         } catch (IOException e) {
             System.out.println(Ui.IO_FAIL_MESSAGE);
             return Constant.DONE;
@@ -45,11 +45,11 @@ public class Serene {
         return Constant.CONTINUE;
     }
 
-    private static void operateSerene(TaskList taskList) {
+    private static void operateSerene(TaskList tasks) {
         Scanner in = new Scanner(System.in);
         while (statusOfSerene != Constant.DONE) {
             String userInput = in.nextLine();
-            statusOfSerene = Parser.parseInput(userInput, taskList.getTaskList());
+            statusOfSerene = Parser.parseInput(userInput, tasks);
         }
     }
 

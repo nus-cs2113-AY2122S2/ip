@@ -15,9 +15,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    public static void readSavedContents(File save, ArrayList<Task> taskList, int taskCount) throws FileNotFoundException {
+    public static void readSavedContents(File save, ArrayList<Task> taskList,
+                                         int taskCount) throws FileNotFoundException {
         Scanner s = new Scanner(save);
-        while(s.hasNext()) {
+        while (s.hasNext()) {
             recoverTask(s.nextLine(), taskList);
             taskCount++;
         }
@@ -32,7 +33,7 @@ public class Storage {
         String descriptionAndTime = savedTask.substring(Constant.SAVED_INDEX_DESCRIPTION);
         int timeIndex;
         String description;
-        switch(taskType) {
+        switch (taskType) {
         case "T":
             ToDo todo = new ToDo(descriptionAndTime);
             if (marker.equals("X")) {
@@ -68,7 +69,7 @@ public class Storage {
             // Clear contents of file
             new FileWriter(filePath, false).close();
             // Rewrite all tasks
-            for (Task task: taskList) {
+            for (Task task : taskList) {
                 appendSave(task.toString(), filePath);
             }
         } catch (IOException e) {
