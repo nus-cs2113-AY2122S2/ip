@@ -10,8 +10,8 @@ public class Ui {
     private static final String MESSAGE_GREETING_1 = "Hi! I'm Bim!";
     private static final String MESSAGE_GREETING_2 = "What can I do for you?";
     private static final String MESSAGE_GOODBYE = "See you soon!";
-    private static final String MESSAGE_MARK_TASK = "Okie Dokie!";
-    private static final String MESSAGE_UNMARK_TASK = "Oh no! Anyways..";
+    private static final String MESSAGE_MARK_TASK = "Task has been marked. Well done!";
+    private static final String MESSAGE_UNMARK_TASK = "Task has been unmarked. Keep going!";
     private static final String MESSAGE_DELETE_TASK = "I have deleted a task!";
     private static final String MESSAGE_ADD_TASK = "I have added a new task!";
     private static final String MESSAGE_LIST_SIZE_1 = "You now have ";
