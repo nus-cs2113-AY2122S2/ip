@@ -2,6 +2,12 @@ package jrobo.command;
 
 import jrobo.exception.InvalidFormatException;
 
+/**
+ * InputParser is the class that receives and validate the input commands coming from CLI.
+ *
+ * @author Ege Demirkirkan
+ */
+
 public class InputParser {
     protected String[] args;
     protected static String[] validCommands = {"mark", "m", "unmark", "um", "todo", "t", "deadline", "d",
@@ -11,6 +17,11 @@ public class InputParser {
         this.args = input.split(" ");
     }
 
+    /**
+     * Returns the keyword of the user's command as a String object.
+     *
+     * @return the command's keyword
+     */
     public String getPrefix() {
         for (String s : validCommands) {
             String command = args[0];
@@ -21,6 +32,11 @@ public class InputParser {
         return null;
     }
 
+    /**
+     * Returns the description of the user's CLI task command
+     *
+     * @return the task commands' description
+     */
     public String getBody() {
         int suffixIndex = findSuffixIndex();
 
@@ -32,6 +48,11 @@ public class InputParser {
         return description.toString();
     }
 
+    /**
+     * Returns the time details of the user's CLI task command
+     *
+     * @return the task commands' details regarding time
+     */
     public String getSuffix() {
         int suffixIndex = findSuffixIndex();
         if (suffixIndex == -1) {
@@ -45,11 +66,23 @@ public class InputParser {
         return detail.toString();
     }
 
+    /**
+     * Returns a boolean value that determines whether the CLI command is valid and properly formatted.
+     *
+     * @return a true or false according to correctness of command's format
+     */
     public boolean isValidCommand() {
         return !(getPrefix() == null || ((getPrefix().equals("list") || getPrefix().equals("ls"))
                 && !getBody().equals("")));
     }
 
+    /**
+     * Returns the type of the task given in the command
+     *
+     * @return "todo", "deadline", or "event"
+     * @throws InvalidFormatException if the format of the command is wrong,
+     *                                display the related error text
+     */
     public String getType() throws InvalidFormatException {
         boolean isEvent = false;
         boolean isDeadline = false;
@@ -74,7 +107,14 @@ public class InputParser {
         throw new InvalidFormatException("Invalid command format!");
     }
 
-    public String[] loadParse(String taskStr) {
+    /**
+     * Returns the necessary information to be able to recreate Task objects.
+     *
+     * @param taskStr String object extracted from the text file that is used as a storage
+     * @return three element array, in which, command's description, time detail, and type respectively.
+     * @see jrobo.task.Task
+     */
+    public String[] strToTask(String taskStr) {
         int index = taskStr.lastIndexOf(']');
         String prefix = taskStr.substring(0, index);
         String body;

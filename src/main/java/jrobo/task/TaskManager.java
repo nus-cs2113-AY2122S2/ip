@@ -4,6 +4,12 @@ import jrobo.exception.InvalidTypeException;
 
 import java.util.ArrayList;
 
+/**
+ * TaskManager is the class that manages everything regarding Task, Deadline, Event, Todo classes
+ *
+ * @author Ege Demirkirkan
+ */
+
 public class TaskManager {
     ArrayList<Task> tasks;
 
@@ -25,6 +31,9 @@ public class TaskManager {
                 "Nice to meet you. What can I do for you?");
     }
 
+    /**
+     * This method displays all the tasks kept in the storage.
+     */
     public void displayTaskList() {
         if (tasks.size() == 0) {
             printWithSeparator("You have no tasks to list.");
@@ -40,6 +49,11 @@ public class TaskManager {
         System.out.println("\t____________________________________________________________");
     }
 
+    /**
+     * This method is used for handle 'mark' command. It changes the status icon of the task.
+     *
+     * @param input String object representing the command in the following format; 'mark {int}'
+     */
     public void markTask(String input) {
         String numberString = input.trim();
         try {
@@ -59,6 +73,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * This method is used for handle 'unmark' command. It changes the status icon of the task.
+     *
+     * @param input String object representing the command in the following format; 'unmark {int}'
+     */
     public void unmarkTask(String input) {
         String numberString = input.trim();
         try {
@@ -78,6 +97,16 @@ public class TaskManager {
         }
     }
 
+    /**
+     * This method add a task to the storage of the program.
+     *
+     * @param description main text of the task
+     * @param detail      time detail of the task, null if the command is not the type deadline or event.
+     * @param type        type of the task
+     * @param loadFlag    boolean value that represents whether the task should be loaded
+     * @throws InvalidTypeException if the type of the command is wrong,
+     *                              displays the related error text
+     */
     public void addTask(String description, String detail, String type, boolean loadFlag)
             throws InvalidTypeException {
         Task task;
@@ -101,6 +130,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * This method delete a task from the storage of the program.
+     *
+     * @param index specifies the task to remove
+     */
     public void deleteTask(int index) {
         if (tasks.size() == 0) {
             printWithSeparator("Invalid command! Nothing to delete.");
@@ -123,6 +157,11 @@ public class TaskManager {
         return tasks;
     }
 
+    /**
+     * This method search through the storage to find the related task to the search key
+     *
+     * @param toFind search key
+     */
     public void findTask(String toFind) {
         System.out.println("\t____________________________________________________________");
         System.out.println("\tHere are the matching tasks in your list:");

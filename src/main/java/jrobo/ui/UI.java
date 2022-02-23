@@ -5,6 +5,12 @@ import jrobo.task.TaskManager;
 
 import java.util.Scanner;
 
+/**
+ * UI is the class that provides the program with the CLI view.
+ *
+ * @author Ege Demirkirkan
+ */
+
 public class UI {
     Scanner scanner;
     TaskManager manager;
@@ -14,6 +20,9 @@ public class UI {
         this.manager = manager;
     }
 
+    /**
+     * This method creates and maintain the CLI view of the program.
+     */
     public void setView() {
         manager.welcomeUser();
         label:

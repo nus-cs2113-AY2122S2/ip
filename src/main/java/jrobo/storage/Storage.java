@@ -11,6 +11,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+/**
+ * Storage is the class that provides save and load functionalities on each run of the program.
+ *
+ * @author Ege Demirkirkan
+ */
 public class Storage {
     TaskManager manager;
 
@@ -18,6 +23,9 @@ public class Storage {
         this.manager = manager;
     }
 
+    /**
+     * This method saves tasks to the storage
+     */
     public void save() {
         try {
             FileWriter fileWriter = new FileWriter("./ip/data/tasks.txt", true);
@@ -31,6 +39,9 @@ public class Storage {
         }
     }
 
+    /**
+     * This method loads tasks from the storage
+     */
     public void load() {
         try {
             File file = new File("./ip/data/tasks.txt");
@@ -40,7 +51,7 @@ public class Storage {
             while (scanner.hasNext()) {
                 String taskStr = scanner.nextLine();
                 InputParser parser = new InputParser(taskStr);
-                String[] taskDetails = parser.loadParse(taskStr);
+                String[] taskDetails = parser.strToTask(taskStr);
                 manager.addTask(taskDetails[0], taskDetails[1], taskDetails[2], true);
             }
         } catch (IOException | InvalidTypeException e) {
