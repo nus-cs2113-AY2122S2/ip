@@ -1,7 +1,8 @@
 list
 todo get together with alice
-event alice wedding /at 24 nov 2022
-deadline prevent alice wedding /by 23 nov 2022
+event alice wedding /at 2022-11-24
+deadline prevent alice wedding /by 23 nov
+deadline prevent alice wedding /by 2022-11-23
 todo steal alice purse
 mark 4
 mark 5

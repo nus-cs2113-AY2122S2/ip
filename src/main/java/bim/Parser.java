@@ -2,6 +2,9 @@ package bim;
 
 import bim.command.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,6 +12,7 @@ public class Parser {
     private static final int EXPECTED_ARG_NUMBER = 2;
 
     private static final String ERROR_COMMAND_ARG = "Check your arguments!";
+    private static final String ERROR_COMMAND_DATE = "Invalid date format!";
     private static final String ERROR_COMMAND = "I couldn't understand that!";
 
     private static final String DELIMITER_EVENT = " /at ";
@@ -102,9 +106,14 @@ public class Parser {
             else {
                 parsedValues = commandArg.split(DELIMITER_EVENT);
             }
-            String description = parsedValues[0];
-            String date = parsedValues[1];
-            return new AddCommand(type, description, date);
+
+            try {
+                String description = parsedValues[0];
+                LocalDate date = LocalDate.parse(parsedValues[1]);
+                return new AddCommand(type, description, date);
+            } catch (DateTimeParseException invalidDate) {
+                return new IncorrectCommand(ERROR_COMMAND_DATE);
+            }
         }
     }
 

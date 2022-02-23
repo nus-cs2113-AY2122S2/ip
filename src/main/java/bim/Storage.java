@@ -9,12 +9,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
     private File dataDirectory;
     private File dataFile;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy");
 
     private static final String ERROR_WRITING_DATA_FILE = "Failed to write to data file!";
     private static final String ERROR_FINDING_DATA_FILE = "Data file is missing!";
@@ -72,10 +75,10 @@ public class Storage {
 
                     switch (taskParts[0]) {
                     case DATA_FILE_EVENT:
-                        newTask = new Event(taskParts[2], taskParts[3]);
+                        newTask = new Event(taskParts[2], LocalDate.parse(taskParts[3], formatter));
                         break;
                     case DATA_FILE_DEADLINE:
-                        newTask = new Deadline(taskParts[2], taskParts[3]);
+                        newTask = new Deadline(taskParts[2], LocalDate.parse(taskParts[3], formatter));
                         break;
                     default:
                         newTask = new ToDo(taskParts[2]);
