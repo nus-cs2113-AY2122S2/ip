@@ -44,6 +44,10 @@ public class UI {
                 case "del":
                     manager.deleteTask(Integer.parseInt(parser.getBody().trim()));
                     break;
+                case "find":
+                case "f":
+                    manager.findTask(parser.getBody());
+                    break;
                 case "bye":
                 case "b":
                 case "quit":

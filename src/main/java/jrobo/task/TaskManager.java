@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class TaskManager {
     ArrayList<Task> tasks;
 
+
     public TaskManager() {
         this.tasks = new ArrayList<>();
     }
@@ -120,5 +121,17 @@ public class TaskManager {
 
     public ArrayList<Task> getTaskList() {
         return tasks;
+    }
+
+    public void findTask(String toFind) {
+        System.out.println("\t____________________________________________________________");
+        System.out.println("\tHere are the matching tasks in your list:");
+        int index = 1;
+        for (Task t : tasks) {
+            if (t.getDescription().toLowerCase().contains(toFind.toLowerCase())) {
+                System.out.println("\t" + (index++) + "." + t);
+            }
+        }
+        System.out.println("\t____________________________________________________________");
     }
 }
