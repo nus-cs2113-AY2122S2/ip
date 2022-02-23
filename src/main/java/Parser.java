@@ -3,7 +3,6 @@ import taskitems.exceptions.IllegalInputException;
 
 public class Parser {
 
-
     public String parseTodo (String reader) throws IllegalInputException {
         String parameter = reader;
         if (!parameter.equals("")) {
