@@ -1,4 +1,4 @@
-package serene;
+package serene.operation;
 
 import serene.global.Constant;
 import serene.global.Ui;
@@ -20,16 +20,16 @@ public class Parser {
             Ui.printTaskList(taskList);
             break;
         case "mark":
-            Serene.markTaskDone(responsePartition);
+            TaskList.markTaskDone(responsePartition);
             break;
         case "unmark":
-            Serene.markTaskNotDone(responsePartition);
+            TaskList.markTaskNotDone(responsePartition);
             break;
         case "delete":
-            Serene.removeTask(responsePartition);
+            TaskList.removeTask(responsePartition);
             break;
         default:
-            Serene.addTask(userInput);
+            TaskList.addTask(userInput);
         }
         return operationState;
     }

@@ -1,4 +1,4 @@
-package serene;
+package serene.operation;
 
 import serene.global.Constant;
 import serene.global.Ui;
@@ -38,7 +38,7 @@ public class Storage {
             if (marker.equals("X")) {
                 todo.markDone();
             }
-            Serene.taskList.add(todo);
+            taskList.add(todo);
             break;
         case "D":
             timeIndex = descriptionAndTime.indexOf(" (by: ");
@@ -48,7 +48,7 @@ public class Storage {
             if (marker.equals("X")) {
                 deadline.markDone();
             }
-            Serene.taskList.add(deadline);
+            taskList.add(deadline);
             break;
         case "E":
             timeIndex = descriptionAndTime.indexOf(" (at: ");
@@ -58,17 +58,17 @@ public class Storage {
             if (marker.equals("X")) {
                 event.markDone();
             }
-            Serene.taskList.add(event);
+            taskList.add(event);
             break;
         }
     }
 
-    public static void rewriteSaveFile(String filePath) {
+    public static void rewriteSaveFile(String filePath, ArrayList<Task> taskList) {
         try {
             // Clear contents of file
             new FileWriter(filePath, false).close();
             // Rewrite all tasks
-            for (Task task: Serene.taskList) {
+            for (Task task: taskList) {
                 appendSave(task.toString(), filePath);
             }
         } catch (IOException e) {
