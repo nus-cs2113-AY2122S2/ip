@@ -1,19 +1,19 @@
 package solana.task;
 
 public class Deadline extends Task {
-    protected String by;
+    protected String byDate;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String byDate) {
         super(description);
-        this.by = by;
+        this.byDate = byDate;
     }
 
     @Override
     public String toString() {
         if (isDone) {
-            return "[D][X] " + description + " (By: " + by + ")";
+            return "[D][X] " + description + " (By: " + byDate + ")";
         } else {
-            return "[D][ ] " + description + " (By: " + by + ")";
+            return "[D][ ] " + description + " (By: " + byDate + ")";
         }
     }
 }

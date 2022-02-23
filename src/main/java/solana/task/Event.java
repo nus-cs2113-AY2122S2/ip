@@ -1,19 +1,19 @@
 package solana.task;
 
 public class Event extends Task {
-    protected String at;
+    protected String atDate;
 
-    public Event(String description, String at) {
+    public Event(String description, String atDate) {
         super(description);
-        this.at = at;
+        this.atDate = atDate;
     }
 
     @Override
     public String toString() {
         if (isDone) {
-            return "[E][X] " + description + " (At: " + at + ")";
+            return "[E][X] " + description + " (At: " + atDate + ")";
         } else {
-            return "[E][ ] " + description + " (At: " + at + ")";
+            return "[E][ ] " + description + " (At: " + atDate + ")";
         }
     }
 }
