@@ -14,6 +14,9 @@ public class Ui {
     public static final String EMPTY_AT_ERROR_MESSAGE = "No time input? Please remember your /at~";
     public static final String IO_FAIL_MESSAGE = "I/O failed ;-;";
 
+    /**
+     * Prints a welcome message to the user upon start up of Serene.
+     */
     public static void printWelcomeMessage() {
         String logo = " #####  ####### ######  ####### #     # ####### \n"
                 + "#     # #       #     # #       ##    # #       \n"
@@ -29,12 +32,23 @@ public class Ui {
         printWithPartition(greetLine);
     }
 
+    /**
+     * Prints the input encapsulated in a pair of partitioning lines.
+     *
+     * @param input The string to be printed.
+     */
     public static void printWithPartition(String input) {
         System.out.println(PARTITION_LINE);
         System.out.println(input);
         System.out.println(PARTITION_LINE);
     }
 
+    /**
+     * Prints the tasks present in the input task list.
+     * They are printed with numbering, type of task and whether it is marked.
+     *
+     * @param tasks The task list containing the user's tasks
+     */
     public static void printTaskList(TaskList tasks) {
         ArrayList<Task> taskList = tasks.getTaskList();
         System.out.println(PARTITION_LINE);
@@ -45,6 +59,12 @@ public class Ui {
         System.out.println(PARTITION_LINE);
     }
 
+    /**
+     * Prints the newly added task, as well as how many tasks are present now present in the list.
+     *
+     * @param inputTask The newly added task
+     * @param taskCount Counter of number of tasks present
+     */
     public static void printAddedTask(Task inputTask, int taskCount) {
         String toPrint;
         if (taskCount == Constant.SINGULAR) {
@@ -60,6 +80,9 @@ public class Ui {
         printWithPartition(toPrint);
     }
 
+    /**
+     * Prints an exit message upon user input of the bye command.
+     */
     public static void printExitMessage() {
         printWithPartition("Till next time. Hope to see you again soon~");
     }

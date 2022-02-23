@@ -144,7 +144,8 @@ public class TaskList {
             return;
         }
         try {
-            Event task = new Event(taskPartition[Constant.TASK_INDEX_DESCRIPTION], taskPartition[Constant.TASK_INDEX_OPTIONS]);
+            Event task = new Event(taskPartition[Constant.TASK_INDEX_DESCRIPTION],
+                    taskPartition[Constant.TASK_INDEX_OPTIONS]);
             allocateTask(task);
         } catch (ArrayIndexOutOfBoundsException e) {
             Ui.printWithPartition(Ui.EMPTY_AT_ERROR_MESSAGE);
