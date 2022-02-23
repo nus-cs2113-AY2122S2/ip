@@ -78,7 +78,7 @@ public class TaskList {
             if (taskIndex == Constant.ERROR_CODE) {
                 return;
             }
-            if (taskCount == 2) {
+            if (taskCount == Constant.TO_SINGULAR) {
                 Ui.printWithPartition("Mmkay~ Shall remove this task:" + System.lineSeparator() +
                         taskList.get(taskIndex) + System.lineSeparator() +
                         "Now you have " + (taskCount - 1) + " task left in the list");

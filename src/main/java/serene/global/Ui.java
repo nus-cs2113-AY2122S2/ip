@@ -47,7 +47,7 @@ public class Ui {
 
     public static void printAddedTask(Task inputTask, int taskCount) {
         String toPrint;
-        if (taskCount == 1) {
+        if (taskCount == Constant.SINGULAR) {
             toPrint = "Okay, I've added this for you:" + System.lineSeparator() +
                     inputTask + System.lineSeparator() +
                     "Now you have " + taskCount + " task in the list.";

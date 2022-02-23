@@ -12,4 +12,6 @@ public class Constant {
     public static final int SAVED_INDEX_IS_DONE = 4;
     public static final int SAVED_INDEX_DESCRIPTION = 7;
     public static final int TIME_OFFSET = 6;
+    public static final int SINGULAR = 1;
+    public static final int TO_SINGULAR = 2;
 }
