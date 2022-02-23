@@ -34,20 +34,20 @@ public class Parser {
         return operationState;
     }
 
-    public static int validateIndex(String[] userInput) {
+    public static int validateIndex(String[] userInput, int taskCount) {
         // Extract index of task to remove
         String inputNumber = userInput[Constant.RESPONSE_INDEX_BODY];
         int taskIndex = Integer.parseInt(inputNumber) - 1;
         // Validation of provided index
-        if (!isWithinRange(taskIndex)) {
+        if (!isWithinRange(taskIndex, taskCount)) {
             Ui.printWithPartition(Ui.INVALID_NUM_ERROR_MESSAGE);
             return Constant.ERROR_CODE;
         }
         return taskIndex;
     }
 
-    private static boolean isWithinRange(int taskIndex) {
-        return taskIndex >= 0 && taskIndex <= Serene.taskCount - 1;
+    private static boolean isWithinRange(int taskIndex, int taskCount) {
+        return taskIndex >= 0 && taskIndex <= taskCount - 1;
     }
 
     public static boolean isValidDescription(String userInput) {

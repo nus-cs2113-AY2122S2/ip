@@ -46,17 +46,17 @@ public class Ui {
         System.out.println(PARTITION_LINE);
     }
 
-    public static void printAddedTask(Task inputTask) {
+    public static void printAddedTask(Task inputTask, int taskCount) {
         String toPrint;
-        if (Serene.taskCount == 1) {
+        if (taskCount == 1) {
             toPrint = "Okay, I've added this for you:" + System.lineSeparator() +
                     inputTask + System.lineSeparator() +
-                    "Now you have " + Serene.taskCount + " task in the list.";
+                    "Now you have " + taskCount + " task in the list.";
         }
         else {
             toPrint = "Okay, I've added this for you:" + System.lineSeparator() +
                     inputTask + System.lineSeparator() +
-                    "Now you have " + Serene.taskCount + " tasks in the list.";
+                    "Now you have " + taskCount + " tasks in the list.";
         }
         printWithPartition(toPrint);
     }

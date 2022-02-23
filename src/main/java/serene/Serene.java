@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class Serene {
     private static final String SAVE_FILE_PATH = "data/serene.txt";
     private static ArrayList<Task> taskList = new ArrayList<>();
-    public static int taskCount = 0;
+    private static int taskCount = 0;
     private static int statusOfSerene = Constant.CONTINUE;
 
     public static void main(String[] args) {
@@ -110,7 +110,7 @@ public class Serene {
     public static void markTaskDone(String[] userInput) {
         try {
             // Extract index of task to mark
-            int taskIndex = Parser.validateIndex(userInput);
+            int taskIndex = Parser.validateIndex(userInput, taskCount);
             if (taskIndex == Constant.ERROR_CODE) {
                 return;
             }
@@ -132,7 +132,7 @@ public class Serene {
     public static void markTaskNotDone(String[] userInput) {
         try {
             // Extract index of task to unmark
-            int taskIndex = Parser.validateIndex(userInput);
+            int taskIndex = Parser.validateIndex(userInput, taskCount);
             if (taskIndex == Constant.ERROR_CODE) {
                 return;
             }
@@ -153,7 +153,7 @@ public class Serene {
 
     public static void removeTask(String[] userInput) {
         try {
-            int taskIndex = Parser.validateIndex(userInput);
+            int taskIndex = Parser.validateIndex(userInput, taskCount);
             if (taskIndex == Constant.ERROR_CODE) {
                 return;
             }
@@ -275,7 +275,7 @@ public class Serene {
         taskList.add(inputTask);
         taskCount++;
         appendSave(inputTask.toString());
-        Ui.printAddedTask(inputTask);
+        Ui.printAddedTask(inputTask, taskCount);
     }
 
     private static void appendSave(String inputTask) throws IOException {
