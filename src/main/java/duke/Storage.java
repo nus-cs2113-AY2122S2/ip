@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class File {
+public class Storage {
     //File
     public static final String FILE_PATH = "data/duke.txt";
     public static final String FILE_FLAG = " \\| ";
@@ -47,35 +47,15 @@ public class File {
     public static void updateFile() throws IOException {
         Path path = Paths.get(FILE_PATH);
         List<String> lines = new ArrayList<>();
-        for (Task task: Duke.taskList) {
-            lines.add(getFormattedString(task));
+        for (Task task: Ui.taskList) {
+            lines.add(Parser.getFormattedString(task));
         }
         Files.write(path, lines, StandardCharsets.UTF_8);
     }
 
-    public static String getFormattedString(Task task) {
-        if (task instanceof Todo) {
-            return (FILE_TODO + " | " + convertStatusToString(task.getIsDone()) + " | "
-                    + task.getDescription());
-        } else if (task instanceof Deadline) {
-            return (FILE_DEADLINE + " | " + convertStatusToString(task.getIsDone()) + " | "
-                    + task.getDescription() + " | " + ((Deadline) task).getDeadline());
-        } else {
-            return (FILE_EVENT + " | " + convertStatusToString(task.getIsDone()) + " | "
-                    + task.getDescription() + " | " + ((Event) task).getAt());
-        }
-    }
-
-    public static String convertStatusToString(boolean value) {
-        if (value) {
-            return FILE_DONE;
-        }
-        return FILE_NOT_DONE;
-    }
-
     public static void addToDo(String status, String description) {
         Todo task = new Todo(description);
-        Duke.taskList.add(task);
+        Ui.taskList.add(task);
         if (status.equals(FILE_DONE)) {
             task.markAsDone();
         }
@@ -83,7 +63,7 @@ public class File {
 
     public static void addDeadline(String status, String description, String deadline) {
         Deadline task = new Deadline(description, deadline);
-        Duke.taskList.add(task);
+        Ui.taskList.add(task);
         if (status.equals(FILE_DONE)) {
             task.markAsDone();
         }
@@ -91,7 +71,7 @@ public class File {
 
     public static void addEvent(String status, String description, String deadline) {
         Event task = new Event(description, deadline);
-        Duke.taskList.add(task);
+        Ui.taskList.add(task);
         if (status.equals(FILE_DONE)) {
             task.markAsDone();
         }
