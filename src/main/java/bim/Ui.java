@@ -49,6 +49,10 @@ public class Ui {
         System.out.println(MESSAGE_LIST_SIZE_1 + taskCount + MESSAGE_LIST_SIZE_2);
     }
 
+    public void printSearchResult(String result) {
+        System.out.println(result);
+    }
+
     public void printTask(Task task) {
         System.out.println(LINE_INDENT + task);
     }

@@ -9,6 +9,8 @@ public class TaskList {
     private static final String LINE_INDENT = "\t";
     private static final String EMPTY_LIST = "404 Not Found";
     private static final String PRINT_LIST = "Here you go!";
+    private static final String NONEMPTY_SEARCH_RESULT = "These are the tasks containing your keyword!";
+    private static final String EMPTY_SEARCH_RESULT = "Sorry, I could not find any matching task!";
 
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
@@ -36,6 +38,27 @@ public class TaskList {
 
     public int getSize() {
         return tasks.size();
+    }
+
+    public String findTask(String keyword) {
+        String result = NONEMPTY_SEARCH_RESULT + NEWLINE;
+        int count = 1;
+        for(int i = 0; i < tasks.size(); i++) {
+            Task currentTask = tasks.get(i);
+            if (currentTask.getDescription().contains(keyword)) {
+                result += LINE_INDENT + count + LIST_DOT + currentTask;
+                if (i != tasks.size() - 1) {
+                    result += NEWLINE;
+                }
+                count++;
+            }
+        }
+        if (result.equals(NONEMPTY_SEARCH_RESULT + NEWLINE)) {
+            return EMPTY_SEARCH_RESULT;
+        }
+        else {
+            return result;
+        }
     }
 
     @Override
