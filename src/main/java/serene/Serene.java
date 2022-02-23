@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class Serene {
     private static final String SAVE_FILE_PATH = "data/serene.txt";
     private static ArrayList<Task> taskList = new ArrayList<>();
-    private static int taskCount = 0;
+    public static int taskCount = 0;
     private static int statusOfSerene = Constant.CONTINUE;
 
     public static void main(String[] args) {
@@ -115,7 +115,7 @@ public class Serene {
         printWithPartition(greetLine);
     }
 
-    private static void printWithPartition(String input) {
+    public static void printWithPartition(String input) {
         System.out.println(Ui.PARTITION_LINE);
         System.out.println(input);
         System.out.println(Ui.PARTITION_LINE);
@@ -124,38 +124,11 @@ public class Serene {
     private static void operateSerene(Scanner in) {
         while (statusOfSerene != Constant.DONE) {
             String userInput = in.nextLine();
-            statusOfSerene = parseInput(userInput);
+            statusOfSerene = Parser.parseInput(userInput);
         }
     }
 
-    private static int parseInput(String userInput) {
-        // Split keyword from the rest of the input
-        String[] responsePartition = userInput.split(" ", 2);
-        String keyword = responsePartition[Constant.RESPONSE_INDEX_KEYWORD];
-        int operationState = Constant.CONTINUE;
-        switch (keyword) {
-        case "bye":
-            operationState = Constant.DONE;
-            break;
-        case "list":
-            printTaskList();
-            break;
-        case "mark":
-            markTaskDone(responsePartition);
-            break;
-        case "unmark":
-            markTaskNotDone(responsePartition);
-            break;
-        case "delete":
-            removeTask(responsePartition);
-            break;
-        default:
-            addTask(userInput);
-        }
-        return operationState;
-    }
-
-    private static void printTaskList() {
+    public static void printTaskList() {
         System.out.println(Ui.PARTITION_LINE);
         System.out.println("Here is your task list:");
         int i = 1;
@@ -166,10 +139,10 @@ public class Serene {
         System.out.println(Ui.PARTITION_LINE);
     }
 
-    private static void markTaskDone(String[] userInput) {
+    public static void markTaskDone(String[] userInput) {
         try {
             // Extract index of task to mark
-            int taskIndex = validateIndex(userInput);
+            int taskIndex = Parser.validateIndex(userInput);
             if (taskIndex == Constant.ERROR_CODE) {
                 return;
             }
@@ -188,10 +161,10 @@ public class Serene {
         }
     }
 
-    private static void markTaskNotDone(String[] userInput) {
+    public static void markTaskNotDone(String[] userInput) {
         try {
             // Extract index of task to unmark
-            int taskIndex = validateIndex(userInput);
+            int taskIndex = Parser.validateIndex(userInput);
             if (taskIndex == Constant.ERROR_CODE) {
                 return;
             }
@@ -210,9 +183,9 @@ public class Serene {
         }
     }
 
-    private static void removeTask(String[] userInput) {
+    public static void removeTask(String[] userInput) {
         try {
-            int taskIndex = validateIndex(userInput);
+            int taskIndex = Parser.validateIndex(userInput);
             if (taskIndex == Constant.ERROR_CODE) {
                 return;
             }
@@ -234,22 +207,6 @@ public class Serene {
         }
     }
 
-    private static int validateIndex(String[] userInput) {
-        // Extract index of task to remove
-        String inputNumber = userInput[Constant.RESPONSE_INDEX_BODY];
-        int taskIndex = Integer.parseInt(inputNumber) - 1;
-        // Validation of provided index
-        if (!isWithinRange(taskIndex)) {
-            printWithPartition(Ui.INVALID_NUM_ERROR_MESSAGE);
-            return Constant.ERROR_CODE;
-        }
-        return taskIndex;
-    }
-
-    private static boolean isWithinRange(int taskIndex) {
-        return taskIndex >= 0 && taskIndex <= taskCount - 1;
-    }
-
     private static void rewriteSaveFile() {
         try {
             // Clear contents of file
@@ -263,7 +220,7 @@ public class Serene {
         }
     }
 
-    private static void addTask(String userInput) {
+    public static void addTask(String userInput) {
         // Extracting which type of task does the user want to add
         String[] responsePartition = userInput.split(" ", 2);
         String keyword = responsePartition[Constant.RESPONSE_INDEX_KEYWORD];
@@ -301,7 +258,7 @@ public class Serene {
         try {
             String description = responsePartition[Constant.RESPONSE_INDEX_BODY];
             // Checking if a valid description has been provided
-            if (!isValidDescription(description)) {
+            if (!Parser.isValidDescription(description)) {
                 printWithPartition(Ui.EMPTY_DESC_ERROR_MESSAGE);
                 return;
             }
@@ -326,7 +283,7 @@ public class Serene {
         try {
             String description = responsePartition[Constant.RESPONSE_INDEX_BODY];
             // Checking if a valid description has been provided
-            if (!isValidDescription(description)) {
+            if (!Parser.isValidDescription(description)) {
                 printWithPartition(Ui.EMPTY_DESC_ERROR_MESSAGE);
                 return;
             }
@@ -344,11 +301,6 @@ public class Serene {
         } catch (IOException e) {
             printWithPartition(Ui.IO_FAIL_MESSAGE);
         }
-    }
-
-    private static boolean isValidDescription(String userInput) {
-        String firstWord = userInput.split(" ", 2)[Constant.TASK_INDEX_DESCRIPTION];
-        return !firstWord.strip().equals("") && !firstWord.contains("/at") && !firstWord.contains("/by");
     }
 
     private static void allocateTask(Task inputTask) throws IOException {
