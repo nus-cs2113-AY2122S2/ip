@@ -1,5 +1,8 @@
 package bim.task;
 
+/**
+ * Represents an abstraction of a task.
+ */
 public abstract class Task {
     private String description;
     private boolean isDone;

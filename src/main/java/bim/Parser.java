@@ -3,13 +3,16 @@ package bim;
 import bim.command.*;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Reads and extract relevant information from user input. The information is then used to prepare the command
+ * that the user wishes to execute.
+ */
 public class Parser {
-    private static final int EXPECTED_ARG_NUMBER = 2;
+    private static final int EXPECTED_NUMBER_OF_FIELDS = 2;
+    private static final int INDEX_CONVERTER = 1; // Used to convert 1-based indexing to 0-based indexing
 
     private static final String ERROR_COMMAND_ARG = "Check your arguments!";
     private static final String ERROR_COMMAND_DATE = "Invalid date format!";
@@ -31,12 +34,15 @@ public class Parser {
 
     private static final Scanner scanner = new Scanner(System.in);
 
-    public Parser() { }
-
-    public boolean isValidArgument(String commandArg) {
-        return !commandArg.isEmpty();
+    public Parser() {
     }
 
+    /**
+     * Returns the user input.
+     * Inputs that are empty or blank are ignored.
+     *
+     * @return User input
+     */
     public String readInput() {
         String input;
 
@@ -47,6 +53,13 @@ public class Parser {
         return input;
     }
 
+    /**
+     * Returns a command object based on the input.
+     * Input is parsed to split the command word and the command arguments
+     *
+     * @param input The full command entered by the user.
+     * @return Command object
+     */
     public Command parseCommand(String input) {
         String[] words = input.split(" ", 2);
         String commandWord = words[0].toLowerCase();
@@ -96,10 +109,18 @@ public class Parser {
         return new FindCommand(commandArg);
     }
 
-
+    /**
+     * Parses the argument supplied based on the type of command.
+     * If the argument is valid, an AddCommand object is created
+     * and returned. Else, an IncorrectCommand object is returned instead.
+     *
+     * @param type       todo, event or deadline
+     * @param commandArg The full argument given by the user.
+     * @return AddCommand if parameters are valid, IncorrectCommand otherwise.
+     */
     public Command parseAddCommand(String type, String commandArg) {
         if (type.equals(OP_ADD_TODO)) {
-            if (!isValidArgument(commandArg)) {
+            if (commandArg.isEmpty()) {
                 return new IncorrectCommand(ERROR_COMMAND_ARG);
             }
 
@@ -110,18 +131,18 @@ public class Parser {
                 return new IncorrectCommand(ERROR_COMMAND_ARG);
             }
 
-            String[] parsedValues;
+            String[] splitValues;
 
             if (type.equals(OP_ADD_DEADLINE)) {
-                parsedValues = commandArg.split(DELIMITER_DEADLINE);
+                splitValues = commandArg.split(DELIMITER_DEADLINE);
             }
             else {
-                parsedValues = commandArg.split(DELIMITER_EVENT);
+                splitValues = commandArg.split(DELIMITER_EVENT);
             }
 
             try {
-                String description = parsedValues[0];
-                LocalDate date = LocalDate.parse(parsedValues[1]);
+                String description = splitValues[0];
+                LocalDate date = LocalDate.parse(splitValues[1]);
                 return new AddCommand(type, description, date);
             } catch (DateTimeParseException invalidDate) {
                 return new IncorrectCommand(ERROR_COMMAND_DATE);
@@ -129,31 +150,60 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the argument supplied for mark and unmark commands.
+     *
+     * @param type       mark or unmark
+     * @param commandArg the index of the task to be marked or unmarked given by the user in string
+     * @return MarkCommand
+     */
     public Command parseMarkAndUnmarkCommand(String type, String commandArg) {
         int index = parseIndex(commandArg);
         return new MarkCommand(type, index);
     }
 
+    /**
+     * Parses the argument supplied for delete commands.
+     *
+     * @param commandArg the index of the task to be deleted given by the user in string
+     * @return DeleteCommand
+     */
     public Command parseDeleteCommand(String commandArg) {
         int index = parseIndex(commandArg);
         return new DeleteCommand(index);
     }
 
-
+    /**
+     * Converts the index in the argument from string to int.
+     * If the argument cannot be parsed, returns -1 instead.
+     * Else, the argument is converted to int and is shifted by -1 to be 0-based.
+     *
+     * @param commandArg the string given by the user.
+     * @return 0-based index in integer.
+     */
     public int parseIndex(String commandArg) {
         int index;
         try {
-            index = Integer.parseInt(commandArg) - 1;
+            index = Integer.parseInt(commandArg) - INDEX_CONVERTER;
         } catch (NumberFormatException exception) {
             index = -1;
         }
         return index;
     }
 
+    /**
+     * Returns the validity of the argument
+     * Checks if the argument contains the appropriate delimiter and ensures that the
+     * argument is not blank
+     *
+     * @param delimiter  /by if the task is a deadline, /at if the task is an event
+     * @param commandArg the full argument given by the user.
+     * @return true if argument is valid, false otherwise.
+     */
     public boolean isValidArgument(String delimiter, String commandArg) {
         if (commandArg.contains(delimiter)) {
             String[] arguments = commandArg.split(delimiter);
-            return arguments.length == EXPECTED_ARG_NUMBER;
+            return arguments.length == EXPECTED_NUMBER_OF_FIELDS;
         }
         return false;
     }

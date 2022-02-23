@@ -2,15 +2,16 @@ package bim.task;
 
 import java.util.ArrayList;
 
+/**
+ * Contains all the tasks the user have created.
+ */
 public class TaskList {
-    private static ArrayList<Task> tasks = new ArrayList<Task>();
+    private final ArrayList<Task> tasks;
     private static final String LIST_DOT = ".";
     private static final String NEWLINE = "\n";
     private static final String LINE_INDENT = "\t";
+
     private static final String EMPTY_LIST = "404 Not Found";
-    private static final String PRINT_LIST = "Here you go!";
-    private static final String NONEMPTY_SEARCH_RESULT = "These are the tasks containing your keyword!";
-    private static final String EMPTY_SEARCH_RESULT = "Sorry, I could not find any matching task!";
 
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
@@ -41,8 +42,8 @@ public class TaskList {
     }
 
     public String findTask(String keyword) {
-        String result = NONEMPTY_SEARCH_RESULT + NEWLINE;
         int count = 1;
+        String result = "";
         for(int i = 0; i < tasks.size(); i++) {
             Task currentTask = tasks.get(i);
             if (currentTask.getDescription().contains(keyword)) {
@@ -53,23 +54,24 @@ public class TaskList {
                 count++;
             }
         }
-        if (result.equals(NONEMPTY_SEARCH_RESULT + NEWLINE)) {
-            return EMPTY_SEARCH_RESULT;
-        }
-        else {
-            return result;
-        }
+        return result;
     }
 
+    /**
+     * Returns a string that lists all tasks in the arraylist <br>
+     * Format: INDEX + task.toString()
+     *
+     * @return A String representation of all tasks in the TaskList
+     */
     @Override
     public String toString() {
         if (tasks.isEmpty()) {
             return EMPTY_LIST;
         }
 
-        String output = PRINT_LIST + NEWLINE;
-        for(int i = 0; i < tasks.size(); i++) {
-            output += LINE_INDENT + (i+1) + LIST_DOT + tasks.get(i);
+        String output = "";
+        for (int i = 0; i < tasks.size(); i++) {
+            output += LINE_INDENT + (i + 1) + LIST_DOT + tasks.get(i);
             if (i != tasks.size() - 1) {
                 output += NEWLINE;
             }

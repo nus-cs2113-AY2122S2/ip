@@ -3,6 +3,9 @@ package bim.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an event with a date.
+ */
 public class Event extends Task {
     private LocalDate date;
 

@@ -4,6 +4,9 @@ import bim.Storage;
 import bim.Ui;
 import bim.task.TaskList;
 
+/**
+ * Lists all tasks whose description contain a keyword.
+ */
 public class FindCommand extends Command {
     private String keyword;
 

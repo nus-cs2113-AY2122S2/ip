@@ -3,8 +3,9 @@ package bim;
 import bim.task.Task;
 import bim.task.TaskList;
 
-import java.util.ArrayList;
-
+/**
+ * Displays any message Bim has for the user like welcome greetings, goodbye messages, etc.
+ */
 public class Ui {
     private static final String MESSAGE_GREETING_1 = "Hi! I'm Bim!";
     private static final String MESSAGE_GREETING_2 = "What can I do for you?";
@@ -15,11 +16,18 @@ public class Ui {
     private static final String MESSAGE_ADD_TASK = "I have added a new task!";
     private static final String MESSAGE_LIST_SIZE_1 = "You now have ";
     private static final String MESSAGE_LIST_SIZE_2 = " task(s)!";
+    private static final String MESSAGE_LIST_TASK = "Listing all tasks!";
+    private static final String NONEMPTY_SEARCH_RESULT = "These are the tasks containing your keyword!";
+    private static final String EMPTY_SEARCH_RESULT = "Sorry, I could not find any matching task!";
+
 
     private static final String LINE_SEPARATOR = "----------------------------------";
     private static final String LINE_INDENT = "\t";
 
-    public Ui() {    }
+    private static final String ERROR_MARKER = "Error: ";
+
+    public Ui() {
+    }
 
     public void printWelcomeMessage() {
         System.out.println(LINE_SEPARATOR);
@@ -50,26 +58,43 @@ public class Ui {
     }
 
     public void printSearchResult(String result) {
-        System.out.println(result);
+        if (result.isEmpty()) {
+            System.out.println(EMPTY_SEARCH_RESULT);
+        }
+        else {
+            System.out.println(NONEMPTY_SEARCH_RESULT);
+            System.out.println(result);
+        }
+
     }
 
-    public void printTask(Task task) {
+    public void printMarkTaskMessage(Task task) {
+        System.out.println(MESSAGE_MARK_TASK);
         System.out.println(LINE_INDENT + task);
     }
 
-    public void printMarkTaskMessage() {
-        System.out.println(MESSAGE_MARK_TASK);
-    }
-
-    public void printUnmarkTaskMessage() {
+    public void printUnmarkTaskMessage(Task task) {
         System.out.println(MESSAGE_UNMARK_TASK);
+        System.out.println(LINE_INDENT + task);
     }
 
+    /**
+     * Prints an error message.
+     * Used when throwing BimExceptions
+     *
+     * @param message
+     */
     public void printErrorMessage(String message) {
-        System.out.println(message);
+        System.out.println(ERROR_MARKER + message);
     }
 
+    /**
+     * Prints all the tasks in the task list using the <code>toString</code> method of TaskList
+     *
+     * @param tasks
+     */
     public void printTaskList(TaskList tasks) {
+        System.out.println(MESSAGE_LIST_TASK);
         System.out.println(tasks);
     }
 
