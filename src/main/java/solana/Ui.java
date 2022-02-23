@@ -2,6 +2,9 @@ package solana;
 
 import java.util.Scanner;
 
+/**
+ * Deals with interactions with the user.
+ */
 public class Ui {
     public static final String CYAN_BOLD_BRIGHT = "\033[1;96m";
     public static final String RESET_COLOUR = "\033[0m";
@@ -13,6 +16,9 @@ public class Ui {
         this.in = new Scanner(System.in);
     }
 
+    /**
+     * Prints logo and welcome message at startup.
+     */
     public void printIntro() {
         String logo = "  __|   _ \\  |       \\     \\ |    \\\n"
                 + "\\__ \\  (   | |      _ \\   .  |   _ \\\n"
@@ -24,6 +30,11 @@ public class Ui {
         System.out.println("What can I do for you?" + System.lineSeparator());
     }
 
+    /**
+     * Reads user's input.
+     *
+     * @return User's input.
+     */
     public String readInput() {
         System.out.print(PROMPT);
         String input = in.nextLine();

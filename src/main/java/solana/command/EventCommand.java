@@ -5,6 +5,9 @@ import solana.task.Event;
 
 import static solana.task.TaskList.tasks;
 
+/**
+ * Represents the Event command.
+ */
 public class EventCommand extends Command {
     public static final int EVENT_INDEX = 0;
     public static final int AT_DATE_INDEX = 1;
@@ -21,6 +24,10 @@ public class EventCommand extends Command {
         this.isMarked = isMarked;
     }
 
+    /**
+     * Adds an Event task and saves the updated TaskList into the savedTasks.txt file. This command also serves
+     * to load Event tasks from savedTask.txt at startup, if the file exists.
+     */
     @Override
     public void executeCommand() {
         try {

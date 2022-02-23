@@ -5,6 +5,9 @@ import solana.task.Deadline;
 
 import static solana.task.TaskList.tasks;
 
+/**
+ * Represents the Deadline command.
+ */
 public class DeadlineCommand extends Command {
     public static final int DEADLINE_INDEX = 0;
     public static final int BY_DATE_INDEX = 1;
@@ -21,6 +24,10 @@ public class DeadlineCommand extends Command {
         this.isMarked = isMarked;
     }
 
+    /**
+     * Adds a Deadline task and saves the updated TaskList into the savedTasks.txt file. This command also serves
+     * to load Deadline tasks from savedTask.txt at startup, if the file exists.
+     */
     @Override
     public void executeCommand() {
         try {

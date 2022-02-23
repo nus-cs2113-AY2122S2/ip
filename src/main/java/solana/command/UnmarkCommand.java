@@ -4,6 +4,9 @@ import solana.Storage;
 
 import static solana.task.TaskList.tasks;
 
+/**
+ * Represents the Unmark command.
+ */
 public class UnmarkCommand extends Command {
     public static final int CONVERT_TASK_TO_I = -1;
 
@@ -13,6 +16,9 @@ public class UnmarkCommand extends Command {
         this.parsedInput = parsedInput;
     }
 
+    /**
+     * Unmarks the given task as not done and saves the updated TaskList into the savedTasks.txt file.
+     */
     @Override
     public void executeCommand() {
         try {

@@ -1,5 +1,8 @@
 package solana.task;
 
+/**
+ * Represents the Deadline task. Deadline tasks are tasks that need to be done by a specific date/time.
+ */
 public class Deadline extends Task {
     protected String byDate;
 
@@ -8,6 +11,11 @@ public class Deadline extends Task {
         this.byDate = byDate;
     }
 
+    /**
+     * Returns the Deadline class as a string format.
+     *
+     * @return String format.
+     */
     @Override
     public String toString() {
         if (isDone) {

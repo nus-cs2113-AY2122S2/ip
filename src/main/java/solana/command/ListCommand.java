@@ -4,6 +4,9 @@ import solana.task.Task;
 
 import static solana.task.TaskList.tasks;
 
+/**
+ * Represents the List command.
+ */
 public class ListCommand extends Command {
     public static final int STARTING_LIST_NUMBER = 1;
 
@@ -16,6 +19,9 @@ public class ListCommand extends Command {
         }
     }
 
+    /**
+     * Prints all the current tasks in the TaskList.
+     */
     @Override
     public void executeCommand() {
         if (tasks.size() == 0) {

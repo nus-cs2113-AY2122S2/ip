@@ -13,6 +13,9 @@ import solana.command.EventCommand;
 
 import static solana.task.TaskList.tasks;
 
+/**
+ * Deals with loading and saving tasks to savedTasks.txt file.
+ */
 public class Storage {
     public static final int TASK_INDEX = 3;
     public static final int TASK_TYPE_INDEX = 0;
@@ -34,6 +37,12 @@ public class Storage {
     public static final String FOLDER_PATH = "./data/";
     public static final String FILE_PATH = "./data/savedTasks.txt";
 
+    /**
+     * Loads a task into TaskList based on its task type. This method makes use of Command objects to execute the
+     * addition of tasks to the TaskList.
+     *
+     * @param taskAsArray String array of task.
+     */
     public void parseInputFromFile(String[] taskAsArray) {
         switch(taskAsArray[TASK_TYPE_INDEX]) {
         case UNMARKED_TODO:
@@ -71,7 +80,14 @@ public class Storage {
         }
     }
 
-    public void readFromFile(File savedTasks) throws FileNotFoundException {
+    /**
+     * Reads saved tasks from savedTasks.txt file, if it exists, and separates the command and description for
+     * easy reference. Throws an error if reading fails.
+     *
+     * @param savedTasks savedTasks.txt file.
+     * @throws IOException If reading fails.
+     */
+    public void readFromFile(File savedTasks) throws IOException {
         Scanner in = new Scanner(savedTasks);
         while (in.hasNext()) {
             String taskAsString = in.nextLine().substring(TASK_INDEX);
@@ -80,6 +96,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads saved tasks from savedTasks.txt file into TaskList, if file exists. If it does not, this command
+     * simply returns.
+     */
     public void loadTasks() {
         File savedTasks = new File(FILE_PATH);
         if (!savedTasks.exists()) {
@@ -88,11 +108,16 @@ public class Storage {
 
         try {
             readFromFile(savedTasks);
-        } catch (FileNotFoundException e) {
-            System.out.println("savedTasks.txt not found!");
+        } catch (IOException e) {
+            System.out.println("Loading tasks from savedTasks.txt failed!");
         }
     }
 
+    /**
+     * Writes each task in TaskList to the savedTasks.txt file. Throws an error if writing fails.
+     *
+     * @throws IOException If writing fails.
+     */
     public void writeToFile() throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
         int listNumber = STARTING_LIST_NUMBER;
@@ -105,6 +130,10 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Saves the current tasks in TaskList to the savedTasks.txt file, if it exists. If it does not, create the
+     * file.
+     */
     public void saveTasks() {
         File dataFolder = new File(FOLDER_PATH);
         if (!dataFolder.exists()) {

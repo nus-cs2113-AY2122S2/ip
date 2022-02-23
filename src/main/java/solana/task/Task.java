@@ -1,6 +1,10 @@
 package solana.task;
 
-public class Task {
+/**
+ * Represents a Task. This class cannot be instantiated and serves as a Parent class for specific Task classes
+ * to inherit from.
+ */
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
