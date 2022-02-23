@@ -7,10 +7,6 @@ public class BimException extends Exception {
         this.message = message;
     }
 
-    public BimException() {
-        this.message = "";
-    }
-
     @Override
     public String getMessage() {
         return message;

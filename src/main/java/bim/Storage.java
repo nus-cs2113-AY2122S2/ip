@@ -12,6 +12,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Deals with the storage of tasks created by the user. This includes reading the file and restoring previously
+ * created tasks, updating any tasks already in the data file and writing newly created tasks into the file.
+ */
 public class Storage {
     private File dataDirectory;
     private File dataFile;
@@ -23,17 +27,18 @@ public class Storage {
     private static final String DELIMITER_DATA = " \\| ";
 
     private static final String OP_MARK = "mark";
-    private static final String OP_UNMARK = "unmark";
+
+    private static final String TYPE_DEADLINE = "D";
+    private static final String TYPE_EVENT = "E";
+    private static final String TYPE_TODO = "T";
 
     private static final String DATA_FOLDER_NAME = "data";
     private static final String DATA_FILE_NAME = "bimData.txt";
     private static final String DATA_FILE_SEPARATOR = " | ";
-    private static final String DATA_FILE_NEW_LINE = "\n";
-    private static final String DATA_FILE_DEADLINE = "D";
-    private static final String DATA_FILE_EVENT = "E";
-    private static final String DATA_FILE_TODO = "T";
     private static final String DATA_FILE_UNMARKED_TASK = "0";
     private static final String DATA_FILE_MARKED_TASK = "1";
+    private static final String DATA_FILE_EMPTY_FIELD = "-";
+    private static final String NEWLINE = "\n";
 
     public Storage() {
         this.dataDirectory = new File(getDataDirectoryPath());
@@ -48,8 +53,28 @@ public class Storage {
         return getDataDirectoryPath() + "\\" + DATA_FILE_NAME;
     }
 
+    private Task createTask(String type, String mark, String description, String date) {
+        Task newTask;
+        switch (type) {
+        case TYPE_EVENT:
+            newTask = new Event(description, date);
+            break;
+        case TYPE_DEADLINE:
+            newTask = new Deadline(description, date);
+            break;
+        default:
+            newTask = new ToDo(description);
+            break;
+        }
+        if (mark.equals(DATA_FILE_MARKED_TASK)) {
+            newTask.setAsDone();
+        }
+        return newTask;
+    }
+
     /**
      * Create a new data directory and data file.
+     *
      * @throws BimException If the file or directory cannot be created
      */
     public void createDataFile() throws BimException {
@@ -63,9 +88,15 @@ public class Storage {
 
     /**
      * Reads the data file. If the data file cannot be read, a new data file is created.
-     * Else, tasks are created from the content of the data file and added to an arraylist.
+     * Else, tasks are created from the content of the data file and added to an arraylist. <br>
+     * Format: TASK_TYPE | MARK | DESCRIPTION | DATE <br>
+     * TASK_TYPE - D for Deadline, E for Event and T for ToDo <br>
+     * MARK - 1 if marked, 0 if unmarked <br>
+     * DESCRIPTION - Task description <br>
+     * DATE - Deadline or time of event. '-' is used for ToDo tasks
+     *
      * @return An arraylist of tasks imported from the data file.
-     * @throws BimException If the data file cannot be found.
+     * @throws BimException If the data file cannot be found and/or the directory and file could not be created.
      */
     public ArrayList<Task> loadDataFile() throws BimException {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -74,49 +105,40 @@ public class Storage {
             while (dataReader.hasNextLine()) {
                 String task = dataReader.nextLine();
                 String[] taskParts = task.split(DELIMITER_DATA);
-                Task newTask;
-
-                switch (taskParts[0]) {
-                case DATA_FILE_EVENT:
-                    newTask = new Event(taskParts[2], taskParts[3]);
-                    break;
-                case DATA_FILE_DEADLINE:
-                    newTask = new Deadline(taskParts[2], taskParts[3]);
-                    break;
-                default:
-                    newTask = new ToDo(taskParts[2]);
-                    break;
-                }
-                if (taskParts[1].equals(DATA_FILE_MARKED_TASK)) {
-                    newTask.setAsDone();
-                }
-                tasks.add(newTask);
+                tasks.add(createTask(taskParts[0], taskParts[1], taskParts[2], taskParts[3]));
             }
             dataReader.close();
         } catch (FileNotFoundException exception) {
-            createDataFile();
+            try {
+                createDataFile();
+            } catch (BimException bimexception) {
+                throw new BimException(ERROR_FINDING_DATA_FILE + NEWLINE + bimexception.getMessage());
+            }
             throw new BimException(ERROR_FINDING_DATA_FILE);
         }
-
         return tasks;
     }
 
     /**
-     * Appends the newly added task to the file.
+     * Saves a task in the data file.
+     *
      * @param newTask Newly added task
      * @throws BimException If file could not be written to.
      */
     public void writeData(Task newTask) throws BimException {
         try {
             FileWriter writer = new FileWriter(getDataFilePath(), true);
-            if (newTask instanceof ToDo) {
-                writer.write(DATA_FILE_TODO + DATA_FILE_SEPARATOR + DATA_FILE_UNMARKED_TASK + DATA_FILE_SEPARATOR + newTask.getDescription() + DATA_FILE_NEW_LINE);
+            if (newTask instanceof Event) {
+                writer.write(TYPE_EVENT + DATA_FILE_SEPARATOR + DATA_FILE_UNMARKED_TASK + DATA_FILE_SEPARATOR
+                        + newTask.getDescription() + DATA_FILE_SEPARATOR + ((Event) newTask).getDate() + NEWLINE);
             }
             else if (newTask instanceof Deadline) {
-                writer.write(DATA_FILE_DEADLINE + DATA_FILE_SEPARATOR + DATA_FILE_UNMARKED_TASK + DATA_FILE_SEPARATOR + newTask.getDescription() + DATA_FILE_SEPARATOR + ((Deadline) newTask).getDeadline() + DATA_FILE_NEW_LINE);
+                writer.write(TYPE_DEADLINE + DATA_FILE_SEPARATOR + DATA_FILE_UNMARKED_TASK + DATA_FILE_SEPARATOR
+                        + newTask.getDescription() + DATA_FILE_SEPARATOR + ((Deadline) newTask).getDeadline() + NEWLINE);
             }
             else {
-                writer.write(DATA_FILE_EVENT + DATA_FILE_SEPARATOR + DATA_FILE_UNMARKED_TASK + DATA_FILE_SEPARATOR + newTask.getDescription() + DATA_FILE_SEPARATOR + ((Event) newTask).getDate() + DATA_FILE_NEW_LINE);
+                writer.write(TYPE_TODO + DATA_FILE_SEPARATOR + DATA_FILE_UNMARKED_TASK + DATA_FILE_SEPARATOR
+                        + newTask.getDescription() + DATA_FILE_SEPARATOR + DATA_FILE_EMPTY_FIELD + NEWLINE);
             }
             writer.close();
         } catch (IOException exception) {
@@ -126,14 +148,17 @@ public class Storage {
 
     /**
      * Updates the file when a task is marked or unmarked.
-     * @param mode mark/unmark
+     * The whole file will be read line by line and changes will be made only to the task to be modified
+     * The data file will then be overwritten with the new content.
+     *
+     * @param mode  mark/unmark
      * @param index the index of the task to be marked / unmarked
      * @throws BimException If file could not be written to.
      */
     public void modifyData(String mode, int index) throws BimException {
         try {
             Scanner dataReader = new Scanner(dataFile);
-            String dataFileContent = "";
+            String newDataFileContent = "";
             int i = 0;
             while (dataReader.hasNextLine()) {
                 String currentLine = dataReader.nextLine();
@@ -147,14 +172,14 @@ public class Storage {
                     }
                     currentLine = String.join(DATA_FILE_SEPARATOR, currentParts);
                 }
-                dataFileContent += currentLine + DATA_FILE_NEW_LINE;
-                ++i;
+                newDataFileContent += currentLine + NEWLINE;
+                i++;
             }
-            FileWriter writer = new FileWriter(getDataFilePath());
-            writer.write(dataFileContent);
+
+            FileWriter writer = new FileWriter(dataFile);
+            writer.write(newDataFileContent);
             dataReader.close();
             writer.close();
-
         } catch (IOException exception) {
             throw new BimException(ERROR_WRITING_DATA_FILE);
         }
@@ -162,24 +187,28 @@ public class Storage {
 
     /**
      * Updates the file when a task is deleted
+     * The whole file will be read line by line and changes will be made only to the task to be deleted
+     * The data file will then be overwritten with the new content.
+     *
      * @param index The index of the deleted task
      * @throws BimException If the file could not be written to.
      */
     public void deleteData(int index) throws BimException {
         try {
             Scanner dataReader = new Scanner(dataFile);
-            String dataFileContent = "";
+            String newDataFileContent = "";
             int i = 0;
 
             while (dataReader.hasNextLine()) {
                 String currentLine = dataReader.nextLine();
                 if (i != index) {
-                    dataFileContent += currentLine + DATA_FILE_NEW_LINE;
+                    newDataFileContent += currentLine + NEWLINE;
                 }
                 ++i;
             }
-            FileWriter writer = new FileWriter(getDataFilePath());
-            writer.write(dataFileContent);
+
+            FileWriter writer = new FileWriter(dataFile);
+            writer.write(newDataFileContent);
             dataReader.close();
             writer.close();
         } catch (IOException exception) {

@@ -3,8 +3,16 @@ package bim.command;
 import bim.BimException;
 import bim.Storage;
 import bim.Ui;
-import bim.task.*;
 
+import bim.task.Deadline;
+import bim.task.Event;
+import bim.task.ToDo;
+import bim.task.Task;
+import bim.task.TaskList;
+
+/**
+ * Adds a task to the TaskList. The type of task depends on <code>type</code>
+ */
 public class AddCommand extends Command {
     private static final String TYPE_DEADLINE = "deadline";
     private static final String TYPE_TODO = "todo";
@@ -28,9 +36,9 @@ public class AddCommand extends Command {
      * Creates a new task of the given type, writes the new task to
      * the data file, adds it to the task list and prints out the newly added task
      *
-     * @param tasks
-     * @param ui
-     * @param storage
+     * @param tasks   Task lists to be added to
+     * @param ui      Ui object to print messages
+     * @param storage Storage object for saving to disk.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

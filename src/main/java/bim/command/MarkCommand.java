@@ -6,6 +6,9 @@ import bim.Storage;
 import bim.Ui;
 import bim.task.TaskList;
 
+/**
+ * Mark or unmark depending on <code>type</code> the task with the specified index in the task list.
+ */
 public class MarkCommand extends Command {
     private static final String ERROR_INDEX = "Invalid index!";
     private static final String TYPE_MARK = "mark";
@@ -20,7 +23,8 @@ public class MarkCommand extends Command {
 
     /**
      * Mark or unmark the task specified by the user.
-     * @param tasks The list of tasks
+     *
+     * @param tasks   The list of tasks
      * @param ui
      * @param storage
      */
@@ -31,17 +35,15 @@ public class MarkCommand extends Command {
 
             if (type.equals(TYPE_MARK)) {
                 tasks.markTask(index);
-                ui.printMarkTaskMessage();
+                ui.printMarkTaskMessage(tasks.getTask(index));
             }
             else {
                 tasks.unmarkTask(index);
-                ui.printUnmarkTaskMessage();
+                ui.printUnmarkTaskMessage(tasks.getTask(index));
             }
-
-            ui.printTask(tasks.getTask(index));
-        } catch(BimException exception) {
+        } catch (BimException exception) {
             ui.printErrorMessage(exception.getMessage());
-        } catch(IndexOutOfBoundsException invalidIndex) {
+        } catch (IndexOutOfBoundsException invalidIndex) {
             ui.printErrorMessage(ERROR_INDEX);
         }
     }

@@ -6,6 +6,9 @@ import bim.Ui;
 import bim.task.Task;
 import bim.task.TaskList;
 
+/**
+ * Delete the task with the specified index from the task list.
+ */
 public class DeleteCommand extends Command {
     private static final String ERROR_INDEX = "Invalid index!";
     private int index;

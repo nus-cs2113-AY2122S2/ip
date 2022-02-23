@@ -1,5 +1,8 @@
 package bim.task;
 
+/**
+ * Represents an event with a date.
+ */
 public class Event extends Task {
     protected String date;
 

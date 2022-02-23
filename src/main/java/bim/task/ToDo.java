@@ -1,5 +1,8 @@
 package bim.task;
 
+/**
+ * Represents a task that has no deadline
+ */
 public class ToDo extends Task {
     public ToDo(String description) {
         super(description);

@@ -4,6 +4,9 @@ import bim.command.Command;
 import bim.command.ExitCommand;
 import bim.task.TaskList;
 
+/**
+ * The frontend of the application where it is initialized.
+ */
 public class Bim {
 
     private Ui ui;
@@ -15,17 +18,19 @@ public class Bim {
         ui = new Ui();
         parser = new Parser();
         storage = new Storage();
-    }
-
-    private void run() {
-        ui.printWelcomeMessage();
-
         try {
             tasks = new TaskList(storage.loadDataFile());
         } catch (BimException exception) {
             ui.printErrorMessage(exception.getMessage());
             ui.printLineSeparator();
         }
+    }
+
+    /**
+     * Runs the program until it is exited.
+     */
+    public void run() {
+        ui.printWelcomeMessage();
 
         boolean isExit = false;
         while (!isExit) {
