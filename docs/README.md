@@ -1,5 +1,4 @@
 # Bim User Guide
-
 ## Features
 1. Managing your tasks
    - Adding tasks
@@ -20,11 +19,11 @@
 
 Tasks are categorized into 3 different category.
 
-| Task type | Requires description | Requires date      |
-|-----------|----------------------|--------------------|
-| Todo      | :heavy_check_mark:   |                    |
-| Deadline  | :heavy_check_mark:   | :heavy_check_mark: |
-| Event     | :heavy_check_mark:   | :heavy_check_mark: |
+|   Task   | Requires description | Requires date |
+|:--------:|:--------------------:|:-------------:|
+|   Todo   |         Yes          |      No       |
+| Deadline |         Yes          |      Yes      |
+|  Event   |         Yes          |      Yes      |
 
 
 You can add tasks with your own description and date (if applicable) to Bim.
