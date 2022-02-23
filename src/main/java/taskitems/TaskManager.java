@@ -32,10 +32,9 @@ public class TaskManager {
         System.out.println(tasks.getTask(number));
     }
 
-    public void markTask(int number) throws IllegalInputException {
-        greet.printDecoration();
+    public void markTask(int number) throws NumberFormatException {
         if (number > tasks.size || number < 1) {
-            throw new IllegalInputException();
+            throw new NumberFormatException();
         }
         if (tasks.getTask(number).isMarked()) {
             System.out.println("Err, this task is already marked...");
@@ -44,14 +43,12 @@ public class TaskManager {
             System.out.println("Nice! I've marked this task as done: ");
             System.out.println(tasks.getTask(number));
         }
-        greet.printDecoration();
         storage.saveData();
     }
 
-    public void unmarkTask(int number) throws IllegalInputException {
-        greet.printDecoration();
+    public void unmarkTask(int number) throws NumberFormatException {
         if(number > tasks.size || number < 1){
-            throw new IllegalInputException();
+            throw new NumberFormatException();
         }
         if(!tasks.getTask(number).isMarked()){
             System.out.println("I cannot unmark something that was never marked...");
@@ -60,7 +57,6 @@ public class TaskManager {
             System.out.println("Okay Boss! The following task has been unmarked: ");
             System.out.println(tasks.getTask(number));
         }
-        greet.printDecoration();
         storage.saveData();
     }
 
@@ -68,27 +64,22 @@ public class TaskManager {
         if (taskName.equals("")) {
             throw new IllegalInputException();
         }
-        greet.printDecoration();
         tasks.add(new Todo(taskName));
-        greet.printDecoration();
         storage.saveData();
     }
 
     public void addToTasks(String type, String taskName,String date){
-        greet.printDecoration();
         if (type.equals("E")) {
             tasks.add(new Event(taskName, date));
         } else {
             tasks.add(new Deadline(taskName, date));
         }
-        greet.printDecoration();
         storage.saveData();
     }
 
-    public void deleteTask(int number) throws IllegalInputException {
-        greet.printDecoration();
+    public void deleteTask(int number) throws NumberFormatException {
         if(number > tasks.size || number < 1){
-            throw new IllegalInputException();
+            throw new NumberFormatException();
         } else {
             System.out.println("The following task has been shifted to the rubbish bin");
             printTask(number);
@@ -97,11 +88,9 @@ public class TaskManager {
             tasks.delete(number);
         }
         storage.saveData();
-        greet.printDecoration();
     }
 
     public void printTasks() {
-        greet.printDecoration();
         if (tasks.size == 0) {
             System.out.println("You have not added any Tasks!");
         } else {
@@ -110,11 +99,9 @@ public class TaskManager {
                 System.out.println(tasks.getTask(i));
             }
         }
-        greet.printDecoration();
     }
 
     public void printDeletedTasks() {
-        greet.printDecoration();
         if (bin.size == 0) {
             System.out.println("There are no items in the rubbish bin right now");
         } else {
@@ -123,7 +110,6 @@ public class TaskManager {
                 System.out.println( (i) + ". " + bin.getTask(i));
             }
         }
-        greet.printDecoration();
     }
 }
 

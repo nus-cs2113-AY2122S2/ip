@@ -10,51 +10,47 @@ public class Duke {
 
     static Greet greet;
     static Scanner reader = new Scanner(System.in);
+    static Ui ui = new Ui();
+    static Parser parser = new Parser();
 
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
-        greet.sayHi();
+        ui.welcome();
         taskLoop(taskManager);
-        //echo();
-        greet.sayBye();
+        ui.goodBye();
     }
 
     public static void taskLoop(TaskManager taskManager){
-        greet.printDecoration();
         boolean isDone = false;
         while (!isDone) {
-            String command = reader.next();
-            String taskName = reader.nextLine();
+            String command = ui.readCommand();
+            String taskName = ui.readParameter();
             switch (command) {
             case "todo":
                 try {
-                    taskManager.addToTasks(taskName.trim());
+                    taskManager.addToTasks(parser.parseTodo(taskName));
                 } catch (IllegalInputException inputException) {
-                    greet.printDecoration();
-                    System.out.println("I'm sorry you can't have an empty todo task, try giving it a name.");
-                    greet.printDecoration();
+                    ui.manageExceptions(inputException);
                 }
-
                 break;
             case "deadline":
                 try {
-                    taskManager.addToTasks("D",taskName.trim().split(" /by ")[0],taskName.trim().split(" /by ")[1]);
+                    String[] parameters = parser.parseDeadline(taskName);
+                    taskManager.addToTasks("D",parameters[0],parameters[1]);
                 } catch (ArrayIndexOutOfBoundsException outOfBoundsException) {
-                    greet.printDecoration();
-                    System.out.println("You seemed to have missed out a few key details required to create a deadline.\n" +
-                            "Say \"help\" to see how to use various commands.");
-                    greet.printDecoration();
+                    ui.manageExceptions(outOfBoundsException);
+                } catch (IllegalInputException inputException) {
+                    ui.manageExceptions(inputException);
                 }
-
                 break;
             case "event":
                 try {
-                    taskManager.addToTasks("E",taskName.trim().split(" /at ")[0],taskName.trim().split(" /at ")[1]);
+                    String[] parameters = parser.parseEvent(taskName);
+                    taskManager.addToTasks("E",parameters[0],parameters[1]);;
                 } catch (ArrayIndexOutOfBoundsException outOfBoundsException) {
-                    greet.printDecoration();
-                    System.out.println("You seemed to have missed out a few key details required to create an event.\n" +
-                            "Say \"help\" to see how to use various commands.");
-                    greet.printDecoration();
+                    ui.manageExceptions(outOfBoundsException);
+                } catch (IllegalInputException inputException) {
+                    ui.manageExceptions(inputException);
                 }
                 break;
             case "list":
@@ -62,47 +58,23 @@ public class Duke {
                 break;
             case "mark":
                 try {
-                    taskManager.markTask(Integer.parseInt(taskName.trim()));
-                } catch (IllegalInputException inputException){
-                    System.out.println("Invalid Number given, you can only mark tasks that are in the list.\n" +
-                            "Say \"list\" to view your list of tasks");
-                    greet.printDecoration();
-                } catch (NumberFormatException numberFormatException)
-                {
-                    greet.printDecoration();
-                    System.out.println("You are required to give an integer value to mark an item in the list.\n" +
-                            "Say \"help\" to see how to use various commands.");
-                    greet.printDecoration();
+                    taskManager.markTask(parser.parseMark(taskName));
+                } catch (NumberFormatException numberFormatException) {
+                    ui.manageExceptions(numberFormatException);
                 }
                 break;
             case "unmark":
                 try{
-                    taskManager.unmarkTask(Integer.parseInt(taskName.trim()));
-                } catch (IllegalInputException inputException){
-                    System.out.println("Invalid Number given, you can only unmark tasks that are in the list.\n" +
-                            "Say \"list\" to view your list of tasks.");
-                    greet.printDecoration();
-                } catch (NumberFormatException numberFormatException)
-                {
-                    greet.printDecoration();
-                    System.out.println("You are required to give an integer value to unmark an item in the list.\n" +
-                            "Say \"help\" to see how to use various commands.");
-                    greet.printDecoration();
+                    taskManager.unmarkTask(parser.parseMark(taskName));
+                } catch (NumberFormatException numberFormatException) {
+                    ui.manageExceptions(numberFormatException);
                 }
                 break;
             case "delete":
                 try{
-                    taskManager.deleteTask(Integer.parseInt(taskName.trim()));
-                } catch (IllegalInputException inputException){
-                    System.out.println("Invalid Number given, you can only delete tasks that are in the list.\n" +
-                            "Say \"list\" to view your list of tasks.");
-                    greet.printDecoration();
-                } catch (NumberFormatException numberFormatException)
-                {
-                    greet.printDecoration();
-                    System.out.println("You are required to give an integer value to delete an item in the list.\n" +
-                            "Say \"help\" to see how to use various commands.");
-                    greet.printDecoration();
+                    taskManager.deleteTask(parser.parseDelete(taskName));
+                } catch (NumberFormatException numberFormatException) {
+                    ui.manageExceptions(numberFormatException);
                 }
                 break;
             case "bin":
@@ -112,21 +84,16 @@ public class Duke {
                 isDone = true;
                 break;
             case "help":
-                greet.printDecoration();
                 System.out.println("Sorry, I am still trying to get my things together and learn new things.\n" +
                         "I will update this portion as soon as I learn what I should be doing.");
-                greet.printDecoration();
                 break;
             default:
-                greet.printDecoration();
                 System.out.println("Invalid Command!");
-                greet.printDecoration();
             }
         }
     }
 
     public static void echo(){
-        greet.printDecoration();
         boolean isDone = false;
         while (!isDone) {
             String toRepeat = reader.nextLine();

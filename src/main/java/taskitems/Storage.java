@@ -43,7 +43,6 @@ public class Storage {
     }
 
     public void loadData() throws FileNotFoundException {
-        greet.printDecoration();
         System.out.println("***Please wait while I fetch past data...***");
         File data = new File(PATH);
         Scanner reader = new Scanner(data);
@@ -76,7 +75,7 @@ public class Storage {
             System.out.println("No saved data found");
         } else {
             System.out.println("***" + tasks.size + " out of " + (count-1) +
-                    " lines of data are valid and fetched accurately." + "***");
+                    " lines of data are valid and fetched accurately." + "***\n");
         }
     }
 }
