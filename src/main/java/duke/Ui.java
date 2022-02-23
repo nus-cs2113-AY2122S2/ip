@@ -31,11 +31,14 @@ public class Ui {
     public static final String ERROR_INVALID_SYNTAX = "You've entered an invalid syntax for ";
     public static final String ERROR_INVALID_TASK_NUMBER = "Please enter a valid task number!";
 
-    public static void greet() {
+    public static void showGreeting() {
         printSeparator();
         System.out.println(MESSAGE_WELCOME);
     }
 
+    /**
+     * Continually accepts inputs/commands from the user until the 'bye' command is encountered.
+     */
     public static void acceptInputs() {
         String input = getInput();
         while (!Parser.isBye(input)) {
@@ -50,18 +53,30 @@ public class Ui {
         }
     }
 
+    /**
+     * Prepares to exit the program by updating the local file and printing a goodbye message.
+     *
+     * @throws IOException If IOException occurs
+     */
     public static void exit() throws IOException {
         Storage.updateFile();
         printSeparator();
         System.out.println(MESSAGE_BYE);
     }
 
+    /**
+     * Gets input from the user.
+     *
+     * @return user's input
+     */
     public static String getInput() {
         System.out.println(MESSAGE_INSTRUCTION);
         return scan.nextLine();
     }
 
-
+    /**
+     * Prints out a line separator for UI aesthetic purposes.
+     */
     public static void printSeparator() {
         System.out.println(SEPARATOR);
     }

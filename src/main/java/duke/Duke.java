@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class Duke {
     public static void main(String[] args) throws IOException {
-        duke.Ui.greet();
+        duke.Ui.showGreeting();
         try {
             Storage.loadFileContents();
         } catch (FileNotFoundException e) {

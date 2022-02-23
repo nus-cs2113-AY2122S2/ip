@@ -17,6 +17,13 @@ public class Commands {
     public static final String COMMAND_EVENT = "event";
     public static final String COMMAND_DELETE = "delete";
 
+    /**
+     * Parses user input and calls the correct method to execute command if command is valid.
+     *
+     * @param input input by the user
+     * @throws DukeException If there is no input by the user or command is invalid
+     * @throws IOException If there is an IOException
+     */
     public static void parseCommand(String input) throws DukeException, IOException {
         if (input.length() == 0) {
             throw new DukeException(Ui.ERROR_NO_INPUT);
@@ -50,6 +57,11 @@ public class Commands {
         }
     }
 
+    /**
+     * Deletes a specified task from the list.
+     *
+     * @param input task number
+     */
     public static void executeDelete(String input) {
         try {
             String taskNumber = Parser.parseMarkOrUnmarkOrDelete(input);
@@ -63,6 +75,11 @@ public class Commands {
         }
     }
 
+    /**
+     * Marks a specified task as done.
+     *
+     * @param input task number
+     */
     public static void executeMark(String input) {
         try {
             String taskNumber = Parser.parseMarkOrUnmarkOrDelete(input);
@@ -76,6 +93,11 @@ public class Commands {
         }
     }
 
+    /**
+     * Marks a specified task as undone.
+     *
+     * @param input task number
+     */
     public static void executeUnmark(String input) {
         try {
             String taskNumber = Parser.parseMarkOrUnmarkOrDelete(input);
@@ -89,6 +111,11 @@ public class Commands {
         }
     }
 
+    /**
+     * Adds a Todo task specified by the user to the list of tasks.
+     *
+     * @param input user's Todo command
+     */
     public static void executeTodo(String input) {
         if (!input.contains(" ")) { // Checks for presence of description
             System.out.println(Ui.ERROR_INVALID_SYNTAX + COMMAND_UNMARK + ".");
@@ -100,6 +127,11 @@ public class Commands {
         task.printAddToListMessage();
     }
 
+    /**
+     * Adds a Deadline task specified by the user to the list of tasks.
+     *
+     * @param input user's Deadline command
+     */
     public static void executeDeadline(String input) {
         if (!input.contains(Parser.FLAG_DEADLINE)) { // Checks for presence of description
             System.out.println(Ui.ERROR_INVALID_SYNTAX + COMMAND_DEADLINE + ".");
@@ -113,6 +145,11 @@ public class Commands {
         task.printAddToListMessage();
     }
 
+    /**
+     * Adds an Event task specified by the user to the list of tasks.
+     *
+     * @param input user's Event command
+     */
     public static void executeEvent(String input) {
         if (!input.contains(Parser.FLAG_EVENT)) { // Checks for presence of description
             System.out.println(Ui.ERROR_INVALID_SYNTAX + COMMAND_EVENT + ".");
