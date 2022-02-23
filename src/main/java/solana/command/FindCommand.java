@@ -4,6 +4,9 @@ import solana.task.Task;
 
 import static solana.task.TaskList.tasks;
 
+/**
+ * Represents the Find command.
+ */
 public class FindCommand extends Command {
     public static final int STARTING_LIST_NUMBER = 1;
 
@@ -13,6 +16,9 @@ public class FindCommand extends Command {
         this.parsedInput = parsedInput;
     }
 
+    /**
+     * Finds tasks containing the specified keyword in TaskList, and prints them.
+     */
     @Override
     public void executeCommand() {
         String keyword = parsedInput.toLowerCase();
