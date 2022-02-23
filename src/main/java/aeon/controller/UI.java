@@ -2,6 +2,9 @@ package aeon.controller;
 
 import java.util.ArrayList;
 
+/**
+ * Deals with all UI related matters like printing of error messages, welcome and goodbye message
+ */
 public class UI {
 
     public static final String TASK_NOT_FOUND =
