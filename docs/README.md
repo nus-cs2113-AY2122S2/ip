@@ -1,29 +1,103 @@
-# User Guide
+# JRobo | Personal Todo App
 
-## Features 
+JRobo is a command line application that you can use as your personal task tracker assistant.
 
-### Feature-ABC
+JRobo consists of various different commands and three type of tasks, which are **todo**, **deadline**, and **event**.
+<br/><br/>
+**Todos** are tasks that do not have any specific time or duration.
+<br/>
+**Deadlines** are tasks that have a specific deadline that can be specified while adding.
+<br/>
+**Events** are tasks that have a specific time and duration that can be specified while adding.
 
-Description of the feature.
+Note that, even if the application is terminated, JRobo will keep all tasks for you in his memory.
 
-### Feature-XYZ
+## Commands
 
-Description of the feature.
+### Add Task
 
-## Usage
+Tasks can be added using **todo**, **deadline**, **event** commands, or with their shortcut notations.
 
-### `Keyword` - Describe action
+#### Command format:
 
-Describe the action and its outcome.
+`todo{description}`<br>
+`deadline {description}/by {any time}`<br>
+`event {description} /at {any time}`
 
-Example of usage: 
+#### Shortcuts:
 
-`keyword (optional arguments)`
+`t {description}`<br>
+`d {description} /by {any time}`<br>
+`e {description} /at {any time}`
 
-Expected outcome:
+### Remove Task
 
-Description of the outcome.
+Tasks can be removed using **delete** command, or with its shortcut **del**.
 
-```
-expected output
-```
+#### Command format:
+
+`delete {task_number}`
+
+#### Shortcuts:
+
+`del {task_number}`
+
+### List All Tasks
+
+All tasks can be listed using **list** command, or with its shortcut **ls**.
+
+#### Command format:
+
+`list`
+
+#### Shortcuts:
+
+`ls`
+
+### Mark Task as Done
+
+Tasks can be marked as done using **mark** command, or with its shortcut **m**.
+
+#### Command format:
+
+`mark {task_number}`
+
+#### Shortcuts:
+
+`m {task_number}`
+
+### Unmark Task as Done
+
+Tasks can be marked as done using **unmark** command, or with its shortcut **um**.
+
+#### Command format:
+
+`unmark {task_number}`
+
+#### Shortcuts:
+
+`um {task_number}`
+
+### Find Specific Task
+
+All tasks can be searched and filtered using **find** command, or with its shortcut **f**.
+
+#### Command format:
+
+`find {search_key`
+
+#### Shortcuts:
+
+`f {search_key}`
+
+### Termination
+
+Application can be quited using **quit** command, or with its shortcut **q**.
+
+#### Command format:
+
+`quit`
+
+#### Shortcuts:
+
+`q`
