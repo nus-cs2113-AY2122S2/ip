@@ -144,8 +144,12 @@ public class TaskList {
             return;
         }
         try {
-            Event task = new Event(taskPartition[Constant.TASK_INDEX_DESCRIPTION],
-                    taskPartition[Constant.TASK_INDEX_OPTIONS]);
+            String time = taskPartition[Constant.TASK_INDEX_OPTIONS].strip();
+            if (Parser.isEmpty(time)) {
+                Ui.printWithPartition(Ui.EMPTY_TIME_ERROR_MESSAGE);
+                return;
+            }
+            Event task = new Event(taskPartition[Constant.TASK_INDEX_DESCRIPTION], time);
             allocateTask(task);
         } catch (ArrayIndexOutOfBoundsException e) {
             Ui.printWithPartition(Ui.EMPTY_AT_ERROR_MESSAGE);
@@ -170,8 +174,12 @@ public class TaskList {
             return;
         }
         try {
-            Deadline task = new Deadline(taskPartition[Constant.TASK_INDEX_DESCRIPTION],
-                    taskPartition[Constant.TASK_INDEX_OPTIONS]);
+            String time = taskPartition[Constant.TASK_INDEX_OPTIONS].strip();
+            if (Parser.isEmpty(time)) {
+                Ui.printWithPartition(Ui.EMPTY_TIME_ERROR_MESSAGE);
+                return;
+            }
+            Deadline task = new Deadline(taskPartition[Constant.TASK_INDEX_DESCRIPTION], time);
             allocateTask(task);
         } catch (ArrayIndexOutOfBoundsException e) {
             Ui.printWithPartition(Ui.EMPTY_BY_ERROR_MESSAGE);

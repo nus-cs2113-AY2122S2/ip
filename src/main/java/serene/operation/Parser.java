@@ -92,11 +92,21 @@ public class Parser {
 
     /**
      * Returns if the provided task description is compliant with the correct syntax
-     * @param userInput The time portion of user's input
-     * @return true if there is a "/at" or "/by" in the user's input, false otherwise
+     * @param userInput The user's input
+     * @return true if there is no "/at" or "/by" as the user's first word, false otherwise
      */
     public static boolean isValidDescription(String userInput) {
         String firstWord = userInput.split(" ", 2)[Constant.TASK_INDEX_DESCRIPTION];
-        return !firstWord.strip().equals("") && !firstWord.contains("/at") && !firstWord.contains("/by");
+        return !isEmpty(firstWord) && !firstWord.contains("/at") && !firstWord.contains("/by");
+    }
+
+    /**
+     * Returns if the input string is empty.
+     *
+     * @param input The string to check
+     * @return true if string is empty, false otherwise
+     */
+    public static boolean isEmpty(String input) {
+        return input.equals("");
     }
 }
