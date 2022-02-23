@@ -153,6 +153,11 @@ public class TaskManager {
         printWithSeparator("Invalid command!");
     }
 
+    /**
+     * Getter for the tasks field.
+     *
+     * @return ArrayList<Task>
+     */
     public ArrayList<Task> getTaskList() {
         return tasks;
     }
