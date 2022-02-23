@@ -9,7 +9,6 @@ import serene.task.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -46,57 +45,9 @@ public class Serene {
             return;
         }
         try {
-            readSavedContents(save);
+            Storage.readSavedContents(save, taskList, taskCount);
         } catch (FileNotFoundException e) {
             System.out.println(Ui.IO_FAIL_MESSAGE);
-        }
-    }
-
-    private static void readSavedContents(File save) throws FileNotFoundException {
-        Scanner s = new Scanner(save);
-        while(s.hasNext()) {
-            recoverTask(s.nextLine());
-            taskCount++;
-        }
-    }
-
-    private static void recoverTask(String savedTask) {
-        // Extract task type
-        String taskType = savedTask.substring(Constant.SAVED_INDEX_TYPE, Constant.SAVED_INDEX_TYPE + 1);
-        // Extract isDone
-        String marker = savedTask.substring(Constant.SAVED_INDEX_IS_DONE, Constant.SAVED_INDEX_IS_DONE + 1);
-        // Extract description
-        String descriptionAndTime = savedTask.substring(Constant.SAVED_INDEX_DESCRIPTION);
-        int timeIndex;
-        String description;
-        switch(taskType) {
-        case "T":
-            ToDo todo = new ToDo(descriptionAndTime);
-            if (marker.equals("X")) {
-                todo.markDone();
-            }
-            taskList.add(todo);
-            break;
-        case "D":
-            timeIndex = descriptionAndTime.indexOf(" (by: ");
-            description = descriptionAndTime.substring(0, timeIndex);
-            String by = descriptionAndTime.substring(timeIndex + Constant.TIME_OFFSET, descriptionAndTime.length() - 1);
-            Deadline deadline = new Deadline(description, by);
-            if (marker.equals("X")) {
-                deadline.markDone();
-            }
-            taskList.add(deadline);
-            break;
-        case "E":
-            timeIndex = descriptionAndTime.indexOf(" (at: ");
-            description = descriptionAndTime.substring(0, timeIndex);
-            String at = descriptionAndTime.substring(timeIndex + Constant.TIME_OFFSET, descriptionAndTime.length() - 1);
-            Event event = new Event(description, at);
-            if (marker.equals("X")) {
-                event.markDone();
-            }
-            taskList.add(event);
-            break;
         }
     }
 
@@ -169,22 +120,9 @@ public class Serene {
             }
             taskList.remove(taskIndex);
             taskCount--;
-            rewriteSaveFile();
+            Storage.rewriteSaveFile(SAVE_FILE_PATH);
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             Ui.printWithPartition(Ui.INVALID_NUM_ERROR_MESSAGE);
-        }
-    }
-
-    private static void rewriteSaveFile() {
-        try {
-            // Clear contents of file
-            new FileWriter(SAVE_FILE_PATH, false).close();
-            // Rewrite all tasks
-            for (Task task: taskList) {
-                appendSave(task.toString());
-            }
-        } catch (IOException e) {
-            Ui.printWithPartition(Ui.IO_FAIL_MESSAGE);
         }
     }
 
@@ -274,14 +212,8 @@ public class Serene {
     private static void allocateTask(Task inputTask) throws IOException {
         taskList.add(inputTask);
         taskCount++;
-        appendSave(inputTask.toString());
+        Storage.appendSave(inputTask.toString(), SAVE_FILE_PATH);
         Ui.printAddedTask(inputTask, taskCount);
-    }
-
-    private static void appendSave(String inputTask) throws IOException {
-        FileWriter fw = new FileWriter(SAVE_FILE_PATH, true);
-        fw.write(inputTask + System.lineSeparator());
-        fw.close();
     }
 
 }
