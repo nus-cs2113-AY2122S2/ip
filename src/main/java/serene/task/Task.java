@@ -9,6 +9,10 @@ public abstract class Task {
         isDone = false;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }

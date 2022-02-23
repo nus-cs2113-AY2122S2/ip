@@ -2,6 +2,7 @@ package serene.operation;
 
 import serene.global.Constant;
 import serene.global.Ui;
+import serene.task.Task;
 
 public class Parser {
     /**
@@ -31,6 +32,9 @@ public class Parser {
             break;
         case "delete":
             TaskList.removeTask(responsePartition);
+            break;
+        case "find":
+            Ui.printFoundTasks(tasks.getTaskList(), responsePartition);
             break;
         default:
             TaskList.addTask(userInput);
@@ -108,5 +112,9 @@ public class Parser {
      */
     public static boolean isEmpty(String input) {
         return input.equals("");
+    }
+
+    public static boolean isOfInterest(Task task, String toFind) {
+        return task.getDescription().contains(toFind);
     }
 }

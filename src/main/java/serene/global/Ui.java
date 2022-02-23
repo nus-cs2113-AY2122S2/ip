@@ -1,5 +1,6 @@
 package serene.global;
 
+import serene.operation.Parser;
 import serene.operation.TaskList;
 import serene.task.Task;
 
@@ -13,6 +14,8 @@ public class Ui {
     public static final String EMPTY_BY_ERROR_MESSAGE = "No time input? Please remember your /by~";
     public static final String EMPTY_AT_ERROR_MESSAGE = "No time input? Please remember your /at~";
     public static final String EMPTY_TIME_ERROR_MESSAGE = "Empty time? I'll make you run out of time.";
+    public static final String EMPTY_REGEX_ERROR_MESSAGE = "Uhh... What are you trying to look for?";
+    public static final String NOTHING_FOUND = "No such task .-.";
     public static final String IO_FAIL_MESSAGE = "I/O failed ;-;";
 
     /**
@@ -79,6 +82,27 @@ public class Ui {
                     "Now you have " + taskCount + " tasks in the list.";
         }
         printWithPartition(toPrint);
+    }
+
+    public static void printFoundTasks(ArrayList<Task> taskList, String[] userInput) {
+        try {
+            String toFind = userInput[Constant.RESPONSE_INDEX_BODY];
+            System.out.println(PARTITION_LINE);
+            System.out.println("Here are the tasks you are looking for:");
+            int counter = Constant.INITIAL_COUNTER;
+            for (Task task : taskList) {
+                if (Parser.isOfInterest(task, toFind)) {
+                    System.out.println((counter) + "." + task);
+                    counter++;
+                }
+            }
+            if (counter == Constant.INITIAL_COUNTER) {
+                System.out.println(NOTHING_FOUND);
+            }
+            System.out.println(PARTITION_LINE);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            printWithPartition(EMPTY_REGEX_ERROR_MESSAGE);
+        }
     }
 
     /**
