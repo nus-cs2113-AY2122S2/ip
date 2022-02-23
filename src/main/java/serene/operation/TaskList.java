@@ -28,6 +28,14 @@ public class TaskList {
         return taskCount;
     }
 
+    public void incrementTaskCount() {
+        taskCount++;
+    }
+
+    public void add(Task task) {
+        taskList.add(task);
+    }
+
     public static void markTaskDone(String[] userInput) {
         try {
             // Extract index of task to mark

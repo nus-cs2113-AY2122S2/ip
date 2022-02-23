@@ -37,7 +37,7 @@ public class Serene {
                 // Return as there will be no data to read from
                 return Constant.CONTINUE;
             }
-            Storage.readSavedContents(save, tasks.getTaskList(), tasks.getTaskCount());
+            Storage.readSavedContents(save, tasks);
         } catch (IOException e) {
             System.out.println(Ui.IO_FAIL_MESSAGE);
             return Constant.DONE;

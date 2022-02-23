@@ -19,16 +19,14 @@ public class Storage {
      * Reads data from the save file into the supplied task list.
      *
      * @param save The file to read from
-     * @param taskList The list to write to
-     * @param taskCount Counter of number of tasks present
+     * @param tasks The list to write to
      * @throws FileNotFoundException If Scanner cannot be constructed
      */
-    public static void readSavedContents(File save, ArrayList<Task> taskList,
-                                         int taskCount) throws FileNotFoundException {
+    public static void readSavedContents(File save, TaskList tasks) throws FileNotFoundException {
         Scanner s = new Scanner(save);
         while (s.hasNext()) {
-            recoverTask(s.nextLine(), taskList);
-            taskCount++;
+            recoverTask(s.nextLine(), tasks);
+            tasks.incrementTaskCount();
         }
     }
 
@@ -36,9 +34,9 @@ public class Storage {
      * Restores the task read from save file to the supplied task list.
      *
      * @param savedTask The task read from save file
-     * @param taskList The list to write to
+     * @param tasks The list to write to
      */
-    private static void recoverTask(String savedTask, ArrayList<Task> taskList) {
+    private static void recoverTask(String savedTask, TaskList tasks) {
         // Extract task type
         String taskType = savedTask.substring(Constant.SAVED_INDEX_TYPE, Constant.SAVED_INDEX_TYPE + 1);
         // Extract isDone
@@ -53,7 +51,7 @@ public class Storage {
             if (marker.equals("X")) {
                 todo.markDone();
             }
-            taskList.add(todo);
+            tasks.add(todo);
             break;
         case "D":
             timeIndex = descriptionAndTime.indexOf(" (by: ");
@@ -63,7 +61,7 @@ public class Storage {
             if (marker.equals("X")) {
                 deadline.markDone();
             }
-            taskList.add(deadline);
+            tasks.add(deadline);
             break;
         case "E":
             timeIndex = descriptionAndTime.indexOf(" (at: ");
@@ -73,7 +71,7 @@ public class Storage {
             if (marker.equals("X")) {
                 event.markDone();
             }
-            taskList.add(event);
+            tasks.add(event);
             break;
         }
     }
