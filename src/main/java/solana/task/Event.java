@@ -1,5 +1,8 @@
 package solana.task;
 
+/**
+ * Represents the Event task. Event tasks are tasks that start and end at a specific time.
+ */
 public class Event extends Task {
     protected String atDate;
 
@@ -8,6 +11,11 @@ public class Event extends Task {
         this.atDate = atDate;
     }
 
+    /**
+     * Returns the Event class as a string format.
+     *
+     * @return String format.
+     */
     @Override
     public String toString() {
         if (isDone) {

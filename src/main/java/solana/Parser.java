@@ -10,6 +10,9 @@ import solana.command.UnmarkCommand;
 import solana.command.DeleteCommand;
 import solana.command.HelpCommand;
 
+/**
+ * Represents the input parser and deals with making sense of user commands.
+ */
 public class Parser {
     public static final int COMMAND_INDEX = 0;
     public static final int DESCRIPTION_INDEX = 1;
@@ -22,11 +25,22 @@ public class Parser {
         this.inputCommand = inputCommand;
     }
 
+    /**
+     * Separates the user input into the command and description for easy reference.
+     *
+     * @return String array of user input.
+     */
     public String[] parseInput() {
         String[] inputAsArray = inputCommand.split(" ", SPLIT_LIMIT);
         return inputAsArray;
     }
 
+    /**
+     * Checks if the user input is incomplete. If so, it throws an error message.
+     *
+     * @param parsedInput String array of user input.
+     * @throws SolanaException If command is incomplete.
+     */
     public void checkDescription(String[] parsedInput) throws SolanaException {
         if (parsedInput.length == 1) {
             switch (parsedInput[COMMAND_INDEX]) {
@@ -50,6 +64,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if the user input is valid before returning a Command object with respect to their input. The
+     * command object can then be executed to perform the said command.
+     *
+     * @return Command object with respect to user's input.
+     */
     public Command parseCommand() {
         String[] parsedInput = parseInput();
 

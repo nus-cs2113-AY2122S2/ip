@@ -5,6 +5,9 @@ import solana.task.Task;
 
 import static solana.task.TaskList.tasks;
 
+/**
+ * Represents the Delete command.
+ */
 public class DeleteCommand extends Command {
     public static final int CONVERT_TASK_TO_I = -1;
 
@@ -14,6 +17,11 @@ public class DeleteCommand extends Command {
         this.parsedInput = parsedInput;
     }
 
+    /**
+     * Prints the deleted message when a task has been deleted, and the current number of tasks in the TaskList.
+     *
+     * @param taskIndex Index of the task to be deleted.
+     */
     public static void printDeletedPrompt(int taskIndex) {
         Task toBeDeleted = tasks.get(taskIndex);
         System.out.print("Deleted: ");
@@ -27,6 +35,9 @@ public class DeleteCommand extends Command {
         }
     }
 
+    /**
+     * Deletes a task from the TaskList and saves the updated TaskList into the savedTasks.txt file.
+     */
     @Override
     public void executeCommand() {
         try {
