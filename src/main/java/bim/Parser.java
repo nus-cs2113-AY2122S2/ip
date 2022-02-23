@@ -2,6 +2,8 @@ package bim;
 
 import bim.command.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 /**
@@ -13,7 +15,9 @@ public class Parser {
     private static final int INDEX_CONVERTER = 1; // Used to convert 1-based indexing to 0-based indexing
 
     private static final String ERROR_COMMAND_ARG = "Check your arguments!";
+    private static final String ERROR_COMMAND_DATE = "Invalid date format!";
     private static final String ERROR_COMMAND = "I couldn't understand that!";
+    private static final String ERROR_EMPTY_KEYWORD = "Keyword cannot be empty!";
 
     private static final String DELIMITER_EVENT = " /at ";
     private static final String DELIMITER_DEADLINE = " /by ";
@@ -26,6 +30,7 @@ public class Parser {
     private static final String OP_EXIT_PROGRAM = "bye";
     private static final String OP_LIST_TASK = "list";
     private static final String OP_DELETE_TASK = "delete";
+    private static final String OP_FIND_TASK = "find";
 
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -87,11 +92,21 @@ public class Parser {
         case OP_EXIT_PROGRAM:
             command = new ExitCommand();
             break;
+        case OP_FIND_TASK:
+            command = parseFindCommand(commandArg);
+            break;
         default:
             command = new IncorrectCommand(ERROR_COMMAND);
             break;
         }
         return command;
+    }
+
+    public Command parseFindCommand(String commandArg) {
+        if (commandArg.isEmpty()) {
+            return new IncorrectCommand(ERROR_EMPTY_KEYWORD);
+        }
+        return new FindCommand(commandArg);
     }
 
     /**
@@ -105,7 +120,7 @@ public class Parser {
      */
     public Command parseAddCommand(String type, String commandArg) {
         if (type.equals(OP_ADD_TODO)) {
-            if (!commandArg.isEmpty()) {
+            if (commandArg.isEmpty()) {
                 return new IncorrectCommand(ERROR_COMMAND_ARG);
             }
 
@@ -124,9 +139,14 @@ public class Parser {
             else {
                 splitValues = commandArg.split(DELIMITER_EVENT);
             }
-            String description = splitValues[0];
-            String date = splitValues[1];
-            return new AddCommand(type, description, date);
+
+            try {
+                String description = splitValues[0];
+                LocalDate date = LocalDate.parse(splitValues[1]);
+                return new AddCommand(type, description, date);
+            } catch (DateTimeParseException invalidDate) {
+                return new IncorrectCommand(ERROR_COMMAND_DATE);
+            }
         }
     }
 

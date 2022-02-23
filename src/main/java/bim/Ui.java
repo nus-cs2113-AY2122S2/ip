@@ -16,7 +16,10 @@ public class Ui {
     private static final String MESSAGE_ADD_TASK = "I have added a new task!";
     private static final String MESSAGE_LIST_SIZE_1 = "You now have ";
     private static final String MESSAGE_LIST_SIZE_2 = " task(s)!";
-    private static final String MESSAGE_LIST_TASK = "Here are your tasks!";
+    private static final String MESSAGE_LIST_TASK = "Listing all tasks!";
+    private static final String NONEMPTY_SEARCH_RESULT = "These are the tasks containing your keyword!";
+    private static final String EMPTY_SEARCH_RESULT = "Sorry, I could not find any matching task!";
+
 
     private static final String LINE_SEPARATOR = "----------------------------------";
     private static final String LINE_INDENT = "\t";
@@ -52,6 +55,17 @@ public class Ui {
         System.out.println(MESSAGE_DELETE_TASK);
         System.out.println(LINE_INDENT + deletedTask);
         System.out.println(MESSAGE_LIST_SIZE_1 + taskCount + MESSAGE_LIST_SIZE_2);
+    }
+
+    public void printSearchResult(String result) {
+        if (result.isEmpty()) {
+            System.out.println(EMPTY_SEARCH_RESULT);
+        }
+        else {
+            System.out.println(NONEMPTY_SEARCH_RESULT);
+            System.out.println(result);
+        }
+
     }
 
     public void printMarkTaskMessage(Task task) {

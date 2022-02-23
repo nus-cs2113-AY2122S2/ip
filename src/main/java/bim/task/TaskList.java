@@ -11,6 +11,8 @@ public class TaskList {
     private static final String NEWLINE = "\n";
     private static final String LINE_INDENT = "\t";
 
+    private static final String EMPTY_LIST = "404 Not Found";
+
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
@@ -39,6 +41,22 @@ public class TaskList {
         return tasks.size();
     }
 
+    public String findTask(String keyword) {
+        int count = 1;
+        String result = "";
+        for(int i = 0; i < tasks.size(); i++) {
+            Task currentTask = tasks.get(i);
+            if (currentTask.getDescription().contains(keyword)) {
+                result += LINE_INDENT + count + LIST_DOT + currentTask;
+                if (i != tasks.size() - 1) {
+                    result += NEWLINE;
+                }
+                count++;
+            }
+        }
+        return result;
+    }
+
     /**
      * Returns a string that lists all tasks in the arraylist <br>
      * Format: INDEX + task.toString()
@@ -47,11 +65,11 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        String output = "";
         if (tasks.isEmpty()) {
-            return output;
+            return EMPTY_LIST;
         }
 
+        String output = "";
         for (int i = 0; i < tasks.size(); i++) {
             output += LINE_INDENT + (i + 1) + LIST_DOT + tasks.get(i);
             if (i != tasks.size() - 1) {

@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,6 +21,7 @@ import java.util.Scanner;
 public class Storage {
     private File dataDirectory;
     private File dataFile;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy");
 
     private static final String ERROR_WRITING_DATA_FILE = "Failed to write to data file!";
     private static final String ERROR_FINDING_DATA_FILE = "Could not find data file!";
@@ -37,7 +40,7 @@ public class Storage {
     private static final String DATA_FILE_SEPARATOR = " | ";
     private static final String DATA_FILE_UNMARKED_TASK = "0";
     private static final String DATA_FILE_MARKED_TASK = "1";
-    private static final String DATA_FILE_EMPTY_FIELD = "-";
+    private static final String DATA_FILE_EMPTY_FIELD = "Jan-01-2050";
     private static final String NEWLINE = "\n";
 
     public Storage() {
@@ -53,7 +56,7 @@ public class Storage {
         return getDataDirectoryPath() + "\\" + DATA_FILE_NAME;
     }
 
-    private Task createTask(String type, String mark, String description, String date) {
+    private Task createTask(String type, String mark, String description, LocalDate date) {
         Task newTask;
         switch (type) {
         case TYPE_EVENT:
@@ -105,7 +108,7 @@ public class Storage {
             while (dataReader.hasNextLine()) {
                 String task = dataReader.nextLine();
                 String[] taskParts = task.split(DELIMITER_DATA);
-                tasks.add(createTask(taskParts[0], taskParts[1], taskParts[2], taskParts[3]));
+                tasks.add(createTask(taskParts[0], taskParts[1], taskParts[2], LocalDate.parse(taskParts[3], formatter)));
             }
             dataReader.close();
         } catch (FileNotFoundException exception) {
@@ -114,7 +117,6 @@ public class Storage {
             } catch (BimException bimexception) {
                 throw new BimException(ERROR_FINDING_DATA_FILE + NEWLINE + bimexception.getMessage());
             }
-            throw new BimException(ERROR_FINDING_DATA_FILE);
         }
         return tasks;
     }

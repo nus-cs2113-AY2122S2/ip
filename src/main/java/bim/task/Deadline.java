@@ -1,26 +1,25 @@
 package bim.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a task with a deadline.
  */
 public class Deadline extends Task {
-    protected String deadline;
+    private LocalDate deadline;
 
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, LocalDate deadline) {
         super(description);
         this.deadline = deadline;
     }
 
     public String getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(String deadline) {
-        this.deadline = deadline;
+        return deadline.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + deadline + ")";
+        return "[D]" + super.toString() + " (by: " + getDeadline() + ")";
     }
 }

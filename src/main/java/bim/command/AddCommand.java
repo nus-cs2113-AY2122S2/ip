@@ -10,6 +10,8 @@ import bim.task.ToDo;
 import bim.task.Task;
 import bim.task.TaskList;
 
+import java.time.LocalDate;
+
 /**
  * Adds a task to the TaskList. The type of task depends on <code>type</code>
  */
@@ -19,14 +21,14 @@ public class AddCommand extends Command {
 
     private String type;
     private String description;
-    private String date;
+    private LocalDate date;
 
     public AddCommand(String type, String description) {
         this.type = type;
         this.description = description;
     }
 
-    public AddCommand(String type, String description, String date) {
+    public AddCommand(String type, String description, LocalDate date) {
         this.type = type;
         this.description = description;
         this.date = date;

@@ -6,49 +6,46 @@ What can I do for you?
 404 Not Found
 ----------------------------------
 ----------------------------------
-New todo added!
+I have added a new task!
 	[T][ ] get together with alice
-There are 1 task(s) in the list
+You now have 1 task(s)!
 ----------------------------------
 ----------------------------------
-New event added!
-	[E][ ] alice wedding (at: 24 nov 2022)
-There are 2 task(s) in the list
+I have added a new task!
+	[E][ ] alice wedding (at: Nov-24-2022)
+You now have 2 task(s)!
 ----------------------------------
 ----------------------------------
-New deadline added!
-	[D][ ] prevent alice wedding (by: 24 nov 2022)
-There are 3 task(s) in the list
+Invalid date format!
 ----------------------------------
 ----------------------------------
-New todo added!
+I have added a new task!
+	[D][ ] prevent alice wedding (by: Nov-23-2022)
+You now have 3 task(s)!
+----------------------------------
+----------------------------------
+I have added a new task!
 	[T][ ] steal alice purse
-There are 4 task(s) in the list
-----------------------------------
-----------------------------------
-New todo added!
-	[T][ ] steal alice phone
-There are 5 task(s) in the list
+You now have 4 task(s)!
 ----------------------------------
 ----------------------------------
 Okie Dokie!
 	[T][X] steal alice purse
 ----------------------------------
 ----------------------------------
-Okie Dokie!
-	[T][X] steal alice phone
+Invalid index!
 ----------------------------------
 ----------------------------------
-1.[T][ ] get together with alice
-2.[E][ ] alice wedding (at: 24 nov 2022)
-3.[D][ ] prevent alice wedding (by: 24 nov 2022)
-4.[T][X] steal alice purse
-5.[T][X] steal alice phone
+Here you go!
+	1.[T][ ] get together with alice
+	2.[E][ ] alice wedding (at: Nov-24-2022)
+	3.[D][ ] prevent alice wedding (by: Nov-23-2022)
+	4.[T][X] steal alice purse
 ----------------------------------
 ----------------------------------
-New todo added!
+I have added a new task!
 	[T][ ] seek help from mallory
-There are 6 task(s) in the list
+You now have 5 task(s)!
 ----------------------------------
 ----------------------------------
 Oh no! Anyways..
@@ -59,12 +56,12 @@ Okie Dokie!
 	[T][X] get together with alice
 ----------------------------------
 ----------------------------------
-1.[T][X] get together with alice
-2.[E][ ] alice wedding (at: 24 nov 2022)
-3.[D][ ] prevent alice wedding (by: 24 nov 2022)
-4.[T][ ] steal alice purse
-5.[T][X] steal alice phone
-6.[T][ ] seek help from mallory
+Here you go!
+	1.[T][X] get together with alice
+	2.[E][ ] alice wedding (at: Nov-24-2022)
+	3.[D][ ] prevent alice wedding (by: Nov-23-2022)
+	4.[T][ ] steal alice purse
+	5.[T][ ] seek help from mallory
 ----------------------------------
 ----------------------------------
 Invalid index!
@@ -79,34 +76,33 @@ Check your arguments!
 Check your arguments!
 ----------------------------------
 ----------------------------------
-1.[T][X] get together with alice
-2.[E][ ] alice wedding (at: 24 nov 2022)
-3.[D][ ] prevent alice wedding (by: 24 nov 2022)
-4.[T][ ] steal alice purse
-5.[T][X] steal alice phone
-6.[T][ ] seek help from mallory
+Here you go!
+	1.[T][X] get together with alice
+	2.[E][ ] alice wedding (at: Nov-24-2022)
+	3.[D][ ] prevent alice wedding (by: Nov-23-2022)
+	4.[T][ ] steal alice purse
+	5.[T][ ] seek help from mallory
 ----------------------------------
 ----------------------------------
-Sure, deleted!
-	[E][ ] alice wedding (at: 24 nov 2022)
-There are 5 task(s) in the list
+I have deleted a task!
+	[E][ ] alice wedding (at: Nov-24-2022)
+You now have 4 task(s)!
 ----------------------------------
 ----------------------------------
-Sure, deleted!
-	[T][ ] seek help from mallory
-There are 4 task(s) in the list
+Invalid index!
 ----------------------------------
 ----------------------------------
-1.[T][X] get together with alice
-2.[D][ ] prevent alice wedding (by: 24 nov 2022)
-3.[T][ ] steal alice purse
-4.[T][X] steal alice phone
+Here you go!
+	1.[T][X] get together with alice
+	2.[D][ ] prevent alice wedding (by: Nov-23-2022)
+	3.[T][ ] steal alice purse
+	4.[T][ ] seek help from mallory
 ----------------------------------
 ----------------------------------
-I didn't understand that!
+I couldn't understand that!
 ----------------------------------
 ----------------------------------
-I didn't understand that!
+I couldn't understand that!
 ----------------------------------
 ----------------------------------
 See you soon!
