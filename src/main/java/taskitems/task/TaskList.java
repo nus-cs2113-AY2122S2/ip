@@ -27,4 +27,12 @@ public class TaskList {
         return taskList.get(num - 1);
     }
 
+    public void mark (int num) {
+        taskList.get(num - 1).setMarked(true);
+    }
+
+    public void unmark (int num) {
+        taskList.get(num - 1).setMarked(false);
+    }
+
 }

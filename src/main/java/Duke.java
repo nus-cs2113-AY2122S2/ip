@@ -13,11 +13,6 @@ public class Duke {
 
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
-        try {
-            taskManager.loadData();
-        } catch (FileNotFoundException f) {
-            System.out.println("No saved data found");
-        }
         greet.sayHi();
         taskLoop(taskManager);
         //echo();
@@ -114,7 +109,6 @@ public class Duke {
                 taskManager.printDeletedTasks();
                 break;
             case "bye":
-                taskManager.saveData();
                 isDone = true;
                 break;
             case "help":
