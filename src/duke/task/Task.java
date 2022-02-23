@@ -19,14 +19,14 @@ public class Task {
         this.isMarked = marked;
     }
 
-    public Task(String name, boolean isMarked){
+    public Task(String name, boolean isMarked) {
         this.name = name;
         this.isMarked = isMarked;
     }
-    public String toString(){
+    public String toString() {
         return " [ ][ ] " + getName();
     }
-    public String getTaskDetails(){
+    public String getTaskDetails() {
         return "task | " + (getMarked() ? 1:0) + " | " + getName() + "\n";
     }
 }

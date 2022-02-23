@@ -10,15 +10,15 @@ public class Event extends Task {
         return eventTime;
     }
 
-    public String toString(){
-        if (super.getMarked()){
+    public String toString() {
+        if (super.getMarked()) {
             return " [E][X] " + getName() + " (at: " + getEventTime() + ")";
-        }else{
+        }else {
             return " [E][ ] " + getName() + " (at: " + getEventTime() + ")";
         }
     }
 
-    public String getTaskDetails(){
+    public String getTaskDetails() {
         return "event | " + (getMarked() ? 1:0) + " | " + getName() + " | " + getEventTime() + "\n";
     }
 }

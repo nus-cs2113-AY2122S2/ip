@@ -4,15 +4,15 @@ public class Todo extends Task {
         super(name,marked);
     }
 
-    public String toString(){
-        if (super.getMarked()){
+    public String toString() {
+        if (super.getMarked()) {
             return " [T][X] " + getName();
-        }else{
+        }else {
             return " [T][ ] " + getName();
         }
     }
 
-    public String getTaskDetails(){
+    public String getTaskDetails() {
         return "todo | " + (getMarked() ? 1:0) + " | " + getName() + "\n";
     }
 }

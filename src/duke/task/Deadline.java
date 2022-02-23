@@ -10,15 +10,15 @@ public class Deadline extends Task {
         return deadline;
     }
 
-    public String toString(){
-        if (super.getMarked()){
+    public String toString() {
+        if (super.getMarked()) {
             return " [D][X] " + getName() + " (by: " + getDeadline() + ")";
-        }else{
+        }else {
             return " [D][ ] " + getName() + " (by: " + getDeadline() + ")";
         }
     }
 
-    public String getTaskDetails(){
+    public String getTaskDetails() {
         return "deadline | " + (getMarked() ? 1:0) + " | " + getName() + " | " + getDeadline() + "\n";
     }
 }
