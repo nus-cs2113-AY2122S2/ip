@@ -1,8 +1,9 @@
 package duke.task;
-public class Todo extends Task{
+public class Todo extends Task {
     public Todo(String name, boolean marked){
         super(name,marked);
     }
+
     public String toString(){
         if (super.getMarked()){
             return " [T][X] " + getName();
@@ -10,7 +11,8 @@ public class Todo extends Task{
             return " [T][ ] " + getName();
         }
     }
+
     public String getTaskDetails(){
-        return "T | " + (getMarked() ? 1:0) + " | " + getName() + "\n";
+        return "todo | " + (getMarked() ? 1:0) + " | " + getName() + "\n";
     }
 }

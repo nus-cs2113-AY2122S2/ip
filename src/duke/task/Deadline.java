@@ -1,5 +1,5 @@
 package duke.task;
-public class Deadline extends Task{
+public class Deadline extends Task {
     protected String deadline;
     public Deadline(String name, boolean marked, String deadline){
         super(name, marked);
@@ -17,7 +17,8 @@ public class Deadline extends Task{
             return " [D][ ] " + getName() + " (by: " + getDeadline() + ")";
         }
     }
+
     public String getTaskDetails(){
-        return "D | " + (getMarked() ? 1:0) + " | " + getName() + " | " + getDeadline() + "\n";
+        return "deadline | " + (getMarked() ? 1:0) + " | " + getName() + " | " + getDeadline() + "\n";
     }
 }

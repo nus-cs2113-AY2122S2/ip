@@ -14,10 +14,20 @@ public class Duke{
     public static final String LINEBREAK = "____________________________________________________________";
     public static final String FILEPATH = "data/duke.txt";
     public static final String DIRPATH = "data";
+    public static final String TODO = "todo";
+    public static final String DEADLINE = "deadline";
+    public static final String EVENT = "event";
+
     public static ArrayList<Task> list = new ArrayList<>();
     public static Scanner in = new Scanner(System.in);
     public static int taskCount = 0;
     public static boolean isLoaded = false;
+
+    public static void printExceptionMessage(String message){
+        System.out.println(LINEBREAK);
+        System.out.println(" Error: " + message);
+        System.out.println(LINEBREAK);
+    }
     public static void loadSavedTasks(){
         try{
             File dirPath = new File(DIRPATH);
@@ -30,30 +40,33 @@ public class Duke{
                 isLoaded = true;
                 String line = txtScanner.nextLine();
                 String[] fields = line.split(" \\| ");
-                switch(fields[0]){
-                case "T":
-                    list.add(new Todo(fields[2], fields[1].equals("1")));
+                String taskType = fields[0];
+                String marked = fields[1];
+                String taskName = fields[2];
+                String timeField = "";
+                if (fields.length == 4){
+                    timeField = fields[3];
+                }
+                switch(taskType){
+                case TODO:
+                    list.add(new Todo(taskName, marked.equals("1")));
                     break;
-                case "D":
-                    list.add(new Deadline(fields[2], fields[1].equals("1"), fields[3]));
+                case DEADLINE:
+                    list.add(new Deadline(taskName, marked.equals("1"), timeField));
                     break;
-                case "E":
-                    list.add(new Event(fields[2], fields[1].equals("1"), fields[3]));
+                case EVENT:
+                    list.add(new Event(taskName, marked.equals("1"), timeField));
                     break;
                 default:
-                    throw new DukeException("Error: Invalid file format.");
+                    throw new DukeException("Invalid file format.");
                 }
                 taskCount++;
             }
         }catch (IOException e){
-            System.out.println(LINEBREAK);
-            System.out.println(" Error: " + e.getMessage());
-            System.out.println(LINEBREAK);
+            printExceptionMessage(e.getMessage());
             return;
         }catch (DukeException e){
-            System.out.println(LINEBREAK);
-            System.out.println(e.getMessage());
-            System.out.println(LINEBREAK);
+            printExceptionMessage(e.getMessage());
             return;
         }
     }
@@ -71,9 +84,7 @@ public class Duke{
             file.write(data);
             file.close();
         }catch (IOException e){
-            System.out.println(LINEBREAK);
-            System.out.println(" Error: " + e.getMessage());
-            System.out.println(LINEBREAK);
+            printExceptionMessage(e.getMessage());
             return;
         }
     }
@@ -89,17 +100,13 @@ public class Duke{
         try{
             index = Integer.parseInt(line.split(" ")[1]) - 1;
             if (index >= taskCount || index < 0){
-                throw new DukeException("Error: Task Index is out of bounds.");
+                throw new DukeException("Task Index is out of bounds.");
             }
         }catch (NumberFormatException e){
-            System.out.println(LINEBREAK);
-            System.out.println(" Error: Invalid index (Not an integer).");
-            System.out.println(LINEBREAK);
+            printExceptionMessage("Invalid index (Not an integer).");
             return;
         }catch (DukeException e){
-            System.out.println(LINEBREAK);
-            System.out.println(e.getMessage());
-            System.out.println(LINEBREAK);
+            printExceptionMessage(e.getMessage());
             return;
         }
         System.out.println(LINEBREAK);
@@ -116,17 +123,13 @@ public class Duke{
         try{
             index = Integer.parseInt(line.split(" ")[1]) - 1;
             if (index >= taskCount || index < 0){
-                throw new DukeException("Error: Task Index is out of bounds.");
+                throw new DukeException("Task Index is out of bounds.");
             }
         }catch (NumberFormatException e){
-            System.out.println(LINEBREAK);
-            System.out.println(" Error: Invalid index (Not an integer).");
-            System.out.println(LINEBREAK);
+            printExceptionMessage(e.getMessage());
             return;
         }catch (DukeException e){
-            System.out.println(LINEBREAK);
-            System.out.println(e.getMessage());
-            System.out.println(LINEBREAK);
+            printExceptionMessage(e.getMessage());
             return;
         }
         System.out.println(LINEBREAK);
@@ -141,6 +144,28 @@ public class Duke{
         list.get(index).setMarked(mark);
         saveTasks();
     }
+    public static void addTodo(String line) throws DukeException {
+        if (line.equals("")){
+            throw new DukeException("Argument of todo should not be empty.");
+        }
+        list.add(new Todo(line, false));
+    }
+
+    public static void addDeadline(String line) throws DukeException {
+        String[] taskNameAndDeadline = line.split(" /by ");
+        if (taskNameAndDeadline.length < 2){
+            throw new DukeException("A Deadline Task should have the deadline.");
+        }
+        list.add(new Deadline(taskNameAndDeadline[0], false, taskNameAndDeadline[1]));
+    }
+
+    public static void addEvent(String line) throws DukeException {
+        String[] taskNameAndTiming = line.split(" /at ");
+        if (taskNameAndTiming.length < 2){
+            throw new DukeException("An Event Task should have the event timing.");
+        }
+        list.add(new Event(taskNameAndTiming[0], false, taskNameAndTiming[1]));
+    }
     public static void addNewTask(String line){
         String taskType = line.split(" ")[0];
         if (line.length() > taskType.length()){
@@ -150,33 +175,20 @@ public class Duke{
         }
         try {
             switch (taskType) {
-            case "todo":
-                if (line.equals("")){
-                    throw new DukeException("Error: Argument of todo should not be empty.");
-                }
-                list.add(new Todo(line, false));
+            case TODO:
+                addTodo(line);
                 break;
-            case "deadline":
-                String[] taskNameAndDeadline = line.split(" /by ");
-                if (taskNameAndDeadline.length < 2){
-                    throw new DukeException("Error: A Deadline Task should have the deadline.");
-                }
-                list.add(new Deadline(taskNameAndDeadline[0], false, taskNameAndDeadline[1]));
+            case DEADLINE:
+                addDeadline(line);
                 break;
-            case "event":
-                String[] taskNameAndTiming = line.split(" /at ");
-                if (taskNameAndTiming.length < 2){
-                    throw new DukeException("Error: An Event Task should have the event timing.");
-                }
-                list.add(new Event(taskNameAndTiming[0], false, taskNameAndTiming[1]));
+            case EVENT:
+                addEvent(line);
                 break;
             default:
-                throw new DukeException("Error: Command not recognised.");
+                throw new DukeException("Command not recognised.");
             }
         }catch (DukeException e){
-            System.out.println(LINEBREAK);
-            System.out.println(e.getMessage());
-            System.out.println(LINEBREAK);
+            printExceptionMessage(e.getMessage());
             return;
         }
 
@@ -190,16 +202,18 @@ public class Duke{
     public static void waitForInput(){
         while (true){
             String line = in.nextLine();
+            boolean isMarkCommand = line.split(" ")[0].equals("mark");
+            boolean isUnmarkCommand = line.split(" ")[0].equals("unmark");
+            boolean isDeleteCommand = line.split(" ")[0].equals("delete");
             if (line.equals("bye")){
                 break;
-            }
-            if (line.equals("list")){
+            }else if (line.equals("list")){
                 listTasks();
-            }else if (line.split(" ")[0].equals("mark")){
+            }else if (isMarkCommand){
                 updateMarkTask(line, true);
-            }else if (line.split(" ")[0].equals("unmark")){
+            }else if (isUnmarkCommand){
                 updateMarkTask(line, false);
-            }else if (line.split(" ")[0].equals("delete")){
+            }else if (isDeleteCommand){
                 deleteTask(line);
             }else{
                 addNewTask(line);

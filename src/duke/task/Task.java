@@ -27,6 +27,6 @@ public class Task {
         return " [ ][ ] " + getName();
     }
     public String getTaskDetails(){
-        return "t | " + (getMarked() ? 1:0) + " | " + getName() + "\n";
+        return "task | " + (getMarked() ? 1:0) + " | " + getName() + "\n";
     }
 }

@@ -1,5 +1,5 @@
 package duke.task;
-public class Event extends Task{
+public class Event extends Task {
     protected String eventTime;
     public Event(String name, boolean marked, String eventTime){
         super(name, marked);
@@ -17,7 +17,8 @@ public class Event extends Task{
             return " [E][ ] " + getName() + " (at: " + getEventTime() + ")";
         }
     }
+
     public String getTaskDetails(){
-        return "E | " + (getMarked() ? 1:0) + " | " + getName() + " | " + getEventTime() + "\n";
+        return "event | " + (getMarked() ? 1:0) + " | " + getName() + " | " + getEventTime() + "\n";
     }
 }
