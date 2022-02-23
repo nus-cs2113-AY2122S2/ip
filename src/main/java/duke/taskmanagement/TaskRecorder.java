@@ -1,5 +1,11 @@
 package duke.taskmanagement;
 
+import duke.customexceptions.EmptyDescriptionException;
+import duke.customexceptions.EmptyTimingDetailsException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
 import duke.userinterface.UserInterface;
 
 import java.io.IOException;
@@ -11,6 +17,40 @@ public class TaskRecorder {
     private static final String HOME = System.getProperty("user.dir");
     private static final java.nio.file.Path PATH = java.nio.file.Paths.get(HOME, "data","duke.txt");
     private static UserInterface ui = new UserInterface();
+
+    public ArrayList<Task> createTasks(ArrayList<String[]> fileData) throws EmptyDescriptionException,
+            EmptyTimingDetailsException {
+        int taskUniqueID = 0;
+        String isMarked = "1";
+        ArrayList<Task> tasks = new ArrayList<>();
+        for (String[] data : fileData) {
+            String Marker = data[0];
+            String input = data[1];
+            String command = ui.getCommand(input);
+            String description = ui.getDescription(input);
+            switch (command) {
+            case "todo":
+                Todo newTodo = new Todo(description, taskUniqueID);
+                tasks.add(newTodo);
+                break;
+            case "deadline":
+                String by = ui.getTimingDetails(input);
+                Deadline newDeadline = new Deadline(description, taskUniqueID, by);
+                tasks.add(newDeadline);
+                break;
+            case "event":
+                String at = ui.getTimingDetails(input);
+                Event newEvent = new Event(description, taskUniqueID, at);
+                tasks.add(newEvent);
+                break;
+            }
+            if (Marker.equals(isMarked)) {
+                tasks.get(tasks.size() - 1).setIsMarked();
+            }
+            taskUniqueID++;
+        }
+        return tasks;
+    }
 
     public ArrayList<String[]> loadData() throws IOException {
         checkFileExists();

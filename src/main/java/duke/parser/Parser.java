@@ -16,7 +16,7 @@ public class Parser {
             String command = ui.getCommand(userInput);
             switch (command) {
             case "list":
-                tasks.listTasks();
+                tasks.listTasks(userInput);
                 break;
             case "todo":
                 tasks.addTodo(userInput);

@@ -1,5 +1,7 @@
 package duke.userinterface;
 
+import duke.customexceptions.EmptyDescriptionException;
+import duke.customexceptions.EmptyTimingDetailsException;
 import duke.task.Task;
 
 import java.util.ArrayList;
@@ -65,6 +67,10 @@ public class UserInterface {
         }
     }
 
+    public void printTask(ArrayList<Task> tasks, int number) {
+        System.out.println("Noted. I've removed this task:\n" + tasks.get(number).toString());
+    }
+
     public void printMatchingTasks(ArrayList<Task> tasks) {
         if (tasks.size() > 0) {
             System.out.println("Here are the matching tasks in your list:");
@@ -99,7 +105,39 @@ public class UserInterface {
         return command;
     }
 
-    public void printTask(ArrayList<Task> tasks, int number) {
-        System.out.println("Noted. I've removed this task:\n" + tasks.get(number).toString());
+    public String getDescription(String userInput) throws EmptyDescriptionException {
+        try {
+            int indexOfDescription = userInput.indexOf(" ");
+            int indexOfSlash = userInput.indexOf("/");
+            String description = "";
+            if (indexOfSlash != -1) {
+                description = userInput.substring(indexOfDescription, indexOfSlash);
+            } else {
+                description = userInput.substring(indexOfDescription);
+            }
+            if (description.equals(" ")) {
+                throw new EmptyDescriptionException();
+            }
+            return description;
+        } catch (StringIndexOutOfBoundsException | EmptyDescriptionException e) {
+            throw new EmptyDescriptionException();
+        }
+    }
+
+    public String getTimingDetails(String userInput) throws EmptyTimingDetailsException {
+        int indexOfSlash = userInput.indexOf("/");
+        int indexOfTimingDetails = indexOfSlash + 4;
+        if (indexOfSlash != -1) {
+            return userInput.substring(indexOfTimingDetails);
+        } else {
+            throw new EmptyTimingDetailsException();
+        }
+    }
+
+    public int getTaskNumber(String userInput) {
+        String[] words = userInput.split(" ");
+        String taskNumber = words[1];
+        int number = Integer.parseInt(taskNumber) - 1;
+        return number;
     }
 }
