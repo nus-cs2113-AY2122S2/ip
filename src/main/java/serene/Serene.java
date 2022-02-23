@@ -26,12 +26,12 @@ public class Serene {
             initiateSerene();
         } catch (IOException e) {
             System.out.println(Ui.IO_FAIL_MESSAGE);
-            printExitMessage();
+            Ui.printExitMessage();
             return;
         }
-        printWelcomeMessage();
+        Ui.printWelcomeMessage();
         operateSerene(in);
-        printExitMessage();
+        Ui.printExitMessage();
     }
 
     private static void initiateSerene() throws IOException {
@@ -100,43 +100,11 @@ public class Serene {
         }
     }
 
-    private static void printWelcomeMessage() {
-        String logo = " #####  ####### ######  ####### #     # ####### \n"
-                + "#     # #       #     # #       ##    # #       \n"
-                + "#       #       #     # #       # #   # #       \n"
-                + " #####  #####   ######  #####   #  #  # #####   \n"
-                + "      # #       #   #   #       #   # # #       \n"
-                + "#     # #       #    #  #       #    ## #       \n"
-                + " #####  ####### #     # ####### #     # ####### ";
-        String greetLine = "Hello~ I'm Serene" + System.lineSeparator() + "What can I do for you?";
-        System.out.println(Ui.PARTITION_LINE);
-        System.out.println("Booting up");
-        System.out.println(logo);
-        printWithPartition(greetLine);
-    }
-
-    public static void printWithPartition(String input) {
-        System.out.println(Ui.PARTITION_LINE);
-        System.out.println(input);
-        System.out.println(Ui.PARTITION_LINE);
-    }
-
     private static void operateSerene(Scanner in) {
         while (statusOfSerene != Constant.DONE) {
             String userInput = in.nextLine();
-            statusOfSerene = Parser.parseInput(userInput);
+            statusOfSerene = Parser.parseInput(userInput, taskList);
         }
-    }
-
-    public static void printTaskList() {
-        System.out.println(Ui.PARTITION_LINE);
-        System.out.println("Here is your task list:");
-        int i = 1;
-        for (Task task : taskList) {
-            System.out.println((i) + "." + task);
-            i++;
-        }
-        System.out.println(Ui.PARTITION_LINE);
     }
 
     public static void markTaskDone(String[] userInput) {
@@ -149,15 +117,15 @@ public class Serene {
             // Checking if task has not already been marked
             if (!taskList.get(taskIndex).isDone()) {
                 taskList.get(taskIndex).markDone();
-                printWithPartition("Good job~ This task is now done:" + System.lineSeparator() +
+                Ui.printWithPartition("Good job~ This task is now done:" + System.lineSeparator() +
                         taskList.get(taskIndex));
             }
             else {
-                printWithPartition("Huh? Didn't you complete this already?" + System.lineSeparator() +
+                Ui.printWithPartition("Huh? Didn't you complete this already?" + System.lineSeparator() +
                         taskList.get(taskIndex));
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            printWithPartition(Ui.INVALID_NUM_ERROR_MESSAGE);
+            Ui.printWithPartition(Ui.INVALID_NUM_ERROR_MESSAGE);
         }
     }
 
@@ -171,15 +139,15 @@ public class Serene {
             // Checking if task has already been marked
             if (taskList.get(taskIndex).isDone()) {
                 taskList.get(taskIndex).markNotDone();
-                printWithPartition("Sigh. Here we go again:" + System.lineSeparator() +
+                Ui.printWithPartition("Sigh. Here we go again:" + System.lineSeparator() +
                         taskList.get(taskIndex));
             }
             else {
-                printWithPartition("Bruh. You never completed this in the first place." + System.lineSeparator() +
+                Ui.printWithPartition("Bruh. You never completed this in the first place." + System.lineSeparator() +
                         taskList.get(taskIndex));
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            printWithPartition(Ui.INVALID_NUM_ERROR_MESSAGE);
+            Ui.printWithPartition(Ui.INVALID_NUM_ERROR_MESSAGE);
         }
     }
 
@@ -190,12 +158,12 @@ public class Serene {
                 return;
             }
             if (taskCount == 2) {
-                printWithPartition("Mmkay~ Shall remove this task:" + System.lineSeparator() +
+                Ui.printWithPartition("Mmkay~ Shall remove this task:" + System.lineSeparator() +
                         taskList.get(taskIndex) + System.lineSeparator() +
                         "Now you have " + (taskCount - 1) + " task left in the list");
             }
             else {
-                printWithPartition("Mmkay~ Shall remove this task:" + System.lineSeparator() +
+                Ui.printWithPartition("Mmkay~ Shall remove this task:" + System.lineSeparator() +
                         taskList.get(taskIndex) + System.lineSeparator() +
                         "Now you have " + (taskCount - 1) + " tasks left in the list");
             }
@@ -203,7 +171,7 @@ public class Serene {
             taskCount--;
             rewriteSaveFile();
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            printWithPartition(Ui.INVALID_NUM_ERROR_MESSAGE);
+            Ui.printWithPartition(Ui.INVALID_NUM_ERROR_MESSAGE);
         }
     }
 
@@ -216,7 +184,7 @@ public class Serene {
                 appendSave(task.toString());
             }
         } catch (IOException e) {
-            printWithPartition(Ui.IO_FAIL_MESSAGE);
+            Ui.printWithPartition(Ui.IO_FAIL_MESSAGE);
         }
     }
 
@@ -235,7 +203,7 @@ public class Serene {
             addDeadline(userInput);
             break;
         default:
-            printWithPartition(Ui.INPUT_ERROR_MESSAGE);
+            Ui.printWithPartition(Ui.INPUT_ERROR_MESSAGE);
         }
     }
 
@@ -246,9 +214,9 @@ public class Serene {
             ToDo task = new ToDo(description);
             allocateTask(task);
         } catch (ArrayIndexOutOfBoundsException e) {
-            printWithPartition(Ui.EMPTY_DESC_ERROR_MESSAGE);
+            Ui.printWithPartition(Ui.EMPTY_DESC_ERROR_MESSAGE);
         } catch (IOException e) {
-            printWithPartition(Ui.IO_FAIL_MESSAGE);
+            Ui.printWithPartition(Ui.IO_FAIL_MESSAGE);
         }
     }
 
@@ -259,21 +227,21 @@ public class Serene {
             String description = responsePartition[Constant.RESPONSE_INDEX_BODY];
             // Checking if a valid description has been provided
             if (!Parser.isValidDescription(description)) {
-                printWithPartition(Ui.EMPTY_DESC_ERROR_MESSAGE);
+                Ui.printWithPartition(Ui.EMPTY_DESC_ERROR_MESSAGE);
                 return;
             }
             taskPartition = description.split(" /at ");
         } catch (ArrayIndexOutOfBoundsException e) {
-            printWithPartition(Ui.EMPTY_DESC_ERROR_MESSAGE);
+            Ui.printWithPartition(Ui.EMPTY_DESC_ERROR_MESSAGE);
             return;
         }
         try {
             Event task = new Event(taskPartition[Constant.TASK_INDEX_DESCRIPTION], taskPartition[Constant.TASK_INDEX_OPTIONS]);
             allocateTask(task);
         } catch (ArrayIndexOutOfBoundsException e) {
-            printWithPartition(Ui.EMPTY_AT_ERROR_MESSAGE);
+            Ui.printWithPartition(Ui.EMPTY_AT_ERROR_MESSAGE);
         } catch (IOException e) {
-            printWithPartition(Ui.IO_FAIL_MESSAGE);
+            Ui.printWithPartition(Ui.IO_FAIL_MESSAGE);
         }
     }
 
@@ -284,12 +252,12 @@ public class Serene {
             String description = responsePartition[Constant.RESPONSE_INDEX_BODY];
             // Checking if a valid description has been provided
             if (!Parser.isValidDescription(description)) {
-                printWithPartition(Ui.EMPTY_DESC_ERROR_MESSAGE);
+                Ui.printWithPartition(Ui.EMPTY_DESC_ERROR_MESSAGE);
                 return;
             }
             taskPartition = description.split(" /by ");
         } catch (ArrayIndexOutOfBoundsException e) {
-            printWithPartition(Ui.EMPTY_DESC_ERROR_MESSAGE);
+            Ui.printWithPartition(Ui.EMPTY_DESC_ERROR_MESSAGE);
             return;
         }
         try {
@@ -297,9 +265,9 @@ public class Serene {
                     taskPartition[Constant.TASK_INDEX_OPTIONS]);
             allocateTask(task);
         } catch (ArrayIndexOutOfBoundsException e) {
-            printWithPartition(Ui.EMPTY_BY_ERROR_MESSAGE);
+            Ui.printWithPartition(Ui.EMPTY_BY_ERROR_MESSAGE);
         } catch (IOException e) {
-            printWithPartition(Ui.IO_FAIL_MESSAGE);
+            Ui.printWithPartition(Ui.IO_FAIL_MESSAGE);
         }
     }
 
@@ -307,7 +275,7 @@ public class Serene {
         taskList.add(inputTask);
         taskCount++;
         appendSave(inputTask.toString());
-        printAddedTask(inputTask);
+        Ui.printAddedTask(inputTask);
     }
 
     private static void appendSave(String inputTask) throws IOException {
@@ -316,22 +284,4 @@ public class Serene {
         fw.close();
     }
 
-    private static void printAddedTask(Task inputTask) {
-        String toPrint;
-        if (taskCount == 1) {
-            toPrint = "Okay, I've added this for you:" + System.lineSeparator() +
-                    inputTask + System.lineSeparator() +
-                    "Now you have " + taskCount + " task in the list.";
-        }
-        else {
-            toPrint = "Okay, I've added this for you:" + System.lineSeparator() +
-                    inputTask + System.lineSeparator() +
-                    "Now you have " + taskCount + " tasks in the list.";
-        }
-        printWithPartition(toPrint);
-    }
-
-    private static void printExitMessage() {
-        printWithPartition("Till next time. Hope to see you again soon~");
-    }
 }
