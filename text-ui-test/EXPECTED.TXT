@@ -3,6 +3,7 @@ Hi! I'm Bim!
 What can I do for you?
 ----------------------------------
 ----------------------------------
+Listing all tasks!
 404 Not Found
 ----------------------------------
 ----------------------------------
@@ -16,7 +17,7 @@ I have added a new task!
 You now have 2 task(s)!
 ----------------------------------
 ----------------------------------
-Invalid date format!
+Error: Invalid date format!
 ----------------------------------
 ----------------------------------
 I have added a new task!
@@ -25,22 +26,22 @@ You now have 3 task(s)!
 ----------------------------------
 ----------------------------------
 I have added a new task!
-	[T][ ] steal alice purse
+	[T][ ] steal alice phone
 You now have 4 task(s)!
 ----------------------------------
 ----------------------------------
 Okie Dokie!
-	[T][X] steal alice purse
+	[T][X] steal alice phone
 ----------------------------------
 ----------------------------------
-Invalid index!
+Error: Invalid index!
 ----------------------------------
 ----------------------------------
-Here you go!
+Listing all tasks!
 	1.[T][ ] get together with alice
 	2.[E][ ] alice wedding (at: Nov-24-2022)
 	3.[D][ ] prevent alice wedding (by: Nov-23-2022)
-	4.[T][X] steal alice purse
+	4.[T][X] steal alice phone
 ----------------------------------
 ----------------------------------
 I have added a new task!
@@ -49,60 +50,58 @@ You now have 5 task(s)!
 ----------------------------------
 ----------------------------------
 Oh no! Anyways..
-	[T][ ] steal alice purse
+	[T][ ] steal alice phone
 ----------------------------------
 ----------------------------------
 Okie Dokie!
 	[T][X] get together with alice
 ----------------------------------
 ----------------------------------
-Here you go!
+Listing all tasks!
 	1.[T][X] get together with alice
 	2.[E][ ] alice wedding (at: Nov-24-2022)
 	3.[D][ ] prevent alice wedding (by: Nov-23-2022)
-	4.[T][ ] steal alice purse
+	4.[T][ ] steal alice phone
 	5.[T][ ] seek help from mallory
 ----------------------------------
 ----------------------------------
-Invalid index!
+Error: Invalid index!
 ----------------------------------
 ----------------------------------
-Invalid index!
+Error: Invalid index!
 ----------------------------------
 ----------------------------------
-Check your arguments!
+Error: Check your arguments!
 ----------------------------------
 ----------------------------------
-Check your arguments!
-----------------------------------
-----------------------------------
-Here you go!
+Listing all tasks!
 	1.[T][X] get together with alice
 	2.[E][ ] alice wedding (at: Nov-24-2022)
 	3.[D][ ] prevent alice wedding (by: Nov-23-2022)
-	4.[T][ ] steal alice purse
+	4.[T][ ] steal alice phone
 	5.[T][ ] seek help from mallory
+----------------------------------
+----------------------------------
+These are the tasks containing your keyword!
+	1.[T][ ] seek help from mallory
 ----------------------------------
 ----------------------------------
 I have deleted a task!
-	[E][ ] alice wedding (at: Nov-24-2022)
+	[T][ ] seek help from mallory
 You now have 4 task(s)!
 ----------------------------------
 ----------------------------------
-Invalid index!
+Sorry, I could not find any matching task!
 ----------------------------------
 ----------------------------------
-Here you go!
+Listing all tasks!
 	1.[T][X] get together with alice
-	2.[D][ ] prevent alice wedding (by: Nov-23-2022)
-	3.[T][ ] steal alice purse
-	4.[T][ ] seek help from mallory
+	2.[E][ ] alice wedding (at: Nov-24-2022)
+	3.[D][ ] prevent alice wedding (by: Nov-23-2022)
+	4.[T][ ] steal alice phone
 ----------------------------------
 ----------------------------------
-I couldn't understand that!
-----------------------------------
-----------------------------------
-I couldn't understand that!
+Error: I couldn't understand that!
 ----------------------------------
 ----------------------------------
 See you soon!

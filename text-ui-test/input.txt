@@ -3,7 +3,7 @@ todo get together with alice
 event alice wedding /at 2022-11-24
 deadline prevent alice wedding /by 23 nov
 deadline prevent alice wedding /by 2022-11-23
-todo steal alice purse
+todo steal alice phone
 mark 4
 mark 5
 list
@@ -14,11 +14,10 @@ list
 unmark notanumber
 unmark -1
 event bob's birthday
-deadline prepare present
 list
-delete 2
+find mallory
 delete 5
+find mallory
 list
 hello?
-who dis?
 bye
