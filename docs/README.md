@@ -1,5 +1,7 @@
 # JRobo | Personal Todo App
 
+## User Guide
+
 JRobo is a command line application that you can use as your personal task tracker assistant.
 
 JRobo consists of various different commands and three type of tasks, which are **todo**, **deadline**, and **event**.
@@ -20,7 +22,7 @@ Tasks can be added using **todo**, **deadline**, **event** commands, or with the
 
 #### Command format:
 
-`todo{description}`<br>
+`todo {description}`<br>
 `deadline {description}/by {any time}`<br>
 `event {description} /at {any time}`
 
@@ -54,7 +56,7 @@ All tasks can be listed using **list** command, or with its shortcut **ls**.
 
 `ls`
 
-### Mark Task as Done
+### Check Task
 
 Tasks can be marked as done using **mark** command, or with its shortcut **m**.
 
@@ -66,7 +68,7 @@ Tasks can be marked as done using **mark** command, or with its shortcut **m**.
 
 `m {task_number}`
 
-### Unmark Task as Done
+### Uncheck Task
 
 Tasks can be marked as done using **unmark** command, or with its shortcut **um**.
 
