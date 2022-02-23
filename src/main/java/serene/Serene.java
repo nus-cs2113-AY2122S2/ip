@@ -1,5 +1,7 @@
 package serene;
 
+import serene.global.Constant;
+import serene.global.UI;
 import serene.task.Deadline;
 import serene.task.Event;
 import serene.task.Task;
@@ -13,24 +15,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Serene {
-    private static final int DONE = -1;
-    private static final int CONTINUE = -2;
-    private static final int DEADLINE = 1;
-    private static final int EVENT = 2;
-    private static final int RESPONSE_INDEX_KEYWORD = 0;
-    private static final int RESPONSE_INDEX_BODY = 1;
-    private static final int TASK_INDEX_DESCRIPTION = 0;
-    private static final int TASK_INDEX_OPTIONS = 1;
-    private static final int ERROR_CODE = -1;
-    private static ArrayList<Task> taskList = new ArrayList<>();
-    private static final int SAVED_INDEX_TYPE = 1;
-    private static final int SAVED_INDEX_IS_DONE = 4;
-    private static final int SAVED_INDEX_DESCRIPTION = 7;
-    private static final int TIME_OFFSET = 6;
-    private static int taskCount = 0;
-    private static int statusOfSerene = CONTINUE;
     private static final String SAVE_FILE_PATH = "data/serene.txt";
-    private static final UserInterface UI = new UserInterface();
+    private static ArrayList<Task> taskList = new ArrayList<>();
+    private static int taskCount = 0;
+    private static int statusOfSerene = Constant.CONTINUE;
+
+
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -74,11 +64,11 @@ public class Serene {
 
     private static void recoverTask(String savedTask) {
         // Extract task type
-        String taskType = savedTask.substring(SAVED_INDEX_TYPE, SAVED_INDEX_TYPE + 1);
+        String taskType = savedTask.substring(Constant.SAVED_INDEX_TYPE, Constant.SAVED_INDEX_TYPE + 1);
         // Extract isDone
-        String marker = savedTask.substring(SAVED_INDEX_IS_DONE, SAVED_INDEX_IS_DONE + 1);
+        String marker = savedTask.substring(Constant.SAVED_INDEX_IS_DONE, Constant.SAVED_INDEX_IS_DONE + 1);
         // Extract description
-        String descriptionAndTime = savedTask.substring(SAVED_INDEX_DESCRIPTION);
+        String descriptionAndTime = savedTask.substring(Constant.SAVED_INDEX_DESCRIPTION);
         int timeIndex;
         String description;
         switch(taskType) {
@@ -92,7 +82,7 @@ public class Serene {
         case "D":
             timeIndex = descriptionAndTime.indexOf(" (by: ");
             description = descriptionAndTime.substring(0, timeIndex);
-            String by = descriptionAndTime.substring(timeIndex + TIME_OFFSET, descriptionAndTime.length() - 1);
+            String by = descriptionAndTime.substring(timeIndex + Constant.TIME_OFFSET, descriptionAndTime.length() - 1);
             Deadline deadline = new Deadline(description, by);
             if (marker.equals("X")) {
                 deadline.markDone();
@@ -102,7 +92,7 @@ public class Serene {
         case "E":
             timeIndex = descriptionAndTime.indexOf(" (at: ");
             description = descriptionAndTime.substring(0, timeIndex);
-            String at = descriptionAndTime.substring(timeIndex + TIME_OFFSET, descriptionAndTime.length() - 1);
+            String at = descriptionAndTime.substring(timeIndex + Constant.TIME_OFFSET, descriptionAndTime.length() - 1);
             Event event = new Event(description, at);
             if (marker.equals("X")) {
                 event.markDone();
@@ -134,7 +124,7 @@ public class Serene {
     }
 
     private static void operateSerene(Scanner in) {
-        while (statusOfSerene != DONE) {
+        while (statusOfSerene != Constant.DONE) {
             String userInput = in.nextLine();
             statusOfSerene = parseInput(userInput);
         }
@@ -143,11 +133,11 @@ public class Serene {
     private static int parseInput(String userInput) {
         // Split keyword from the rest of the input
         String[] responsePartition = userInput.split(" ", 2);
-        String keyword = responsePartition[RESPONSE_INDEX_KEYWORD];
-        int operationState = CONTINUE;
+        String keyword = responsePartition[Constant.RESPONSE_INDEX_KEYWORD];
+        int operationState = Constant.CONTINUE;
         switch (keyword) {
         case "bye":
-            operationState = DONE;
+            operationState = Constant.DONE;
             break;
         case "list":
             printTaskList();
@@ -182,7 +172,7 @@ public class Serene {
         try {
             // Extract index of task to mark
             int taskIndex = validateIndex(userInput);
-            if (taskIndex == ERROR_CODE) {
+            if (taskIndex == Constant.ERROR_CODE) {
                 return;
             }
             // Checking if task has not already been marked
@@ -204,7 +194,7 @@ public class Serene {
         try {
             // Extract index of task to unmark
             int taskIndex = validateIndex(userInput);
-            if (taskIndex == ERROR_CODE) {
+            if (taskIndex == Constant.ERROR_CODE) {
                 return;
             }
             // Checking if task has already been marked
@@ -225,7 +215,7 @@ public class Serene {
     private static void removeTask(String[] userInput) {
         try {
             int taskIndex = validateIndex(userInput);
-            if (taskIndex == ERROR_CODE) {
+            if (taskIndex == Constant.ERROR_CODE) {
                 return;
             }
             if (taskCount == 2) {
@@ -248,12 +238,12 @@ public class Serene {
 
     private static int validateIndex(String[] userInput) {
         // Extract index of task to remove
-        String inputNumber = userInput[RESPONSE_INDEX_BODY];
+        String inputNumber = userInput[Constant.RESPONSE_INDEX_BODY];
         int taskIndex = Integer.parseInt(inputNumber) - 1;
         // Validation of provided index
         if (!isWithinRange(taskIndex)) {
             printWithPartition(UI.INVALID_NUM_ERROR_MESSAGE);
-            return ERROR_CODE;
+            return Constant.ERROR_CODE;
         }
         return taskIndex;
     }
@@ -278,7 +268,7 @@ public class Serene {
     private static void addTask(String userInput) {
         // Extracting which type of task does the user want to add
         String[] responsePartition = userInput.split(" ", 2);
-        String keyword = responsePartition[RESPONSE_INDEX_KEYWORD];
+        String keyword = responsePartition[Constant.RESPONSE_INDEX_KEYWORD];
         switch (keyword) {
         case "todo":
             addToDo(userInput);
@@ -297,7 +287,7 @@ public class Serene {
     private static void addToDo(String userInput) {
         String[] responsePartition = userInput.split(" ", 2);
         try {
-            String description = responsePartition[RESPONSE_INDEX_BODY];
+            String description = responsePartition[Constant.RESPONSE_INDEX_BODY];
             ToDo task = new ToDo(description);
             allocateTask(task);
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -311,7 +301,7 @@ public class Serene {
         String[] responsePartition = userInput.split(" ", 2);
         String[] taskPartition;
         try {
-            String description = responsePartition[RESPONSE_INDEX_BODY];
+            String description = responsePartition[Constant.RESPONSE_INDEX_BODY];
             // Checking if a valid description has been provided
             if (!isValidDescription(description)) {
                 printWithPartition(UI.EMPTY_DESC_ERROR_MESSAGE);
@@ -323,7 +313,7 @@ public class Serene {
             return;
         }
         try {
-            Event task = new Event(taskPartition[TASK_INDEX_DESCRIPTION], taskPartition[TASK_INDEX_OPTIONS]);
+            Event task = new Event(taskPartition[Constant.TASK_INDEX_DESCRIPTION], taskPartition[Constant.TASK_INDEX_OPTIONS]);
             allocateTask(task);
         } catch (ArrayIndexOutOfBoundsException e) {
             printWithPartition(UI.EMPTY_AT_ERROR_MESSAGE);
@@ -336,7 +326,7 @@ public class Serene {
         String[] responsePartition = userInput.split(" ", 2);
         String[] taskPartition;
         try {
-            String description = responsePartition[RESPONSE_INDEX_BODY];
+            String description = responsePartition[Constant.RESPONSE_INDEX_BODY];
             // Checking if a valid description has been provided
             if (!isValidDescription(description)) {
                 printWithPartition(UI.EMPTY_DESC_ERROR_MESSAGE);
@@ -348,7 +338,8 @@ public class Serene {
             return;
         }
         try {
-            Deadline task = new Deadline(taskPartition[TASK_INDEX_DESCRIPTION], taskPartition[TASK_INDEX_OPTIONS]);
+            Deadline task = new Deadline(taskPartition[Constant.TASK_INDEX_DESCRIPTION],
+                    taskPartition[Constant.TASK_INDEX_OPTIONS]);
             allocateTask(task);
         } catch (ArrayIndexOutOfBoundsException e) {
             printWithPartition(UI.EMPTY_BY_ERROR_MESSAGE);
@@ -358,7 +349,7 @@ public class Serene {
     }
 
     private static boolean isValidDescription(String userInput) {
-        String firstWord = userInput.split(" ", 2)[TASK_INDEX_DESCRIPTION];
+        String firstWord = userInput.split(" ", 2)[Constant.TASK_INDEX_DESCRIPTION];
         return !firstWord.strip().equals("") && !firstWord.contains("/at") && !firstWord.contains("/by");
     }
 
