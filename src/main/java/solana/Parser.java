@@ -1,14 +1,6 @@
 package solana;
 
-import solana.command.Command;
-import solana.command.ListCommand;
-import solana.command.TodoCommand;
-import solana.command.DeadlineCommand;
-import solana.command.EventCommand;
-import solana.command.MarkCommand;
-import solana.command.UnmarkCommand;
-import solana.command.DeleteCommand;
-import solana.command.HelpCommand;
+import solana.command.*;
 
 public class Parser {
     public static final int COMMAND_INDEX = 0;
@@ -44,6 +36,8 @@ public class Parser {
                 throw new SolanaException("Description of deadline cannot be empty!");
             case "event":
                 throw new SolanaException("Description of event cannot be empty!");
+            case "find":
+                throw new SolanaException("Input a keyword!");
             default:
                 throw new SolanaException("Invalid command!");
             }
@@ -71,6 +65,8 @@ public class Parser {
             return new UnmarkCommand(parsedInput[DESCRIPTION_INDEX]);
         case "delete":
             return new DeleteCommand(parsedInput[DESCRIPTION_INDEX]);
+        case "find":
+            return new FindCommand(parsedInput[DESCRIPTION_INDEX]);
         case "todo":
             return new TodoCommand(parsedInput[DESCRIPTION_INDEX], true, false);
         case "deadline":
