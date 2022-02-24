@@ -93,7 +93,7 @@ public class UserInterface {
     public void printMessageForAdding(ArrayList<Task> tasks, Task task) {
         System.out.println("Got it. I've added this task:");
         System.out.println(tasks.size() + "." + task.toString());
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
     }
 
     public void printMarkOrUnmarkMessage(ArrayList<Task> tasks, String command, int number) {
@@ -102,7 +102,7 @@ public class UserInterface {
             System.out.println("Nice! I've marked this task as done:");
         } else {
             tasks.get(number).unsetIsMarked();
-            System.out.println("Nice! I've unmarked this task as done:");
+            System.out.println("Nice! I've marked this task as not done:");
         }
         System.out.println(number + 1 + "." + tasks.get(number).toString());
     }

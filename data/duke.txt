@@ -1,3 +1,2 @@
-0|todo book
-0|todo book2
-0|todo book 3
+0|event meetup /at 3pm
+0|deadline project /by Thursday 5pm
