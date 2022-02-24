@@ -1,6 +1,5 @@
 package vera;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 import static vera.constant.Messages.GOODBYE_MESSAGE;
@@ -31,14 +30,15 @@ public class Ui {
     }
 
     public void showToUser(String... message) {
-        String messageWithoutOpenBracket =  Arrays.toString(message).replace("[", "");
-        String messageWithoutCloseBracket = messageWithoutOpenBracket.replace("]", "");
-        System.out.println(messageWithoutCloseBracket);
+        for (String s : message) {
+            System.out.println(s);
+        }
     }
 
     public void showWelcomeMessage() {
-        showToUser(PARTITION_LINE + LS + LOGO +
-                WELCOME_MESSAGE + LS + PARTITION_LINE);
+        String message = PARTITION_LINE + LS + LOGO +
+                WELCOME_MESSAGE + LS + PARTITION_LINE;
+        showToUser(message);
     }
 
     public void showGoodbyeMessage() {
