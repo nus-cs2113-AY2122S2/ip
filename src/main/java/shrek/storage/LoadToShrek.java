@@ -10,7 +10,16 @@ import java.util.Scanner;
 
 import shrek.data.TaskList;
 
+/**
+ * Loads list form output file to Shrek.
+ */
 public class LoadToShrek {
+    /**
+     * Reads each line from the output file, passing the reconstructed user input to handleInput handler
+     * and sets the mark status of the task.
+     *
+     * @throws FileNotFoundException If output file is not found.
+     */
     public static void loadData() throws FileNotFoundException {
         File outputFile = new File(CurrentDirectory.OUTPUT_FILE_PATH);
         Scanner lineScanner = new Scanner(outputFile);

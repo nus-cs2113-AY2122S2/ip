@@ -7,7 +7,19 @@ import shrek.constant.PrintStrings;
 import shrek.constant.Indexes;
 import shrek.data.TaskList;
 
+/**
+ * Parses user input.
+ */
 public class Parser {
+    /**
+     * Determines the command the user has input and passes the perimeters to the respective handlers.
+     * Prints the line that separates user input and Shrek output.
+     *
+     * @param userInput Full user input.
+     * @param toPrint   Indicates whether to print the lines.
+     * @throws InvalidCommandException if command is not in the list or there is no follow up input
+     *                                 after commands that are not "list".
+     */
     public static void handleInput(String userInput, boolean toPrint) throws InvalidCommandException {
         if (toPrint) {
             System.out.print(PrintStrings.LINE);
@@ -49,7 +61,6 @@ public class Parser {
                 if (splitUserInputs.length < Indexes.NUMBER_OF_TERMS_IN_SPLIT) {
                     throw new InvalidCommandException("Missing input after the command!", ErrorCount.errorCount);
                 }
-                throw new InvalidCommandException("How did you get here?", ErrorCount.errorCount);
             }
         } catch (InvalidCommandException e) {
             ErrorCount.errorCount++;

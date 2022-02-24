@@ -10,12 +10,23 @@ import shrek.task.Events;
 import shrek.task.ToDo;
 import shrek.data.TaskList;
 
+/**
+ * Adds a task to the list.
+ */
 public class AddCommand {
 
     public static boolean isEitherStringEmpty(String a, String b) {
         return (a.equals("") || b.equals(""));
     }
 
+    /**
+     * Adds a deadline or an event task to the list.
+     *
+     * @param input             Content of task to be added.
+     * @param taskTimeReference indicates whether the task is a deadline or an event.
+     * @throws InvalidCommandException if there is more or less than one taskTimeReference
+     * and if user did not input time or task.
+     */
     public static void addDeadlineOrEventToList(String input, String taskTimeReference)
             throws InvalidCommandException {
         String[] splitDeadlineOrEventInputs;
@@ -44,6 +55,13 @@ public class AddCommand {
         }
     }
 
+    /**
+     * Adds task to list and print out success message if task is added.
+     *
+     * @param input    Represents task details.
+     * @param taskName Represents todo, deadline or event tasks.
+     * @param toPrint  indicates whether to print success message.
+     */
     public static void addToList(String input, String taskName, boolean toPrint) {
         boolean isTaskRanSuccessful = true;
         switch (taskName) {

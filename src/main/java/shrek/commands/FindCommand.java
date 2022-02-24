@@ -3,15 +3,24 @@ package shrek.commands;
 import shrek.exception.InvalidCommandException;
 import shrek.task.Deadlines;
 import shrek.task.Events;
-import shrek.task.UserContent;
+import shrek.task.Task;
 import shrek.constant.Indexes;
 import shrek.data.TaskList;
 import shrek.data.ErrorCount;
 
 import java.util.ArrayList;
 
+/**
+ * Finds a task or time from the list.
+ */
 public class FindCommand {
-    public static void findTaskOrTime(String input) {
+    /**
+     * Determines if user input is find task or find time and passes the perimeters to the respective command handlers.
+     *
+     * @param input user input after "find" command.
+     * @throws InvalidCommandException if user mistyped task or time, or did not input the task or time.
+     */
+    public static void findTaskOrTime(String input) throws InvalidCommandException {
         try {
             String[] splitTaskOrTimeInputs = input.split(" ", Indexes.NUMBER_OF_TERMS_IN_SPLIT);
             if (splitTaskOrTimeInputs[Indexes.INDEX_OF_SECOND_ITEM_IN_STRING].equals("")) {
@@ -32,9 +41,14 @@ public class FindCommand {
         }
     }
 
+    /**
+     * finds all tasks containing the user input, prints the list of all matches.
+     *
+     * @param inputToSearchFor Represents the term to search for in all tasks.
+     */
     public static void findTask(String inputToSearchFor) {
-        ArrayList<UserContent> listOfFoundTasks = new ArrayList<>();
-        for (UserContent item : TaskList.lists) {
+        ArrayList<Task> listOfFoundTasks = new ArrayList<>();
+        for (Task item : TaskList.lists) {
             if (item.getContent().contains(inputToSearchFor)) {
                 listOfFoundTasks.add(item);
             }
@@ -47,9 +61,15 @@ public class FindCommand {
         }
     }
 
-    public static void findTime(String inputToSearchFor) {
-        ArrayList<UserContent> listOfFoundTimes = new ArrayList<>();
-        for (UserContent item : TaskList.lists) {
+    /**
+     * finds all time containing the user input, prints the list of all matches.
+     *
+     * @param inputToSearchFor Represents the term to search for in all time.
+     * @throws InvalidCommandException if task name is invalid.
+     */
+    public static void findTime(String inputToSearchFor) throws InvalidCommandException {
+        ArrayList<Task> listOfFoundTimes = new ArrayList<>();
+        for (Task item : TaskList.lists) {
             String taskName = item.getTaskName();
             switch (taskName) {
             case "T":

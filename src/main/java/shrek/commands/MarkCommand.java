@@ -5,7 +5,16 @@ import shrek.data.ErrorCount;
 import shrek.exception.InvalidCommandException;
 import shrek.data.TaskList;
 
+/**
+ * Mark and unmark a task in the list.
+ */
 public class MarkCommand {
+    /**
+     * Mark a task in the list.
+     *
+     * @param indexOfList Index of task to be marked.
+     * @throws InvalidCommandException if index is a non-integer and index is out of bounds.
+     */
     public static void markTask(String indexOfList) throws InvalidCommandException {
         try {
             if (!TaskList.lists.get(Integer.parseInt(indexOfList) + Indexes.LIST_INDEX_CORRECTION).getMark()) {
@@ -22,6 +31,12 @@ public class MarkCommand {
         System.out.println(TaskList.lists.get(Integer.parseInt(indexOfList) + Indexes.LIST_INDEX_CORRECTION));
     }
 
+    /**
+     * Unmark a task in the list.
+     *
+     * @param indexOfList Index of task to be marked.
+     * @throws InvalidCommandException if index is a non-integer and index is out of bounds.
+     */
     public static void unmarkTask(String indexOfList) throws InvalidCommandException {
         try {
             if (TaskList.lists.get(Integer.parseInt(indexOfList) + Indexes.LIST_INDEX_CORRECTION).getMark()) {

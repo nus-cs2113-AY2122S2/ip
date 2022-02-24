@@ -1,11 +1,14 @@
 package shrek.task;
 
-public class UserContent {
+/**
+ * Represents all tasks. Contains data of each task.
+ */
+public class Task {
     private String content;
     private boolean isMark;
     private String taskName;
 
-    public UserContent(String content) {
+    public Task(String content) {
         setContent(content);
         setUnmark();
         setTaskName(" ");
@@ -38,6 +41,7 @@ public class UserContent {
     public String getTaskName() {
         return taskName;
     }
+
 
     @Override
     public String toString() {

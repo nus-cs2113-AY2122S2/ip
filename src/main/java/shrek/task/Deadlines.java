@@ -1,8 +1,17 @@
 package shrek.task;
 
-public class Deadlines extends UserContent {
+/**
+ * Represents a Deadline task.
+ */
+public class Deadlines extends Task {
     protected String taskDueBy;
 
+    /**
+     * Initialises the deadline task.
+     *
+     * @param description Task that the User has inputted.
+     * @param taskDueBy   Due date specified by user.
+     */
     public Deadlines(String description, String taskDueBy) {
         super(description);
         setTaskName("D");
