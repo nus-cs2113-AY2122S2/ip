@@ -170,6 +170,22 @@ public class TaskList {
     }
 
     /**
+     * Lists tasks containing the supplied keyword in the description.
+     * @param task String keyword to search for.
+     */
+    public void findTask(String task) {
+        int taskCounter = 1;
+        System.out.println("Here are the matching tasks in your list:");
+        for (Task i : tasks) {
+            if (i.getDescription().contains(task)) {
+                System.out.print(taskCounter + ".");
+                System.out.println(i);
+                taskCounter++;
+            }
+        }
+    }
+
+    /**
      * Deletes a task based on its visual index in the list.
      * @param task Visual index in the list, starting from 1.
      */
