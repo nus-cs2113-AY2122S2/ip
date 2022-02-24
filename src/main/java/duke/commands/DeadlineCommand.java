@@ -1,12 +1,16 @@
 package duke.commands;
 
+import duke.Parser;
 import duke.exceptions.DukeException;
 import duke.exceptions.InvalidArgumentException;
+import java.time.format.DateTimeParseException;
+
 import duke.tasks.Deadline;
 import duke.tasks.TaskList;
 import duke.Ui;
 import duke.Storage;
 
+import java.time.LocalDateTime;
 
 import java.util.HashMap;
 
@@ -14,7 +18,8 @@ public class DeadlineCommand extends Command {
     public static final String TASK_ADDED_MESSAGE_FORMAT = "added: %s";
     private static final String COMMAND_NAME = "deadline";
     private static final String EMPTY_ARGUMENTS = "Deadline must have a description!";
-    private static final String EMPTY_BYDATE = "Deadline must have a valid date for /by!";
+    private static final String EMPTY_BYDATE = "Deadline must have a date for /by!";
+    private static final String INCORRECT_BYDATE = "The deadline entered for /by must be a valid date time!";
 
     private HashMap<String, String> arguments;
     /**
@@ -33,10 +38,12 @@ public class DeadlineCommand extends Command {
     @Override
     protected void assertArguments() throws InvalidArgumentException {
         String errorMsg = "";
-        if (arguments.get("")==null || arguments.get("").equals("")) {
+        String description = arguments.get("");
+        String byDate = arguments.get("/by");
+        if (description==null || description.equals("")) {
             errorMsg += EMPTY_ARGUMENTS+"\n";
         }
-        if (arguments.get("/by")==null || arguments.get("").equals("")) {
+        if (byDate==null || byDate.equals("")) {
             errorMsg += EMPTY_BYDATE+"\n";
         }
         if (!errorMsg.equals("")) {
@@ -53,11 +60,17 @@ public class DeadlineCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         assertArguments();
         String description = arguments.get("");
-        String byDate = arguments.get("/by");
-        Deadline deadlineTask = new Deadline(description, byDate);
-        taskList.add(deadlineTask);
-        String output = String.format(TASK_ADDED_MESSAGE_FORMAT, deadlineTask.toString());
-        ui.showOutput(output);
-        storage.write(taskList);
+        String byDateTimeString = arguments.get("/by");
+        try {
+            LocalDateTime byDateTimeParsed = Parser.parseByDateTime(byDateTimeString);
+            Deadline deadlineTask = new Deadline(description, byDateTimeParsed);
+            taskList.add(deadlineTask);
+            String output = String.format(TASK_ADDED_MESSAGE_FORMAT, deadlineTask.toString());
+            ui.showOutput(output);
+            storage.write(taskList);
+        } catch (DateTimeParseException e) {
+            InvalidArgumentException exception = new InvalidArgumentException(COMMAND_NAME, INCORRECT_BYDATE);
+            throw exception;
+        }
     }
 }
