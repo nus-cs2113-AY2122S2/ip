@@ -4,7 +4,10 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.io.InputStreamReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -19,6 +22,7 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         Scanner sc = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
+        initTasks(tasks);
 
         System.out.print("____________________\n"+
                           "Hello! I'm Duke\n"+
@@ -86,9 +90,103 @@ public class Duke {
                 "____________________\n");
     }
 
+    private static void initTasks(ArrayList<Task> tasks){
+        Scanner fileIn;
+        try{
+            fileIn = new Scanner(new InputStreamReader(new FileInputStream("duke.txt"), StandardCharsets.UTF_8));
+        }catch(FileNotFoundException e){
+            System.out.println("// Warning: File could not be opened\n");
+            return;
+        }
+        String info, curLine;
+        try{
+            curLine = fileIn.nextLine();
+        }catch(NoSuchElementException e){
+            return;
+        }
+
+        while(curLine != null){
+            try{
+                info = curLine.substring(7);
+            }catch(IndexOutOfBoundsException e){
+                curLine = fileIn.nextLine();
+                continue;
+            }
+
+            if(info.equals("")){
+                curLine = fileIn.nextLine();
+                continue;
+            }
+            if(info.contains("(at:")){
+                addEventfromText(info, tasks);
+            }else if(info.contains("(by:")){
+                addDeadlinefromText(info, tasks);
+            }else{
+                addTodofromText(info, tasks);
+            }
+            try{
+                curLine = fileIn.nextLine();
+            }catch(NoSuchElementException e){
+                return;
+            }
+        }
+        fileIn.close();
+    }
+
+    private static void addEventfromText(String info, ArrayList<Task> list){
+        String description, at;
+        try{
+            description = info.substring(0,info.indexOf("(at:")-1);
+        }catch(IndexOutOfBoundsException e){
+            System.out.println("// Warning: Event has no description");
+            return;
+        }
+        try{
+            at = info.substring(info.indexOf("(at:")+5, info.length()-1);
+        }catch(IndexOutOfBoundsException e){
+            System.out.println("// Warning: Event has no 'at' field");
+            return;
+        }
+        if(at.equals("")){
+            System.out.println("// Warning: Event has no 'at' field");
+            return;
+        }
+
+        Event newEvent = new Event(description, at);
+        list.add(newEvent);
+    }
+
+    private static void addDeadlinefromText(String info, ArrayList<Task> list){
+        String description, by;
+        try{
+            description = info.substring(0,info.indexOf("(by:")-1);
+        }catch(IndexOutOfBoundsException e){
+            System.out.println("// Warning: Deadline has no description");
+            return;
+        }
+        try{
+            by = info.substring(info.indexOf("(by:")+5, info.length()-1);
+        }catch(IndexOutOfBoundsException e){
+            System.out.println("// Warning: Deadline has no 'by' field");
+            return;
+        }
+        if(by.equals("")){
+            System.out.println("// Warning: Deadline has no 'by' field");
+            return;
+        }
+
+        Deadline newDeadline = new Deadline(description, by);
+        list.add(newDeadline);
+    }
+
+    private static void addTodofromText(String info, ArrayList<Task> list){
+        Task newTodo = new Task(info);
+        list.add(newTodo);
+    }
+
     private static void delete(String info, ArrayList<Task> list){
         int index;
-        Task removed;
+        Task removedTask;
         try{
             index = Integer.parseInt(info);
         } catch (NumberFormatException e){
@@ -96,14 +194,14 @@ public class Duke {
             return;
         }
         try{
-            removed = list.remove(index-1);
+            removedTask = list.remove(index-1);
         }catch (IndexOutOfBoundsException f){
             System.out.println("This task does not exist");
             return;
         }
         System.out.printf("I've deleted this task:\n" +
                 "\t%s" +
-                "Now you have %d in the list.\n", removed, list.size());
+                "Now you have %d in the list.\n", removedTask, list.size());
     }
 
     private static void save(ArrayList<Task> list){
