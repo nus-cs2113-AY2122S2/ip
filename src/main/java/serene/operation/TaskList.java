@@ -169,7 +169,12 @@ public class TaskList {
     private static void addToDo(String userInput) {
         String[] responsePartition = userInput.split(" ", 2);
         try {
-            String description = responsePartition[Constant.RESPONSE_INDEX_BODY];
+            String description = responsePartition[Constant.RESPONSE_INDEX_BODY].strip();
+            // Checking if a valid description has been provided
+            if (description.equals("")) {
+                Ui.printWithPartition(Ui.EMPTY_DESC_ERROR_MESSAGE);
+                return;
+            }
             ToDo task = new ToDo(description);
             allocateTask(task);
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -201,6 +206,7 @@ public class TaskList {
         }
         try {
             String time = taskPartition[Constant.TASK_INDEX_OPTIONS].strip();
+            // Checking if time provided is not just an empty string
             if (Parser.isEmpty(time)) {
                 Ui.printWithPartition(Ui.EMPTY_TIME_ERROR_MESSAGE);
                 return;
@@ -236,6 +242,7 @@ public class TaskList {
         }
         try {
             String time = taskPartition[Constant.TASK_INDEX_OPTIONS].strip();
+            // Checking if time provided is not just an empty string
             if (Parser.isEmpty(time)) {
                 Ui.printWithPartition(Ui.EMPTY_TIME_ERROR_MESSAGE);
                 return;
