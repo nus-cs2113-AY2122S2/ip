@@ -80,6 +80,7 @@ Creates a new task that is an event.
 ```
 event <description> /at <event date>
 ```
+
 | Parameters | Description |
 | --- | --- |
 | `<description>` | Information about this event task. |
@@ -108,6 +109,7 @@ Creates a new task that is a todo.
 ```
 todo <description>
 ```
+
 | Parameter | Description |
 | --- | --- |
 | `<description>` | Information about this todo task. |
@@ -168,6 +170,7 @@ Marks a task as completed.
 ```
 mark <task number>
 ```
+
 | Parameter | Description |
 | --- | --- |
 | `<task number>` | The number of the task that you want to mark as done. |
@@ -222,6 +225,7 @@ Marks a task as incomplete.
 ```
 unmark <task number>
 ```
+
 | Parameter | Description |
 | --- | --- |
 | `<task number>` | The number of the task that you want to mark as not done. |
@@ -263,6 +267,7 @@ Deletes a task that is on the list.
 ```
 delete <task number>
 ```
+
 | Parameter | Description |
 | --- | --- |
 | `<task number>` | The number of the task that you want to delete. |
@@ -316,6 +321,7 @@ The search mechanism is a simple word/phrase match on the texts as shown in the 
 ```
 find <search query>
 ```
+
 | Parameter | Description |
 | --- | --- |
 | `<search query>` | The word/phrase that you wish to search for in your list of tasks. |
