@@ -37,12 +37,12 @@ public class Ui {
     }
 
     public void showWelcomeMessage() {
-        showToUser(PARTITION_LINE + LS + LOGO +
+        System.out.println(PARTITION_LINE + LS + LOGO +
                 WELCOME_MESSAGE + LS + PARTITION_LINE);
     }
 
     public void showGoodbyeMessage() {
-        showToUser(GOODBYE_MESSAGE);
+        System.out.println(GOODBYE_MESSAGE);
     }
 
 }
