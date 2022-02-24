@@ -17,6 +17,7 @@ Do not worry about missing out details of your tasks, as Serene will notice when
   - [Finding a task: `find`](#finding-a-task-find)
   - [Exiting the program: `bye`](#exiting-the-program-bye)
   - [Saving the data](#saving-the-data)
+- [Command summary](#command-summary)
 
 ## Quick start
 1. Ensure that you are running Java `11` on your system.
@@ -51,8 +52,8 @@ Format: `help`
 Adds a todo type task to the task list.  
 Format: `todo DESCRIPTION`  
 Examples:
-- `todo Try out Serene`
-- `todo Drink water`  
+* `todo Try out Serene`
+* `todo Drink water`  
   ![Add_ToDo](/assets/Add_ToDo.png)
 
 ### Adding a deadline: `deadline`
@@ -60,8 +61,8 @@ Examples:
 Adds a deadline type task to the task list.  
 Format: `deadline DESCRIPTION /by TIME`  
 Examples:
-- `deadline Implement CS2113T increments /by Next week`
-- `deadline Read book /by Tonight 6pm`
+* `deadline Implement CS2113T increments /by Next week`
+* `deadline Read book /by Tonight 6pm`
   ![Add_ToDo](/assets/Add_Deadline.png)
 
 ### Adding an event: `event`
@@ -69,8 +70,8 @@ Examples:
 Adds an event type task to the task list.  
 Format: `event DESCRIPTION /by TIME`  
 Examples:
-- `event Watch anime /at 7pm tonight`
-- `event Practice Hack the Box /at Tomorrow`
+* `event Watch anime /at 7pm tonight`
+* `event Practice Hack the Box /at Tomorrow`
   ![Add_ToDo](/assets/Add_Event.png)
 
 ### Marking a task: `mark`
@@ -99,39 +100,36 @@ Example list:
 
 Find tasks whose descriptions contain the given keywords.  
 Format: `find KEYWORD(S)`
-- The search is case-sensitive. e.g. `work` will **NOT** match `Work`.
-- The order of the keywords matter. e.g. `bake cake` will **NOT** match `cake bake`.
-- Only the description is searched.
-- Partial words can be matched e.g. `read` will match `reading`.  
+* The search is case-sensitive. e.g. `work` will **NOT** match `Work`.
+* The order of the keywords matter. e.g. `bake cake` will **NOT** match `cake bake`.
+* Only the description is searched.
+* Partial words can be matched e.g. `read` will match `reading`.  
 Examples:
-- `find Read` returns `Read book`
-- `find Serene` returns `Try out Serene`
+* `find Read` returns `Read book`
+* `find Serene` returns `Try out Serene`
   ![Find_example](/assets/Find.png)
 
 ### Exiting the program: `bye`
 
 Exits the program.  
-Format: `exit`
+Format: `bye`
 
 ### Saving the data
 
 Serene data are saved in the hard disk automatically after any command that changes the data.  
 There is no need to save manually.
 
-## Usage
+## Command summary
 
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
-```
+| Command      | Format, Examples                                                                |
+|--------------|---------------------------------------------------------------------------------|
+| Help         | `help`                                                                          |
+| Add todo     | `todo DESCRIPTION`<br/> e.g., `todo Try out Serene`                             |
+| Add deadline | `deadline DESCRIPTION /by TIME`<br/> e.g., `deadline Read book /by Tonight 6pm` |
+| Add event    | `event DESCRIPTION /at TIME`<br/> e.g., `event Watch anime /at 7pm tonight`     |
+| Mark         | `mark INDEX`<br/> e.g., `mark 1`                                                |
+| Unmark       | `unmark INDEX`<br/> e.g., `unmark 1`                                            |
+| Delete       | `delete INDEX`<br/> e.g., `delete 1`                                            |`
+| List         | `list`                                                                          |
+| Find         | `find KEYWORD(S)`<br/> e.g., `find Serene`                                      |
+| Bye          | `bye`                                                                           |
