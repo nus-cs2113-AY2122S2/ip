@@ -5,20 +5,40 @@ import task.Task;
 import java.io.*;
 import java.util.ArrayList;
 
-import static duke.Duke.taskCounter;
-import static duke.Duke.taskList;
+import static duke.TaskList.taskList;
+import static duke.TaskList.taskCounter;
 import static errors.Errors.ErrorTypes.FILE_NOT_FOUND;
 import static errors.Errors.ErrorTypes.IO_ERROR;
 
-public class FileStrorage {
 
+
+public class Storage {
+    protected String filePath;
     public static final String DIRECTORYPATH = "data/";
-    public static final String FILENAME = "/duke.txt";
+    public static final String FILENAME = "/duke1.txt";
+    public static final String TASK_DETAILS_SEPERATOR = " | ";
+
+    public Storage(){
+        filePath = DIRECTORYPATH + FILENAME;
+    }
+
+
     //get home path of user
     private static final String HOME_PATH = System.getProperty("user.dir");
 
-        public static void saveToFile(ArrayList<Task> taskArrayList){
+        public static void writeToFile(ArrayList<Task> taskList){
+            try{
+                FileWriter fw = new FileWriter(DIRECTORYPATH + FILENAME);
+                for (Task taskInList : taskList){
+                    fw.write( taskInList.getType() + TASK_DETAILS_SEPERATOR + taskInList.getStatusIcon() + TASK_DETAILS_SEPERATOR + taskInList.getTaskName());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    public static void saveToFile(ArrayList<Task> taskArrayList){
             // check if file exists, if not create it
+            writeToFile(taskArrayList);
             File directory = new File(DIRECTORYPATH);
             directory.mkdir();
             try{
@@ -33,7 +53,7 @@ public class FileStrorage {
             }
             System.out.println("Updated file with task list");
         }
-    public static void populateFromTaskFile()  {
+    public static ArrayList<Task> populateFromTaskFile()  {
 
         File directory = new File(DIRECTORYPATH);
         directory.mkdir();
@@ -45,10 +65,12 @@ public class FileStrorage {
             System.out.println("Retrieved from text file successfully");
             taskList = (ArrayList) obj;
             taskCounter = taskList.size();
+            return taskList;
         } catch (ClassNotFoundException ce) {
             System.out.println(FILE_NOT_FOUND);
         } catch (IOException e) {
             System.out.println(IO_ERROR);
         }
+        return new ArrayList<Task>();
     }
 }
