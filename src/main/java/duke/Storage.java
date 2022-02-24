@@ -136,8 +136,8 @@ public class Storage {
     private static Task loadDeadlineDetails(ArrayList<String> task, String[] pieces) throws DukeException {
         // description of task
         task.add(pieces[2]);
-        // prepositions of task
-        task.add(pieces[4]);
+        // preposition
+        task.add("/at");
         // deadline of task
         task.add(pieces[3]);
         return TaskList.buildTask(task);
@@ -174,7 +174,6 @@ public class Storage {
         }
         ret += (task.getDescription() + "|");
         ret += (task.getTiming() + "|");
-        ret += (task.getPrepositions());
         return ret;
     }
 
@@ -188,8 +187,8 @@ public class Storage {
     private static Task loadEventDetails(ArrayList<String> task, String[] pieces) throws DukeException {
         // description of task
         task.add(pieces[2]);
-        // prepositions of task
-        task.add(pieces[4]);
+        // preposition
+        task.add("/at");
         // timing of event
         task.add(pieces[3]);
         return TaskList.buildTask(task);
@@ -210,7 +209,6 @@ public class Storage {
         }
         ret += (task.getDescription() + "|");
         ret += (task.getTiming() + "|");
-        ret += (task.getPrepositions());
         return ret;
     }
 
