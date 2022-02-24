@@ -1,0 +1,59 @@
+clear
+apple
+clear
+Y
+mark 1
+unmark 1
+delete 3
+todo test1
+todo test1 test2
+list
+mark
+unmark
+event 
+event  
+event /at
+event /at test3
+event at test3
+event test3 test4
+event test3 test4 /at test5 test6
+list
+mark 3
+mark 4
+mark 0
+event test3 /at test4 test5
+list
+mark 4
+mark apple
+event test7 /by test8
+list
+unmark 4
+unmark 0
+unmark apple
+list
+deadline test9 test10 /at test11
+deadline test9
+deadline test9 test10 /by test11 test12
+deadline test9 test10
+deadline test9 test10 /by test11
+deadline 
+deadline  
+deadline /by
+deadline /by test12 test13
+deadline test12 by test13
+deadline test12 /by test13 /by test14
+list
+help
+? apple
+help test
+delete 
+delete 0
+delete 8
+delete apple
+delete 7
+list
+delete 3
+list
+mark 2
+list
+bye
