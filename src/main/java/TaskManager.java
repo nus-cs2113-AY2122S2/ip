@@ -3,14 +3,15 @@ import DukeTask.Event;
 import DukeTask.Task;
 import DukeTask.ToDo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskManager {
     protected static ArrayList<Task> tasks = new ArrayList<>();
 
-    /*
-    addTask is a public method for adding DukeTask.Task based on its type (TODOm DEADLINE, EVENT).
-    It will throw exception if no description is provided or no time is provided for DEADLINE and EVENT task.
+    /**
+     * Add DukeTask.Task based on its type (TODOm DEADLINE, EVENT).
+     * @param command parsed command which follows string arraylist format: task type, description, (time).
      */
     public static void addTask(ArrayList<String> command){
         String choice = command.get(0);
@@ -39,8 +40,8 @@ public class TaskManager {
 
     }
 
-    /*
-    printTask is a public method for printing Tasks in current TaskList.
+    /**
+     * printTask is a public method for printing Tasks in current TaskList.
      */
     public void printTasks(){
         System.out.println("____________________________________________________________");
@@ -51,9 +52,10 @@ public class TaskManager {
         System.out.println("____________________________________________________________");
     }
 
-    /*
-    changeTaskStatus is a private method for mark/ unmark a DukeTask.Task.
-    It will throw exception if the index is out of range.
+    /**
+     * Mark/ Unmark a DukeTask.Task. It is set private because no other class access this method.
+     * @param index index of mark/unmark.
+     * @param markDone boolean type. If markDone is true, it means it needs to mark task of certain index.
      */
     private void changeTaskStatus(int index, boolean markDone){
         if(markDone){//to mark it as done
@@ -70,9 +72,9 @@ public class TaskManager {
         System.out.println("____________________________________________________________");
     }
 
-    /*
-    deleteTask is a public method which delete a task based on its given index.
-    It will throw exception if the index is out of range.
+    /**
+     * Delete a task based on its given index.
+     * @param index index of task to be deleted.
      */
     public void deleteTask(int index){
         Task deletedTask = tasks.get(index-1);
@@ -84,6 +86,9 @@ public class TaskManager {
 
     }
 
+    /**
+     * find Task based on a given keyword.
+     */
     public void findTask(String keyword){
         int count = 1;
         System.out.println("____________________________________________________________");
@@ -99,6 +104,10 @@ public class TaskManager {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Manage all command type using a switch statement.
+     * @param command parsed command which follows the format: commandType， (command content).
+     */
     public void manageCommand(ArrayList<String> command){
         if(command.size()==0)
             return;
@@ -123,6 +132,15 @@ public class TaskManager {
             break;
         case "FIND":
             findTask(command.get(1));
+            break;
+        case "SAVE":
+            Storage storage = new Storage();
+            try {
+                storage.saveData();
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+            System.out.println("Saved successfully!");
             break;
         }
     }
