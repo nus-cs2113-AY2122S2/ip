@@ -117,9 +117,9 @@ public class TaskManager {
             break;
         case "UNMARK":
         case "MARK":
-            boolean mark = command.get(0).equals("MARK")?true:false;
+            boolean isMark = command.get(0).equals("MARK")?true:false;
             int indexMark = Integer.parseInt(command.get(1));
-            changeTaskStatus(indexMark, mark);
+            changeTaskStatus(indexMark, isMark);
             break;
         case "DELETE":
             int indexDelete = Integer.parseInt(command.get(1));
