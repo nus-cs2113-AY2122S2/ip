@@ -1,6 +1,5 @@
 package duke.helper;
 
-import duke.main.Duke;
 import duke.main.DukeException;
 
 import java.time.LocalDate;
@@ -18,6 +17,7 @@ public class Parser {
     protected static LocalDate startDate;
     protected static LocalTime startTime;
     public static final int INVALID = -1;
+    public static final String FINDCMD = "find";
 
     public String getTaskName() {
         return taskName;
@@ -43,10 +43,6 @@ public class Parser {
         line = in.nextLine();
     }
 
-    public String getLine() {
-        return line;
-    }
-
     public boolean isMarkCommand() {
         return line.split(" ")[0].equals("mark");
     }
@@ -65,6 +61,14 @@ public class Parser {
 
     public boolean isListCommand() {
         return line.equals("list");
+    }
+
+    public boolean isFindCommand() {
+        return line.split(" ")[0].equals(FINDCMD);
+    }
+
+    public String getLine() {
+        return line;
     }
 
     public int parseIndex(Ui ui, int taskCount) {
@@ -97,6 +101,10 @@ public class Parser {
             }else if (isDeleteCommand()) {
                 int index = parseIndex(ui, tasks.getTaskCount());
                 tasks.deleteTask(index, ui, storage);
+            }else if (isFindCommand()) {
+                removeCommand(FINDCMD);
+                String keyword = getLine();
+                tasks.findTasks(keyword);
             }else {
                 tasks.addNewTask(ui, storage, this);
             }
@@ -107,7 +115,7 @@ public class Parser {
         return line.split(" ")[0];
     }
 
-    public void removeTaskType(String taskType) {
+    public void removeCommand(String taskType) {
         if (line.length() > taskType.length()) {
             line = line.substring(taskType.length() + 1);
         }else {
