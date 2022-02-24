@@ -1,0 +1,13 @@
+todo team discussion
+deadline submit report /by March 2
+event attend tutorial /at Friday 2pm
+deadline read book /by tomorrow
+list
+mark 2
+mark 3
+list
+unmark 2
+list
+delete 4
+list
+bye
