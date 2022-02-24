@@ -23,7 +23,7 @@ Do not worry about missing out details of your tasks, as Serene will notice when
 1. Ensure that you are running Java `11` on your system.
 2. Download the latest `Serene.jar` from [here](https://github.com/Teanweijun/ip/releases/tag/A-Release).
 3. Copy the file to the folder you want to use as the *home folder* for Serene.
-4. Double-click the file to start the app. The interface similar to the one below should appear in a few seconds.  
+4. Open a command line to the home folder and run the file with `java -jar Serene.jar`. The interface similar to the one below should appear in a few seconds.  
    ![Startup_interface](/assets/Startup.png)
 5. Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.
 Some example commands you can try:
