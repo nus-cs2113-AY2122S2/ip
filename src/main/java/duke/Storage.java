@@ -136,6 +136,7 @@ public class Storage {
     private static Task loadDeadlineDetails(ArrayList<String> task, String[] pieces) throws DukeException {
         // description of task
         task.add(pieces[2]);
+        // preposition
         task.add("/at");
         // deadline of task
         task.add(pieces[3]);
@@ -186,6 +187,7 @@ public class Storage {
     private static Task loadEventDetails(ArrayList<String> task, String[] pieces) throws DukeException {
         // description of task
         task.add(pieces[2]);
+        // preposition
         task.add("/at");
         // timing of event
         task.add(pieces[3]);
