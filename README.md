@@ -1,4 +1,4 @@
-# Duke project
+# Duke project by Yaxin
 
 Duke is a personal assistant chatbot that helps a person to keep track of various tasks, optimized for use via a Command Line Interface. If you type fast, Duke can help you manage your tasks faster.
 
@@ -8,7 +8,7 @@ Duke is a personal assistant chatbot that helps a person to keep track of variou
    |  _ \ _   _| | _____ 
    | | | | | | | |/ / _ \
    | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+   |____/ \____|_|\_\___|
    ```
 
 # User Guide
@@ -16,6 +16,8 @@ Duke is a personal assistant chatbot that helps a person to keep track of variou
 Duke is a personal assistant chatbot that helps a person to keep track of various tasks, 
 optimized for use via a **Command Line Interface**. 
 If you type fast, Duke can help you manage your tasks faster.
+
+You can also view the User Guide [here](https://yaxinjoy.github.io/ip/)
 
 ## Contents
 
@@ -32,7 +34,7 @@ If you type fast, Duke can help you manage your tasks faster.
 
 ## Features
 
-All command type ignore the case.
+All command types ignore the case.
 
 ### Add a task: `taskType taskName ...` 
 
