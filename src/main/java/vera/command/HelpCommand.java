@@ -20,7 +20,8 @@ public class HelpCommand extends Command {
         System.out.println("Here is a list of commands available:");
         String[] helpCommands = {ListCommand.COMMAND_WORD, MarkCommand.COMMAND_WORD
                 , UnmarkCommand.COMMAND_WORD, TodoCommand.COMMAND_WORD, DeadlineCommand.COMMAND_WORD
-                , EventCommand.COMMAND_WORD, DeleteCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,};
+                , EventCommand.COMMAND_WORD, DeleteCommand.COMMAND_WORD, FindCommand.COMMAND_WORD
+                , ExitCommand.COMMAND_WORD,};
         for (String helpCommand : helpCommands) {
             ui.showLine();
             showSpecificHelpCommand(ui, helpCommand);
@@ -52,6 +53,9 @@ public class HelpCommand extends Command {
             break;
         case DeleteCommand.COMMAND_WORD:
             ui.showToUser(DeleteCommand.MESSAGE_USAGE);
+            break;
+        case FindCommand.COMMAND_WORD:
+            ui.showToUser(FindCommand.MESSAGE_USAGE);
             break;
         case ExitCommand.COMMAND_WORD:
             ui.showToUser(ExitCommand.MESSAGE_USAGE);

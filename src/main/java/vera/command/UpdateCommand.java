@@ -23,7 +23,7 @@ public class UpdateCommand extends Command {
         boolean isOldTaskReplaced = false;
         ui.showToUser("Oops! It seems that you've already added this task.\n"
                 + "Would you like to override the\nexisting time and/or date "
-                + "with the new input? (Y/N)");
+                + "with the new input? [Y/N]");
         ui.showLine();
         while (true) {
             String input = ui.readCommand();

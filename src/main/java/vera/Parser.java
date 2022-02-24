@@ -11,6 +11,7 @@ import vera.command.UpdateCommand;
 import vera.command.DeleteCommand;
 import vera.command.HelpCommand;
 import vera.command.ExitCommand;
+import vera.command.FindCommand;
 
 import vera.constant.DateAndTimeFormat;
 import vera.exception.InputEmptyException;
@@ -21,13 +22,14 @@ import vera.task.Task;
 import vera.task.Todo;
 
 
+import static vera.constant.Indexes.INPUT_TO_FIND_INDEX;
+import static vera.constant.Indexes.SAVE_TASK_DESCRIPTION_INDEX;
+import static vera.constant.Indexes.SAVE_TASK_TYPE_INDEX;
 import static vera.constant.Indexes.HELP_OPTIONS_INDEX;
 import static vera.constant.Indexes.MARK_INDEX;
 import static vera.constant.Indexes.OPTIONS_INDEX;
 import static vera.constant.Indexes.SAVE_TASK_DATE_INDEX;
-import static vera.constant.Indexes.SAVE_TASK_DESCRIPTION_INDEX;
 import static vera.constant.Indexes.SAVE_TASK_MARK_STATUS;
-import static vera.constant.Indexes.SAVE_TASK_TYPE_INDEX;
 import static vera.constant.Indexes.TASK_CONTENT_INDEX;
 import static vera.constant.Indexes.TASK_DATE_INDEX;
 import static vera.constant.Messages.ERROR_INVALID_MARKING_INDEX_MESSAGE;
@@ -243,6 +245,8 @@ public class Parser {
                     taskList, DeadlineCommand.COMMAND_WORD);
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(parsedInput, taskList);
+        case FindCommand.COMMAND_WORD:
+            return new FindCommand(parsedInput[INPUT_TO_FIND_INDEX]);
         case HelpCommand.COMMAND_WORD:
             return prepareHelp(userInput);
         case ExitCommand.COMMAND_WORD:
