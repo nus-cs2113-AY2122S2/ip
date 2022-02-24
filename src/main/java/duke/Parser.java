@@ -14,6 +14,7 @@ public abstract class Parser {
     public static final String COMMAND_TODO = "todo";
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
+    public static final String COMMAND_FIND = "find";
     public static final String COMMAND_DELETE = "delete";
     /**
      * Checks the String inputted by the user and executes the appropriate command
@@ -38,6 +39,9 @@ public abstract class Parser {
         case COMMAND_DELETE:
             String taskToDelete = pieces.get(1);
             return new DeleteCommand(taskToDelete);
+        case COMMAND_FIND:
+            String taskToFind = pieces.get(1);
+            return new FindCommand(taskToFind);
         case COMMAND_TODO:
         case COMMAND_DEADLINE:
         case COMMAND_EVENT:
