@@ -21,7 +21,10 @@ public class EventCommand extends Command {
             + "An 'event' contains both a task description \nand a date "
             + "of when the event will happen. \n\nTo execute the command,\n"
             + "enter 'event <task_description> /at <task_date>'.\n"
-            + "E.g. event project meeting /at 6th Aug 2-4pm.";
+            + "E.g. event project meeting /at 2022/08/06 1400.\n"
+            + "\nAll event dates must be given in the format:"
+            + "\n\t\tyyyy/MM/dd [HH:mm], where\n"
+            + "year is in 4 digits, month and day in two digits, and an \noptional time in 24 hour format.";
 
     public EventCommand(String[] filteredTaskContent, TaskList tasklist, LocalDateTime dateInput)
             throws InputEmptyException, InputRepeatedException {

@@ -20,7 +20,10 @@ public class DeadlineCommand extends Command {
     public static final String MESSAGE_USAGE = "Deadline: Adds a 'deadline' task "
             + "into the task list. \nA 'deadline' contains both a task description \nand a date "
             + "to finish the task by.\n\nTo execute the command,\nenter 'deadline <task_description> "
-            + "/by <task_date>'.\nE.g. deadline return book /by Sunday.";
+            + "/by <task_date>'.\nE.g. deadline return book /by 2022/02/03.\n\n"
+            + "All deadline dates must be given in the format:\n"
+            + "\t\tyyyy/MM/dd [HH:mm], where\n"
+            + "year is in 4 digits, month and day in two digits, and an\noptional time in 24 hour format.";
 
     public DeadlineCommand(String[] filteredTaskContent, TaskList tasklist, LocalDateTime dateInput)
             throws InputEmptyException, InputRepeatedException {
