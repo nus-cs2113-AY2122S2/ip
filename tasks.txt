@@ -1,4 +1,2 @@
-E|0| project meeting | Aug 6th 2-4pm
-T|1| join sports club
-T|1|go tutorial
-D|0|cz3005 |by next week 9pm
+T|1|ITS WORKING?
+T| 0 |alamak
