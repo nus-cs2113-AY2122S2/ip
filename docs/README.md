@@ -21,7 +21,7 @@ Do not worry about missing out details of your tasks, as Serene will notice when
 
 ## Quick start
 1. Ensure that you are running Java `11` on your system.
-2. Download the latest `Serene.jar` from [here]().
+2. Download the latest `Serene.jar` from [here](https://github.com/Teanweijun/ip/releases/tag/A-Release).
 3. Copy the file to the folder you want to use as the *home folder* for Serene.
 4. Double-click the file to start the app. The interface similar to the one below should appear in a few seconds.  
    ![Startup_interface](/assets/Startup.png)
