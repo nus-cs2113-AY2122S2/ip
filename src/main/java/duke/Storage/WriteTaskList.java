@@ -1,4 +1,4 @@
-package duke;
+package duke.Storage;
 
 import duke.task.Deadline;
 import duke.task.Event;
@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 public class WriteTaskList {
 
@@ -35,7 +36,7 @@ public class WriteTaskList {
         }
     }
 
-    private static String listToString(Task[] list) {
+    private static String listToString(ArrayList<Task> list) {
         String listAsString = "";
         for (Task t : list) {
             try {
@@ -53,7 +54,7 @@ public class WriteTaskList {
         fw.close();
     }
 
-    public static void writeList(Task[] list) {
+    public static void writeList(ArrayList<Task> list) {
         try {
             Path tasksPath = ReadWriteUtil.findFile();
             String stringOfList = listToString(list);

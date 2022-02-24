@@ -1,16 +1,15 @@
 package duke;
 
 import java.util.ArrayList;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
 
-import java.util.ArrayList;
+import duke.Parser.TaskString;
+import duke.task.Task;
+
 import java.util.Scanner;
 
-import static duke.ReadTaskList.readFile;
-import static duke.WriteTaskList.writeList;
+import static duke.Parser.TaskString.parseTask;
+import static duke.Storage.ReadTaskList.readFile;
+import static duke.Storage.WriteTaskList.writeList;
 
 /**
  * Runs the Duke chat-bot which takes in user input,
@@ -98,58 +97,6 @@ public class Duke {
                 String.format("\nNow you have %d tasks in the list.", list.size()));
     }
 
-    private static Task parseDeadline(String description) throws DukeException {
-        if (description.equals("")) {
-            throw new DukeException("Please provide a task description!");
-        }
-        String by;
-        try {
-            String[] deadlineBreakdown = description.split("/by ", 2);
-            description = deadlineBreakdown[0];
-            by = deadlineBreakdown[1];
-        } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("You need to provide a time for your deadline (e.g. /by 7am)");
-        }
-        return new Deadline(description, by);
-    }
-
-    private static Task parseEvent(String description) throws DukeException {
-        if (description.equals("")) {
-            throw new DukeException("Please provide a task description!");
-        }
-        String at;
-        try {
-            String[] eventBreakdown = description.split(" /at ", 2);
-            description = eventBreakdown[0];
-            at = eventBreakdown[1];
-        } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("You need to provide a time for your event (e.g. /at 2-4pm)");
-        }
-        return new Event(description, at);
-    }
-
-    private static Task parseTask(String type, String description) throws DukeException {
-        Task t;
-        switch (type) {
-        case "todo":
-            if (description.equals("")) {
-                throw new DukeException("Please provide a task description!");
-            }
-            t = new Todo(description);
-            break;
-        case "deadline":
-            t = parseDeadline(description);
-            break;
-        case "event":
-            t = parseEvent(description);
-            break;
-        default:
-            throw new DukeException("I don't understand what you want to do, big sad :(");
-        }
-
-        return t;
-    }
-
     private static void addTask(String line) {
         try {
             String[] commands = line.split(" ", 2);
@@ -188,11 +135,7 @@ public class Duke {
         greet();
         String line;
         Scanner in = new Scanner(System.in);
-        ArrayList<Task> existingTasks = readFile();
-        for (Task t : existingTasks) {
-            list[taskIndex] = t;
-            taskIndex++;
-        }
+        list.addAll(readFile());
 
         while (!willExit) {
             line = in.nextLine();
