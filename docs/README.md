@@ -22,7 +22,7 @@ Do not worry about missing out details of your tasks, as Serene will notice when
 1. Ensure that you are running Java `11` on your system.
 2. Download the latest `Serene.jar` from [here]().
 3. Copy the file to the folder you want to use as the *home folder* for Serene.
-4. Double-click the file to start the app. The interface similar to the one below should appear in a few seconds.
+4. Double-click the file to start the app. The interface similar to the one below should appear in a few seconds.  
    ![Startup_interface](/assets/Startup.png)
 5. Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.
 Some example commands you can try:
@@ -50,7 +50,7 @@ Format: `help`
 
 Adds a todo type task to the task list.  
 Format: `todo DESCRIPTION`  
-Examples: 
+Examples:
 - `todo Try out Serene`
 - `todo Drink water`  
   ![Add_ToDo](/assets/Add_ToDo.png)
@@ -59,7 +59,7 @@ Examples:
 
 Adds a deadline type task to the task list.  
 Format: `deadline DESCRIPTION /by TIME`  
-Examples: 
+Examples:
 - `deadline Implement CS2113T increments /by Next week`
 - `deadline Read book /by Tonight 6pm`
   ![Add_ToDo](/assets/Add_Deadline.png)
@@ -92,17 +92,17 @@ Format: `delete INDEX`
 
 Shows a list of all tasks in the task list.  
 Format: `list`  
-Example list:
+Example list:  
 ![List_example](/assets/List.png)
 
 ### Finding a task: `find`
 
 Find tasks whose descriptions contain the given keywords.  
-Format: `find KEYWORD(S)`  
+Format: `find KEYWORD(S)`
 - The search is case-sensitive. e.g. `work` will **NOT** match `Work`.
 - The order of the keywords matter. e.g. `bake cake` will **NOT** match `cake bake`.
 - Only the description is searched.
-- Partial words can be matched e.g. `read` will match `reading`.
+- Partial words can be matched e.g. `read` will match `reading`.  
 Examples:
 - `find Read` returns `Read book`
 - `find Serene` returns `Try out Serene`
