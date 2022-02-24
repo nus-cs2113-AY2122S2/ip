@@ -84,6 +84,12 @@ public class Ui {
         printWithPartition(toPrint);
     }
 
+    /**
+     * Prints tasks which contains what the user is searching for in the description.
+     *
+     * @param taskList The array of available tasks
+     * @param userInput The user's input
+     */
     public static void printFoundTasks(ArrayList<Task> taskList, String[] userInput) {
         try {
             String toFind = userInput[Constant.RESPONSE_INDEX_BODY];

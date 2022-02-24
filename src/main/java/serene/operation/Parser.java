@@ -114,6 +114,13 @@ public class Parser {
         return input.equals("");
     }
 
+    /**
+     * Returns if the task is one of what the user is searching for.
+     *
+     * @param task The task to check
+     * @param toFind The user's search word
+     * @return True if the task has what the user is looking for, false otherwise
+     */
     public static boolean isOfInterest(Task task, String toFind) {
         return task.getDescription().contains(toFind);
     }
