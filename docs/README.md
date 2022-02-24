@@ -24,7 +24,7 @@ Some example commands you can try:
 
 ## Features 
 
-:bangbang: ***Notes about the command format***
+***Notes about the command format***
 * Words in `UPPER_CASE` are parameters to be supplied by the user.
 e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo Try out Serene`.
 * Extraneous parameters for commands that do not take in parameters (such as `help` and `list`) will be ignored.
@@ -42,7 +42,7 @@ Format: `todo DESCRIPTION`
 Examples: 
 - `todo Try out Serene`
 - `todo Drink water`
-![Add_ToDo](/ip/docs/assets/Add_ToDo.png)
+![Add_ToDo](/assets/Add_ToDo.png)
 
 ### Adding a deadline: `deadline`
 
@@ -51,7 +51,7 @@ Format: `deadline DESCRIPTION /by TIME`
 Examples: 
 - `deadline Implement CS2113T increments /by Next week`
 - `deadline Read book /by Tonight 6pm`
-  ![Add_ToDo](/ip/docs/assets/Add_Deadline.png)
+  ![Add_ToDo](/assets/Add_Deadline.png)
 
 ### Adding an event: `event`
 
@@ -60,7 +60,7 @@ Format: `event DESCRIPTION /by TIME`
 Examples:
 - `event Watch anime /at 7pm tonight`
 - `event Practice Hack the Box /at Tomorrow`
-  ![Add_ToDo](/ip/docs/assets/Add_Event.png)
+  ![Add_ToDo](/assets/Add_Event.png)
 
 ### Marking a task: `mark`
 
