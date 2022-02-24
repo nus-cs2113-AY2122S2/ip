@@ -18,7 +18,7 @@ public class DeadlinesTask extends Task {
      */
     public DeadlinesTask(String taskDescription, String taskType, String dateTime) throws DukeException {
         super(taskDescription, taskType);
-        try{
+        try {
             this.dateTime = new DukeTime(dateTime);
         } catch (DukeException e) {
             throw e;
@@ -31,7 +31,7 @@ public class DeadlinesTask extends Task {
      * @param compressedObject Compressed object that contains all model information for initialize that task
      */
     public DeadlinesTask(HashMap<String, Object> compressedObject) {
-        super( compressedObject);
+        super(compressedObject);
         dateTime = (DukeTime) compressedObject.get(DATE_TIME_FIELD);
     }
 

@@ -3,9 +3,10 @@ package operations;
 import exceptions.DukeException;
 import tasks.TaskList;
 
-public class SaveOperation extends Operation{
+public class SaveOperation extends Operation {
 
     private static final String SAVE_SUCCESS_WORDS = "Received! Already saved the records for you! ^-^";
+
     /**
      * Initializes operation with operationName
      * @param operationNameLocal Name of the operations.Operation
@@ -22,7 +23,7 @@ public class SaveOperation extends Operation{
      * @throws DukeException Save Exception
      */
     @Override
-    public String operate() throws DukeException{
+    public String operate() throws DukeException {
         try {
             TaskList.save();
             return SAVE_SUCCESS_WORDS;

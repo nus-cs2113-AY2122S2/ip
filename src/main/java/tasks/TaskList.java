@@ -16,9 +16,10 @@ public class TaskList {
     private static final String TASK_DAO_BASE_PATH = "data";
     private static final String TASK_DAO_FILE_NAME = "tasks.txt";
     private static TaskFileDAO taskFileDao;
+
     public TaskList() throws DukeException {
         try {
-            taskFileDao = new TaskFileDAO(TASK_DAO_BASE_PATH,TASK_DAO_FILE_NAME);
+            taskFileDao = new TaskFileDAO(TASK_DAO_BASE_PATH, TASK_DAO_FILE_NAME);
             taskArrayList = taskFileDao.readTasks();
         } catch (DukeException e) {
             taskArrayList = new ArrayList<>();
@@ -74,7 +75,7 @@ public class TaskList {
         }
     }
 
-    public static void save() throws DukeException{
+    public static void save() throws DukeException {
         taskFileDao.writeTasks(taskArrayList);
     }
 

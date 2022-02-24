@@ -4,7 +4,7 @@ import exceptions.DukeException;
 import tasks.Task;
 import tasks.TaskList;
 
-public class FindOperation extends Operation{
+public class FindOperation extends Operation {
 
     /**
      * Initializes operation with operationName
@@ -29,7 +29,7 @@ public class FindOperation extends Operation{
                 }
                 Task taskLocal = TaskList.getElement(i);
                 if (taskLocal.getTaskDescription().contains(targetWord)) {
-                    count +=1;
+                    count += 1;
                     resultLocal += (String.valueOf(count) + ". " + taskLocal.getReport());
                 }
 

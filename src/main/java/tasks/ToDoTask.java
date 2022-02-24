@@ -25,10 +25,8 @@ public class ToDoTask extends Task {
      * @param compressedObject Compressed object that contains all model information for initialize that task
      */
     public ToDoTask(HashMap<String, Object> compressedObject) {
-        super( compressedObject);
+        super(compressedObject);
     }
-
-
 
 
 }

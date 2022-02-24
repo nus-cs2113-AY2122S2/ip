@@ -1,3 +1,4 @@
+import exceptions.DukeException;
 import operations.Operation;
 import operations.OperationFactory;
 
@@ -31,8 +32,6 @@ public class Controller {
     }
 
 
-
-
     /**
      *  Listen to the i/o and pass the instruction to operationFactory.
      */
@@ -52,8 +51,8 @@ public class Controller {
                     break;
                 }
 
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (DukeException e) {
+                ChatBox.printChatBox(String.format("%s\n\n  %s", e.toString(), "Try to enter \"help\" to check the syntax ^-^"));
             }
 
         }

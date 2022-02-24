@@ -2,7 +2,7 @@ package operations;
 
 import exceptions.DukeException;
 
-public class HelpOperation extends Operation{
+public class HelpOperation extends Operation {
     /**
      * Initializes operation with operationName
      * @param operationNameLocal Name of the operations.Operation

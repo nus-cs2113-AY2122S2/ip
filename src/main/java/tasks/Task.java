@@ -1,5 +1,7 @@
 package tasks;
+
 import java.util.HashMap;
+
 public class Task {
     protected String taskDescription;
     protected Boolean marked = false;
@@ -32,7 +34,7 @@ public class Task {
      * Constructs a task objects with compressedObject
      * @param compressedObject Compressed object that contains all model information for initialize that task
      */
-    public Task( HashMap<String, Object> compressedObject ) {
+    public Task(HashMap<String, Object> compressedObject) {
         taskDescription = (String) compressedObject.get(TASK_DESCRIPTION_FIELD);
         marked = (Boolean) compressedObject.get(MARKED_FIELD);
         taskType = (String) compressedObject.get(TASK_TYPE);
@@ -86,7 +88,7 @@ public class Task {
      * Compresses the task objects into a map objects
      * @return A compressed object that can initialize the model task again
      */
-    public HashMap<String, Object> compress(){
+    public HashMap<String, Object> compress() {
         HashMap<String, Object> compressedObject = new HashMap<>();
         compressedObject.put(TASK_DESCRIPTION_FIELD, taskDescription);
         compressedObject.put(MARKED_FIELD, marked);

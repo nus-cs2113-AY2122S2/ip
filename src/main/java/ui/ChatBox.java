@@ -12,11 +12,11 @@ public class ChatBox {
      * Intitializes a ui.ChatBox with Defined contends
      * @param contends The contends in one ui.ChatBox
      */
-    public ChatBox(String contends){
+    public ChatBox(String contends) {
         contendsSetter(contends);
     }
 
-    public ChatBox(){
+    public ChatBox() {
     }
 
 
@@ -50,7 +50,7 @@ public class ChatBox {
      * @param contends The contends that needs to be printed
      */
     public static void printChatBox(String contends) {
-        String printString = UPPER_LINE + "\n" + contends  + "\n" + UPPER_LINE + "\n";
+        String printString = UPPER_LINE + "\n" + contends + "\n" + UPPER_LINE + "\n";
         System.out.println(printString);
     }
 

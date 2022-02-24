@@ -24,10 +24,11 @@ public abstract class Operation {
     public Operation(String operationNameLocal, String order) throws DukeException {
         this.operationName = operationNameLocal;
         this.helpMessage = "     " + operationNameLocal + "                                             --help message not defined\n";
-        if (order == "" ){
+        if (order == "") {
 
-            this.result =  operationNameLocal + " " + NULL_RESULT;
-        } else {
+            this.result = operationNameLocal + " " + NULL_RESULT;
+        }
+        else {
             try {
                 this.order = order;
                 this.result = operate();
@@ -46,12 +47,10 @@ public abstract class Operation {
     }
 
 
-
-
     public void executeOperation() throws DukeException {
         try {
             this.result = operate();
-        } catch (DukeException  e){
+        } catch (DukeException e) {
             throw e;
         }
     }

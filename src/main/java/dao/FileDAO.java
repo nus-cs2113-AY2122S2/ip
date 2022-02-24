@@ -1,4 +1,5 @@
 package dao;
+
 import exceptions.DukeException;
 import exceptions.FileCreateDukeException;
 import exceptions.FileNotFoundDukeException;
@@ -23,9 +24,9 @@ public class FileDAO {
      * @param fileName The name of the file
      * @throws DukeException
      */
-    public FileDAO(String basePath, String fileName) throws DukeException{
-        targetFile = new File(String.format("%s/%s",basePath,fileName));
-        if (!targetFile.exists()){
+    public FileDAO(String basePath, String fileName) throws DukeException {
+        targetFile = new File(String.format("%s/%s", basePath, fileName));
+        if (!targetFile.exists()) {
             try {
                 targetFile = createTargetFile(targetFile);
             } catch (DukeException e) {
@@ -53,7 +54,7 @@ public class FileDAO {
             FileOutputStream writeData = new FileOutputStream(taskFile);
             ObjectOutputStream writeStream = new ObjectOutputStream(writeData);
             writeStream.writeInt(0);
-            writeStream.writeChar(START_INDICATOR );
+            writeStream.writeChar(START_INDICATOR);
             writeStream.flush();
             writeStream.close();
             return taskFile;

@@ -7,7 +7,7 @@ import tasks.TaskList;
 public class Duke {
 
     public static void main(String[] args) {
-        try{
+        try {
             TaskList dukeTaskList = new TaskList();
         } catch (DukeException e) {
             System.out.println(e);

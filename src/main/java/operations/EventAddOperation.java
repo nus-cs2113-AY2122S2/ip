@@ -16,7 +16,7 @@ public class EventAddOperation extends AddOperation {
      */
     public EventAddOperation(String operationNameLocal, String order) throws DukeException {
         super(operationNameLocal, order);
-        helpMessage = "     event <task_description> /at<YYYY-MM-DD> <HH:MM>   --add a event type task (HH:MM is compulsory) \n";
+        helpMessage = "     event <task_description> /at <YYYY-MM-DD> <HH:MM>  /to <YYYY-MM-DD> <HH:MM>  --add a event type task  \n       -- event: (hh:mm is optional, or simply HHMM is also accepted; <YYYY-MM-DD> can also be in <DD/MM/YYYY> format)  \n       -- event: (/to <YYYY-MM-DD> <HH:MM> is optional)\n";
     }
 
     /**

@@ -1,6 +1,6 @@
 package exceptions;
 
-public class FileCreateDukeException extends DukeException{
+public class FileCreateDukeException extends DukeException {
     static final private String FILE_CREATE_EXCEPTION_WORDS = " ☹ OOPS!!! Fail to create the file:(";
 
     @Override

@@ -15,7 +15,7 @@ import java.util.HashMap;
 /**
  * Dao for task
  */
-public class TaskFileDAO extends FileDAO{
+public class TaskFileDAO extends FileDAO {
 
     /**
      * Initializes a file data access object
@@ -38,10 +38,10 @@ public class TaskFileDAO extends FileDAO{
             ObjectOutputStream writeStream = new ObjectOutputStream(writeData);
             writeStream.writeInt(taskList.size());
             writeStream.writeChar(START_INDICATOR);
-            for (int i = 0; i<taskList.size(); i++) {
+            for (int i = 0; i < taskList.size(); i++) {
                 writeStream.writeObject(taskList.get(i).compress());
             }
-        } catch ( Exception e) {
+        } catch (Exception e) {
             throw new DAOWriteStreamBrokenDukeException();
         }
     }
