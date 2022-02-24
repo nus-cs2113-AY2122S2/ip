@@ -7,6 +7,16 @@ Do not worry about missing out details of your tasks, as Serene will notice when
 - [Quick start](#quick-start)
 - [Features](#features)
   - [Viewing help: `help`](#viewing-help-help)
+  - [Adding a todo: `todo`](#adding-a-todo-todo)
+  - [Adding a deadline: `deadline`](#adding-a-deadline-deadline)
+  - [Adding an event: `event`](#adding-an-event-event)
+  - [Marking a task: `mark`](#marking-a-task-mark)
+  - [Unmarking a task: `unmark`](#unmarking-a-task-unmark)
+  - [Deleting a task: `delete`](#deleting-a-task-delete)
+  - [Listing all tasks: `list`](#listing-all-tasks-list)
+  - [Finding a task: `find`](#finding-a-task-find)
+  - [Exiting the program: `bye`](#exiting-the-program-bye)
+  - [Saving the data](#saving-the-data)
 
 ## Quick start
 1. Ensure that you are running Java `11` on your system.
@@ -42,7 +52,7 @@ Format: `todo DESCRIPTION`
 Examples: 
 - `todo Try out Serene`
 - `todo Drink water`
-![Add_ToDo](/assets/Add_ToDo.png)
+  ![Add_ToDo](/assets/Add_ToDo.png)
 
 ### Adding a deadline: `deadline`
 
@@ -82,6 +92,7 @@ Format: `delete INDEX`
 Shows a list of all tasks in the task list.
 Format: `list`
 Example list:
+![List_example](/assets/List.png)
 
 ### Finding a task: `find`
 
@@ -94,6 +105,17 @@ Format: `find KEYWORD(S)`
 Examples:
 - `find Read` returns `Read book`
 - `find Serene` returns `Try out Serene`
+  ![Find_example](/assets/Find.png)
+
+### Exiting the program: `bye`
+
+Exits the program.
+Format: `exit`
+
+### Saving the data
+
+Serene data are saved in the hard disk automatically after any command that changes the data.
+There is no need to save manually.
 
 ## Usage
 
