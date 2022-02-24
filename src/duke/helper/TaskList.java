@@ -39,6 +39,25 @@ public class TaskList {
         System.out.println(LINEBREAK);
     }
 
+    public void findTasks(String keyword) {
+        System.out.println(LINEBREAK);
+        String matchedTasks = "Here are the matching tasks: \n";
+        boolean hasMatched = false;
+        for (int j = 0; j < taskCount; j++) {
+            boolean isMatched = list.get(j).getName().contains(keyword);
+            if (isMatched){
+                hasMatched = true;
+                matchedTasks += Integer.toString(j + 1) + list.get(j) + "\n";
+            }
+        }
+        if (hasMatched) {
+            System.out.println(matchedTasks);
+        }else {
+            System.out.println("There are no matching tasks.");
+        }
+        System.out.println(LINEBREAK);
+    }
+
     public void deleteTask(int index, Ui ui, Storage storage) {
         taskCount--;
         ui.printDeleteMessage(list.get(index).toString(), taskCount);
@@ -79,7 +98,7 @@ public class TaskList {
 
     public void addNewTask(Ui ui, Storage storage, Parser parser){
         String taskType = parser.parseTaskType();
-        parser.removeTaskType(taskType);
+        parser.removeCommand(taskType);
         try {
             switch (taskType) {
             case TODO:
