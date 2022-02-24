@@ -1,3 +1,4 @@
+Booting up...
 ____________________________________________________________
  __     __             
  \ \   / /__ _ __ __ _ 
@@ -16,7 +17,7 @@ Now you have 1 task(s) in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [D] [ ] return book (by: June 6th)
+  [D] [ ] return book (by: 06 Jun 2022, Mon 12:00 AM)
 Now you have 2 task(s) in the list.
 ____________________________________________________________
 ____________________________________________________________
@@ -25,7 +26,7 @@ Nice! I've marked this task as done:
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [E] [ ] project meeting (at: Aug 6th 2-4pm)
+  [E] [ ] project meeting (at: 06 Aug 2022, Sat 02:00 PM)
 Now you have 3 task(s) in the list.
 ____________________________________________________________
 ____________________________________________________________
@@ -59,43 +60,62 @@ ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1. [T] [X] read book
-2. [D] [ ] return book (by: June 6th)
-3. [E] [ ] project meeting (at: Aug 6th 2-4pm)
+2. [D] [ ] return book (by: 06 Jun 2022, Mon 12:00 AM)
+3. [E] [ ] project meeting (at: 06 Aug 2022, Sat 02:00 PM)
 4. [T] [X] join sports club
 5. [T] [ ] borrow book
 ____________________________________________________________
 A total of 5 item(s) have been found!
 ____________________________________________________________
 ____________________________________________________________
+It seems that the date and time
+you gave is not in the correct format.
+Would you like to reenter a valid date and time? (Y/N)
+*Enter 'No' to skip the adding of this task*
+____________________________________________________________
+____________________________________________________________
+Okay, proceeding to stop adding/updating this task...
+____________________________________________________________
+____________________________________________________________
 Oops! It seems that you've already added this task.
 Would you like to override the
-existing time and/or date with the new input? [Y/N]
+existing time and/or date with the new input? (Y/N)
 ____________________________________________________________
 ____________________________________________________________
 Okay, we'll keep it as it is.
 ____________________________________________________________
 ____________________________________________________________
+It seems that the date and time
+you gave is not in the correct format.
+Would you like to reenter a valid date and time? (Y/N)
+*Enter 'No' to skip the adding of this task*
+____________________________________________________________
+____________________________________________________________
+Understood. Please key in the date and time you wish to save.
+____________________________________________________________
+Enter valid date input:
+____________________________________________________________
 Oops! It seems that you've already added this task.
 Would you like to override the
-existing time and/or date with the new input? [Y/N]
+existing time and/or date with the new input? (Y/N)
 ____________________________________________________________
 ____________________________________________________________
 Understood. Proceeding to change
 the old task with the new one..........
 ____________________________________________________________
 Done! I've updated this task:
-  [E] [ ] project meeting (at: Mon 2-4pm)
+  [E] [ ] project meeting (at: 01 Mar 2022, Tue 04:00 PM)
 ____________________________________________________________
 ____________________________________________________________
 Oops! It seems that you've already added this task.
 Would you like to override the
-existing time and/or date with the new input? [Y/N]
+existing time and/or date with the new input? (Y/N)
 ____________________________________________________________
 ____________________________________________________________
 Please confirm your choice with either Y (Yes) or N (No).
 ____________________________________________________________
 ____________________________________________________________
-Okay, we'll keep it as it is.
+Okay, proceeding to stop adding/updating this task...
 ____________________________________________________________
 ____________________________________________________________
 Bzzt!
@@ -112,48 +132,48 @@ For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
-☹ Oops! The description of a TODO cannot be empty.
+☹ Oops! The description of a(n) todo cannot be empty.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
-☹ Oops! The description of a TODO cannot be empty.
-
-For more information on the command you wish to execute,
-enter 'help <command>' e.g. help todo
-____________________________________________________________
-____________________________________________________________
-☹ Oops! The description and date
- of a DEADLINE cannot be empty.
+☹ Oops! The description of a(n) todo cannot be empty.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
 ☹ Oops! The description and date
- of a DEADLINE cannot be empty.
+ of a(n) deadline cannot be empty.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
 ☹ Oops! The description and date
- of a EVENT cannot be empty.
+ of a(n) deadline cannot be empty.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
 ☹ Oops! The description and date
- of a EVENT cannot be empty.
+ of a(n) event cannot be empty.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
 ☹ Oops! The description and date
- of a EVENT cannot be empty.
+ of a(n) event cannot be empty.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+☹ Oops! The description and date
+ of a(n) event cannot be empty.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
@@ -178,7 +198,7 @@ enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
 ☹ Oops! The description and date
- of a DEADLINE cannot be empty.
+ of a(n) deadline cannot be empty.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
@@ -189,6 +209,65 @@ Please key in a valid task number to mark/unmark your task.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+Oops! It seems that you've given
+an invalid index to delete the task.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+Oops! It seems that you've given
+an invalid index to delete the task.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+Oops! It seems that you've given
+an invalid index to delete the task.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+Oops! It seems that you've given
+an invalid index to delete the task.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+Oops! It seems that you've given
+an invalid index to delete the task.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+Bzzt!
+Please key in a valid task number to mark/unmark your task.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+Bzzt!
+Please key in a valid task number to mark/unmark your task.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+Okay. I've removed this task:
+  [T] [X] read book
+Now you have 4 task(s) in the list.
+____________________________________________________________
+____________________________________________________________
+Okay. I've removed this task:
+  [T] [ ] borrow book
+Now you have 3 task(s) in the list.
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon! :)

@@ -1,17 +1,21 @@
 todo read book
-deadline return book /by June 6th
+deadline return book /by 2022/06/06
 mark 1
-event project meeting /at Aug 6th 2-4pm
+event project meeting /at 2022/08/06 1400
 todo join sports club
 mark 6
 unmark
 mark 4
 todo borrow book
 list
-deadline return book /by Sunday
-N
+event team meeting /at 2022-03-02 1600
+No
+deadline return book /by 2022/02/27
+n
 event project meeting /at Mon 2-4pm
-Y
+y
+2022/03/01 1600
+y
 deadline return book /by no idea :-p
 d
 n
@@ -29,4 +33,13 @@ deadline return book by Sunday
 deadline Sunday
 deadline /by
 mark
+delete
+delete
+delete 0
+delete -1
+delete 15 23
+mark 25 6
+unmark 23 37
+delete 1
+delete 4
 bye

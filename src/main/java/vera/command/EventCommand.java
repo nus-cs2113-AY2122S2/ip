@@ -1,0 +1,50 @@
+package vera.command;
+
+import vera.Storage;
+import vera.TaskList;
+import vera.Ui;
+import vera.exception.InputEmptyException;
+import vera.exception.InputRepeatedException;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import static vera.constant.Indexes.TASK_DATE_INDEX;
+import static vera.constant.Indexes.TASK_DESCRIPTION_INDEX;
+
+public class EventCommand extends Command {
+    String[] toAddTaskContent;
+    LocalDateTime toAddTaskDate;
+
+    public static final String COMMAND_WORD = "event";
+    public static final String MESSAGE_USAGE = "Event: Adds an 'event' task into the task list.\n"
+            + "An 'event' contains both a task description \nand a date "
+            + "of when the event will happen. \n\nTo execute the command,\n"
+            + "enter 'event <task_description> /at <task_date>'.\n"
+            + "E.g. event project meeting /at 6th Aug 2-4pm.";
+
+    public EventCommand(String[] filteredTaskContent, TaskList tasklist, LocalDateTime dateInput)
+            throws InputEmptyException, InputRepeatedException {
+        if (filteredTaskContent[TASK_DESCRIPTION_INDEX].isBlank()) {
+            throw new InputEmptyException();
+        }
+        if (tasklist.isTaskAlreadyAdded(filteredTaskContent[TASK_DESCRIPTION_INDEX].trim())) {
+            throw new InputRepeatedException();
+        }
+        toAddTaskDate = dateInput;
+        toAddTaskContent = filteredTaskContent;
+    }
+
+    @Override
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
+        String filteredTaskDate;
+        if (toAddTaskDate != null) {
+            filteredTaskDate = toAddTaskDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy, EEE hh:mm a"));
+        } else {
+            filteredTaskDate = toAddTaskContent[TASK_DATE_INDEX].trim();
+        }
+        taskList.addTask(toAddTaskContent[TASK_DESCRIPTION_INDEX].trim(), filteredTaskDate, COMMAND_WORD);
+        storage.appendToFile(toAddTaskContent[TASK_DESCRIPTION_INDEX].trim()
+                , filteredTaskDate, "0", "E");
+    }
+}
