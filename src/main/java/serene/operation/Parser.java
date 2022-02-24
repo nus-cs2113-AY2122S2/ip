@@ -70,7 +70,7 @@ public class Parser {
      * @return True if index provided is between 0 to taskCount - 1, false otherwise
      */
     private static boolean isWithinRange(int taskIndex, int taskCount) {
-        return (!isTooLow(taskIndex) && !isTooHigh(taskIndex, taskCount));
+        return (!isTooLowIndex(taskIndex) && !isTooHighIndex(taskIndex, taskCount));
     }
 
     /**
@@ -79,7 +79,7 @@ public class Parser {
      * @param taskIndex Index of the targeted task
      * @return True if index provided is below 0, false otherwise
      */
-    private static boolean isTooLow(int taskIndex) {
+    private static boolean isTooLowIndex(int taskIndex) {
         return taskIndex < 0;
     }
 
@@ -90,7 +90,7 @@ public class Parser {
      * @param taskCount Counter of number of tasks present
      * @return True if index provided is above tackCount - 1, false otherwise
      */
-    private static boolean isTooHigh(int taskIndex, int taskCount) {
+    private static boolean isTooHighIndex(int taskIndex, int taskCount) {
         return taskIndex > taskCount - 1;
     }
 
