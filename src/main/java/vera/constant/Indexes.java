@@ -13,4 +13,5 @@ public class Indexes {
     public static final int TASK_DESCRIPTION_INDEX = 0;
     public static final int TASK_DATE_INDEX = 1;
     public static final int TASK_DESCRIPTION_INDEX_TODO = 1;
+    public static final int DIR_INDEX = 0;
 }
