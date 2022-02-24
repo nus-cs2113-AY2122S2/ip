@@ -2,25 +2,34 @@ package shrek.storage;
 
 import shrek.data.ErrorCount;
 import shrek.exception.InvalidCommandException;
-import shrek.helper.FileLogic;
+import shrek.helper.FileHandler;
 import shrek.helper.Time;
 import shrek.task.Deadlines;
 import shrek.task.Events;
-import shrek.task.UserContent;
+import shrek.task.Task;
 import shrek.data.TaskList;
 
 import java.io.IOException;
 import java.text.ParseException;
 
+/**
+ * Saves list to output file.
+ */
 public class SaveToOutput {
     private static final String TODO_TASK_NAME = "T";
     private static final String DEADLINE_TASK_NAME = "D";
     private static final String EVENT_TASK_NAME = "E";
 
+    /**
+     * Decides which task is contained in the list and passes the perimeters to its respective handlers.
+     *
+     * @throws InvalidCommandException If task, task name or task time is invalid, there are typecasting issues
+     *                                 or file writing issues.
+     */
     public static void saveData() throws InvalidCommandException {
         try {
-            FileLogic.clearOutput();
-            for (UserContent task : TaskList.lists) {
+            FileHandler.clearOutput();
+            for (Task task : TaskList.lists) {
                 String taskName = task.getTaskName();
                 switch (taskName) {
                 case TODO_TASK_NAME:
@@ -43,39 +52,59 @@ public class SaveToOutput {
         } catch (NullPointerException e) {
             throw new InvalidCommandException("Invalid time or task name", ErrorCount.errorCount);
         } catch (ClassCastException e) {
-            throw new InvalidCommandException("Cannot anyhow typecast leh", ErrorCount.errorCount);
+            throw new InvalidCommandException("Cannot anyhow typecast", ErrorCount.errorCount);
         } catch (ParseException e) {
-            throw new InvalidCommandException("date time error", ErrorCount.errorCount);
+            throw new InvalidCommandException("Date time error", ErrorCount.errorCount);
         } catch (InvalidCommandException e) {
             ErrorCount.errorCount++;
         }
     }
 
-    public static void saveTodoToOutput(UserContent task) throws IOException {
+    /**
+     * Saves a Todo task to output.
+     *
+     * @param task Todo task to be saved.
+     * @throws IOException When todo task is improperly formatted.
+     */
+    public static void saveTodoToOutput(Task task) throws IOException {
         String baseString = "todo";
-        String mark = FileLogic.convertMark(task);
+        String mark = FileHandler.convertMark(task);
         String taskContent = task.getContent();
         baseString = mark + " " + baseString + " " + taskContent;
-        FileLogic.writeToFile(baseString);
+        FileHandler.writeToFile(baseString);
     }
 
+    /**
+     * Saves deadline task to output.
+     *
+     * @param task Deadline task to be saved
+     * @throws IOException    When deadline task is improperly formatted.
+     * @throws ParseException If fail to parse datetime.
+     */
     public static void saveDeadlineToOutput(Deadlines task) throws IOException, ParseException {
         String baseString = "deadline";
-        String mark = FileLogic.convertMark(task);
+        String mark = FileHandler.convertMark(task);
         String taskContent = task.getContent();
         String taskBy = task.getTaskDueBy();
         String userInputStyleDatetime = Time.revertDatetime(taskBy);
         baseString = mark + " " + baseString + " " + taskContent + "/by " + userInputStyleDatetime;
-        FileLogic.writeToFile(baseString);
+        FileHandler.writeToFile(baseString);
     }
 
+    /**
+     * Saves deadline task to output.
+     *
+     * @param task Event task to be saved
+     * @throws IOException    When event task is improperly formatted.
+     * @throws ParseException If fail to parse datetime.
+     */
     public static void saveEventToOutput(Events task) throws IOException, ParseException {
         String baseString = "event";
-        String mark = FileLogic.convertMark(task);
+        String mark = FileHandler.convertMark(task);
         String taskContent = task.getContent();
         String taskAt = task.getEventOccurAt();
         String userInputStyleDatetime = Time.revertDatetime(taskAt);
         baseString = mark + " " + baseString + " " + taskContent + "/at " + userInputStyleDatetime;
-        FileLogic.writeToFile(baseString);
+        FileHandler.writeToFile(baseString);
     }
 }

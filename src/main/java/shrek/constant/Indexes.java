@@ -1,5 +1,8 @@
 package shrek.constant;
 
+/**
+ * Container for indexes used by handlers.
+ */
 public class Indexes {
     public static final int INDEX_OF_FIRST_ITEM_IN_STRING = 0;
     public static final int INDEX_OF_SECOND_ITEM_IN_STRING = 1;

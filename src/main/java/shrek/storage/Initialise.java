@@ -7,7 +7,15 @@ import shrek.exception.InvalidCommandException;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Initialises Shrek.
+ */
 public class Initialise {
+    /**
+     * Creates the output file and data directory if absent and if ouput file is present, passes to LoadToShrek handler.
+     *
+     * @throws InvalidCommandException If there is invalid input from the output file.
+     */
     public static void initialiseShrek() throws InvalidCommandException {
         try {
             String currentDirectory = System.getProperty("user.dir");
@@ -21,7 +29,7 @@ public class Initialise {
                 LoadToShrek.loadData();
             }
         } catch (IOException e) {
-            throw new InvalidCommandException("IO excepts you!", ErrorCount.errorCount);
+            throw new InvalidCommandException("Invalid input!", ErrorCount.errorCount);
         }
     }
 }

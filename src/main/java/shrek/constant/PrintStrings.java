@@ -1,5 +1,8 @@
 package shrek.constant;
 
+/**
+ * Container for constant Strings to be printed.
+ */
 public class PrintStrings {
     private PrintStrings() {
     }

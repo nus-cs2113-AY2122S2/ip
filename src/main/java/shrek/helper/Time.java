@@ -12,7 +12,17 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+/**
+ * Handles time input for deadline and event tasks.
+ */
 public class Time {
+    /**
+     * Changes time input of user to a more readable format.
+     *
+     * @param inputTime User input of time.
+     * @return Modified time format.
+     * @throws InvalidCommandException If data and time format is wrong or is invalid.
+     */
     public static String modifyDatetime(String inputTime) throws InvalidCommandException {
         String[] timeAndDate = inputTime.split(" ", Indexes.NUMBER_OF_TERMS_IN_SPLIT);
         String refinedDatetimeFormat = "";
@@ -39,6 +49,13 @@ public class Time {
         return refinedDatetimeFormat;
     }
 
+    /**
+     * Changes the date and time from modified format back to user input format.
+     *
+     * @param datetime Modified date and time format.
+     * @return User input dat and time format.
+     * @throws ParseException If fail to parse datetime.
+     */
     public static String revertDatetime(String datetime) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm");
         Date date = new SimpleDateFormat("MMM d yyyy hh:mma").parse(datetime);
