@@ -6,6 +6,9 @@ import duke.exception.DukeException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Converts one line of user input into a Command subclass and returns it.
+ */
 public abstract class Parser {
     public static final String COMMAND_EXIT = "bye";
     public static final String COMMAND_LIST = "list";

@@ -7,13 +7,18 @@ import java.time.format.DateTimeParseException;
 /**
  * Example: event company meeting /at 2-4pm, June 8th
  * description: "company meeting"
- * by: "2-4pm, June 8th"
+ * at: "2-4pm, June 8th"
  */
 public class Event extends Task {
     protected String at;
     protected String preposition;
     protected LocalDate date;
 
+    /**
+     * Stores event timing as a LocalDate object if format is valid or a regular String if otherwise.
+     * @param description Description of the task.
+     * @param at Event timing either in YYYY-MM-DD format or any other format.
+     */
     public Event(String description, String at) {
         super(description.trim());
         date = null;

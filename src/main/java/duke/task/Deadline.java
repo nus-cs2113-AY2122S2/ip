@@ -15,6 +15,11 @@ public class Deadline extends Task {
     protected String preposition;
     protected LocalDate date;
 
+    /**
+     * Stores deadline timing as a LocalDate object if format is valid or a regular String if otherwise.
+     * @param description Description of the task.
+     * @param by Deadline timing either in YYYY-MM-DD format or any other format.
+     */
     public Deadline(String description, String by) {
         super(description.trim());
         date = null;

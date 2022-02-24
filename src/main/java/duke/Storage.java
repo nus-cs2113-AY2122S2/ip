@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles loading from and saving to the save file.
+ */
 public class Storage {
 
     private final ArrayList<Task> tasks;

@@ -1,18 +1,16 @@
 package duke;
-import duke.exception.DukeException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Handles the user interface.
+ */
 public class Ui {
 
-    private Scanner uiScan;
-    private TaskList taskList;
+    private final Scanner uiScan;
 
-    public Ui(TaskList taskList) {
+    public Ui() {
         this.uiScan = new Scanner(System.in);
-        this.taskList = taskList;
     }
 
     /**

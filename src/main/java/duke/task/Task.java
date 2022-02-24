@@ -1,5 +1,9 @@
 package duke.task;
 
+/**
+ * Parent class for all tasks.
+ * This class should not be instantiated.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

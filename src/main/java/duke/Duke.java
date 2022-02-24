@@ -4,6 +4,9 @@ import duke.command.Command;
 
 import java.io.IOException;
 
+/**
+ * Main program class.
+ */
 public class Duke {
     Ui ui;
     Storage storage;
@@ -12,7 +15,7 @@ public class Duke {
     public Duke(String filePath) {
         storage = new Storage(filePath);
         tasks = new TaskList(storage.getTasks());
-        ui = new Ui(tasks);
+        ui = new Ui();
     }
 
     public static void main(String[] args) {

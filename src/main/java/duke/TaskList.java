@@ -8,6 +8,9 @@ import duke.task.ToDo;
 
 import java.util.ArrayList;
 
+/**
+ * Handles the list of tasks.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
@@ -17,7 +20,6 @@ public class TaskList {
 
     /**
      * Stores a task in the list of tasks.
-     *
      * @param pieces ArrayList<String> containing input from stdin. The first String in task should represent the type of
      *                   Task that must be added to the list of Tasks. Supported tasks: todo, deadline, event
      */
@@ -69,13 +71,15 @@ public class TaskList {
             if (taskList.isEmpty()) {
                 throw new DukeException("Task details missing.");
             }
+            break;
         case Parser.COMMAND_EVENT:
         case Parser.COMMAND_DEADLINE:
             if (taskList.size() < 2) {
                 throw new DukeException("Task details missing.");
             }
-            if (taskList.get(0).equals("")
-                    || taskList.get(1).equals("")) {
+            String firstPart = String.valueOf(taskList.get(0));
+            String secondPart = String.valueOf(taskList.get(1));
+            if (firstPart.equals("") || secondPart.equals("")) {
                 throw new DukeException("Task details missing.");
             }
             break;
