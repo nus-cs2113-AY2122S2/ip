@@ -8,6 +8,8 @@ import duke.task.Todo;
 
 import static duke.helper.Ui.LINEBREAK;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class TaskList {
     public static final String TODO = "todo";
@@ -51,46 +53,43 @@ public class TaskList {
         storage.saveTasks(ui, this);
     }
 
-    public void addTodo(String line) throws DukeException {
-        if (line.equals("")) {
-            throw new DukeException("Argument of todo should not be empty.");
-        }
-        list.add(new Todo(line, false));
+    public void addTodo(Parser parser) throws DukeException {
+        parser.parseTodo();
+        String taskName = parser.getTaskName();
+        list.add(new Todo(taskName, false));
     }
 
-    public void addDeadline(String line) throws DukeException {
-        String[] taskNameAndDeadline = line.split(" /by ");
-        if (taskNameAndDeadline.length < 2) {
-            throw new DukeException("A Deadline Task should have the deadline.");
-        }
-        list.add(new Deadline(taskNameAndDeadline[0], false, taskNameAndDeadline[1]));
+    public void addDeadline(Parser parser) throws DukeException {
+       parser.parseDeadline();
+       String taskName = parser.getTaskName();
+       LocalDate deadlineDate = parser.getEndDate();
+       LocalTime deadlineTime = parser.getEndTime();
+       list.add(new Deadline(taskName, false, deadlineDate, deadlineTime));
     }
 
-    public void addEvent(String line) throws DukeException {
-        String[] taskNameAndTiming = line.split(" /at ");
-        if (taskNameAndTiming.length < 2) {
-            throw new DukeException("An Event Task should have the event timing.");
-        }
-        list.add(new Event(taskNameAndTiming[0], false, taskNameAndTiming[1]));
+    public void addEvent(Parser parser) throws DukeException {
+        parser.parseEvent();
+        String taskName = parser.getTaskName();
+        LocalDate startDate = parser.getStartDate();
+        LocalTime startTime = parser.getStartTime();
+        LocalDate endDate = parser.getEndDate();
+        LocalTime endTime = parser.getEndTime();
+        list.add(new Event(taskName, false, startDate, startTime, endDate, endTime));
     }
 
-    public void addNewTask(String line, Ui ui, Storage storage){
-        String taskType = line.split(" ")[0];
-        if (line.length() > taskType.length()) {
-            line = line.substring(taskType.length() + 1);
-        }else {
-            line = "";
-        }
+    public void addNewTask(Ui ui, Storage storage, Parser parser){
+        String taskType = parser.parseTaskType();
+        parser.removeTaskType(taskType);
         try {
             switch (taskType) {
             case TODO:
-                addTodo(line);
+                addTodo(parser);
                 break;
             case DEADLINE:
-                addDeadline(line);
+                addDeadline(parser);
                 break;
             case EVENT:
-                addEvent(line);
+                addEvent(parser);
                 break;
             default:
                 throw new DukeException("Command not recognised.");
