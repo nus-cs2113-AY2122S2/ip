@@ -47,6 +47,10 @@ public abstract class Task {
         isMarked = false;
     }
 
+    /**
+     * Create the portion of the description message common to the child classes.
+     * @return String containing the message portion.
+     */
     @Override
     public String toString() {
         return  "[" + this.getStatusIcon() + "]" + this.getDescription();

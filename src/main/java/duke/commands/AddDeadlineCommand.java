@@ -7,6 +7,9 @@ import duke.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Adds a deadline object into the array list of tasks.
+ */
 public class AddDeadlineCommand extends Command {
     public void execute(ArrayList<Task> tasks, String userInput, int taskUniqueID) {
         try {

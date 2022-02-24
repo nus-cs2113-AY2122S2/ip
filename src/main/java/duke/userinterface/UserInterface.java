@@ -6,6 +6,10 @@ import duke.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Shows messages Duke has for the user in various situations.
+ * Contains methods to extract specific information in user input for command processing.
+ */
 public class UserInterface {
 
     public void printLine() {
@@ -27,8 +31,8 @@ public class UserInterface {
 
     public void printHelpMessage() {
         System.out.println("Sorry I don't know what you mean.");
-        System.out.println("There are currently eight keyword commands: ");
-        System.out.println("1. list, 2. todo, 3. deadline, 4.event, 5. mark, 6. unmark, 7. delete, 8. bye");
+        System.out.println("There are currently nine keyword commands: ");
+        System.out.println("1. list, 2. todo, 3. deadline, 4.event, 5. mark, 6. unmark, 7. delete, 8. find, 9. bye");
     }
 
     public void printEmptyDescriptionMessage() {
@@ -71,6 +75,10 @@ public class UserInterface {
         System.out.println("Noted. I've removed this task:\n" + tasks.get(number).toString());
     }
 
+    /**
+     * prints out all tasks that contain the matching keyword(s)
+     * @param tasks processed list of tasks that contain the matching keyword(s)
+     */
     public void printMatchingTasks(ArrayList<Task> tasks) {
         if (tasks.size() > 0) {
             System.out.println("Here are the matching tasks in your list:");
@@ -105,6 +113,12 @@ public class UserInterface {
         return command;
     }
 
+    /**
+     * Extracts out the description portion of the user input from the accepted input formats.
+     * @param userInput
+     * @return
+     * @throws EmptyDescriptionException
+     */
     public String getDescription(String userInput) throws EmptyDescriptionException {
         try {
             int indexOfDescription = userInput.indexOf(" ");
@@ -124,6 +138,12 @@ public class UserInterface {
         }
     }
 
+    /**
+     * Extracts out timing information from user input from the accepted input formats.
+     * @param userInput
+     * @return
+     * @throws EmptyTimingDetailsException
+     */
     public String getTimingDetails(String userInput) throws EmptyTimingDetailsException {
         int indexOfSlash = userInput.indexOf("/");
         int indexOfTimingDetails = indexOfSlash + 4;

@@ -9,12 +9,19 @@ import duke.userinterface.UserInterface;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * In charge of the array list of tasks that is updated by the user. This includes reading, writing, updating and
+ * deleting tasks as the user interacts with the program.
+ */
 public class TaskManager {
     private static int taskUniqueID = 0;
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static TaskRecorder taskRecorder = new TaskRecorder();
     private static UserInterface ui = new UserInterface();
 
+    /**
+     * Calls taskRecorder methods to create the initial list of tasks based on file data when Duke first starts up.
+     */
     public TaskManager() {
         try {
             ArrayList<String[]> fileData = taskRecorder.loadData();
@@ -73,7 +80,8 @@ public class TaskManager {
         try {
             Command markOrUnmarkTaskCommand = new MarkOrUnmarkTaskCommand();
             markOrUnmarkTaskCommand.execute(tasks, userInput, taskUniqueID);
-            taskRecorder.addData(userInput);
+            int taskNumber = ui.getTaskNumber(userInput);
+            taskRecorder.markOrUnmarkData(taskNumber);
         } catch (IOException e) {
             ui.printIOExceptionMessageWrite();
         } catch (NullPointerException | IndexOutOfBoundsException e) {

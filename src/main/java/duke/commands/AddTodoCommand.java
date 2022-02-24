@@ -6,6 +6,9 @@ import duke.task.Todo;
 
 import java.util.ArrayList;
 
+/**
+ * Adds a Todo object into the array list of tasks.
+ */
 public class AddTodoCommand extends Command {
     public void execute(ArrayList<Task> tasks, String userInput, int taskUniqueID) {
         try {

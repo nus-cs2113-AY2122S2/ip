@@ -5,6 +5,9 @@ import duke.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Find all instances of tasks containing the keyword(s).
+ */
 public class FindTasksCommand extends Command {
     public void execute(ArrayList<Task> tasks, String userInput, int taskUniqueID) {
         try {
