@@ -17,7 +17,7 @@ Duke is a personal assistant chatbot that helps a person to keep track of variou
 optimized for use via a **Command Line Interface**. 
 If you type fast, Duke can help you manage your tasks faster.
 
-You can also view the User Guide [here](https://yaxinjoy.github.io/ip/)
+You can also view the User Guide [here](https://yaxinjoy.github.io/ip/).
 
 ## Contents
 
