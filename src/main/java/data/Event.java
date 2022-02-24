@@ -1,4 +1,6 @@
-package duke;
+package data;
+
+import data.Task;
 
 public class Event extends Task {
     protected String at;

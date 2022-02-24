@@ -1,4 +1,4 @@
-package duke;
+import data.TaskManager;
 
 public class Duke {
     public static void main(String[] args) {

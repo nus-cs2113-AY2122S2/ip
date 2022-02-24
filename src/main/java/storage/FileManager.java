@@ -1,4 +1,4 @@
-package duke;
+package storage;
 
 import java.io.*;
 import java.util.ArrayList;
