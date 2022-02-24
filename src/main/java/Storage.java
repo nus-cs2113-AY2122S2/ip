@@ -9,7 +9,7 @@ public class Storage {
     private static final String DIRECTORY_NAME = "data";
     private static final String FILE_NAME = "Duke.txt";
 
-    public static void storageSetup(ArrayList<Task> tasks) {
+    public static void storageSetup(TaskList tasks) {
         File directory = new File(DIRECTORY_NAME);
         File file = new File(DIRECTORY_NAME + "/" + FILE_NAME);
         if (!directory.exists()) {
@@ -22,7 +22,7 @@ public class Storage {
             readTasksFromFile(file, tasks);
         } catch (FileNotFoundException e) {
             // Workaround for now until proper ui class is created
-            Duke.wrapAndPrintText("\t File not found!");
+            Ui.printTextBetweenLines("\t File not found!");
         }
     }
 
@@ -42,14 +42,14 @@ public class Storage {
         }
     }
 
-    public static void readTasksFromFile(File file, ArrayList<Task> tasks) throws FileNotFoundException {
+    public static void readTasksFromFile(File file, TaskList tasks) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
         while (scanner.hasNext()) {
             loadTaskFromFile(tasks, scanner.nextLine());
         }
     }
 
-    public static void loadTaskFromFile(ArrayList<Task> tasks, String line) {
+    public static void loadTaskFromFile(TaskList tasks, String line) {
         String[] content = line.split("\\|");
         boolean isCompleted = ("1".equals(content[1]));
         switch(content[0]) {
@@ -72,7 +72,7 @@ public class Storage {
         }
     }
 
-    public static void writeTasksToFile(ArrayList<Task> tasks) {
+    public static void writeTasksToFile(TaskList tasks) {
         try {
             FileWriter file = new FileWriter(DIRECTORY_NAME + "/" + FILE_NAME);
             for (int i = 0; i < tasks.size(); i++) {
@@ -81,7 +81,7 @@ public class Storage {
             }
             file.close();
         } catch (IOException e) {
-            Duke.wrapAndPrintText("\t File path error! Check again!");
+            Ui.printTextBetweenLines("\t File path error! Check again!");
         }
     }
 }
