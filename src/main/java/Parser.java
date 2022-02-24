@@ -34,10 +34,11 @@ public class Parser {
             parseInput.add(splitInput[1]);
             return parseInput;
         case "TODO":
+        case "FIND":
             try{
-                String todo = splitInput[1];
+                String content = splitInput[1];
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("OOPS! The description of a " + upperChoice + " task should not be empty!");
+                System.out.println("OOPS! The description of " + upperChoice + " should not be empty!");
                 return parseInput;
             }
             parseInput.add(upperChoice);
@@ -48,14 +49,14 @@ public class Parser {
             String byat = upperChoice.equals("DEADLINE")? "/by":"/at";
             int startIndex = userInput.indexOf(byat);
             if(startIndex == -1){
-                System.out.println("OOPS! The time of a " + upperChoice + " task should not be empty!");
+                System.out.println("OOPS! The time of " + upperChoice + " should not be empty!");
                 printTip(upperChoice);
                 return parseInput;
             }
             try {
                 String description = userInput.substring(upperChoice.length() + 1, startIndex - 1);
             }catch(IndexOutOfBoundsException e){
-                System.out.println("OOPS! The description of a " + upperChoice + " task should not be empty!");
+                System.out.println("OOPS! The description of " + upperChoice + " should not be empty!");
                 printTip(upperChoice);
                 return parseInput;
             }

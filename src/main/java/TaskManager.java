@@ -84,6 +84,21 @@ public class TaskManager {
 
     }
 
+    public void findTask(String keyword){
+        int count = 1;
+        System.out.println("____________________________________________________________");
+        System.out.println("Here are the matching tasks in your list:");
+        for(Task task: tasks){
+            if(task.getDescription().contains(keyword)){
+                System.out.println(count+". "+task);
+                count++;
+            }
+        }
+        if(count==1)
+            System.out.println("No result found. Try to change your keyword!");
+        System.out.println("____________________________________________________________");
+    }
+
     public void manageCommand(ArrayList<String> command){
         if(command.size()==0)
             return;
@@ -105,6 +120,10 @@ public class TaskManager {
         case "DEADLINE":
         case "EVENT":
             addTask(command);
+            break;
+        case "FIND":
+            findTask(command.get(1));
+            break;
         }
     }
 
