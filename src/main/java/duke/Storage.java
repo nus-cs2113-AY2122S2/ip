@@ -19,13 +19,25 @@ public class Storage {
     private File file;
     private Scanner input;
 
+
+    /**
+     * reads in the link to our text file and saves it to variable input
+     * if text file does not exist, we create a new file
+     * @param filePath
+     */
     public Storage(String filePath) {
         try {
             this.filePath = filePath;
             this.file = new File(filePath);
+            if (this.file.createNewFile()) {
+                System.out.println("File is created!");
+            }else{
+                System.out.println("File exists, reading it to taskList!"); }
             input = new Scanner(file);
         } catch (FileNotFoundException e) {
             createFileAndDirectory();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -43,6 +55,12 @@ public class Storage {
         }
     }
 
+    /**
+     * function reads in our text file and saves it to an ArrayList of tasks.
+     *
+     * @return
+     * @throws DukeException
+     */
     public ArrayList<Task> loadTaskList() throws DukeException {
         ArrayList<Task> taskList = new ArrayList<>();
         if (!file.exists() || !file.isFile()) {
@@ -85,9 +103,16 @@ public class Storage {
                 }
             }
         }
+        input.close();
         return taskList;
     }
 
+    /**
+     * Function to append one line of data to our text file
+     * For adding of tasks
+     * @param textToAppend
+     * @throws IOException
+     */
     public void appendData(String textToAppend) throws IOException {
         String filePath = this.filePath;
         FileWriter fw = new FileWriter(filePath,true);
@@ -96,6 +121,12 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Function to write the first line to a text file.
+     * @param textToAdd
+     * @throws IOException
+     */
+
     public void writeToFile(String textToAdd) throws IOException {
         filePath = this.filePath;
         FileWriter fw = new FileWriter(filePath);
@@ -103,6 +134,11 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Function to completely erase text file and update it according to our ArrayList.
+     * Used when we delete tasks, mark/unmark tasks
+     * @param taskList
+     */
     public  void updateFile(ArrayList<Task> taskList) {
         for (int i = 0; i<taskList.size(); i++) {
             System.out.println(taskList.get(i).toString());

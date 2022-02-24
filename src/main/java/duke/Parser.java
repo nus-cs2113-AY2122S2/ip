@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 /**
  * Parser helps to make sense of the user input and uses methods from TaskList to do operations on the ArrayList of tasks.
-
  */
 public class Parser {
     public static int parse(String userInput, TaskList l,Storage s) throws DukeException {
@@ -28,7 +27,12 @@ public class Parser {
                 }
                 desc = l.addTodo(desc);
                 try {
-                    s.appendData(desc);
+                    if (l.getTaskSize() == 1) {
+                        s.writeToFile(desc);
+                    }
+                     else {
+                         s.appendData(desc);
+                     }
                 } catch (IOException e) {
                     System.out.println("Error while appending to text file.");
                 }
@@ -49,7 +53,13 @@ public class Parser {
                 }
                 desc = l.addEvent(desc,by);
                 try {
-                    s.appendData(desc);
+                    if (l.getTaskSize() == 1) {
+                        s.writeToFile(desc);
+                    }
+                    else {
+                        s.appendData(desc);
+                    }
+
                 } catch (IOException e) {
                     System.out.println("Error while appending to text file.");
                 }
@@ -69,7 +79,12 @@ public class Parser {
                 }
                 desc = l.addDeadline(desc,by);
                 try {
-                    s.appendData(desc);
+                    if (l.getTaskSize() == 1) {
+                        s.writeToFile(desc);
+                    }
+                    else {
+                        s.appendData(desc);
+                    }
                 } catch (IOException e) {
                     System.out.println("Error while appending to text file.");
                 }
@@ -116,8 +131,6 @@ public class Parser {
             case "list":
                 l.printList();
                 return 1;
-
-
 
             case "bye":
                 return 0;
