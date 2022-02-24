@@ -13,6 +13,7 @@ import vera.command.HelpCommand;
 import vera.command.ExitCommand;
 import vera.command.FindCommand;
 
+import vera.constant.DateAndTimeFormat;
 import vera.exception.InputEmptyException;
 import vera.exception.InputRepeatedException;
 import vera.task.Deadline;
@@ -24,12 +25,13 @@ import vera.task.Todo;
 import static vera.constant.Indexes.INPUT_TO_FIND_INDEX;
 import static vera.constant.Indexes.SAVE_TASK_DESCRIPTION_INDEX;
 import static vera.constant.Indexes.SAVE_TASK_TYPE_INDEX;
+import static vera.constant.Indexes.HELP_OPTIONS_INDEX;
+import static vera.constant.Indexes.MARK_INDEX;
+import static vera.constant.Indexes.OPTIONS_INDEX;
 import static vera.constant.Indexes.SAVE_TASK_DATE_INDEX;
 import static vera.constant.Indexes.SAVE_TASK_MARK_STATUS;
-import static vera.constant.Indexes.MARK_INDEX;
 import static vera.constant.Indexes.TASK_CONTENT_INDEX;
-import static vera.constant.Indexes.OPTIONS_INDEX;
-import static vera.constant.Indexes.HELP_OPTIONS_INDEX;
+import static vera.constant.Indexes.TASK_DATE_INDEX;
 import static vera.constant.Messages.ERROR_INVALID_MARKING_INDEX_MESSAGE;
 import static vera.constant.Messages.ERROR_TODO_REPEATED_INPUT_MESSAGE;
 import static vera.constant.Messages.ERROR_EVENT_MISSING_COMMAND_MESSAGE;
@@ -38,6 +40,10 @@ import static vera.constant.Messages.ERROR_INVALID_DELETE_INDEX_MESSAGE;
 import static vera.constant.Messages.HELP_MESSAGE_SPECIFIC_COMMAND;
 import static vera.constant.Messages.ERROR_INVALID_INPUT_MESSAGE;
 
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Parser {
 
@@ -107,7 +113,7 @@ public class Parser {
     }
 
     private static void printMissingInputMessage(String input, String taskType) {
-        System.out.println("☹ Oops! The " + input + " of a " + taskType + " cannot be empty."
+        System.out.println("☹ Oops! The " + input + " of a(n) " + taskType + " cannot be empty."
                 + HELP_MESSAGE_SPECIFIC_COMMAND);
     }
 
@@ -130,24 +136,73 @@ public class Parser {
         }
     }
 
+
+    private static LocalDateTime confirmInvalidDateFormat() throws InputEmptyException {
+        Ui anotherUi = new Ui();
+        anotherUi.showToUser("It seems that the date and time\nyou gave is not in the correct format.\n"
+                + "Would you like to reenter a valid date and time? (Y/N)\n"
+                + "*Enter 'No' to skip the adding of this task*");
+        anotherUi.showLine();
+        while (true) {
+            String input = anotherUi.readCommand();
+            anotherUi.showLine();
+            if (input.trim().equalsIgnoreCase("Y")
+                    || input.trim().equalsIgnoreCase("Yes")) {
+                anotherUi.showToUser("Understood. Please key in the date and time you wish to save.");
+                anotherUi.showLine();
+                anotherUi.showToUser("Enter valid date input: ");
+                input = anotherUi.readCommand();
+                anotherUi.showLine();
+                return prepareTaskDate(input.trim());
+            }
+            if (input.trim().equalsIgnoreCase("N")
+                    || input.trim().equalsIgnoreCase("No")) {
+                anotherUi.showToUser("Okay, proceeding to stop adding/updating this task...");
+                return null;
+            }
+            anotherUi.showToUser("Please confirm your choice with either Y (Yes) or N (No).");
+            anotherUi.showLine();
+        }
+    }
+
+    private static LocalDateTime prepareTaskDate(String rawTaskDate) throws InputEmptyException {
+        if (rawTaskDate.isBlank()) {
+            throw new InputEmptyException();
+        }
+        DateTimeFormatter[] dateFormats = DateAndTimeFormat.getFormat();
+        int i = 0;
+        while (i < dateFormats.length)  {
+            try {
+                return LocalDateTime.parse(rawTaskDate, dateFormats[i]);
+            } catch (DateTimeParseException e) {
+                i++;
+            }
+        }
+        return confirmInvalidDateFormat();
+    }
+
     private static Command prepareAddEventOrDeadline(String[] parsedInput, String inputKeyword,
                                                      TaskList taskList, String taskType) {
         String[] filteredTaskContent = null;
+        LocalDateTime dueDate = null;
         try {
             if (!parsedInput[TASK_CONTENT_INDEX].contains(inputKeyword)) {
                 printMissingCommandMessage(taskType);
                 return null;
             }
             filteredTaskContent = parsedInput[TASK_CONTENT_INDEX].split(inputKeyword, 2);
-
-            if (taskType.equals(EventCommand.COMMAND_WORD)) {
-                return new EventCommand(filteredTaskContent, taskList);
+            dueDate = prepareTaskDate(filteredTaskContent[TASK_DATE_INDEX].trim());
+            if (dueDate == null) {
+                return null;
             }
-            return new DeadlineCommand(filteredTaskContent, taskList);
+            if (taskType.equals(EventCommand.COMMAND_WORD)) {
+                return new EventCommand(filteredTaskContent, taskList, dueDate);
+            }
+            return new DeadlineCommand(filteredTaskContent, taskList, dueDate);
         } catch (ArrayIndexOutOfBoundsException | InputEmptyException e) {
-            printMissingInputMessage("description and date\n", taskType);
+            printMissingInputMessage("description and/or date\n", taskType);
         } catch (InputRepeatedException e) {
-            return new UpdateCommand(filteredTaskContent);
+            return new UpdateCommand(filteredTaskContent, dueDate);
         }
         return null;
     }

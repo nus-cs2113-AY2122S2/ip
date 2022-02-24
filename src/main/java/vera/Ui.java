@@ -42,7 +42,7 @@ public class Ui {
     }
 
     public void showGoodbyeMessage() {
-        showToUser(GOODBYE_MESSAGE);
+        System.out.println(GOODBYE_MESSAGE);
     }
 
 }
