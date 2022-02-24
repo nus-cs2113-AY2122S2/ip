@@ -25,6 +25,12 @@ public class Serene {
         Ui.printExitMessage();
     }
 
+    /**
+     * Creates the save file and restores tasks saved in it.
+     *
+     * @param tasks The task list containing the user's tasks.
+     * @return Constant.DONE if IO from the save file fails, Constant.CONTINUE otherwise
+     */
     private static int initiateSerene(TaskList tasks) {
         try {
             File dataDirectory = new File("data");
@@ -45,6 +51,11 @@ public class Serene {
         return Constant.CONTINUE;
     }
 
+    /**
+     * Repeatedly takes in the user's input for the program to parse.
+     *
+     * @param tasks The task list containing the user's tasks
+     */
     private static void operateSerene(TaskList tasks) {
         Scanner in = new Scanner(System.in);
         while (statusOfSerene != Constant.DONE) {

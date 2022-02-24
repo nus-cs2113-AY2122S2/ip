@@ -15,27 +15,50 @@ public class TaskList {
     private static ArrayList<Task> taskList;
     private static int taskCount;
 
+    /**
+     * Constructs a new TaskList.
+     */
     public TaskList() {
         taskList = new ArrayList<>();
         taskCount = 0;
     }
 
+    /**
+     * Returns the array of tasks stored.
+     * @return The array of tasks stored
+     */
     public ArrayList<Task> getTaskList() {
         return taskList;
     }
 
+    /**
+     * Returns the number of tasks stored.
+     * @return A counter of number of tasks present
+     */
     public int getTaskCount() {
         return taskCount;
     }
 
+    /**
+     * Increments the counter for number of tasks present.
+     */
     public void incrementTaskCount() {
         taskCount++;
     }
 
+    /**
+     * Adds a task to the array of tasks.
+     * @param task The task to be added
+     */
     public void add(Task task) {
         taskList.add(task);
     }
 
+    /**
+     * Marks the task whose index is that given in the user's input.
+     *
+     * @param userInput The user's input
+     */
     public static void markTaskDone(String[] userInput) {
         try {
             // Extract index of task to mark
@@ -58,6 +81,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Unmarks the task whose index is that given in the user's input.
+     *
+     * @param userInput The user's input
+     */
     public static void markTaskNotDone(String[] userInput) {
         try {
             // Extract index of task to unmark
@@ -80,6 +108,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Removes the task whose index is that given in the user's input.
+     *
+     * @param userInput The user's input
+     */
     public static void removeTask(String[] userInput) {
         try {
             int taskIndex = Parser.validateIndex(userInput, taskCount);
@@ -104,6 +137,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds the task given in the user's input to the array of tasks.
+     *
+     * @param userInput The user's input
+     */
     public static void addTask(String userInput) {
         // Extracting which type of task does the user want to add
         String[] responsePartition = userInput.split(" ", 2);
@@ -123,6 +161,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds the task given in the user's input to the array of tasks, as a ToDo.
+     *
+     * @param userInput
+     */
     private static void addToDo(String userInput) {
         String[] responsePartition = userInput.split(" ", 2);
         try {
@@ -136,6 +179,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds the task given in the user's input to the array of tasks, as an Event.
+     *
+     * @param userInput
+     */
     private static void addEvent(String userInput) {
         String[] responsePartition = userInput.split(" ", 2);
         String[] taskPartition;
@@ -166,6 +214,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds the task given in the user's input to the array of tasks, as a Deadline.
+     *
+     * @param userInput
+     */
     private static void addDeadline(String userInput) {
         String[] responsePartition = userInput.split(" ", 2);
         String[] taskPartition;
@@ -196,6 +249,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds the input task to the array of tasks.
+     *
+     * @param inputTask The task to be added
+     * @throws IOException If appendSave method fails to construct a FileWriter
+     */
     private static void allocateTask(Task inputTask) throws IOException {
         taskList.add(inputTask);
         taskCount++;
