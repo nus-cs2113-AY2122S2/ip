@@ -50,6 +50,7 @@ Creates a new task that is a deadline.
 ```
 deadline <description> /by <due date>
 ```
+
 | Parameters | Description |
 | --- | --- |
 | `<description>` | Information about this deadline task. |
