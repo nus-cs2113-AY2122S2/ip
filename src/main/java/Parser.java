@@ -61,6 +61,13 @@ public class Parser {
                 printTip(upperChoice);
                 return parseInput;
             }
+            try{
+                String time = userInput.substring(startIndex+4);
+            }catch(IndexOutOfBoundsException e){
+                System.out.println("OOPS! The time of " + upperChoice + " should not be empty!");
+                printTip(upperChoice);
+                return parseInput;
+            }
             String description = userInput.substring(upperChoice.length() + 1, startIndex - 1);
             String time = userInput.substring(startIndex+4);
             parseInput.add(upperChoice);

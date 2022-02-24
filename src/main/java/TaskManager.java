@@ -140,7 +140,9 @@ public class TaskManager {
             }catch(IOException e){
                 e.printStackTrace();
             }
+            System.out.println("____________________________________________________________");
             System.out.println("Saved successfully!");
+            System.out.println("____________________________________________________________");
             break;
         }
     }
