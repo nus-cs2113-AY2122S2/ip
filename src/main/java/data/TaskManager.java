@@ -1,6 +1,6 @@
 package data;
 
-import common.exception.DukeException;
+import common.DukeException;
 import storage.FileManager;
 
 import java.io.IOException;

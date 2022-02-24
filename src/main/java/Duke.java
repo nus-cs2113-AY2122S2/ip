@@ -1,19 +1,28 @@
 import data.TaskManager;
+import storage.FileManager;
+import ui.Ui;
 
 public class Duke {
-    public static void main(String[] args) {
-        String greetStr = "\t" + "-".repeat(60) + "\n" +
-                "\t Hello! I'm Maahes\n" +
-                "\t What can I do for you?\n" +
-                "\t" + "-".repeat(60);
-        String byeStr = "\t" + "-".repeat(60) + "\n" +
-                "\t Bye. Hope to see you again soon!\n" +
-                "\t" + "-".repeat(60);
+    private Ui ui;
+    private TaskManager taskManager;
+    private FileManager fileManager;
 
-        System.out.println(greetStr);
-        TaskManager taskManager = new TaskManager();
-        taskManager.start();
-        System.out.println(byeStr);
+    public Duke(String filePath) {
+        ui = new Ui();
+        fileManager = new FileManager();
+        taskManager = new TaskManager();
     }
+
+    public void run() {
+        ui.showGreetingMessage();
+        taskManager.start();
+        ui.showByeMessage();
+    }
+
+    public static void main(String[] args) {
+        new Duke("data/tasks/txt").run();
+    }
+
+
 
 }
