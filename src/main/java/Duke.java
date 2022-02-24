@@ -14,6 +14,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Run the UI and save the data.
+     */
     public void run(){
 
         ui.run();

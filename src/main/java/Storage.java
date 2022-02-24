@@ -9,8 +9,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Storage {
-    /*
-    saveData is a public method to save current data into the hard disk (relative path: src\\DataSrc\\taskList.txt)
+    /**
+     * Save current data into the hard disk (relative path: src\\DataSrc\\taskList.txt)
+     * @throws IOException if the file/ file path does not exist.
      */
     public void saveData() throws IOException {
         FileWriter writer = new FileWriter(".\\src\\DataSrc\\taskList.txt");
@@ -33,8 +34,9 @@ public class Storage {
         writer.close();
     }
 
-    /*
-   readData is a public method to read data from hard disk
+    /**
+     * Read data from hard disk
+     * @throws IOException if the file/ file path does not exist.
     */
     public void readData() throws IOException {
         BufferedReader in = new BufferedReader(new FileReader(".\\src\\DataSrc\\taskList.txt"));

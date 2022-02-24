@@ -27,6 +27,9 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Receive user input and interact with user.
+     */
     public void run(){
         Scanner input = new Scanner(System.in);
 

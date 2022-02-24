@@ -3,9 +3,11 @@ import DukeException.DukeInvalidInputException;
 import java.util.ArrayList;
 
 public class Parser {
-    /*
-    parseInput parses user input into readable command by Duke.
-    It returns an empty ArrayList if the user input is invalid.
+    /**
+     * Parse user input into readable command by Duke.
+     * It returns an empty ArrayList if the user input is partly valid (only have command type without correct format).
+     * @param userInput rough user input from user.
+     * @throws DukeInvalidInputException if command type is invalid.
      */
     public static ArrayList<String> parseInput(String userInput) throws DukeInvalidInputException {
         String[] splitInput = userInput.split(" ");
@@ -15,7 +17,6 @@ public class Parser {
         switch(upperChoice){
         case "LIST":
         case "SAVE":
-        case "LOAD":
             parseInput.add(upperChoice);
             return parseInput;
         case "UNMARK":
@@ -72,8 +73,9 @@ public class Parser {
         }
     }
 
-    /*
-    printTip is a private method for printing tips for users to make them know better on the format of input command.
+    /**
+     * Printing tips for users to make them know better on the format of input command.
+     * @param choice command type, e.g., DEADLINE, EVENT.
      */
     private static void printTip(String choice){
         System.out.println("You must follow the format strictly. For example: ");
