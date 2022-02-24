@@ -5,6 +5,7 @@ import duke.commands.Command;
 import duke.commands.DeadlineCommand;
 import duke.commands.DeleteCommand;
 import duke.commands.EventCommand;
+import duke.commands.FindCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkCommand;
 import duke.commands.TodoCommand;
@@ -118,6 +119,9 @@ public class Parser {
         case "delete":
             parsedArguments = argumentParser(inputArguments);
             return new DeleteCommand(parsedArguments);
+        case "find":
+            parsedArguments = argumentParser(inputArguments);
+            return new FindCommand(parsedArguments);
         default:
             throw new InvalidCommandException(inputCommand);
         }
