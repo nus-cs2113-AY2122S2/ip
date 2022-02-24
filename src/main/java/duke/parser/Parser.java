@@ -5,7 +5,14 @@ import duke.userinterface.UserInterface;
 
 import java.util.Scanner;
 
+/**
+ * Processes commands from user input that interacts with the current tasks
+ */
 public class Parser {
+    /**
+     * User input is parsed to identify the keyword and relevant arguments
+     * @param tasks TaskManager object containing the list of tasks and methods to modifying the list
+     */
     public void run(TaskManager tasks) {
         UserInterface ui = new UserInterface();
         Scanner in = new Scanner(System.in);

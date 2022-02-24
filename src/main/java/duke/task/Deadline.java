@@ -7,7 +7,10 @@ public class Deadline extends Task {
         super(description, taskUniqueID);
         this.by = by;
     }
-
+    /**
+     * Create the description message specific to Deadline objects.
+     * @return String containing the message
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + "(by: " + by + ")";

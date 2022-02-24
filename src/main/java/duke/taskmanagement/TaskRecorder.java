@@ -13,11 +13,22 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * In charge of managing the file data of tasks created by the user. This includes reading, writing, updating and
+ * deleting tasks as the user interacts with the program.
+ */
 public class TaskRecorder {
     private static final String HOME = System.getProperty("user.dir");
     private static final java.nio.file.Path PATH = java.nio.file.Paths.get(HOME, "data","duke.txt");
     private static UserInterface ui = new UserInterface();
 
+    /**
+     * Create the initial list of tasks based on file data when Duke first starts up.
+     * @param fileData An arraylist of each line extracted from the data file.
+     * @return An arraylist of tasks from the data file.
+     * @throws EmptyDescriptionException If no description is written.
+     * @throws EmptyTimingDetailsException If no timing information is written.
+     */
     public ArrayList<Task> createTasks(ArrayList<String[]> fileData) throws EmptyDescriptionException,
             EmptyTimingDetailsException {
         int taskUniqueID = 0;
@@ -52,6 +63,11 @@ public class TaskRecorder {
         return tasks;
     }
 
+    /**
+     * Extracts each line of the data file into a readable format by Duke.
+     * @return An arraylist of each line of data.
+     * @throws IOException If the file cannot be loaded.
+     */
     public ArrayList<String[]> loadData() throws IOException {
         checkFileExists();
         ArrayList<String[]> tasks = new ArrayList<>();
@@ -63,6 +79,11 @@ public class TaskRecorder {
         return tasks;
     }
 
+    /**
+     * Updates the file data with a new line of data to be in sync with the current arraylist of tasks.
+     * @param userInput Text from user to be stored into the file data
+     * @throws IOException If the file cannot be updated.
+     */
     public void addData(String userInput) throws IOException {
         checkFileExists();
         List<String> lines = Files.readAllLines(PATH);
@@ -71,6 +92,11 @@ public class TaskRecorder {
         Files.write(PATH, lines);
     }
 
+    /**
+     * Updates the file data by deleting a line of data to be in sync with the current arraylist of tasks.
+     * @param taskCount Index of the task to be deleted.
+     * @throws IOException If the file cannot be updated.
+     */
     public void deleteData(int taskCount) throws IOException {
         checkFileExists();
         List<String> lines = Files.readAllLines(PATH);
@@ -78,6 +104,11 @@ public class TaskRecorder {
         Files.write(PATH, lines);
     }
 
+    /**
+     * Updates the file data to mark the selected data to be in sync with current arraylist of tasks.
+     * @param taskNumber Index of task in the arraylist to be deleted.
+     * @throws IOException If the file cannot be updated.
+     */
     public void markOrUnmarkData(int taskNumber) throws IOException {
         checkFileExists();
         List<String> lines = Files.readAllLines(PATH);
@@ -93,6 +124,9 @@ public class TaskRecorder {
         Files.write(PATH, lines);
     }
 
+    /**
+     * Creates the required folder and file to be referenced by Duke if not found
+     */
     public void checkFileExists() {
         try {
             // create parent folder if it does not exist
