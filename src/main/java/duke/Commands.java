@@ -2,9 +2,11 @@ package duke;
 
 import duke.task.Deadline;
 import duke.task.Event;
+import duke.task.Task;
 import duke.task.Todo;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Commands {
     //Commands
@@ -16,6 +18,7 @@ public class Commands {
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
     public static final String COMMAND_DELETE = "delete";
+    public static final String COMMAND_FIND = "find";
 
     /**
      * Parses user input and calls the correct method to execute command if command is valid.
@@ -31,8 +34,7 @@ public class Commands {
         String command = Parser.getCommand(input);
         switch(command) {
         case COMMAND_LIST:
-            System.out.println(Ui.MESSAGE_LIST);
-            Parser.listTasks();
+            executeList();
             break;
         case COMMAND_MARK:
             executeMark(input);
@@ -52,9 +54,51 @@ public class Commands {
         case COMMAND_EVENT:
             executeEvent(input);
             break;
+        case COMMAND_FIND:
+            executeFind(input);
+            break;
         default:
             throw new DukeException(Ui.ERROR_NOT_VALID_COMMAND);
         }
+    }
+
+    /**
+     * Prints the list of tasks in taskList.
+     */
+    public static void executeList() {
+        if (Ui.taskList.size() > 0) {
+            System.out.println(Ui.MESSAGE_LIST);
+            Parser.listTasks(Ui.taskList);
+        } else {
+            System.out.println(Ui.MESSAGE_NO_TASKS);
+        }
+    }
+
+    /**
+     * Finds all tasks with descriptions matching the user's requested content and prints the
+     * corresponding tasks.
+     *
+     * @param input full find command provided by the user
+     */
+    public static void executeFind(String input) {
+        try {
+            String content = Parser.parseOneParameter(input);
+            ArrayList<Task> resultantList = new ArrayList<>();
+            for (Task task: duke.Ui.taskList) {
+                if (task.getDescription().contains(content)) {
+                    resultantList.add(task);
+                }
+            }
+            if (resultantList.size() > 0) {
+                System.out.println(Ui.MESSAGE_FIND_RESULT + "'" + content + "':");
+                Parser.listTasks(resultantList);
+            } else {
+                System.out.println(Ui.MESSAGE_NO_FIND_RESULT + " '" + content + "'.");
+            }
+        } catch (DukeException | ArrayIndexOutOfBoundsException error) {
+            System.out.println(Ui.ERROR_INVALID_SYNTAX + COMMAND_FIND + ". " + Ui.ERROR_NO_CONTENT);
+        }
+
     }
 
     /**
@@ -64,7 +108,7 @@ public class Commands {
      */
     public static void executeDelete(String input) {
         try {
-            String taskNumber = Parser.parseMarkOrUnmarkOrDelete(input);
+            String taskNumber = Parser.parseOneParameter(input);
             int taskIndex = Integer.parseInt(taskNumber) - 1;
             System.out.println(Ui.MESSAGE_DELETE_SUCCESS + Ui.taskList.get(taskIndex));
             Ui.taskList.remove(taskIndex);
@@ -82,14 +126,12 @@ public class Commands {
      */
     public static void executeMark(String input) {
         try {
-            String taskNumber = Parser.parseMarkOrUnmarkOrDelete(input);
+            String taskNumber = Parser.parseOneParameter(input);
             int taskIndex = Integer.parseInt(taskNumber) - 1;
             Ui.taskList.get(taskIndex).markAsDone();
             System.out.println(Ui.MESSAGE_MARK_SUCCESS + Ui.taskList.get(taskIndex));
-        } catch (DukeException error) {
-            System.out.println(error.getMessage() + COMMAND_MARK + ".");
-        } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            System.out.println(Ui.ERROR_INVALID_TASK_NUMBER);
+        } catch (DukeException | NumberFormatException | IndexOutOfBoundsException error) {
+            System.out.println(Ui.ERROR_INVALID_SYNTAX + COMMAND_MARK + ". " + Ui.ERROR_INVALID_TASK_NUMBER);
         }
     }
 
@@ -100,14 +142,12 @@ public class Commands {
      */
     public static void executeUnmark(String input) {
         try {
-            String taskNumber = Parser.parseMarkOrUnmarkOrDelete(input);
+            String taskNumber = Parser.parseOneParameter(input);
             int taskIndex = Integer.parseInt(taskNumber) - 1;
             Ui.taskList.get(taskIndex).markAsNotDone();
             System.out.println(Ui.MESSAGE_UNMARK_SUCCESS + Ui.taskList.get(taskIndex));
-        } catch (DukeException error) {
-            System.out.println(error.getMessage() + COMMAND_UNMARK + ".");
-        } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            System.out.println(Ui.ERROR_INVALID_TASK_NUMBER);
+        } catch (DukeException | NumberFormatException | IndexOutOfBoundsException error) {
+            System.out.println(Ui.ERROR_INVALID_SYNTAX + COMMAND_UNMARK + ". " + Ui.ERROR_INVALID_TASK_NUMBER);
         }
     }
 
@@ -117,14 +157,15 @@ public class Commands {
      * @param input user's Todo command
      */
     public static void executeTodo(String input) {
-        if (!input.contains(" ")) { // Checks for presence of description
-            System.out.println(Ui.ERROR_INVALID_SYNTAX + COMMAND_UNMARK + ".");
-            return;
+        try {
+            String description = Parser.parseOneParameter(input);
+            Todo task = new Todo(description);
+            Ui.taskList.add(task);
+            task.printAddToListMessage();
+        } catch (DukeException | ArrayIndexOutOfBoundsException error) {
+            System.out.println(Ui.ERROR_INVALID_SYNTAX + COMMAND_TODO + ". " + Ui.ERROR_NO_DESCRIPTION);
         }
-        String description = Parser.getDescription(input);
-        Todo task = new Todo(description);
-        Ui.taskList.add(task);
-        task.printAddToListMessage();
+
     }
 
     /**

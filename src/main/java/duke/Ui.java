@@ -20,6 +20,8 @@ public class Ui {
     public static final String MESSAGE_UNMARK_SUCCESS = "Aw, you've marked this as undone:\n";
     public static final String MESSAGE_DELETE_SUCCESS = "Alright, deleting this task:\n";
     public static final String MESSAGE_NO_TASKS = "You don't seem to have any tasks so far!";
+    public static final String MESSAGE_FIND_RESULT = "Here are the tasks containing ";
+    public static final String MESSAGE_NO_FIND_RESULT = "Sorry, looks like there are no tasks which match";
 
     //Misc text
     public static final String SEPARATOR = "───────────────────────────────────";
@@ -27,6 +29,8 @@ public class Ui {
     //Errors
     public static final String ERROR_NO_INPUT = "Hmmmm... you didn't type anything. Please try again using a valid command!";
     public static final String ERROR_IO = "IO Error occurred!";
+    public static final String ERROR_NO_DESCRIPTION = "You did not enter a description!";
+    public static final String ERROR_NO_CONTENT = "You did not enter a description to find!";
     public static final String ERROR_NOT_VALID_COMMAND = "Sorry, command is not recognised. Please try again using a valid command!";
     public static final String ERROR_INVALID_SYNTAX = "You've entered an invalid syntax for ";
     public static final String ERROR_INVALID_TASK_NUMBER = "Please enter a valid task number!";

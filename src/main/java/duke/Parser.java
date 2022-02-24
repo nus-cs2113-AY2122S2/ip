@@ -5,6 +5,8 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.util.ArrayList;
+
 public class Parser {
 
     //Flags
@@ -32,20 +34,20 @@ public class Parser {
     }
 
     /**
-     * Returns a String representing the integer of the chosen task.
-     * The method is called when user calls the command Mark or Unmark along with the corresponding
-     * task number.
+     * Returns a String representing the parameter of a given command.
+     * The method is called when user calls a command with only one parameter (e.g. Todo, Mark, Delete
+     * , Find) and returns the parameter.
      *
-     * @param input the mark or unmark command
-     * @return String representation of the task number
-     * @throws DukeException If Mark or Unmark command follows an invalid syntax
+     * @param input command containing one parameter
+     * @return String representation of the parameter
+     * @throws DukeException If command follows an invalid syntax
      */
-    public static String parseMarkOrUnmarkOrDelete(String input) throws DukeException {
-        String[] inputArray = input.split(" ");
-        if (inputArray.length != 2) {
+    public static String parseOneParameter(String input) throws DukeException {
+        String[] arrayOfInput = input.split(" ", 2);
+        if (arrayOfInput[1].isEmpty()) {
             throw new DukeException(Ui.ERROR_INVALID_SYNTAX);
         }
-        return inputArray[1];
+        return arrayOfInput[1];
     }
 
     /**
@@ -60,25 +62,11 @@ public class Parser {
     }
 
     /**
-     * Returns description of the Todo task from the Todo command entered by the user.
-     *
-     * @param input Todo command entered by the user
-     * @return description of Todo
-     */
-    public static String getDescription(String input) {
-        return input.substring(input.indexOf(" "));
-    }
-
-    /**
      * Prints all the tasks in the list.
      */
-    public static void listTasks() {
-        if (Ui.taskList.size() == 0) {
-            System.out.println(Ui.MESSAGE_NO_TASKS);
-        } else {
-            for (int i = 0; i < Ui.taskList.size(); i++) {
-                System.out.println((i + 1) + ". " + Ui.taskList.get(i));
-            }
+    public static void listTasks(ArrayList<Task> list) {
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println((i + 1) + ". " + list.get(i));
         }
     }
 
