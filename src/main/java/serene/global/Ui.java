@@ -23,8 +23,8 @@ public class Ui {
             "Add an event: event [description] /at [time]" + System.lineSeparator() +
             "Mark/unmark a task: mark/unmark [index]" + System.lineSeparator() +
             "Delete a task: delete [index]" + System.lineSeparator() +
-            "Find a task: find [keyword]" + System.lineSeparator() +
             "List your tasks: list" + System.lineSeparator() +
+            "Find a task: find [keyword]" + System.lineSeparator() +
             "Show this help page: help" + System.lineSeparator() +
             "Exit the program T.T: bye";
 
@@ -102,7 +102,11 @@ public class Ui {
      */
     public static void printFoundTasks(ArrayList<Task> taskList, String[] userInput) {
         try {
-            String toFind = userInput[Constant.RESPONSE_INDEX_BODY];
+            String toFind = userInput[Constant.RESPONSE_INDEX_BODY].strip();
+            if (Parser.isEmpty(toFind)) {
+                printWithPartition(EMPTY_REGEX_ERROR_MESSAGE);
+                return;
+            }
             System.out.println(PARTITION_LINE);
             System.out.println("Here are the tasks you are looking for:");
             int counter = Constant.INITIAL_COUNTER;

@@ -24,20 +24,76 @@ Some example commands you can try:
 
 ## Features 
 
-:exclamation: ***Notes about the command format***
+:bangbang: ***Notes about the command format***
 * Words in `UPPER_CASE` are parameters to be supplied by the user.
 e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo Try out Serene`.
 * Extraneous parameters for commands that do not take in parameters (such as `help` and `list`) will be ignored.
-e.g. if the command specifies help 123, it will be interpreted as help.
+e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 ### Viewing help: `help`
 
 Shows a list of commands which the user can input.
 Format: `help`
 
-### Feature-XYZ
+### Adding a todo: `todo`
 
-Description of the feature.
+Adds a todo type task to the task list.
+Format: `todo DESCRIPTION`
+Examples: 
+- `todo Try out Serene`
+- `todo Drink water`
+![Add_ToDo](/ip/docs/assets/Add_ToDo.png)
+
+### Adding a deadline: `deadline`
+
+Adds a deadline type task to the task list.
+Format: `deadline DESCRIPTION /by TIME`
+Examples: 
+- `deadline Implement CS2113T increments /by Next week`
+- `deadline Read book /by Tonight 6pm`
+  ![Add_ToDo](/ip/docs/assets/Add_Deadline.png)
+
+### Adding an event: `event`
+
+Adds an event type task to the task list.
+Format: `event DESCRIPTION /by TIME`
+Examples:
+- `event Watch anime /at 7pm tonight`
+- `event Practice Hack the Box /at Tomorrow`
+  ![Add_ToDo](/ip/docs/assets/Add_Event.png)
+
+### Marking a task: `mark`
+
+Marks the specified task.
+Format: `mark INDEX`
+
+### Unmarking a task: `unmark`
+
+Unmarks the specified task.
+Format: `unmark INDEX`
+
+### Deleting a task: `delete`
+
+Deletes the specified task.
+Format: `delete INDEX`
+
+### Listing all tasks: `list`
+
+Shows a list of all tasks in the task list.
+Format: `list`
+Example list:
+
+### Finding a task: `find`
+
+Find tasks whose descriptions contain the given keywords.
+Format: `find KEYWORD(S)`
+- The search is case-sensitive. e.g. `work` will **NOT** match `Work`.
+- The order of the keywords matter. e.g. `bake cake` will **NOT** match `cake bake`.
+- Only the description is searched.
+- Partial words can be matched e.g. `read` will match `reading`.
+Examples:
+- `find Read` returns `Read book`
+- `find Serene` returns `Try out Serene`
 
 ## Usage
 
