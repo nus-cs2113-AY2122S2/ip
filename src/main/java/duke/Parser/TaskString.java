@@ -1,22 +1,14 @@
 package duke.Parser;
 
 import duke.DukeException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import duke.TaskList.task.Deadline;
+import duke.TaskList.task.Event;
+import duke.TaskList.task.Task;
+import duke.TaskList.task.Todo;
 
 public class TaskString {
 
     static String getTimeSplitArgument(TaskType taskType) throws DukeException {
-/*         String regex;
-         if (taskType.equals(TaskType.DEADLINE)) {
-             regex = " /by ";
-         }
-         if (taskType.equals(TaskType.EVENT)) {
-             regex = " /at ";
-         }
-         return regex;*/
         switch (taskType) {
         case DEADLINE:
             return " /by ";
@@ -51,36 +43,6 @@ public class TaskString {
         }
         return task;
     }
-
-/*    static Task parseDeadline(String description) throws DukeException {
-        if (description.equals("")) {
-            throw new DukeException("Please provide a task description!");
-        }
-        String by;
-        try {
-            String[] deadlineBreakdown = description.split("/by ", 2);
-            description = deadlineBreakdown[0];
-            by = deadlineBreakdown[1];
-        } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("You need to provide a time for your deadline (e.g. /by 7am)");
-        }
-        return new Deadline(description, by);
-    }
-
-    static Task parseEvent(String description) throws DukeException {
-        if (description.equals("")) {
-            throw new DukeException("Please provide a task description!");
-        }
-        String at;
-        try {
-            String[] eventBreakdown = description.split(" /at ", 2);
-            description = eventBreakdown[0];
-            at = eventBreakdown[1];
-        } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("You need to provide a time for your event (e.g. /at 2-4pm)");
-        }
-        return new Event(description, at);
-    }*/
 
     public static Task parseTask(String type, String description) throws DukeException {
         Task t;

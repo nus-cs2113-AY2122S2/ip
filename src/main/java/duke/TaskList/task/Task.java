@@ -1,4 +1,4 @@
-package duke.task;
+package duke.TaskList.task;
 
 /**
  * Describes the Task object; it is an abstract class that

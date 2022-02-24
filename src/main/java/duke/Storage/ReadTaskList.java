@@ -2,7 +2,7 @@ package duke.Storage;
 
 import duke.DukeException;
 import duke.Parser.TaskString;
-import duke.task.Task;
+import duke.TaskList.task.Task;
 
 import java.io.File;
 import java.io.FileNotFoundException;
