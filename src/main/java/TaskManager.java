@@ -94,7 +94,7 @@ public class TaskManager {
         System.out.println("____________________________________________________________");
         System.out.println("Here are the matching tasks in your list:");
         for(Task task: tasks){
-            if(task.getDescription().contains(keyword)){
+            if(task.getDescription().toUpperCase().contains(keyword.toUpperCase())){
                 System.out.println(count+". "+task);
                 count++;
             }
