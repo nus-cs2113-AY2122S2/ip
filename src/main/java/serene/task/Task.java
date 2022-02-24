@@ -13,6 +13,10 @@ public abstract class Task {
         this.description = description;
         isDone = false;
     }
+    
+    public String getDescription() {
+        return description;
+    }
 
     /**
      * Returns a character depending on whether the task is marked.

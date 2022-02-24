@@ -14,4 +14,5 @@ public class Constant {
     public static final int TIME_OFFSET = 6;
     public static final int SINGULAR = 1;
     public static final int TO_SINGULAR = 2;
+    public static final int INITIAL_COUNTER = 1;
 }
