@@ -17,12 +17,12 @@ public class ToDo extends Task {
 
     @Override
     public void deleteTask(int taskNumber,  ArrayList<Task> taskList) {
-        System.out.print(LINESEPARATOR);
+        System.out.print(LINE_SEPARATOR);
         System.out.println("Noted. I've removed this task:");
         System.out.println("[T]" + super.toString());
         taskList.remove(taskNumber-1);
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
-        System.out.print(LINESEPARATOR);
+        System.out.print(LINE_SEPARATOR);
     }
     @Override
     public String getTaskType() {

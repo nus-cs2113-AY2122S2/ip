@@ -7,7 +7,7 @@ public class Task {
     protected boolean isDone;
     protected String taskType;
 
-    public static final String LINESEPARATOR = "____________________________________________________________\n";
+    public static final String LINE_SEPARATOR = "____________________________________________________________\n";
 
     public Task(String description) {
         this.description = description;
@@ -29,20 +29,20 @@ public class Task {
     public void markAsDone(int taskNumber, ArrayList<Task> taskList, Boolean isUserCommand) {
         isDone = true;
         if (isUserCommand) {
-            System.out.print(LINESEPARATOR);
+            System.out.print(LINE_SEPARATOR);
             System.out.println("OK, I've marked this task as done:");
             System.out.println(taskList.get(taskNumber - 1).toString());
-            System.out.print(LINESEPARATOR);
+            System.out.print(LINE_SEPARATOR);
         }
     }
 
     public void markAsUndone(int taskNumber, ArrayList<Task> taskList, Boolean isUserCommand) {
         isDone = false;
         if (isUserCommand) {
-            System.out.print(LINESEPARATOR);
+            System.out.print(LINE_SEPARATOR);
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println(taskList.get(taskNumber - 1).toString());
-            System.out.print(LINESEPARATOR);
+            System.out.print(LINE_SEPARATOR);
         }
     }
 
