@@ -4,20 +4,20 @@ Serene is a **desktop app for the storing and viewing of tasks, optimised for us
 If you can type fast, Serene can help you note down your tasks faster than you can ever accomplish with pen and paper.
 Do not worry about missing out details of your tasks, as Serene will notice when you do not supply a proper description or time!
 
-- [Quick start](#quick-start)
-- [Features](#features)
-  - [Viewing help: `help`](#viewing-help-help)
-  - [Adding a todo: `todo`](#adding-a-todo-todo)
-  - [Adding a deadline: `deadline`](#adding-a-deadline-deadline)
-  - [Adding an event: `event`](#adding-an-event-event)
-  - [Marking a task: `mark`](#marking-a-task-mark)
-  - [Unmarking a task: `unmark`](#unmarking-a-task-unmark)
-  - [Deleting a task: `delete`](#deleting-a-task-delete)
-  - [Listing all tasks: `list`](#listing-all-tasks-list)
-  - [Finding a task: `find`](#finding-a-task-find)
-  - [Exiting the program: `bye`](#exiting-the-program-bye)
-  - [Saving the data](#saving-the-data)
-- [Command summary](#command-summary)
+* [Quick start](#quick-start)
+* [Features](#features)
+  * [Viewing help: `help`](#viewing-help-help)
+  * [Adding a todo: `todo`](#adding-a-todo-todo)
+  * [Adding a deadline: `deadline`](#adding-a-deadline-deadline)
+  * [Adding an event: `event`](#adding-an-event-event)
+  * [Marking a task: `mark`](#marking-a-task-mark)
+  * [Unmarking a task: `unmark`](#unmarking-a-task-unmark)
+  * [Deleting a task: `delete`](#deleting-a-task-delete)
+  * [Listing all tasks: `list`](#listing-all-tasks-list)
+  * [Finding a task: `find`](#finding-a-task-find)
+  * [Exiting the program: `bye`](#exiting-the-program-bye)
+  * [Saving the data](#saving-the-data)
+* [Command summary](#command-summary)
 
 ## Quick start
 1. Ensure that you are running Java `11` on your system.
@@ -129,7 +129,7 @@ There is no need to save manually.
 | Add event    | `event DESCRIPTION /at TIME`<br/> e.g., `event Watch anime /at 7pm tonight`     |
 | Mark         | `mark INDEX`<br/> e.g., `mark 1`                                                |
 | Unmark       | `unmark INDEX`<br/> e.g., `unmark 1`                                            |
-| Delete       | `delete INDEX`<br/> e.g., `delete 1`                                            |`
+| Delete       | `delete INDEX`<br/> e.g., `delete 1`                                            |
 | List         | `list`                                                                          |
 | Find         | `find KEYWORD(S)`<br/> e.g., `find Serene`                                      |
 | Bye          | `bye`                                                                           |
