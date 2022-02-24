@@ -18,12 +18,12 @@ public class TaskList {
     /**
      * Stores a task in the list of tasks.
      *
-     * @param inputTasks ArrayList<String> containing input from stdin. The first String in task should represent the type of
+     * @param pieces ArrayList<String> containing input from stdin. The first String in task should represent the type of
      *                   Task that must be added to the list of Tasks. Supported tasks: todo, deadline, event
      */
-    public void addTask(ArrayList<String> inputTasks) {
+    public void addTask(ArrayList<String> pieces) {
         try {
-            tasks.add(buildTask(inputTasks));
+            tasks.add(buildTask(pieces));
             System.out.println("Got it. I've added this task:\n  " + this.tasks.get(this.tasks.size() - 1));
             System.out.println("Now you have " + tasks.size()
                     + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
@@ -35,26 +35,23 @@ public class TaskList {
     /**
      * Constructs a subclass of Task from an ArrayList<String>.
      *
-     * @param taskStringArray the ArrayList<String> containing the user's input, split up by whitespace.
+     * @param pieces the ArrayList<String> containing the user's input, split up by whitespace.
      *                        The first element of this list should contain the subclass of task to be constructed.
-     * @return a subclass of Task determined by the first element of taskStringArray.
+     * @return a subclass of Task determined by the first element of pieces.
      */
-    public static Task buildTask(ArrayList<String> taskStringArray) throws DukeException {
-        String taskType = taskStringArray.get(0);
-        ArrayList<StringBuilder> taskParts = splitTask(taskStringArray);
+    public static Task buildTask(ArrayList<String> pieces) throws DukeException {
+        String taskType = pieces.get(0);
+        ArrayList<StringBuilder> taskParts = splitTask(pieces);
         validateTask(taskType, taskParts);
-        String prepositions = String.valueOf(taskParts.get(taskParts.size() - 1));
         switch (taskType) {
         case Parser.COMMAND_TODO:
             return new ToDo(String.valueOf(taskParts.get(0)));
         case Parser.COMMAND_DEADLINE:
             return new Deadline(String.valueOf(taskParts.get(0)),
-                    String.valueOf(taskParts.get(1)),
-                    prepositions);
+                    String.valueOf(taskParts.get(1)));
         case Parser.COMMAND_EVENT:
             return new Event(String.valueOf(taskParts.get(0)),
-                    String.valueOf(taskParts.get(1)),
-                    prepositions);
+                    String.valueOf(taskParts.get(1)));
         }
         return null;
     }
@@ -63,30 +60,25 @@ public class TaskList {
      * Validates the input of the task to check for user error.
      *
      * @param taskType  the type of task (todo, deadline etc).
-     * @param taskParts the list of components that form the task.
+     * @param taskList the list of components that form the task.
      * @throws DukeException error message if task is invalid
      */
-    private static void validateTask(String taskType, ArrayList<StringBuilder> taskParts) throws DukeException {
-        if (taskParts.isEmpty()) {
-            throw new DukeException("The description of a " + taskType + " cannot be empty.");
-        }
-        String prepositions = String.valueOf(taskParts.get(taskParts.size() - 1));
+    private static void validateTask(String taskType, ArrayList<StringBuilder> taskList) throws DukeException {
         switch (taskType) {
         case Parser.COMMAND_TODO:
-            if (!prepositions.isEmpty()) {
-                throw new DukeException("Todo tasks cannot include the preposition " + prepositions +" in the description.");
+            if (taskList.isEmpty()) {
+                throw new DukeException("Task details missing.");
             }
-            break;
-        case Parser.COMMAND_DEADLINE:
-            if (taskParts.get(0).toString().equals("")
-                    || taskParts.get(1).toString().equals("")) {
-                throw new DukeException("The description or deadline is incomplete.");
-            }
-            break;
         case Parser.COMMAND_EVENT:
-            if (taskParts.get(0).toString().equals("") || taskParts.get(1).toString().equals("")) {
-                throw new DukeException("The description or time of event is incomplete.");
+        case Parser.COMMAND_DEADLINE:
+            if (taskList.size() < 2) {
+                throw new DukeException("Task details missing.");
             }
+            if (taskList.get(0).equals("")
+                    || taskList.get(1).equals("")) {
+                throw new DukeException("Task details missing.");
+            }
+            break;
         }
     }
 
@@ -95,38 +87,28 @@ public class TaskList {
      * can be used to construct a subclass of Task. Use this in conjunction with buildTask to construct a
      * subclass of Task.
      *
-     * @param input ArrayList of Strings that represent the user's input split by whitespace.
-     * @return an ArrayList<StringBuilder> containing the input split by the '/' character.
+     * @param pieces ArrayList of Strings that represent the user's pieces split by whitespace.
+     * @return an ArrayList<StringBuilder> containing the pieces split by the '/' character.
      * Each element represents a String used to construct the task.
-     * The last element contains all prepositions used in a single string.
-     * e.g.: deadline return book /by Sunday /at library returns the following Arraylist:
-     * {"return book", "Sunday", "Library", "/by/at"}
-     * returns an empty list if input contains only a command.
+     * e.g.: deadline return book /by Sunday returns the following Arraylist:
+     * {"return book", "Sunday"}
+     * returns an empty list if pieces contains only a command.
      */
-    private static ArrayList<StringBuilder> splitTask(ArrayList<String> input) {
-        /* taskPartsIterator increments when a String containing '/' is encountered.
-         * inputIterator increments after each String in input is read.
-         * The loop ends when inputIterator exceeds the size of the ArrayList, indicating that all
-         * Strings in input have been read.
-         */
+    private static ArrayList<StringBuilder> splitTask(ArrayList<String> pieces) {
         ArrayList<StringBuilder> taskParts = new ArrayList<>();
-        if (input.size() <= 1) {
+        taskParts.add(new StringBuilder(""));
+        taskParts.add(new StringBuilder(""));
+        if (pieces.size() <= 1) {
             return taskParts;
         }
-        StringBuilder prepositions = new StringBuilder();
-        for (int taskPartsIterator = 0, inputIterator = 0; inputIterator < input.size(); ++taskPartsIterator) {
-            String finalWord = input.get(inputIterator);
-            if (finalWord.startsWith("/")) {
-                prepositions.append(finalWord);
+        for (int i = 0, j = 1; i < 2; ++i) {
+            while (j < pieces.size() && !pieces.get(j).startsWith("/")) {
+                taskParts.get(i).append(pieces.get(j));
+                taskParts.get(i).append(" ");
+                ++j;
             }
-            inputIterator++;
-            taskParts.add(new StringBuilder());
-            for (; inputIterator < input.size()
-                    && !input.get(inputIterator).startsWith("/"); ++inputIterator) {
-                taskParts.get(taskPartsIterator).append(input.get(inputIterator)).append(" ");
-            }
+            ++j;
         }
-        taskParts.add(prepositions);
         return taskParts;
     }
 

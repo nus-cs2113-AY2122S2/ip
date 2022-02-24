@@ -7,7 +7,7 @@ import duke.Ui;
 import java.util.ArrayList;
 
 public class AddCommand extends Command {
-    private ArrayList<String> pieces;
+    private final ArrayList<String> pieces;
 
     public AddCommand(ArrayList<String> pieces) {
         this.pieces = pieces;
