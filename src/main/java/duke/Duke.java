@@ -16,13 +16,17 @@ import static duke.Storage.WriteTaskList.writeList;
  * and performs certain actions for specific commands.
  */
 public class Duke {
-    private static final ArrayList<Task> list = new ArrayList<>(100);
+    private static final int MAX_SIZE = 100;
+    private static final String MESSAGE_BORDER =
+            "____________________________________________________________";
+
+    private static final ArrayList<Task> list = new ArrayList<>(MAX_SIZE);
     private static Boolean willExit = false;
 
-    private static void printFormat(String s) {
-        System.out.println("____________________________________________________________\n" +
-                s + "\n" +
-                "____________________________________________________________");
+    private static void printFormat(String message) {
+        System.out.println(MESSAGE_BORDER);
+        System.out.println(message);
+        System.out.println(MESSAGE_BORDER);
     }
 
     private static void greet() {
@@ -53,11 +57,12 @@ public class Duke {
     private static void markStatus(Boolean shouldMark, String line) {
         Task curr;
         try {
-            int taskNum = Integer.parseInt(line.split(" ", 0)[1]) - 1;
-            if (taskNum > list.size()) {
+            String stringOfTaskNum = line.split(" ", 0)[1];
+            int taskInd = Integer.parseInt(stringOfTaskNum) - 1;
+            if (taskInd > list.size()) {
                 throw new DukeException("Please mark / unmark with a number that's in the list :')");
             }
-            curr = list.get(taskNum);
+            curr = list.get(taskInd);
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             // NumberFormatException caught in IntelliJ runtime env but not in testing...
             printFormat("Please mark / unmark with a valid number :')");
@@ -106,9 +111,9 @@ public class Duke {
                 description = commands[1];
             }
 
-            Task t = parseTask(type, description);
-            list.add(t);
-            printFormat("Got it. I've added this task:\n  " + t +
+            Task task = parseTask(type, description);
+            list.add(task);
+            printFormat("Got it. I've added this task:\n  " + task +
                     String.format("\nNow you have %d tasks in the list.", list.size()));
         } catch (DukeException e) {
             printFormat(e.msg);
@@ -135,7 +140,8 @@ public class Duke {
         greet();
         String line;
         Scanner in = new Scanner(System.in);
-        list.addAll(readFile());
+        ArrayList<Task> existingTasks = readFile();
+        list.addAll(existingTasks);
 
         while (!willExit) {
             line = in.nextLine();
