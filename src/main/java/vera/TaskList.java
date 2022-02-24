@@ -108,4 +108,16 @@ public class TaskList {
         System.out.println("Okay. I've removed this task:\n  " + taskToBeRemoved
                 + "\nNow you have " + tasks.size() + " task(s) in the list.");
     }
+
+    public void findTasks(String taskDescriptionKeyWord, Ui ui) {
+        int printIndex = 1;
+        ui.showToUser("Here are the matching tasks in your list:");
+        for (Task task : tasks) {
+            if (task.getDescription().contains(taskDescriptionKeyWord)) {
+                String listIndex = String.valueOf(printIndex);
+                ui.showToUser(listIndex + ". " + task);
+            }
+            printIndex++;
+        }
+    }
 }
