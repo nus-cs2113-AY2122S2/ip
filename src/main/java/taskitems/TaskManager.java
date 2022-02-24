@@ -1,5 +1,8 @@
 package taskitems;
 
+
+import helper.Storage;
+import helper.Ui;
 import taskitems.exceptions.IllegalInputException;
 import taskitems.task.Deadline;
 import taskitems.task.Event;
@@ -14,7 +17,8 @@ public class TaskManager {
     private TaskList tasks = new TaskList();
     private TaskList bin = new TaskList();
     private Storage storage = new Storage(tasks);
-    static Greet greet;
+
+    private Ui ui = new Ui();
 
     public TaskManager() {
         try {
@@ -29,7 +33,7 @@ public class TaskManager {
     }
 
     private void printTask(int number) {
-        System.out.println(tasks.getTask(number));
+        ui.print(tasks.getTask(number));
     }
 
     public void markTask(int number) throws NumberFormatException {
@@ -37,11 +41,11 @@ public class TaskManager {
             throw new NumberFormatException();
         }
         if (tasks.getTask(number).isMarked()) {
-            System.out.println("Err, this task is already marked...");
+            ui.print("Err, this task is already marked...");
         } else {
             tasks.mark(number);
-            System.out.println("Nice! I've marked this task as done: ");
-            System.out.println(tasks.getTask(number));
+            ui.print("Nice! I've marked this task as done: ");
+            ui.print(tasks.getTask(number));
         }
         storage.saveData();
     }
@@ -51,11 +55,11 @@ public class TaskManager {
             throw new NumberFormatException();
         }
         if(!tasks.getTask(number).isMarked()){
-            System.out.println("I cannot unmark something that was never marked...");
+            ui.print("I cannot unmark something that was never marked...");
         } else {
             tasks.unmark(number);
-            System.out.println("Okay Boss! The following task has been unmarked: ");
-            System.out.println(tasks.getTask(number));
+            ui.print("Okay Boss! The following task has been unmarked: ");
+            ui.print(tasks.getTask(number));
         }
         storage.saveData();
     }
@@ -81,9 +85,9 @@ public class TaskManager {
         if(number > tasks.size || number < 1){
             throw new NumberFormatException();
         } else {
-            System.out.println("The following task has been shifted to the rubbish bin");
+            ui.print("The following task has been shifted to the rubbish bin");
             printTask(number);
-            System.out.println("You can say \"bin\" to view deleted items.");
+            ui.printCont("You can say \"bin\" to view deleted items.");
             bin.add(tasks.getTask(number), true);
             tasks.delete(number);
         }
@@ -92,23 +96,19 @@ public class TaskManager {
 
     public void printTasks() {
         if (tasks.size == 0) {
-            System.out.println("You have not added any Tasks!");
+            ui.print("You have not added any Tasks!");
         } else {
-            for (int i = 1; i <= tasks.size ; i++) {
-                System.out.print(i + ". ");
-                System.out.println(tasks.getTask(i));
-            }
+            ui.print("List: ");
+            ui.print(tasks);
         }
     }
 
     public void printDeletedTasks() {
         if (bin.size == 0) {
-            System.out.println("There are no items in the rubbish bin right now");
+            ui.print("There are no items in the rubbish bin right now");
         } else {
-            System.out.println("Rubbish Bin:");
-            for (int i = 1; i <= bin.size; i++) {
-                System.out.println( (i) + ". " + bin.getTask(i));
-            }
+            ui.print("Rubbish Bin:");
+            ui.print(bin);
         }
     }
 }

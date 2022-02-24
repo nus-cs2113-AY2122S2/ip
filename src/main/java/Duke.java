@@ -1,14 +1,13 @@
-import taskitems.Greet;
+import helper.Parser;
+import helper.Ui;
 import taskitems.exceptions.IllegalInputException;
 import taskitems.TaskManager;
 
 
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Duke {
 
-    static Greet greet;
     static Scanner reader = new Scanner(System.in);
     static Ui ui = new Ui();
     static Parser parser = new Parser();
@@ -23,6 +22,7 @@ public class Duke {
     public static void taskLoop(TaskManager taskManager){
         boolean isDone = false;
         while (!isDone) {
+            ui.prompt();
             String command = ui.readCommand();
             String taskName = ui.readParameter();
             switch (command) {
@@ -84,11 +84,11 @@ public class Duke {
                 isDone = true;
                 break;
             case "help":
-                System.out.println("Sorry, I am still trying to get my things together and learn new things.\n" +
+                ui.print("Sorry, I am still trying to get my things together and learn new things.\n" +
                         "I will update this portion as soon as I learn what I should be doing.");
                 break;
             default:
-                System.out.println("Invalid Command!");
+                ui.print("Invalid Command!");
             }
         }
     }

@@ -1,4 +1,4 @@
-package taskitems;
+package helper;
 
 
 import taskitems.task.Deadline;
@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class Storage {
     private final String PATH = "data.txt";
     private TaskList tasks;
-    private Greet greet;
+
 
     public Storage(TaskList tasks) {
         this.tasks = tasks;
