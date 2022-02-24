@@ -23,9 +23,7 @@ public class Storage {
     public static final String FILE_DEADLINE = "D";
     public static final String FILE_EVENT = "E";
     public static final String FILE_DONE = "1";
-    public static final char FILE_DONE_CHAR = '1';
     public static final String FILE_NOT_DONE = "0";
-    public static final int FILE_STATUS_INDEX = 4;
 
     /**
      * Loads the saved tasks from the user's local file to Duke's list of tasks.
@@ -53,7 +51,7 @@ public class Storage {
     /**
      * Updates the file by overwriting each task line by line from the list of tasks to the local file.
      *
-     * @throws IOException
+     * @throws IOException If IOException occurs
      */
     public static void updateFile() throws IOException {
         Path path = Paths.get(FILE_PATH);
