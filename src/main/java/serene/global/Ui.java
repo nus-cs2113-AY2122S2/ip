@@ -17,6 +17,16 @@ public class Ui {
     public static final String EMPTY_REGEX_ERROR_MESSAGE = "Uhh... What are you trying to look for?";
     public static final String NOTHING_FOUND = "No such task .-.";
     public static final String IO_FAIL_MESSAGE = "I/O failed ;-;";
+    public static final String HELP_MESSAGE = "Hello user~ Here is the list of commands I can do:\n" +
+            "Add a todo: todo [description]" + System.lineSeparator() +
+            "Add a deadline: deadline [description] /by [time]" + System.lineSeparator() +
+            "Add an event: event [description] /at [time]" + System.lineSeparator() +
+            "Mark/unmark a task: mark/unmark [index]" + System.lineSeparator() +
+            "Delete a task: delete [index]" + System.lineSeparator() +
+            "Find a task: find [keyword]" + System.lineSeparator() +
+            "List your tasks: list" + System.lineSeparator() +
+            "Show this help page: help" + System.lineSeparator() +
+            "Exit the program T.T: bye";
 
     /**
      * Prints a welcome message to the user upon start up of Serene.

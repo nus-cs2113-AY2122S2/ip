@@ -36,6 +36,9 @@ public class Parser {
         case "find":
             Ui.printFoundTasks(tasks.getTaskList(), responsePartition);
             break;
+        case "help":
+            Ui.printWithPartition(Ui.HELP_MESSAGE);
+            break;
         default:
             TaskList.addTask(userInput);
         }
