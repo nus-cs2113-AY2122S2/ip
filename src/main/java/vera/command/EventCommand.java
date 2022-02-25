@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 
 import static vera.constant.Indexes.TASK_DATE_INDEX;
 import static vera.constant.Indexes.TASK_DESCRIPTION_INDEX;
+import static vera.constant.Messages.DATE_FORMAT_WITH_TIME;
 
 public class EventCommand extends Command {
     String[] toAddTaskContent;
@@ -38,14 +39,16 @@ public class EventCommand extends Command {
         toAddTaskContent = filteredTaskContent;
     }
 
+    private String assignTaskDate() {
+        if (toAddTaskDate == null) {
+            return toAddTaskContent[TASK_DATE_INDEX].trim();
+        }
+        return toAddTaskDate.format(DateTimeFormatter.ofPattern(DATE_FORMAT_WITH_TIME));
+    }
+
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        String filteredTaskDate;
-        if (toAddTaskDate != null) {
-            filteredTaskDate = toAddTaskDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy, EEE hh:mm a"));
-        } else {
-            filteredTaskDate = toAddTaskContent[TASK_DATE_INDEX].trim();
-        }
+        String filteredTaskDate = assignTaskDate();
         taskList.addTask(toAddTaskContent[TASK_DESCRIPTION_INDEX].trim(), filteredTaskDate, COMMAND_WORD);
         storage.appendToFile(toAddTaskContent[TASK_DESCRIPTION_INDEX].trim()
                 , filteredTaskDate, "0", "E");
