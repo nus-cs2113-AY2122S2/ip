@@ -1,3 +1,8 @@
+/**
+ * Represents a <code>Parser</code> object that contains support for
+ * parsing user input
+ */
+
 public class Parser {
     /**
      * Helper for addTask

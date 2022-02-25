@@ -4,6 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a person's list of Tasks that they must complete.
+ * This class contains support for maintaining and modifying a collection of Tasks.
+ */
+
 public class TaskList {
     private static String division = "_____________________________________________\n";
     public ArrayList<Task> taskList;
