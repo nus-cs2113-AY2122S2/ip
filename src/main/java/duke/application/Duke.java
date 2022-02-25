@@ -69,6 +69,8 @@ public class Duke {
                     }
                 } else if (userInput.contains("delete")){
                     displayDeletedTask(taskArray, userInput);
+                } else if (userInput.contains("find")){
+                    displayFoundTasks(taskArray, userInput);
                 }
                 try {
                     saveFile(f, taskArray);
@@ -100,7 +102,7 @@ public class Duke {
     }
 
     public static void checkInputValidity(String userInput) throws DukeException {
-        String[] validInputs = {"list","unmark","mark","deadline","event","todo","delete"};
+        String[] validInputs = {"list","unmark","mark","deadline","event","todo","delete","find"};
         if (userInput.length() == 0){
             throw new DukeException();
         }
@@ -167,6 +169,22 @@ public class Duke {
         temp = userInput.split(" ");
         int num = Integer.parseInt(temp[1]);
         return num;
+    }
+
+    public static String findTask(String userInput){
+        String temp = userInput.split(" ")[1];
+        return temp;
+    }
+
+    public static void displayFoundTasks(ArrayList<Task> taskArray, String userInput){
+        String temp = findTask(userInput);
+        int count = 0;
+        System.out.println("Here are the matching tasks found!");
+        for (Task t : taskArray){
+            if (t.getDescription().contains(temp)){
+                System.out.println(++count + "." + t.toString());
+            }
+        }
     }
 
     //delete methods
@@ -266,8 +284,8 @@ public class Duke {
             throw new IllegalTodoException();
         }
         String[] temp = new String[100];
-        temp = userInput.split(" ");
-        String description = temp[1];
+        temp = userInput.split("todo");
+        String description = temp[1].trim();
         Todo todo = new Todo(description);
         addTask(taskArray,todo);
     }
