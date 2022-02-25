@@ -6,9 +6,6 @@
 
 Description of the feature.
 
-### Feature-XYZ
-
-Description of the feature.
 
 ## Usage
 
