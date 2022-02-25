@@ -14,7 +14,13 @@ public class Parser {
             return s;
         }
         String firstWord = s.substring(0, spaceIndex);
-        return firstWord;
+        return firstWord.trim();
+    }
+
+    public static String getTaskDetailsForFind(String s) {
+        int spaceIndex = s.indexOf(" ");
+        String taskDetail = s.substring(spaceIndex);
+        return taskDetail.trim();
     }
 
     public static int getTaskNumberArgument(String input) {

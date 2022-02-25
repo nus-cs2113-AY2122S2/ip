@@ -23,7 +23,7 @@ public class Task implements Serializable {
     }
 
     public String getTaskName() {
-        return taskName;
+        return this.taskName;
     }
 
     public void setTaskName(String taskName) {
@@ -56,22 +56,13 @@ public class Task implements Serializable {
         return " ";
     }
 
-    public static void printList(ArrayList<Task> list, int counter) {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < counter; i++) {
-            System.out.print(i + 1 + ".");
-            printTask(list.get(i));
-        }
-        printNumberOfTasksInList(counter);
-    }
+
 
     public static void printTask(Task t) {
         System.out.println(t.toString());
     }
 
-    public static void printNumberOfTasksInList(int taskCounter) {
-        System.out.println("Now you have " + taskCounter + " tasks in the list.");
-    }
+
 
 }
 
