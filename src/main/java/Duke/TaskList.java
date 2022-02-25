@@ -55,4 +55,16 @@ public class TaskList {
         }
         return allTasks;
     }
+
+    public static String findTask(ArrayList<Task> userLists, String searchStr) {
+        String foundTask = "";
+        int i = 0;
+        for (Task task : userLists) {
+            if (task.toString().contains(searchStr)) {
+                i++;
+                foundTask = foundTask + " " + i + "." + task.toString();
+            }
+        }
+        return foundTask;
+    }
 }
