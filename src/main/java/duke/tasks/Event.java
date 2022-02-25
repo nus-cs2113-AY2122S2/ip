@@ -18,6 +18,11 @@ public class Event extends Task{
         return "[E]" + super.toString() + "(" + time + ")";
     }
 
+    /**
+     * Get the category of task.
+     * @return string "E"
+     */
+
     public String getCategory(){
         return "E";
     }
