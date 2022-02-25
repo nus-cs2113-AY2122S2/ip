@@ -55,13 +55,19 @@ public class TaskList {
     }
 
     public void mark(int index){
+        PatternGenerator.generateLine();
         tasks.get(index-1).markAsDone();
+        System.out.println("Nice! I've marked this task as done: ");
         System.out.println("[" + tasks.get(index-1).getStatusIcon() + "]" +tasks.get(index-1).description);
+        PatternGenerator.generateLine();
     }
 
     public void unmark(int index){
+        PatternGenerator.generateLine();
         tasks.get(index-1).markAsUndone();
+        System.out.println("OK, I've marked this task as not done yet: ");
         System.out.println("[" + tasks.get(index-1).getStatusIcon() + "]" +tasks.get(index-1).description);
+        PatternGenerator.generateLine();
     }
 
     public ArrayList<Task> findTask(String keyword){

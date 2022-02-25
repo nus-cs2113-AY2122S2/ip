@@ -31,7 +31,7 @@ public class TaskEncoder {
         }
         else if (task instanceof Event) {
             taskString = task.getCategory() + "|" + task.getStatusNumber() + "|" +
-                    task.getDescription() + ((Event) task).getStartEndTime() + System.lineSeparator();
+                    task.getDescription() + "|" +((Event) task).getStartEndTime() + System.lineSeparator();
         }
         else if (task instanceof Deadline) {
             taskString = task.getCategory() + "|" + task.getStatusNumber() + "|" +

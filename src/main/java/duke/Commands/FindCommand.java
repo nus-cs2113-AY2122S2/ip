@@ -31,6 +31,7 @@ public class FindCommand extends Command{
             System.out.println("Here are the matching tasks in your list: ");
             for (Task task : tasksFound){
                 System.out.println(i + "." +task.toString());
+                i++;
             }
             PatternGenerator.generateLine();
         }
