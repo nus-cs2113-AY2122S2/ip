@@ -21,7 +21,7 @@ public class Time {
      *
      * @param inputTime User input of time.
      * @return Modified time format.
-     * @throws InvalidCommandException If data and time format is wrong or is invalid.
+     * @throws InvalidCommandException If data and time format is invalid.
      */
     public static String modifyDatetime(String inputTime) throws InvalidCommandException {
         String[] timeAndDate = inputTime.split(" ", Indexes.NUMBER_OF_TERMS_IN_SPLIT);
@@ -29,9 +29,6 @@ public class Time {
         LocalDate date;
         try {
             date = LocalDate.parse(timeAndDate[Indexes.INDEX_OF_FIRST_ITEM_IN_STRING]);
-            if (date.isBefore(LocalDate.now())) {
-                throw new InvalidCommandException("Invalid date! The date is past current date", ErrorCount.errorCount);
-            }
             refinedDatetimeFormat += date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " ";
         } catch (DateTimeException e) {
             throw new InvalidCommandException("Wrong date format! Remember to input date as yyyy-mm-dd",
@@ -39,9 +36,6 @@ public class Time {
         }
         try {
             LocalTime time = LocalTime.parse(timeAndDate[Indexes.INDEX_OF_SECOND_ITEM_IN_STRING]);
-            if (date.isEqual(LocalDate.now()) && time.isBefore(LocalTime.now())) {
-                throw new InvalidCommandException("Invalid time! The time is past current time", ErrorCount.errorCount);
-            }
             refinedDatetimeFormat += time.format(DateTimeFormatter.ofPattern("h:mma"));
         } catch (DateTimeException e) {
             throw new InvalidCommandException("Wrong time format! Remember to input time in 24hr format", ErrorCount.errorCount);
