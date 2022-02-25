@@ -2,15 +2,16 @@ package duke;
 
 import duke.commands.ByeCommand;
 import duke.commands.Command;
+import duke.commands.CommandType;
 import duke.commands.DeadlineCommand;
 import duke.commands.DeleteCommand;
 import duke.commands.EventCommand;
 import duke.commands.FindCommand;
+import duke.commands.HelpCommand;
 import duke.commands.ListCommand;
 import duke.commands.MarkCommand;
 import duke.commands.TodoCommand;
 import duke.commands.UnmarkCommand;
-import duke.exceptions.DukeException;
 import duke.exceptions.EmptyCommandException;
 import duke.exceptions.IncorrectFileFormatException;
 import duke.exceptions.InvalidCommandException;
@@ -129,32 +130,35 @@ public class Parser {
      */
     private static Command createCommand(String inputCommand, String inputArguments) throws InvalidCommandException {
         HashMap<String, String> parsedArguments;
-        switch(inputCommand) {
-        case "bye":
+        CommandType commandType = CommandType.fromString(inputCommand);
+        switch(commandType) {
+        case BYE:
             return new ByeCommand();
-        case "list":
+        case LIST:
             return new ListCommand();
-        case "mark":
+        case MARK:
             parsedArguments = argumentParser(inputArguments);
             return new MarkCommand(parsedArguments);
-        case "unmark":
+        case UNMARK:
             parsedArguments = argumentParser(inputArguments);
             return new UnmarkCommand(parsedArguments);
-        case "todo":
+        case TODO:
             parsedArguments = argumentParser(inputArguments);
             return new TodoCommand(parsedArguments);
-        case "deadline":
+        case DEADLINE:
             parsedArguments = argumentParser(inputArguments);
             return new DeadlineCommand(parsedArguments);
-        case "event":
+        case EVENT:
             parsedArguments = argumentParser(inputArguments);
             return new EventCommand(parsedArguments);
-        case "delete":
+        case DELETE:
             parsedArguments = argumentParser(inputArguments);
             return new DeleteCommand(parsedArguments);
-        case "find":
+        case FIND:
             parsedArguments = argumentParser(inputArguments);
             return new FindCommand(parsedArguments);
+        case HELP:
+            return new HelpCommand();
         default:
             throw new InvalidCommandException(inputCommand);
         }
@@ -200,12 +204,12 @@ public class Parser {
         Task taskToCreate;
         String description;
         switch (taskType) {
-        case Todo:
+        case TODO:
             description = splitData[2];
             taskToCreate = new Todo(description);
             taskToCreate.setIsDone(isDone);
             break;
-        case Event:
+        case EVENT:
             description = splitData[2];
             LocalDateTime[] atDateTimes = Parser.parseAtDateTime(splitData[3]);
             LocalDateTime atDateTimeStart = atDateTimes[0];
@@ -213,7 +217,7 @@ public class Parser {
             taskToCreate = new Event(description, atDateTimeStart, atDateTimeEnd);
             taskToCreate.setIsDone(isDone);
             break;
-        case Deadline:
+        case DEADLINE:
             description = splitData[2];
             LocalDateTime byDateTime = Parser.parseByDateTime(splitData[3]);
             taskToCreate = new Deadline(description, byDateTime);

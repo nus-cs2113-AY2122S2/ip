@@ -16,7 +16,6 @@ import java.util.HashMap;
 
 public class EventCommand extends Command {
     private static final String TASK_ADDED_MESSAGE_FORMAT = "added: %s";
-    private static final String COMMAND_NAME = "deadline";
     private static final String EMPTY_ARGUMENTS = "Event must have a description!";
     private static final String EMPTY_ATDATE = "Event must have a date for /at!";
     private static final String INCORRECT_ATDATE = "The date and time entered for /at must be a valid date time!";
@@ -30,6 +29,7 @@ public class EventCommand extends Command {
      */
     public EventCommand(HashMap<String, String> parsedArguments) {
         this.arguments = parsedArguments;
+        this.commandType = CommandType.EVENT;
     }
 
     /**
@@ -42,9 +42,9 @@ public class EventCommand extends Command {
     protected void checkArguments() throws InvalidArgumentException {
         String errorMsg = "";
         String description = arguments.get("");
-        String byDate = arguments.get("/by");
+        String atDate = arguments.get("/at");
         boolean isDescriptionEmpty = (description==null || description.equals(""));
-        boolean isDateEmpty = (description==null || description.equals(""));
+        boolean isDateEmpty = (atDate==null || atDate.equals(""));
         if (isDescriptionEmpty) {
             errorMsg += EMPTY_ARGUMENTS+"\n";
         }
@@ -52,7 +52,7 @@ public class EventCommand extends Command {
             errorMsg += EMPTY_ATDATE+"\n";
         }
         if (!errorMsg.equals("")) {
-            throw new InvalidArgumentException(COMMAND_NAME,errorMsg.trim());
+            throw new InvalidArgumentException(commandType.getName(),errorMsg.trim());
         }
     }
 
@@ -74,7 +74,7 @@ public class EventCommand extends Command {
             LocalDateTime atDateTimeEndParsed = atDateTimeParsed[1];
 
             if (atDateTimeStartParsed.isAfter(atDateTimeEndParsed)) {
-                InvalidArgumentException exception = new InvalidArgumentException(COMMAND_NAME, INCORRECT_ATDATE);
+                InvalidArgumentException exception = new InvalidArgumentException(commandType.getName(), INCORRECT_ATDATE);
                 throw exception;
             }
 
@@ -85,11 +85,11 @@ public class EventCommand extends Command {
             storage.write(taskList);
         } catch (IllegalStateException e) {
             // User given DateTime did not match the first regex validation
-            InvalidArgumentException exception = new InvalidArgumentException(COMMAND_NAME, INCORRECT_ATDATE);
+            InvalidArgumentException exception = new InvalidArgumentException(commandType.getName(), INCORRECT_ATDATE);
             throw exception;
         } catch (DateTimeParseException e) {
             // User given DateTime cannot be parsed into a valid date
-            InvalidArgumentException exception = new InvalidArgumentException(COMMAND_NAME, INCORRECT_ATDATE);
+            InvalidArgumentException exception = new InvalidArgumentException(commandType.getName(), INCORRECT_ATDATE);
             throw exception;
         }
     }

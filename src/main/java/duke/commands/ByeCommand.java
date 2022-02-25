@@ -9,7 +9,7 @@ public class ByeCommand extends Command {
     private static final String EXIT_MESSAGE = "Bye. Hope to see you again soon!";
 
     public ByeCommand() {
-        this.isExit = true;
+        this.commandType = CommandType.BYE;
     }
 
     /**

@@ -14,7 +14,6 @@ public class DeleteCommand extends Command {
                     "Noted. I've removed this task:"
                     + "\n%s"
                     + "\nNow you have %d tasks in the list.";
-    private static final String COMMAND_NAME = "mark";
     private static final String INVALID_INPUT = "The argument received is not a valid integer.";
     public static final String INVALID_TASK = "The task number given does not exist";
 
@@ -28,6 +27,7 @@ public class DeleteCommand extends Command {
      */
     public DeleteCommand(HashMap<String, String> parsedArguments) {
         this.arguments = parsedArguments;
+        this.commandType = CommandType.DELETE;
     }
 
     /**
@@ -41,7 +41,7 @@ public class DeleteCommand extends Command {
         try {
             this.index = Integer.parseInt(arguments.get(""))-1;
         } catch (NumberFormatException e) {
-            throw new InvalidArgumentException(COMMAND_NAME, INVALID_INPUT);
+            throw new InvalidArgumentException(commandType.getName(), INVALID_INPUT);
         }
     }
 
@@ -62,7 +62,7 @@ public class DeleteCommand extends Command {
             storage.write(taskList);
         } catch (IndexOutOfBoundsException e) {
             // User specified task number does not correspond to any task.
-            InvalidArgumentException exception = new InvalidArgumentException(COMMAND_NAME, INVALID_TASK);
+            InvalidArgumentException exception = new InvalidArgumentException(commandType.getName(), INVALID_TASK);
             throw exception;
         }
     }
