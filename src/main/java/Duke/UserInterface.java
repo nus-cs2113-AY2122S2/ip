@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserInterface {
+    /**
+     * Main user interface to handle the entire interaction with
+     * the user
+     * @throws DukeException
+     */
     public static void userInterface() throws DukeException {
         ArrayList<Task> userLists = new ArrayList<>();
         Storage.loadSaveFile(userLists);

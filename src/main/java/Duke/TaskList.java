@@ -56,6 +56,16 @@ public class TaskList {
         return allTasks;
     }
 
+    /**
+     * Find tasks related to the search keyword
+     *
+     * Adds all these tasks into a string with all
+     * tasks that fit the search keyword
+     *
+     * @param userLists ArrayList of user userLists
+     * @param searchStr Keyword to search
+     * @return String of the tasks which are found
+     */
     public static String findTask(ArrayList<Task> userLists, String searchStr) {
         String foundTask = "";
         int i = 0;
