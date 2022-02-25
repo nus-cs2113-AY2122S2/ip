@@ -7,7 +7,7 @@ import vera.exception.InputEmptyException;
 
 public class FindCommand extends Command {
     private String findTaskByDescription;
-    private String findTaskByDate = null;
+    private String findTaskByDate;
 
     public static final String COMMAND_WORD = "find";
     public static final String MESSAGE_USAGE = "Find: Finds related task descriptions \nbased on the given input.\n"

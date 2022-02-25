@@ -18,6 +18,7 @@ public class Messages {
             + "6) Event: event <task_description> /at <task_date>\n"
             + "7) Delete: delete <list_index>\n"
             + "8) Find: find <keyword>\n"
+            + "9) Clear: clear\n"
             + "9) Bye: bye";
 
     public static final String ERROR_INVALID_INPUT_MESSAGE = "Please key in an appropriate command.\n"

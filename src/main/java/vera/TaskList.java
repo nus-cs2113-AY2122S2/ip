@@ -142,4 +142,12 @@ public class TaskList {
             ui.showToUser("Sorry! There are no tasks that match your description!");
         }
     }
+
+    public void deleteAllTasks(Ui ui) {
+        while (tasks.size() > 0) {
+            tasks.remove(0);
+        }
+        ui.showLine();
+        ui.showToUser("Done! Now you have " + tasks.size() + " task(s) in the list.");
+    }
 }

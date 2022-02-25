@@ -12,6 +12,7 @@ import vera.command.DeleteCommand;
 import vera.command.HelpCommand;
 import vera.command.ExitCommand;
 import vera.command.FindCommand;
+import vera.command.ClearCommand;
 
 import vera.exception.InputEmptyException;
 import vera.exception.InputRepeatedException;
@@ -271,6 +272,8 @@ public class Parser {
             return prepareDelete(parsedInput, taskList);
         case FindCommand.COMMAND_WORD:
             return prepareFind(parsedInput);
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
         case HelpCommand.COMMAND_WORD:
             return prepareHelp(userInput);
         case ExitCommand.COMMAND_WORD:
