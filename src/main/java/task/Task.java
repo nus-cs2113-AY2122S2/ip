@@ -35,7 +35,7 @@ public class Task implements Serializable {
     }
 
     public void setDone(boolean isDone) {
-        isDone = isDone;
+        this.isDone = isDone;
     }
 
     public String getStatusIcon() {
@@ -72,7 +72,6 @@ public class Task implements Serializable {
     public static void printNumberOfTasksInList(int taskCounter) {
         System.out.println("Now you have " + taskCounter + " tasks in the list.");
     }
-
 
 }
 
