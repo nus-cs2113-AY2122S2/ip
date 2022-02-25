@@ -66,6 +66,12 @@ public class UserInterface {
                     int deleteIndex = userInputTokens.getMarkIndex();
                     TaskList.deleteTask(userLists, deleteIndex);
                     break;
+                case "find":
+                    String foundTasks = "Here are the matching tasks in your list:\n" +
+                            TaskList.findTask(userLists, userInputTokens.getDescription());
+                    foundTasks = Wrapper.wrapMessage(foundTasks);
+                    System.out.println(foundTasks);
+                    break;
                 default:
                 }
             } catch (DukeExceptionCommand e) {
@@ -89,6 +95,10 @@ public class UserInterface {
             } catch (DukeExceptionMarkBounds e) {
                 System.out.println(
                         Wrapper.wrapMessage("Number provided is not in the list\n"));
+            } catch (DukeExceptionFind e) {
+                System.out.println(
+                        Wrapper.wrapMessage("Please add the words you want to search for" +
+                                "eg: find book\n"));
             }
             userInput = input.nextLine();
         }

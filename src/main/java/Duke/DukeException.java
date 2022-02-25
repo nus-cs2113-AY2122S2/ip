@@ -19,5 +19,7 @@ class DukeExceptionMark extends DukeException {
 }
 
 class DukeExceptionMarkBounds extends DukeException {
+}
 
+class DukeExceptionFind extends DukeException {
 }

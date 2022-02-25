@@ -68,6 +68,12 @@ public class Parser {
                 throw new DukeExceptionMark();
             }
             break;
+        case "find":
+            if (tokens.length < 2) {
+                throw new DukeExceptionFind();
+            }
+            this.description = combineToken(tokens, 1);
+            break;
         default:
             throw new DukeExceptionCommand();
         }
