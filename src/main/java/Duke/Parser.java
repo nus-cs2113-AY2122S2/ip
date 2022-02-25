@@ -1,5 +1,9 @@
 package Duke;
 
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 /**
  * Duke.Tokenise is to help split user input
  * into individual strings for sanitisation
@@ -26,8 +30,8 @@ public class Parser {
             int deadlineBy = findIndex(tokens, "/by");
             if (deadlineBy > 0) {
                 //remove keyword deadline and deadline time from raw user input
-                this.description = combineToken(tokens, 1, deadlineBy);
-                this.time = combineToken(tokens, deadlineBy + 1);
+                description = combineToken(tokens, 1, deadlineBy);
+                time = combineToken(tokens, deadlineBy + 1);
             } else {
                 throw new DukeExceptionTiming();
             }
@@ -39,8 +43,8 @@ public class Parser {
             int eventAt = findIndex(tokens, "/at");
             if (eventAt > 0) {
                 //remove keyword deadline and deadline time from raw user input
-                this.description = combineToken(tokens, 1, eventAt);
-                this.time = combineToken(tokens, eventAt + 1);
+                description = combineToken(tokens, 1, eventAt);
+                time = combineToken(tokens, eventAt + 1);
             } else {
                 throw new DukeExceptionTiming();
             }
@@ -49,7 +53,7 @@ public class Parser {
             if (tokens.length < 2) {
                 throw new DukeExceptionDescription();
             }
-            this.description = combineToken(tokens, 1);
+            description = combineToken(tokens, 1);
             break;
         case "mark":
         case "unmark":

@@ -14,7 +14,7 @@ public class TaskList {
         String userInput = Wrapper.wrapMessage(
                 String.format("Got it. I've added this task:\n" +
                                 "  %s" +
-                                " Now you have %d userLists in the list\n",
+                                " Now you have %d tasks in the list\n",
                         task.toString(), userLists.size()));
         System.out.println(userInput);
     }
