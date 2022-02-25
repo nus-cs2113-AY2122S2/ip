@@ -21,7 +21,7 @@ public class Duke {
         ui.printWelcomeMessage();
         while (true) {
             getNewInput();
-            Storage.saveTaskList();
+            storage.saveTaskList();
         }
     }
 

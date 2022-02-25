@@ -113,4 +113,8 @@ public class Ui {
     public void printCreateFileError() {
         System.out.println("Cannot create file!!");
     }
+
+    public void printInvalidDateException() {
+        System.out.println("Invalid Date input");
+    }
 }

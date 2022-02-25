@@ -6,6 +6,7 @@ import duke.task.Task;
 import duke.task.ToDo;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class TaskList {
 
@@ -17,10 +18,9 @@ public class TaskList {
     public static final String COMMAND_EVENT = "event";
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_TODO = "todo";
-    public static Ui ui;
+    private static Ui ui;
     private static Parser parser;
     private static ArrayList<Task> taskList = new ArrayList<>();
-
     private static int itemNumber;
     private static String[] datesArray;
     private static String[] eventsArray;
@@ -147,12 +147,14 @@ public class TaskList {
     }
 
     private static void createDeadLineEntry(String[] taskDescription) {
+        LocalDate deadLineDate;
         try {
             datesArray = parser.parseDeadLineActionFromDescription(taskDescription);
+            deadLineDate = parser.parseDateFormatFromString(datesArray[1]);
             if (isDateFormatInvalid(datesArray)) {
                 throw new DukeException();
             }
-            taskList.add(new Deadline(datesArray[0], datesArray[1]));
+            taskList.add(new Deadline(datesArray[0], deadLineDate));
             ui.printAcknowledgeAddMessage(taskList.get(itemNumber), itemNumber + 1);
             itemNumber++;
         } catch (ArrayIndexOutOfBoundsException deadlineEmpty) {
