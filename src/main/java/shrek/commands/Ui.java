@@ -45,8 +45,7 @@ public class Ui {
     public static void printGreeting() {
         String greet = " Oh! Hello there! I'm Shrek" + NEW_LINE + " What can I do for you?";
         System.out.print(LINE);
-        System.out.println(ANSI_GREEN + PrintStrings.logo + NEW_LINE);
-        System.out.println(PrintStrings.shrekLogo + NEW_LINE + ANSI_RESET);
+        System.out.println(ANSI_GREEN + PrintStrings.logo + NEW_LINE + ANSI_RESET);
         System.out.println(LINE + greet);
     }
 
