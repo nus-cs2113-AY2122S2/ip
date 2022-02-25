@@ -32,6 +32,15 @@ public class CommandHandler {
         }
     }
 
+    public static void findTask(String userInput) {
+        try {
+            String targetDescription = Parser.getTargetDescription(userInput);
+            Ui.printMatchingTasks(targetDescription);
+        } catch (IndexOutOfBoundsException e) {
+            Ui.printWrongFormat();
+        }
+    }
+
     public static void addTodo(String todoTask) {
         todoTask = todoTask.trim();
         if (todoTask.length() == 0) {
