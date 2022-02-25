@@ -14,12 +14,18 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * The main class of Duke.
+ * Initializes the application and starts the interaction with the user.
+ */
+
 public class Duke {
 
-    private static String dataPath;
     private StorageFile storage;
     private Ui ui;
     private TaskList tasks;
+
+    /** Initialize the application. */
 
     public Duke(String dataPath) throws InvalidDataPathException {
         ui = new Ui();
@@ -31,7 +37,7 @@ public class Duke {
             tasks = new TaskList(storage.load());
         }
     }
-
+    /** Read and execute the command */
     public void run(){
         Scanner sc = new Scanner(System.in);
         Command command;
@@ -63,13 +69,18 @@ public class Duke {
         new Duke(getPath()).run();
     }
 
+    /** Get the path of stored data. */
     public static String getPath(){
         String workingDir = System.getProperty("user.dir");
         String path = workingDir + "/Data/duke.txt";
         return path;
     }
 
-
+    /** Excute the command and returns result.
+     *
+      * @param command user command
+     * @throws IndexOutOfRangeException if the user enters wrong number of parameters.
+     */
     private void executeCommand(Command command) throws IndexOutOfRangeException {
         command.setData(tasks);
         command.execute();

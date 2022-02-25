@@ -4,8 +4,15 @@ import duke.tasks.*;
 
 import java.util.List;
 
+
+
 public class TaskDecoder {
 
+    /**
+     * Decode a string into a {@code TaskList}.
+     * @param taskListString string read from storage file
+     * @return task list which contains all tasks stored.
+     */
     public static TaskList decodeTaskList(List<String> taskListString){
         TaskList taskList = new TaskList();
         for (String taskString :taskListString){
@@ -15,6 +22,11 @@ public class TaskDecoder {
         return taskList;
     }
 
+    /**
+     * Decode a string into a {@code Task}.
+     * @param taskString string read from storage file
+     * @return a task
+     */
     public static Task decodeStringToTask(String taskString){
         String[] arrOfText = taskString.split("\\|");
         if (arrOfText.length == 3) {

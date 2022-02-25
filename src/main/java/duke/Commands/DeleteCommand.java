@@ -2,6 +2,10 @@ package duke.Commands;
 
 import duke.exception.IndexOutOfRangeException;
 
+/**
+ * Delete a task by using its index from the task list.
+ */
+
 public class DeleteCommand extends Command {
     protected int targetIndex;
 

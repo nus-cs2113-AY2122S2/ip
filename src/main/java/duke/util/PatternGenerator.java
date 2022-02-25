@@ -1,4 +1,9 @@
 package duke.util;
+
+/**
+ * Generate patterns for output.
+ */
+
 public class PatternGenerator {
     public static void generateLine(){
         System.out.println("____________________________________________________________");

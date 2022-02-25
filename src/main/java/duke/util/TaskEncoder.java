@@ -2,8 +2,15 @@ package duke.util;
 
 import duke.tasks.*;
 
+/**
+ * Encodes the {@code taskList} object into a data file for storage.
+ */
+
 public class TaskEncoder {
-    
+
+    /**
+     * Encodes all the {@code Task} in the {@code taskList} into a readable string.
+     */
     public static String encodeTasks(TaskList taskList){
         String taskListString = "";
         for (Task task:taskList.getFullList()){
@@ -11,6 +18,10 @@ public class TaskEncoder {
         }
         return taskListString;
     }
+
+    /**
+     * Encodes {@code Task} into a readable string.
+     */
     
     public static String encodeTaskToString(Task task){
         String taskString = "";

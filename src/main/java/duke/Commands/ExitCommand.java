@@ -3,6 +3,10 @@ package duke.Commands;
 import duke.exception.IndexOutOfRangeException;
 import duke.util.PatternGenerator;
 
+/**
+ * Exit the program.
+ */
+
 public class ExitCommand extends Command{
 
     @Override
