@@ -5,6 +5,9 @@ import duke.util.PatternGenerator;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a Task in task list.
+ */
 
 public class Task {
     protected String description;

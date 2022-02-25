@@ -7,6 +7,10 @@ import duke.util.PatternGenerator;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
+/**
+ * Find a task by a keyword.
+ */
+
 public class FindCommand extends Command{
 
     protected String keyword;

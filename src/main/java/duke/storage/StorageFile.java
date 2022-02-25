@@ -13,9 +13,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+/**
+ * Represents the file which is used to store data.
+ */
+
 public class StorageFile {
     private String dataPath;
     private Path path;
+
+    /**
+     * @param dataPath path of the file
+     * @throws InvalidDataPathException if the path is invalid
+     */
     public StorageFile(String dataPath) throws InvalidDataPathException {
         if (!dataPath.endsWith(".txt")){
             throw new InvalidDataPathException();
@@ -23,6 +32,11 @@ public class StorageFile {
         this.dataPath = dataPath;
         this.path = Paths.get(dataPath);
     }
+
+    /**
+     * Saves the {@code taskList} data.
+     * @param taskList task list that contains all tasks
+     */
 
     public void save(TaskList taskList){
         try {
@@ -36,6 +50,11 @@ public class StorageFile {
         }
     }
 
+    /**
+     * Load the {@code taskList} data from the storage file.
+     * @return task list
+     * @throws InvalidDataPathException if the path is invalid.
+     */
     public TaskList load() throws InvalidDataPathException {
         try {
             return TaskDecoder.decodeTaskList(Files.readAllLines(path));
@@ -44,10 +63,5 @@ public class StorageFile {
         }
     }
 
-    public static class StorageOperationException extends Exception {
-        public StorageOperationException(String message) {
-            super(message);
-        }
-    }
 }
 

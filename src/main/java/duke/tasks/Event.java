@@ -1,4 +1,9 @@
 package duke.tasks;
+
+/**
+ * Represents a Event in task list.
+ */
+
 public class Event extends Task{
     protected String startEndTime;
 

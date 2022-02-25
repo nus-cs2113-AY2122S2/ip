@@ -6,6 +6,10 @@ import duke.util.TaskDecoder;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the entire task list, which contains tasks.
+ */
+
 public class TaskList {
     protected ArrayList<Task> tasks;
 
