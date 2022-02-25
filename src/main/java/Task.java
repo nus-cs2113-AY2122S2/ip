@@ -1,3 +1,8 @@
+/**
+ * Represents a Task object on a person's list of tasks that they must complete.
+ * A <code>Task</code> corresponds to a Task represented by a description of the
+ * task as well as a flag for whether it has been completed.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

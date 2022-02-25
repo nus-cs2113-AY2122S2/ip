@@ -6,6 +6,11 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a person's list of Tasks that they must complete.
+ * This class contains support for maintaining and modifying a collection of Tasks.
+ */
+
 public class TaskList {
     private static String division = "_____________________________________________\n";
     public ArrayList<Task> taskList;
