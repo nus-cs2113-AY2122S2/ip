@@ -25,7 +25,7 @@ ____________________________________________________________
 The deadline entered for /by must be a valid date time!
 ____________________________________________________________
 ____________________________________________________________
-☹ OOPS!!! The command entered for deadline ran into an error. The error: 
+☹ OOPS!!! The command entered for event ran into an error. The error: 
 The date and time entered for /at must be a valid date time!
 ____________________________________________________________
 ____________________________________________________________
@@ -33,11 +33,11 @@ ____________________________________________________________
 The deadline entered for /by must be a valid date time!
 ____________________________________________________________
 ____________________________________________________________
-☹ OOPS!!! The command entered for deadline ran into an error. The error: 
+☹ OOPS!!! The command entered for event ran into an error. The error: 
 The date and time entered for /at must be a valid date time!
 ____________________________________________________________
 ____________________________________________________________
-☹ OOPS!!! The command entered for deadline ran into an error. The error: 
+☹ OOPS!!! The command entered for event ran into an error. The error: 
 Event must have a date for /at!
 ____________________________________________________________
 ____________________________________________________________
