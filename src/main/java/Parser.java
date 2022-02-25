@@ -11,7 +11,6 @@ public class Parser {
         String description = "";
         String additionalInfo;
         int additionalInfoIndex = inputLine.length(); // Index where description should end
-        //System.out.println("INPUT LINE LENGTH " + additionalInfoIndex);
 
         // Extract the type of task
         type = inputLine.split("\\s")[0].trim();

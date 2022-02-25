@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.io.File;
 
 public class Storage {
-    String filePath;
+    public String filePath;
     public Storage(String filePath) {
         this.filePath = filePath;
     }
@@ -98,25 +98,11 @@ public class Storage {
             }
             return taskList;
         } catch (FileNotFoundException e) {
-            //System.out.println("The specified file was not found!");
             throw new DukeException("The specified file was not found!");
         }
     }
 
-    /**
-     * Helper for saveTasksToFile
-     * Formats taskList into a string to be written into a file
-     * @param taskList list of tasks to be formatted into a string
-     * @return the string representation of the list of tasks
-     */
-    public static String formatTaskListToString(ArrayList<Task> taskList) {
-        String taskListString = "";
-        for (Task task : taskList) {
-            taskListString += task.toString();
-            taskListString += "\n";
-        }
-        return taskListString;
-    }
+    // TODO: ADD SAVETASKBEHAVIOR HERE AS WELL (ONCE WE KNOW HOW TO PASS INSTANCE OF STORAGE TO TASKLIST CLASS - BECAUSE THAT ALLOWS US TO KNOW WHICH FILEPATH TO SAVE THE TASKS IN TASKLISTCLASS TO)
 
 
 }

@@ -1,9 +1,4 @@
 public class Ui {
-
-    public Ui() {
-
-    }
-
     public void showGreeting() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
