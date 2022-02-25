@@ -1,0 +1,34 @@
+package duke.Commands;
+
+import duke.exception.IndexOutOfRangeException;
+import duke.tasks.Task;
+import duke.util.PatternGenerator;
+
+import java.nio.file.Path;
+import java.util.ArrayList;
+
+public class FindCommand extends Command{
+
+    protected String keyword;
+
+    public FindCommand(String keyword){
+        this.keyword = keyword;
+    }
+    @Override
+    public void execute() throws IndexOutOfRangeException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        int i = 1;
+        tasks = taskList.findTask(keyword);
+        if (tasks.size() == 0) {
+            System.out.println("Im sorry :(. It seems no task matches your input.");
+        }
+        else {
+            PatternGenerator.generateLine();
+            System.out.println("Here are the matching tasks in your list: ");
+            for (Task task : tasks){
+                System.out.println(i + "." +task.toString());
+            }
+            PatternGenerator.generateLine();
+        }
+    }
+}

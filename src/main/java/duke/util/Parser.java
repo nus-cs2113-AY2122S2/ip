@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 
 public class Parser {
 
-    public Command parseCommand(String userInput) throws NonExistentCommandException, IllegalFormatException {
+    public Command parseCommand(String userInput) throws NonExistentCommandException, IllegalFormatException, IndexOutOfBoundsException {
         String[] arrOfS = userInput.split(" ",2);
         if (arrOfS.length<1){
             throw new IllegalFormatException();
@@ -41,6 +41,9 @@ public class Parser {
         case "delete":
             arguments = arrOfS[1];
             return prepareDelete(arguments);
+        case "find":
+            arguments = arrOfS[1];
+            return new FindCommand(arguments);
         case "list":
             return new ListCommand();
         case "exit":
@@ -90,4 +93,6 @@ public class Parser {
         index = Integer.parseInt(args);
         return new DeleteCommand(index);
     }
+
+
 }

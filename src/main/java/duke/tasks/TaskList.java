@@ -60,6 +60,16 @@ public class TaskList {
         System.out.println("[" + tasks.get(index-1).getStatusIcon() + "]" +tasks.get(index-1).description);
     }
 
+    public ArrayList<Task> findTask(String keyword){
+        ArrayList<Task> selectedTasks = new ArrayList<>();
+        for(Task task : tasks){
+            if(task.getDescription().contains(keyword)){
+                selectedTasks.add(task);
+            }
+        }
+        return selectedTasks;
+    }
+
 
 
 

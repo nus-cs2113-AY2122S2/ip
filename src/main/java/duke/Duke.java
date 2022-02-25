@@ -49,6 +49,8 @@ public class Duke {
                 System.out.println("I'm sorry but the format is not correct.");
             } catch (IndexOutOfRangeException e) {
                 System.out.println("Index out of range :(");
+            } catch (IndexOutOfBoundsException e){
+                System.out.println("The number of parameters is not correct.");
             }
 
             if(input.equals("exit")){
