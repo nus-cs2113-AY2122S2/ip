@@ -138,8 +138,10 @@ public class TaskList {
     /**
      * Helper for processTasks
      * Filters relevant tasks with the specified keyword
+     * @param keywords the relevant keywords that the user wants to search the TaskList for
+     * @returns ArrayList of tasks representing taskList filtered by the specified keywords
      */
-    public ArrayList<Task> findTask(String keywords) {
+    public ArrayList<Task> findTasks(String keywords) {
         List<Task> filteredTasksList = taskList
                 .stream()
                 .filter(task -> task.description.contains(keywords))
@@ -194,7 +196,7 @@ public class TaskList {
                     saveTasksToFile(formatTaskListToString());
                 } else if (keyWord.equals("find")) {
                     String taskKeyWords = line.substring(keyWord.length()).trim();
-                    ArrayList<Task> relevantTasks = findTask(taskKeyWords);
+                    ArrayList<Task> relevantTasks = findTasks(taskKeyWords);
                     for (Task task : relevantTasks) {
                         System.out.println(task.toString());
                     }
