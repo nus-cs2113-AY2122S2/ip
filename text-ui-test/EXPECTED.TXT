@@ -17,7 +17,7 @@ Now you have 1 task(s) in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [D] [ ] return book (by: 06 Jun 2022, Mon 12:00 AM)
+  [D] [ ] return book (by: 06 Jun 2022, Mon)
 Now you have 2 task(s) in the list.
 ____________________________________________________________
 ____________________________________________________________
@@ -60,7 +60,7 @@ ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1. [T] [X] read book
-2. [D] [ ] return book (by: 06 Jun 2022, Mon 12:00 AM)
+2. [D] [ ] return book (by: 06 Jun 2022, Mon)
 3. [E] [ ] project meeting (at: 06 Aug 2022, Sat 02:00 PM)
 4. [T] [X] join sports club
 5. [T] [ ] borrow book
@@ -70,16 +70,16 @@ ____________________________________________________________
 ____________________________________________________________
 It seems that the date and time
 you gave is not in the correct format.
-Would you like to reenter a valid date and time? (Y/N)
+Would you like to re-enter a valid date and time? (Y/N)
 *Enter 'No' to skip the adding of this task*
 ____________________________________________________________
 ____________________________________________________________
-Okay, proceeding to stop adding/updating this task...
+Okay, proceeding to stop current task process...
 ____________________________________________________________
 ____________________________________________________________
 Oops! It seems that you've already added this task.
 Would you like to override the
-existing time and/or date with the new input? (Y/N)
+existing time and/or date with the new input? [Y/N]
 ____________________________________________________________
 ____________________________________________________________
 Okay, we'll keep it as it is.
@@ -87,7 +87,7 @@ ____________________________________________________________
 ____________________________________________________________
 It seems that the date and time
 you gave is not in the correct format.
-Would you like to reenter a valid date and time? (Y/N)
+Would you like to re-enter a valid date and time? (Y/N)
 *Enter 'No' to skip the adding of this task*
 ____________________________________________________________
 ____________________________________________________________
@@ -97,7 +97,7 @@ Enter valid date input:
 ____________________________________________________________
 Oops! It seems that you've already added this task.
 Would you like to override the
-existing time and/or date with the new input? (Y/N)
+existing time and/or date with the new input? [Y/N]
 ____________________________________________________________
 ____________________________________________________________
 Understood. Proceeding to change
@@ -107,15 +107,16 @@ Done! I've updated this task:
   [E] [ ] project meeting (at: 01 Mar 2022, Tue 04:00 PM)
 ____________________________________________________________
 ____________________________________________________________
-Oops! It seems that you've already added this task.
-Would you like to override the
-existing time and/or date with the new input? (Y/N)
+It seems that the date and time
+you gave is not in the correct format.
+Would you like to re-enter a valid date and time? (Y/N)
+*Enter 'No' to skip the adding of this task*
 ____________________________________________________________
 ____________________________________________________________
 Please confirm your choice with either Y (Yes) or N (No).
 ____________________________________________________________
 ____________________________________________________________
-Okay, proceeding to stop adding/updating this task...
+Okay, proceeding to stop current task process...
 ____________________________________________________________
 ____________________________________________________________
 Bzzt!
@@ -144,35 +145,35 @@ For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
-☹ Oops! The description and date
+☹ Oops! The description and/or date
  of a(n) deadline cannot be empty.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
-☹ Oops! The description and date
+☹ Oops! The description and/or date
  of a(n) deadline cannot be empty.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
-☹ Oops! The description and date
+☹ Oops! The description and/or date
  of a(n) event cannot be empty.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
-☹ Oops! The description and date
+☹ Oops! The description and/or date
  of a(n) event cannot be empty.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
-☹ Oops! The description and date
+☹ Oops! The description and/or date
  of a(n) event cannot be empty.
 
 For more information on the command you wish to execute,
@@ -197,7 +198,7 @@ For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
-☹ Oops! The description and date
+☹ Oops! The description and/or date
  of a(n) deadline cannot be empty.
 
 For more information on the command you wish to execute,
@@ -268,6 +269,78 @@ ____________________________________________________________
 Okay. I've removed this task:
   [T] [ ] borrow book
 Now you have 3 task(s) in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [D] [ ] submit UG (by: 01 Mar 2022, Tue 07:00 PM)
+Now you have 4 task(s) in the list.
+____________________________________________________________
+____________________________________________________________
+Here are the matching tasks in your list:
+1. [D] [ ] return book (by: 06 Jun 2022, Mon)
+____________________________________________________________
+____________________________________________________________
+Your search input seems to be missing.
+Please enter your input again.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+Your search input seems to be missing.
+Please enter your input again.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+Your search input seems to be missing.
+Please enter your input again.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+Your search input seems to be missing.
+Please enter your input again.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+Your search input seems to be missing.
+Please enter your input again.
+
+For more information on the command you wish to execute,
+enter 'help <command>' e.g. help todo
+____________________________________________________________
+____________________________________________________________
+Here are the matching tasks in your list:
+1. [E] [ ] project meeting (at: 01 Mar 2022, Tue 04:00 PM)
+2. [D] [ ] submit UG (by: 01 Mar 2022, Tue 07:00 PM)
+____________________________________________________________
+____________________________________________________________
+Here are the matching tasks in your list:
+1. [D] [ ] submit UG (by: 01 Mar 2022, Tue 07:00 PM)
+____________________________________________________________
+____________________________________________________________
+Here are the matching tasks in your list:
+____________________________________________________________
+Sorry! There are no tasks that match your description!
+____________________________________________________________
+____________________________________________________________
+It seems that the date and time
+you gave is not in the correct format.
+Would you like to re-enter a valid date and time? (Y/N)
+*Enter 'No' to skip the adding of this task*
+____________________________________________________________
+____________________________________________________________
+Okay, proceeding to stop current task process...
+____________________________________________________________
+____________________________________________________________
+Here are the matching tasks in your list:
+____________________________________________________________
+Sorry! There are no tasks that match your description!
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon! :)

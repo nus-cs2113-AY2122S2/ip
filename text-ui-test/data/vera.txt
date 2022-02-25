@@ -1,5 +1,4 @@
-T | 1 | read book
-D | 0 | return book | 06 Jun 2022, Mon 12:00 AM
-E | 0 | project meeting | 06 Aug 2022, Sat 02:00 PM
+D | 0 | return book | 06 Jun 2022, Mon
+E | 0 | project meeting | 01 Mar 2022, Tue 04:00 PM
 T | 1 | join sports club
-T | 0 | borrow book
+D | 0 | submit UG | 01 Mar 2022, Tue 07:00 PM
