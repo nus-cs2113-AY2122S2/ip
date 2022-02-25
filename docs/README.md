@@ -1,5 +1,4 @@
 # User Guide
-
 ## Features 
 
 ### Feature-ABC
