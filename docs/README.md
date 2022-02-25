@@ -168,16 +168,16 @@ ____________________________________________________________
  **[Find][8]**      | `find "keywords"`                  
  **[Exit][9]**      | `bye`                             
 
-[1]: https://github.com/Nnythingy/ip/blob/master/docs/README.md#quick-start
-[2]: https://github.com/Nnythingy/ip/blob/master/docs/README.md#features
-[3]: https://github.com/Nnythingy/ip/blob/master/docs/README.md#feature-add-task
-[4]: https://github.com/Nnythingy/ip/blob/master/docs/README.md#feature-deleting-a-taskdelete
-[5]: https://github.com/Nnythingy/ip/blob/master/docs/README.md#feature-list-all-taskslist
-[6]: https://github.com/Nnythingy/ip/blob/master/docs/README.md#feature-mark-task-as-donemark
-[7]: https://github.com/Nnythingy/ip/blob/master/docs/README.md#feature-unmark-task-as-not-doneunmark
-[8]: https://github.com/Nnythingy/ip/blob/master/docs/README.md#feature-find-a-taskfind
-[9]: https://github.com/Nnythingy/ip/blob/master/docs/README.md#feature-exitbye
-[10]: https://github.com/Nnythingy/ip/blob/master/docs/README.md#command-summary
-[11]: https://github.com/Nnythingy/ip/blob/master/docs/README.md#adding-a-todo-tasktodo
-[12]: https://github.com/Nnythingy/ip/blob/master/docs/README.md#adding-a-deadline-taskdeadline
-[13]: https://github.com/Nnythingy/ip/blob/master/docs/README.md#adding-a-event-taskevent
+[1]: https://nnythingy.github.io/ip/#quick-start
+[2]: https://nnythingy.github.io/ip/#features
+[3]: https://nnythingy.github.io/ip/#feature-add-task
+[4]: https://nnythingy.github.io/ip/#feature-deleting-a-taskdelete
+[5]: https://nnythingy.github.io/ip/#feature-list-all-taskslist
+[6]: https://nnythingy.github.io/ip/#feature-mark-task-as-donemark
+[7]: https://nnythingy.github.io/ip/#feature-unmark-task-as-not-doneunmark
+[8]: https://nnythingy.github.io/ip/#feature-find-a-taskfind
+[9]: https://nnythingy.github.io/ip/#feature-exitbye
+[10]: https://nnythingy.github.io/ip/#command-summary
+[11]: https://nnythingy.github.io/ip/#adding-a-todo-tasktodo
+[12]: https://nnythingy.github.io/ip/#adding-a-deadline-taskdeadline
+[13]: https:/nnythingy.github.io/ip//#adding-a-event-taskevent
