@@ -80,13 +80,15 @@ Format: `list`
 
 * Any additional input after `list` will be ignored
 
-Sample Usage: `list`  ![`list`](images/list.png)
+Sample Usage: `list`  
+![`list`](images/list.png)
 
 ### Adding a Todo task: `todo`
 
 Adds a Todo task to the task list  
 Format: `todo TASK`  
-Sample usage: `todo Homework`  ![`todo Homework`](images/todo_homework.png)
+Sample usage: `todo Homework`  
+![`todo Homework`](images/todo_homework.png)
 
 ### Adding a Deadline task: `deadline`
 
@@ -117,45 +119,52 @@ Format: `event TASK /at DATE TIME`
 * Midnight is represented 00:00 instead of 24:00
 * Minimum supported year is `0001-01-01`
 
-Sample usage:`event ORD /at 2020-11-03 23:59`  ![`event ORD /at 2020-11-03 23:59`](images/event_ORD.png)
+Sample usage:`event ORD /at 2020-11-03 23:59`  
+![`event ORD /at 2020-11-03 23:59`](images/event_ORD.png)
 
 ### Marking a task: `mark`
 
 Marks a task as complete  
 Format: `mark TASKINDEX`
 
-Sample usage: `mark 1` ![`mark 1`](images/mark_1.png)
+Sample usage: `mark 1`  
+![`mark 1`](images/mark_1.png)
 
 ### Unmarking a task: `unmark`
 
 Unmarks a task that was previously marked  
 Format: `unmark TASKINDEX`
 
-Sample usage:`unmark 2` ![`unmark 2`](images/unamrk_2.png)
+Sample usage:`unmark 2`  
+![`unmark 2`](images/unamrk_2.png)
 
 ### Deleting a task: `delete`
 
 Deletes a task from the task list Format: `delete TASKINDEX`
 
-Sample usage: `delete 3` ![`delete 3`](images/delete_3.png)
+Sample usage: `delete 3`  
+![`delete 3`](images/delete_3.png)
 
 ### Finding a task: `find task`
 
 Finds all tasks containing a matching `KEYWORD` from the task list  
 Format: `find task KEYWORD`
 
-Sample usage:`find task work` ![`find task work`](images/find_task_work.png)
+Sample usage:`find task work`  
+![`find task work`](images/find_task_work.png)
 
 ### Finding a time: `find time`
 
 Finds time in the tasks containing a matching `KEYWORD` from the task list  
 Format: `find time KEYWORD`
 
-Sample usage:`find time 59`![`find time 59`](images/find_time_59.png)
+Sample usage:`find time 59`  
+![`find time 59`](images/find_time_59.png)
 
 ### Exiting the program: `bye`
 
-Exits the program Format: `bye`
+Exits the program  
+Format: `bye`
 
 **Note:**
 
