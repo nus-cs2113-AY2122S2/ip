@@ -2,7 +2,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  * Represents a person's list of Tasks that they must complete.
@@ -140,6 +142,22 @@ public class TaskList {
 
     /**
      * Helper for processTasks
+     * Filters relevant tasks with the specified keyword
+     * @param keywords the relevant keywords that the user wants to search the TaskList for
+     * @returns ArrayList of tasks representing taskList filtered by the specified keywords
+     */
+    public ArrayList<Task> findTasks(String keywords) {
+        List<Task> filteredTasksList = taskList
+                .stream()
+                .filter(task -> task.description.contains(keywords))
+                .collect(Collectors.toList());
+        ArrayList<Task> filteredTasksArrayList = new ArrayList<>();
+        filteredTasksArrayList.addAll(filteredTasksList);
+        return filteredTasksArrayList;
+    }
+
+    /**
+     * Helper for processTasks
      * Deletes user-specified task
      * @param line line of user input
      */
@@ -182,8 +200,11 @@ public class TaskList {
                     deleteTask(line);
                     saveTasksToFile(formatTaskListToString());
                 } else if (keyWord.equals("find")) {
-                    String taskKeyWords = line.substring(keyWord.length());
-                    //findTask(taskKeyWords);
+                    String taskKeyWords = line.substring(keyWord.length()).trim();
+                    ArrayList<Task> relevantTasks = findTasks(taskKeyWords);
+                    for (Task task : relevantTasks) {
+                        System.out.println(task.toString());
+                    }
                 }
                 else {
                     addTask(line);
