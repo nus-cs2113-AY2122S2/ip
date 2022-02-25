@@ -1,0 +1,5 @@
+T | X | eat
+T | X | play
+T |   | sleep
+D |   | assignment /by sunday
+E |   | church /at sunday

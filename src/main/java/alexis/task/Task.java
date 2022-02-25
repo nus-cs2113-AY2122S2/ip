@@ -1,6 +1,8 @@
 package alexis.task;
 
-import alexis.main.Main;
+import static alexis.ui.Ui.ADD_NEW_TASK_MESSAGE;
+import static alexis.ui.Ui.MARK_AS_DONE_MESSAGE;
+import static alexis.ui.Ui.MARK_AS_UNDONE_MESSAGE;
 
 public class Task {
     protected String description;
@@ -28,10 +30,8 @@ public class Task {
     }
 
     public void addNewTaskMessage() {
-        System.out.println(Main.BORDER_LINE);
-        System.out.println(Main.ADD_NEW_TASK_MESSAGE);
+        System.out.println(ADD_NEW_TASK_MESSAGE);
         System.out.println("  [" + typeOfTask() + "][" + getStatusIcon() + "] " + getFullDescription());
-        System.out.println(Main.BORDER_LINE);
     }
 
     public Task(String description) {
@@ -47,19 +47,15 @@ public class Task {
 
     public void markAsDone() {
         this.isDone = true;
-        System.out.println(Main.BORDER_LINE);
-        System.out.println(Main.MARK_AS_DONE_MESSAGE);
+        System.out.println(MARK_AS_DONE_MESSAGE);
         System.out.println("  [" + typeOfTask() + "][" + getStatusIcon() + "] " + getFullDescription());
-        System.out.println(Main.BORDER_LINE);
 
     }
 
     public void markAsUndone() {
         this.isDone = false;
-        System.out.println(Main.BORDER_LINE);
-        System.out.println(Main.MARK_AS_UNDONE_MESSAGE);
+        System.out.println(MARK_AS_UNDONE_MESSAGE);
         System.out.println("  [" + typeOfTask() + "][" + getStatusIcon() + "] " + getFullDescription());
-        System.out.println(Main.BORDER_LINE);
     }
 
     public void setIsDone() {

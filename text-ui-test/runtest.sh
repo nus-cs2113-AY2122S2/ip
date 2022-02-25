@@ -13,7 +13,10 @@ then
 fi
 
 # compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/alexis/exceptions/*.java ../src/main/java/alexis/main/*.java ../src/main/java/alexis/task/*.java
+if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/alexis/exceptions/*.java \
+  ../src/main/java/alexis/main/*.java ../src/main/java/alexis/task/*.java ..\src\main\java\alexis\commands\*.java \
+  ..\src\main\java\alexis\parser\*.java ..\src\main\java\alexis\storage\*.java ..\src\main\java\alexis\ui\*.java \
+  ..\src\main\java\alexis\taskList\*.java
 then
     echo "********** BUILD FAILURE **********"
     exit 1
