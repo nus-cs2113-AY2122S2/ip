@@ -1,3 +1,7 @@
+/**
+ * Represents the user interface of the Duke application
+ */
+
 public class Ui {
     public void showGreeting() {
         String logo = " ____        _        \n"

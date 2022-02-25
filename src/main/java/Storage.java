@@ -3,9 +3,16 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 
+/**
+ * Represents a <code>Storage</code> object that contains support for
+ * saving tasks/loading tasks from storage (ensures persistent storage
+ * of tasks)
+ */
+
 public class Storage {
     public String filePath;
     public Storage(String filePath) {
+
         this.filePath = filePath;
     }
 

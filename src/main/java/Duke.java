@@ -1,3 +1,7 @@
+/**
+ * Main driver class of the application
+ */
+
 public class Duke {
 
     private Storage storage;
