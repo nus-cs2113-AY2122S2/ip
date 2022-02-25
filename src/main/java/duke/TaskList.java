@@ -68,15 +68,13 @@ public class TaskList {
     private static void validateTask(String taskType, ArrayList<StringBuilder> taskList) throws DukeException {
         switch (taskType) {
         case Parser.COMMAND_TODO:
-            if (taskList.isEmpty()) {
+            String description = String.valueOf(taskList.get(0));
+            if (description.equals("")) {
                 throw new DukeException("Task details missing.");
             }
             break;
         case Parser.COMMAND_EVENT:
         case Parser.COMMAND_DEADLINE:
-            if (taskList.size() < 2) {
-                throw new DukeException("Task details missing.");
-            }
             String firstPart = String.valueOf(taskList.get(0));
             String secondPart = String.valueOf(taskList.get(1));
             if (firstPart.equals("") || secondPart.equals("")) {
@@ -149,7 +147,7 @@ public class TaskList {
             System.out.println("Nice! I've marked this task as done:");
             System.out.println(this.tasks.get(Integer.parseInt(task) - 1));
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Task not found.");
         }
     }
 
@@ -169,7 +167,7 @@ public class TaskList {
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println(this.tasks.get(Integer.parseInt(task) - 1));
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Task not found.");
         }
     }
 
