@@ -1,3 +1,4 @@
-[T][ ] read
-[D][ ] 123 (by: 8)
-[E][ ] 1231 (at: 89)
+[T][ ] buy book
+[E][ ] read book (at: 2)
+[D][ ] return book (by: 5)
+[T][ ] cook now
