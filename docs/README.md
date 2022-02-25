@@ -205,7 +205,20 @@ Expected outcome:
 List out all tasks that matches the description to search for.
 
 ```
-> <todo>
+> help
+____________________________________________________________
+List of commands for Duke: 
+todo <description>
+deadline <description> /by <date>
+event <description> /at <date>
+mark <task number>
+unmark <task number>
+list
+find <description>
+delete <task number>
+help
+bye
+____________________________________________________________
 ```
 
 ### `bye` - Exit
