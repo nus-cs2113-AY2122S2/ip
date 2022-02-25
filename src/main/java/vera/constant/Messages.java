@@ -42,4 +42,6 @@ public class Messages {
     public static final String ERROR_INVALID_MARKING_INDEX_MESSAGE = "Bzzt!\nPlease"
             + " key in a valid task number to mark/unmark your task."
             + HELP_MESSAGE_SPECIFIC_COMMAND;
+    public static final String DATE_FORMAT_WITH_TIME = "dd MMM yyyy, EEE hh:mm a";
+    public static final String DATE_FORMAT_WITHOUT_TIME = "dd MMM yyyy, EEE";
 }

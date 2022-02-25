@@ -109,15 +109,44 @@ public class TaskList {
                 + "\nNow you have " + tasks.size() + " task(s) in the list.");
     }
 
-    public void findTasks(String taskDescriptionKeyWord, Ui ui) {
+    public void findByTaskDescription(String findTaskByKeyword, Ui ui) {
         int printIndex = 1;
+        boolean isTaskFound = false;
         ui.showToUser("Here are the matching tasks in your list:");
         for (Task task : tasks) {
-            if (task.getDescription().contains(taskDescriptionKeyWord)) {
+            if (task.getDescription().contains(findTaskByKeyword)) {
                 String listIndex = String.valueOf(printIndex);
                 ui.showToUser(listIndex + ". " + task);
+                isTaskFound = true;
             }
             printIndex++;
+        }
+        if (!isTaskFound) {
+            ui.showLine();
+            ui.showToUser("Sorry! There are no tasks that match your description!");
+        }
+    }
+
+    public void findByTaskDate(String findTaskByKeyword, Ui ui) {
+        if (findTaskByKeyword == null) {
+            ui.showToUser("Oops! There seems to be \nsome problem with your "
+                    + "search keyword.\n\nPlease enter a valid date and try again.");
+            return;
+        }
+        int printIndex = 1;
+        boolean isTaskFound = false;
+        ui.showToUser("Here are the matching tasks in your list:");
+        for (Task task : tasks) {
+            if (!task.getType().equals("T") && task.getDate().contains(findTaskByKeyword)) {
+                String listIndex = String.valueOf(printIndex);
+                ui.showToUser(listIndex + ". " + task);
+                isTaskFound = true;
+            }
+            printIndex++;
+        }
+        if (!isTaskFound) {
+            ui.showLine();
+            ui.showToUser("Sorry! There are no tasks that match your description!");
         }
     }
 }

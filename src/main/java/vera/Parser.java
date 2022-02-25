@@ -13,7 +13,6 @@ import vera.command.HelpCommand;
 import vera.command.ExitCommand;
 import vera.command.FindCommand;
 
-import vera.constant.DateAndTimeFormat;
 import vera.exception.InputEmptyException;
 import vera.exception.InputRepeatedException;
 import vera.task.Deadline;
@@ -22,7 +21,9 @@ import vera.task.Task;
 import vera.task.Todo;
 
 
-import static vera.constant.Indexes.INPUT_TO_FIND_INDEX;
+import static vera.constant.DateAndTimeFormat.optionalTimeFormat;
+import static vera.constant.Indexes.FIND_BY_TASK_CONTENT_INDEX;
+import static vera.constant.Indexes.FIND_BY_TASK_DATE_INDEX;
 import static vera.constant.Indexes.SAVE_TASK_DESCRIPTION_INDEX;
 import static vera.constant.Indexes.SAVE_TASK_TYPE_INDEX;
 import static vera.constant.Indexes.HELP_OPTIONS_INDEX;
@@ -42,7 +43,6 @@ import static vera.constant.Messages.ERROR_INVALID_INPUT_MESSAGE;
 
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
@@ -62,11 +62,9 @@ public class Parser {
 
     public static Task parseSavedData(String[] rawData) throws InputEmptyException {
         Task parsedData;
-        if (!rawData[SAVE_TASK_MARK_STATUS].equals("0") &&
-                !rawData[SAVE_TASK_MARK_STATUS].equals("1")) {
+        if (!rawData[SAVE_TASK_MARK_STATUS].equals("0") && !rawData[SAVE_TASK_MARK_STATUS].equals("1")) {
             throw new InputEmptyException();
         }
-
         switch (rawData[SAVE_TASK_TYPE_INDEX].trim()) {
         case "T":
             parsedData = new Todo(rawData[SAVE_TASK_DESCRIPTION_INDEX]);
@@ -82,15 +80,12 @@ public class Parser {
         default:
             throw new InputEmptyException();
         }
-
         if (isReadTaskEmpty(parsedData)) {
             throw new InputEmptyException();
         }
-
         if (rawData[SAVE_TASK_MARK_STATUS].equals("1")) {
             parsedData.markAsDone();
         }
-
         return parsedData;
     }
 
@@ -140,7 +135,7 @@ public class Parser {
     private static LocalDateTime confirmInvalidDateFormat() throws InputEmptyException {
         Ui anotherUi = new Ui();
         anotherUi.showToUser("It seems that the date and time\nyou gave is not in the correct format.\n"
-                + "Would you like to reenter a valid date and time? (Y/N)\n"
+                + "Would you like to re-enter a valid date and time? (Y/N)\n"
                 + "*Enter 'No' to skip the adding of this task*");
         anotherUi.showLine();
         while (true) {
@@ -157,7 +152,7 @@ public class Parser {
             }
             if (input.trim().equalsIgnoreCase("N")
                     || input.trim().equalsIgnoreCase("No")) {
-                anotherUi.showToUser("Okay, proceeding to stop adding/updating this task...");
+                anotherUi.showToUser("Okay, proceeding to stop current task process...");
                 return null;
             }
             anotherUi.showToUser("Please confirm your choice with either Y (Yes) or N (No).");
@@ -169,16 +164,11 @@ public class Parser {
         if (rawTaskDate.isBlank()) {
             throw new InputEmptyException();
         }
-        DateTimeFormatter[] dateFormats = DateAndTimeFormat.getFormat();
-        int i = 0;
-        while (i < dateFormats.length)  {
-            try {
-                return LocalDateTime.parse(rawTaskDate, dateFormats[i]);
-            } catch (DateTimeParseException e) {
-                i++;
-            }
+        try {
+            return LocalDateTime.parse(rawTaskDate, optionalTimeFormat);
+        } catch (DateTimeParseException e) {
+            return confirmInvalidDateFormat();
         }
-        return confirmInvalidDateFormat();
     }
 
     private static Command prepareAddEventOrDeadline(String[] parsedInput, String inputKeyword,
@@ -225,6 +215,22 @@ public class Parser {
         }
     }
 
+    private static Command prepareFind(String[] userInput) {
+        String[] parsedInputToSearchByDate;
+        try {
+            if (userInput[FIND_BY_TASK_CONTENT_INDEX].contains("/date")) {
+                parsedInputToSearchByDate = userInput[FIND_BY_TASK_CONTENT_INDEX].split("/date");
+                return new FindCommand(parsedInputToSearchByDate,
+                        parsedInputToSearchByDate[FIND_BY_TASK_DATE_INDEX].trim());
+            }
+            return new FindCommand(userInput, null);
+        } catch (IndexOutOfBoundsException | InputEmptyException e) {
+            System.out.println("Your search input seems to be missing.\n"
+                    + "Please enter your input again." + HELP_MESSAGE_SPECIFIC_COMMAND);
+        }
+        return null;
+    }
+
     public static Command parseCommand(String userInput, TaskList taskList) {
         String[] parsedInput = userInput.split(" ", 2);
         String commandWord = parsedInput[OPTIONS_INDEX].toLowerCase().trim();
@@ -246,7 +252,7 @@ public class Parser {
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(parsedInput, taskList);
         case FindCommand.COMMAND_WORD:
-            return new FindCommand(parsedInput[INPUT_TO_FIND_INDEX]);
+            return prepareFind(parsedInput);
         case HelpCommand.COMMAND_WORD:
             return prepareHelp(userInput);
         case ExitCommand.COMMAND_WORD:

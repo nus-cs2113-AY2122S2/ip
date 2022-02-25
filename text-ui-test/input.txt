@@ -9,7 +9,7 @@ mark 4
 todo borrow book
 list
 event team meeting /at 2022-03-02 1600
-No
+n
 deadline return book /by 2022/02/27
 n
 event project meeting /at Mon 2-4pm
