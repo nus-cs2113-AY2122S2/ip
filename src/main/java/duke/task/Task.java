@@ -16,8 +16,6 @@ public class Task {
         return taskType;
     }
 
-
-
     public Task(String description) {
         this.description = description;
         this.isDone = false;
