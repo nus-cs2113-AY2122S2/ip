@@ -1,6 +1,5 @@
 package vera;
 
-
 import vera.task.Deadline;
 import vera.task.Event;
 import vera.task.Task;
@@ -8,7 +7,6 @@ import vera.task.Todo;
 
 import java.util.ArrayList;
 
-import static vera.constant.Indexes.TASK_DESCRIPTION_INDEX;
 import static vera.constant.Messages.ERROR_SYSTEM_FAULT_MESSAGE;
 
 public class TaskList {
@@ -80,11 +78,11 @@ public class TaskList {
     }
 
 
-    public int findIndexToReplace(String[] filteredTaskContent) {
+    public int findIndexToReplace(String taskDescriptionToSearch) {
         int index = -1;
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).getDescription()
-                    .equalsIgnoreCase(filteredTaskContent[TASK_DESCRIPTION_INDEX].trim())) {
+                    .equalsIgnoreCase(taskDescriptionToSearch.trim())) {
                 index = i;
                 break;
             }
@@ -118,8 +116,8 @@ public class TaskList {
                 String listIndex = String.valueOf(printIndex);
                 ui.showToUser(listIndex + ". " + task);
                 isTaskFound = true;
+                printIndex++;
             }
-            printIndex++;
         }
         if (!isTaskFound) {
             ui.showLine();
@@ -128,11 +126,6 @@ public class TaskList {
     }
 
     public void findByTaskDate(String findTaskByKeyword, Ui ui) {
-        if (findTaskByKeyword == null) {
-            ui.showToUser("Oops! There seems to be \nsome problem with your "
-                    + "search keyword.\n\nPlease enter a valid date and try again.");
-            return;
-        }
         int printIndex = 1;
         boolean isTaskFound = false;
         ui.showToUser("Here are the matching tasks in your list:");
@@ -141,8 +134,8 @@ public class TaskList {
                 String listIndex = String.valueOf(printIndex);
                 ui.showToUser(listIndex + ". " + task);
                 isTaskFound = true;
+                printIndex++;
             }
-            printIndex++;
         }
         if (!isTaskFound) {
             ui.showLine();

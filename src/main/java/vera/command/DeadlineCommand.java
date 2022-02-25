@@ -14,8 +14,8 @@ import static vera.constant.Indexes.TASK_DESCRIPTION_INDEX;
 import static vera.constant.Messages.DATE_FORMAT_WITH_TIME;
 
 public class DeadlineCommand extends Command {
-    String[] toAddTaskContent;
-    LocalDateTime toAddTaskDate;
+    String toAddTaskContent;
+    String toAddTaskDate;
 
     public static final String COMMAND_WORD = "deadline";
     public static final String MESSAGE_USAGE = "Deadline: Adds a 'deadline' task "
@@ -26,30 +26,22 @@ public class DeadlineCommand extends Command {
             + "\t\tyyyy/MM/dd [HH:mm], where\n"
             + "year is in 4 digits, month and day in two digits, and an\noptional time in 24 hour format.";
 
-    public DeadlineCommand(String[] filteredTaskContent, TaskList tasklist, LocalDateTime dateInput)
+    public DeadlineCommand(String taskDescription, TaskList tasklist, String dateInput)
             throws InputEmptyException, InputRepeatedException {
-        if (filteredTaskContent[TASK_DESCRIPTION_INDEX].isBlank()) {
+        if (taskDescription.isBlank()) {
             throw new InputEmptyException();
         }
-        if (tasklist.isTaskAlreadyAdded(filteredTaskContent[TASK_DESCRIPTION_INDEX].trim())) {
+        if (tasklist.isTaskAlreadyAdded(taskDescription)) {
             throw new InputRepeatedException();
         }
         toAddTaskDate = dateInput;
-        toAddTaskContent = filteredTaskContent;
+        toAddTaskContent = taskDescription;
     }
 
-    private String assignTaskDate() {
-        if (toAddTaskDate == null) {
-            return toAddTaskContent[TASK_DATE_INDEX].trim();
-        }
-        return toAddTaskDate.format(DateTimeFormatter.ofPattern(DATE_FORMAT_WITH_TIME));
-    }
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        String filteredTaskDate = assignTaskDate();
-        taskList.addTask(toAddTaskContent[TASK_DESCRIPTION_INDEX].trim(), filteredTaskDate, COMMAND_WORD);
-        storage.appendToFile(toAddTaskContent[TASK_DESCRIPTION_INDEX].trim()
-                , filteredTaskDate, "0", "D");
+        taskList.addTask(toAddTaskContent, toAddTaskDate, COMMAND_WORD);
+        storage.appendToFile(toAddTaskContent, toAddTaskDate, "0", "D");
     }
 }

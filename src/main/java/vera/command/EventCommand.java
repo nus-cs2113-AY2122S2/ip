@@ -6,16 +6,9 @@ import vera.Ui;
 import vera.exception.InputEmptyException;
 import vera.exception.InputRepeatedException;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-import static vera.constant.Indexes.TASK_DATE_INDEX;
-import static vera.constant.Indexes.TASK_DESCRIPTION_INDEX;
-import static vera.constant.Messages.DATE_FORMAT_WITH_TIME;
-
 public class EventCommand extends Command {
-    String[] toAddTaskContent;
-    LocalDateTime toAddTaskDate;
+    String toAddTaskDescription;
+    String toAddTaskDate;
 
     public static final String COMMAND_WORD = "event";
     public static final String MESSAGE_USAGE = "Event: Adds an 'event' task into the task list.\n"
@@ -27,30 +20,22 @@ public class EventCommand extends Command {
             + "\n\t\tyyyy/MM/dd [HH:mm], where\n"
             + "year is in 4 digits, month and day in two digits, and an \noptional time in 24 hour format.";
 
-    public EventCommand(String[] filteredTaskContent, TaskList tasklist, LocalDateTime dateInput)
+    public EventCommand(String taskDescription, TaskList tasklist, String dateInput)
             throws InputEmptyException, InputRepeatedException {
-        if (filteredTaskContent[TASK_DESCRIPTION_INDEX].isBlank()) {
+        if (taskDescription.isBlank()) {
             throw new InputEmptyException();
         }
-        if (tasklist.isTaskAlreadyAdded(filteredTaskContent[TASK_DESCRIPTION_INDEX].trim())) {
+        if (tasklist.isTaskAlreadyAdded(taskDescription)) {
             throw new InputRepeatedException();
         }
         toAddTaskDate = dateInput;
-        toAddTaskContent = filteredTaskContent;
+        toAddTaskDescription = taskDescription;
     }
 
-    private String assignTaskDate() {
-        if (toAddTaskDate == null) {
-            return toAddTaskContent[TASK_DATE_INDEX].trim();
-        }
-        return toAddTaskDate.format(DateTimeFormatter.ofPattern(DATE_FORMAT_WITH_TIME));
-    }
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        String filteredTaskDate = assignTaskDate();
-        taskList.addTask(toAddTaskContent[TASK_DESCRIPTION_INDEX].trim(), filteredTaskDate, COMMAND_WORD);
-        storage.appendToFile(toAddTaskContent[TASK_DESCRIPTION_INDEX].trim()
-                , filteredTaskDate, "0", "E");
+        taskList.addTask(toAddTaskDescription, toAddTaskDate, COMMAND_WORD);
+        storage.appendToFile(toAddTaskDescription, toAddTaskDate, "0", "E");
     }
 }

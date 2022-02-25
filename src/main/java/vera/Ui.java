@@ -7,7 +7,7 @@ import static vera.constant.Messages.WELCOME_MESSAGE;
 
 
 public class Ui {
-    private static Scanner in;
+    private final static Scanner in = new Scanner(System.in);
     private static final String PARTITION_LINE = "______________________________"
             + "______________________________";
     private static final String LS = System.lineSeparator();
@@ -17,9 +17,6 @@ public class Ui {
             + "   \\ V /  __/ | | (_| |\n"
             + "    \\_/ \\___|_|  \\__,_|\n";
 
-    public Ui() {
-        in = new Scanner(System.in);
-    }
 
     public String readCommand() {
         return in.nextLine().trim();
@@ -44,5 +41,4 @@ public class Ui {
     public void showGoodbyeMessage() {
         System.out.println(GOODBYE_MESSAGE);
     }
-
 }

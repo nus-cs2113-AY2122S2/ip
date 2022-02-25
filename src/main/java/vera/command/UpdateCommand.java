@@ -4,19 +4,15 @@ import vera.Storage;
 import vera.TaskList;
 import vera.Ui;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-import static vera.constant.Indexes.TASK_DATE_INDEX;
 import static vera.constant.Messages.ERROR_SYSTEM_FAULT_MESSAGE;
 
 public class UpdateCommand extends Command {
-    String[] toAddTaskContent;
-    LocalDateTime toAddTaskDate;
+    String taskDescriptionForSearchingTask;
+    String toUpdateTaskDate;
 
-    public UpdateCommand(String[] filteredTaskContent, LocalDateTime dateInput) {
-        toAddTaskContent = filteredTaskContent;
-        toAddTaskDate = dateInput;
+    public UpdateCommand(String taskDescription, String dateInput) {
+        taskDescriptionForSearchingTask = taskDescription;
+        toUpdateTaskDate = dateInput;
     }
 
     public boolean isTaskBeingReplaced(Ui ui) {
@@ -47,19 +43,13 @@ public class UpdateCommand extends Command {
     }
 
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        String filteredTaskDate;
-        if (toAddTaskDate != null) {
-            filteredTaskDate = toAddTaskDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy, EEE hh:mm a"));
-        } else {
-            filteredTaskDate = toAddTaskContent[TASK_DATE_INDEX].trim();
-        }
         if (isTaskBeingReplaced(ui)) {
-            int taskIndexToReplace = taskList.findIndexToReplace(toAddTaskContent);
+            int taskIndexToReplace = taskList.findIndexToReplace(taskDescriptionForSearchingTask);
             if (taskIndexToReplace == -1) {
                 System.out.println(ERROR_SYSTEM_FAULT_MESSAGE);
                 return;
             }
-            taskList.replaceTaskDate(taskIndexToReplace, filteredTaskDate, ui);
+            taskList.replaceTaskDate(taskIndexToReplace, toUpdateTaskDate, ui);
             storage.rewriteSavedState(taskList);
         }
     }
