@@ -140,7 +140,8 @@ Sample usage:`unmark 2`
 
 ### Deleting a task: `delete`
 
-Deletes a task from the task list Format: `delete TASKINDEX`
+Deletes a task from the task list  
+Format: `delete TASKINDEX`
 
 Sample usage: `delete 3`  
 ![`delete 3`](images/delete_3.png)

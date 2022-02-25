@@ -57,6 +57,9 @@ public class Parser {
             case "delete":
                 DeleteCommand.deleteFromList(splitUserInputs[Indexes.INDEX_OF_SECOND_ITEM_IN_STRING]);
                 break;
+            case "help":
+                System.out.println(PrintStrings.help);
+                break;
             default:
                 if (splitUserInputs.length < Indexes.NUMBER_OF_TERMS_IN_SPLIT) {
                     throw new InvalidCommandException("Missing input after the command!", ErrorCount.errorCount);

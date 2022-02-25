@@ -11,5 +11,6 @@ public enum CommandList {
     unmark,
     delete,
     find,
-    list
+    list,
+    help
 }
