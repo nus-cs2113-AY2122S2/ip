@@ -1,6 +1,6 @@
 package duke.command;
 
-public class Command {
+public abstract class Command {
     public enum CommandType {
         ADDTASK, EXITPROGRAM, PRINTLIST, UPDATETASKSTATUS, DELETETASKS
     }

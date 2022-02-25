@@ -10,7 +10,7 @@ import duke.command.UpdateTaskStatusCommand;
 import duke.exception.DukeException;
 import duke.exception.DukeExceptionCause;
 
-public class Decoder {
+public class Parser {
     public static Command parseInput(String userInput) throws DukeException {
         Command newCommand;
         if (userInput.equals("bye")) {
