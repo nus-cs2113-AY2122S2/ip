@@ -1,6 +1,7 @@
 package ui;
 
 import duke.Storage;
+import duke.TaskList;
 import errors.Errors;
 import task.Task;
 
@@ -32,13 +33,16 @@ public class DukeUi {
             String command = getFirstWordOfCommand(input);
             switch (command) {
             case "list":
-                Task.printList(taskList, taskCounter);
+                TaskList.printList(taskList);
                 break;
             case "mark":
                 markTaskAsComplete(input);
                 break;
             case "delete":
                 deleteTask(input);
+                break;
+            case "find":
+                findTask(input);
                 break;
             case "unmark":
                 unmarkTaskAsIncomplete(input);
@@ -63,4 +67,6 @@ public class DukeUi {
             input = sc.nextLine();
         }
     }
+
+
 }
