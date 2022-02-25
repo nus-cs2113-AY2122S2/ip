@@ -140,7 +140,7 @@ public class Duke {
     //file methods
 
     public static File loadFile(){
-        return new File("src/main/java/duke.txt");
+        return new File("duke.txt");
     }
 
     /**
