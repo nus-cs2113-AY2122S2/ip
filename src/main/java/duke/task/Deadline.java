@@ -13,6 +13,14 @@ public class Deadline extends Task {
         return this.deadline;
     }
 
+    public String getType() {
+        return "D";
+    }
+
+    public String getDate() {
+        return this.deadline;
+    }
+
     @Override
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), this.deadline);

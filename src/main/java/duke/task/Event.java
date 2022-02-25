@@ -9,7 +9,15 @@ public class Event extends Task {
         this.time = time;
     }
 
-    public  String getTime() {
+    public String getTime() {
+        return this.time;
+    }
+
+    public String getType() {
+        return "E";
+    }
+
+    public String getDate() {
         return this.time;
     }
 
