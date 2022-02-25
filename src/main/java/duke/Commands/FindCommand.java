@@ -16,16 +16,16 @@ public class FindCommand extends Command{
     }
     @Override
     public void execute() throws IndexOutOfRangeException {
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasksFound = new ArrayList<>();
         int i = 1;
-        tasks = taskList.findTask(keyword);
-        if (tasks.size() == 0) {
+        tasksFound = taskList.findTask(keyword);
+        if (tasksFound.size() == 0) {
             System.out.println("Im sorry :(. It seems no task matches your input.");
         }
         else {
             PatternGenerator.generateLine();
             System.out.println("Here are the matching tasks in your list: ");
-            for (Task task : tasks){
+            for (Task task : tasksFound){
                 System.out.println(i + "." +task.toString());
             }
             PatternGenerator.generateLine();
