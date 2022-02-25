@@ -1,6 +1,7 @@
 import java.io.Serializable;
 
-public class Task implements Serializable{
+public class Task implements Serializable {
+
     protected String description;
     protected boolean isDone;
 
@@ -14,14 +15,22 @@ public class Task implements Serializable{
     }
 
     public void markAsDone() {
-        isDone = true;
-        System.out.println("Nice! I've marked this task as done:");
+        if (isDone) {
+            System.out.println("This task has already been marked as done:");
+        } else {
+            isDone = true;
+            System.out.println("Nice! I've marked this task as done:");
+        }
         System.out.println(this + System.lineSeparator());
     }
 
     public void markAsUndone() {
-        isDone = false;
-        System.out.println("OK, I've marked this task as not done yet:");
+        if (!isDone) {
+            System.out.println("This task has not been marked as done yet:");
+        } else{
+            isDone = false;
+            System.out.println("OK, I've marked this task as not done yet:");
+        }
         System.out.println(this + System.lineSeparator());
     }
 
