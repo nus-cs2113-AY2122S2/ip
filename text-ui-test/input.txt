@@ -1,0 +1,23 @@
+todo Try to crash this system
+event Crash this system /at Some weird timing you'll never know like 13pm
+deadline Crash Serene /by The end of this damn semester who knows 40th June
+list
+unrecognised input
+deadline
+deadline No deadline~
+deadline Use at /at 1234
+event No at~
+event Ust by /by 1234
+mark 1
+mark e
+mark -1
+list
+unmark 1
+unmark e
+unmark -1
+list
+delete 1
+delete e
+delete -1
+list
+bye
