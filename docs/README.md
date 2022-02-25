@@ -9,12 +9,25 @@
 
 Prerequisites: Make sure you have JDK 11 (Java) installed.
 
-1. Get Dook from <here to update>
-2. Run in the terminal, the jar file with `java -jar ip.jar`
+1. Get Dook from [to update link]()
+2. Run in the terminal, the jar file with `java -jar ip.jar`. Make sure the jar file is in the same directory.
 3. Dook is now running. You can view commands with `help`, and exit with `bye`. Any task changes are automatically saved.
 
 Example output:
-<todo>
+```
+PS C:\ip_jar> java -jar ip.jar
+ ____        _
+|  _ \ _   _| | _____
+| | | | | | | |/ / _ \
+| |_| | |_| |   <  __/
+|____/ \__,_|_|\_\___|
+
+____________________________________________________________
+Hello! I'm Dook!
+What can I do for you?
+____________________________________________________________
+
+```
 
 ## Features 
 Dook comes with the following:
