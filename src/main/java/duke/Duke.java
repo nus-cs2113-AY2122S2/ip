@@ -1,6 +1,15 @@
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.Path;
+import java.io.FileNotFoundException;
 import duke.task.*;
 import duke.exception.*;
+import duke.task.Event;
+
 import java.util.ArrayList;
 
 public class Duke {
@@ -9,7 +18,10 @@ public class Duke {
     private static ArrayList<Task> list = new ArrayList<Task>();
     private static int taskCounter = 0;
     private static String HORIZONTAL_LINE = "____________________________________________________________";
-
+    private static String DATA_DIRECTORY = System.getProperty("user.dir") + "/data";
+    private static String DATA_FILE = DATA_DIRECTORY + "/duke.txt";
+    private static Path dataDirectoryPath = Paths.get(DATA_DIRECTORY);
+    
     private static void printFormat(String... args) {
         System.out.println(HORIZONTAL_LINE);
         for (String arg : args) {
@@ -99,7 +111,8 @@ public class Duke {
         }
     }
 
-    private static void handleMark(String input) throws AlreadyMarkedException, InvalidNumberException {
+    private static void handleMark(String input) throws AlreadyMarkedException, InvalidNumberException,
+            NumberFormatException {
         int markInt = Integer.parseInt(input.substring(5)) - 1;
         if (markInt + 1> taskCounter) {
             throw new InvalidNumberException();
@@ -117,6 +130,7 @@ public class Duke {
         Task newTask = new ToDo(subStrings[1]);
         list.add(newTask);
         taskCounter++;
+        //writeToFile("T", "0", subStrings[1]);
         printFormat("Got it. I've added this task:", 
                 "  " + newTask.toString(),
                 "Now you have " + String.valueOf(taskCounter) + " tasks in the list.");
@@ -167,12 +181,85 @@ public class Duke {
                 "   e.g. 'event project meeting /at sunday 8-10pm' adds a task with a time range");
     }
 
-    private static void bye() {
+    private static void writeToFile() throws IOException {
+        FileWriter fw = new FileWriter(DATA_FILE, false);
+        int taskNum = 0;
+        for (Task task : list) {
+            taskNum++;
+            fw.write(convertTask(taskNum, task));
+        }
+        fw.close();
+    }
+
+    private static String convertTask(int taskNum, Task task) {
+        // num|type|T/F|description|(date)
+        String line = String.valueOf(taskNum) + "|" + task.getType() + "|";
+        if (task.isDone) {
+            line += "1|";
+        } else {
+            line += "0|";
+        }
+        line += task.getDescription().substring(0, task.getDescription().length() - 1);
+        if (task.toString().contains("(")) {
+            line += "|" + task.getDate();
+        }
+        line += System.lineSeparator();
+        return line;
+    }
+
+    private static void readFileContents() throws IOException {
+        boolean directoryExists = new File(DATA_DIRECTORY).exists();
+        boolean fileExists = new File(DATA_FILE).exists();
+        File dataFile = new File(DATA_FILE);
+        if (!directoryExists) {
+            Files.createDirectory(dataDirectoryPath);
+        }
+        if (!fileExists) {
+            dataFile.createNewFile();
+        }
+        Scanner s = new Scanner(dataFile); 
+        while (s.hasNext()) {
+            parseData(s.nextLine());
+        }
+    }
+
+    private static void parseData(String data) {
+        String[] dataArr = data.split("\\|");
+        Task newTask;
+        if (dataArr[1].equals("T")) {
+            newTask = new ToDo(dataArr[3]);
+            if (Integer.parseInt(dataArr[2]) == 1) {
+                newTask.setDone(true);
+            }
+        } else if (dataArr[1].equals("D")) {
+            newTask = new Deadline(dataArr[3], dataArr[4]);
+            if (Integer.parseInt(dataArr[2]) == 1) {
+                newTask.setDone(true);
+            }
+        } else {
+            newTask = new Event(dataArr[3], dataArr[4]);
+            if (Integer.parseInt(dataArr[2]) == 1) {
+                newTask.setDone(true);
+            }
+        }
+        list.add(newTask);
+    }
+
+    private static void bye() throws IOException {
+        writeToFile();
         printFormat("Bye. Hope to see you again soon!");
     }
 
     public static void main(String[] args) {
         intro();
+        try {
+            readFileContents();
+            taskCounter = list.size();
+        } catch (FileNotFoundException e) {
+
+        } catch (IOException e) {
+
+        }
         while (sc.hasNext()) {
             String input = sc.nextLine();
             if (input.equals("bye")) {
@@ -192,9 +279,15 @@ public class Duke {
                     printFormat("Oh no! The item is already unmarked!");
                 } catch (InvalidNumberException e) {
                     printFormat("Oh no! The number you have chosen is not valid!");
+                } catch (NumberFormatException e) {
+                    printFormat("Oh no! You need to be using a number instead!");
                 }
             }
         }
-        bye();
+        try {
+            bye();
+        } catch (IOException e) {
+            printFormat("Oh no! Something went wrong!");
+        }
     }
 }
