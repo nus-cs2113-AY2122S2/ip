@@ -18,6 +18,7 @@ public class TaskList {
         }
     }
 
+
     /**
      * Helper for processTasks
      * Prints string representation of Task objects in TaskList
@@ -167,19 +168,19 @@ public class TaskList {
             try {
                 System.out.println(division);
                 String keyWord = line.split("\\s")[0].trim();
-                // List out the tasks
                 if (line.equals("list")) {
                     printTaskObjects();
-                    // Mark or unmark a task
                 } else if (keyWord.equals("mark") || keyWord.equals("unmark")) {
                     markTask(line);
                     saveTasksToFile(formatTaskListToString());
-                    // Delete a task
                 } else if (keyWord.equals("delete")) {
                     deleteTask(line);
                     saveTasksToFile(formatTaskListToString());
-                    // Add a task
-                } else {
+                } else if (keyWord.equals("find")) {
+                    String taskKeyWords = line.substring(keyWord.length());
+                    //findTask(taskKeyWords);
+                }
+                else {
                     addTask(line);
                     saveTasksToFile(formatTaskListToString());
                 }

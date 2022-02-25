@@ -4,4 +4,4 @@
 [T][X] eat pie
 [D][ ] stop thinking (by: 9:00)
 [E][X] go out (at: 10)
-[T][ ] bruh
+[T][X] bruh
