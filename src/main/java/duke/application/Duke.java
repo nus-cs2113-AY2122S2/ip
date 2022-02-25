@@ -88,6 +88,9 @@ public class Duke {
 
     //main duke methods
 
+    /**
+     * Prints a welcome message from Duke
+     */
     public static void dukeIntro(){
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -101,6 +104,11 @@ public class Duke {
         System.out.println("=============================");
     }
 
+    /**
+     * parses through the user input and checks if it is a valid command
+     * @param userInput String input command
+     * @throws DukeException If command is not valid
+     */
     public static void checkInputValidity(String userInput) throws DukeException {
         String[] validInputs = {"list","unmark","mark","deadline","event","todo","delete","find"};
         if (userInput.length() == 0){
@@ -112,11 +120,17 @@ public class Duke {
         }
     }
 
+    /**
+     * prints out the error message and tells user what to input
+     */
     public static void displayMainErrorMessage(){
         System.out.println("Hey man you got to give me something to work with!");
-        System.out.println("Start your command with todo, event, deadline, mark, unmark, list, delete or bye! Bye Bye!");
+        System.out.println("Start your command with todo, event, deadline, mark, unmark, list, delete, find or bye! Bye Bye!");
     }
 
+    /**
+     * prints the exit message
+     */
     public static void dukeExit(){
         System.out.println("=============================");
         System.out.println("Cheers! See you!");
@@ -129,6 +143,12 @@ public class Duke {
         return new File("src/main/java/duke.txt");
     }
 
+    /**
+     * saves the changes to the task array to the file
+     * @param f File containing the array of tasks
+     * @param taskArray array of tasks
+     * @throws IOException if the file path is invalid
+     */
     public static void saveFile(File f, ArrayList<Task> taskArray) throws IOException {
         FileWriter fw = new FileWriter(f);
         for (Task t : taskArray) {
@@ -143,6 +163,10 @@ public class Duke {
 
     //list methods
 
+    /**
+     * displays the list of tasks in the task array
+     * @param taskArray containing the array of tasks
+     */
     public static void displayList(ArrayList<Task> taskArray){
         System.out.println("=============================");
         System.out.println("Here's what you got to do! Seize the day!");
@@ -158,12 +182,21 @@ public class Duke {
         taskArray.add(t);
     }
 
+    /**
+     * displays the latest task added to the task array
+     * @param taskArray
+     */
     public static void displayTask(ArrayList<Task> taskArray){
         System.out.println("Gotcha. Here's what you have to do");
         System.out.println(taskArray.get(taskArray.size()-1).toString());
         System.out.println("There are " + taskArray.size() + " tasks in the list");
     }
 
+    /**
+     * obtains the index of the task in the task array
+     * @param userInput String input command
+     * @return returns the index of the task in the task array
+     */
     public static int getTaskIndex(String userInput){
         String[] temp = new String[100];
         temp = userInput.split(" ");
@@ -176,6 +209,11 @@ public class Duke {
         return temp;
     }
 
+    /**
+     * displays the tasks in the task array that correspond to the find keyword
+     * @param taskArray array of tasks
+     * @param userInput String input command with the find keyword
+     */
     public static void displayFoundTasks(ArrayList<Task> taskArray, String userInput){
         String temp = findTask(userInput);
         int count = 0;
@@ -189,6 +227,12 @@ public class Duke {
 
     //delete methods
 
+    /**
+     * removes the specific task from the task array
+     * @param taskArray array of tasks
+     * @param userInput String input command
+     * @return returns the deleted task
+     */
     public static Task deleteTask(ArrayList<Task> taskArray, String userInput){
         int num = getTaskIndex(userInput);
         Task t = taskArray.get(num-1);
@@ -205,6 +249,11 @@ public class Duke {
 
     //unmark methods
 
+    /**
+     * set the task to unmarked
+     * @param taskArray array of tasks
+     * @param userInput String input command
+     */
     public static void unmarkTask(ArrayList<Task> taskArray, String userInput){
         int num = getTaskIndex(userInput);
         taskArray.get(num-1).markAsUndone();
@@ -218,6 +267,11 @@ public class Duke {
 
     //mark methods
 
+    /**
+     * set the task to marked
+     * @param taskArray array of tasks
+     * @param userInput String input command
+     */
     public static void markTask(ArrayList<Task> taskArray, String userInput){
         int num = getTaskIndex(userInput);
         taskArray.get(num-1).markAsDone();
@@ -231,6 +285,12 @@ public class Duke {
 
     //deadline methods
 
+    /**
+     * adds the deadline to the task array
+     * @param taskArray array of tasks
+     * @param userInput String input command
+     * @throws IllegalDeadlineException if the user fails to include the specific task/date or excludes the keyword '/by'
+     */
     public static void addDeadline(ArrayList<Task> taskArray, String userInput) throws IllegalDeadlineException {
         if (userInput.length() <= 8 ||!userInput.contains("/by")){
             throw new IllegalDeadlineException();
@@ -255,6 +315,12 @@ public class Duke {
 
     //event methods
 
+    /**
+     * adds the event to the task array
+     * @param taskArray array of tasks
+     * @param userInput String input command
+     * @throws IllegalEventException if the user fails to include the specific task/date or excludes the keyword '/at'
+     */
     public static void addEvent(ArrayList<Task> taskArray, String userInput) throws IllegalEventException {
         if (userInput.length() <= 5 ||!userInput.contains("/at")){
             throw new IllegalEventException();
@@ -279,6 +345,12 @@ public class Duke {
 
     //todo methods
 
+    /**
+     * adds the task to the task array
+     * @param taskArray array of tasks
+     * @param userInput String input command
+     * @throws IllegalTodoException if the user fails to include the specific task
+     */
     public static void addTodo(ArrayList<Task> taskArray, String userInput) throws IllegalTodoException {
         if (userInput.length() <= 4){
             throw new IllegalTodoException();
