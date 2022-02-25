@@ -6,6 +6,7 @@ import duke.task.Task;
 import duke.task.ToDo;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TaskList {
 
@@ -14,6 +15,7 @@ public class TaskList {
     public static final String COMMAND_MARK = "mark";
     public static final String COMMAND_UNMARK = "unmark";
     public static final String COMMAND_BYE = "bye";
+    public static final String COMMAND_FIND = "find";
     public static final String COMMAND_EVENT = "event";
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_TODO = "todo";
@@ -54,6 +56,9 @@ public class TaskList {
             int deleteIndex = parser.parseDeleteIndexFromString(inputCommand);
             deleteEntry(deleteIndex);
             break;
+        case COMMAND_FIND:
+            findKeyword(inputCommand);
+            break;
         case COMMAND_BYE:
             exitProgram();
             break;
@@ -63,6 +68,20 @@ public class TaskList {
         }
     }
 
+    private static void findKeyword(String inputCommand) {
+        String keyword = parser.getKeywordFromString(inputCommand).trim();
+        int listNum = 1;
+        for (Task foundTask : taskList) {
+            if (isFound(keyword, foundTask)) {
+                ui.printFoundItems(listNum++, foundTask);
+            }
+        }
+    }
+
+    private static boolean isFound(String keyword, Task t) {
+        return Arrays.asList(t.getDescription().split(" ")).contains(keyword);
+    }
+
     private static void listAllEntry() {
         int listNum;
         listNum = 1;
@@ -70,8 +89,8 @@ public class TaskList {
             ui.printListEmptyMessage();
         }
         else {
-            for (Task a : taskList) {
-                System.out.println(listNum++ + ". " + a);
+            for (Task singleTask : taskList) {
+                ui.printAllTaskInList(listNum++, singleTask);
             }
         }
     }

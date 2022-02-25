@@ -50,4 +50,9 @@ public class Parser {
     public String[] parseLineFromFile(String line) {
         return line.split("-", 3);
     }
+
+    public String getKeywordFromString(String inputCommand) {
+        String[] commandArr = inputCommand.split(" ");
+        return commandArr[1];
+    }
 }
