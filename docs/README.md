@@ -156,17 +156,17 @@ Bye. Hope to see you again soon!
 ____________________________________________________________
 ```
 ## Command Summary
-| Action             | Format                    |
-|--------------------|-----------------------------------|
-| **[Todo][11]**     | `todo "description"`              |
-| **[Deadline][12]** | `deadline "description" /by "time"` |
-| **[Event][13]**    | `event "description" /at "time"`  |
-| **[Delete][4]**    | `delete "index"`                  |
-| **[List][5]**      | `list`                            |
-| **[Mark][6]**      | `mark "index"`                    |
-| **[Unmark][7]**    | `unmark "index"`                  |
-| **[Find][8]**      | `find "keywords"`                  |
-| **[Exit][9]**      | `bye`                             |
+ Action             | Format                    
+--------------------|-----------------------------------
+ **[Todo][11]**     | `todo "description"`              
+ **[Deadline][12]** | `deadline "description" /by "time"` 
+ **[Event][13]**    | `event "description" /at "time"`  
+ **[Delete][4]**    | `delete "index"`                  
+ **[List][5]**      | `list`                            
+ **[Mark][6]**      | `mark "index"`                    
+ **[Unmark][7]**    | `unmark "index"`                  
+ **[Find][8]**      | `find "keywords"`                  
+ **[Exit][9]**      | `bye`                             
 
 [1]: https://github.com/Nnythingy/ip/blob/master/docs/README.md#quick-start
 [2]: https://github.com/Nnythingy/ip/blob/master/docs/README.md#features
