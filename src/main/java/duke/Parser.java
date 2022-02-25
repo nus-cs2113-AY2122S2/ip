@@ -17,8 +17,6 @@ public class Parser {
         return firstWord;
     }
 
-
-
     public static int getTaskNumberArgument(String input) {
         int spaceIndex = input.indexOf(" ");
         String taskNum = input.substring(spaceIndex + 1);
