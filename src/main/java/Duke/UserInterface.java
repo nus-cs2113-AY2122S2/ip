@@ -77,7 +77,8 @@ public class UserInterface {
                         tokens[0]);
             } catch (DukeExceptionTiming e) {
                 System.out.printf(
-                        Wrapper.wrapMessage("OOPS!!! The time of this %s cannot be empty!\n"),
+                        Wrapper.wrapMessage("OOPS!!! Please add the date and time for your %s" +
+                                "in this format yyyy-mm-dd hh:mm!\n"),
                         tokens[0]);
             } catch (DukeExceptionList e) {
                 System.out.println(

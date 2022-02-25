@@ -1,6 +1,7 @@
 package Duke;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -120,7 +121,9 @@ public class Storage {
                     }
                 }
             }
-        } catch (IOException e) {
+        } catch (DukeExceptionTiming e) {
+            //do nothing
+        } catch (FileNotFoundException e) {
             //do nothing
         }
     }

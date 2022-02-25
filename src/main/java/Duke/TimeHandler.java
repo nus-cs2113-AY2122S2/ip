@@ -4,6 +4,8 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -13,23 +15,29 @@ public class TimeHandler {
     private LocalTime localTime;
     private LocalDateTime localDateTime;
 
-    public TimeHandler(String input) {
-        this.localDate = convertDate(input);
-        this.localTime = convertTime(input);
+    public TimeHandler(String input) throws  DukeExceptionTiming{
+        this.localDate = convertDate(input.trim());
+        this.localTime = convertTime(input.trim());
         this.localDateTime = joinDateTime(localDate, localTime);
     }
 
-    private LocalDate convertDate(String input) {
+    private LocalDate convertDate(String input) throws DukeExceptionTiming  {
         LocalDate localDate = LocalDate.now();
+        String date = input.split(" ")[0];
 
-        if (input.contains("day")) {
-            //user input only includes day
-            localDate = dueDate(input, localDate);
-        } else {
-            //inputs here are either
-            //dd-mm-yyyy dd/mm/yyyy yyyy-mm-dd yyyy/mm/dd
-            //try using date time formatter to change - to /
-
+        try {
+            if (input.contains("day")) {
+                //user input only includes day
+                localDate = dueDate(input, localDate);
+            } else if (input.contains("/")) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
+                        "yyyy/mm/dd");
+                localDate = LocalDate.parse(date, formatter);
+            } else {
+                localDate = LocalDate.parse(date);
+            }
+        } catch (DateTimeParseException e) {
+            throw new DukeExceptionTiming();
         }
 
         return localDate;
@@ -45,6 +53,10 @@ public class TimeHandler {
             localDate = localDate.plusDays(dayToAdd);
         }
         return localDate;
+    }
+
+    private LocalDateTime joinDateTime(LocalDate date, LocalTime time) {
+        return time.atDate(date);
     }
 
     private LocalTime convertTime(String input) {
@@ -68,13 +80,9 @@ public class TimeHandler {
         //if user did not input a time, checkTime() will return null
         //initialise localTime to 0000
         if (localTime == null) {
-            localTime = LocalTime.of(0,0);
+            localTime = LocalTime.of(23,59);
         }
         return localTime;
-    }
-
-    private LocalDateTime joinDateTime(LocalDate date, LocalTime time) {
-        return time.atDate(date);
     }
 
     private LocalTime convertTime(String input, int index, boolean hasMinute) {
@@ -90,8 +98,12 @@ public class TimeHandler {
         return LocalTime.of(hourInt, 0);
     }
 
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
+    }
+
     private LocalTime checkTime(String input) {
-        String regex = "\\S{4}$";
+        String regex = "\\d{4}$";
         Matcher matcher = Storage.regexMatching(regex, input);
         if (matcher.find()) {
             String time = matcher.group();
