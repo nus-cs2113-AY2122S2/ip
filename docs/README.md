@@ -2,7 +2,7 @@
 
 ## Features 
 
-### Feature-ABC
+### Feature
 
 Description of the feature.
 
