@@ -1,7 +1,11 @@
+package tasks;
+
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.File;
-import java.io.IOException;
+import chatbox.*;
+import exceptions.*;
+
 public class TaskManager {
     private static final ArrayList<Task> Tasks = new ArrayList<Task>();
     //response of adding
@@ -9,7 +13,7 @@ public class TaskManager {
     Chatbox chatbox = new Chatbox();
 
 
-    public void saveTask() throws DukeExceptions{
+    public void saveTask() throws DukeExceptions {
         String content = "";
         for(int i = 0;i < Tasks.size();i++){
             content += Tasks.get(i).getListName();

@@ -1,3 +1,5 @@
+package chatbox;
+
 public class Chatbox {
     private String content = "";
     //border of the chatbox

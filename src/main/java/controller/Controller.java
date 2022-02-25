@@ -1,4 +1,9 @@
-import java.util.Locale;
+package controller;
+
+import chatbox.Chatbox;
+import exceptions.*;
+import tasks.TaskManager;
+
 import java.util.Scanner;
 
 public class Controller {
@@ -31,7 +36,7 @@ public class Controller {
     /**
      * Unmarks task in the list
      */
-    public void unmarkTask() throws  DukeExceptions{
+    public void unmarkTask() throws DukeExceptions {
         try {
             int index= Integer.parseInt(analyst.taskName);
             manager.unmarkTask(index);

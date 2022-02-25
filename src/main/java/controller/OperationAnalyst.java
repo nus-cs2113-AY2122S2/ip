@@ -1,3 +1,7 @@
+package controller;
+
+import exceptions.*;
+
 import java.util.Locale;
 
 public class OperationAnalyst {
@@ -7,7 +11,7 @@ public class OperationAnalyst {
     protected String taskName;
     protected String instruction;
 
-    public OperationAnalyst(String input) throws DukeExceptions{
+    public OperationAnalyst(String input) throws DukeExceptions {
         this.keywords = input.split(" ");
         this.rawInput = input;
         this.instruction = keywords[0].toLowerCase(Locale.ROOT);
