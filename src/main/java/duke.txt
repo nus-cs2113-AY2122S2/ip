@@ -1,4 +1,0 @@
-[T][ ] buy book
-[E][ ] read book (at: 2)
-[D][ ] return book (by: 5)
-[T][ ] cook now

@@ -1,2 +1,2 @@
 [T][ ] book
-[D][ ] read book (by: 2)
+[T][ ] find book
