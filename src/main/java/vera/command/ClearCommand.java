@@ -14,6 +14,11 @@ public class ClearCommand extends Command {
     public void execute (TaskList taskList, Ui ui, Storage storage) {
         ui.showToUser("Are you sure you want to delete all tasks?\n"
                 + "You will not be able to recover them after deleting. [Y/N]");
+        ArrayList<Task> tempArray = taskList.getTasks();
+        if (tempArray.size() <= 0) {
+            ui.showToUser("There are no tasks to clear!");
+            return;
+        }
         ui.showLine();
         while (true) {
             String input = ui.readCommand();
