@@ -7,7 +7,10 @@ import java.time.format.DateTimeParseException;
 public class Parser {
     public static String boundary = "____________________________________________________________" + System.lineSeparator();
 
-    // Report error to user if he/she did not put task description
+    /* Report error to user if he/she did not put task description.
+     * @param request The request by user.
+     * @throws TaskEmptyException If user request only contains task type but no task description.
+     */
     public void checkDescription(String request) throws TaskEmptyException {
         if (request.toLowerCase().endsWith("deadline") ||
                     request.toLowerCase().endsWith("event") ||
@@ -16,14 +19,27 @@ public class Parser {
         }
     }
 
-    // Report error if the user did not give an index of task to delete
+    /* Report error if the user did not give an index of task to delete.
+     * @param request The request by user.
+     * @throws DeleteIndexException If user request only contains "delete" but no index.
+     */
     public void checkDeleteIndex(String request) throws DeleteIndexException {
         if (request.toLowerCase().endsWith("delete")) {
             throw new DeleteIndexException();
         }
     }
 
-    // Report error when user input is not in correct format
+    /* Report error if the user did not give a keyword to search.
+     * @param request The request by user.
+     * @throws FindKeywordException If user request only contains "find" but no keyword.
+     */
+    public void checkFindKeyword (String request) throws FindKeywordException {
+        if (request.toLowerCase().endsWith("find")) {
+            throw new FindKeywordException();
+        }
+    }
+
+    // Try adding a task and print error message when user's add request is not in correct format
     public void tryAddTask(TaskList tasks, String request) {
         try {
             checkDescription(request);
@@ -46,6 +62,7 @@ public class Parser {
         }
     }
 
+    // Try deleting a task and print error message when user's delete request is not in correct format
     public void tryDeleteTask(TaskList tasks, String request) {
         try {
             checkDeleteIndex(request);
@@ -56,4 +73,14 @@ public class Parser {
         }
     }
 
+    // Trying finding a task and print error message when user's find request is not in correct format
+    public void tryFindTask(TaskList tasks, String request) {
+        try {
+            checkFindKeyword(request);
+            tasks.findTask(request.substring(5));
+        } catch (FindKeywordException e) {
+            System.out.print(boundary + "Hmm...hi dear, please give me a keyword to search."
+                                     + System.lineSeparator() + boundary);
+        }
+    }
 }

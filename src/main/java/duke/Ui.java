@@ -9,6 +9,7 @@ public class Ui {
     public static String boundary = "____________________________________________________________" + System.lineSeparator();
     private static final Parser parser = new Parser();
 
+    // Print welcome message.
     public void sayHello() {
         String logo = " ____        _        \n"
                               + "|  _ \\ _   _| | _____ \n"
@@ -20,10 +21,12 @@ public class Ui {
         System.out.println("What can I do for you?" + System.lineSeparator() + boundary);
     }
 
+    // Print goodbye message.
     public void sayGoodbye() {
         System.out.print(boundary + "Bye. Hope to see you again soon!" + System.lineSeparator() + boundary);
     }
 
+    // Interact with user and edit the given task list accordingly.
     public void interact(TaskList tasks) {
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
@@ -37,6 +40,8 @@ public class Ui {
                 tasks.unmarkTask(Integer.parseInt(line.substring(7)) - 1);
             } else if (line.toLowerCase().startsWith("delete")) {
                 parser.tryDeleteTask(tasks, line);
+            } else if (line.toLowerCase().startsWith("find")) {
+                parser.tryFindTask(tasks, line);
             } else {
                 parser.tryAddTask(tasks, line);
             }
