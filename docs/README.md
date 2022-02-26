@@ -3,18 +3,18 @@
 ## Features (Types of commands available)
 
 To view more information on how each command works, click on the feature's name.
-1. `help`: provides a list of supported commands.
-2. `list`: shows the list of added tasks.
-3. `mark`: marks a task as done.
-4. `unmark`: marks a task as undone.
+1. [`help`](1.-`help`) : provides a list of supported commands.
+2. [`list`](2.-`list`): shows the list of added tasks.
+3. [`mark`](3.-`mark`): marks a task as done.
+4. [`unmark`](4.-`unmark`): marks a task as undone.
 5. Task adding:
-   1. `todo`: creates a todo task.
-   2. `deadline`: creates a deadline task.
-   3. `event`: creates an event task.
-6. `delete`: deletes a task from the list.
-7. `clear`: deletes all tasks from the list.
-8. `find`: searches for task(s) that match the given keyword(s).
-9. `bye`: exits the application.
+   1. [`todo`](5.i.-`todo`): creates a todo task.
+   2. [`deadline`](5.ii.-`deadline`): creates a deadline task.
+   3. [`event`](5.iii.-`event`): creates an event task.
+6. [`delete`](6.-`delete`): deletes a task from the list.
+7. [`clear`](7.-`clear`): deletes all tasks from the list.
+8. [`find`](8.-`find`): searches for task(s) that match the given keyword(s).
+9. [`bye`](9.-`bye`): exits the application.
 
 ## Note on syntax
 
@@ -44,7 +44,7 @@ help [command] / [quick start]
 #### **Example #1**
 
 ```
-help
+> help
 ```
 #### **Expected Outcome #1**
 
@@ -146,7 +146,7 @@ ____________________________________________________________
 #### **Example #2**
 
 ```
-help list
+> help list
 ```
 
 #### **Expected Outcome #2**
@@ -161,7 +161,7 @@ ____________________________________________________________
 #### **Example #3**
 
 ```
-help quick start
+> help quick start
 ```
 
 #### **Expected Outcome #3**
@@ -225,10 +225,10 @@ mark <task_index>
 
 #### **Example**
 
-Using the list of task from `list` feature as an example,
+Using the list of task from [`list`](1.-`list`) feature as an example,
 
 ```
-mark 1
+> mark 1
 ```
 
 #### **Sample Outcome**
@@ -256,10 +256,10 @@ mark <task_index>
 
 #### **Example**
 
-Using the list of task from `list` feature as an example,
+Using the list of task from [`list`](1.-`list`) feature as an example,
 
 ```
-unmark 1
+> unmark 1
 ```
 
 #### **Sample Outcome**
@@ -290,7 +290,7 @@ todo <task_description>
 ### **Example**
 
 ```
-todo join sports club
+> todo join sports club
 ```
 
 ### **Sample Outcome**
@@ -331,7 +331,7 @@ deadline <task_description> /by <task_date> [task_time]
 ### **Example**
 
 ```
-deadline return boook /by 2022/06/06
+> deadline return boook /by 2022/06/06
 ```
 
 ### **Sample Outcome**
@@ -363,7 +363,7 @@ event <task_description> /at <task_date> [task_time]
 ### **Example**
 
 ```
-event project meeting /at 2022/08/06 1400
+> event project meeting /at 2022/08/06 1400
 ```
 
 ### **Sample Outcome**
@@ -393,12 +393,12 @@ delete <task_index>
 ### **Example**
 
 ```
-delete 1
+> delete 1
 ```
 
 ### **Sample Outcome**
 
-Using the list of tasks from `list` feature as an example,
+Using the list of tasks from [`list`](1.-`list`) feature as an example,
 
 ```
 ____________________________________________________________
@@ -429,7 +429,7 @@ You will not be able to recover them after deleting.
 ____________________________________________________________
 ```
 
-After confirming with `Y`,
+After confirming deletion by entering `Y`,
 
 ```
 ____________________________________________________________
@@ -460,10 +460,10 @@ Note: At least one search keyword must be present in the command input, i.e. eit
 
 ### **Example #1**
 
-Using the list of tasks from `list` feature as an example,
+Using the list of tasks from [`list`](1.-`list`) feature as an example,
 
 ```
-find book
+> find book
 ```
 
 ### **Sample Outcome #1**
@@ -478,10 +478,10 @@ ____________________________________________________________
 
 ### **Example #2**
 
-Using the list of tasks from `list` feature as an example,
+Using the list of tasks from [`list`](1.-`list`) feature as an example,
 
 ```
-find /date 2022/06/06
+> find /date 2022/06/06
 ```
 
 ### **Sample Outcome #2**
@@ -495,10 +495,10 @@ ____________________________________________________________
 
 ### **Example #3**
 
-Using the list of tasks from `list` feature as an example,
+Using the list of tasks from [`list`](1.-`list`) feature as an example,
 
 ```
-find /date 2022/08/06 1400
+> find /date 2022/08/06 1400
 ```
 
 ```
