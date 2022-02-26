@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import static em.exception.InvalidUserInputException.INVALID_INPUT;
 
 public class Duke {
-    public static final String LINE_SEPARATOR = "____________________________________________________________\n";
     public static ArrayList<Task> taskArrayList = new ArrayList<>();
     public static final Path DATABASE_FILEPATH = Path.of("database/database.txt");
     private Ui ui;
@@ -18,6 +17,17 @@ public class Duke {
     private Parser parser;
     private Storage storage;
 
+
+    /**
+     * Initiate and create all the required data needed before accepting user input.
+     * Populate tasks in file into the task list.
+     *
+     * @param databasePath file path of the pre-defined tasks to be populated to the task list.
+     * @throws FileNotFoundException If the file to be read was not found.
+     * @throws IOException If the input and output is invalid.
+     * @throws InvalidUserInputException If the command in the file is unable to be processed.
+     * @throws StorageException  If
+     */
     public void initiateData(Path databasePath) {
         ui = new Ui();
         storage = new Storage(databasePath);
@@ -37,11 +47,22 @@ public class Duke {
         }
     }
 
-
+    /**
+     * Process user input and get the corresponding output.
+     * Keep running until user input "Bye" command.
+     * All user command type are case-insensitive. This method is able to process
+     * command types such as list, mark , unmark, find, event, deadline and todo.
+     * Other command types other than stated above will be deemed as invalid command.
+     *
+     * @throws IndexOutOfBoundsException If the user input did not include time or date description.
+     * @throws NumberFormatException If the task number stated is not a number.
+     * @throws InvalidUserInputException If the command in the file is unable to be processed.
+     */
     public void processAction() {
         initiateData(DATABASE_FILEPATH);
         String userInput;
         Scanner in = new Scanner(System.in);
+        System.out.print("> ");
         userInput = in.nextLine();
         while (!userInput.equalsIgnoreCase("Bye")) {
             try {
@@ -81,20 +102,19 @@ public class Duke {
                     break;
                 case "find":
                     String keyword = userInput.split(" ")[1];
-                    System.out.println(keyword);
                     TaskList.findContent(keyword);
                     break;
                 default:
                     throw new InvalidUserInputException(INVALID_INPUT);
                 }
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("here the error");
                 System.out.println(InvalidUserInputException.NO_TIME_OR_DESCRIPTION);
             } catch (NumberFormatException e) {
                 System.out.println(InvalidUserInputException.CORRUPTED_TASK_NUM);
             } catch (InvalidUserInputException e) {
                 System.out.println(e.getMessage());
             }
+            System.out.print("> ");
             userInput = in.nextLine();
         }
         ui.displayFarewell();
