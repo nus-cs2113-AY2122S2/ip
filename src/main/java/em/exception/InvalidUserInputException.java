@@ -9,7 +9,9 @@ public class InvalidUserInputException extends Exception {
     public static final String NO_TIME_OR_DESCRIPTION = "☹ OOPS!!! Did not include time or description.";
     public static final String INVALID_TASK = "☹ OOPS!!! The task number entered is not valid.";
     public static final String CORRUPTED_TASK_NUM = "☹ OOPS!!! The task number entered is not a number.";
-
+    public static final String INVALID_TIME_OR_DATE = "☹ OOPS!!! The time or date you entered is invalid.\n " +
+            "Please ensure that the date format is in YYYY-MM-DD and the time format is in HHmm (24 hour) " +
+            "(e.g. /at 2021-02-19 1330)";
     /**
      * Constructs an InvalidUserInputException with a specified error message.
      *
