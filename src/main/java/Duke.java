@@ -5,7 +5,9 @@ public class Duke {
     public static void main(String[] args) throws DukeExceptions {
         Controller bot = new Controller();
         bot.greet();
-        while(true){  //opens a new session for receiving instructions
+        bot.createFile();
+        bot.loadTask();
+        while(true){//opens a new session for receiving instruction
             bot.listen();
         }
     }

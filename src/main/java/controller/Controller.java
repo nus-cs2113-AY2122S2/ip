@@ -62,6 +62,15 @@ public class Controller {
             throw new IllegalTaskIndexException();
         }
     }
+
+    public void createFile() throws DukeExceptions{
+        manager.createFile();
+    }
+
+    public void loadTask() throws DukeExceptions{
+        manager.loadTask();
+    }
+
     /**
      * Listen the instruction and operate during the session
      */

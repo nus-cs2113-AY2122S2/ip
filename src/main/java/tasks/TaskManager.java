@@ -7,34 +7,22 @@ import chatbox.*;
 import exceptions.*;
 
 public class TaskManager {
-    private static final ArrayList<Task> Tasks = new ArrayList<Task>();
+    Storage Tasks = new Storage();
     //response of adding
     protected String ADD_RES = "Got it. I've added this task:\n";
     Chatbox chatbox = new Chatbox();
 
 
     public void saveTask() throws DukeExceptions {
-        String content = "";
-        for(int i = 0;i < Tasks.size();i++){
-            content += Tasks.get(i).getListName();
-            content += "\n";
-        }
-        if(null != content){
-            try{
-                File file = new File("data/Duke.txt");
-                if(!file.exists()){
-                    File dir = new File(file.getParent());
-                    dir.mkdirs();
-                    file.createNewFile();
-                }
-                FileWriter outStream = new FileWriter(file);
-                outStream.write(content);
-                outStream.close();
-            } catch (Exception e){
-                throw new IllegalSavingAction();
-            }
-        }
+        Tasks.saveTask();
+    }
 
+    public void loadTask() throws DukeExceptions {
+        Tasks.loadTask();
+    }
+
+    public void createFile() throws DukeExceptions {
+        Tasks.createFile();
     }
     /**
      * Adds a general task in the list
@@ -161,6 +149,8 @@ public class TaskManager {
         chatbox.setContent(content);
         chatbox.chatboxPrinter();
     }
+
+
 
 
 }
