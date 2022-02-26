@@ -1,10 +1,10 @@
-package superhero.storage;
+package Superhero.storage;
 
-import superhero.wordlist.VocabList;
-import superhero.wordlist.Vocabulary;
-import superhero.wordlist.ToLearn;
-import superhero.wordlist.Deadline;
-import superhero.wordlist.Event;
+import Superhero.wordlist.VocabList;
+import Superhero.wordlist.Vocabulary;
+import Superhero.wordlist.ToLearn;
+import Superhero.wordlist.Deadline;
+import Superhero.wordlist.Event;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +15,9 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Contains methods that aid in the reading and writing of data in the txt file
+ */
 public class FileReadWrite {
 
     private static final Path FILE_PATH = Path.of("data", "VocabularySuperhero.txt");

@@ -1,13 +1,25 @@
-package superhero.ui;
+package Superhero.ui;
 
-import superhero.wordlist.*;
+import Superhero.wordlist.Vocabulary;
+import Superhero.wordlist.VocabList;
+import Superhero.wordlist.ToLearn;
+import Superhero.wordlist.Deadline;
+import Superhero.wordlist.Event;
 
 import java.util.ArrayList;
 
+/**
+ * Serves as a manager class with various methods to process the information from Superhero class
+ */
 public class SuperheroManager {
 
     private static final String dottedLine = "________________________________________________________________________________";
 
+    /**
+     * Adds a ToLearn object into the inputList
+     * @param inputArray new input from user
+     * @param inputList existing vocab list
+     */
     public static void addToLearn(ArrayList<String> inputArray, VocabList inputList) {
         try {
             Vocabulary newTolearnWord = new ToLearn(inputArray.get(1));
@@ -18,6 +30,11 @@ public class SuperheroManager {
         }
     }
 
+    /**
+     * Adds a Deadline object into the inputList
+     * @param inputArray new input from user
+     * @param inputList existing vocab list
+     */
     public static void addDeadline(ArrayList<String> inputArray, VocabList inputList) {
         try {
             ArrayList<String> deadlineArray = Parser.readTaskDate(inputArray);
@@ -29,6 +46,11 @@ public class SuperheroManager {
         }
     }
 
+    /**
+     * Adds an Event object into the inputList
+     * @param inputArray new input from user
+     * @param inputList existing vocab list
+     */
     public static void addEvent(ArrayList<String> inputArray, VocabList inputList) {
         try {
             ArrayList<String> eventArray = Parser.readTaskDate(inputArray);
@@ -40,6 +62,11 @@ public class SuperheroManager {
         }
     }
 
+    /**
+     * Mark a Vocab in inputList
+     * @param inputArray new input from user
+     * @param inputList existing vocab list
+     */
     public static void mark(ArrayList<String> inputArray, VocabList inputList) {
         try {
             int index = Integer.parseInt(inputArray.get(1));
@@ -55,6 +82,11 @@ public class SuperheroManager {
         }
     }
 
+    /**
+     * Unmark a Vocab in inputList
+     * @param inputArray new input from user
+     * @param inputList existing vocab list
+     */
     public static void unmark(ArrayList<String> inputArray, VocabList inputList) {
         try {
             int index = Integer.parseInt(inputArray.get(1));
@@ -70,6 +102,11 @@ public class SuperheroManager {
         }
     }
 
+    /**
+     * Delete a Vocab in inputList
+     * @param inputArray new input from user
+     * @param inputList existing vocab list
+     */
     public static void delete(ArrayList<String> inputArray, VocabList inputList) {
         try {
             int index = Integer.parseInt(inputArray.get(1));
@@ -85,6 +122,11 @@ public class SuperheroManager {
         }
     }
 
+    /**
+     * Find a Vocab in inputList using a keyword
+     * @param inputArray new input from user
+     * @param inputList existing vocab list
+     */
     public static void find(ArrayList<String> inputArray, VocabList inputList) {
         int match = 0;
         String targetWord = inputArray.get(1);
@@ -100,6 +142,9 @@ public class SuperheroManager {
         System.out.println(dottedLine);
     }
 
+    /**
+     * Print welcome message
+     */
     public static void printWelcomeMessage() {
         System.out.println(dottedLine + "\n" +
                 " *Flies in*\n" +
@@ -108,10 +153,21 @@ public class SuperheroManager {
                 dottedLine);
     }
 
+    /**
+     * Print bye message
+     */
     public static void printByeMessage() {
         System.out.println(dottedLine + "\n" +
                 " Bye. I'm off saving people's vocabulary again!\n" +
                 " *Flies away*\n" +
+                dottedLine);
+    }
+
+    /**
+     * Method to print message when user input does not contain keyword
+     */
+    public static void printDefaultMessage() {
+        System.out.println(" Please use keyword - bye, list, tolearn, deadline, event, mark, unmark, delete, find!\n" +
                 dottedLine);
     }
 
@@ -131,6 +187,7 @@ public class SuperheroManager {
                 dottedLine);
     }
 
+
     private static void printDeleteMessage(Vocabulary deleteVocab) {
         System.out.println(dottedLine + "\n" +
                 " You have deleted this word:\n" +
@@ -145,35 +202,17 @@ public class SuperheroManager {
                 dottedLine);
     }
 
-    /**
-     * Method to print message when user input does not contain keyword
-     */
-    public static void printDefaultMessage() {
-        System.out.println(" Please use keyword - bye, list, tolearn, deadline, event, mark, unmark, delete, find!\n" +
-                dottedLine);
-    }
-
-    /**
-     * Method to print message when user wants to mark/unmark a vocabulary but the second word is not a number
-     */
-    public static void printNumberFormatExceptionMessage() {
+    private static void printNumberFormatExceptionMessage() {
         System.out.println("Second word in input is not a number!\n" +
                 dottedLine);
     }
 
-    /**
-     * Method to print message when user inputs index of vocabulary that does not exist
-     */
     private static void printNullPointerExceptionMessage() {
         System.out.println("There is no word with this index in the list!\n" +
                 dottedLine);
     }
 
-    /**
-     * Method to print message when user inputs wrong index/has missing fields when adding a vocabulary
-     * @param taskName Type of task is needed to identify what message to print
-     */
-    public static void printIndexOutOfBoundsExceptionMessage(String taskName) {
+    private static void printIndexOutOfBoundsExceptionMessage(String taskName) {
         if (taskName.equals("general")) {
             System.out.println("Index out of bounds!\n" +
                     dottedLine);
