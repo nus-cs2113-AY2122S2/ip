@@ -29,6 +29,20 @@ public class TaskList {
         this.taskList = taskList;
     }
 
+    /**
+     * To add a task with no date and/or time into the task list.
+     * Only add task type of "todo".
+     * Upon successful adding the task into the task list, a message will
+     * be displayed to indicate the command is processed successfully and also
+     * indicates the total number of tasks that exist in the task list.
+     * In addition, the newly added task will also be written into the database file
+     * which stores all the task information in the task list.
+     *
+     * @param userInput command entered by user.
+     * @param taskList arrayList to store all tasks created.
+     * @param isUserCommand states whether command is user input or file input.
+     * @throws IOException If the input and output have error.
+     */
     public static void addTask(String userInput, ArrayList<Task> taskList, Boolean isUserCommand) {
         String[] taskDescription = userInput.split(" ", 2);
         Task newTask = new ToDo(taskDescription[1]);
@@ -41,11 +55,28 @@ public class TaskList {
             try {
                 Storage.writeToFile(parser.formulateDatabaseInput(taskDescription));
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println(IO_EXCEPTION);
             }
         }
     }
 
+    /**
+     * To add a task with date and/or time into the task list.
+     * Only add task type of "deadline" and "event".
+     * It will ensure that the date and time of the task meets the required format.
+     *
+     * Upon successful adding the task into the task list, a message will
+     * be displayed to indicate the command is processed successfully and also
+     * indicates the total number of tasks that exist in the task list.
+     * In addition, the newly added task will also be written into the database file
+     * which stores all the task information in the task list.
+     *
+     * @param userInput command entered by user.
+     * @param taskList arrayList to store all tasks created.
+     * @param isUserCommand states whether command is user input or file input.
+     * @throws InvalidUserInputException If the task description is empty.
+     * @throws IOException If the input and output have error.
+     */
     public static void addTaskAndTime(String userInput, ArrayList<Task> taskList, Boolean isUserCommand) {
         String[] arrayOfUserInput = userInput.split("/", 2);
         String[] taskDescription = arrayOfUserInput[0].split(" ", 2);
@@ -112,11 +143,23 @@ public class TaskList {
         }
     }
 
-    public static String processDateAndTime(String timeAndDate) {
-        String finalDateAndTime = timeAndDate;
+    /**
+     * Return the correct format of the date and time as a string that can be
+     * processed and be added into the task list.
+     * Ensure that the date is in "MMM-d-yyyy" format and the time in 12-hour format.
+     *
+     * @param DateAndTime time and date inputted by the user.
+     * @return finalDateAndTime correct format of the date and time to be processed.
+     * @throws InvalidUserInputException If the time and date entered is invalid such as not a time/date.
+     * @throws ArrayIndexOutOfBoundsException If DateAndTime length is out of bound.
+     * @throws DateTimeException If the format of the date is not in the right format/invalid.
+     * @throws NullPointerException If no date and time is being parsed in.
+     */
+    public static String processDateAndTime(String DateAndTime) {
+        String finalDateAndTime = DateAndTime;
         String date, time;
         try {
-            String[] arrayOfTimeAndDate = timeAndDate.split(" ");
+            String[] arrayOfTimeAndDate = DateAndTime.split(" ");
             switch (arrayOfTimeAndDate.length) {
             case (1):
                 date = processDate(arrayOfTimeAndDate[0]);
@@ -142,7 +185,18 @@ public class TaskList {
         return finalDateAndTime;
     }
 
+    /**
+     * Return the correct format of the time that can be processed and be
+     * added into the task list.
+     * Take in timeInput which can be in 24 hour or 12-hour format, and convert it to
+     * 12-hour format. If the format of timeInput is not in the correct format, it will formulate it
+     * to be in the correct format (in 12-hour format) such as "12:20PM".
+     *
+     * @param timeInput time inputted by the user.
+     * @return time correct format of the time to be processed.
+     */
     public static String processTime(String timeInput) {
+        String time = timeInput;
         try {
             if (!isTimeProcessed(timeInput)) {
                 int hourOfDay = Integer.parseInt(timeInput) / 100;
@@ -150,16 +204,24 @@ public class TaskList {
                 if (minute > 59) {
                     throw new InvalidUserInputException(INVALID_TIME_OR_DATE);
                 }
-                String time = ((hourOfDay > 12) ? hourOfDay % 12 : hourOfDay)
+                time = ((hourOfDay > 12) ? hourOfDay % 12 : hourOfDay)
                         + ":" + (minute < 10 ? ("0" + minute) : minute) + ((hourOfDay >= 12) ? "PM" : "AM");
-                return time;
             }
         } catch (InvalidUserInputException e) {
             System.out.println(e.getMessage());
         }
-        return timeInput;
+        return time;
     }
 
+    /**
+     * Return the correct format of the date that can be processed and be
+     * added into the task list.
+     * If the format of dateInput is not in the correct format, it will formulate it
+     * to be in the correct format ("MMM-d-yyyy").
+     *
+     * @param dateInput date inputted by the user.
+     * @return date correct format of the date to be processed.
+     */
     public static String processDate(String dateInput) {
         String date;
         Boolean isDateProcessed = isDateProcessed(dateInput);
@@ -172,7 +234,16 @@ public class TaskList {
         return date;
     }
 
-
+    /**
+     * Check if the date is in the correct format, if it is in the correct
+     * format then there is no need for to change the format of the date,
+     * else otherwise.
+     *
+     * @param inDate date inputted by the user.
+     * @return true if the date input matches the stated format.
+     * @return false if the date input does not match the stated format.
+     * @throws ParseException If date is not in the stated format.
+     */
     public static boolean isDateProcessed(String inDate) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMM-d-yyyy");
         dateFormat.setLenient(false);
@@ -184,6 +255,15 @@ public class TaskList {
         return true;
     }
 
+    /**
+     * Check if the time is in the correct format, if it is in the correct
+     * format then there is no need for to change the format of the time,
+     * else otherwise.
+     *
+     * @param inTime time inputted by the user.
+     * @return true if the time input matches the stated format.
+     * @return false if the time input does not match the stated format.
+     */
     public static boolean isTimeProcessed(String inTime) {
         if (inTime.contains("PM") || inTime.contains("AM")) {
             return true;
@@ -191,6 +271,15 @@ public class TaskList {
         return false;
     }
 
+    /**
+     * Returns a list containing all the task that contains the keywords.
+     * Search the entire list of tasks to look for tasks that matched the keyword
+     * stated.
+     *
+     * @param keyword word or a short term to be matched in the entire task list.
+     * @return List of task that matched with keyword search.
+     * @throws InvalidUserInputException If keyword to be searched is not stated.
+     */
     public static ArrayList findContent (String keyword) {
         ArrayList<Integer> keywordList = new ArrayList<>();
         List<String> fileContentLines = null;
@@ -200,7 +289,7 @@ public class TaskList {
             for (String lines : fileContentLines) {
                 String[] contentsInALine = lines.split(",", -1);
                 if (contentsInALine.length < 1) {
-                    throw new InvalidUserInputException(INVALID_INPUT);
+                    throw new InvalidUserInputException(NO_DESCRIPTION);
                 }
                 if (contentsInALine[2].contains(keyword)) {
                     keywordList.add(taskNumber);
@@ -209,7 +298,7 @@ public class TaskList {
             }
             Ui.displayFoundTask(taskList, keywordList);
         } catch (InvalidUserInputException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
         }

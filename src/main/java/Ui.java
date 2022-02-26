@@ -56,17 +56,30 @@ public class Ui {
         System.out.println(LINE_SEPARATOR);
     }
 
+    /**
+     * Prints out all tasks that matches the keyword search.
+     * If there is no matching task, a message "No task found!"
+     * will be printed.
+     * <p>
+     * This method always prints, whether or not there is any task in
+     * found. The method will print the task in the keywordList
+     * as well as the increments indicating the number of task found.
+     *
+     * @param tasklist    a list storing all the tasks created
+     * @param keywordList a list storing all the tasks that matches the keyword search
+     */
     public static void displayFoundTask(ArrayList<Task> taskList, ArrayList<Integer> keywordList) {
         System.out.println(LINE_SEPARATOR);
-        System.out.println("Here are the matching tasks in your list:");
-        if (taskList.size() == 0) {
+        //System.out.println("Here are the matching tasks in your list:");
+        if (keywordList.size() == 0) {
             System.out.println("No task found!");
-        }
-        for (int i = 0; i < keywordList.size(); i++) {
-            System.out.println((i + 1) + ". " + taskList.get(keywordList.get(i)-1).toString());
 
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < keywordList.size(); i++) {
+                System.out.println((i + 1) + ". " + taskList.get(keywordList.get(i) - 1).toString());
+            }
         }
         System.out.println(LINE_SEPARATOR);
     }
-
 }
