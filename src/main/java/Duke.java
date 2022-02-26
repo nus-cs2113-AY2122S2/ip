@@ -54,13 +54,12 @@ public class Duke {
         String COMMAND_DELETE = "delete";
         String COMMAND_FIND = "find";
 
-        System.out.println("Hello! I'm Duke\n" + "What can I do for you?\n");
+        System.out.println("Hello! I'm Duke! :)\n" + "What can I do for you?\n");
         writeToFile(filePath, "start program\n");
 
         ArrayList<String> instructionsList = new ArrayList<>();
 
         Task task = new Task("hello");
-        Task[] tasks = new Task[100];
         task.number = 0;
 
         Deadline deadline = new Deadline("return book", "holiday");
@@ -72,19 +71,18 @@ public class Duke {
             String instructionLine = task.instruction.replaceAll("todo|deadline|event", "");
             String updatedInstructionLine; //updated instruction line is in the form of [][] instructionline
 
-            Task t = new Task("read book");
-            String[] arrOfStr = task.instruction.split(" ", 50);
-            String[] arrOfDeadline = instructionLine.split("/by ", 2);
-            String[] arrOfEvent = instructionLine.split("/at ", 2);
+            String[] arrayOfStr = task.instruction.split(" ", 50);
+            String[] arrayOfDeadline = instructionLine.split("/by ", 2);
+            String[] arrayOfEvent = instructionLine.split("/at ", 2);
 
-            boolean isBye = arrOfStr[0].equals(COMMAND_BYE);
-            boolean isList = arrOfStr[0].equals(COMMAND_LIST);
-            boolean isMark = arrOfStr[0].equals(COMMAND_MARK);
-            boolean isTodo = arrOfStr[0].equals(COMMAND_TODO);
-            boolean isDeadline = arrOfStr[0].equals(COMMAND_DEADLINE);
-            boolean isEvent = arrOfStr[0].equals(COMMAND_EVENT);
-            boolean isDelete = arrOfStr[0].equals(COMMAND_DELETE);
-            boolean isFind = arrOfStr[0].equals(COMMAND_FIND);
+            boolean isBye = arrayOfStr[0].equals(COMMAND_BYE);
+            boolean isList = arrayOfStr[0].equals(COMMAND_LIST);
+            boolean isMark = arrayOfStr[0].equals(COMMAND_MARK);
+            boolean isTodo = arrayOfStr[0].equals(COMMAND_TODO);
+            boolean isDeadline = arrayOfStr[0].equals(COMMAND_DEADLINE);
+            boolean isEvent = arrayOfStr[0].equals(COMMAND_EVENT);
+            boolean isDelete = arrayOfStr[0].equals(COMMAND_DELETE);
+            boolean isFind = arrayOfStr[0].equals(COMMAND_FIND);
             
             String instructionNum;
 
@@ -105,28 +103,33 @@ public class Duke {
 
                 } else if (isMark) {
 
-                    if (arrOfStr.length == 1){
+                    if (arrayOfStr.length == 1){
                         throw new DukeException("☹ OOPS! You have not entered the task number!");
                     }
 
-                    instructionNum = arrOfStr[1];
+                    instructionNum = arrayOfStr[1];
                     int index = Integer.parseInt(instructionNum) - 1;
-                    t.setStatusIcon(true);
                     String temp = instructionsList.get(index);
                     String prefix = "  \\[T]\\[ ]";
                     temp = temp.replaceAll(prefix, "  [T][X]");
                     instructionsList.set(index, temp); //updates the list
+
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(instructionsList.get(index));
 
+                    try {
+                        appendToFile(filePath, instructionsList.get(index) + System.lineSeparator());
+                    } catch (IOException e) {
+                        System.out.println(e.getMessage());
+                    }
+
                 } else if (isTodo) {
 
-                    if (arrOfStr.length == 1) {
+                    if (arrayOfStr.length == 1) {
                         throw new DukeException("☹ OOPS! You have not entered your task!");
                     }
 
                     updatedInstructionLine = "  [T][ ]" + instructionLine;
-                    tasks[task.number] = new Task(updatedInstructionLine);
                     instructionsList.add("0");
                     instructionsList.set(task.number, updatedInstructionLine);
                     task.number++;
@@ -142,11 +145,11 @@ public class Duke {
                     }
 
                 } else if (isDelete){
-                    if (arrOfStr.length == 1) {
+                    if (arrayOfStr.length == 1) {
                         throw new DukeException("☹ OOPS! You have not entered your task!");
                     }
 
-                    instructionNum = arrOfStr[1];
+                    instructionNum = arrayOfStr[1];
                     int index = Integer.parseInt(instructionNum) - 1;
                     task.number--;
 
@@ -157,22 +160,20 @@ public class Duke {
 
                 } else if (isDeadline) {
 
-                    if (arrOfStr.length == 1){
+                    if (arrayOfStr.length == 1){
                         throw new DukeException("☹ OOPS! You have not entered your task!");
                     }
-                    if (arrOfDeadline.length == 1){
+                    if (arrayOfDeadline.length == 1){
                         throw new DukeException("Hey! You have not entered the due date! hint: use '/by'");
                     }
-                    deadline.instruction = arrOfDeadline[0];
-                    deadline.setBy(arrOfDeadline[1]);
+                    deadline.instruction = arrayOfDeadline[0];
+                    deadline.setBy(arrayOfDeadline[1]);
                     updatedInstructionLine = deadline.toString();
-                    tasks[task.number] = new Task(updatedInstructionLine);
                     instructionsList.add("0");
                     instructionsList.set(task.number, updatedInstructionLine);
                     task.number++;
 
                     System.out.println("Got it. I've added this task: ");
-                    //deadline.getBy();
                     System.out.println(deadline);
                     System.out.println("Now you have " + task.number + " task(s) in the list.");
 
@@ -184,24 +185,21 @@ public class Duke {
 
                 } else if (isEvent) {
 
-                    if (arrOfStr.length == 1){
+                    if (arrayOfStr.length == 1){
                         throw new DukeException("☹ OOPS! You have not entered your event!");
                     }
-                    if (arrOfEvent.length == 1){
+                    if (arrayOfEvent.length == 1){
                         throw new DukeException("Hey! You have not entered the event date! hint: use '/at'");
                     }
 
-                    event.instruction = arrOfEvent[0];
-                    event.setAt(arrOfEvent[1]);
+                    event.instruction = arrayOfEvent[0];
+                    event.setAt(arrayOfEvent[1]);
                     updatedInstructionLine = event.toString();
-                    tasks[task.number] = new Task(updatedInstructionLine);
-
                     instructionsList.add("0");
                     instructionsList.set(task.number, updatedInstructionLine);
                     task.number++;
 
                     System.out.println("Got it. I've added this task: ");
-                    //event.getAt();
                     System.out.println(event);
                     System.out.println("Now you have " + task.number + " task(s) in the list.");
 
@@ -212,11 +210,11 @@ public class Duke {
                     }
 
                 } else if (isFind) {
-                    if (arrOfStr.length == 1){
+                    if (arrayOfStr.length == 1){
                         throw new DukeException("☹ OOPS! You have not entered what you want to find!");
                     }
 
-                    String keyword = arrOfStr[1];
+                    String keyword = arrayOfStr[1];
                     int numOfMatching = 0;
 
                     System.out.println("Here are the matching task(s) in your list:");
