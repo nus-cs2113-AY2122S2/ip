@@ -38,23 +38,9 @@ public class Duke {
         }
 
         System.out.println("full path: " + f.getAbsolutePath());
-        String logo = " ____        _        \n"
-                    + "|  _ \\ _   _| | _____ \n"
-                    + "| | | | | | | |/ / _ \\\n"
-                    + "| |_| | |_| |   <  __/\n"
-                    + "|____/ \\__,_|_|\\_\\___|\n";
-        //System.out.println("Hello from\n" + logo);
 
-        String COMMAND_BYE = "bye";
-        String COMMAND_LIST = "list";
-        String COMMAND_MARK = "mark";
-        String COMMAND_TODO = "todo";
-        String COMMAND_DEADLINE = "deadline";
-        String COMMAND_EVENT = "event";
-        String COMMAND_DELETE = "delete";
-        String COMMAND_FIND = "find";
-
-        System.out.println("Hello! I'm Duke! :)\n" + "What can I do for you?\n");
+        System.out.println("Hello from\n" + UI.LOGO);
+        System.out.println(UI.MESSAGE_GREET);
         writeToFile(filePath, "start program\n");
 
         ArrayList<String> instructionsList = new ArrayList<>();
@@ -75,14 +61,14 @@ public class Duke {
             String[] arrayOfDeadline = instructionLine.split("/by ", 2);
             String[] arrayOfEvent = instructionLine.split("/at ", 2);
 
-            boolean isBye = arrayOfStr[0].equals(COMMAND_BYE);
-            boolean isList = arrayOfStr[0].equals(COMMAND_LIST);
-            boolean isMark = arrayOfStr[0].equals(COMMAND_MARK);
-            boolean isTodo = arrayOfStr[0].equals(COMMAND_TODO);
-            boolean isDeadline = arrayOfStr[0].equals(COMMAND_DEADLINE);
-            boolean isEvent = arrayOfStr[0].equals(COMMAND_EVENT);
-            boolean isDelete = arrayOfStr[0].equals(COMMAND_DELETE);
-            boolean isFind = arrayOfStr[0].equals(COMMAND_FIND);
+            boolean isBye = arrayOfStr[0].equals(UI.COMMAND_BYE);
+            boolean isList = arrayOfStr[0].equals(UI.COMMAND_LIST);
+            boolean isMark = arrayOfStr[0].equals(UI.COMMAND_MARK);
+            boolean isTodo = arrayOfStr[0].equals(UI.COMMAND_TODO);
+            boolean isDeadline = arrayOfStr[0].equals(UI.COMMAND_DEADLINE);
+            boolean isEvent = arrayOfStr[0].equals(UI.COMMAND_EVENT);
+            boolean isDelete = arrayOfStr[0].equals(UI.COMMAND_DELETE);
+            boolean isFind = arrayOfStr[0].equals(UI.COMMAND_FIND);
             
             String instructionNum;
 
@@ -90,7 +76,7 @@ public class Duke {
 
                 if (isBye) {
 
-                    System.out.println("Bye. Hope to see you again soon! :)");
+                    System.out.println(UI.MESSAGE_BYE);
                     writeToFile(filePath, "exit program\n");
                     break;
 
@@ -104,7 +90,7 @@ public class Duke {
                 } else if (isMark) {
 
                     if (arrayOfStr.length == 1){
-                        throw new DukeException("☹ OOPS! You have not entered the task number!");
+                        throw new DukeException(UI.ERROR_NO_TASK_NUMBER);
                     }
 
                     instructionNum = arrayOfStr[1];
@@ -126,7 +112,7 @@ public class Duke {
                 } else if (isTodo) {
 
                     if (arrayOfStr.length == 1) {
-                        throw new DukeException("☹ OOPS! You have not entered your task!");
+                        throw new DukeException(UI.ERROR_NO_TASK);
                     }
 
                     updatedInstructionLine = "  [T][ ]" + instructionLine;
@@ -146,7 +132,7 @@ public class Duke {
 
                 } else if (isDelete){
                     if (arrayOfStr.length == 1) {
-                        throw new DukeException("☹ OOPS! You have not entered your task!");
+                        throw new DukeException(UI.ERROR_NO_TASK);
                     }
 
                     instructionNum = arrayOfStr[1];
@@ -161,10 +147,10 @@ public class Duke {
                 } else if (isDeadline) {
 
                     if (arrayOfStr.length == 1){
-                        throw new DukeException("☹ OOPS! You have not entered your task!");
+                        throw new DukeException(UI.ERROR_NO_TASK);
                     }
                     if (arrayOfDeadline.length == 1){
-                        throw new DukeException("Hey! You have not entered the due date! hint: use '/by'");
+                        throw new DukeException(UI.ERROR_NO_DUE_DATE);
                     }
                     deadline.instruction = arrayOfDeadline[0];
                     deadline.setBy(arrayOfDeadline[1]);
@@ -186,10 +172,10 @@ public class Duke {
                 } else if (isEvent) {
 
                     if (arrayOfStr.length == 1){
-                        throw new DukeException("☹ OOPS! You have not entered your event!");
+                        throw new DukeException(UI.ERROR_NO_EVENT);
                     }
                     if (arrayOfEvent.length == 1){
-                        throw new DukeException("Hey! You have not entered the event date! hint: use '/at'");
+                        throw new DukeException(UI.ERROR_NO_EVENT_DATE);
                     }
 
                     event.instruction = arrayOfEvent[0];
@@ -225,7 +211,7 @@ public class Duke {
                         }
                     }
                 } else {
-                    System.out.println("☹ OOPS! I'm sorry, but I don't know what that means.");
+                    System.out.println(UI.ERROR_GENERAL);
                 }
 
             } catch(DukeException | IOException e) {
