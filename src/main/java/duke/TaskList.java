@@ -1,5 +1,10 @@
 package duke;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -141,6 +146,28 @@ public class TaskList {
 
         index = by.indexOf(' ');
         by = by.substring(index+1);
-        taskList.add(new Deadline(task,by));
+        LocalDateTime byDate = extractDeadlineDate(by);
+
+        //if we get a valid date store as a valid date, else store as a string
+        if(byDate!=null) {
+            taskList.add(new Deadline(task,byDate));
+        } else {
+            taskList.add(new Deadline(task, by));
+        }
+    }
+
+    private LocalDateTime extractDeadlineDate(String by) {
+        try {
+            DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                    .appendPattern("dd/MM/yyyy[ HH:mm]")
+                    .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+                    .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+                    .toFormatter();
+            LocalDateTime d1 = LocalDateTime.parse(by,formatter);
+            return d1;
+        } catch(DateTimeParseException e) {
+            return null;
+        }
+
     }
 }
