@@ -1,1 +1,5 @@
-exit program
+start program
+  [T][ ] hehe
+  [T][ ] haha
+  [T][ ] hehe haha
+  [D][ ] hehe (by: tmr)
