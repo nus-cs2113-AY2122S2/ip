@@ -3,18 +3,18 @@
 ## Features (Types of commands available)
 
 To view more information on how each command works, click on the feature's name.
-1. [help](#1.-help): provides a list of supported commands.
-2. [list](#2.-list): shows the list of added tasks.
-3. [mark](#3.-mark): marks a task as done.
-4. [unmark](#4.-unmark): marks a task as undone.
+1. `help`: provides a list of supported commands.
+2. `list`: shows the list of added tasks.
+3. `mark`: marks a task as done.
+4. `unmark`: marks a task as undone.
 5. Task adding:
-   1. [todo](#5.i.-todo): creates a todo task.
-   2. [deadline](#5.ii.-deadline): creates a deadline task.
-   3. [event](#5.iii.-event): creates an event task.
-6. [delete](#6.-delete): deletes a task from the list.
-7. [clear](#7.-clear): deletes all tasks from the list.
-8. [find](#8.-find): searches for task(s) that match the given keyword(s).
-9. [bye](#9.-bye): exits the application.
+   1. `todo`: creates a todo task.
+   2. `deadline`: creates a deadline task.
+   3. `event`: creates an event task.
+6. `delete`: deletes a task from the list.
+7. `clear`: deletes all tasks from the list.
+8. `find`: searches for task(s) that match the given keyword(s).
+9. `bye`: exits the application.
 
 ## Note on syntax
 
@@ -25,7 +25,7 @@ Parameters introduced will have two forms, either as `[optional parameter]` or `
 
 ## Feature Details
 
-### 1. help
+### 1. `help`
 
 This command displays a list of commands supported by Vera.
 
@@ -185,7 +185,7 @@ enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ```
 
-###2. list
+### 2. `list`
 
 This command displays a list of all added tasks.
 
@@ -209,7 +209,7 @@ A total of 3 item(s) have been found!
 ____________________________________________________________
 ```
 
-### 3. mark
+### 3. `mark`
 
 This command marks a task as done.
 
@@ -240,7 +240,7 @@ Nice! I've marked this task as done:
 ____________________________________________________________
 ```
 
-### 4. unmark
+### 4. `unmark`
 
 This command marks a task as undone.
 
@@ -271,11 +271,11 @@ Ok, I've marked this task as not done yet:
 ____________________________________________________________
 ```
 
-### 5.i. todo
+### 5.i. `todo`
 
 This command adds a *todo* task to the list. A `todo` contains only a task description. 
 
-To save other forms of data such as task date and/or time, refer to [deadline](#5.ii.-deadline) and [event](#5.iii.-event).
+To save other forms of data such as task date and/or time, refer to the `deadline` and `event` commands.
 
 ### **Syntax**
 
@@ -312,7 +312,7 @@ The number of tasks in the expected outcome depends on the number of tasks the u
 </details>
 
 
-### 5.ii. deadline
+### 5.ii. deadline`
 
 This command adds a *deadline* task to the list. A `deadline` accepts both a task description and a task date to complete the task by.
 
@@ -344,7 +344,7 @@ Now you have 2 task(s) in the list.
 ____________________________________________________________
 ````
 
-### 5.iii. event
+### 5.iii. `event`
 
 This command adds an *event* task to the list. An `event` accepts both a task description and a task date of when the *event* happens.
 
@@ -376,7 +376,7 @@ Now you have 3 task(s) in the list.
 ____________________________________________________________
 ````
 
-### 6. delete
+### 6. `delete`
 
 This command deletes a task in the list.
 
@@ -408,7 +408,7 @@ Now you have 2 task(s) in the list.
 ____________________________________________________________
 ```
 
-### 7. clear
+### 7. `clear`
 
 This command deletes all tasks in the list.
 
@@ -440,7 +440,7 @@ Done! Now you have 0 task(s) in the list.
 ____________________________________________________________
 ```
 
-### 8. find
+### 8. `find`
 
 This command searches and outputs relevant tasks based on the search keyword
 
@@ -508,7 +508,7 @@ Here are the matching tasks in your list:
 ____________________________________________________________
 ```
 
-### 9. bye
+### 9. `bye`
 
 This command exits the application
 
