@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Storage {
     public static String boundary = "____________________________________________________________" + System.lineSeparator();
 
-    // Create data directory and dukeData.txt if they don't exist
+    // Create data directory and dukeData.txt if they don't exist.
     public Storage() {
         File dataDirectory = new File("./data");
         if (!dataDirectory.exists()) {
@@ -32,13 +32,20 @@ public class Storage {
         }
     }
 
+    /* Write the given string to dukeData.txt.
+     * @param textToWrite The String to be written into the file.
+     * @throws IOException
+     */
     public void writeToFile(String textToWrite) throws IOException {
         FileWriter fw = new FileWriter("./data/dukeData.txt"); // create a FileWriter in append mode
         fw.write(textToWrite);
         fw.close();
     }
 
-    // Add existing tasks from data file
+    /* Add existing tasks from data file to the given task list.
+     * @param tasks The task list to be written to.
+     * @throws FileNotFoundException If the data file cannot be found.
+     */
     public static void readToList(TaskList tasks) throws FileNotFoundException {
         File f = new File("./data/dukeData.txt");
         Scanner s = new Scanner(f);
@@ -67,7 +74,10 @@ public class Storage {
         }
     }
 
-    // Write tasks to the given file
+    /* Write tasks to the given file.
+     * @param dataFile The data file to be written to.
+     * @param tasks The task list that is read from.
+     */
     public static void writeData(Storage dataFile, TaskList tasks) {
         StringBuilder toWrite = new StringBuilder();
         for (int i = 0; i < tasks.countTask; i++) {

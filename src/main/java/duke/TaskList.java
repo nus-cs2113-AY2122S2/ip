@@ -20,11 +20,17 @@ public class TaskList {
         countTask = 0;
     }
 
+    /* Get the task of the given index.
+     * @param index The index of the task to be returned.
+     * @return The task of the index requested.
+     */
     public Task getTask(int index) {
         return taskList.get(index);
     }
 
-    // Add the given task into the task list
+    /* Add the given task into the task list.
+     * @param request The input request given by user.
+     */
     public void addTask(String request) throws GeneralException,
                                                               TaskEmptyException, DeadlineFormatException, EventFormatException {
         if (request.toLowerCase().startsWith("deadline")) {
@@ -67,7 +73,9 @@ public class TaskList {
         taskList.add(new Event(description, at));
     }
 
-    // Mark the given task as done
+    /* Mark the given task as done
+     * @param toMark The index of the task to be marked as done.
+     */
     public void markTask(int toMark) {
         taskList.get(toMark).markDone();
         System.out.println(boundary + "Nice! I've marked this task as done:"
@@ -75,7 +83,9 @@ public class TaskList {
         System.out.print(boundary);
     }
 
-    // Mark the given task as not done yet
+    /* Mark the given task as not done yet.
+     * @param toUnmark The index of the task to be unmarked.
+     */
     public void unmarkTask(int toUnmark) {
         taskList.get(toUnmark).markNotDone();
         System.out.println(boundary + "OK, I've marked this task as not done yet:"
@@ -83,7 +93,7 @@ public class TaskList {
         System.out.print(boundary);
     }
 
-    // List the current tasks
+    // Print out the current tasks.
     public void printList() {
         System.out.println(boundary + "Here are the tasks in your list:");
         for (int i = 0; i < countTask; i++) {
@@ -92,7 +102,22 @@ public class TaskList {
         System.out.print("Now you have " + countTask + " tasks in the list."+ System.lineSeparator() + boundary);
     }
 
-    // Delete the given task from task list
+    /* Find tasks with the given keyword and print them out.
+     * @param keyword The keyword to search for in existing tasks.
+     */
+    public void findTask(String keyword) {
+        System.out.println(boundary + "Here are the matching tasks in your list:");
+        for (int i = 0; i < countTask; i++) {
+            if (taskList.get(i).getDescription().contains(keyword)) {
+                System.out.println(taskList.get(i));
+            }
+        }
+        System.out.print(boundary);
+    }
+
+    /* Delete the given task from task list.
+     * @param index The index of the task to be deleted.
+     */
     public void deleteTask(int index) {
         System.out.println(boundary + "Noted. I've removed this task:");
         System.out.println(taskList.get(index));
