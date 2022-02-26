@@ -93,6 +93,23 @@ public class Storage {
         return decodedTasks;
     }
 
+    private boolean isTaskRepeated(ArrayList<Task> saveTaskList, int index) {
+        for (int j = index + 1; j < saveTaskList.size(); j++) {
+            if (saveTaskList.get(index).getDescription().trim()
+                    .equalsIgnoreCase(saveTaskList.get(j).getDescription().trim())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void checkForRepeatedInputs(ArrayList<Task> saveTaskList) throws InputRepeatedException {
+        for (int i = 0; i < saveTaskList.size(); i++) {
+            if (isTaskRepeated(saveTaskList, i)) {
+                throw new InputRepeatedException();
+            }
+        }
+    }
     public ArrayList<Task> load() {
         try {
             return readSavedData();
