@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 import static Duke.UserInput.*;
 public class TaskList {
+    /**
+     * Deletes the chosen task
+     * @throws InvalidInputException if task not exist
+     */
     public static void deleteTask() throws InvalidInputException {
         var taskToBeDeleted = UserInput.userInput.get(Integer.parseInt(line.substring(1 + line.indexOf(" "))) - 1);
         if ((line.substring(1 + line.indexOf(" "))).trim().isEmpty()) throw new InvalidInputException();
@@ -14,6 +18,10 @@ public class TaskList {
         userInput.remove(taskToBeDeleted);
     }
 
+    /**
+     * Adds the desired task
+     * @throws InvalidInputException if task is empty
+     */
     public static void addTodo() throws InvalidInputException {
         if ((line.substring(1 + line.indexOf(" "))).trim().isEmpty()) throw new InvalidInputException();
         userInput.add(inputCount, new Todo((line.substring(1 + line.indexOf(" ")))));
@@ -23,6 +31,11 @@ public class TaskList {
         System.out.println("Now you have " + inputCount + " tasks in the list.");
     }
 
+    /**
+     * Adds deadline type of task
+     * @throws InvalidInputException if deadline input is empty
+     * @throws NumberFormatException if format of input deadline is incorrect
+     */
     public static void addDeadline() throws InvalidInputException, NumberFormatException {
         if ((line.substring(1 + line.indexOf(" "))).trim().isEmpty()) throw new InvalidInputException();
         else if (!line.contains(" /by ")) throw new NumberFormatException();
@@ -33,6 +46,11 @@ public class TaskList {
         System.out.println("Now you have " + inputCount + " tasks in the list.");
     }
 
+    /**
+     * Adds event type of task
+     * @throws InvalidInputException if event input is empty
+     * @throws NumberFormatException if format of input event is incorrect
+     */
     public static void addEvent() throws InvalidInputException, NumberFormatException {
         if (((line.substring(1 + line.indexOf(" "))).trim()).isEmpty()) throw new InvalidInputException();
         else if (!line.contains(" /at ")) throw new NumberFormatException();
@@ -43,6 +61,9 @@ public class TaskList {
         System.out.println("Now you have " + inputCount + " tasks in the list.");
     }
 
+    /**
+     * Prints all the tasks in the list
+     */
     public static void printList(){
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < inputCount; i++) {
@@ -50,14 +71,25 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns true if command is unmark
+     * @return true if command is unmark
+     */
     public static boolean isUnmark(){
         return Parser.getFirstWord().equalsIgnoreCase("unmark");
     }
 
+    /**
+     * Returns true if command is mark
+     * @return true if command is mark
+     */
     public static boolean isMark(){
         return Parser.getFirstWord().equalsIgnoreCase("mark");
     }
 
+    /**
+     * Marks the desired task as done
+     */
     public static void markAsDone(){
         UserInput.valIndex = Integer.parseInt(line.substring(line.indexOf(" ") + 1));
         UserInput.userInput.get(UserInput.valIndex - 1).markAsDone();
@@ -65,6 +97,9 @@ public class TaskList {
         System.out.println("[" + UserInput.userInput.get(UserInput.valIndex - 1).getIcon() + "]" +"[" + UserInput.userInput.get(UserInput.valIndex - 1).getStatusIcon() + "] " + UserInput.userInput.get(UserInput.valIndex - 1).description + UserInput.userInput.get(UserInput.valIndex -1).showDate());
     }
 
+    /**
+     * Marks the desired task as not done
+     */
     public static void markAsUndone(){
         UserInput.valIndex = Integer.parseInt(line.substring(line.indexOf(" ") + 1));
         UserInput.userInput.get(UserInput.valIndex - 1).markAsNotDone();
@@ -72,6 +107,10 @@ public class TaskList {
         System.out.println("[" + UserInput.userInput.get(UserInput.valIndex - 1).getIcon() + "]" + "[" + UserInput.userInput.get(UserInput.valIndex - 1).getStatusIcon() + "] " + UserInput.userInput.get(UserInput.valIndex - 1).description + UserInput.userInput.get(UserInput.valIndex -1).showDate());
     }
 
+    /**
+     * Finds the tasks that contain the keywards entered by user
+     * @throws InvalidInputException if the entered string is empty
+     */
     public static void findTask() throws InvalidInputException {
         if (((line.substring(1 + line.indexOf(" "))).trim()).isEmpty()) throw new InvalidInputException();
         String s = line.substring(1 + line.indexOf(" "));
