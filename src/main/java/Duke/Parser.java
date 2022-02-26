@@ -34,13 +34,17 @@ public class Parser {
         return Integer.parseInt(line.substring(line.indexOf(" ") + 1)) <= inputCount;
     }
 
+    public static boolean isFind() {
+        return getFirstWord().equalsIgnoreCase("Find");
+    }
+
     public static boolean isList() {
         return (line.trim()).equalsIgnoreCase("list");
     }
 
     public static void checkCommandValidity(Scanner input) throws InvalidInputException {
         line = input.nextLine().trim();
-        if (line.equalsIgnoreCase("todo") || line.equalsIgnoreCase("deadline") || line.equalsIgnoreCase("event") || line.equalsIgnoreCase("delete") || line.equalsIgnoreCase("unmark") || line.equalsIgnoreCase("mark")) {
+        if (line.equalsIgnoreCase("todo") || line.equalsIgnoreCase("find") || line.equalsIgnoreCase("deadline") || line.equalsIgnoreCase("event") || line.equalsIgnoreCase("delete") || line.equalsIgnoreCase("unmark") || line.equalsIgnoreCase("mark")) {
             line += ' ';
         } else if (!isList() && !isBye() && !line.contains(" ")) {
             throw new InvalidInputException();
@@ -58,10 +62,11 @@ public class Parser {
         return getFirstWord().equalsIgnoreCase("delete") || getFirstWord().equalsIgnoreCase("unmark") ||
                 getFirstWord().equalsIgnoreCase("list") || getFirstWord().equalsIgnoreCase("bye") ||
                 getFirstWord().equalsIgnoreCase("mark") || getFirstWord().equalsIgnoreCase("deadline") ||
-                getFirstWord().equalsIgnoreCase("event") || getFirstWord().equalsIgnoreCase("todo");
+                getFirstWord().equalsIgnoreCase("event") || getFirstWord().equalsIgnoreCase("todo") ||
+                getFirstWord().equalsIgnoreCase("find");
     }
 
-    public static void handleCommand() throws IOException {
+    public static void handleCommand() throws IOException, InvalidInputException {
         while (true) {
             Scanner input = new Scanner(System.in);
             try {
@@ -73,8 +78,14 @@ public class Parser {
                 printList();
                 continue;
             } else if (isBye()) {
-                System.out.println("Bye. Hope to see you again soon!");
                 break;
+            }  else if (isFind()) {
+                try {
+                    findTask();
+                    continue;
+                } catch (InvalidInputException e) {
+                    System.out.println("Please input what you want to search!");
+                }
             } else if (line.contains(" ")) {
                 if (isMark()) {
                     try {

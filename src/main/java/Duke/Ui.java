@@ -14,7 +14,7 @@ public class Ui {
         System.out.println("What can I do for you?");
     }
 
-    public static void checkCommand() throws IOException {
+    public static void checkCommand() throws IOException, InvalidInputException {
         Parser.handleCommand();
     }
 
