@@ -17,6 +17,14 @@ public class DeleteCommand extends Command {
             + "\nE.g., 'delete 2' deletes the second task in the task list.\n\n"
             + "Note: You can only delete one task per command input.";
 
+
+    /**
+     * Creates constructor for delete command.
+     *
+     * @param parsedInput Contains task description to search for
+     * @param taskList Task array.
+     * @throws InputEmptyException If input task description is empty.
+     */
     public DeleteCommand(String[] parsedInput, TaskList taskList) throws InputEmptyException {
         if (parsedInput[DELETE_INDEX].isBlank()) {
             throw new InputEmptyException();
@@ -26,6 +34,13 @@ public class DeleteCommand extends Command {
         }
     }
 
+    /**
+     * Executes the deletion of a task.
+     *
+     * @param taskList Task array.
+     * @param ui Ui for printing messages.
+     * @param storage Overwrites save file after editing contents in task array.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.removeTask(deleteIndex);

@@ -1,6 +1,7 @@
 package vera;
 
 import vera.exception.InputEmptyException;
+import vera.exception.InputRepeatedException;
 import vera.task.Task;
 
 import java.io.File;
@@ -17,8 +18,15 @@ import static vera.constant.Messages.ERROR_FILE_NOT_FOUND_MESSAGE;
 
 public class Storage {
     private String saveFilePath;
-    
 
+
+    /**
+     * Creates a constructor for the class Storage.
+     * Initialises and creates location for save file if missing.
+     *
+     * @param filePath Location of the save file.
+     * @throws IOException If failed to read save file.
+     */
     public Storage(String filePath) throws IOException {
         saveFilePath = filePath;
         System.out.println("Booting up...");
@@ -45,6 +53,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Appends new tasks to the save file.
+     *
+     * @param newTaskDescription Task Description.
+     * @param newTaskDate Task Date and/or time.
+     * @param taskStatus Mark status of the task.
+     * @param taskType Task Type.
+     */
     public void appendToFile(String newTaskDescription,
                              String newTaskDate, String taskStatus,
                              String taskType) {
@@ -64,6 +80,12 @@ public class Storage {
         }
     }
 
+
+    /**
+     * Overwrites existing saved data in save file with new data.
+     *
+     * @param taskList Array of tasks that are to be saved.
+     */
     public void rewriteSavedState(TaskList taskList) {
         wipeSavedData();
         ArrayList<Task> replicatedTasks = taskList.getTasks();
@@ -110,13 +132,22 @@ public class Storage {
             }
         }
     }
+
+    /**
+     * Loads back the save file onto the program.
+     *
+     * @return The saved data of the tasks in the saved file.
+     * tasks are represented in an array denoted by ArrayList<Task>.
+     */
     public ArrayList<Task> load() {
         try {
-            return readSavedData();
+            ArrayList<Task> saveTaskList = readSavedData();
+            checkForRepeatedInputs(saveTaskList);
+            return saveTaskList;
         } catch (FileNotFoundException e) {
             System.out.println(ERROR_FILE_NOT_FOUND_MESSAGE);
             System.exit(1);
-        } catch (ArrayIndexOutOfBoundsException | InputEmptyException e) {
+        } catch (ArrayIndexOutOfBoundsException | InputEmptyException | InputRepeatedException e) {
             System.out.println(ERROR_CORRUPT_SAVED_FILE_MESSAGE);
             wipeSavedData();
         }

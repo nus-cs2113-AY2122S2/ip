@@ -20,6 +20,15 @@ public class EventCommand extends Command {
             + "\n\t\tyyyy/MM/dd [HH:mm], where\n"
             + "year is in 4 digits, month and day in two digits, and an \noptional time in 24 hour format.";
 
+    /**
+     * Creates a constructor for event command. Saves task description and date.
+     *
+     * @param taskDescription Task description.
+     * @param tasklist Task array.
+     * @param dateInput Task Date.
+     * @throws InputEmptyException If Task content is empty.
+     * @throws InputRepeatedException If task has already been added.
+     */
     public EventCommand(String taskDescription, TaskList tasklist, String dateInput)
             throws InputEmptyException, InputRepeatedException {
         if (taskDescription.isBlank()) {
@@ -32,7 +41,13 @@ public class EventCommand extends Command {
         toAddTaskDescription = taskDescription;
     }
 
-
+    /**
+     * Executes the adding of event task.
+     *
+     * @param taskList Task array.
+     * @param ui Ui for printing messages.
+     * @param storage To append newly added task to save file.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.addTask(toAddTaskDescription, toAddTaskDate, COMMAND_WORD);

@@ -69,6 +69,16 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the saved data of the tasks in the save file.
+     * Arranges the parsed data in a manner that can be initialised
+     * as a 'Task'.
+     *
+     * @param rawData Array of strings containing saved data of task.
+     * @return Task containing the saved data for adding into program's task array.
+     * @throws InputEmptyException If saved data is missing content, i.e.
+     * task description or date.
+     */
     public static Task parseSavedData(String[] rawData) throws InputEmptyException {
         Task parsedData;
         if (!rawData[SAVE_TASK_MARK_STATUS].equals("0") && !rawData[SAVE_TASK_MARK_STATUS].equals("1")) {
@@ -250,6 +260,13 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Parses the user command input.
+     *
+     * @param userInput User command.
+     * @param taskList Array of tasks
+     * @return Command type matching the user command.
+     */
     public static Command parseCommand(String userInput, TaskList taskList) {
         String[] parsedInput = userInput.split(" ", 2);
         String commandWord = parsedInput[OPTIONS_INDEX].toLowerCase().trim();

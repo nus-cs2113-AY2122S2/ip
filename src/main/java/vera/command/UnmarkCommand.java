@@ -14,12 +14,26 @@ public class UnmarkCommand extends Command{
 
     private int markIndex;
 
+    /**
+     * Creates a constructor for the unmark command.
+     * Saves index of task to mark.
+     *
+     * @param markIndex Task index to mark.
+     * @param taskList Task array.
+     */
     public UnmarkCommand(int markIndex, TaskList taskList) {
         if (taskList.isTaskExist(markIndex)) {
             this.markIndex = markIndex;
         }
     }
 
+    /**
+     * Executes unmark command. Marks task as undone.
+     *
+     * @param taskList Task array.
+     * @param ui Ui for printing
+     * @param storage Overwrite save file for newly unmarked task.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         if (!taskList.isTaskDone(markIndex)) {

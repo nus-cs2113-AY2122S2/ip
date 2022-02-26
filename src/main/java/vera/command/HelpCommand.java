@@ -12,11 +12,18 @@ public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
     public static final String COMMAND_WORD_VARIANT = "quick start";
 
+    /**
+     * Creates a constructor for the HelpCommand. Accepts the help input.
+     * Help input contains a keyword to obtain detailed information on
+     * available commands to use.
+     *
+     * @param filteredHelpInput Help keyword.
+     */
     public HelpCommand(String filteredHelpInput) {
         helpInput = filteredHelpInput.trim().toLowerCase();
     }
 
-    public void showHelpList(Ui ui) {
+    private void showHelpList(Ui ui) {
         System.out.println("Here is a list of commands available:");
         String[] helpCommands = {ListCommand.COMMAND_WORD, MarkCommand.COMMAND_WORD
                 , UnmarkCommand.COMMAND_WORD, TodoCommand.COMMAND_WORD, DeadlineCommand.COMMAND_WORD
@@ -31,7 +38,8 @@ public class HelpCommand extends Command {
                 + "enter 'help quick start'.");
     }
 
-    public void showSpecificHelpCommand(Ui ui, String helpCommand) {
+
+    private void showSpecificHelpCommand(Ui ui, String helpCommand) {
         switch (helpCommand) {
         case ListCommand.COMMAND_WORD:
             ui.showToUser(ListCommand.MESSAGE_USAGE);
@@ -71,6 +79,15 @@ public class HelpCommand extends Command {
         }
     }
 
+    /**
+     * Executes the help command. Checks for the search keyword
+     * in the help command to list detailed information of available
+     * commands according to what the keyword is looking for.
+     *
+     * @param taskList Task array.
+     * @param ui Ui for printing.
+     * @param storage Storage for overwriting/appending save data. Not used in this method.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         showSpecificHelpCommand(ui, helpInput);

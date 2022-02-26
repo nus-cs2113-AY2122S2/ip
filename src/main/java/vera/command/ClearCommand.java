@@ -3,6 +3,9 @@ package vera.command;
 import vera.Storage;
 import vera.TaskList;
 import vera.Ui;
+import vera.task.Task;
+
+import java.util.ArrayList;
 
 public class ClearCommand extends Command {
 
@@ -10,15 +13,23 @@ public class ClearCommand extends Command {
     public static final String MESSAGE_USAGE = "Clear: Deletes all tasks in the list.\n"
             + "To execute the command, enter 'clear'.";
 
+    /**
+     * Executes the clear command. Deletes all saved tasks in the task array.
+     *
+     * @param taskList Task array.
+     * @param ui UI for printing messages.
+     * @param storage Overwrite saved data after deleting.
+     */
     @Override
     public void execute (TaskList taskList, Ui ui, Storage storage) {
-        ui.showToUser("Are you sure you want to delete all tasks?\n"
-                + "You will not be able to recover them after deleting. [Y/N]");
         ArrayList<Task> tempArray = taskList.getTasks();
         if (tempArray.size() <= 0) {
             ui.showToUser("There are no tasks to clear!");
             return;
         }
+
+        ui.showToUser("Are you sure you want to delete all tasks? [Y/N]\n"
+                + "You will not be able to recover them after deleting.");
         ui.showLine();
         while (true) {
             String input = ui.readCommand();

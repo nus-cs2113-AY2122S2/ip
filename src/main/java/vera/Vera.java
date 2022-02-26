@@ -12,6 +12,12 @@ public class Vera {
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * Initialises the program.
+     * Loading of save file also occurs over here.
+     *
+     * @param  filePath Location of the save file.
+     */
     public Vera(String filePath) {
         ui = new Ui();
         try {
@@ -23,6 +29,9 @@ public class Vera {
         }
     }
 
+    /**
+     * Runs the program.
+     */
     public void run() {
         ui.showWelcomeMessage();
         boolean isExit = false;

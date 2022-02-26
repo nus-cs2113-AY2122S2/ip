@@ -16,6 +16,15 @@ public class TodoCommand extends Command {
             + "such as date and time, \nuse either 'deadline' or 'event'.\n\nTo execute the command, \n"
             + "enter 'todo <task_description>', e.g. todo read book.";
 
+
+    /**
+     * Creates constructor for todo command. Saves task description.
+     *
+     * @param toAdd Task Description to add.
+     * @param taskList Task array.
+     * @throws InputEmptyException If task description is empty.
+     * @throws InputRepeatedException If task has been added before.
+     */
     public TodoCommand(String[] toAdd, TaskList taskList)
             throws InputEmptyException, InputRepeatedException {
         if (toAdd[TASK_DESCRIPTION_INDEX_TODO].isBlank()) {
@@ -27,6 +36,13 @@ public class TodoCommand extends Command {
         this.toAdd = toAdd;
     }
 
+    /**
+     * Executes the adding of todo task.
+     *
+     * @param taskList Task array.
+     * @param ui Ui for printing messages.
+     * @param storage To append newly added task to save file.
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.addTask(toAdd[TASK_DESCRIPTION_INDEX_TODO].trim(), " ", COMMAND_WORD);

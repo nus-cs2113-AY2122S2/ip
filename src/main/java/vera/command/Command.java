@@ -4,9 +4,7 @@ import vera.Storage;
 import vera.TaskList;
 import vera.Ui;
 
-public class Command {
+public abstract class Command {
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-
-    }
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
 }
