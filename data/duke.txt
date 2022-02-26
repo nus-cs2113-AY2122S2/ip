@@ -1,8 +1,4 @@
 [E][X] shower (at: 9-11 PM)
-[T][X] d
 [E][X] finish pset (at: 12:00 AM)
 [T][X] eat pie
-[D][X] stop thinking (by: 9:00)
-[E][X] go out (at: 10)
-[T][X] bruh
-[D][ ] eat (by: 1:00)
+[E][ ] project meeting (at: Saturday 8:00PM)
