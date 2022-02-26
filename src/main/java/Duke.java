@@ -51,6 +51,7 @@ public class Duke {
         Deadline deadline = new Deadline("return book", "holiday");
         Event event = new Event("test", "7pm");
 
+
         for (int i = 0; i < 200; i++) { // can have 200 input lines (including wrong command)
             Scanner in = new Scanner(System.in);
             task.instruction = in.nextLine();
@@ -69,8 +70,6 @@ public class Duke {
             boolean isEvent = arrayOfStr[0].equals(UI.COMMAND_EVENT);
             boolean isDelete = arrayOfStr[0].equals(UI.COMMAND_DELETE);
             boolean isFind = arrayOfStr[0].equals(UI.COMMAND_FIND);
-            
-            String instructionNum;
 
             try {
 
@@ -82,134 +81,30 @@ public class Duke {
 
                 } else if (isList) {
 
-                    System.out.println("Here are the task(s) in your list:");
-                    for (int j = 1; j <= task.number; j++) {
-                        System.out.println(j + ". " + instructionsList.get(j - 1));
-                    }
+                    executeList(instructionsList, task);
 
                 } else if (isMark) {
 
-                    if (arrayOfStr.length == 1){
-                        throw new DukeException(UI.ERROR_NO_TASK_NUMBER);
-                    }
-
-                    instructionNum = arrayOfStr[1];
-                    int index = Integer.parseInt(instructionNum) - 1;
-                    String temp = instructionsList.get(index);
-                    String prefix = "  \\[T]\\[ ]";
-                    temp = temp.replaceAll(prefix, "  [T][X]");
-                    instructionsList.set(index, temp); //updates the list
-
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(instructionsList.get(index));
-
-                    try {
-                        appendToFile(filePath, instructionsList.get(index) + System.lineSeparator());
-                    } catch (IOException e) {
-                        System.out.println(e.getMessage());
-                    }
+                    executeMark(instructionsList, arrayOfStr);
 
                 } else if (isTodo) {
 
-                    if (arrayOfStr.length == 1) {
-                        throw new DukeException(UI.ERROR_NO_TASK);
-                    }
-
-                    updatedInstructionLine = "  [T][ ]" + instructionLine;
-                    instructionsList.add("0");
-                    instructionsList.set(task.number, updatedInstructionLine);
-                    task.number++;
-
-                    System.out.println("Got it. I've added this task: ");
-                    System.out.println(updatedInstructionLine);
-                    System.out.println("Now you have " + task.number + " task(s) in the list.");
-
-                    try {
-                        appendToFile(filePath, updatedInstructionLine + System.lineSeparator());
-                    } catch (IOException e) {
-                        System.out.println(e.getMessage());
-                    }
+                    executeTodo(instructionsList, task, instructionLine, arrayOfStr);
 
                 } else if (isDelete){
-                    if (arrayOfStr.length == 1) {
-                        throw new DukeException(UI.ERROR_NO_TASK);
-                    }
-
-                    instructionNum = arrayOfStr[1];
-                    int index = Integer.parseInt(instructionNum) - 1;
-                    task.number--;
-
-                    System.out.println("Noted. I've removed this task: ");
-                    System.out.println(instructionsList.get(index));
-                    System.out.println("Now you have " + task.number + " task(s) in the list.");
-                    instructionsList.remove(index);
+                    executeDelete(instructionsList, task, arrayOfStr);
 
                 } else if (isDeadline) {
 
-                    if (arrayOfStr.length == 1){
-                        throw new DukeException(UI.ERROR_NO_TASK);
-                    }
-                    if (arrayOfDeadline.length == 1){
-                        throw new DukeException(UI.ERROR_NO_DUE_DATE);
-                    }
-                    deadline.instruction = arrayOfDeadline[0];
-                    deadline.setBy(arrayOfDeadline[1]);
-                    updatedInstructionLine = deadline.toString();
-                    instructionsList.add("0");
-                    instructionsList.set(task.number, updatedInstructionLine);
-                    task.number++;
-
-                    System.out.println("Got it. I've added this task: ");
-                    System.out.println(deadline);
-                    System.out.println("Now you have " + task.number + " task(s) in the list.");
-
-                    try {
-                        appendToFile(filePath, updatedInstructionLine + System.lineSeparator());
-                    } catch (IOException e) {
-                        System.out.println(e.getMessage());
-                    }
+                    executeDeadline(instructionsList, task, deadline, arrayOfStr, arrayOfDeadline);
 
                 } else if (isEvent) {
 
-                    if (arrayOfStr.length == 1){
-                        throw new DukeException(UI.ERROR_NO_EVENT);
-                    }
-                    if (arrayOfEvent.length == 1){
-                        throw new DukeException(UI.ERROR_NO_EVENT_DATE);
-                    }
-
-                    event.instruction = arrayOfEvent[0];
-                    event.setAt(arrayOfEvent[1]);
-                    updatedInstructionLine = event.toString();
-                    instructionsList.add("0");
-                    instructionsList.set(task.number, updatedInstructionLine);
-                    task.number++;
-
-                    System.out.println("Got it. I've added this task: ");
-                    System.out.println(event);
-                    System.out.println("Now you have " + task.number + " task(s) in the list.");
-
-                    try {
-                        appendToFile(filePath, updatedInstructionLine + System.lineSeparator());
-                    } catch (IOException e) {
-                        System.out.println(e.getMessage());
-                    }
+                    executeEvent(instructionsList, task, event, arrayOfStr, arrayOfEvent);
 
                 } else if (isFind) {
-                    if (arrayOfStr.length == 1){
-                        throw new DukeException("☹ OOPS! You have not entered what you want to find!");
-                    }
+                    executeFind(instructionsList, task, arrayOfStr);
 
-                    String keyword = arrayOfStr[1];
-                    int numOfMatching = 0;
-
-                    System.out.println("Here are the matching task(s) in your list:");
-                    for (int j = 1; j <= task.number; j++) {
-                        if (instructionsList.get(j - 1).contains(keyword)){
-                            numOfMatching++;
-                            System.out.println(numOfMatching + ". " + instructionsList.get(j - 1));
-                        }
-                    }
                 } else {
                     System.out.println(UI.ERROR_GENERAL);
                 }
@@ -217,6 +112,144 @@ public class Duke {
             } catch(DukeException | IOException e) {
                 System.out.println(e.getMessage());
             }
+        }
+    }
+
+    private static void executeFind(ArrayList<String> instructionsList, Task task, String[] arrayOfStr) throws DukeException {
+        if (arrayOfStr.length == 1){
+            throw new DukeException("☹ OOPS! You have not entered what you want to find!");
+        }
+
+        String keyword = arrayOfStr[1];
+        int numOfMatching = 0;
+
+        System.out.println("Here are the matching task(s) in your list:");
+        for (int j = 1; j <= task.number; j++) {
+            if (instructionsList.get(j - 1).contains(keyword)){
+                numOfMatching++;
+                System.out.println(numOfMatching + ". " + instructionsList.get(j - 1));
+            }
+        }
+    }
+
+    private static void executeEvent(ArrayList<String> instructionsList, Task task, Event event, String[] arrayOfStr, String[] arrayOfEvent) throws DukeException {
+        String updatedInstructionLine;
+        if (arrayOfStr.length == 1){
+            throw new DukeException(UI.ERROR_NO_EVENT);
+        }
+        if (arrayOfEvent.length == 1){
+            throw new DukeException(UI.ERROR_NO_EVENT_DATE);
+        }
+
+        event.instruction = arrayOfEvent[0];
+        event.setAt(arrayOfEvent[1]);
+        updatedInstructionLine = event.toString();
+        instructionsList.add("0");
+        instructionsList.set(task.number, updatedInstructionLine);
+        task.number++;
+
+        System.out.println("Got it. I've added this task: ");
+        System.out.println(event);
+        System.out.println("Now you have " + task.number + " task(s) in the list.");
+
+        try {
+            appendToFile(filePath, updatedInstructionLine + System.lineSeparator());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void executeDeadline(ArrayList<String> instructionsList, Task task, Deadline deadline, String[] arrayOfStr, String[] arrayOfDeadline) throws DukeException {
+        String updatedInstructionLine;
+        if (arrayOfStr.length == 1){
+            throw new DukeException(UI.ERROR_NO_TASK);
+        }
+        if (arrayOfDeadline.length == 1){
+            throw new DukeException(UI.ERROR_NO_DUE_DATE);
+        }
+        deadline.instruction = arrayOfDeadline[0];
+        deadline.setBy(arrayOfDeadline[1]);
+        updatedInstructionLine = deadline.toString();
+        instructionsList.add("0");
+        instructionsList.set(task.number, updatedInstructionLine);
+        task.number++;
+
+        System.out.println("Got it. I've added this task: ");
+        System.out.println(deadline);
+        System.out.println("Now you have " + task.number + " task(s) in the list.");
+
+        try {
+            appendToFile(filePath, updatedInstructionLine + System.lineSeparator());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void executeDelete(ArrayList<String> instructionsList, Task task, String[] arrayOfStr) throws DukeException {
+        String instructionNum;
+        if (arrayOfStr.length == 1) {
+            throw new DukeException(UI.ERROR_NO_TASK);
+        }
+
+        instructionNum = arrayOfStr[1];
+        int index = Integer.parseInt(instructionNum) - 1;
+        task.number--;
+
+        System.out.println("Noted. I've removed this task: ");
+        System.out.println(instructionsList.get(index));
+        System.out.println("Now you have " + task.number + " task(s) in the list.");
+        instructionsList.remove(index);
+    }
+
+    private static void executeList(ArrayList<String> instructionsList, Task task) {
+        System.out.println("Here are the task(s) in your list:");
+        for (int j = 1; j <= task.number; j++) {
+            System.out.println(j + ". " + instructionsList.get(j - 1));
+        }
+    }
+
+    private static void executeMark(ArrayList<String> instructionsList, String[] arrayOfStr) throws DukeException {
+        String instructionNum;
+        if (arrayOfStr.length == 1){
+            throw new DukeException(UI.ERROR_NO_TASK_NUMBER);
+        }
+
+        instructionNum = arrayOfStr[1];
+        int index = Integer.parseInt(instructionNum) - 1;
+        String temp = instructionsList.get(index);
+        String prefix = "  \\[T]\\[ ]";
+        temp = temp.replaceAll(prefix, "  [T][X]");
+        instructionsList.set(index, temp); //updates the list
+
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(instructionsList.get(index));
+
+        try {
+            appendToFile(filePath, instructionsList.get(index) + System.lineSeparator());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void executeTodo(ArrayList<String> instructionsList, Task task, String instructionLine, String[] arrayOfStr) throws DukeException {
+        String updatedInstructionLine;
+        if (arrayOfStr.length == 1) {
+            throw new DukeException(UI.ERROR_NO_TASK);
+        }
+
+        updatedInstructionLine = "  [T][ ]" + instructionLine;
+        instructionsList.add("0");
+        instructionsList.set(task.number, updatedInstructionLine);
+        task.number++;
+
+        System.out.println("Got it. I've added this task: ");
+        System.out.println(updatedInstructionLine);
+        System.out.println("Now you have " + task.number + " task(s) in the list.");
+
+        try {
+            appendToFile(filePath, updatedInstructionLine + System.lineSeparator());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
