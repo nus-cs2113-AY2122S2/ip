@@ -10,7 +10,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class Storage {
     private static File dataFile;
@@ -119,12 +121,14 @@ public class Storage {
     }
 
     private static void loadDeadLineEntry(String[] taskDescription) {
+        LocalDate deadLineDate;
         try {
             datesArray = parser.parseDeadLineActionFromDescription(taskDescription);
+            deadLineDate = parser.parseDateFormatFromString(datesArray[1]);
             if (isDateFormatInvalid(datesArray)) {
                 throw new DukeException();
             }
-            allTasks.add(new Deadline(datesArray[0], datesArray[1]));
+            allTasks.add(new Deadline(datesArray[0], deadLineDate));
             itemNumber++;
         } catch (ArrayIndexOutOfBoundsException deadLineEmpty) {
             ui.printDeadLineEmptyException();

@@ -1,7 +1,15 @@
 package duke;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
 
+    private static Ui ui;
+
+    public Parser() {
+        ui = new Ui();
+    }
     public static String parseCommandFromString(String inputCommand) {
         String[] command = inputCommand.split(" ");
         return command[0];
@@ -49,5 +57,15 @@ public class Parser {
 
     public String[] parseLineFromFile(String line) {
         return line.split("-", 3);
+    }
+
+    public LocalDate parseDateFormatFromString(String dateInString)  {
+        LocalDate date = LocalDate.now();
+        try {
+            date = LocalDate.parse(dateInString.trim());
+        } catch (DateTimeParseException invalidDate) {
+            ui.printInvalidDateException();
+        }
+        return date;
     }
 }
