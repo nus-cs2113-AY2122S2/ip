@@ -2,8 +2,21 @@ package duke.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Describes a task which stores the description
+ * and when the task deadline is.
+ */
 public class Deadline extends Task {
 
+    protected String by;
+
+    /**
+     * The constructor which sets the given description of the task
+     * and its deadline, and sets the task type accordingly.
+     *
+     * @param description The description of the task
+     * @param by The deadline of the task
+     */
     protected LocalDate by;
     public Deadline(String description, LocalDate by) {
         super(description);
@@ -11,13 +24,30 @@ public class Deadline extends Task {
         this.taskType = 'D';
     }
 
+    /**
+     * Returns the string which represents all information of the task
+     * to be printed to the standard output.
+     *
+     * @return A string consisting of all the information of the task to be printed
+     */
     public String toString() {
         return "[D]" + super.toString() + " (by:" + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
+    /**
+     * Gets the description of the task.
+     *
+     * @return The description of the task
+     */
     public String saveDescription() {
         return super.saveDescription();
     }
+
+    /**
+     * Gets the information of the task.
+     *
+     * @return The information of the task
+     */
     public String saveAdditionalInfo() {
         return "/by" + by;
     }
