@@ -68,6 +68,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Takes in the user input, parse the keyword from the user input
+     * and checks the list to find the tasks containing the keyword.
+     * Prints all task found.
+     * 
+     * @param inputCommand The user input
+     */
     private static void findKeyword(String inputCommand) {
         String keyword = parser.getKeywordFromString(inputCommand).trim();
         int listNum = 1;
