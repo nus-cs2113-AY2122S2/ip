@@ -57,6 +57,9 @@ public class Duke {
                 case "delete":
                     tasks.deleteTask(task);
                     break;
+                case "find":
+                    tasks.findTasks(task);
+                    break;
                 case "error":
                     throw new DukeException();
                 }

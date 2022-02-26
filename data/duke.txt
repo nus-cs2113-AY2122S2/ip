@@ -1,4 +1,6 @@
 E | 0 | meeting | 4pm to 6pm
+D | 0 | cs2113 Duke | Friday Week 7
+T | 0 | test
 D | 0 | cs2113 project | friday
 T | 0 | dates
 E | 0 | test | 12/02/2021 6pm to 8pm
