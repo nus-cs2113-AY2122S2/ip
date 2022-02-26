@@ -45,7 +45,8 @@ public class Parser {
     public static Boolean isCommandValid(String command) {
         if (command.equalsIgnoreCase("todo") || command.equalsIgnoreCase("event")
                 || command.equalsIgnoreCase("deadline") || command.equalsIgnoreCase("delete")
-                || command.equalsIgnoreCase("mark") || command.equalsIgnoreCase("unmark")) {
+                || command.equalsIgnoreCase("find") || command.equalsIgnoreCase("mark")
+                || command.equalsIgnoreCase("unmark")) {
             return true;
         }
         return false;

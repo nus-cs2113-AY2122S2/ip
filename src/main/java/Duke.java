@@ -79,10 +79,16 @@ public class Duke {
                         Storage.modifyDatabase(deleteTaskNumber, false, true);
                     }
                     break;
+                case "find":
+                    String keyword = userInput.split(" ")[1];
+                    System.out.println(keyword);
+                    TaskList.findContent(keyword);
+                    break;
                 default:
                     throw new InvalidUserInputException(INVALID_INPUT);
                 }
             } catch (IndexOutOfBoundsException e) {
+                System.out.println("here the error");
                 System.out.println(InvalidUserInputException.NO_TIME_OR_DESCRIPTION);
             } catch (NumberFormatException e) {
                 System.out.println(InvalidUserInputException.CORRUPTED_TASK_NUM);
