@@ -62,7 +62,7 @@ public class Duke {
         Task[] tasks = new Task[100];
         task.number = 0;
 
-        Deadline deadline = new Deadline("return book", "holi");
+        Deadline deadline = new Deadline("return book", "holiday");
         Event event = new Event("test", "7pm");
 
         for (int i = 0; i < 200; i++) { // can have 200 input lines (including wrong command)
@@ -170,7 +170,7 @@ public class Duke {
                     task.number++;
 
                     System.out.println("Got it. I've added this task: ");
-                    deadline.getBy();
+                    //deadline.getBy();
                     System.out.println(deadline);
                     System.out.println("Now you have " + task.number + " task(s) in the list.");
 
@@ -199,7 +199,7 @@ public class Duke {
                     task.number++;
 
                     System.out.println("Got it. I've added this task: ");
-                    event.getAt();
+                    //event.getAt();
                     System.out.println(event);
                     System.out.println("Now you have " + task.number + " task(s) in the list.");
 
