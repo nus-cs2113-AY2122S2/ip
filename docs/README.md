@@ -1,4 +1,4 @@
-# User Guide
+# Vera User Guide
 
 ## Features (Types of commands available)
 
