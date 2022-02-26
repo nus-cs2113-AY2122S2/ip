@@ -311,7 +311,7 @@ The number of tasks in the expected outcome depends on the number of tasks the u
 </details>
 
 
-### 5.ii. deadline`
+### 5.ii. `deadline`
 
 This command adds a *deadline* task to the list. A `deadline` accepts both a task description and a task date to complete the task by.
 
