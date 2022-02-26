@@ -23,7 +23,8 @@ public class Ui {
     public static final String PROMPT =
             "What can I do for you? ^-^\n\n" +
                     "Hint: You may use these commands to navigate around:\n" +
-                    "[list] [todo] [deadline] [event] [mark] [unmark] [delete] [bye]";
+                    "[list] [todo] [deadline] [event] [mark] [unmark] [delete] [bye]\n" +
+                    "[find]";
 
     public static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!";
 

@@ -37,6 +37,9 @@ public class Parser {
             case "delete":
                 newCommand = new DeleteCommand(fullCommand.trim().substring(7));
                 break;
+            case "find":
+                newCommand = new FindCommand(fullCommand.trim().substring(5));
+                break;
             case "bye":
                 newCommand = new ByeCommand();
                 break;
