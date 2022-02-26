@@ -1,3 +1,39 @@
+
+# Duke User Guide
+
+This is Duke, an application for busy people to keep track of what they need to do. 
+
+# Starting the program 
+## Using Intellij
+1. Find the project in the `Project Explorer` (usually located at the left side). 
+2. Go to the src folder and locate the `Duke.java` file (`src --> main --> java --> Duke.java`). 
+3. Right click on the file and select `Run Duke.main()`.
+4. The program now should run on the Console (usually located on the bottom. You can now interact with the program through the Console. 
+
+## Using JAR file
+
+# Adding a Task 
+There are three kinds of Tasks: Todos, Deadlines, and Events. 
+## Adding a Todo
+Adds a Todo to the list of tasks. 
+Format: `todo DESCRIPTION`
+## Adding a Deadline
+Adds a Deadline to the list of tasks. 
+## Adding an Event
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Duke project template
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
@@ -22,3 +58,4 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
    ```
+
