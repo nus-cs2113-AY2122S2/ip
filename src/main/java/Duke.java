@@ -106,7 +106,7 @@ public class Duke {
                 } else if (isMark) {
 
                     if (arrOfStr.length == 1){
-                        throw new DukeException("Error: You have not entered the task number!");
+                        throw new DukeException("☹ OOPS! You have not entered the task number!");
                     }
 
                     instructionNum = arrOfStr[1];
@@ -122,7 +122,7 @@ public class Duke {
                 } else if (isTodo) {
 
                     if (arrOfStr.length == 1) {
-                        throw new DukeException("☹ OOPS!!! You have not entered your task!");
+                        throw new DukeException("☹ OOPS! You have not entered your task!");
                     }
 
                     updatedInstructionLine = "  [T][ ]" + instructionLine;
@@ -143,7 +143,7 @@ public class Duke {
 
                 } else if (isDelete){
                     if (arrOfStr.length == 1) {
-                        throw new DukeException("☹ OOPS!!! You have not entered your task!");
+                        throw new DukeException("☹ OOPS! You have not entered your task!");
                     }
 
                     instructionNum = arrOfStr[1];
@@ -158,7 +158,7 @@ public class Duke {
                 } else if (isDeadline) {
 
                     if (arrOfStr.length == 1){
-                        throw new DukeException("☹ OOPS!!! You have not entered your task!");
+                        throw new DukeException("☹ OOPS! You have not entered your task!");
                     }
                     if (arrOfDeadline.length == 1){
                         throw new DukeException("Hey! You have not entered the due date! hint: use '/by'");
@@ -185,7 +185,7 @@ public class Duke {
                 } else if (isEvent) {
 
                     if (arrOfStr.length == 1){
-                        throw new DukeException("☹ OOPS!!! You have not entered your event!");
+                        throw new DukeException("☹ OOPS! You have not entered your event!");
                     }
                     if (arrOfEvent.length == 1){
                         throw new DukeException("Hey! You have not entered the event date! hint: use '/at'");
@@ -211,8 +211,23 @@ public class Duke {
                         System.out.println(e.getMessage());
                     }
 
+                } else if (isFind) {
+                    if (arrOfStr.length == 1){
+                        throw new DukeException("☹ OOPS! You have not entered what you want to find!");
+                    }
+
+                    String keyword = arrOfStr[1];
+                    int numOfMatching = 0;
+
+                    System.out.println("Here are the matching task(s) in your list:");
+                    for (int j = 1; j <= task.number; j++) {
+                        if (instructionsList.get(j - 1).contains(keyword)){
+                            numOfMatching++;
+                            System.out.println(numOfMatching + ". " + instructionsList.get(j - 1));
+                        }
+                    }
                 } else {
-                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means.");
+                    System.out.println("☹ OOPS! I'm sorry, but I don't know what that means.");
                 }
 
             } catch(DukeException | IOException e) {
