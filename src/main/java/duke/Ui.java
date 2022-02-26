@@ -114,6 +114,14 @@ public class Ui {
         System.out.println("Cannot create file!!");
     }
 
+    public void printFoundItems(int listNum, Task t) {
+        System.out.println(listNum + ". " + t);
+    }
+
+    public void printAllTaskInList(int listNum, Task singleTask) {
+        System.out.println(listNum + ". " + singleTask);
+    }
+  
     public void printInvalidDateException() {
         System.out.println("Invalid Date input");
     }

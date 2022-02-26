@@ -59,6 +59,12 @@ public class Parser {
         return line.split("-", 3);
     }
 
+
+    public String getKeywordFromString(String inputCommand) {
+        String[] commandArr = inputCommand.split(" ");
+        return commandArr[1];
+    }
+
     public LocalDate parseDateFormatFromString(String dateInString)  {
         LocalDate date = LocalDate.now();
         try {
