@@ -121,4 +121,8 @@ public class Ui {
     public void printAllTaskInList(int listNum, Task singleTask) {
         System.out.println(listNum + ". " + singleTask);
     }
+  
+    public void printInvalidDateException() {
+        System.out.println("Invalid Date input");
+    }
 }
