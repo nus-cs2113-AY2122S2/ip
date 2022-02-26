@@ -15,11 +15,8 @@ public class Duke {
         try {
             printFileContents("duke.txt");
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            File f = new File("duke.txt");
         }
-
-        File f = new File("duke.txt");
-
 
         int index = 0;
         String greetings =
@@ -100,6 +97,7 @@ public class Duke {
                 System.out.println("----------------------------------------------------------------");
             }
         }
+        
     }
 
     private static void writeToFile(ArrayList<Task> tasks) throws IOException {
