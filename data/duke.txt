@@ -2,4 +2,5 @@
 [E][ ] networking (at: 9:00)
 [D][X] finish assignment (by: March 4)
 [T][ ] visit zoo
-[T][ ] visit gardens
+[T][X] visit gardens
+[T][ ] attend meeting
