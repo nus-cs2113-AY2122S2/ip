@@ -13,7 +13,7 @@ Below are the types of tasks which the user can create:
 
 ## Getting Started
 
-1. Download `Vera.jar` from the repository's [release page]().
+1. Download `Vera.jar` from the repository's [release page](https://github.com/jltha/ip/releases/tag/A-Release).
 2. (Recommended) Create a new folder and place the JAR file in it.
 3. Open a terminal with the new folder as the current working directory.
 4. Enter `java -jar Vera.jar` to run the application.
