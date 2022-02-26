@@ -2,6 +2,8 @@ package duke;
 
 import duke.exceptions.*;
 
+import java.time.format.DateTimeParseException;
+
 public class Parser {
     public static String boundary = "____________________________________________________________" + System.lineSeparator();
 
@@ -50,6 +52,9 @@ public class Parser {
                                      + System.lineSeparator() + boundary);
         } catch (DeadlineFormatException e) {
             System.out.print(boundary + "Hmm...hi dear, when do u want to finish this by?"
+                                     + System.lineSeparator() + boundary);
+        } catch (DateTimeParseException e) {
+            System.out.print(boundary + "Hmm...hi dear, please input your Deadline in \"description /by yyyy-mm-dd\" format"
                                      + System.lineSeparator() + boundary);
         } catch (EventFormatException e) {
             System.out.print(boundary + "Hmm...hi dear, when is this event happening?"

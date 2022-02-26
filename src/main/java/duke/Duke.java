@@ -1,6 +1,7 @@
 package duke;
 
 import java.io.FileNotFoundException;
+import java.text.ParseException;
 
 public class Duke {
     private final TaskList tasks;
@@ -14,6 +15,8 @@ public class Duke {
             Storage.readToList(tasks);
         } catch (FileNotFoundException e) {
             System.out.println("Hmm...File creation failed, I cannot write to the data file.");
+        } catch (ParseException e) {
+            System.out.println("Hmm...There's something wrong with Deadlines in your data file.");
         }
     }
 

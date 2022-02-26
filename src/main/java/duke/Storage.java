@@ -6,6 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Storage {
@@ -46,7 +49,7 @@ public class Storage {
      * @param tasks The task list to be written to.
      * @throws FileNotFoundException If the data file cannot be found.
      */
-    public static void readToList(TaskList tasks) throws FileNotFoundException {
+    public static void readToList(TaskList tasks) throws FileNotFoundException, ParseException {
         File f = new File("./data/dukeData.txt");
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
@@ -58,7 +61,8 @@ public class Storage {
             case 'D':
                 int byIndex = currentLine.indexOf("(");
                 String by = currentLine.substring(byIndex + 5, currentLine.length() - 1);
-                tasks.addDeadline(currentLine.substring(7, byIndex - 1), by);
+                final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+                tasks.addDeadline(currentLine.substring(7, byIndex - 1), String.valueOf(LocalDate.parse(by, formatter)));
                 break;
             case 'E':
                 int atIndex = currentLine.indexOf("(");
