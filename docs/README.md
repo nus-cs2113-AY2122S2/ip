@@ -224,7 +224,7 @@ mark <task_index>
 
 #### **Example**
 
-Using the list of task from [`list`](#1.-`list`) feature as an example,
+Using the list of task from `list` feature as an example,
 
 ```
 > mark 1
@@ -255,7 +255,7 @@ mark <task_index>
 
 #### **Example**
 
-Using the list of task from [`list`](#1.-`list`) feature as an example,
+Using the list of task from `list` feature as an example,
 
 ```
 > unmark 1
@@ -397,7 +397,7 @@ delete <task_index>
 
 ### **Sample Outcome**
 
-Using the list of tasks from [`list`](#1.-`list`) feature as an example,
+Using the list of tasks from `list` feature as an example,
 
 ```
 ____________________________________________________________
@@ -459,7 +459,7 @@ Note: At least one search keyword must be present in the command input, i.e. eit
 
 ### **Example #1**
 
-Using the list of tasks from [`list`](#1.-`list`) feature as an example,
+Using the list of tasks from `list` feature as an example,
 
 ```
 > find book
@@ -494,7 +494,7 @@ ____________________________________________________________
 
 ### **Example #3**
 
-Using the list of tasks from [`list`](#1.-`list`) feature as an example,
+Using the list of tasks from `list` feature as an example,
 
 ```
 > find /date 2022/08/06 1400
