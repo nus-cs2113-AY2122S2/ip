@@ -1,11 +1,23 @@
 package duke;
 
-/**
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
+    
+
+
+
+ /**
  * Deals with making sense of the user command.
  */
 public class Parser {
 
-    /**
+    private static Ui ui;
+
+    public Parser() {
+        ui = new Ui();
+    }
+     /**
      * Takes in the user input as a string, split it into sections
      * stored in a string array and return the first index to be the
      * user command.
@@ -126,5 +138,21 @@ public class Parser {
      */
     public String[] parseLineFromFile(String line) {
         return line.split("-", 3);
+    }
+
+
+    public String getKeywordFromString(String inputCommand) {
+        String[] commandArr = inputCommand.split(" ");
+        return commandArr[1];
+    }
+
+    public LocalDate parseDateFormatFromString(String dateInString)  {
+        LocalDate date = LocalDate.now();
+        try {
+            date = LocalDate.parse(dateInString.trim());
+        } catch (DateTimeParseException invalidDate) {
+            ui.printInvalidDateException();
+        }
+        return date;
     }
 }

@@ -6,6 +6,8 @@ import duke.task.Task;
 import duke.task.ToDo;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.time.LocalDate;
 
 /**
  * Contains the list of tasks and performs commands
@@ -18,10 +20,11 @@ public class TaskList {
     public static final String COMMAND_MARK = "mark";
     public static final String COMMAND_UNMARK = "unmark";
     public static final String COMMAND_BYE = "bye";
+    public static final String COMMAND_FIND = "find";
     public static final String COMMAND_EVENT = "event";
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_TODO = "todo";
-    public static Ui ui;
+    private static Ui ui;
     private static Parser parser;
     private static ArrayList<Task> taskList = new ArrayList<>();
     private static int itemNumber;
@@ -77,6 +80,9 @@ public class TaskList {
             int deleteIndex = parser.parseDeleteIndexFromString(inputCommand);
             deleteEntry(deleteIndex);
             break;
+        case COMMAND_FIND:
+            findKeyword(inputCommand);
+            break;
         case COMMAND_BYE:
             exitProgram();
             break;
@@ -86,7 +92,28 @@ public class TaskList {
         }
     }
 
-    /**
+     /**
+     * Takes in the user input, parse the keyword from the user input
+     * and checks the list to find the tasks containing the keyword.
+     * Prints all task found.
+     * 
+     * @param inputCommand The user input
+     */
+    private static void findKeyword(String inputCommand) {
+        String keyword = parser.getKeywordFromString(inputCommand).trim();
+        int listNum = 1;
+        for (Task foundTask : taskList) {
+            if (isFound(keyword, foundTask)) {
+                ui.printFoundItems(listNum++, foundTask);
+            }
+        }
+    }
+
+    private static boolean isFound(String keyword, Task t) {
+        return Arrays.asList(t.getDescription().split(" ")).contains(keyword);
+    }
+
+     /**
      * Lists all the task in the task list by printing each task
      * to the standard output.
      */
@@ -97,8 +124,8 @@ public class TaskList {
             ui.printListEmptyMessage();
         }
         else {
-            for (Task a : taskList) {
-                System.out.println(listNum++ + ". " + a);
+            for (Task singleTask : taskList) {
+                ui.printAllTaskInList(listNum++, singleTask);
             }
         }
     }
@@ -213,12 +240,15 @@ public class TaskList {
      * @throws ArrayIndexOutOfBoundsException If the deadline parameters are empty
      */
     private static void createDeadLineEntry(String[] taskDescription) throws DukeException, ArrayIndexOutOfBoundsException {
+      
+        LocalDate deadLineDate;
         try {
             datesArray = parser.parseDeadLineActionFromDescription(taskDescription);
+            deadLineDate = parser.parseDateFormatFromString(datesArray[1]);
             if (isDateFormatInvalid(datesArray)) {
                 throw new DukeException();
             }
-            taskList.add(new Deadline(datesArray[0], datesArray[1]));
+            taskList.add(new Deadline(datesArray[0], deadLineDate));
             ui.printAcknowledgeAddMessage(taskList.get(itemNumber), itemNumber + 1);
             itemNumber++;
         } catch (ArrayIndexOutOfBoundsException deadlineEmpty) {

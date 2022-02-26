@@ -2,7 +2,6 @@ package duke;
 
 import java.io.IOException;
 
-
 /**
  * The main class of all the other objects for this program.
  * Starts of the program and initiates other classes.
@@ -38,7 +37,7 @@ public class Duke {
         ui.printWelcomeMessage();
         while (true) {
             tasks.executeCommand(ui.getNewInput());
-            Storage.saveTaskList();
+            storage.saveTaskList();
         }
     }
 
