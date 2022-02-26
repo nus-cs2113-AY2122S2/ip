@@ -24,7 +24,7 @@ Parameters introduced will have two forms, either as `[optional parameter]` or `
 
 ## Feature Details
 
-### 1. help
+### 1. `help`
 
 This command displays a list of commands supported by Vera.
 
