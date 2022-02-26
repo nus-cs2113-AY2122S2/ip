@@ -1,11 +1,14 @@
-package superhero.ui;
+package Superhero.ui;
 
 import java.util.Scanner;
 import java.util.ArrayList;
 
-import superhero.wordlist.VocabList;
-import superhero.storage.FileReadWrite;
+import Superhero.wordlist.VocabList;
+import Superhero.storage.FileReadWrite;
 
+/**
+ * Main UI class that users interact with
+ */
 public class Superhero {
 
 
@@ -18,6 +21,9 @@ public class Superhero {
      * This method is the main method for the Superhero class
      * and it is responsible for displaying messages (by calling other methods)
      * and receiving input from user
+     *
+     * It also loads file from previous sessions (if any) and saves file after
+     * user inputs "bye"
      */
     public void startVocabCheck() {
         inputList = FileReadWrite.loadFile();
