@@ -66,7 +66,11 @@ public class Parser {
      * @return true if is find
      */
     public static boolean isFind() {
-        return getFirstWord().equalsIgnoreCase("Find");
+        try {
+            return getFirstWord().equalsIgnoreCase("Find");
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Please enter a valid command!");
+        }return false;
     }
 
     /**

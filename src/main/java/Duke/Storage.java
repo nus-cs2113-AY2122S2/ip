@@ -35,15 +35,15 @@ public class Storage {
         while (s.hasNextLine()) {
             var str = s.nextLine();
             if (str.charAt(3) == 'T') {
-                UserInput.userInput.add(new Todo(str.substring(11)));
+                UserInput.userInput.add(new Todo(str.substring(10)));
                 if (str.charAt(7) == 'X')
                     UserInput.userInput.get(inputCount).markAsDone();
             } else if (str.charAt(3) == 'D') {
-                UserInput.userInput.add(new Deadline(str.substring(11, str.indexOf("(by: ")), str.substring(str.indexOf("(by: ") + 5,str.indexOf(")") )));
+                UserInput.userInput.add(new Deadline(str.substring(10, str.indexOf("(by: ")), str.substring(str.indexOf("(by: ") + 5,str.indexOf(")") )));
                 if (str.charAt(7) == 'X')
                     UserInput.userInput.get(inputCount).markAsDone();
             } else if (str.charAt(3) == 'E') {
-                UserInput.userInput.add(new Event(str.substring(11, str.indexOf("(at: ")), str.substring(str.indexOf("(at: ") + 5,str.indexOf(")") )));
+                UserInput.userInput.add(new Event(str.substring(10, str.indexOf("(at: ")), str.substring(str.indexOf("(at: ") + 5,str.indexOf(")") )));
                 if (str.charAt(7) == 'X')
                     UserInput.userInput.get(inputCount).markAsDone();
             }
