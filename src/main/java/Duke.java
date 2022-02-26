@@ -1,5 +1,5 @@
 /**
- * Main driver class of the application
+ * Main driver class of the Duke application
  */
 
 public class Duke {
@@ -7,19 +7,11 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    public String diskFilePath;
 
     public Duke(String filePath) {
-        diskFilePath = filePath; // HOW TO PASS FILEPATH TO TASKCLASS SO THAT IT KNOWS WHERE THE SAVED FILE IS?
-        storage = new Storage(filePath); // ALTERNATIVELY: SHOULD FIND A WAY TO PASS STORAGE TO TASK CLASS, AND THEN HAVE "SAVETASKS" BEHAVIOR IN STORAGE
+        storage = new Storage(filePath);
         ui = new Ui();
-        try {
-            tasks = new TaskList(storage.loadTasksFromDisk());
-            ui.showGreeting();
-        } catch (DukeException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
-        }
+        tasks = new TaskList(storage, ui);
     }
 
     public void run() {
@@ -28,6 +20,8 @@ public class Duke {
 
     public static void main(String[] args) {
         new Duke("data/duke.txt").run();
+        //new Duke("data/duke2.txt").run();
+        //new Duke("dataduke.txt").run();
     }
 }
 

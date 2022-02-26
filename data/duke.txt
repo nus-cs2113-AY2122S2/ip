@@ -1,4 +1,5 @@
-[E][X] shower (at: 9-11 PM)
-[E][X] finish pset (at: 12:00 AM)
-[T][X] eat pie
-[E][ ] project meeting (at: Saturday 8:00PM)
+[T][ ] visit Marina Bay
+[E][ ] networking (at: 9:00)
+[D][X] finish assignment (by: March 4)
+[T][ ] visit zoo
+[T][ ] visit gardens

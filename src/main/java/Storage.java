@@ -1,4 +1,6 @@
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
@@ -10,9 +12,9 @@ import java.io.File;
  */
 
 public class Storage {
-    public String filePath;
-    public Storage(String filePath) {
+    protected String filePath;
 
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 
@@ -106,6 +108,56 @@ public class Storage {
             return taskList;
         } catch (FileNotFoundException e) {
             throw new DukeException("The specified file was not found!");
+        }
+    }
+
+    /**
+     * Helper for saveTasksToFile
+     * Separates this.filePath into directory and file name)
+     * Assumption: this.filePath is in format "directory/fileName"
+     * @returns array of Strings (directory, file name)
+     */
+    public String[] separateFilePath() throws DukeException {
+        int slashIndex = filePath.indexOf("/");
+        if (slashIndex != -1) {
+            String directory = filePath.substring(0, slashIndex);
+            String fileName = filePath.substring(slashIndex + 1);
+            return new String[]{directory, fileName};
+        } else {
+            throw new DukeException("Filepath is not in the correct format! " +
+                    "The tasks you input during this iteration of Duke will not be saved. " +
+                    "You will be unable to view the tasks the next time you run the application.");
+        }
+    }
+
+
+    /**
+     * Helper for processTasks
+     * Saves the list of tasks to the filepath of the Storage object
+     * @param taskListString string representation of list of tasks to write to file
+     */
+    public void saveTasksToFile(String taskListString) throws IOException {
+        try {
+            String[] separatedFilePath = separateFilePath();
+            String directory = separatedFilePath[0];
+            String fileName = separatedFilePath[1];
+            // If data directory doesn't exist, write to it
+            File dataDirectory = new File(directory);
+            //System.out.println("DOES DIRECTORY EXIST? " + dataDirectory.exists());
+            if (!dataDirectory.exists()) {
+                dataDirectory.mkdir();
+            }
+            // If duke.txt file doesn't exist, create it
+            File dataFile = new File(dataDirectory, fileName);
+            dataFile.createNewFile();
+
+            FileWriter fw = new FileWriter(filePath);
+            fw.write(taskListString);
+            fw.close();
+        } catch (DukeException e) {
+            // If the filePath to save tasks to is not valid
+            System.out.println(e);
+
         }
     }
 

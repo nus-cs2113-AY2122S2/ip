@@ -16,10 +16,6 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public String getTaskDescription() {
-        return description;
-    }
-
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + description;
     }

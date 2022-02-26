@@ -1,5 +1,3 @@
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,14 +11,20 @@ import java.util.stream.Collectors;
 
 public class TaskList {
     private static String division = "_____________________________________________\n";
-    public ArrayList<Task> taskList;
-    public Parser parser;
+    protected ArrayList<Task> taskList;
+    protected Parser parser;
+    protected Storage storage;
 
-    public TaskList(ArrayList<Task> ... loadedTasks) {
+
+    public TaskList(Storage store, Ui ui) {
         parser = new Parser();
-        if (loadedTasks.length > 0) {
-            taskList = loadedTasks[0];
-        } else {
+        storage = store;
+        ui.showGreeting();
+        try {
+            taskList = storage.loadTasksFromDisk();
+        } catch (DukeException e) {
+            // If unable to load the tasks form the specified file, initialize an empty taskList
+            ui.showLoadingError();
             taskList = new ArrayList<>();
         }
     }
@@ -53,27 +57,6 @@ public class TaskList {
         return taskListString;
     }
 
-    /**
-     * Helper for processTasks
-     * Saves the list of tasks to "data/duke.txt" (assumes hard-coded location to save the tasks)
-     * @param taskListString string representation of list of tasks to write to file
-     * THIS SHOULD PROBABLY BE IN STORAGE BUT I CAN'T REALLY FIGURE IT OUT RN...
-     */
-    public static void saveTasksToFile(String taskListString) throws IOException {
-        // If data directory doesn't exist, write to it
-        // SHOULDN'T HARD-CODE THE FILEPATH - ONCE WE CAN PASS STORAGE INSTANCE FROM DUKE TO TASKLIST WE CAN GRAB THE FILEPATH
-        File dataDirectory = new File("data");
-        if (!dataDirectory.exists()) {
-            dataDirectory.mkdir();
-        }
-        // If duke.txt file doesn't exist, create it
-        File dataFile = new File(dataDirectory, "duke.txt");
-        dataFile.createNewFile();
-
-        FileWriter fw = new FileWriter("data/duke.txt");
-        fw.write(taskListString);
-        fw.close();
-    }
 
     /**
      * Helper for processTasks
@@ -195,10 +178,10 @@ public class TaskList {
                     printTaskObjects();
                 } else if (keyWord.equals("mark") || keyWord.equals("unmark")) {
                     markTask(line);
-                    saveTasksToFile(formatTaskListToString());
+                    storage.saveTasksToFile(formatTaskListToString());
                 } else if (keyWord.equals("delete")) {
                     deleteTask(line);
-                    saveTasksToFile(formatTaskListToString());
+                    storage.saveTasksToFile(formatTaskListToString());
                 } else if (keyWord.equals("find")) {
                     String taskKeyWords = line.substring(keyWord.length()).trim();
                     ArrayList<Task> relevantTasks = findTasks(taskKeyWords);
@@ -208,7 +191,7 @@ public class TaskList {
                 }
                 else {
                     addTask(line);
-                    saveTasksToFile(formatTaskListToString());
+                    storage.saveTasksToFile(formatTaskListToString());
                 }
                 System.out.println(division);
                 line = in.nextLine();
