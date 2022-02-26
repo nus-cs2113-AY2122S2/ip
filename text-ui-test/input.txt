@@ -1,0 +1,19 @@
+list
+todo asdads
+deadline asdsad /by 02/12/2019 2359
+event asdsad /at 02/12/2019 0000-1459
+deadline asdasd /by incorrect-date
+event asdsad /at 02/12/2019 2359-1240
+deadline asdasd /by 02/12/2019
+event asdasd /at 02/12/2019 1234
+event asdasd /by 02/12/2019 2359-1245
+deadline asdasd /at 02/12/2019 2359
+list
+mark 1
+delete 2
+list
+unmark 1
+list
+delete 1
+delete 1
+bye
