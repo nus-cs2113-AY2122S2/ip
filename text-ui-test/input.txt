@@ -55,4 +55,11 @@ find blah
 find /date blah
 n
 find /date 2022/05/01 1700
+find /deadline
+clear
+d
+n
+clear
+y
+clear 123
 bye
