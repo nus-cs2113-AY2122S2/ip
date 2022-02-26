@@ -1,5 +1,7 @@
 package Duke;
 
+import java.util.ArrayList;
+
 import static Duke.UserInput.*;
 public class TaskList {
     public static void deleteTask() throws InvalidInputException {
@@ -70,4 +72,17 @@ public class TaskList {
         System.out.println("[" + UserInput.userInput.get(UserInput.valIndex - 1).getIcon() + "]" + "[" + UserInput.userInput.get(UserInput.valIndex - 1).getStatusIcon() + "] " + UserInput.userInput.get(UserInput.valIndex - 1).description + UserInput.userInput.get(UserInput.valIndex -1).showDate());
     }
 
+    public static void findTask() throws InvalidInputException {
+        if (((line.substring(1 + line.indexOf(" "))).trim()).isEmpty()) throw new InvalidInputException();
+        String s = line.substring(1 + line.indexOf(" "));
+        int indexCount = 0;
+        for (int i = 0; i < inputCount; i++){
+            if (userInput.get(i).description.contains(s)) {
+                indexCount += 1;
+                if (indexCount == 1) System.out.println("Here are the matching tasks in your list:");
+                System.out.println((indexCount) +  ".[" +  UserInput.userInput.get(i).getIcon() +"] " + "[" +  UserInput.userInput.get(i).getStatusIcon() +"] "+ UserInput.userInput.get(i).description + UserInput.userInput.get(i).showDate());
+            }
+        }
+        if (indexCount == 0) System.out.println("Sorry, none of the tasks match with your keywords!");
+    }
 }
