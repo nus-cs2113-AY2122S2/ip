@@ -1,4 +1,4 @@
-package duke.task;
+package yae.task;
 
 public abstract class Task {
     protected final String taskDescription;

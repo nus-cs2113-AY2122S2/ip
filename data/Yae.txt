@@ -1,0 +1,4 @@
+todo | [ ] | sleep
+deadline | [ ] | finish marking | 5
+event | [ ] | collect spectacles | 4
+todo | [ ] | game

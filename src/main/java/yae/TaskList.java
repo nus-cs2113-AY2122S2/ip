@@ -1,9 +1,9 @@
-package duke;
+package yae;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
+import yae.task.Deadline;
+import yae.task.Event;
+import yae.task.Task;
+import yae.task.ToDo;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;

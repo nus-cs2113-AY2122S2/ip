@@ -1,18 +1,18 @@
-package duke;
+package yae;
 
-import duke.exception.MissingDateException;
-import duke.exception.MissingDescriptionException;
-import duke.parser.Parser;
-import duke.ui.Ui;
+import yae.exception.MissingDateException;
+import yae.exception.MissingDescriptionException;
+import yae.parser.Parser;
+import yae.ui.Ui;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Duke {
+public class Yae {
     private final Storage storage;
 
-    public Duke() {
+    public Yae() {
         storage = new Storage();
     }
 
@@ -52,6 +52,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke().run();
+        new Yae().run();
     }
 }

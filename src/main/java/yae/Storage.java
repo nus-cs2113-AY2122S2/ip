@@ -1,9 +1,9 @@
-package duke;
+package yae;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
+import yae.task.Deadline;
+import yae.task.Event;
+import yae.task.Task;
+import yae.task.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,13 +15,16 @@ import java.util.Scanner;
  * Handles saving and loading of data.
  */
 public class Storage {
+
+    public static final String PATH = "data/Yae.txt";
+
     /**
      * Reads save data from text file.
      *
      * @throws FileNotFoundException If save file is not found
      */
     public void readSaveData() throws FileNotFoundException {
-        File loadData = new File("data/Duke.txt");
+        File loadData = new File(PATH);
         Scanner loadDataScanner = new Scanner(loadData);
         while (loadDataScanner.hasNext()) {
             String line = loadDataScanner.nextLine();
@@ -79,7 +82,7 @@ public class Storage {
     public void saveData() throws IOException {
         createSaveDirectory();
         createSaveFile();
-        FileWriter writer = new FileWriter("data/Duke.txt", false);
+        FileWriter writer = new FileWriter(PATH, false);
         for (Task task : TaskList.tasks) {
             writer.write(task.getTaskType() + " | " + task.getStatusIcon() + "| "
                     + task.getTaskDescription());
@@ -107,7 +110,7 @@ public class Storage {
      * @throws IOException If IO operation fails
      */
     public void createSaveFile() throws IOException {
-        File saveFile = new File("data/Duke.txt");
+        File saveFile = new File(PATH);
         if (saveFile.createNewFile()){
             System.out.println("Save file created.");
         }

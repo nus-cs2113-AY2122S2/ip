@@ -1,4 +1,4 @@
-package duke.task;
+package yae.task;
 
 public class Deadline extends Task {
     protected String by;
