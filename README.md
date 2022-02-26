@@ -14,7 +14,7 @@ This is Duke, an application for busy people to keep track of what they need to 
 1. Open your command prompt. 
 2. `cd` into the directory that contains the JAR file. 
 3. Run the command `java -jar NAME_OF_JAR_FILE`. For example, if the name of your JAR file is ip.jar, you could run the command `java -jar ip.jar`. 
-4. You should now be able to run the Duke application. 
+4. The program should now run in your command prompt. 
 
 # Adding a Task 
 There are three kinds of Tasks: Todos, Deadlines, and Events. 
