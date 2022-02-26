@@ -1,6 +1,1 @@
 start program
-  [T][ ] hehe
-  [T][ ] haha
-  [E][ ] test (at: 7am)
-  [D][ ] hw (by: 7pm)
-  [T][X] haha

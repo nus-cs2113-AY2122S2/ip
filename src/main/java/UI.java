@@ -17,9 +17,12 @@ public class UI {
     public static final String COMMAND_DELETE = "delete";
     public static final String COMMAND_FIND = "find";
     public static final String ERROR_NO_TASK_NUMBER = "☹ OOPS! You have not entered the task number!";
+    public static final String ERROR_NO_KEYWORD = "☹ OOPS! You have not entered what you want to find! (The keyword!)";
     public static final String ERROR_NO_TASK = "☹ OOPS! You have not entered the task!";
     public static final String ERROR_NO_EVENT = "☹ OOPS! You have not entered the event!";
     public static final String ERROR_NO_EVENT_DATE = "Hey! You have not entered the event date! hint: use '/at'";
     public static final String ERROR_NO_DUE_DATE = "Hey! You have not entered the due date! hint: use '/by'";
     public static final String ERROR_GENERAL = "☹ OOPS! I'm sorry, but I don't know what that means.";
+    public static final String ERROR_FAILED_TO_CREATE_FILE = "Failed to create file to save tasks.";
+
 }
