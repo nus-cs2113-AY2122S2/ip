@@ -1,6 +1,6 @@
 # Solana
 
-Solana is a Personal Assistant Chatbot that helps manage tasks.
+Solana is a Personal Assistant Chatbot that helps manage tasks. User guide [here](https://khseah.github.io/ip/).
 
 This project was done as part of NUS CS2113T AY21/22 S2.
 
@@ -9,7 +9,7 @@ This project was done as part of NUS CS2113T AY21/22 S2.
 Prerequisites: JDK 11
 
 1. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-2. Open the project into Intellij as follows:
+2. Open the project into IntelliJ as follows:
    1. Click `Open`.
    2. Select the project directory, and click `OK`.
    3. If there are any further prompts, accept the defaults.

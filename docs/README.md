@@ -3,18 +3,18 @@ Solana is a ***desktop application for managing tasks, optimized for use via a C
 
 * [Quick start](#quick-start)
 * [Features](#features)
-  * [Viewing the help page](#viewing-the-help-page)
-  * [Adding a Todo task](#adding-a-todo-task)
-  * [Adding a Deadline task](#adding-a-deadline-task)
-  * [Adding an Event task](#adding-an-event-task)
-  * [Listing all tasks](l#isting-all-tasks)
-  * [Deleting a task](#deleting-a-task)
-  * [Marking a task as done](#marking-a-task-as-done)
-  * [Marking a task as undone](#marking-a-task-as-undone)
-  * [Finding a task](#finding-a-task)
-  * [Saving the data]()
-  * [Editing the data file]()
-  * [Exiting the program](#exiting-the-program)
+  * [Viewing the help page](#viewing-the-help-page-help): `help`
+  * [Adding a Todo task](#adding-a-todo-task-todo): `todo`
+  * [Adding a Deadline task](#adding-a-deadline-task-deadline): `deadline`
+  * [Adding an Event task](#adding-an-event-task-event): `event`
+  * [Listing all tasks](#listing-all-tasks-list): `list`
+  * [Deleting a task](#deleting-a-task-delete): `delete`
+  * [Marking a task as done](#marking-a-task-as-done-mark): `mark`
+  * [Marking a task as undone](#marking-a-task-as-undone-unmark): `unmark`
+  * [Finding a task](#finding-a-task-find): `find`
+  * [Saving the data](#saving-the-data)
+  * [Editing the data file](#editing-the-data-file)
+  * [Exiting the program](#exiting-the-program-bye): `bye`
 * [Command summary](#command-summary)
 
 ## Quick start
@@ -23,26 +23,25 @@ Solana is a ***desktop application for managing tasks, optimized for use via a C
 3. Copy the file to the folder you want to use as the _home folder_.
 4. Open a command-line interface and navigate to the _home folder_. You should see the`solana.jar`file.
 5. Type`java -jar solana.jar`to run the program. The startup interface similar to
-   the below should appear in a few seconds.  
-   ![Solana startup](images/startup.png)
-6. Type the command and press Enter to execute it. e.g typing **`help`** and pressing Enter will
-   show the help page. 
-   Some example commands you can try:
+   the below should appear in a few seconds.
+![Solana startup](images/startup.png)
+7. Type the command and press Enter to execute it. e.g typing **`help`** and pressing Enter will
+   show the help page. Some example commands you can try:
     * **`list`**: Lists all current tasks.
     * **`todo`**`borrow book`: Adds a Todo task named`borrow book`to the task list.
     * **`mark`**`1`: Marks the first task in the task list as done.
     * **`delete`**`2`: Deletes the second task in the task list.
     * **`bye`**: Exits the program.
-7. Refer to the [Features](#features) below for details of each command.
+8. Refer to the [Features](#features) below for details of each command.
 
 ## Features
-Words in`[SQUARE_BRACKETS]`are the parameters.
+Words in`[SQUARE_BRACKETS]`are the parameters.<br/><br/>
 
 ### Viewing the help page: `help`
 Lists the help page, which displays all the supported commands and their formats.
 <br/>Format: `help`
 
-![help example](images/help.png)
+![help example](images/help.png)<br/><br/>
 
 ### Adding a Todo Task: `todo`
 Adds a Todo task to the task list. Todo tasks are tasks without any date or time attached to it.
@@ -52,7 +51,7 @@ Examples:
 <br/>• todo borrow book
 <br/>• todo buy groceries
 
-![todo example](images/todo.png)
+![todo example](images/todo.png)<br/><br/>
 
 ### Adding a Deadline task: `deadline`
 Adds a Deadline task to the task list. Deadline tasks are tasks that need to be done by a specific date or time.
@@ -62,7 +61,7 @@ Examples:
 <br/>• deadline return book /by Sun 4pm
 <br/>• deadline submit assignment /by 4/3/2022
 
-![deadline example](images/deadline.png)
+![deadline example](images/deadline.png)<br/><br/>
 
 ### Adding an Event task: `event`
 Adds a Event task to the task list. Event tasks are tasks that start and end at a specific time.
@@ -72,13 +71,13 @@ Examples:
 <br/>• event project meeting /at Mon 2-4pm
 <br/>• event lecture /at Fri 4/3/2022 3-5pm
 
-![event example](images/event.png)
+![event example](images/event.png)<br/><br/>
 
 ### Listing all tasks: `list`
 Shows a list of all current tasks in the task list.
 <br/>Format: `list`
 
-![list example](images/list.png)
+![list example](images/list.png)<br/><br/>
 
 ### Deleting a task: `delete`
 Deletes a task from the task list.
@@ -89,7 +88,7 @@ Deletes the task at the specified index. The index refers to the task number sho
 <br/>• delete 3
 <br/>• delete 1
 
-![delete example](images/delete.png)
+![delete example](images/delete.png)<br/><br/>
 
 ### Marking a task as done: `mark`
 Marks a task in the task list as done.
@@ -100,7 +99,7 @@ Marks the task at the specified index. The index refers to the task number shown
 <br/>• mark 1
 <br/>• mark 3
 
-![mark example](images/mark.png)
+![mark example](images/mark.png)<br/><br/>
 
 ### Marking a task as undone: `unmark`
 Marks a task in the task list as undone.
@@ -111,7 +110,7 @@ Unmarks the task at the specified index. The index refers to the task number sho
 <br/>• unmark 1
 <br/>• unmark 3
 
-![unmark example](images/unmark.png)
+![unmark example](images/unmark.png)<br/><br/>
 
 ### Finding a task: `find`
 Finds a task in the task list based on the specified keyword(s).
@@ -121,19 +120,20 @@ Examples:
 <br/>• find book
 <br/>• find zoom meeting
 
-![finding example](images/find.png)
+![finding example](images/find.png)<br/><br/>
 
 ### Saving the data
-Task data is saved in the hard disk automatically after any command that modifies the task list. There is no need to save manually.
+Task data is saved in the hard disk automatically after any command that modifies the task list. 
+There is no need to save manually.<br/><br/>
 
 ### Editing the data file
 Tasks data is saved as a text file at`[home folder]/data/savedTasks.txt`. Users are welcome to update data directly by 
-editing that data file. However, ensure that the format is consistent.
+editing that data file. However, ensure that the format is consistent.<br/><br/>
 ### Exiting the program: `bye`
 Terminates the program.
 <br/>Format: `bye`
 
-![bye example](images/bye.png)
+![bye example](images/bye.png)<br/><br/>
 
 ## Command Summary
 
