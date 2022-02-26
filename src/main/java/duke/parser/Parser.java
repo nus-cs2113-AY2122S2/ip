@@ -13,9 +13,9 @@ public class Parser {
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_EVENT = "event";
     public static final String COMMAND_DELETE = "delete";
+    public static final String COMMAND_FIND = "find";
     public static final String COMMAND_HELP = "help";
     public static final String COMMAND_BYE = "bye";
-
 
     public static void parseInput(String input) throws MissingDescriptionException, MissingDateException {
 
@@ -44,6 +44,9 @@ public class Parser {
         case COMMAND_DELETE:
             TaskList.deleteTask(extractTaskNumber(words));
             break;
+        case COMMAND_FIND:
+            TaskList.findTasksByString(extractKeyword(words));
+            break;
         case COMMAND_HELP:
             Ui.printHelp();
             break;
@@ -66,6 +69,13 @@ public class Parser {
             System.out.println("Please enter a number after unmark");
         }
         return taskNumber;
+    }
+
+    public static String extractKeyword(String[] words) throws MissingDescriptionException {
+        if (words.length < 2) {
+            throw new MissingDescriptionException();
+        }
+        return words[1];
     }
 
     public static String extractDescription(String[] words) throws MissingDescriptionException {

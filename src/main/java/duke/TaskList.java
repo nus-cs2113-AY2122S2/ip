@@ -6,6 +6,7 @@ import duke.task.Task;
 import duke.task.ToDo;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList {
     protected static ArrayList<Task> tasks = new ArrayList<>();
@@ -67,5 +68,16 @@ public class TaskList {
             System.out.println(i + 1 + ". " + tasks.get(i));
         }
         System.out.println("You have " + tasks.size() + " task(s) on the list.\n");
+    }
+
+    public static void findTasksByString(String keyword) {
+        ArrayList<Task> filteredTasks = tasks
+                .stream()
+                .filter((t) -> t.getTaskDescription().contains(keyword))
+                .collect(Collectors.toCollection(ArrayList::new));
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < filteredTasks.size(); i += 1) {
+            System.out.println(i + 1 + ". " + filteredTasks.get(i));
+        }
     }
 }
