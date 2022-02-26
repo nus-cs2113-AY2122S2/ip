@@ -1,6 +1,6 @@
 # Solana
 
-Solana is a Personal Assistant Chatbot that helps manage tasks. User guide [here](https://khseah.github.io/ip/).
+Solana is a Personal Assistant Chatbot that helps manage tasks. User guide [here](https://khseah.github.io/solana/).
 
 This project was done as part of NUS CS2113T AY21/22 S2.
 
