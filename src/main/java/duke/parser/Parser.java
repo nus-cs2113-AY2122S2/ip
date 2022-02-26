@@ -5,6 +5,9 @@ import duke.ui.Ui;
 import duke.exception.MissingDateException;
 import duke.exception.MissingDescriptionException;
 
+/**
+ * Breaks down user input to understand it.
+ */
 public class Parser {
     public static final String COMMAND_LIST = "list";
     public static final String COMMAND_MARK = "mark";
@@ -17,6 +20,13 @@ public class Parser {
     public static final String COMMAND_HELP = "help";
     public static final String COMMAND_BYE = "bye";
 
+    /**
+     * Gets command word from user input and matches it to correct method.
+     *
+     * @param input User Input.
+     * @throws MissingDescriptionException If necessary description is not inputted by user
+     * @throws MissingDateException If necessary date field is not inputted by user
+     */
     public static void parseInput(String input) throws MissingDescriptionException, MissingDateException {
 
         String[] words = input.split(" ", 2);
@@ -58,6 +68,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns task number from user input.
+     *
+     * @param words User Input
+     * @return Task number
+     * @throws MissingDescriptionException If task number is not inputted
+     */
     public static int extractTaskNumber(String[] words) throws MissingDescriptionException {
         int taskNumber = -1;
         try {
@@ -71,6 +88,13 @@ public class Parser {
         return taskNumber;
     }
 
+    /**
+     * Returns Keyword to be searched.
+     *
+     * @param words User Input
+     * @return Keyword
+     * @throws MissingDescriptionException If Keyword is not inputted
+     */
     public static String extractKeyword(String[] words) throws MissingDescriptionException {
         if (words.length < 2) {
             throw new MissingDescriptionException();
@@ -78,6 +102,13 @@ public class Parser {
         return words[1];
     }
 
+    /**
+     * Returns task description
+     *
+     * @param words User Input
+     * @return Task description
+     * @throws MissingDescriptionException If description is not inputted
+     */
     public static String extractDescription(String[] words) throws MissingDescriptionException {
         if (words.length < 2) {
             throw new MissingDescriptionException();
@@ -89,6 +120,13 @@ public class Parser {
         return parameters[0];
     }
 
+    /**
+     * Returns date for deadline type task
+     *
+     * @param words User Input
+     * @return Deadline date as a string
+     * @throws MissingDateException If date is not inputted
+     */
     public static String extractDeadlineDate(String[] words) throws MissingDateException {
         String[] parameters = words[1].split(" /by ", 2);
         if (parameters.length < 2 || parameters[1].isBlank()) {
@@ -97,6 +135,13 @@ public class Parser {
         return parameters[1];
     }
 
+    /**
+     * Returns date for event type task
+     *
+     * @param words User Input
+     * @return Event date as a string
+     * @throws MissingDateException If date is not inputted
+     */
     public static String extractEventDate(String[] words) throws MissingDateException {
         String[] parameters = words[1].split(" /at ", 2);
         if (parameters.length < 2 || parameters[1].isBlank()) {

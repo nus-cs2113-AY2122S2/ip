@@ -11,7 +11,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Handles saving and loading of data.
+ */
 public class Storage {
+    /**
+     * Reads save data from text file.
+     *
+     * @throws FileNotFoundException If save file is not found
+     */
     public void readSaveData() throws FileNotFoundException {
         File loadData = new File("data/Duke.txt");
         Scanner loadDataScanner = new Scanner(loadData);
@@ -30,6 +38,14 @@ public class Storage {
         System.out.println("Loaded Save File");
     }
 
+    /**
+     * Loads save data into the arraylist.
+     *
+     * @param command Type of task
+     * @param isDone Whether task is done
+     * @param description Description of task
+     * @param date Date of task
+     */
     public void loadData(String command, boolean isDone, String description, String date) {
         switch(command) {
         case "todo":
@@ -55,6 +71,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks into a text file.
+     *
+     * @throws IOException If IO operation fails
+     */
     public void saveData() throws IOException {
         createSaveDirectory();
         createSaveFile();
@@ -70,6 +91,9 @@ public class Storage {
         writer.close();
     }
 
+    /**
+     * Creates new save directory.
+     */
     public void createSaveDirectory() {
         File saveDirectory = new File("data");
         if (!saveDirectory.exists() && !saveDirectory.mkdir()) {
@@ -77,6 +101,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates new text save file.
+     *
+     * @throws IOException If IO operation fails
+     */
     public void createSaveFile() throws IOException {
         File saveFile = new File("data/Duke.txt");
         if (saveFile.createNewFile()){
