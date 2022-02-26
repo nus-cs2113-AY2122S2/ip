@@ -12,7 +12,12 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
+/**
+ * Deals with loading tasks from the local file and saving
+ * tasks in the file
+ */
 public class Storage {
+
     private static File dataFile;
     public static final String COMMAND_EVENT = "event";
     public static final String COMMAND_DEADLINE = "deadline";
@@ -25,19 +30,34 @@ public class Storage {
     private static ArrayList<Task> allTasks = new ArrayList<>();
     private static Ui ui;
     private static Parser parser;
+    private static int itemNumber;
 
-    public static int getItemNum() {
+    /**
+     * Gets the number of items loaded from the file.
+     *
+     * @return The number of items in the list loaded from the file
+     */
+    public static int getItemNumber() {
         return itemNumber;
     }
 
-    private static int itemNumber;
-
+    /**
+     * Creates a storage object to handle reading of the file,
+     * loading of tasks from the file and saving the tasks to the file.
+     *
+     * @param fileName The path of the local file
+     */
     public Storage(String fileName) {
         ui = new Ui();
         parser = new Parser();
         dataFile = new File(fileName);
     }
 
+    /**
+     * Checks if the directory and file exists, else create one.
+     *
+     * @throws IOException If there is an error creating the file
+     */
     public void createFile() throws IOException {
         File directory = new File("data");
         try {
@@ -55,6 +75,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the tasks from the file and returns the list
+     * of tasks.
+     * @return The list of tasks read from the file
+     * @throws IOException If the file is not found
+     */
     private ArrayList readFile () throws IOException {
         if (!dataFile.exists()) {
             throw new FileNotFoundException();
@@ -66,7 +92,14 @@ public class Storage {
         return dataItems;
     }
 
-    public ArrayList<Task> loadData() {
+    /**
+     * Loads the data from the read file into the task list.
+     *
+     * @return The task list loaded from the file
+     * @throws IOException If the file is not found
+     * @throws DukeException If there is an error parsing the file contents
+     */
+    public ArrayList<Task> loadData() throws IOException, DukeException{
         ArrayList<Task> taskList = null;
         try {
             ArrayList<String> dataItems = readFile();
@@ -79,6 +112,13 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Loads individual task into the task list by checking the
+     * task type.
+     *
+     * @param inCommand The line read from the file
+     * @throws DukeException If there is an error adding a task
+     */
     private static void loadTask(String inCommand) throws DukeException {
         String taskType = parser.parseCommandFromString(inCommand);
         String[] taskDescription = parser.parseTaskDescriptionFromString(inCommand);
@@ -99,9 +139,13 @@ public class Storage {
 
     }
 
+    /**
+     * Loads the event task type into the task list.
+     * @param taskDescription The event task description from the file line
+     */
     private static void loadEventEntry(String[] taskDescription) {
         try {
-            eventsArray = parser.parseEventsActionFromDesciption(taskDescription);
+            eventsArray = parser.parseEventsActionFromDescription(taskDescription);
             if (isEventFormatInvalid(eventsArray)) {
                 throw new DukeException();
             }
@@ -114,10 +158,19 @@ public class Storage {
         }
     }
 
+    /**
+     * Checks if the action parameter or the event date parameter is empty.
+     * @param eventsArray the event description
+     * @return True if any parameter is empty, false otherwise
+     */
     private static boolean isEventFormatInvalid(String[] eventsArray) {
         return eventsArray[1].length() == 0 || eventsArray[0].length() == 0;
     }
 
+    /**
+     * Loads the deadline task type into the task list.
+     * @param taskDescription The deadline task description from the file line
+     */
     private static void loadDeadLineEntry(String[] taskDescription) {
         try {
             datesArray = parser.parseDeadLineActionFromDescription(taskDescription);
@@ -133,19 +186,34 @@ public class Storage {
         }
     }
 
+    /**
+     * Checks if the action parameter or the due date parameter is empty
+     * @param datesArray the deadline description
+     * @return True if any parameter is empty, false otherwise
+     */
     private static boolean isDateFormatInvalid(String[] datesArray) {
         return datesArray[1].length() == 0 || datesArray[0].length() == 0;
     }
 
-    private static void loadToDoEntry(String[] sentenceArr) {
+    /**
+     * Loads the todo task type into the task list.
+     * @param taskDescription The todo task description from the file line
+     */
+    private static void loadToDoEntry(String[] taskDescription) {
         try {
-            allTasks.add(new ToDo(sentenceArr[1]));
+            allTasks.add(new ToDo(taskDescription[1]));
             itemNumber++;
         } catch (IndexOutOfBoundsException todoEmpty) {
             ui.printTodoEmptyException();
         }
     }
 
+    /**
+     * Checks if the task has been marked done in the file.
+     *
+     * @param checkDone The string of the done component in the line
+     * @return True if task was already marked done in the file, false otherwise
+     */
     private static boolean checkIfDone(String checkDone) {
 
         if (checkDone.equals("true")) {
@@ -156,6 +224,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Takes in all the lines from the file and parse the information
+     * to distinguish each task type and its description.
+     * @param dataItems The list of lines in the file
+     * @return The task list consisting of all the task saved in the file
+     * @throws DukeException If there is an error adding a task
+     */
     private ArrayList<Task> parse(ArrayList<String> dataItems) throws DukeException {
 
         String[] fileLineArray;
@@ -179,6 +254,10 @@ public class Storage {
         return allTasks;
     }
 
+    /**
+     * Saves the current state of the list to the file.
+     * @throws IOException If there is error opening the file
+     */
     public static void saveTaskList() throws IOException {
         FileWriter fw = new FileWriter(dataFile);
         ArrayList<Task> copyOfTasks = TaskList.getTaskList();
@@ -188,5 +267,4 @@ public class Storage {
         }
         fw.close();
     }
-
 }
