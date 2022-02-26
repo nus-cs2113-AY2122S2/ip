@@ -477,7 +477,7 @@ ____________________________________________________________
 
 ### **Example #2**
 
-Using the list of tasks from [`list`](#1.-`list`) feature as an example,
+Using the list of tasks from `list` feature as an example,
 
 ```
 > find /date 2022/06/06
