@@ -12,6 +12,7 @@ public class InvalidUserInputException extends Exception {
     public static final String INVALID_TIME_OR_DATE = "☹ OOPS!!! The time or date you entered is invalid.\n " +
             "Please ensure that the date format is in YYYY-MM-DD and the time format is in HHmm (24 hour) " +
             "(e.g. /at 2021-02-19 1330)";
+    public static final String IO_EXCEPTION = "☹ OOPS!!! Something wrong with the input-output operation.";
     /**
      * Constructs an InvalidUserInputException with a specified error message.
      *
