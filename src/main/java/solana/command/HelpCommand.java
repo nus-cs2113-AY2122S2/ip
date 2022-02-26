@@ -37,7 +37,7 @@ public class HelpCommand extends Command {
         }
 
         if (!isExceptionHandled){
-            System.out.println("Invalid Command! Type \"help\" to see the list of supported commands" + System.lineSeparator());
+            System.out.println("Invalid command! Type \"help\" to see the list of supported commands" + System.lineSeparator());
         }
     }
 }
