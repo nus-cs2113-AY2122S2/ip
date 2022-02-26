@@ -143,4 +143,28 @@ public class TaskList {
         by = by.substring(index+1);
         taskList.add(new Deadline(task,by));
     }
+
+    public void findTasks(String taskKeyword) {
+        taskKeyword = taskKeyword.replace("find ","");
+        ArrayList<Task> matches = new ArrayList<>();
+        for(Task t: taskList) {
+            if(t.title.contains(taskKeyword)) {
+                matches.add(t);
+            }
+        }
+        if (matches.size()==0) {
+            System.out.println("    There are no tasks that match \""+taskKeyword+"\"");
+        }
+        else {
+            listMatches(matches);
+        }
+    }
+
+    private void listMatches(ArrayList<Task> matches) {
+        System.out.println("    Here are the matching tasks in your list:");
+        int i=1;
+        for(Task t:matches) {
+            System.out.println("    "+(i++ )+": "+t);
+        }
+    }
 }

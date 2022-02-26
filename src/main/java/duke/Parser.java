@@ -16,6 +16,8 @@ public class Parser {
             return "add";
         } else if (input.startsWith("delete")) {
             return "delete";
+        } else if(input.startsWith("find")) {
+            return "find";
         } else {
             return "error";
         }
