@@ -36,6 +36,8 @@ public class Parser {
     public void checkDescription(String[] parsedInput) throws SolanaException {
         if (parsedInput.length == 1) {
             switch (parsedInput[COMMAND_INDEX]) {
+            case "help":
+                // Fallthrough
             case "bye":
                 // Fallthrough
             case "list":
@@ -53,7 +55,7 @@ public class Parser {
             case "find":
                 throw new SolanaException("Input a keyword!");
             default:
-                throw new SolanaException("Invalid command!");
+                throw new SolanaException("Invalid command! Type \"help\" to see the list of supported commands");
             }
         }
     }
@@ -70,10 +72,12 @@ public class Parser {
         try {
             checkDescription(parsedInput);
         } catch (SolanaException e){
-            return new HelpCommand(true);
+            return new HelpCommand(false, true);
         }
 
         switch (parsedInput[COMMAND_INDEX]) {
+        case "help":
+            return new HelpCommand(true, false);
         case "bye":
             System.out.println("Goodbye!");
             System.exit(0);
@@ -94,7 +98,7 @@ public class Parser {
         case "event":
             return new EventCommand(parsedInput[DESCRIPTION_INDEX], true, false);
         default:
-            return new HelpCommand(false);
+            return new HelpCommand(false, false);
         }
     }
 }
