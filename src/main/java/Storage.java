@@ -84,18 +84,7 @@ public class Storage extends Duke {
             } else {
                 newLine = modifyContent(taskNumber, isMark);
             }
-            List<String> fileContentLines = Files.readAllLines(databasePath);
-            int lineNumber = 1;
-            for (String lines : fileContentLines) {
-                if (taskNumber == lineNumber) {
-                    oldContent += (newLine + "\n");
-                } else {
-                    oldContent += (lines + "\n");
-                }
-                lineNumber += 1;
-            }
-            Files.write(databasePath, oldContent.getBytes());
-            removeSpaces();
+            overWrite(taskNumber, newLine);
         } catch (IOException e) {
             System.out.println(StorageException.IO_EXCEPTION);
         }
@@ -114,6 +103,90 @@ public class Storage extends Duke {
             e.printStackTrace();
         }
         return newLine;
+    }
+
+    public static ArrayList convertDatabaseInput() {
+        List<String> fileContentLines = null;
+        ArrayList<String> processedContent = new ArrayList<String>();
+        try {
+            fileContentLines = Files.readAllLines(databasePath);
+            for (String lines : fileContentLines) {
+                String userInput = null;
+                String[] contentsInALine = lines.split(",", -1);
+                if (contentsInALine.length < 1) {
+                    throw new InvalidUserInputException(INVALID_INPUT);
+                }
+                switch (contentsInALine[0].trim()) {
+                case "T":
+                    userInput = "todo " + contentsInALine[1].trim() + " " + contentsInALine[2].trim();
+                    processedContent.add(userInput);
+                    break;
+                case "D":
+                    userInput = "deadline " + contentsInALine[1].trim() + " " + contentsInALine[2].trim() + " " + "/by " + contentsInALine[3].trim();
+                    processedContent.add(userInput);
+                    break;
+                case "E":
+                    userInput = "event " + contentsInALine[1].trim() + " " + contentsInALine[2].trim() + " " + "/at " + contentsInALine[3].trim();
+                    processedContent.add(userInput);
+                    break;
+                default:
+                    throw new StorageException(INVALID_FILE_INPUT);
+                }
+            }
+        } catch (InvalidUserInputException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (StorageException e) {
+            e.printStackTrace();
+        }
+        return processedContent;
+    }
+
+    public static void overWrite(int lineNumber, String newLine) {
+        try {
+            String oldContent = "";
+            removeSpaces();
+            List<String> fileContentLines = null;
+            fileContentLines = Files.readAllLines(databasePath);
+            int loopNumber = 1;
+            for (String lines : fileContentLines) {
+                if (loopNumber == lineNumber) {
+                    oldContent += (newLine + "\n");
+                } else {
+                    oldContent += (lines + "\n");
+                }
+                loopNumber += 1;
+            }
+            Files.write(databasePath, oldContent.getBytes());
+            removeSpaces();
+        } catch (IOException e) {
+            System.out.println(StorageException.IO_EXCEPTION);
+        }
+    }
+
+    public static void replaceContent(String oldLine, String newLine, String oldTime) {
+        ArrayList<String> processContent = convertDatabaseInput();
+        String[] oldLineArray = oldLine.split(" ", 4);
+        String[] newLineArray = newLine.split(",", 4);
+
+        int lineNumber = 1;
+        String realLine = null;
+        for (String line : processContent) {
+            String[] lineArray = line.split(" ", 5);
+            if (lineArray[0].equals("event") || lineArray[0].equals("deadline")) {
+                if (lineArray[0].equals(oldLineArray[0]) && lineArray[2].equals(oldLineArray[1]) && lineArray[4].equals(oldTime)) {
+                    realLine = lineArray[1];
+                    break;
+                }
+            }
+            lineNumber += 1;
+        }
+        if (realLine.equals("1")) {
+            newLineArray[1] = "1";
+            newLine = newLineArray[0] + "," + newLineArray[1] + "," + newLineArray[2] + "," + newLineArray[3];
+        }
+        overWrite(lineNumber, newLine);
     }
 
     public static void checkFileExists() throws IOException {

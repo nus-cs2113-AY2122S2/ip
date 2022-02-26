@@ -8,7 +8,6 @@ public class StorageException extends Exception{
     public static final String IO_EXCEPTION = "☹ OOPS!!! Something wrong with the input-output operation.";
     public static final String INVALID_FILE_INPUT = "☹ OOPS!!! The file information is corrupted.";
 
-
     /**
      * Constructs an StorageException with a specified error message.
      *
