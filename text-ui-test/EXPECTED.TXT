@@ -1,7 +1,39 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello! I'm Earl Grey
+What can I do for you?
+Got it. I've added this task:
+    [T][0] read book
+Now you have 1 tasks in the list.
+Nice! I've marked this task as done:
+    [T][1] read book
+Here are the tasks in your list:
+1.[T][1] read book
+Got it. I've added this task:
+    [D][1] return book  (by:  Sunday)
+Now you have 2 tasks in the list.
+Nice! I've marked this task as done:
+    [D][1] return book  (by:  Sunday)
+OK, I've marked this task as not done yet:
+    [T][0] read book
+Here are the tasks in your list:
+1.[T][0] read book
+2.[D][1] return book  (by:  Sunday)
+Got it. I've added this task:
+    [E][0] project meeting  (at:  Mon 2-4pm)
+Now you have 3 tasks in the list.
+Here are the tasks in your list:
+1.[T][0] read book
+2.[D][1] return book  (by:  Sunday)
+3.[E][0] project meeting  (at:  Mon 2-4pm)
+OOPS!!! The description of a todo cannot be empty.
+OOPS!!! I'm sorry, but I don't know what that means :-(
+Oh no! Something went wrong.
+OOPS!!! The description of a deadline must have a task and date.
+Oh no! Something went wrong.
+OOPS!!! The description of an event must have a task and date.
+Noted. I've removed this task:
+    [T][0] read book
+Now you have 2 tasks in the list.
+Here are the tasks in your list:
+1.[D][0] return book  (by:  Sunday)
+2.[E][1] project meeting  (at:  Mon 2-4pm)
+Bye. Until we meet again!
