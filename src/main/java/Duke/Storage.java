@@ -11,6 +11,11 @@ public class Storage {
     protected static File f = new File(filePath);
     protected static File folder = new File("data");
 
+    /**
+     * Adds the tasks in the local file to Duke.
+     * If local file does not exist, create one
+     * @throws FileNotFoundException if file not exist
+     */
     public static void initializeData() throws FileNotFoundException {
         userInput = new ArrayList<>();
         if (!folder.exists())
@@ -19,6 +24,11 @@ public class Storage {
             fileReading(filePath);
     }
 
+    /**
+     * Reads the data from local file
+     * @param filePath path of the local file
+     * @throws FileNotFoundException if file not exist
+     */
     public static void fileReading(String filePath) throws FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
@@ -40,6 +50,11 @@ public class Storage {
             inputCount++;
         }
     }
+
+    /**
+     * Writes the userInput to local file
+     * @throws IOException
+     */
     public static void writeToFile() throws IOException {
         File tempFile = new File("data/tempdata.txt");
         boolean a = tempFile.createNewFile();
