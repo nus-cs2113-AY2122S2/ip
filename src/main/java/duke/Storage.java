@@ -66,7 +66,12 @@ public class Storage {
                 }
                 else if(t instanceof Deadline) {
                     taskType = "D";
-                    fw.write(taskType+" | "+(t.isDone()?1:0)+" | "+ t.getTitle()+" | "+((Deadline) t).getBy());
+                    //if deadline date is a string format
+                    if(((Deadline) t).getBy() !=null) {
+                        fw.write(taskType+" | "+(t.isDone()?1:0)+" | "+ t.getTitle()+" | "+((Deadline) t).getBy());
+                    } else {
+                        fw.write(taskType+" | "+(t.isDone()?1:0)+" | "+ t.getTitle()+" | "+((Deadline) t).formatByDate());
+                    }
                     fw.write(System.lineSeparator());
                 }
                 else if (t instanceof Event) {
