@@ -2,19 +2,18 @@
 
 ## Features (Types of commands available)
 
-To view more information on how each command works, click on the feature's name.
-1. [`help`](1.-`help`) : provides a list of supported commands.
-2. [`list`](2.-`list`): shows the list of added tasks.
-3. [`mark`](3.-`mark`): marks a task as done.
-4. [`unmark`](4.-`unmark`): marks a task as undone.
+1. `help`: provides a list of supported commands.
+2. `list`: shows the list of added tasks.
+3. `mark`: marks a task as done.
+4. `unmark`: marks a task as undone.
 5. Task adding:
-   1. [`todo`](5.i.-`todo`): creates a todo task.
-   2. [`deadline`](5.ii.-`deadline`): creates a deadline task.
-   3. [`event`](5.iii.-`event`): creates an event task.
-6. [`delete`](6.-`delete`): deletes a task from the list.
-7. [`clear`](7.-`clear`): deletes all tasks from the list.
-8. [`find`](8.-`find`): searches for task(s) that match the given keyword(s).
-9. [`bye`](9.-`bye`): exits the application.
+   1. `todo`: creates a todo task.
+   2. `deadline`: creates a deadline task.
+   3. `event`: creates an event task.
+6. `delete`: deletes a task from the list.
+7. `clear`: deletes all tasks from the list.
+8. `find`: searches for task(s) that match the given keyword(s).
+9. `bye`: exits the application.
 
 ## Note on syntax
 
@@ -25,7 +24,7 @@ Parameters introduced will have two forms, either as `[optional parameter]` or `
 
 ## Feature Details
 
-### 1. `help`
+### 1. help
 
 This command displays a list of commands supported by Vera.
 
@@ -225,7 +224,7 @@ mark <task_index>
 
 #### **Example**
 
-Using the list of task from [`list`](1.-`list`) feature as an example,
+Using the list of task from [`list`](#1.-`list`) feature as an example,
 
 ```
 > mark 1
@@ -256,7 +255,7 @@ mark <task_index>
 
 #### **Example**
 
-Using the list of task from [`list`](1.-`list`) feature as an example,
+Using the list of task from [`list`](#1.-`list`) feature as an example,
 
 ```
 > unmark 1
@@ -398,7 +397,7 @@ delete <task_index>
 
 ### **Sample Outcome**
 
-Using the list of tasks from [`list`](1.-`list`) feature as an example,
+Using the list of tasks from [`list`](#1.-`list`) feature as an example,
 
 ```
 ____________________________________________________________
@@ -460,7 +459,7 @@ Note: At least one search keyword must be present in the command input, i.e. eit
 
 ### **Example #1**
 
-Using the list of tasks from [`list`](1.-`list`) feature as an example,
+Using the list of tasks from [`list`](#1.-`list`) feature as an example,
 
 ```
 > find book
@@ -478,7 +477,7 @@ ____________________________________________________________
 
 ### **Example #2**
 
-Using the list of tasks from [`list`](1.-`list`) feature as an example,
+Using the list of tasks from [`list`](#1.-`list`) feature as an example,
 
 ```
 > find /date 2022/06/06
@@ -495,7 +494,7 @@ ____________________________________________________________
 
 ### **Example #3**
 
-Using the list of tasks from [`list`](1.-`list`) feature as an example,
+Using the list of tasks from [`list`](#1.-`list`) feature as an example,
 
 ```
 > find /date 2022/08/06 1400
