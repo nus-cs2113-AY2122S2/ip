@@ -123,7 +123,7 @@ public class Parser {
     }
 
     private static void printMissingInputMessage(String input, String taskType) {
-        System.out.println("☹ Oops! The " + input + " of a(n) " + taskType + " cannot be empty."
+        System.out.println("Oops! The " + input + " of a(n) " + taskType + " cannot be empty."
                 + HELP_MESSAGE_SPECIFIC_COMMAND);
     }
 

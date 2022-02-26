@@ -133,47 +133,47 @@ For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
-☹ Oops! The description of a(n) todo cannot be empty.
+Oops! The description of a(n) todo cannot be empty.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
-☹ Oops! The description of a(n) todo cannot be empty.
+Oops! The description of a(n) todo cannot be empty.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
-☹ Oops! The description and/or date
+Oops! The description and/or date
  of a(n) deadline cannot be empty.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
-☹ Oops! The description and/or date
+Oops! The description and/or date
  of a(n) deadline cannot be empty.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
-☹ Oops! The description and/or date
+Oops! The description and/or date
  of a(n) event cannot be empty.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
-☹ Oops! The description and/or date
+Oops! The description and/or date
  of a(n) event cannot be empty.
 
 For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
-☹ Oops! The description and/or date
+Oops! The description and/or date
  of a(n) event cannot be empty.
 
 For more information on the command you wish to execute,
@@ -198,7 +198,7 @@ For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ____________________________________________________________
-☹ Oops! The description and/or date
+Oops! The description and/or date
  of a(n) deadline cannot be empty.
 
 For more information on the command you wish to execute,
@@ -346,6 +346,29 @@ ____________________________________________________________
 Here are the matching tasks in your list:
 1. [D] [ ] return book (by: 06 Jun 2022, Mon)
 2. [D] [ ] submit UG (by: 01 Mar 2022, Tue 07:00 PM)
+____________________________________________________________
+____________________________________________________________
+Are you sure you want to delete all tasks? [Y/N]
+You will not be able to recover them after deleting.
+____________________________________________________________
+____________________________________________________________
+Please confirm your choice with either Y (Yes) or N (No).
+____________________________________________________________
+____________________________________________________________
+Okay, we'll keep it as it is.
+____________________________________________________________
+____________________________________________________________
+Are you sure you want to delete all tasks? [Y/N]
+You will not be able to recover them after deleting.
+____________________________________________________________
+____________________________________________________________
+Understood. Proceeding to delete
+all current tasks in the list..........
+____________________________________________________________
+Done! Now you have 0 task(s) in the list.
+____________________________________________________________
+____________________________________________________________
+There are no tasks to clear!
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon! :)
