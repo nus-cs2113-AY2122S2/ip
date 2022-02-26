@@ -10,11 +10,11 @@ public class Duke {
 
     private static final String filePath = "data/duke.txt";
 
-    /*private static void writeToFile(String filePath, String textToAdd) throws IOException {
+    public static void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
         fw.close();
-    }*/
+    }
 
     private static void appendToFile(String filePath, String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
@@ -22,7 +22,7 @@ public class Duke {
         fw.close();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         File f = new File(filePath);
         File folder = new File("data");
@@ -44,17 +44,18 @@ public class Duke {
                     + "| |_| | |_| |   <  __/\n"
                     + "|____/ \\__,_|_|\\_\\___|\n";
         //System.out.println("Hello from\n" + logo);
-        String GREET = "Hello! I'm Duke\n" + "What can I do for you?\n";
-        String EXIT = "Bye. Hope to see you again soon!\n";
-        String BYE = "bye";
-        String LIST = "list";
-        String MARK = "mark";
-        String TODO = "todo";
-        String DEADLINE = "deadline";
-        String EVENT = "event";
-        String DELETE = "delete";
 
-        System.out.println(GREET);
+        String COMMAND_BYE = "bye";
+        String COMMAND_LIST = "list";
+        String COMMAND_MARK = "mark";
+        String COMMAND_TODO = "todo";
+        String COMMAND_DEADLINE = "deadline";
+        String COMMAND_EVENT = "event";
+        String COMMAND_DELETE = "delete";
+        String COMMAND_FIND = "find";
+
+        System.out.println("Hello! I'm Duke\n" + "What can I do for you?\n");
+        writeToFile(filePath, "start program\n");
 
         ArrayList<String> instructionsList = new ArrayList<>();
 
@@ -67,7 +68,6 @@ public class Duke {
 
         for (int i = 0; i < 200; i++) { // can have 200 input lines (including wrong command)
             Scanner in = new Scanner(System.in);
-            //System.out.print("Type something: ");
             task.instruction = in.nextLine();
             String instructionLine = task.instruction.replaceAll("todo|deadline|event", "");
             String updatedInstructionLine; //updated instruction line is in the form of [][] instructionline
@@ -77,13 +77,14 @@ public class Duke {
             String[] arrOfDeadline = instructionLine.split("/by ", 2);
             String[] arrOfEvent = instructionLine.split("/at ", 2);
 
-            boolean isBye = arrOfStr[0].equals(BYE); //if true then exit
-            boolean isList = arrOfStr[0].equals(LIST);
-            boolean isMark = arrOfStr[0].equals(MARK);
-            boolean isTodo = arrOfStr[0].equals(TODO);
-            boolean isDeadline = arrOfStr[0].equals(DEADLINE);
-            boolean isEvent = arrOfStr[0].equals(EVENT);
-            boolean isDelete = arrOfStr[0].equals(DELETE);
+            boolean isBye = arrOfStr[0].equals(COMMAND_BYE);
+            boolean isList = arrOfStr[0].equals(COMMAND_LIST);
+            boolean isMark = arrOfStr[0].equals(COMMAND_MARK);
+            boolean isTodo = arrOfStr[0].equals(COMMAND_TODO);
+            boolean isDeadline = arrOfStr[0].equals(COMMAND_DEADLINE);
+            boolean isEvent = arrOfStr[0].equals(COMMAND_EVENT);
+            boolean isDelete = arrOfStr[0].equals(COMMAND_DELETE);
+            boolean isFind = arrOfStr[0].equals(COMMAND_FIND);
             
             String instructionNum;
 
@@ -91,7 +92,8 @@ public class Duke {
 
                 if (isBye) {
 
-                    System.out.println(EXIT);
+                    System.out.println("Bye. Hope to see you again soon! :)");
+                    writeToFile(filePath, "exit program\n");
                     break;
 
                 } else if (isList) {
@@ -213,7 +215,7 @@ public class Duke {
                     System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means.");
                 }
 
-            } catch(DukeException e) {
+            } catch(DukeException | IOException e) {
                 System.out.println(e.getMessage());
             }
         }
