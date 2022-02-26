@@ -51,6 +51,9 @@ public class Superhero {
             case "delete":
                 SuperheroManager.delete(inputArray, inputList);
                 break;
+            case "find":
+                SuperheroManager.find(inputArray, inputList);
+                break;
             default:
                 SuperheroManager.printDefaultMessage();
             }

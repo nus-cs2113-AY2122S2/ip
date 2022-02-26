@@ -85,6 +85,21 @@ public class SuperheroManager {
         }
     }
 
+    public static void find(ArrayList<String> inputArray, VocabList inputList) {
+        int match = 0;
+        String targetWord = inputArray.get(1);
+        for (int i = 0; i < inputList.getList().size(); i++) {
+            if (inputList.getList().get(i).getWord().contains(targetWord)) {
+                System.out.println(inputList.getList().get(i).toString());
+                match++;
+            }
+        }
+        if (match == 0) {
+            System.out.println(" No Vocab found that matches your search!");
+        }
+        System.out.println(dottedLine);
+    }
+
     public static void printWelcomeMessage() {
         System.out.println(dottedLine + "\n" +
                 " *Flies in*\n" +
@@ -134,7 +149,7 @@ public class SuperheroManager {
      * Method to print message when user input does not contain keyword
      */
     public static void printDefaultMessage() {
-        System.out.println(" Please use keyword - bye, list, tolearn, deadline, event, mark, unmark!\n" +
+        System.out.println(" Please use keyword - bye, list, tolearn, deadline, event, mark, unmark, delete, find!\n" +
                 dottedLine);
     }
 
