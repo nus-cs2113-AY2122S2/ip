@@ -1,14 +1,18 @@
+invalid
+invalid command
 list
+help
+todo
 todo borrow book
 deadline return book /by Sunday
 event project meeting /at Mon 2-4pm
 list
-todo
 mark 1
 mark 2
 unmark 1
 mark 3
 unmark 1
+mark one
 list
 delete 4
 find borrow
