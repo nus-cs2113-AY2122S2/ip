@@ -1,16 +1,17 @@
 package duke.task;
 
-import duke.Duke;
+import duke.Parser;
 import duke.exception.DukeEmptyDescriptionException;
 import duke.exception.DukeMissingTimeSeparator;
 import duke.exception.DukeTaskOutOfRangeException;
 
 import java.util.ArrayList;
 
-public class TaskManager {
+public class TaskList {
     private static ArrayList<Task> taskLists = new ArrayList<>();
+    private static Parser parser = new Parser();
 
-    public TaskManager() {
+    public TaskList() {
 
     }
 
@@ -20,29 +21,15 @@ public class TaskManager {
         }
     }
 
-    public static String validateAndExtractTaskDescription(String userInput) throws DukeEmptyDescriptionException {
-        String[] arrayOfTaskStrings = userInput.split(" ");
-        if (arrayOfTaskStrings.length <= 1) {
-            throw new DukeEmptyDescriptionException();
-        }
-
-        String extractTaskDescription = "";
-        for (int i = 1; i < arrayOfTaskStrings.length; i++) {
-            extractTaskDescription += arrayOfTaskStrings[i] + " ";
-        }
-
-        return extractTaskDescription;
-    }
-
     public static Task addTask(String userInput) throws DukeEmptyDescriptionException {
-        String extractedTaskDescription = validateAndExtractTaskDescription(userInput);
+        String extractedTaskDescription = parser.validateAndExtractTaskDescription(userInput);
         Task newTask = new Todo(extractedTaskDescription);
         taskLists.add(newTask);
         return newTask;
     }
 
     public static Task addTaskWithTime(String userInput, String stringSeparator) throws DukeEmptyDescriptionException, DukeMissingTimeSeparator {
-        String extractedStringsWithoutCommandType = validateAndExtractTaskDescription(userInput);
+        String extractedStringsWithoutCommandType = parser.validateAndExtractTaskDescription(userInput);
         if ((extractedStringsWithoutCommandType.split(stringSeparator).length) <= 1) {
             throw new DukeMissingTimeSeparator();
         }
@@ -61,23 +48,11 @@ public class TaskManager {
         return newTask;
     }
 
-    public static boolean isWithinTaskRange(int taskNumber) {
-        if (taskNumber > Task.getNumberOfTasks() || taskNumber <= 0) {
-            return false;
-        }
-        return true;
-    }
-
     public static int markTask(boolean isMarked, String userInput) throws DukeEmptyDescriptionException, NumberFormatException, DukeTaskOutOfRangeException {
         if ((userInput.split(" ")).length <= 1) {
             throw new DukeEmptyDescriptionException();
         }
-
-        int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
-        if (!isWithinTaskRange(taskNumber)) {
-            throw new DukeTaskOutOfRangeException();
-        }
-
+        int taskNumber = parser.fetchTaskNumber(userInput);
         if (isMarked) {
             taskLists.get(taskNumber - 1).markAsDone();
         } else {
@@ -90,10 +65,7 @@ public class TaskManager {
         if ((userInput.split(" ")).length <= 1) {
             throw new DukeEmptyDescriptionException();
         }
-        int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
-        if (!isWithinTaskRange(taskNumber)) {
-            throw new DukeTaskOutOfRangeException();
-        }
+        int taskNumber = parser.fetchTaskNumber(userInput);
         System.out.println("Noted. Task removed:\n" + taskLists.get(taskNumber - 1).toString());
         taskLists.remove(taskNumber - 1);
         Task.reduceNumberOfTask();

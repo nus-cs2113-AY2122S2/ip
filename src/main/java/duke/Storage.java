@@ -2,7 +2,7 @@ package duke;
 
 import duke.exception.DukeInvalidFileContentException;
 import duke.task.Task;
-import duke.task.TaskManager;
+import duke.task.TaskList;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,12 +10,13 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
 
-public class FileManager {
+public class Storage {
     protected static final Path FILE_PATH = Path.of("data/duke.txt");
     protected static boolean isLoadFile;
-    protected static Duke dukeProgram = new Duke();
+    private Ui ui;
+    private Parser parser = new Parser();
 
-    public FileManager() {
+    public Storage() {
     }
 
     public static void checkFileExists() throws IOException {
@@ -29,7 +30,7 @@ public class FileManager {
         }
     }
 
-    public static void loadDukeDataFile(TaskManager taskManager) throws IOException {
+    public static void loadDukeDataFile(TaskList taskManager) throws IOException {
         isLoadFile = true;
         checkFileExists();
         try {
@@ -42,7 +43,7 @@ public class FileManager {
         isLoadFile = false;
     }
 
-    public static void populateDukeFromDataFile(TaskManager taskManager) throws IOException, DukeInvalidFileContentException, NumberFormatException, ArrayIndexOutOfBoundsException {
+    public static void populateDukeFromDataFile(TaskList taskManager) throws IOException, DukeInvalidFileContentException, NumberFormatException, ArrayIndexOutOfBoundsException {
         List<String> fileContentLines = Files.readAllLines(FILE_PATH);
         for (String lines:fileContentLines) {
             String[] arrayOfContentsInALine = lines.split("\\|");
@@ -55,13 +56,13 @@ public class FileManager {
                 String command = buildTaskCommand(taskType, arrayOfContentsInALine);
                 switch (taskType) {
                 case "T":
-                    dukeProgram.performTodo(taskManager, command);
+                    Parser.performTodo(taskManager, command);
                     break;
                 case "D":
-                    dukeProgram.performTaskWithTimeConstraints(taskManager, command, "/by ", "deadline");
+                    Parser.performTaskWithTimeConstraints(taskManager, command, "/by ", "deadline");
                     break;
                 case "E":
-                    dukeProgram.performTaskWithTimeConstraints(taskManager, command, "/at ", "event");
+                    Parser.performTaskWithTimeConstraints(taskManager, command, "/at ", "event");
                     break;
                 default:
                     throw new DukeInvalidFileContentException();
@@ -73,10 +74,10 @@ public class FileManager {
         }
     }
 
-    public static void populateDukeTaskMarkStatus(TaskManager taskManager, int taskMarkStatus) {
+    public static void populateDukeTaskMarkStatus(TaskList taskManager, int taskMarkStatus) {
         if (taskMarkStatus == 1) {
             String buildMarkCommand = "mark " + Task.getNumberOfTasks();
-            dukeProgram.performMarking(taskManager, buildMarkCommand, true, "mark");
+            Parser.performMarking(taskManager, buildMarkCommand, true, "mark");
         }
     }
 
@@ -172,7 +173,7 @@ public class FileManager {
         Files.write(FILE_PATH, replacedFileContents.getBytes());
     }
 
-    public static void saveDataAddToListOperation(TaskManager taskManager, Task newTask) {
+    public static void saveDataAddToListOperation(TaskList taskManager, Task newTask) {
         if (!isLoadFile) {
             taskManager.addTaskPrintMessage(newTask);
             try {
@@ -183,7 +184,7 @@ public class FileManager {
         }
     }
 
-    public static void saveDataChangeMarkStatusOperation(TaskManager taskManager, int taskNumberMarked, boolean isMarked) {
+    public static void saveDataChangeMarkStatusOperation(TaskList taskManager, int taskNumberMarked, boolean isMarked) {
         if (!isLoadFile) {
             taskManager.markStatusPrintMessage(taskNumberMarked, isMarked);
             try {
@@ -194,7 +195,7 @@ public class FileManager {
         }
     }
 
-    public static void saveDataDeleteFromListOperation(TaskManager taskManager, int taskNumberToDelete) {
+    public static void saveDataDeleteFromListOperation(TaskList taskManager, int taskNumberToDelete) {
         try {
             deleteTaskFromDataFile(taskNumberToDelete);
         } catch (IOException e) {
