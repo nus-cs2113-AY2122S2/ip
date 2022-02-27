@@ -1,11 +1,11 @@
 package alexis.commands;
 
-import static alexis.ui.Ui.invalidInputMessage;
-
 public class IncorrectCommand extends Command{
 
+    public static final String INVALID_INPUT_MESSAGE = "Oops!! I'm sorry, but I don't know what that means :-(";
+
     public IncorrectCommand() {
-        invalidInputMessage();
+        System.out.println(INVALID_INPUT_MESSAGE);
     }
 
 }

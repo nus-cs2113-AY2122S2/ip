@@ -3,10 +3,10 @@ package alexis.commands;
 import alexis.exceptions.EmptyListException;
 import alexis.main.Alexis;
 
-import static alexis.ui.Ui.DISPLAY_TASK_MESSAGE;
-import static alexis.ui.Ui.EMPTY_LIST_MESSAGE;
-
 public class DisplayListCommand extends Command{
+
+    public static final String DISPLAY_TASK_MESSAGE = "Here are the tasks in your list:";
+    public static final String EMPTY_LIST_MESSAGE = "Your list is empty. You have no tasks now.";
 
     public DisplayListCommand() {
         try {

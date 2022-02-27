@@ -7,6 +7,10 @@ import alexis.taskList.TaskList;
 import java.util.ArrayList;
 
 public class FindCommand extends Command {
+
+    public static final String FIND_MESSAGE = "Here are the matching tasks in your list:";
+    public static final String NEGATIVE_FIND_MESSAGE = "There are no matching tasks in your list";
+
     protected String keyword;
 
     public FindCommand(String fullDescription) {
@@ -27,13 +31,13 @@ public class FindCommand extends Command {
         }
 
         if (keywordCounter > 0) {
-            System.out.println("Here are the matching tasks in your list:");
+            System.out.println(FIND_MESSAGE);
             for (int i = 0; i < indexesWithKeywordArr.size(); i++) {
                 Task task = taskList.taskArrayList.get(indexesWithKeywordArr.get(i));
                 System.out.println((i + 1) + "." + task);
             }
         } else {
-            System.out.println("There are no matching tasks in your list");
+            System.out.println(NEGATIVE_FIND_MESSAGE);
         }
     }
 }

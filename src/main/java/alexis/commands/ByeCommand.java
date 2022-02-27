@@ -1,11 +1,11 @@
 package alexis.commands;
 
-import static alexis.ui.Ui.showGoodbye;
-
 public class ByeCommand extends Command{
 
+    public static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!";
+
     public ByeCommand() {
-        showGoodbye();
+        System.out.println(GOODBYE_MESSAGE);
     }
 
     @Override

@@ -1,10 +1,8 @@
 package alexis.ui;
 
-import alexis.main.Alexis;
-import alexis.task.Task;
+import alexis.taskList.TaskList;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import static alexis.task.Task.BUFFER;
@@ -14,36 +12,31 @@ public class Ui {
     public static final String BORDER_LINE = "---------------------------------------------------------------";
 
     public static final String HELLO = "Hello! I'm Alexis, your trusty helper!";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_RESET = "\u001B[0m";
     public static final String ALEXIS_ICON =
+            ANSI_PURPLE +
             "      __      ___       _______  ___  ___   __      ________     \n" +
-                    "     /\"\"\\    |\"  |     /\"     \"||\"  \\/\"  | |\" \\    /\"       )    \n" +
-                    "    /    \\   ||  |    (: ______) \\   \\  /  ||  |  (:   \\___/     \n" +
-                    "   /' /\\  \\  |:  |     \\/    |    \\\\  \\/   |:  |   \\___  \\       \n" +
-                    "  //  __'  \\  \\  |___  // ___)_   /\\.  \\   |.  |    __/  \\\\      \n" +
-                    " /   /  \\\\  \\( \\_|:  \\(:      \"| /  \\   \\  /\\  |\\  /\" \\   :)     \n" +
-                    "(___/    \\___)\\_______)\\_______)|___/\\___|(__\\_|_)(_______/      \n" +
-                    "                                                                 ";
+            "     /\"\"\\    |\"  |     /\"     \"||\"  \\/\"  | |\" \\    /\"       )    \n" +
+            "    /    \\   ||  |    (: ______) \\   \\  /  ||  |  (:   \\___/     \n" +
+            "   /' /\\  \\  |:  |     \\/    |    \\\\  \\/   |:  |   \\___  \\       \n" +
+            "  //  __'  \\  \\  |___  // ___)_   /\\.  \\   |.  |    __/  \\\\      \n" +
+            " /   /  \\\\  \\( \\_|:  \\(:      \"| /  \\   \\  /\\  |\\  /\" \\   :)     \n" +
+            "(___/    \\___)\\_______)\\_______)|___/\\___|(__\\_|_)(_______/      \n" +
+            "                                                                 " + ANSI_RESET;
     public static final String PROMPT =
             "What can I do for you? ^-^\n\n" +
-                    "Hint: You may use these commands to navigate around:\n" +
-                    "[list] [todo] [deadline] [event] [mark] [unmark] [delete] [bye]\n" +
-                    "[show] [find]";
+            "Hint: You may use these commands to navigate around:\n" +
+            "[list] [todo] [deadline] [event] [mark] [unmark] [delete] [bye]\n" +
+            "[show] [find]";
 
-    public static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!";
-
-    public static final String SAD_FACE = ";-;";
-
-    public static final String DISPLAY_TASK_MESSAGE = "Here are the tasks in your list:";
-    public static final String EMPTY_LIST_MESSAGE = "Your list is empty. You have no tasks now.";
-    public static final String INVALID_INPUT_MESSAGE = SAD_FACE
-            + " Oops!! I'm sorry, but I don't know what that means :-(";
     public static final String ADD_NEW_TASK_MESSAGE = "Got it! I've added this task:";
     public static final String MARK_AS_DONE_MESSAGE = "Great! I've marked this task as done:";
     public static final String MARK_AS_UNDONE_MESSAGE = "Ok. I've marked this task as not done yet:";
 
-    public static final String DEADLINE_EXCEPTION_MESSAGE_TEXT = " Oops!! The description of a deadline "
+    public static final String DEADLINE_EXCEPTION_MESSAGE_TEXT = "Oops!! The description of a deadline "
             + "has to have the format:\n    (task description) /by (deadline time)";
-    public static final String EVENT_EXCEPTION_MESSAGE_TEXT = " Oops!! The description of an event "
+    public static final String EVENT_EXCEPTION_MESSAGE_TEXT = "Oops!! The description of an event "
             + "has to have the format:\n    (task description) /at (event time)";
 
     public static final String LOADING_ERROR_MESSAGE = "./data/tasks.txt file not found..\nnew file created";
@@ -71,23 +64,11 @@ public class Ui {
         showToUser(BORDER_LINE, HELLO, ALEXIS_ICON, PROMPT, BORDER_LINE);
     }
 
-    public static void showGoodbye() {
-        showToUser(GOODBYE_MESSAGE);
-    }
-
-    public static void printDeleteOutput(ArrayList<Task> tasks, int numOfTasks, int taskNumber) {
+    public static void printDeleteOutput(TaskList tasks, int numOfTasks, int taskNumber) {
         showToUser(
                 "Noted. I've removed this task:",
-                BUFFER + Alexis.tasks.getTask(taskNumber).toString(),
+                BUFFER + tasks.getTask(taskNumber).toString(),
                 "Now, you have " + (numOfTasks - 1) + " tasks in the list.");
-    }
-
-    public static void invalidInputMessage() {
-        showToUser(INVALID_INPUT_MESSAGE);
-    }
-
-    public static void exceptionMessage(String exceptionText) {
-        showToUser(SAD_FACE + exceptionText);
     }
 
     public String readCommand() {

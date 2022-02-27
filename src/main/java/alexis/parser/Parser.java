@@ -1,6 +1,6 @@
 package alexis.parser;
 
-import alexis.commands.*;
+import alexis.commands.*;   //used * because all commands are needed in this class
 import alexis.exceptions.MissingDeadlineTimingException;
 import alexis.exceptions.MissingEventTimingException;
 
@@ -9,7 +9,8 @@ import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static alexis.ui.Ui.*;
+import static alexis.ui.Ui.DEADLINE_EXCEPTION_MESSAGE_TEXT;
+import static alexis.ui.Ui.EVENT_EXCEPTION_MESSAGE_TEXT;
 
 public class Parser {
 
@@ -59,11 +60,11 @@ public class Parser {
                 break;
             }
         } catch (MissingDeadlineTimingException e) {
-            exceptionMessage(DEADLINE_EXCEPTION_MESSAGE_TEXT);
+            System.out.println(DEADLINE_EXCEPTION_MESSAGE_TEXT);
         } catch (DateTimeException e) {
             System.out.println(DATE_TIME_EXCEPTION_MESSAGE);
         } catch (MissingEventTimingException e) {
-            exceptionMessage(EVENT_EXCEPTION_MESSAGE_TEXT);
+            System.out.println(EVENT_EXCEPTION_MESSAGE_TEXT);
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println(MISSING_DESCRIPTION_MESSAGE);
         }

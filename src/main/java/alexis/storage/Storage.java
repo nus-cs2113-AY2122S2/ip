@@ -34,7 +34,7 @@ public class Storage {
             System.out.println("directory not created");
         }
 
-        //creates new file task.txt
+        // creates new file task.txt
         if (dataFile.exists()){
             System.out.println(dataFile.getName() + " file exists");
         } else {
@@ -67,7 +67,7 @@ public class Storage {
             taskList = parse(dataItems);
         } catch (IOException | DateTimeException | AlexisException e) {
             System.out.println("file is corrupted.. deleting all content and creating new file..");
-            new FileWriter("./data/tasks.txt", false).close();
+            new FileWriter("./data/tasks.txt", false).close();  // deletes all content in file
         }
         return taskList;
     }

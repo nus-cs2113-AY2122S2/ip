@@ -26,7 +26,6 @@ public class Alexis {
         } catch (IOException e) {
             System.out.println("Failed to load new file");
         }
-
     }
 
     public void run() {
