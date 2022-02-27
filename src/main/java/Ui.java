@@ -53,6 +53,9 @@ public class Ui {
            case "delete":
                System.out.println("☹ OOPS!!! Please tell me the task you want to delete.");
                break;
+           case "find":
+               System.out.println("☹ OOPS!!! Please tell me the task you want to find.");
+               break;
        }
    }
 
@@ -151,6 +154,19 @@ public class Ui {
 
    public void showLoadingError(){
         System.out.println("The loading process is unsuccessful.");
+   }
+
+   public void displayFoundTasks(ArrayList<Task> taskList, String keyword){
+       int count=1;
+       System.out.println("Here are the matching tasks in your list:");
+       for(Task t: taskList){
+           if(t.getDescription().toUpperCase().contains(keyword.toUpperCase())){
+               System.out.println(count+". "+ t);
+               count++;
+           }
+       }
+       if(count==1)
+           System.out.println("No matched tasks!");
    }
 }
 
