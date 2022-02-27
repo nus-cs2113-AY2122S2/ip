@@ -1,6 +1,9 @@
 import Tasks.*;
 import java.util.ArrayList;
 
+/**
+ * Interactions with the user.
+ */
 public class Ui {
     public void greetings(){
         String logo = " ____        _        \n"
@@ -16,12 +19,20 @@ public class Ui {
        System.out.println("Bye.Have a nice day!");
    }
 
+    /**
+     * Display the information regarding tasks.
+     * @param taskList Arraylist containing task information.
+     */
    public void displayTasks(ArrayList<Task> taskList){
        System.out.println("Here are the tasks in your list:");
        for (int i = 0; i < taskList.size(); i++)
            System.out.println((i+1)+". "+taskList.get(i).toString());
    }
 
+    /**
+     * Display the incomplete information message given the input type.
+     * @param type Type of instruction given by the user.
+     */
    public void incompleteMessage(String type) {
        switch (type) {
            case "mark":
@@ -51,35 +62,65 @@ public class Ui {
        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
    }
 
+    /**
+     * Mark the corresponding task as done and display the successful message.
+     * @param taskList Arraylist containing task information.
+     * @param index Index of the task which will be marked as done.
+     */
    public void markAndDisplayTask(ArrayList<Task> taskList, int index){
        taskList.get(index-1).markAsDone();
        System.out.println("Nice! I've marked this task as done:");
        System.out.println((index)+". "+taskList.get(index-1).toString());
    }
 
+    /**
+     * Mark the corresponding task as undone and display the successful message.
+     * @param taskList Arraylist containing task information.
+     * @param index Index of the task which will be marked as undone.
+     */
    public void unmarkAndDisplayTask(ArrayList<Task> taskList, int index){
        taskList.get(index-1).markAsUndone();
        System.out.println("OK, I've marked this task as not done yet:");
        System.out.println((index)+". "+taskList.get(index-1).toString());
    }
 
+    /**
+     * Add the task as ToDo.
+     * @param taskList Arraylist containing task information.
+     * @param todo Description of the task which will be added as ToDo.
+     */
    public void addToDo(ArrayList<Task> taskList, String todo){
        taskList.add(new ToDo(todo));
        addTaskMessage(taskList);
    }
 
+    /**
+     * Add the task as deadline.
+     * @param taskList Arraylist containing task information.
+     * @param deadline Description of the task which will be added as Deadline.
+     */
    public void addDeadline(ArrayList<Task> taskList, String deadline){
        String[] deadline1 = deadline.split("/by", 2);
        taskList.add(new Deadline(deadline1[0], deadline1[1]));
        addTaskMessage(taskList);
    }
 
+    /**
+     * Add the task as event.
+     * @param taskList Arraylist containing task information.
+     * @param event Description of the task which will be added as Event.
+     */
    public void addEvent(ArrayList<Task> taskList, String event){
        String[] event1 = event.split("/at", 2);
        taskList.add(new Event(event1[0], event1[1]));
        addTaskMessage(taskList);
    }
 
+    /**
+     * Delete the corresponding task.
+     * @param taskList Arraylist containing task information.
+     * @param index Index of the task which will be deleted.
+     */
    public void deleteTask(ArrayList<Task> taskList, int index){
        System.out.println("Noted. I've removed this task:");
        System.out.println((index)+". "+taskList.get(index-1).toString());

@@ -2,12 +2,19 @@ import Tasks.*;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Include all the file operations such as loading tasks from the file and saving tasks in the file.
+ */
 public class Storage {
     protected String filePath;
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Find the file according to the given filepath. If the file has not been created, create the file/
+     * @param filePath
+     */
     public static void create(String filePath){
         try {
             File data = new File(filePath);
@@ -21,6 +28,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Save the information into the file.
+     * @param textToAdd Texts going to be saved in the file.
+     * @param filePath
+     * @throws IOException
+     */
+
     public static void save(String textToAdd,String filePath) throws IOException {
         FileWriter fw = new FileWriter(filePath,false);
         try {
@@ -31,6 +45,11 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Add the information in the given file into an arraylist.
+     * @return Arraylist loaded from the file.
+     * @throws IOException
+     */
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> todolist = new ArrayList<Task>();
         BufferedReader br = new BufferedReader(new FileReader(this.filePath));
@@ -58,6 +77,12 @@ public class Storage {
         System.out.println("I have successfully loaded the file for you!");
         return todolist;
     }
+
+    /**
+     * format the information in the arraylist into a string.
+     * @param taskList Arraylist going to be formatted.
+     * @return String formatted from the tasklist.
+     */
 
     public static String format(ArrayList<Task> taskList){
         String taskAllInfo="";
