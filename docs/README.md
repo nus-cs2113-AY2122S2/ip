@@ -1,29 +1,69 @@
-# User Guide
+# Vocabulary Superhero User Guide
+The Vocabulary learning manager application to ensure your Vocabulary continues to expand!
 
 ## Features 
 
-### Feature-ABC
+### Add a Vocabulary
+Categorizes Vocabulary into 3 categories and adds them into the Vocabulary list, depending on when the word should be learnt.
 
-Description of the feature.
+**ToLearn** are words that can be learnt at any time.
+**Deadline** are words to be learnt by a certain date.
+**Event** are words to be learnt within a specified time frame.
 
-### Feature-XYZ
+##### Commands:
+-Add `ToLearn` Vocabulary: `tolearn {vocabulary}`
+-Add `Deadline` Vocabulary: `deadline {vocabulary}/{date/time}`
+-Add `Event` Vocabulary: `event {vocabulary}/{date/time}`
 
-Description of the feature.
+Examples:
+-`tolearn abrogate`
+-`event conduit/8pm-9pm`
 
-## Usage
 
-### `Keyword` - Describe action
+### List all Vocabulary
+List all Vocabulary in the Vocabulary list, allowing user to see all Vocabulary at one glance.
 
-Describe the action and its outcome.
+##### Commands:
+-`list`
 
-Example of usage: 
 
-`keyword (optional arguments)`
+### Mark/Unmark a Vocabulary
+Allows the user to mark a Vocabulary when it has been learnt or not.
 
-Expected outcome:
+**Mark** is used to represent that a Vocabulary has been learnt.
+**Unmark** is used to represent that a Vocabulary has been forgotten and needs to be relearnt.
 
-Description of the outcome.
+##### Commands:
+-`mark {vocabulary_index}`
+-`unmark {vocabulary_index}
 
-```
-expected output
-```
+Examples:
+-`mark 1`
+-`unmark 1`
+
+
+### Delete a Vocabulary
+Allows the user to delete a Vocabulary by index.
+
+##### Commands:
+-`delete {vocabulary_index}`
+
+Examples:
+-`delete 1`
+
+
+### Find a Vocabulary
+Allows the user to find a Vocabulary by index.
+
+##### Commands:
+-`find {vocabulary_index}`
+
+Examples:
+-`find 1`
+
+
+### Store changes and terminate application
+Store all changes into a txt file and terminate the application.
+
+##### Commands:
+-`bye`
