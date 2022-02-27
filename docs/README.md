@@ -64,7 +64,7 @@ Examples:
 ![deadline example](images/deadline.png)<br/><br/>
 
 ### Adding an Event task: `event`
-Adds a Event task to the task list. Event tasks are tasks that start and end at a specific time.
+Adds an Event task to the task list. Event tasks are tasks that start and end at a specific time.
 <br/>Format: `event [TASK] /at [START_TIME]`
 
 Examples:
