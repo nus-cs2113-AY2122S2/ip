@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
-    protected String by;
+    protected LocalDate by;
 
     /**
      * The constructor which sets the given description of the task
@@ -17,7 +17,7 @@ public class Deadline extends Task {
      * @param description The description of the task
      * @param by The deadline of the task
      */
-    protected LocalDate by;
+
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;

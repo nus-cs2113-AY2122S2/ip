@@ -229,4 +229,8 @@ public class Ui {
     public void printInvalidDateException() {
         System.out.println("Invalid Date input");
     }
+
+    public void printNoMatchesFound() {
+        System.out.println("No task matches the keyword!");
+    }
 }

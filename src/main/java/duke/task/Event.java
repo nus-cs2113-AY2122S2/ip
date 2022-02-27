@@ -1,12 +1,15 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Describes an upcoming event task which stores the description
  * and when the event is going to happen.
  */
 public class Event extends Task {
 
-    protected String at;
+    protected LocalDate at;
 
     /**
      * The constructor which sets the given description of the event
@@ -15,7 +18,7 @@ public class Event extends Task {
      * @param description The description of the event
      * @param at The time of the event
      */
-    public Event(String description, String at) {
+    public Event(String description, LocalDate at) {
         super(description);
         this.at = at;
         this.taskType = 'E';
@@ -28,7 +31,7 @@ public class Event extends Task {
      * @return A string consisting of all the information of the task to be printed
      */
     public String toString() {
-        return "[E]" + super.toString() + " (at:" + at + ")";
+        return "[E]" + super.toString() + " (at:" + at.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     /**

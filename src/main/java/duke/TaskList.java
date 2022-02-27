@@ -107,8 +107,19 @@ public class TaskList {
                 ui.printFoundItems(listNum++, foundTask);
             }
         }
+        if (listNum == 1) {
+            ui.printNoMatchesFound();
+        }
     }
 
+    /**
+     * Takes in the keyword and an individual task and checks
+     * if the word is in the task description.
+     *
+     * @param keyword The word to check for
+     * @param t The task to be checked
+     * @return True if the task description contains the word, false otherwise
+     */
     private static boolean isFound(String keyword, Task t) {
         return Arrays.asList(t.getDescription().split(" ")).contains(keyword);
     }
@@ -240,7 +251,6 @@ public class TaskList {
      * @throws ArrayIndexOutOfBoundsException If the deadline parameters are empty
      */
     private static void createDeadLineEntry(String[] taskDescription) throws DukeException, ArrayIndexOutOfBoundsException {
-      
         LocalDate deadLineDate;
         try {
             datesArray = parser.parseDeadLineActionFromDescription(taskDescription);
@@ -275,12 +285,14 @@ public class TaskList {
      * @throws ArrayIndexOutOfBoundsException If the event parameters are empty
      */
     private static void createEventEntry(String[] taskDescription) throws DukeException, ArrayIndexOutOfBoundsException {
+        LocalDate eventDate;
         try {
             eventsArray = parser.parseEventsActionFromDescription(taskDescription);
+            eventDate = parser.parseDateFormatFromString(eventsArray[1]);
             if (isEventFormatInvalid(eventsArray)) {
                 throw new DukeException();
             }
-            taskList.add(new Event(eventsArray[0], eventsArray[1]));
+            taskList.add(new Event(eventsArray[0], eventDate));
             ui.printAcknowledgeAddMessage(taskList.get(itemNumber), itemNumber + 1);
             itemNumber++;
         } catch (ArrayIndexOutOfBoundsException eventEmpty) {

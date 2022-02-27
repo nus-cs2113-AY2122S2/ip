@@ -146,12 +146,14 @@ public class Storage {
      * @param taskDescription The event task description from the file line
      */
     private static void loadEventEntry(String[] taskDescription) {
+        LocalDate eventDate;
         try {
             eventsArray = parser.parseEventsActionFromDescription(taskDescription);
+            eventDate = parser.parseDateFormatFromString(eventsArray[1]);
             if (isEventFormatInvalid(eventsArray)) {
                 throw new DukeException();
             }
-            allTasks.add(new Event(eventsArray[0], eventsArray[1]));
+            allTasks.add(new Event(eventsArray[0], eventDate));
             itemNumber++;
         } catch (ArrayIndexOutOfBoundsException deadlineEmpty) {
             ui.printEventEmptyException();
