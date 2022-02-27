@@ -1,10 +1,12 @@
 package tasks;
 
 import exceptions.*;
+import time.Time;
 
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Arrays;
 import java.util.regex.*;
 
@@ -15,6 +17,7 @@ public class Storage {
     protected static final String TODO = "T";
     protected static final String EVENT = "E";
     protected static final String DEADLINE = "d";
+    Time timeChecker;
 
     public int size() {
         return Tasks.size();
@@ -71,7 +74,8 @@ public class Storage {
     public void loadTask() throws DukeExceptions{
         try (BufferedReader loadData = new BufferedReader(new FileReader(FILE_NAME))){
             String listName;
-            String time;
+            String oldTime;
+            String newTime;
             while ((listName = loadData.readLine()) != null) {
                 String[] data = this.parseInput(listName);
                 //System.out.println(listName);
@@ -83,14 +87,20 @@ public class Storage {
                         Tasks.add(newToDo);
                         break;
                     case EVENT:
-                        time = data[3].replace("at: ", "");
-                        Event newEvent = new Event(data[2], time);
+                        oldTime = data[3].replace("at: ", "");
+                        timeChecker = new Time(oldTime);
+                        timeChecker.check();
+                        newTime = timeChecker.getDateString();
+                        Event newEvent = new Event(data[2], newTime);
                         mark(newEvent, data[2]);
                         Tasks.add(newEvent);
                         break;
                     case DEADLINE:
-                        time = data[3].replace("by: ", "");
-                        Deadline newDeadline = new Deadline(data[2], time);
+                        oldTime = data[3].replace("by: ", "");
+                        timeChecker = new Time(oldTime);
+                        timeChecker.check();
+                        newTime = timeChecker.getDateString();
+                        Deadline newDeadline = new Deadline(data[2], newTime);
                         mark(newDeadline, data[2]);
                         Tasks.add(newDeadline);
                         break;

@@ -4,6 +4,7 @@ import UI.*;
 import exceptions.*;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public class TaskManager {
     Storage Tasks = new Storage();
@@ -47,7 +48,7 @@ public class TaskManager {
      * @param name refers to the name of the task
      * @param by refers to the deadline of the task
      */
-    public String addDeadline(String name, String by) {
+    public String addDeadline(String name, String by) throws Exception{
         Deadline newDeadline = new Deadline(name, by);
         Tasks.add(newDeadline);
         int s = Tasks.size();
@@ -60,7 +61,7 @@ public class TaskManager {
      * @param name refers to the name of the task
      * @param at refers to the happening time of the event
      */
-    public String addEvent(String name, String at) {
+    public String addEvent(String name, String at) throws Exception{
         Event newEvent = new Event(name, at);
         Tasks.add(newEvent);
         int s = Tasks.size();
@@ -164,8 +165,5 @@ public class TaskManager {
             return FOUND_RESPONSE + content;
         }
     }
-
-
-
 
 }
