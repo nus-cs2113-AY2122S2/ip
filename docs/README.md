@@ -38,9 +38,17 @@ Tasks can be marked as done or undone by specifying their index.
 - Marking as undone
   - `>>> unmark task_index`
 
+Examples:
+- `>>> mark 1`
+- `>>> mark 2`
+
 ### Delete Tasks
 Users may delete any task by specifying the task's index:
 - `>>> delete task_index`
+
+Examples:
+- `>>> delete 1`
+- `>>> delete 3`
 
 ### Find Tasks
 Users may find tasks based on keywords.
