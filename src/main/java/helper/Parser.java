@@ -1,6 +1,14 @@
 package helper;
 
+import taskitems.exceptions.DateException;
 import taskitems.exceptions.IllegalInputException;
+import taskitems.exceptions.TimeException;
+
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 // Parser class hold various methods that perform parsing of User input
 public class Parser {
@@ -60,4 +68,30 @@ public class Parser {
             throw new NumberFormatException();
         }
     }
+
+    public LocalDate parseDate (String date) throws DateException {
+        try {
+            LocalDate finalDate = LocalDate.parse(date);
+            return finalDate;
+        } catch (DateTimeParseException dateTimeParseException) {
+            throw new DateException();
+        }
+    }
+
+    public LocalTime parseTime (String time) throws TimeException {
+        try {
+            LocalTime finalTIme = LocalTime.parse(time);
+            return finalTIme;
+        } catch (DateTimeParseException dateTimeParseException) {
+            throw new TimeException();
+        }
+    }
+
+
+
+
+
+
+
+
 }

@@ -93,6 +93,9 @@ public class Duke {
                 ui.print("Sorry, I am still trying to get my things together and learn new things.\n" +
                         "I will update this portion as soon as I learn what I should be doing.");
                 break;
+            case "find":
+                taskManager.findTask(taskName);
+                break;
             default:
                 ui.print("Invalid Command!");
             }
