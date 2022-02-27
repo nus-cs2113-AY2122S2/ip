@@ -22,6 +22,7 @@ public class OperationAnalyst {
     protected static final String ADD_DEADLINE_TASK_COMMAND = "deadline";
     protected static final String LIST_TASKS_COMMAND = "list";
     protected static final String EXIT_COMMAND = "bye";
+    protected static final String SEARCH_COMMAND = "find";
     Time timeChecker;
 
     public OperationAnalyst(String input) throws DukeExceptions {
@@ -97,6 +98,14 @@ public class OperationAnalyst {
                 throw new IllegalFormatException();
             }
             break;
+        case SEARCH_COMMAND:
+            command = rawInput.split(" ",2);
+            try {
+                System.out.println(command.length);
+                this.taskName = command[1];
+            } catch (IndexOutOfBoundsException e) {
+                throw new KeywordLossException();
+            }
         case LIST_TASKS_COMMAND:
         case EXIT_COMMAND:
             break;

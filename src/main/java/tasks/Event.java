@@ -23,8 +23,6 @@ public class Event extends Task {
     }
 
     @Override
-
-
     public void setListName() {
         if(!isDone){
             this.listName = "[E]" + this.unmarkedStatus + this.taskName + "(at: " + atString + ")";

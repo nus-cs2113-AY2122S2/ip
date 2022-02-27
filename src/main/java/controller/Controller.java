@@ -18,6 +18,7 @@ public class Controller {
     protected static final String ADD_DEADLINE_TASK_COMMAND = "deadline";
     protected static final String LIST_TASKS_COMMAND = "list";
     protected static final String EXIT_COMMAND = "bye";
+    protected static final String SEARCH_COMMAND = "find";
     TaskManager manager = new TaskManager();
     OperationAnalyst analyst;
     UI userInterface = new UI();
@@ -108,6 +109,9 @@ public class Controller {
                         break;
                     case DELETE_TASK_COMMAND:
                         this.replyMsg = this.deleteTask();
+                        break;
+                    case SEARCH_COMMAND:
+                        this.replyMsg = manager.searchTask(analyst.taskName);
                         break;
                     default:
                         throw new IllegalInstructionException();
