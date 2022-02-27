@@ -70,4 +70,24 @@ public class TaskList {
         System.out.println(" Now you have " + taskList.size() + " tasks in the list.");
         printLine();
     }
+
+    public void findTask(String keywords) {
+        boolean isFound = false;
+        int count = 1;
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getDescription().contains(keywords) || taskList.get(i).getDate().contains(keywords)) {
+                if (!isFound) {
+                    System.out.println(" Here are the matching tasks in your list:");
+                }
+                System.out.println(" " + count + "." + taskList.get(i));
+                count++;
+                isFound = true;
+            }
+        }
+        if (!isFound) {
+            System.out.println(" No task is found.");
+        }
+        printLine();
+    }
+
 }

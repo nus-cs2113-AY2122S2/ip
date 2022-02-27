@@ -39,6 +39,7 @@ public class Ui {
         System.out.println(" use \"mark taskIndex\" to mark that task as done");
         System.out.println(" use \"unmark taskIndex\" to mark that task as not done");
         System.out.println(" use \"delete taskIndex\" to delete a task");
+        System.out.println(" use \"find keywords\" to find tasks");
         System.out.println(" use \"bye\" to exit the chatbot");
         printLine();
     }

@@ -20,6 +20,7 @@ public class Parser {
     private static final String DEADLINE_COMMAND = "deadline";
     private static final String EVENT_COMMAND = "event";
     private static final String DELETE_COMMAND = "delete";
+    private static final String FIND_COMMAND = "find";
     private static final String BYE_COMMAND = "bye";
 
     public static void printLine() {
@@ -29,7 +30,7 @@ public class Parser {
     public static void addTodo(String taskDetail, TaskList taskList) {
         printLine();
         try {
-            checkTaskDetailEmpty(taskDetail, TODO_COMMAND);
+            checkTaskDetailEmpty(taskDetail);
             Task newTask = new Todo(taskDetail);
             taskList.addTask(newTask);
         } catch (DukeException e) {
@@ -41,9 +42,9 @@ public class Parser {
     public static void addDeadline(String taskDetail, TaskList taskList) {
         printLine();
         try {
-            checkTaskDetailEmpty(taskDetail, DEADLINE_COMMAND);
+            checkTaskDetailEmpty(taskDetail);
             int separatorIndex = taskDetail.indexOf("/by");
-            checkKeyword(separatorIndex);
+            checkKeyword(separatorIndex, taskDetail);
             Task newTask = new Deadline(taskDetail.substring(0, separatorIndex - 1), taskDetail.substring(separatorIndex + 4));
             taskList.addTask(newTask);
         } catch (DukeException e) {
@@ -55,9 +56,9 @@ public class Parser {
     public static void addEvent(String taskDetail, TaskList taskList) {
         printLine();
         try {
-            checkTaskDetailEmpty(taskDetail, EVENT_COMMAND);
+            checkTaskDetailEmpty(taskDetail);
             int separatorIndex = taskDetail.indexOf("/at");
-            checkKeyword(separatorIndex);
+            checkKeyword(separatorIndex, taskDetail);
             Task newTask = new Event(taskDetail.substring(0, separatorIndex - 1), taskDetail.substring(separatorIndex + 4));
             taskList.addTask(newTask);
         } catch (DukeException e) {
@@ -66,19 +67,22 @@ public class Parser {
         }
     }
 
-    public static void checkKeyword(int indexOfKeyword) throws DukeException {
+    public static void checkKeyword(int indexOfKeyword, String taskDetail) throws DukeException {
         if (indexOfKeyword == -1) {
+            throw new DukeException("You should give a time. Please refer to the command guide below.");
+        }
+        if (taskDetail.length() < indexOfKeyword + 5) {
             throw new DukeException("You should give a time. Please refer to the command guide below.");
         }
     }
 
-    public static void checkTaskDetailEmpty(String taskDetail, String command) throws DukeException {
+    public static void checkTaskDetailEmpty(String taskDetail) throws DukeException {
         if (taskDetail.isEmpty()) {
-            throw new DukeException("The description of a " + command + " cannot be empty.");
+            throw new DukeException("Command detail cannot be empty.");
         }
     }
 
-    public static boolean formatIndex(String description, TaskList taskList){
+    public static boolean formatIndex(String description, TaskList taskList) {
         try {
             int taskId = Integer.parseInt(description);
             checkIndexRange(taskId, taskList);
@@ -101,6 +105,18 @@ public class Parser {
         }
     }
 
+    public static void findKeywords(String taskDetail, TaskList taskList) {
+        printLine();
+        try {
+            checkTaskDetailEmpty(taskDetail);
+            taskList.findTask(taskDetail);
+        } catch (DukeException e) {
+            System.out.println(e);
+            Ui.printGuide();
+        }
+
+    }
+
     public static void handleCommand(TaskList taskList) throws IOException {
         Scanner in = new Scanner(System.in);
         String textIn = in.nextLine();
@@ -119,18 +135,21 @@ public class Parser {
                     taskList.unmark(Integer.parseInt(textIn.substring(6).trim()));
                 }
             } else if (textIn.startsWith(TODO_COMMAND)) {
-                taskDetail = textIn.substring(4);
+                taskDetail = textIn.substring(4).trim();
                 addTodo(taskDetail, taskList);
             } else if (textIn.startsWith(DEADLINE_COMMAND)) {
-                taskDetail = textIn.substring(8);
+                taskDetail = textIn.substring(8).trim();
                 addDeadline(taskDetail, taskList);
             } else if (textIn.startsWith(EVENT_COMMAND)) {
-                taskDetail = textIn.substring(5);
+                taskDetail = textIn.substring(5).trim();
                 addEvent(taskDetail, taskList);
             } else if (textIn.startsWith(DELETE_COMMAND)) {
                 if (formatIndex(textIn.substring(6).trim(), taskList)) {
                     taskList.deleteTask(Integer.parseInt(textIn.substring(6).trim()));
                 }
+            } else if (textIn.startsWith(FIND_COMMAND)) {
+                taskDetail = textIn.substring(4).trim();
+                findKeywords(taskDetail, taskList);
             } else {
                 printLine();
                 System.out.println(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -143,6 +162,5 @@ public class Parser {
         }
         Ui.bye();
         Storage.writeToFile(taskList);
-
     }
 }

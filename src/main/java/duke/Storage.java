@@ -13,8 +13,6 @@ public class Storage {
     private static final String TASKLIST_FILE_PATH = "data.txt";
 
 
-    //private static TaskList taskList = new TaskList();
-
     public static void printLine() {
         System.out.println("-----------------------------------------");
     }
