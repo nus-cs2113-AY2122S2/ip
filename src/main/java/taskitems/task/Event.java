@@ -1,36 +1,53 @@
 package taskitems.task;
 
+import helper.Parser;
+import taskitems.exceptions.DateException;
+import taskitems.exceptions.TimeException;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class Event extends Todo{
-    protected String timePeriod;
+    protected LocalDate endDate;
+    protected LocalTime endTime;
+    private Parser parser = new Parser();
 
-    public Event(String name, String timePeriod) {
+    public Event(String name, String endDate) {
         super(name);
-        this.timePeriod = timePeriod;
+        String[] date = endDate.trim().split(" ");
+        try {
+            this.endDate = parser.parseDate(date[0]);
+            this.endTime = parser.parseTime(date[1]);
+        } catch (DateException | TimeException t) {
+            System.out.println(t);
+        }
     }
 
-    public String getTimePeriod() {
-        return timePeriod;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
-    public void setTimePeriod(String timePeriod) {
-        this.timePeriod = timePeriod;
+    public LocalTime getEndTime() {
+        return endTime;
     }
 
     @Override
     public String toString() {
         if (isMarked) {
-            return "[E][X] " + name + " at:(" + timePeriod + ")";
+            return "[E][X] " + name + " at:(" + endDate.getDayOfMonth() + " " + endDate.getMonth()
+                    + " " + endDate.getYear() + " " + endTime + ")";
         } else {
-            return "[E][ ] " + name + " at:(" + timePeriod + ")";
+            return "[E][ ] " + name + " at:(" + endDate.getDayOfMonth() + " " + endDate.getMonth()
+                    + " " + endDate.getYear() + " " + endTime + ")";
         }
     }
 
     @Override
     public String saveString() {
         if (isMarked) {
-            return ("E," + this.name + ",1," + timePeriod);
+            return ("E," + this.name + ",1," + endDate.toString() + " " + endTime.toString());
         } else {
-            return ("E," + this.name + ",0," + timePeriod);
+            return ("E," + this.name + ",0," + endDate.toString() + " " + endTime.toString());
         }
 
     }
