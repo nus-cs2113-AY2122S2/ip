@@ -1,4 +1,4 @@
-# User Guide for Doke
+# User Guide for Duke
 **Duke** is a Personal Assistant Chatbot that helps a person to keep track of various tasks via a **Command Line Interface**.
 
 ## Features 
