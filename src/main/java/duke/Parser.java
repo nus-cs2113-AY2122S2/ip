@@ -27,7 +27,14 @@ public class Parser {
         System.out.println("-----------------------------------------");
     }
 
-    public static void addTodo(String taskDetail, TaskList taskList) {
+    /**
+     * Check whether the todo type task detail is valid.
+     * Add todo type task to the taskList.
+     *
+     * @param taskList the list to store all the tasks.
+     * @param taskDetail the description of the task.
+     */
+    private static void addTodo(String taskDetail, TaskList taskList) {
         printLine();
         try {
             checkTaskDetailEmpty(taskDetail);
@@ -39,7 +46,14 @@ public class Parser {
         }
     }
 
-    public static void addDeadline(String taskDetail, TaskList taskList) {
+    /**
+     * Check whether the deadline type task detail is valid.
+     * Add deadline type task to the taskList.
+     *
+     * @param taskList the list to store all the tasks.
+     * @param taskDetail the description of the task.
+     */
+    private static void addDeadline(String taskDetail, TaskList taskList) {
         printLine();
         try {
             checkTaskDetailEmpty(taskDetail);
@@ -53,7 +67,14 @@ public class Parser {
         }
     }
 
-    public static void addEvent(String taskDetail, TaskList taskList) {
+    /**
+     * Check whether the event type task detail is valid.
+     * Add event type task to the taskList.
+     *
+     * @param taskList the list to store all the tasks.
+     * @param taskDetail the description of the task.
+     */
+    private static void addEvent(String taskDetail, TaskList taskList) {
         printLine();
         try {
             checkTaskDetailEmpty(taskDetail);
@@ -67,7 +88,16 @@ public class Parser {
         }
     }
 
-    public static void checkKeyword(int indexOfKeyword, String taskDetail) throws DukeException {
+    /**
+     * Check whether the task detail for deadline type and event type has
+     * keyword for date.
+     * Check whether the date exist.
+     *
+     * @param indexOfKeyword the index of /by or /at.
+     * @param taskDetail the description of the task.
+     * @throws DukeException If task detail is not valid.
+     */
+    private static void checkKeyword(int indexOfKeyword, String taskDetail) throws DukeException {
         if (indexOfKeyword == -1) {
             throw new DukeException("You should give a time. Please refer to the command guide below.");
         }
@@ -76,12 +106,25 @@ public class Parser {
         }
     }
 
+    /**
+     * Check whether the command detail is empty
+     *
+     * @param taskDetail the description of the task.
+     * @throws DukeException If there is not command detail.
+     */
     public static void checkTaskDetailEmpty(String taskDetail) throws DukeException {
         if (taskDetail.isEmpty()) {
             throw new DukeException("Command detail cannot be empty.");
         }
     }
 
+    /**
+     * Check whether the input index can convert from string into integer.
+     * Check whether the input index is in the range of total task number.
+     * @param description the description of the task.
+     * @param taskList the list to store all the tasks.
+     * @return whether the index is valid.
+     */
     public static boolean formatIndex(String description, TaskList taskList) {
         try {
             int taskId = Integer.parseInt(description);
@@ -99,12 +142,24 @@ public class Parser {
         return false;
     }
 
+    /**
+     * Check whether the input index is in the range of total task number.
+     * @param index the input index.
+     * @param taskList the list to store all the tasks.
+     * @throws DukeException If index is smaller than 1 or greater than total number of tasks.
+     */
     public static void checkIndexRange(int index, TaskList taskList) throws DukeException {
         if (index > taskList.getSize() || index < 1) {
             throw new DukeException("This index is invalid");
         }
     }
 
+    /**
+     * Check whether the command detail is empty.
+     * Find the task which contains keyword in the taskList
+     * @param taskDetail the keyword to search.
+     * @param taskList the list to store all the tasks.
+     */
     public static void findKeywords(String taskDetail, TaskList taskList) {
         printLine();
         try {
@@ -117,7 +172,15 @@ public class Parser {
 
     }
 
-    public static void handleCommand(TaskList taskList) throws IOException {
+    /**
+     * Ask user to type in commands.
+     * Check which command is going to handle.
+     * Extract the command/task details according to the command.
+     *
+     * @param taskList the list to store all the tasks.
+     * @return whether the index is valid.
+     */
+    public static void handleCommand(TaskList taskList) {
         Scanner in = new Scanner(System.in);
         String textIn = in.nextLine();
         String taskDetail;
