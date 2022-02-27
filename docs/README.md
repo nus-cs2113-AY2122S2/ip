@@ -25,7 +25,7 @@
 5. Type the command below the greeting and press <kbd>Enter</kbd> to execute it. Some example commands you can try:
 6. Refer to the [Usage](#Usage) below for details of each command.
 
-## Feature Usage
+## Feature and Usage
 ❗️**Notes:**
 * Commands are case-sensitive. For example, `mark` and `Mark` are not equal. 
 * A space is required after each command. For exmaple, `mark1` is not a correct command format. Instead, `mark 1' is correct command format.
