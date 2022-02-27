@@ -1,4 +1,4 @@
-package chatbox;
+package UI;
 
 public class Chatbox {
     private String content = "";

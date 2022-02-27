@@ -1,4 +1,4 @@
 package exceptions;
 
-public class DukeExceptions extends Exception{
+public abstract class DukeExceptions extends Exception{
 }

@@ -1,6 +1,6 @@
 package controller;
 
-import chatbox.Chatbox;
+import UI.*;
 import exceptions.*;
 import tasks.TaskManager;
 
@@ -8,58 +8,62 @@ import java.util.Scanner;
 
 public class Controller {
     //greeting msg and exit msg
-    protected String HELLO_WORDS = "Hello! I'm Duke :P\nWhat can I do for you?";
-    protected String GOODBYE_WORDS = "Bye. Hope to see you again soon! ;)";
-    protected String recvMsg = "";
-    protected String replyMsg = "";
-    Chatbox chatbox = new Chatbox();
+    protected String recvMsg;
+    protected String replyMsg;
+    protected static final String MARK_TASK_COMMAND = "mark";
+    protected static final String UNMARK_TASK_COMMAND = "unmark";
+    protected static final String DELETE_TASK_COMMAND = "delete";
+    protected static final String ADD_TODO_TASK_COMMAND = "todo";
+    protected static final String ADD_EVENT_TASK_COMMAND = "event";
+    protected static final String ADD_DEADLINE_TASK_COMMAND = "deadline";
+    protected static final String LIST_TASKS_COMMAND = "list";
+    protected static final String EXIT_COMMAND = "bye";
     TaskManager manager = new TaskManager();
     OperationAnalyst analyst;
+    UI userInterface = new UI();
 
     /**
      * Prints greeting msg
      */
     public void greet() {
-        chatbox.setContent(HELLO_WORDS);
-        chatbox.chatboxPrinter();
+        userInterface.greet();
     }
 
     /**
      * Prints goodbye msg and exits
      */
     public void bye() {
-        chatbox.setContent(GOODBYE_WORDS);
-        chatbox.chatboxPrinter();
+        userInterface.goodbye();
         System.exit(0);
     }
 
     /**
      * Unmarks task in the list
      */
-    public void unmarkTask() throws DukeExceptions {
+    public String unmarkTask() throws DukeExceptions {
         try {
             int index= Integer.parseInt(analyst.taskName);
-            manager.unmarkTask(index);
+            return manager.unmarkTask(index);
         } catch (NumberFormatException e) {
-            throw new IllegalTaskIndexException();
+            throw new TaskIndexLossException();
         }
     }
 
-    public void markTask() throws DukeExceptions{
+    public String markTask() throws DukeExceptions{
         try {
             int index = Integer.parseInt(analyst.taskName);
-            manager.markTask(index);
+            return manager.markTask(index);
         } catch (NumberFormatException e) {
-            throw new IllegalTaskIndexException();
+            throw new TaskIndexLossException();
         }
     }
 
-    public void deleteTask() throws DukeExceptions {
+    public String deleteTask() throws DukeExceptions {
         try {
             int index = Integer.parseInt(analyst.taskName);
-            manager.deleteTask(index);
+            return manager.deleteTask(index);
         } catch (NumberFormatException e) {
-            throw new IllegalTaskIndexException();
+            throw new TaskIndexLossException();
         }
     }
 
@@ -81,46 +85,37 @@ public class Controller {
                     analyst = new OperationAnalyst(this.recvMsg);
                     String command = analyst.getCommand();
                     switch (command) {
-                    case "bye":
+                    case EXIT_COMMAND:
                         this.bye();
                         break;
-                    case "list":
-                        manager.listTask();
+                    case LIST_TASKS_COMMAND:
+                        this.replyMsg = manager.listTask();
                         break;
-                    case "mark":
-                        this.markTask();
+                    case MARK_TASK_COMMAND:
+                        this.replyMsg = this.markTask();
                         break;
-                    case "unmark":
-                        this.unmarkTask();
+                    case UNMARK_TASK_COMMAND:
+                        this.replyMsg = this.unmarkTask();
                         break;
-                    case "deadline":
-                        manager.addDeadline(analyst.taskName, analyst.time);
+                    case ADD_DEADLINE_TASK_COMMAND:
+                        this.replyMsg = manager.addDeadline(analyst.taskName, analyst.time);
                         break;
-                    case "event":
-                        manager.addEvent(analyst.taskName, analyst.time);
+                    case ADD_EVENT_TASK_COMMAND:
+                        this.replyMsg = manager.addEvent(analyst.taskName, analyst.time);
                         break;
-                    case "todo":
-                        manager.addToDo(analyst.taskName);
+                    case ADD_TODO_TASK_COMMAND:
+                        this.replyMsg = manager.addToDo(analyst.taskName);
                         break;
-                    case "delete":
-                        this.deleteTask();
+                    case DELETE_TASK_COMMAND:
+                        this.replyMsg = this.deleteTask();
+                        break;
+                    default:
+                        throw new IllegalInstructionException();
                     }
+                    userInterface.printMsg(replyMsg);
                     manager.saveTask();
-                } catch (IllegalInstructionException e) {
-                    chatbox.setContent("Sorry, I don't understand your instruction :(");
-                    chatbox.chatboxPrinter();
-                } catch (IllegalFormatException e) {
-                    chatbox.setContent("Please check your format again :(");
-                    chatbox.chatboxPrinter();
-                } catch (IllegalTaskNameException e) {
-                    chatbox.setContent("Did you specify your task name?");
-                    chatbox.chatboxPrinter();
-                } catch (IllegalSavingAction e) {
-                    chatbox.setContent("Cannot save to file :(");
-                    chatbox.chatboxPrinter();
-                } catch (IllegalTaskIndexException e) {
-                    chatbox.setContent("Please specify the index of the task :(");
-                    chatbox.chatboxPrinter();
+                } catch (DukeExceptions e) {
+                    userInterface.printMsg(e.toString());
                 }
             }
 

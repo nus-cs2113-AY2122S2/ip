@@ -1,18 +1,23 @@
 package tasks;
 
-import java.util.ArrayList;
-import java.io.FileWriter;
-import java.io.File;
-import chatbox.*;
+import UI.*;
 import exceptions.*;
+
+import java.time.LocalDate;
 
 public class TaskManager {
     Storage Tasks = new Storage();
     //response of adding
-    protected String ADD_RES = "Got it. I've added this task:\n";
+    protected static final String ADD_RESPONSE = "ψ(._. )> Got it. I've added this task:\n";
+    protected static final String MARK_RESPONSE = "ψ(._. )> Nice! I've marked this task as done:\n";
+    protected static final String UNMARK_RESPONSE = "ψ(._. )> OK, I've marked this task as not done yet:\n";
+    protected static final String LIST_RESPONSE = "o(≧v≦)o Here are the tasks in your list:\n";
+    protected static final String DELETE_RESPONSE = "ψ(._. )> Okay! I've deleted this task:\n";
     Chatbox chatbox = new Chatbox();
 
-
+    public String taskNumberMsg(int taskNumber){
+        return "Now you have " + taskNumber + " tasks in your list.";
+    }
     public void saveTask() throws DukeExceptions {
         Tasks.saveTask();
     }
@@ -40,14 +45,12 @@ public class TaskManager {
      * @param name refers to the name of the task
      * @param by refers to the deadline of the task
      */
-    public void addDeadline(String name, String by) {
+    public String addDeadline(String name, LocalDate by) {
         Deadline newDeadline = new Deadline(name, by);
         Tasks.add(newDeadline);
         int s = Tasks.size();
-        String response = ADD_RES + newDeadline.getListName() +
-                "\n" + "Now you have " + String.valueOf(s) + " tasks in your list.";
-        chatbox.setContent(response);
-        chatbox.chatboxPrinter();
+        return ADD_RESPONSE + newDeadline.getListName() +
+                "\n" + this.taskNumberMsg(s);
     }
 
     /**
@@ -55,38 +58,34 @@ public class TaskManager {
      * @param name refers to the name of the task
      * @param at refers to the happening time of the event
      */
-    public void addEvent(String name, String at) {
+    public String addEvent(String name, LocalDate at) {
         Event newEvent = new Event(name, at);
         Tasks.add(newEvent);
         int s = Tasks.size();
-        String response = ADD_RES + newEvent.getListName() +
-                "\n" + "Now you have " + String.valueOf(s) + " tasks in your list.";
-        chatbox.setContent(response);
-        chatbox.chatboxPrinter();
+        return ADD_RESPONSE + newEvent.getListName() +
+                "\n" + this.taskNumberMsg(s);
     }
 
     /**
      * Adds a todo task to the list
      * @param name refers to the name of the todo task
      */
-    public void addToDo(String name) {
+    public String addToDo(String name) {
         ToDo newToDo = new ToDo(name);
         Tasks.add(newToDo);
         int s = Tasks.size();
-        String response = ADD_RES + newToDo.getListName() + "\n" +
-                "Now you have " + String.valueOf(s) + " tasks in your list.";
-        chatbox.setContent(response);
-        chatbox.chatboxPrinter();
+        return ADD_RESPONSE + newToDo.getListName() + "\n" +
+                this.taskNumberMsg(s);
     }
 
     /**
      * Lists all tasks in the list with adding time order
      */
-    public void listTask() {
-        String content = "Here are the tasks in your list:\n";
+    public String listTask() throws DukeExceptions{
         if(Tasks.size() == 0){
-            content = "Sorry, there's no task in the list :(";
+            throw new EmptyListException();
         }else {
+            String content = LIST_RESPONSE;
             for (int i = 0; i < Tasks.size(); i++) {
                 String index = String.valueOf(i + 1);
                 String name = index + ". " + Tasks.get(i).getListName();
@@ -95,59 +94,51 @@ public class TaskManager {
                     content += "\n";
                 }
             }
+            return content;
         }
-        chatbox.setContent(content);
-        chatbox.chatboxPrinter();
+
     }
 
     /**
      * Marks specific task in the list as done
      * @param n refers to the index of the task in adding time order
      */
-    public void markTask(int n) {
+    public String markTask(int n) throws DukeExceptions{
         System.out.println(n);
-        String content = "";
         if(n < 1 || n > Tasks.size()) {
             //Beyonds boundaries
-            content = "Sorry, I could not find the task :/";
+            throw new IllegalIndexException();
         }else {
             Tasks.get(n - 1).mark();
-            content = "Nice! I've marked this task as done:\n" + Tasks.get(n - 1).listName;
+            return MARK_RESPONSE + Tasks.get(n - 1).listName;
         }
-        chatbox.setContent(content);
-        chatbox.chatboxPrinter();
     }
 
     /**
      * Unmarks specific task in the list as undone
      * @param n refers to the index of the task in adding time order
      */
-    public void unmarkTask(int n) {
-        String content = "";
+    public String unmarkTask(int n) throws DukeExceptions{
         if(n < 1 || n > Tasks.size()){
-            // Beyonds boundaries
-            content = "Sorry, I could not find the task :/";
+            throw new IllegalIndexException();
         }else {
             Tasks.get(n - 1).unmark();
-            content = "OK, I've marked this task as not done yet:\n" + Tasks.get(n - 1).listName;
+            return UNMARK_RESPONSE + Tasks.get(n - 1).listName;
+
         }
-        chatbox.setContent(content);
-        chatbox.chatboxPrinter();
     }
 
-    public void deleteTask(int n) {
-        String content = "";
+    public String deleteTask(int n) throws DukeExceptions{
         if(n < 1 || n > Tasks.size()) {
             //Beyonds boundaries
-            content = "Sorry, I could not find the task :/";
+            throw new IllegalIndexException();
         }else {
-            content = "Okay! I've deleted this task:\n" + Tasks.get(n - 1).listName;
+            String content =  DELETE_RESPONSE + Tasks.get(n - 1).listName;
             Tasks.remove(n-1);
             int s = Tasks.size();
-            content += "\nNow you have " + String.valueOf(s) + " tasks in your list";
+            content += "\n" + this.taskNumberMsg(s);
+            return content;
         }
-        chatbox.setContent(content);
-        chatbox.chatboxPrinter();
     }
 
 

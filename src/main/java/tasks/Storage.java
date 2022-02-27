@@ -3,13 +3,18 @@ package tasks;
 import exceptions.*;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.*;
 
 public class Storage {
     private static final ArrayList<Task> Tasks = new ArrayList<Task>();
-    private static final String FILE_NAME = "data/duke.txt";
+    protected static final String FILE_NAME = "data/duke.txt";
+    protected static final String DONE = "X";
+    protected static final String TODO = "T";
+    protected static final String EVENT = "E";
+    protected static final String DEADLINE = "d";
 
     public int size() {
         return Tasks.size();
@@ -52,13 +57,13 @@ public class Storage {
         info = info.replaceAll("\\[", "");
         info = info.replaceAll("\\(", "\\|");
         info = info.replaceAll("\\)", "");
-        System.out.println(info);
+        //System.out.println(info);
         String[] data = info.split("\\|");
         return data;
     }
 
     public void mark(Task task, String status){
-        if(status.equals("X")){
+        if(status.equals(DONE)){
             task.isDone = true;
         }
     }
@@ -66,25 +71,25 @@ public class Storage {
     public void loadTask() throws DukeExceptions{
         try (BufferedReader loadData = new BufferedReader(new FileReader(FILE_NAME))){
             String listName;
-            String time;
+            LocalDate time;
             while ((listName = loadData.readLine()) != null) {
                 String[] data = this.parseInput(listName);
-                System.out.println(listName);
-                System.out.println(Arrays.toString(data));
+                //System.out.println(listName);
+                //System.out.println(Arrays.toString(data));
                     switch (data[0]) {
-                    case "T":
+                    case TODO:
                         ToDo newToDo = new ToDo(data[2]);
                         mark(newToDo, data[2]);
                         Tasks.add(newToDo);
                         break;
-                    case "E":
-                        time = data[3].replace("at: ", "");
+                    case EVENT:
+                        time = LocalDate.parse(data[3].replace("at: ", ""));
                         Event newEvent = new Event(data[2], time);
                         mark(newEvent, data[2]);
                         Tasks.add(newEvent);
                         break;
-                    case "D":
-                        time = data[3].replace("by: ", "");
+                    case DEADLINE:
+                        time = LocalDate.parse(data[3].replace("by ", ""));
                         Deadline newDeadline = new Deadline(data[2], time);
                         mark(newDeadline, data[2]);
                         Tasks.add(newDeadline);

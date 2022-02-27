@@ -1,20 +1,28 @@
 package tasks;
 
-public class Deadline extends Task {
-    protected String by;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String name, String by){
+public class Deadline extends Task {
+    LocalDate by;
+
+    public Deadline(String name, LocalDate by){
         super(name);
         this.by = by;
         setListName();
     }
 
+    public String getTime() {
+        return by.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    }
+
     @Override
     public void setListName(){
         if(!isDone){
-            this.listName = "[D]" + this.unmarkedStatus + this.taskName + "(by: " + by + ")";
+            this.listName = "[D]" + this.unmarkedStatus + this.taskName + "(by: " + this.getTime() + ")";
         }else{
-            this.listName = "[D]" + this.markedStatus + this.taskName + "(by: " + by + ")";
+            this.listName = "[D]" + this.markedStatus + this.taskName + "(by: " + this.getTime() + ")";
         }
     }
+
 }
