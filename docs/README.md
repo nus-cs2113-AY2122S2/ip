@@ -3,7 +3,7 @@
 ## Table of Contents
 
 * [Quick start](#quick-start)
-* [Features and Usage](#features-and-usage)
+* [Features and Usage](#feature-and-usage)
     * [Adding a task](#adding-a-task)
         * [Todo: `todo`](#todo-task-todo)
         * [Deadline: `deadline`](#deadline-task-deadline)
