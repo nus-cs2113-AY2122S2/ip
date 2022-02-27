@@ -2,7 +2,7 @@ import controller.*;
 import exceptions.*;
 
 public class Duke {
-    public static void main(String[] args) throws DukeExceptions {
+    public static void main(String[] args) throws Exception {
         Controller bot = new Controller();
         bot.greet();
         bot.createFile();
