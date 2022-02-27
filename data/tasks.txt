@@ -1,5 +1,2 @@
-T | X | eat
-T | X | play
-T |   | sleep
-D |   | assignment /by sunday
-E |   | church /at sunday
+D |   | adsl /by 1111-11-11
+E |   | jslkf /at 1111-11-11

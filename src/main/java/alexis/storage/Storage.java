@@ -12,7 +12,11 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+
+import static alexis.parser.Parser.parseTiming;
 
 public class Storage {
     protected String dataPath;
@@ -36,7 +40,6 @@ public class Storage {
         } else {
             try {
                 Files.createFile(Path.of(dataPath));
-                //dataFile.createNewFile();
                 System.out.println("File created: " + dataFile.getName());
             } catch (IOException e) {
                 System.out.println("An error occurred, file still doesnt exist");
@@ -57,19 +60,19 @@ public class Storage {
         return (ArrayList<String>) Files.readAllLines(dataFile.toPath(), Charset.defaultCharset());
     }
 
-    public ArrayList<Task> load() throws AlexisException{
-        ArrayList<Task> taskList = null;
+    public ArrayList<Task> load() throws AlexisException, IOException {
+        ArrayList<Task> taskList = new ArrayList<>(100);
         try {
             ArrayList<String> dataItems = readFile();
             taskList = parse(dataItems);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException | DateTimeException | AlexisException e) {
+            System.out.println("file is corrupted.. deleting all content and creating new file..");
+            new FileWriter("./data/tasks.txt", false).close();
         }
-
         return taskList;
     }
 
-    private ArrayList<Task> parse(ArrayList<String> encodedList) {
+    private ArrayList<Task> parse(ArrayList<String> encodedList) throws DateTimeException {
         ArrayList<Task> decodedList = new ArrayList<>();
         int taskCounter = 0;
         for (String encodedTask : encodedList) {
@@ -82,12 +85,16 @@ public class Storage {
                 break;
             case 'D':
                 String[] deadlineDescriptionSplitArr = taskDescription.split(" /by ");
-                decodedList.add(new Deadline(deadlineDescriptionSplitArr[0], deadlineDescriptionSplitArr[1]));
+                decodedList.add(new Deadline(deadlineDescriptionSplitArr[0],
+                        parseTiming(LocalDate.parse(deadlineDescriptionSplitArr[1]))));
+                decodedList.get(taskCounter).addDate(LocalDate.parse(deadlineDescriptionSplitArr[1]));
                 taskCounter += 1;
                 break;
             case 'E':
                 String[] eventDescriptionSplitArr = taskDescription.split(" /at ");
-                decodedList.add(new Event(eventDescriptionSplitArr[0], eventDescriptionSplitArr[1]));
+                decodedList.add(new Event(eventDescriptionSplitArr[0],
+                        parseTiming(LocalDate.parse(eventDescriptionSplitArr[1]))));
+                decodedList.get(taskCounter).addDate(LocalDate.parse(eventDescriptionSplitArr[1]));
                 taskCounter += 1;
                 break;
             default:
@@ -98,6 +105,7 @@ public class Storage {
             if (getTaskStatus(encodedTask) == 'X') {
                 decodedList.get(taskCounter - 1).setIsDone();
             }
+
         }
         return decodedList;
     }
@@ -125,12 +133,12 @@ public class Storage {
                     break;
                 case 'D':
                     fw.write(tasks.get(i).typeOfTask() + " | " + tasks.get(i).getStatusIcon() + " | "
-                            + tasks.get(i).getDescription() + " /by " + tasks.get(i).getTiming()
+                            + tasks.get(i).getDescription() + " /by " + tasks.get(i).getDate()
                             + System.lineSeparator());
                     break;
                 case 'E':
                     fw.write(tasks.get(i).typeOfTask() + " | " + tasks.get(i).getStatusIcon() + " | "
-                            + tasks.get(i).getDescription() + " /at " + tasks.get(i).getTiming()
+                            + tasks.get(i).getDescription() + " /at " + tasks.get(i).getDate()
                             + System.lineSeparator());
                     break;
                 default:

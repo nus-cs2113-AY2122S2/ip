@@ -5,19 +5,28 @@ import alexis.storage.Storage;
 import alexis.taskList.TaskList;
 import alexis.task.Deadline;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+
+import static alexis.parser.Parser.parseDate;
+import static alexis.parser.Parser.parseTiming;
+
 public class DeadlineCommand extends Command{
 
     protected String description;
     protected String timing;
+    protected LocalDate date;
 
-    public DeadlineCommand(String fullDescription) throws MissingDeadlineTimingException {
+    public DeadlineCommand(String fullDescription) throws MissingDeadlineTimingException, DateTimeException {
         if (!fullDescription.contains(" /by ")) {
             throw new MissingDeadlineTimingException();
-        }
-        String[] deadlineDescriptionSplitArr = fullDescription.split(" /by ");
-        description = deadlineDescriptionSplitArr[0];
-        timing = deadlineDescriptionSplitArr[1];
+        } else {
 
+            String[] deadlineDescriptionSplitArr = fullDescription.split(" /by ");
+            description = deadlineDescriptionSplitArr[0];
+            date = parseDate(deadlineDescriptionSplitArr[1]);
+            timing = parseTiming(date);
+        }
     }
 
     @Override
@@ -25,6 +34,7 @@ public class DeadlineCommand extends Command{
         taskList.add(new Deadline(description, timing));
         int listSize = taskList.getListSize();
         int taskIndex = listSize - 1;
+        taskList.getTask(taskIndex).addDate(date);
         taskList.getTask(taskIndex).addNewTaskMessage();
         storage.save(listSize, taskList.taskArrayList);
     }

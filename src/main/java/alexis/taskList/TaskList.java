@@ -1,5 +1,6 @@
 package alexis.taskList;
 
+import alexis.exceptions.EmptyListException;
 import alexis.task.Task;
 
 import java.util.ArrayList;
@@ -21,6 +22,14 @@ public class TaskList {
 
     public int getListSize() {
         return listSize;
+    }
+
+    public int getListSizeForDisplayList() throws EmptyListException{
+        if (listSize == 0) {
+            throw new EmptyListException();
+        } else {
+            return listSize;
+        }
     }
 
     public Task getTask(int taskNumber) {

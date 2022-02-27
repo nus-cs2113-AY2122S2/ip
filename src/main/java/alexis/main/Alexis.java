@@ -7,6 +7,8 @@ import alexis.storage.Storage;
 import alexis.ui.Ui;
 import alexis.exceptions.AlexisException;
 
+import java.io.IOException;
+
 public class Alexis {
 
     public static TaskList tasks;
@@ -21,6 +23,8 @@ public class Alexis {
         } catch (AlexisException e) {
             ui.showLoadingError();
             tasks = new TaskList();
+        } catch (IOException e) {
+            System.out.println("Failed to load new file");
         }
 
     }
