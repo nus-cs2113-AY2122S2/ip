@@ -1,13 +1,6 @@
 package duke;
 
-import java.io.Serializable;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileInputStream;
-import java.io.ObjectOutputStream;
-import java.io.ObjectInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -33,16 +26,38 @@ public class TaskManager implements Serializable {
         this.duke = file;
         if (this.duke.length() != 0) {
             try {
-                FileInputStream readData = new FileInputStream(this.duke);
-                ObjectInputStream readStream = new ObjectInputStream(readData);
-
-                allTasks = (ArrayList<Task>) readStream.readObject();
-                readStream.close();
+//                FileInputStream readData = new FileInputStream(this.duke);
+//                ObjectInputStream readStream = new ObjectInputStream(readData);
+//
+//                allTasks = (ArrayList<Task>) readStream.readObject();
+//                readStream.close();
+                Scanner readFile = new Scanner(duke);
+                for (int i = 0; readFile.hasNextLine(); ++i) {
+                    line = readFile.nextLine();
+                    String[] input = line.split(" ", 2);
+                    if (input[0].charAt(1) == 'T') {
+                        String todoDescription = input[1].replaceAll("\\W", " ").strip();
+                        allTasks.add(new ToDo(todoDescription));
+                    } else if (input[0].charAt(1) == 'D') {
+                        String deadline = input[1].replaceAll("\\W", " ").strip();
+                        String[] deadlineDescription = deadline.split("by", 2);
+                        allTasks.add(new Deadline(deadlineDescription[0].strip(), deadlineDescription[1].strip()));
+                    } else if (input[0].charAt(1) == 'E') {
+                        String event = input[1].replaceAll("\\W", " ").strip();
+                        String[] eventDescription = event.split("at", 2);
+                        allTasks.add(new Event(eventDescription[0].strip(), eventDescription[1].strip()));
+                    }
+                    // System.out.println(input[0].charAt(4));
+                    if (input[0].length() > 4) {
+                        allTasks.get(i).markAsDone();
+                    }
+                }
                 printTaskRemaining();
                 printEndLine();
+                readFile.close();
             } catch (FileNotFoundException e) {
                 System.out.println("File not found");
-            } catch (IOException | ClassNotFoundException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -206,12 +221,14 @@ public class TaskManager implements Serializable {
 
     private static void saveData() {
         try {
-            FileOutputStream writeData = new FileOutputStream(duke);
-            ObjectOutputStream writeStream = new ObjectOutputStream(writeData);
-
-            writeStream.writeObject(allTasks);
-            writeStream.flush();
-            writeStream.close();
+            FileWriter writeFile = new FileWriter(duke);
+            System.out.println("\nSaving data");
+            for (Task tasks : allTasks) {
+                writeFile.write(tasks.toString() + "\n");
+                System.out.println(tasks.toString());
+            }
+            System.out.println("Saving data end\n");
+            writeFile.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found. Unable to save file");
         } catch (IOException e) {
