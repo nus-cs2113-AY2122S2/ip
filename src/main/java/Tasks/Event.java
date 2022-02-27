@@ -1,5 +1,8 @@
 package Tasks;
 
+/**
+ * Represents a kind of task that starts at a specific time and ends at a specific time.
+ */
 public class Event extends Task {
 
     protected String at;

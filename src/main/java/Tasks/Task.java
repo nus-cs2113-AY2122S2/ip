@@ -1,5 +1,8 @@
 package Tasks;
 
+/**
+ * Represents a general concept.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
