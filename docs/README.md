@@ -3,18 +3,18 @@
 ## Table of Contents
 
 * [Quick start](#quick-start)
-* [Features](#features)
+* [Features and Usage](#features-and-usage)
     * [Adding a task](#adding-a-task)
-        * [Todo: `todo`](#todo-todo)
-        * [Deadline: `deadline`](#deadline-deadline)
-        * [Event: `event`](#event-event)
+        * [Todo: `todo`](#todo-task-todo)
+        * [Deadline: `deadline`](#deadline-task-deadline)
+        * [Event: `event`](#event-task-event)
     * [Listing all tasks: `list`](#listing-all-tasks-list)
     * [Marking a task as done: `mark`](#marking-a-task-as-done-mark)
     * [Marking a task as not done: `unmark`](#marking-a-task-as-not-done-unmark)
     * [Deleting a task: `delete`](#deleting-a-task-delete)
-    * [Filtering tasks by keyword: `find`](#filtering-tasks-by-keyword-find)
+    * [Finding tasks by keyword: `find`](#finding-tasks-by-keyword-find)
     * [Exiting the app: `bye`](#exiting-the-app-bye)
-    * [Automatic saving of data](#saving-of-data)
+    * [Automatic saving of data](#automatic-saving-of-data)
 
 ## Quick start
 
@@ -146,7 +146,7 @@ Now if you run 'list' again, it will shows:
 -----------------------------------------
 ```
 
-### Filtering tasks by keyword: `find`
+### Finding tasks by keyword: `find`
 Search tasks in the list which contains the keyword.
 
 **Format:** `find <keyword>`
