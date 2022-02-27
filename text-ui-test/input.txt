@@ -1,0 +1,20 @@
+todo get a good grade from CS2113
+deadline work hard /by May
+event attend group meeting /at Thursday 10PM
+mark 3
+m 3
+list
+ls
+e attend lecture /at Friday 4PM
+unmark 4
+mark 4
+um 4
+ls
+deadline test /at wrong format
+event test /by wrong format
+todo test /by wrong format
+todo test /at wrong format
+deadline everything seems fine /by now
+ls
+m 5
+quit
