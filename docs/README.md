@@ -16,7 +16,7 @@ Categorizes Vocabulary into 3 categories and adds them into the Vocabulary list,
 -Add `Deadline` Vocabulary: `deadline {vocabulary}/{date/time}`<br>
 -Add `Event` Vocabulary: `event {vocabulary}/{date/time}`
 
-Examples:
+#### Examples:
 
 -`tolearn abrogate`<br>
 -`event conduit/8pm-9pm`
@@ -41,7 +41,7 @@ Allows the user to mark a Vocabulary when it has been learnt or not.
 -`mark {vocabulary_index}`<br>
 -`unmark {vocabulary_index}
 
-Examples:
+#### Examples:
 
 -`mark 1`<br>
 -`unmark 1`
@@ -54,7 +54,7 @@ Allows the user to delete a Vocabulary by index.
 
 -`delete {vocabulary_index}`
 
-Examples:
+#### Examples:
 
 -`delete 1`
 
@@ -66,7 +66,7 @@ Allows the user to find a Vocabulary by index.
 
 -`find {vocabulary_index}`
 
-Examples:
+#### Examples:
 
 -`find 1`
 
