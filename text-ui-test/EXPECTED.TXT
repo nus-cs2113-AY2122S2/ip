@@ -1,7 +1,55 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+File successfully read/created!
+________________________________________________________________________________
+ *Flies in*
+ Hello! I'm your friendly neighbourhood vocabulary superhero!
+ Come spelling bee tell me what words/phrases you know?
+________________________________________________________________________________
+ Please use keyword - bye, list, tolearn, deadline, event, mark, unmark!
+________________________________________________________________________________
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ You have not input any words yet!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+________________________________________________________________________________
+ You have a new word to learn: onomatopoeia
+ -from your neighbourhood vocabulary superhero
+________________________________________________________________________________
+You've just stored "[T][ ] onomatopoeia" in your list!
+________________________________________________________________________________
+________________________________________________________________________________
+ You have a new word to learn: amenable
+ -from your neighbourhood vocabulary superhero
+________________________________________________________________________________
+You've just stored "[D][ ] amenable(Sunday 4pm)" in your list!
+________________________________________________________________________________
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ These are the words you want to learn!
+[T][ ] onomatopoeia
+[D][ ] amenable(Sunday 4pm)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+________________________________________________________________________________
+ We've just confirmed you have understood this word:
+ [T][X] onomatopoeia
+ Now go learn more new words!
+________________________________________________________________________________
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ These are the words you want to learn!
+[T][X] onomatopoeia
+[D][ ] amenable(Sunday 4pm)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+________________________________________________________________________________
+ You have a new word to learn: supercalifragilisticexpialidocious
+ -from your neighbourhood vocabulary superhero
+________________________________________________________________________________
+You've just stored "[E][ ] supercalifragilisticexpialidocious(Friday 3-6pm)" in your list!
+________________________________________________________________________________
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ These are the words you want to learn!
+[T][X] onomatopoeia
+[D][ ] amenable(Sunday 4pm)
+[E][ ] supercalifragilisticexpialidocious(Friday 3-6pm)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+________________________________________________________________________________
+ Bye. I'm off saving people's vocabulary again!
+ *Flies away*
+________________________________________________________________________________
+File successfully saved!
