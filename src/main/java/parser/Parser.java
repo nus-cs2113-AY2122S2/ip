@@ -2,6 +2,7 @@ package parser;
 
 import commands.Command;
 import commands.DeadlineCommand;
+import commands.EventCommand;
 import commands.TodoCommand;
 
 public class Parser {
@@ -18,6 +19,9 @@ public class Parser {
             break;
         case DeadlineCommand.COMMAND_WORD:
             cmd = prepareDeadline(description);
+            break;
+        case EventCommand.COMMAND_WORD:
+            cmd = prepareEvent(description);
             break;
         default:
             cmd = new TodoCommand("Undefined");
@@ -36,5 +40,12 @@ public class Parser {
         String description = descriptions[0].trim();
         String by = descriptions[1].trim();
         return new DeadlineCommand(description, by);
+    }
+
+    private static Command prepareEvent(String fullDescription) {
+        String[] descriptions = fullDescription.split("/at", 2);
+        String description = descriptions[0].trim();
+        String at = descriptions[1].trim();
+        return new EventCommand(description, at);
     }
 }
