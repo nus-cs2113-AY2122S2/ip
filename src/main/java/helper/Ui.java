@@ -84,5 +84,42 @@ public class Ui {
         System.out.print("\nYou: ");
     }
 
+    public void printHelp() {
+        print("It seems like you need some help! Fret not I am here to save the day!\n"
+            + "There are 11 commands that you can use to tell me what to do.\n"
+            + "I have listed them below and provided examples on how you should use them.\n\n"
+            +"1. help\n"
+            +"The help command brings you to this page where you can figure out how to use Duke.\n\n"
+            +"2. list\n"
+            + "The list command generates a list of tasks that you have already created before.\n\n"
+            +"3. find\n"
+            +"The find command lets you search of tasks by their names (for e.g: find homework)\n\n"
+            +"4. todo\n"
+            +"The todo command lets you add a todo task. A todo task requires a name to be entered as a parameter.\n"
+            +"(for e.g: todo yoga)\n\n"
+            +"5. deadline\n"
+            + "The deadline command lets you add a task that has a deadline. A deadline task requires a name, date and time.\n"
+            + "(for e.g: deadline assignment 5 /by 2022-03-01 13:00)\n"
+            + "The /by keyword is required before the date and time. Dates are in YYYY-MM-DD format. Time in HH:MM format.\n\n"
+            + "6. event\n"
+            + "The event command lets you add a task that happens at a particular date and time.\n"
+            + "An event task requires a name, date and time.\n"
+            + "(for e.g: event graduation /by 2024-06-01 23:59)\n"
+            + "The /at keyword is required before the date and time. Dates are in YYYY-MM-DD format. Time in HH:MM format.\n\n"
+            + "7. mark\n"
+            + "You can use the mark command to mark certain tasks in the list as done. Mark takes in a positive integer as a parameter.\n"
+            + "(for e.g: mark 2)\n\n"
+            + "8. unmark\n"
+            + "You can use the unmark command to unmark marked tasks in the list. Unmark takes in a positive integer as a parameter.\n"
+            + "(for e.g: unmark 2)\n\n"
+            + "9. delete\n"
+            + "You can use the delete command to delete a task from the list. Delete takes in a positive integer as a parameter.\n"
+            + "All deleted tasks are sent to the bin which are them permanently destroyed on the exit of the app.\n"
+            + "(for e.g: delete 4)\n\n"
+            + "10. bin\n"
+            + "You can view items you have deleted by saying bin.\n\n"
+            +"11. bye\n"
+            + "You can exit the application at any point in time by saying bye.\n\n");
+    }
 
 }
