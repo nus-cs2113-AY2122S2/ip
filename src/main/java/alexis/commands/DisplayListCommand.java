@@ -1,5 +1,6 @@
 package alexis.commands;
 
+import alexis.exceptions.EmptyListException;
 import alexis.main.Alexis;
 
 import static alexis.ui.Ui.DISPLAY_TASK_MESSAGE;
@@ -9,15 +10,12 @@ public class DisplayListCommand extends Command{
 
     public DisplayListCommand() {
         try {
-            int numOfTasks = Alexis.tasks.getListSize();
+            int numOfTasks = Alexis.tasks.getListSizeForDisplayList();
             System.out.println(DISPLAY_TASK_MESSAGE);
             for (int i = 0; i < numOfTasks; i++) {
-                char typeOfTask = Alexis.tasks.getTask(i).typeOfTask();
-                String statusOfTask = Alexis.tasks.getTask(i).getStatusIcon();
-                String descriptionOfTask = Alexis.tasks.getTask(i).getFullDescription();
-                System.out.println((i + 1) + ".[" + typeOfTask + "][" + statusOfTask + "] " + descriptionOfTask);
+                System.out.println((i + 1) + "." + Alexis.tasks.getTask(i).toString());
             }
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | EmptyListException e) {
             System.out.println(EMPTY_LIST_MESSAGE);
         }
     }

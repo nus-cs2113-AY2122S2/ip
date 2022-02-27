@@ -19,3 +19,4 @@ text-ui-test/EXPECTED-UNIX.TXT
 #Binary files
 /*.class
 list.txt
+data/tasks.txt

@@ -1,10 +1,13 @@
 package alexis.ui;
 
+import alexis.main.Alexis;
 import alexis.task.Task;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import static alexis.task.Task.BUFFER;
 
 public class Ui {
 
@@ -24,7 +27,7 @@ public class Ui {
             "What can I do for you? ^-^\n\n" +
                     "Hint: You may use these commands to navigate around:\n" +
                     "[list] [todo] [deadline] [event] [mark] [unmark] [delete] [bye]\n" +
-                    "[find]";
+                    "[show] [find]";
 
     public static final String GOODBYE_MESSAGE = "Bye. Hope to see you again soon!";
 
@@ -73,12 +76,9 @@ public class Ui {
     }
 
     public static void printDeleteOutput(ArrayList<Task> tasks, int numOfTasks, int taskNumber) {
-        char typeOfTask = tasks.get(taskNumber).typeOfTask();
-        String statusOfTask = tasks.get(taskNumber).getStatusIcon();
-        String descriptionOfTask = tasks.get(taskNumber).getFullDescription();
         showToUser(
                 "Noted. I've removed this task:",
-                "  [" + typeOfTask + "][" + statusOfTask + "] " + descriptionOfTask,
+                BUFFER + Alexis.tasks.getTask(taskNumber).toString(),
                 "Now, you have " + (numOfTasks - 1) + " tasks in the list.");
     }
 

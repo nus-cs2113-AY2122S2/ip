@@ -30,8 +30,7 @@ public class FindCommand extends Command {
             System.out.println("Here are the matching tasks in your list:");
             for (int i = 0; i < indexesWithKeywordArr.size(); i++) {
                 Task task = taskList.taskArrayList.get(indexesWithKeywordArr.get(i));
-                System.out.println((i + 1) + "." + "[" + task.typeOfTask() + "][" + task.getStatusIcon()
-                        + "] " + task.getFullDescription());
+                System.out.println((i + 1) + "." + task);
             }
         } else {
             System.out.println("There are no matching tasks in your list");
