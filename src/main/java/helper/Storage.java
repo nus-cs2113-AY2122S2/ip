@@ -13,15 +13,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+// Storage class that holds methods pertaining to saving and loading data
 public class Storage {
     private final String PATH = "data.txt";
     private TaskList tasks;
 
-
+    // Constructor method
+    // @param (tasks) (A TaskList instance that data will be loaded to and saved from)
     public Storage(TaskList tasks) {
         this.tasks = tasks;
     }
 
+    // Method to save data from application into a txt file in the csv format
+    // Creates new file if data file is not found in PATH
     public void saveData() {
         File data = new File(PATH);
         if (!data.exists()) {
@@ -42,6 +46,8 @@ public class Storage {
         }
     }
 
+    // Method to load data from a txt file found in PATH
+    // If file not found, no data is retrieved
     public void loadData() throws FileNotFoundException {
         System.out.println("***Please wait while I fetch past data...***");
         File data = new File(PATH);

@@ -13,6 +13,7 @@ import taskitems.task.Todo;
 
 import java.io.FileNotFoundException;
 
+// TaskManager class that deals with operations regarding Tasks and TaskLists
 public class TaskManager {
     private final String PATH = "data.txt";
     private TaskList tasks = new TaskList();
@@ -34,10 +35,15 @@ public class TaskManager {
         return tasks.size;
     }
 
+    // Method to print a single task
+    // @param (number) (number refers to the indexing(1-based) of that particular task in the list)
     private void printTask(int number) {
         ui.print(tasks.getTask(number));
     }
 
+    // Method to mark a single task
+    // @param (number) (number refers to the indexing(1-based) of that particular task in the list)
+    // throws NumberFormatException when number does not fall within acceptable range
     public void markTask(int number) throws NumberFormatException {
         if (number > tasks.size || number < 1) {
             throw new NumberFormatException();
@@ -52,6 +58,9 @@ public class TaskManager {
         storage.saveData();
     }
 
+    // Method to unmark a single task
+    // @param (number) (number refers to the indexing(1-based) of that particular task in the list)
+    // throws NumberFormatException when number does not fall within acceptable range
     public void unmarkTask(int number) throws NumberFormatException {
         if(number > tasks.size || number < 1){
             throw new NumberFormatException();
@@ -66,6 +75,9 @@ public class TaskManager {
         storage.saveData();
     }
 
+    // Method to add a single Todo Task
+    // @param (taskName) (refers to the name that user wishes to give the task)
+    // throws IllegalInputException when taskName is empty
     public void addToTasks(String taskName) throws IllegalInputException {
         if (taskName.equals("")) {
             throw new IllegalInputException();
@@ -74,6 +86,10 @@ public class TaskManager {
         storage.saveData();
     }
 
+    // Method to add a single Event or Deadline Task
+    // @param (type) (single character param either "E" or "D" referring to Event or Deadline resp)
+    // @param (taskName) (refers to the name that user wishes to give the task)
+    // @param (date) (refers to the date and time string in the "YYYY-MM-DD HH:MM:SS" format)
     public void addToTasks(String type, String taskName,String date){
         if (type.equals("E")) {
             Event event = new Event(taskName, date);
@@ -89,6 +105,9 @@ public class TaskManager {
         storage.saveData();
     }
 
+    // Method to delete a single task
+    // @param (number) (number refers to the indexing(1-based) of that particular task in the list)
+    // throws NumberFormatException when number does not fall within acceptable range
     public void deleteTask(int number) throws NumberFormatException {
         if(number > tasks.size || number < 1){
             throw new NumberFormatException();
@@ -102,6 +121,7 @@ public class TaskManager {
         storage.saveData();
     }
 
+    // Method to print all tasks in list
     public void printTasks() {
         if (tasks.size == 0) {
             ui.print("You have not added any Tasks!");
@@ -111,6 +131,7 @@ public class TaskManager {
         }
     }
 
+    // Method to print all tasks in bin
     public void printDeletedTasks() {
         if (bin.size == 0) {
             ui.print("There are no items in the rubbish bin right now");

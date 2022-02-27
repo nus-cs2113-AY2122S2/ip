@@ -6,6 +6,10 @@ import taskitems.TaskManager;
 
 import java.util.Scanner;
 
+/*
+Main Class of Duke Application
+Entry Point into Application
+*/
 public class Duke {
 
     static Scanner reader = new Scanner(System.in);
@@ -18,7 +22,9 @@ public class Duke {
         taskLoop(taskManager);
         ui.goodBye();
     }
-
+//    Looping method that takes in commands given by user and calls relevant methods
+//    from the TaskManager class.
+//    @param (taskManager) (As method makes use of TaskManager class methods, instance of TaskManager required as param)
     public static void taskLoop(TaskManager taskManager){
         boolean isDone = false;
         while (!isDone) {
