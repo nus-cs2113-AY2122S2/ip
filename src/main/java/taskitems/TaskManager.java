@@ -119,5 +119,19 @@ public class TaskManager {
             ui.print(bin);
         }
     }
+
+    public void findTask(String key) {
+        ui.print("Following tasks matches your search");
+        boolean hasPassed = false;
+        for (int i = 1; i <= tasks.size; i++) {
+            if (tasks.getTask(i).getName().contains(key.trim())) {
+                ui.print(tasks.getTask(i));
+                hasPassed = true;
+            }
+        }
+        if (!hasPassed) {
+            ui.printCont("No tasks matches your search term.");
+        }
+    }
 }
 
