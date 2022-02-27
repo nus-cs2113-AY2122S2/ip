@@ -110,6 +110,11 @@ public class Duke {
                     }
                     break;
                 }
+                case "find": {
+                    if (words.length == 1) ui.incompleteMessage("find");
+                    else ui.displayFoundTasks(todolist, words[1]);
+                    break;
+                }
                 default:
                     ui.displayDefaultMessage();
             }
