@@ -132,18 +132,21 @@ public class TaskList {
      */
     public void findTask(String keywords) {
         boolean isFound = false;
-        int count = 1;
+        int count = 0;
         for (int i = 0; i < taskList.size(); i++) {
             if (taskList.get(i).getDescription().contains(keywords) || taskList.get(i).getDate().contains(keywords)) {
                 if (!isFound) {
                     System.out.println(" Here are the matching tasks in your list:");
                 }
-                System.out.println(" " + count + "." + taskList.get(i));
+                System.out.println(" " + (i + 1) + "." + taskList.get(i));
                 count++;
                 isFound = true;
             }
         }
-        if (!isFound) {
+
+        if (isFound) {
+            System.out.println(" You have " + count + " tasks contains \"" + keywords + "\" in the list.");
+        } else {
             System.out.println(" No task is found.");
         }
         printLine();
