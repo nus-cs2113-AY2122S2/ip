@@ -19,17 +19,27 @@ public class Duke {
     public void run() {
         ui.showGreetingMessage();
 
-        String fullCommand = ui.getUserCommand();
-        Command c = Parser.parse(fullCommand);
-        c.execute(taskManager, fileManager, ui);
-        
-        ui.showByeMessage();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.getUserCommand();
+                ui.showLine(); // show the divider line ("_______")
+                Command c = Parser.parse(fullCommand);
+                c.execute(taskManager, fileManager, ui);
+                isExit = c.isExit();
+            } catch (DukeException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.showLine();
+            }
+        }
+
+        ui.showExitMessage();
     }
 
     public static void main(String[] args) {
         new Duke("data/tasks/txt").run();
     }
-
 
 
 }

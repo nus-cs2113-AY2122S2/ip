@@ -13,6 +13,7 @@ public class DeadlineCommand extends Command{
 
     public DeadlineCommand(String description, String by) {
         toAdd = new Deadline(description, by);
+        isExit = false;
     }
 
     @Override

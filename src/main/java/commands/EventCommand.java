@@ -13,6 +13,7 @@ public class EventCommand extends Command{
 
     public EventCommand(String description, String at) {
         toAdd = new Event(description, at);
+        isExit = false;
     }
 
     @Override

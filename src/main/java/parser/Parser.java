@@ -1,11 +1,10 @@
 package parser;
 
 import commands.*;
-
-import java.util.List;
+import common.DukeException;
 
 public class Parser {
-    public static Command parse(String fullCommand){
+    public static Command parse(String fullCommand) throws DukeException {
         fullCommand.trim();
         String[] splitCommands = fullCommand.split(" ", 2);
         String description;
@@ -28,8 +27,11 @@ public class Parser {
         case ListCommand.COMMAND_WORD:
             cmd = new ListCommand();
             break;
+        case ByeCommand.COMMAND_WORD:
+            cmd = new ByeCommand();
+            break;
         default:
-            cmd = new TodoCommand("Undefined");
+            throw new DukeException("Sorry! I cannot read this command :(");
 
         }
 

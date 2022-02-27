@@ -10,6 +10,10 @@ import java.util.ArrayList;
 public class ListCommand extends Command{
     public static final String COMMAND_WORD = "list";
 
+    public ListCommand() {
+        isExit = false;
+    }
+
     @Override
     public void execute(TaskManager taskManager, FileManager fileManager, Ui ui) {
         ArrayList<Task> tasks = taskManager.getAllTasks();

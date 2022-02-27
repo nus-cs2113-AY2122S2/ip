@@ -13,6 +13,7 @@ public class TodoCommand extends Command{
 
     public TodoCommand(String description) {
         toAdd = new Todo(description);
+        isExit = false;
     }
 
     @Override
