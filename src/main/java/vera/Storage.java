@@ -126,7 +126,7 @@ public class Storage {
     }
 
     private void checkForRepeatedInputs(ArrayList<Task> saveTaskList) throws InputRepeatedException {
-        for (int i = 0; i < saveTaskList.size(); i++) {
+        for (int i = 0; i < saveTaskList.size() -1; i++) {
             if (isTaskRepeated(saveTaskList, i)) {
                 throw new InputRepeatedException();
             }
