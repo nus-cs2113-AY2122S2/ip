@@ -101,7 +101,7 @@ public class Storage {
     }
 
     private ArrayList<Task> readSavedData() throws
-            FileNotFoundException, ArrayIndexOutOfBoundsException, InputEmptyException{
+            FileNotFoundException, ArrayIndexOutOfBoundsException, InputEmptyException {
         ArrayList<Task> decodedTasks = new ArrayList<>();
         File f = new File(saveFilePath);
         Scanner s = new Scanner(f);

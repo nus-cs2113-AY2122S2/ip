@@ -23,17 +23,19 @@ import vera.task.Todo;
 
 
 import static vera.constant.DateAndTimeFormat.noTimeFormat;
+import static vera.constant.DateAndTimeFormat.savedTaskNoTimeFormat;
+import static vera.constant.DateAndTimeFormat.savedTaskWithTimeFormat;
 import static vera.constant.DateAndTimeFormat.withTimeFormat;
 import static vera.constant.Indexes.FIND_BY_TASK_CONTENT_INDEX;
 import static vera.constant.Indexes.FIND_BY_TASK_DATE_INDEX;
 import static vera.constant.Indexes.FIND_BY_TASK_DESCRIPTION_NO_DATE_INDEX;
 import static vera.constant.Indexes.FIND_BY_TASK_DESCRIPTION_WITH_DATE_INDEX;
+import static vera.constant.Indexes.SAVE_TASK_DATE_INDEX;
 import static vera.constant.Indexes.SAVE_TASK_DESCRIPTION_INDEX;
 import static vera.constant.Indexes.SAVE_TASK_TYPE_INDEX;
 import static vera.constant.Indexes.HELP_OPTIONS_INDEX;
 import static vera.constant.Indexes.MARK_INDEX;
 import static vera.constant.Indexes.OPTIONS_INDEX;
-import static vera.constant.Indexes.SAVE_TASK_DATE_INDEX;
 import static vera.constant.Indexes.SAVE_TASK_MARK_STATUS;
 import static vera.constant.Indexes.TASK_CONTENT_INDEX;
 import static vera.constant.Indexes.TASK_DATE_INDEX;
@@ -69,6 +71,7 @@ public class Parser {
         }
     }
 
+
     /**
      * Parses the saved data of the tasks in the save file.
      * Arranges the parsed data in a manner that can be initialised
@@ -84,17 +87,21 @@ public class Parser {
         if (!rawData[SAVE_TASK_MARK_STATUS].equals("0") && !rawData[SAVE_TASK_MARK_STATUS].equals("1")) {
             throw new InputEmptyException();
         }
+        String parsedDate = null;
+        if (!rawData[SAVE_TASK_TYPE_INDEX].isBlank()) {
+            parsedDate = prepareTaskDate(rawData[SAVE_TASK_DATE_INDEX].trim(), true);
+        }
         switch (rawData[SAVE_TASK_TYPE_INDEX].trim()) {
         case "T":
-            parsedData = new Todo(rawData[SAVE_TASK_DESCRIPTION_INDEX]);
+            parsedData = new Todo(rawData[SAVE_TASK_DESCRIPTION_INDEX].trim());
             break;
         case "D":
-            parsedData = new Deadline(rawData[SAVE_TASK_DESCRIPTION_INDEX],
-                    rawData[SAVE_TASK_DATE_INDEX]);
+            parsedData = new Deadline(rawData[SAVE_TASK_DESCRIPTION_INDEX].trim(),
+                    parsedDate);
             break;
         case "E":
-            parsedData = new Event(rawData[SAVE_TASK_DESCRIPTION_INDEX],
-                    rawData[SAVE_TASK_DATE_INDEX]);
+            parsedData = new Event(rawData[SAVE_TASK_DESCRIPTION_INDEX].trim(),
+                    parsedDate);
             break;
         default:
             throw new InputEmptyException();
@@ -163,7 +170,7 @@ public class Parser {
                 anotherUi.showToUser("Enter valid date input:");
                 input = anotherUi.readCommand();
                 anotherUi.showLine();
-                return prepareTaskDate(input.trim());
+                return prepareTaskDate(input.trim(), false);
             }
             if (input.trim().equalsIgnoreCase("N")
                     || input.trim().equalsIgnoreCase("No")) {
@@ -175,24 +182,37 @@ public class Parser {
         }
     }
 
-    private static String checkCorrectDateFormat(String rawTaskDate) throws InputEmptyException {
+    private static String checkCorrectDateFormat(String rawTaskDate, boolean isParseSaveFile)
+            throws InputEmptyException {
         try {
+            if (isParseSaveFile) {
+                return LocalDate.parse(rawTaskDate, savedTaskNoTimeFormat)
+                        .format(DateTimeFormatter.ofPattern(DATE_FORMAT_WITHOUT_TIME));
+            }
             return LocalDate.parse(rawTaskDate, noTimeFormat)
                     .format(DateTimeFormatter.ofPattern(DATE_FORMAT_WITHOUT_TIME));
         } catch (DateTimeParseException e) {
+            if (isParseSaveFile) {
+                throw new InputEmptyException();
+            }
             return confirmInvalidDateFormat();
         }
     }
 
-    private static String prepareTaskDate(String rawTaskDate) throws InputEmptyException {
+    private static String prepareTaskDate(String rawTaskDate, boolean isParseSaveFile)
+            throws InputEmptyException {
         if (rawTaskDate.isBlank()) {
             throw new InputEmptyException();
         }
         try {
+            if (isParseSaveFile) {
+                return LocalDateTime.parse(rawTaskDate, savedTaskWithTimeFormat)
+                        .format(DateTimeFormatter.ofPattern(DATE_FORMAT_WITH_TIME));
+            }
             return LocalDateTime.parse(rawTaskDate, withTimeFormat)
                     .format(DateTimeFormatter.ofPattern(DATE_FORMAT_WITH_TIME));
         } catch (DateTimeParseException e) {
-            return checkCorrectDateFormat(rawTaskDate);
+            return checkCorrectDateFormat(rawTaskDate, isParseSaveFile);
         }
     }
 
@@ -206,7 +226,7 @@ public class Parser {
                 return null;
             }
             filteredTaskContent = parsedInput[TASK_CONTENT_INDEX].split(inputKeyword, 2);
-            dueDate = prepareTaskDate(filteredTaskContent[TASK_DATE_INDEX].trim());
+            dueDate = prepareTaskDate(filteredTaskContent[TASK_DATE_INDEX].trim(), false);
             if (dueDate == null) {
                 return null;
             }
@@ -245,7 +265,8 @@ public class Parser {
         try {
             if (userInput[FIND_BY_TASK_CONTENT_INDEX].contains("/date")) {
                 parsedInputToSearchByDate = userInput[FIND_BY_TASK_CONTENT_INDEX].split("/date");
-                String taskDateToSearch = prepareTaskDate(parsedInputToSearchByDate[FIND_BY_TASK_DATE_INDEX].trim());
+                String taskDateToSearch = prepareTaskDate(parsedInputToSearchByDate[FIND_BY_TASK_DATE_INDEX].trim()
+                        , false);
                 if (taskDateToSearch == null) {
                     return null;
                 }
