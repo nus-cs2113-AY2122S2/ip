@@ -17,4 +17,8 @@ public class Todo extends Task {
         return "[T]" + super.toString();
     }
 
+    @Override
+    public String getInfo(){
+        return "T / " + super.isDone() + " / " + super.getDescription();
+    }
 }

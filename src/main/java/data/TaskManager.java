@@ -12,14 +12,11 @@ public class TaskManager {
     private FileManager fileManager = new FileManager();
 
     public TaskManager() {
-        try {
-            ArrayList<String> records = fileManager.loadData();
-            for(String record: records) {
-                loadTask(record);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+    }
+
+    public TaskManager(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 
     /*
@@ -248,11 +245,11 @@ public class TaskManager {
         }
     }
 
-    public void saveTasks() throws IOException {
-        ArrayList<String> records = new ArrayList<>();
-        for(int i = 0; i < tasks.size(); i++){
-            records.add(tasks.get(i).getInfo());
-        }
-        fileManager.saveData(records);
-    }
+//    public void saveTasks() throws IOException {
+//        ArrayList<String> records = new ArrayList<>();
+//        for(int i = 0; i < tasks.size(); i++){
+//            records.add(tasks.get(i).getInfo());
+//        }
+//        fileManager.saveData(records);
+//    }
 }

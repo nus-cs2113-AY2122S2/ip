@@ -5,6 +5,8 @@ import parser.Parser;
 import storage.FileManager;
 import ui.Ui;
 
+import java.io.IOException;
+
 public class Duke {
     private Ui ui;
     private TaskManager taskManager;
@@ -12,7 +14,14 @@ public class Duke {
 
     public Duke(String filePath) {
         fileManager = new FileManager();
-        taskManager = new TaskManager();
+
+        try {
+            taskManager = new TaskManager(fileManager.loadData());
+        } catch (IOException e) {
+            ui.showLoadingError(e.getMessage());
+            taskManager = new TaskManager();
+        }
+
         ui = new Ui(taskManager);
     }
 

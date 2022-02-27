@@ -20,7 +20,7 @@ public class DeadlineCommand extends Command{
     public void execute(TaskManager taskManager, FileManager fileManager, Ui ui) {
         taskManager.addTask(toAdd);
         try {
-            taskManager.saveTasks();
+            fileManager.saveData(taskManager.getAllTasks());
         } catch (IOException e) {
             System.out.println("\t Error: Failed to save data.");
         }

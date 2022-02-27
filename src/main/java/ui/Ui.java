@@ -56,7 +56,10 @@ public class Ui {
 
     public void showError(String message) {
         System.out.println("\t " + message);
-        System.out.println("\t Please try again");
+        System.out.println("\t Please try again.");
     }
 
+    public void showLoadingError(String message) {
+        System.out.println("\t Error: Failed to load data.");
+    }
 }
