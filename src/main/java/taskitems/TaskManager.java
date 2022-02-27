@@ -1,6 +1,7 @@
 package taskitems;
 
 
+import helper.Parser;
 import helper.Storage;
 import helper.Ui;
 import taskitems.exceptions.IllegalInputException;
@@ -17,6 +18,7 @@ public class TaskManager {
     private TaskList tasks = new TaskList();
     private TaskList bin = new TaskList();
     private Storage storage = new Storage(tasks);
+    private Parser parser = new Parser();
 
     private Ui ui = new Ui();
 
@@ -74,9 +76,15 @@ public class TaskManager {
 
     public void addToTasks(String type, String taskName,String date){
         if (type.equals("E")) {
-            tasks.add(new Event(taskName, date));
+            Event event = new Event(taskName, date);
+            if (event.getEndDate() != null && event.getEndTime() != null) {
+                tasks.add(event);
+            }
         } else {
-            tasks.add(new Deadline(taskName, date));
+            Deadline deadline = new Deadline(taskName, date);
+            if (deadline.getEndDate() != null && deadline.getEndTime() != null) {
+                tasks.add(deadline);
+            }
         }
         storage.saveData();
     }
