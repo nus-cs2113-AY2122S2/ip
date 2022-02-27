@@ -13,6 +13,8 @@ public class TaskManager {
     protected static final String UNMARK_RESPONSE = "ψ(._. )> OK, I've marked this task as not done yet:\n";
     protected static final String LIST_RESPONSE = "o(≧v≦)o Here are the tasks in your list:\n";
     protected static final String DELETE_RESPONSE = "ψ(._. )> Okay! I've deleted this task:\n";
+    protected static final String NOT_FOUND_RESPONSE = "(￣ε￣；) Sorry, I can't find any result from the list.";
+    protected static final String FOUND_RESPONSE = "o(≧v≦)o Here are the matching tasks in your list:";
     Chatbox chatbox = new Chatbox();
 
     public String taskNumberMsg(int taskNumber){
@@ -45,7 +47,7 @@ public class TaskManager {
      * @param name refers to the name of the task
      * @param by refers to the deadline of the task
      */
-    public String addDeadline(String name, LocalDate by) {
+    public String addDeadline(String name, String by) {
         Deadline newDeadline = new Deadline(name, by);
         Tasks.add(newDeadline);
         int s = Tasks.size();
@@ -58,7 +60,7 @@ public class TaskManager {
      * @param name refers to the name of the task
      * @param at refers to the happening time of the event
      */
-    public String addEvent(String name, LocalDate at) {
+    public String addEvent(String name, String at) {
         Event newEvent = new Event(name, at);
         Tasks.add(newEvent);
         int s = Tasks.size();
@@ -138,6 +140,28 @@ public class TaskManager {
             int s = Tasks.size();
             content += "\n" + this.taskNumberMsg(s);
             return content;
+        }
+    }
+
+    public String searchTask(String keywords) throws DukeExceptions{
+        if(Tasks.size() == 0){
+            throw new EmptyListException();
+        }else {
+            String content = "";
+            int count  = 0;
+            for (int i = 0; i < Tasks.size(); i++) {
+                if (Tasks.get(i).getListName().contains(keywords)) {
+                    content += "\n";
+                    String index = String.valueOf(count + 1);
+                    String name = index + ". " + Tasks.get(i).getListName();
+                    content += name;
+                    count ++;
+                }
+            }
+            if(count == 0){
+                return NOT_FOUND_RESPONSE;
+            }
+            return FOUND_RESPONSE + content;
         }
     }
 

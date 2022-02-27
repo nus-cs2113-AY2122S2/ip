@@ -71,7 +71,7 @@ public class Storage {
     public void loadTask() throws DukeExceptions{
         try (BufferedReader loadData = new BufferedReader(new FileReader(FILE_NAME))){
             String listName;
-            LocalDate time;
+            String time;
             while ((listName = loadData.readLine()) != null) {
                 String[] data = this.parseInput(listName);
                 //System.out.println(listName);
@@ -83,13 +83,13 @@ public class Storage {
                         Tasks.add(newToDo);
                         break;
                     case EVENT:
-                        time = LocalDate.parse(data[3].replace("at: ", ""));
+                        time = data[3].replace("at: ", "");
                         Event newEvent = new Event(data[2], time);
                         mark(newEvent, data[2]);
                         Tasks.add(newEvent);
                         break;
                     case DEADLINE:
-                        time = LocalDate.parse(data[3].replace("by ", ""));
+                        time = data[3].replace("by: ", "");
                         Deadline newDeadline = new Deadline(data[2], time);
                         mark(newDeadline, data[2]);
                         Tasks.add(newDeadline);

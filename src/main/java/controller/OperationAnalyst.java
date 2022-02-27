@@ -9,7 +9,7 @@ import java.util.Locale;
 public class OperationAnalyst {
     protected String[] keywords;
     protected String rawInput;
-    protected LocalDate time;
+    protected String time;
     protected String taskName;
     protected String instruction;
     protected static final String MARK_TASK_COMMAND = "mark";
@@ -20,6 +20,7 @@ public class OperationAnalyst {
     protected static final String ADD_DEADLINE_TASK_COMMAND = "deadline";
     protected static final String LIST_TASKS_COMMAND = "list";
     protected static final String EXIT_COMMAND = "bye";
+    protected static final String SEARCH_COMMAND = "find";
 
     public OperationAnalyst(String input) throws DukeExceptions {
         this.keywords = input.split(" ");
@@ -51,7 +52,7 @@ public class OperationAnalyst {
                 throw new TaskNameLossException();
             }
             try {
-                this.time = LocalDate.parse(command[1].toString());
+                this.time = command[1];
             } catch (IndexOutOfBoundsException e){
                 throw new IllegalFormatException();
             } catch (DateTimeException e){
@@ -66,9 +67,8 @@ public class OperationAnalyst {
             } catch (Exception e){
                 throw new TaskNameLossException();
             }
-            try {
-                String date = command[1];
-                this.time = LocalDate.parse(date);
+            try {;
+                this.time = command[1];
             } catch (IndexOutOfBoundsException e){
                 throw new IllegalFormatException();
             } catch (DateTimeException e){
@@ -91,6 +91,14 @@ public class OperationAnalyst {
                 throw new IllegalFormatException();
             }
             break;
+        case SEARCH_COMMAND:
+            command = rawInput.split(" ",2);
+            try {
+                System.out.println(command.length);
+                this.taskName = command[1];
+            } catch (IndexOutOfBoundsException e) {
+                throw new KeywordLossException();
+            }
         case LIST_TASKS_COMMAND:
         case EXIT_COMMAND:
             break;
@@ -103,7 +111,7 @@ public class OperationAnalyst {
         return this.taskName;
     }
 
-    public LocalDate getTime() {
+    public String getTime() {
         return this.time;
     }
 }
