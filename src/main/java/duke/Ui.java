@@ -233,4 +233,12 @@ public class Ui {
     public void printNoMatchesFound() {
         System.out.println("No task matches the keyword!");
     }
+
+    public void printInvalidKeywordError() {
+        System.out.println("Invalid keyword!!");
+    }
+
+    public void printInvalidDeleteIndex() {
+        System.out.println("Invalid task index!");
+    }
 }

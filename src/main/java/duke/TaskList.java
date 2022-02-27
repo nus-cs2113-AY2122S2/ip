@@ -121,7 +121,7 @@ public class TaskList {
      * @return True if the task description contains the word, false otherwise
      */
     private static boolean isFound(String keyword, Task t) {
-        return Arrays.asList(t.getDescription().split(" ")).contains(keyword);
+        return Arrays.asList(t.getDescription().trim().split(" ")).contains(keyword);
     }
 
      /**

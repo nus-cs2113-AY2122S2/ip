@@ -65,11 +65,17 @@ public class Parser {
      *
      * @param inputCommand The string of user input
      * @return The item number on the list the user wants to delete
+     * @throws IndexOutOfBoundsException If delete index is empty or out of range
      */
     public static int parseDeleteIndexFromString(String inputCommand) {
-        String[] commandArr = inputCommand.split(" ");
-        int deleteIndex = Integer.parseInt(commandArr[1]) - 1;
-        return deleteIndex;
+        try {
+            String[] commandArr = inputCommand.split(" ");
+            int deleteIndex = Integer.parseInt(commandArr[1]) - 1;
+            return deleteIndex;
+        } catch (IndexOutOfBoundsException e) {
+            ui.printInvalidDeleteIndex();
+        }
+        return 0;
     }
 
     /**
@@ -140,10 +146,21 @@ public class Parser {
         return line.split("-", 3);
     }
 
-
+     /**
+      * Takes in the user input and parse the keyword from it
+      *
+      * @param inputCommand The user input
+      * @return The keyword the user wants to find
+      * @throws IndexOutOfBoundsException If the keyword is empty
+      */
     public String getKeywordFromString(String inputCommand) {
-        String[] commandArr = inputCommand.split(" ");
-        return commandArr[1];
+        try {
+            String[] commandArr = inputCommand.split(" ");
+            return commandArr[1];
+        } catch (IndexOutOfBoundsException e) {
+            ui.printInvalidKeywordError();
+        }
+        return "";
     }
 
     public LocalDate parseDateFormatFromString(String dateInString)  {
