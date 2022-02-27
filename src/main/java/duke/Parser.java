@@ -101,18 +101,34 @@ public class Parser {
         return getTodoFromUserInput(userInput);
     }
 
-    public StringPair getEventDescriptionAndTime(String userInput){
+    public String getKeyword(String userInput) {
+        String[] inputSplit = userInput.split(" ");
+        if (inputSplit.length <= 1){
+            return "";
+        }
+        return inputSplit[1];
+    }
+
+    public StringPair getEventDescriptionAndTime(String userInput) {
         int eventTimeIdx = userInput.indexOf("/");
         String description = getEventFromUserInput(userInput, eventTimeIdx);
         String eventTime = getEventTimeFromUserInput(userInput, eventTimeIdx);
         return new StringPair(description, eventTime);
     }
 
-    public StringPair getDeadlineDescriptionAndTime(String userInput){
+    public StringPair getDeadlineDescriptionAndTime(String userInput) {
         int dueDateIdx = userInput.indexOf("/");
         String description = getDeadlineFromUserInput(userInput, dueDateIdx);
         String dueDate = getDueDateFromUserInput(userInput, dueDateIdx);
         return new StringPair(description, dueDate);
+    }
+
+    public boolean isFindCommand(String userInput) {
+        if (userInput.length() >= Duke.MINIMUM_LENGTH_OF_FIND_STATEMENT) {
+            // return true if first 4 letters of userInput spell "mark", else false
+            return userInput.substring(0, Duke.MINIMUM_LENGTH_OF_FIND_STATEMENT).equals("find");
+        }
+        return false;
     }
 
     public boolean isMarkCommand(String userInput) {
