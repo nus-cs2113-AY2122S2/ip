@@ -1,5 +1,8 @@
 package Tasks;
 
+/**
+ * Represents a kind of task that needs to be done before a specific date/time.
+ */
 public class Deadline extends Task {
 
     protected String by;

@@ -8,6 +8,10 @@ public class Duke {
     private ArrayList<Task> todolist = new ArrayList<Task>();
     private Ui ui;
 
+    /**
+     * Initialize the Duke.
+     * @param filePath
+     */
     public Duke(String filePath){
         ui = new Ui();
         storage = new Storage(filePath);
