@@ -10,6 +10,7 @@ public class Ui {
         System.out.println("-----------------------------------------");
     }
 
+    /** Displays Duke logo and say hi to user. */
     public static void greeting() {
         String logo = "  ____        _        \n"
                 + " |  _ \\ _   _| | _____ \n"
@@ -25,12 +26,14 @@ public class Ui {
         printLine();
     }
 
+    /** Say goodbye to user. */
     public static void bye() {
         printLine();
         System.out.println(" Bye. Hope to see you again soon!");
         printLine();
     }
 
+    /** Displays a short guide to user to show how to type command. */
     public static void printGuide() {
         System.out.println(" use \"list\" to show the task list");
         System.out.println(" use \"todo task\" to add a task without any date/time attached to it\"");
@@ -44,7 +47,13 @@ public class Ui {
         printLine();
     }
 
-    public static void checkCommand(TaskList taskList) throws DukeException, IOException {
+    /**
+     * Checking input and command.
+     *
+     * @param taskList the list to store all the tasks.
+     * @throws IOException If file does not exist.
+     */
+    public static void checkCommand(TaskList taskList) throws IOException {
         Parser.handleCommand(taskList);
     }
 

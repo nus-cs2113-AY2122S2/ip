@@ -17,7 +17,15 @@ public class Storage {
         System.out.println("-----------------------------------------");
     }
 
-    public static void checkFileExists(TaskList taskList) throws IOException, DukeException {
+    /**
+     * Create a file in local if it does not exist.
+     * Read the data stored in the file.
+     *
+     * @param taskList the list to store all the tasks.
+     * @throws IOException           If input and/or output file has an error.
+     * @throws FileNotFoundException If new file cannot be created.
+     */
+    public static void checkFileExists(TaskList taskList) throws IOException {
         try {
             File f = new File(TASKLIST_FILE_PATH);
             if (!f.exists()) {
@@ -30,7 +38,17 @@ public class Storage {
         readFile(TASKLIST_FILE_PATH, taskList);
     }
 
-    public static void readFile(String filePath, TaskList taskList) throws DukeException, FileNotFoundException {
+    /**
+     * Populate all the task details in the local file when the program start to
+     * restore the data saved in the file.
+     * Iterate each line. Convert the data in file to correct format,
+     * and add to the taskList.
+     *
+     * @param filePath path of the local file.
+     * @param taskList the list to store all the tasks
+     * @throws FileNotFoundException If file does not exist.
+     */
+    public static void readFile(String filePath, TaskList taskList) throws FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
         int separatorIndex;
@@ -59,6 +77,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Convert the task to correct format in order the save in the file.
+     *
+     * @param task path of the local file.
+     * @return the text in correct format to save in the file.
+     */
     public static String formatTask(Task task) {
         String taskType = task.getType();
         int status = task.getStatus() ? 1 : 0;
@@ -79,7 +103,12 @@ public class Storage {
         return textToWrite;
     }
 
-    public static void writeToFile(TaskList taskList) throws IOException {
+    /**
+     * Write tasks to the file after a bye command is inputted.
+     *
+     * @param taskList the list to store all the tasks.
+     */
+    public static void writeToFile(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(TASKLIST_FILE_PATH);
 
@@ -91,11 +120,6 @@ public class Storage {
             System.out.println("Cannot find the file.");
         }
     }
-
-
-
-
-
 
 
 }
