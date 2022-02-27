@@ -15,6 +15,7 @@ public class DeadlineCommand extends Command{
         toAdd = new Deadline(description, by);
     }
 
+    @Override
     public void execute(TaskManager taskManager, FileManager fileManager, Ui ui) {
         taskManager.addTask(toAdd);
         try {

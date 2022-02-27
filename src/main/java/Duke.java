@@ -22,8 +22,7 @@ public class Duke {
         String fullCommand = ui.getUserCommand();
         Command c = Parser.parse(fullCommand);
         c.execute(taskManager, fileManager, ui);
-
-        taskManager.listTasks();
+        
         ui.showByeMessage();
     }
 

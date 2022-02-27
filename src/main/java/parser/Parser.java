@@ -1,27 +1,32 @@
 package parser;
 
-import commands.Command;
-import commands.DeadlineCommand;
-import commands.EventCommand;
-import commands.TodoCommand;
+import commands.*;
+
+import java.util.List;
 
 public class Parser {
     public static Command parse(String fullCommand){
         fullCommand.trim();
         String[] splitCommands = fullCommand.split(" ", 2);
+        String description;
         String commandWord = splitCommands[0].trim();
-        String description = splitCommands[1].trim();
         Command cmd;
 
         switch (commandWord) {
         case TodoCommand.COMMAND_WORD:
+            description = splitCommands[1].trim();
             cmd = prepareTodo(description);
             break;
         case DeadlineCommand.COMMAND_WORD:
+            description = splitCommands[1].trim();
             cmd = prepareDeadline(description);
             break;
         case EventCommand.COMMAND_WORD:
+            description = splitCommands[1].trim();
             cmd = prepareEvent(description);
+            break;
+        case ListCommand.COMMAND_WORD:
+            cmd = new ListCommand();
             break;
         default:
             cmd = new TodoCommand("Undefined");

@@ -15,6 +15,7 @@ public class EventCommand extends Command{
         toAdd = new Event(description, at);
     }
 
+    @Override
     public void execute(TaskManager taskManager, FileManager fileManager, Ui ui) {
         taskManager.addTask(toAdd);
         try {
