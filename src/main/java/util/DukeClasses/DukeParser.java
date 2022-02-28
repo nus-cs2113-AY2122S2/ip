@@ -29,6 +29,8 @@ public class DukeParser implements Chatbot {
             c = CommandType.DEL;
         } else if (line.equals(SAVE_CMD)) {
             c = CommandType.SAVE;
+        } else if (line.startsWith(FIND_CMD)) {
+            c = CommandType.FIND;
         } else {
             c = CommandType.NIL;
         }
