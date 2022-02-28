@@ -6,6 +6,10 @@ import duke.exception.DukeTaskOutOfRangeException;
 import duke.task.Task;
 import duke.task.TaskList;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
     public Parser() {
 
@@ -28,6 +32,9 @@ public class Parser {
             System.out.println("OOPS! The description of a " + taskType + " cannot be empty!");
         } catch (DukeMissingTimeSeparator e) {
             System.out.println("OOPS! You did not include '" + stringSeparator + "' in your command!");
+        } catch (DateTimeParseException e) {
+            System.out.println("Incorrect date time format supplied. Use 'yyyy-mm-dd [01-23]'\n" +
+                    "Example: event party /at 2021-10-09 05");
         }
     }
 
@@ -84,5 +91,17 @@ public class Parser {
             return false;
         }
         return true;
+    }
+
+    public static LocalDateTime parseDateTime(String dateTimeToConvert) {
+        String correctDatePattern = "\\d{4}-\\d{2}-\\d{2}\\s\\d{2}";
+        if(!dateTimeToConvert.trim().matches(correctDatePattern)) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy kka");
+            dateTimeToConvert = LocalDateTime.parse(dateTimeToConvert.trim(), formatter)
+                    .toString().replace("T"," ").replace(":00","");
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd kk");
+        LocalDateTime convertToLocalDate = LocalDateTime.parse(dateTimeToConvert.trim(), formatter);
+        return convertToLocalDate;
     }
 }
