@@ -7,18 +7,23 @@ The task list will be automatically saved into a .txt file on your PC, so a save
 and also the task list will be automatically saved into the .txt file when you exit the program. 
 
 ## Downloading the Application
-
-Click on the latest release of this application and download the `ip.jar` file.  
+Click on the <a href="https://github.com/BradenTeo/ip/releases">latest release</a> of this application  and download the `ip.jar` file.</li><br>
 
 ##Run it!
 
-1. Locate the `ip.jar` file in your directory.
-2. Right-click and open up your preferred terminal.
+<ol>
+<li>Locate the `ip.jar` file in your directory.
+   <img src="https://i.imgur.com/VeWCrGc.png" /></li><br>
+<li>Right-click and open up your terminal.
+   <img src="https://i.imgur.com/i84PHUP.png" />
+   The terminal will pop-up. Do double-check that you are in the same folder as the downloaded <code>ip.jar</code> file.<br><br>
 
-   You should see a window pop-up. Do double-check that you are in the same directory as the downloaded `ip.jar` file.
-3. Type in `java -jar ip.jar` and hit `Enter`
+Alternatively, open your command prompt and navigate to the folder containing the <code>ip.jar</code> file.</li>
+<img src="https://i.imgur.com/3pzfe7J.png" /><br>
 
-   You should be able to see this if you have followed the steps correctly:
+<li>Type in <code>java -jar ip.jar</code> and hit <code>Enter</code>.
+
+You should be able to see this if you have followed the steps correctly:
 
    ```
    Hello! I'm Alexis, your trusty helper!
@@ -30,8 +35,9 @@ Click on the latest release of this application and download the `ip.jar` file.
     /   /  \\  \( \_|:  \(:      "| /  \   \  /\  |\  /" \   :) 
    (___/    \___)\_______)\_______)|___/\\__|(__\_|_)(_______/
    ```
-   
-4. Enjoy!! :D 
+</li>
+<li>Enjoy!! :D</li>
+</ol>
 
 ##User Guide
-For a more in-depth guide into Alexis, please refer to my [user guide](https://github.com/BradenTeo/ip/tree/master/docs).
+For a more in-depth guide into Alexis, please refer to my [user guide](https://bradenteo.github.io/ip/).

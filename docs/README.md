@@ -13,7 +13,7 @@ The clean interface helps the user to be focused and productive.
         <li><a href="#deadline"><code>deadline</code></a></li>
         <li><a href="#event"><code>event</code></a></li>
     </ul>
-    <li><a href="#display">Display Your Tasks <code>list</code></a></li>
+    <li><a href="#list">Display Your Tasks <code>list</code></a></li>
     <li>Mark Your Tasks as Completed:</li>
     <ul>
         <li><a href="#mark"><code>mark</code></a></li>
@@ -31,13 +31,18 @@ The clean interface helps the user to be focused and productive.
 <hr>
 
 <h2 id="quickstart">Quick start</h2> 
+<ol>
+<li>Click on the <a href="https://github.com/BradenTeo/ip/releases">latest release</a> of this application  and download the `ip.jar` file.</li><br>
+<li>Locate the `ip.jar` file in your directory.
+   <img src="https://i.imgur.com/VeWCrGc.png" /></li><br>
+<li>Right-click and open up your terminal.
+   <img src="https://i.imgur.com/i84PHUP.png" />
+   The terminal will pop-up. Do double-check that you are in the same folder as the downloaded <code>ip.jar</code> file.<br><br>
 
-1. Click on the latest release of this application and download the `ip.jar` file.
-2. Locate the `ip.jar` file in your directory.
-3. Right-click and open up your preferred terminal.
+   Alternatively, open your command prompt and navigate to the folder containing the <code>ip.jar</code> file.</li>
+   <img src="https://i.imgur.com/3pzfe7J.png" /><br>
 
-   You should see a window pop-up. Do double-check that you are in the same directory as the downloaded `ip.jar` file.
-4. Type in `java -jar ip.jar` and hit `Enter`
+<li>Type in <code>java -jar ip.jar</code> and hit <code>Enter</code>.
 
    You should be able to see this if you have followed the steps correctly:
 
@@ -51,22 +56,22 @@ The clean interface helps the user to be focused and productive.
     /   /  \\  \( \_|:  \(:      "| /  \   \  /\  |\  /" \   :) 
    (___/    \___)\_______)\_______)|___/\\__|(__\_|_)(_______/
    ```
-
-5. Enjoy!! :D
-
+</li>
+<li>Enjoy!! :D</li>
+</ol>
 <hr>
 
 <h2 id="features">Features</h2> 
 
-<div class="feature-note" style="background-color:#e0f2cb"> <font color="black">
+<div class="feature-note" style="background-color:#e0f2cb">
     <img class="emoji" title=":information_source:" alt=":information_source:" src="https://github.githubassets.com/images/icons/emoji/unicode/2139.png" height="20" width="20">
-    <b>Notes about the command format</b>
-    <ul><font color="black">
+    <b>Notes about the command format:</b>
+    <ul>
         <li>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user.
     e.g. in <code>todo TASK</code>, <code>TASK</code> is a parameter which can be used as <code>todo return book</code>. </li>
         <li>Expected format of inputted date is <code>dd/MM/yyyy</code>. e.g. <code>28/02/2022</code> </li>
-    </font></ul></font>
-</div>
+    <br></ul>
+</div><hr>
 
 <h3>1. Create a New Task </h3>
 Create a new task that is a deadline, an event, or a to-do, and add it to Alexis's list for him to keep track of your tasks.
@@ -87,11 +92,8 @@ Got it! I've added this task:
         <pre><code>---------------------------------------------------------------
 Got it! I've added this task:
   [D][ ] finish assignment (by: Feb 28 2022)
----------------------------------------------------------------
-</code></pre><br>
-    <li><h4 id="event">Adding an Event Task: <code>event</code></h4></li>
-   </ul>
-        <ul>
+---------------------------------------------------------------</code></pre><br>
+   <li><h4 id="event">Adding an Event Task: <code>event</code></h4></li>
         Format: <code>event TASK /at DATE</code><br>
         <i>Note: expected format of <code>DATE</code> is <code>dd/MM/yyyy</code></i><br><br>
         Example of usage: <code>event lecture /at 01/03/2022</code><br>
@@ -230,51 +232,71 @@ Bye. Hope to see you again soon!
     <tbody>
         <tr>
             <td>todo</td>
-            <td><code>todo TASK</code><br>
-            e.g., <code>todo read</code></td>
+            <td>
+               <code>todo TASK</code><br>
+               e.g., <code>todo read</code>
+            </td>
         </tr>
         <tr>
             <td>deadline</td>
-            <td><code>deadline TASK /by DATE</code><br>
-            e.g., <code>deadline return book /by 28/02/2022</code></td>
+            <td>
+               <code>deadline TASK /by DATE</code><br>
+               e.g., <code>deadline return book /by 28/02/2022</code>
+            </td>
         </tr>
         <tr>
             <td>event</td>
-            <td><code>event TASK /at DATE</code><br>
-            e.g., <code>event career fair /at 01/03/2022</code></td>
+            <td>
+               <code>event TASK /at DATE</code><br>
+               e.g., <code>event career fair /at 01/03/2022</code>
+            </td>
         </tr>
         <tr>
             <td>mark</td>
-            <td><code>mark TASK_NUMBER</code><br>
-            e.g., <code>mark 2</code></td>
+            <td>
+               <code>mark TASK_NUMBER</code><br>
+               e.g., <code>mark 2</code>
+            </td>
         </tr>
         <tr>
             <td>unmark</td>
-            <td><code>unmark TASK_NUMBER</code><br>
-            e.g., <code>unmark 5</code></td>
+            <td>
+               <code>unmark TASK_NUMBER</code><br>
+               e.g., <code>unmark 5</code>
+            </td>
         </tr>
         <tr>
             <td>list</td>
-            <td><code>list</code><br>
+            <td>
+               <code>list</code><br>
+            </td>
         </tr>
         <tr>
             <td>delete</td>
-            <td><code>delate TASK_NUMBER</code><br>
-            e.g., <code>delete 1</code></td>
+            <td>
+               <code>delate TASK_NUMBER</code><br>
+               e.g., <code>delete 1</code>
+            </td>
         </tr>
         <tr>
             <td>show</td>
-            <td><code>show DATE</code><br>
-            e.g., <code>show 08/05/2022</code></td>
+            <td>
+               <code>show DATE</code><br>
+               e.g., <code>show 08/05/2022</code>
+            </td>
         </tr>
         <tr>
             <td>find</td>
-            <td><code>find KEYWORD</code><br>
-            e.g., <code>find book</code></td>
+            <td>
+               <code>find KEYWORD</code><br>
+               e.g., <code>find book</code>
+            </td>
         </tr>
         <tr>
             <td>bye</td>
-            <td><code>bye</code><br>
+            <td>
+               <code>bye</code><br>
+            </td>
         </tr>
     </tbody>
 </table>
