@@ -137,12 +137,6 @@ public class Parser {
         return line.split(" ")[0];
     }
 
-    public void removeCommand(String taskType) {
-        if (line.length() > taskType.length()) {
-            line = line.substring(taskType.length() + 1);
-        }
-    }
-
     /**
      * Removes the command from the line input by user
      * @param command the command of the user input
