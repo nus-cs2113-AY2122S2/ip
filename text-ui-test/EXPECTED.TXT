@@ -1,37 +1,39 @@
 ───────────────────────────────────
 Hi there! I'm Domo the chat bot.
 What would you like to do?
-Type a valid command (bye, list, mark, unmark, todo, deadline, event) or add a task to your list:
+Type a valid command (bye, list, mark, unmark, delete, todo, deadline, event, find):
+You don't seem to have any tasks so far!
+Type a valid command (bye, list, mark, unmark, delete, todo, deadline, event, find):
 
 Successfully added to list:
-    [T][ ]  task 1
-Type a valid command (bye, list, mark, unmark, todo, deadline, event) or add a task to your list:
+    [T][ ] task 1
+Type a valid command (bye, list, mark, unmark, delete, todo, deadline, event, find):
 
 Successfully added to list:
     [D][ ]  task 2 (by: tomorrow 12pm)
-Type a valid command (bye, list, mark, unmark, todo, deadline, event) or add a task to your list:
+Type a valid command (bye, list, mark, unmark, delete, todo, deadline, event, find):
 
 Successfully added to list:
     [E][ ]  task 3 (at: 2-4pm)
-Type a valid command (bye, list, mark, unmark, todo, deadline, event) or add a task to your list:
+Type a valid command (bye, list, mark, unmark, delete, todo, deadline, event, find):
 Here is your list so far:
-1. [T][ ]  task 1
+1. [T][ ] task 1
 2. [D][ ]  task 2 (by: tomorrow 12pm)
 3. [E][ ]  task 3 (at: 2-4pm)
-Type a valid command (bye, list, mark, unmark, todo, deadline, event) or add a task to your list:
+Type a valid command (bye, list, mark, unmark, delete, todo, deadline, event, find):
 Congrats! You've completed:
-[T][X]  task 1
-Type a valid command (bye, list, mark, unmark, todo, deadline, event) or add a task to your list:
+[T][X] task 1
+Type a valid command (bye, list, mark, unmark, delete, todo, deadline, event, find):
 Congrats! You've completed:
 [D][X]  task 2 (by: tomorrow 12pm)
-Type a valid command (bye, list, mark, unmark, todo, deadline, event) or add a task to your list:
+Type a valid command (bye, list, mark, unmark, delete, todo, deadline, event, find):
 Aw, you've marked this as undone:
-[T][ ]  task 1
-Type a valid command (bye, list, mark, unmark, todo, deadline, event) or add a task to your list:
-Here is your list so far:
-1. [T][ ]  task 1
+[T][ ] task 1
+Type a valid command (bye, list, mark, unmark, delete, todo, deadline, event, find):
+Here are the tasks containing 'task':
+1. [T][ ] task 1
 2. [D][X]  task 2 (by: tomorrow 12pm)
 3. [E][ ]  task 3 (at: 2-4pm)
-Type a valid command (bye, list, mark, unmark, todo, deadline, event) or add a task to your list:
+Type a valid command (bye, list, mark, unmark, delete, todo, deadline, event, find):
 ───────────────────────────────────
 Goodbye. Hope to see you again soon!

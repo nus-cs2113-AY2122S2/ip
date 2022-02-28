@@ -18,6 +18,7 @@ import java.util.Scanner;
 public class Storage {
     //File
     public static final String FILE_PATH = "data/duke.txt";
+    public static final String FILE_DIRECTORY_PATH = "data";
     public static final String FILE_FLAG = " \\| ";
     public static final String FILE_TODO = "T";
     public static final String FILE_DEADLINE = "D";

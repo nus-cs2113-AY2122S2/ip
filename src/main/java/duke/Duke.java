@@ -11,6 +11,10 @@ public class Duke {
             Storage.loadFileContents();
         } catch (FileNotFoundException e) {
             File file = new File(duke.Storage.FILE_PATH);
+            File directory = new File(Storage.FILE_DIRECTORY_PATH);
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
             file.createNewFile();
         }
         Ui.acceptInputs();

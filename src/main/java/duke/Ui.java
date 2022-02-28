@@ -15,7 +15,7 @@ public class Ui {
     public static final String MESSAGE_WELCOME = "Hi there! I'm Domo the chat bot.\nWhat would you like to do?";
     public static final String MESSAGE_BYE = "Goodbye. Hope to see you again soon!";
     public static final String MESSAGE_LIST = "Here is your list so far:";
-    public static final String MESSAGE_INSTRUCTION = "Type a valid command (bye, list, mark, unmark, delete, todo, deadline, event) or add a task to your list:";
+    public static final String MESSAGE_INSTRUCTION = "Type a valid command (bye, list, mark, unmark, delete, todo, deadline, event, find):";
     public static final String MESSAGE_MARK_SUCCESS = "Congrats! You've completed:\n";
     public static final String MESSAGE_UNMARK_SUCCESS = "Aw, you've marked this as undone:\n";
     public static final String MESSAGE_DELETE_SUCCESS = "Alright, deleting this task:\n";
@@ -29,7 +29,9 @@ public class Ui {
     //Errors
     public static final String ERROR_NO_INPUT = "Hmmmm... you didn't type anything. Please try again using a valid command!";
     public static final String ERROR_IO = "IO Error occurred!";
+    public static final String ERROR_NO_FILE_DIRECTORY = "IO Error occurred! Please check if /data directory exists!";
     public static final String ERROR_NO_DESCRIPTION = "You did not enter a description!";
+    public static final String ERROR_NO_PARAMETER = "You did not enter a valid parameter!";
     public static final String ERROR_NO_CONTENT = "You did not enter a description to find!";
     public static final String ERROR_NOT_VALID_COMMAND = "Sorry, command is not recognised. Please try again using a valid command!";
     public static final String ERROR_INVALID_SYNTAX = "You've entered an invalid syntax for ";

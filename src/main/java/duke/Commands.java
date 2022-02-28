@@ -178,12 +178,18 @@ public class Commands {
             System.out.println(Ui.ERROR_INVALID_SYNTAX + COMMAND_DEADLINE + ".");
             return;
         }
-        String[] parsedCommand = Parser.parseDeadlineOrEvent(input);
-        String description = parsedCommand[0];
-        String by = parsedCommand[1];
-        Deadline task = new Deadline(description, by);
-        Ui.taskList.add(task);
-        task.printAddToListMessage();
+        try {
+            String[] parsedCommand = Parser.parseDeadlineOrEvent(input);
+            String description = parsedCommand[0];
+            String by = parsedCommand[1];
+            Deadline task = new Deadline(description, by);
+            Ui.taskList.add(task);
+            task.printAddToListMessage();
+        } catch (StringIndexOutOfBoundsException error) {
+            System.out.println(Ui.ERROR_NO_DESCRIPTION);
+        } catch (ArrayIndexOutOfBoundsException error) {
+            System.out.println(Ui.ERROR_NO_PARAMETER);
+        }
     }
 
     /**
@@ -196,11 +202,17 @@ public class Commands {
             System.out.println(Ui.ERROR_INVALID_SYNTAX + COMMAND_EVENT + ".");
             return;
         }
-        String[] parsedCommand = Parser.parseDeadlineOrEvent(input);
-        String description = parsedCommand[0];
-        String at = parsedCommand[1];
-        Event task = new Event(description, at);
-        Ui.taskList.add(task);
-        task.printAddToListMessage();
+        try {
+            String[] parsedCommand = Parser.parseDeadlineOrEvent(input);
+            String description = parsedCommand[0];
+            String at = parsedCommand[1];
+            Event task = new Event(description, at);
+            Ui.taskList.add(task);
+            task.printAddToListMessage();
+        } catch (StringIndexOutOfBoundsException error) {
+            System.out.println(Ui.ERROR_NO_DESCRIPTION);
+        } catch (ArrayIndexOutOfBoundsException error) {
+            System.out.println(Ui.ERROR_NO_PARAMETER);
+        }
     }
 }
