@@ -172,6 +172,14 @@ public class SoraUI {
     protected static final String LOADED_FILE_DATA_RESPONSE =
             "I've loaded your tasks from our previous interactions!\n";
 
+    // Exception messages caused by errors beyond Sora's (and maybe user's) control
+    protected static final String IO_EXCEPTION_RETHROW_MESSAGE =
+            "[%s class] IOException caught, rethrowing it to %s class to program termination.\n";
+    protected static final String UNCATEGORISED_INVALID_COMMAND_EXCEPTION_MESSAGE =
+            "[SoraExceptionHandler class] Well this is embarrassing, I was unable to figure out\n" +
+                    "what was wrong with your input. Hmmm... this is bad. I'll have to terminate\n" +
+                    "myself to be safe. Please restart me again in a moment. Sorry about this!\n";
+
     /**
      * Prints a line on the console based on the default parameters defined in this Java class.
      */
@@ -570,6 +578,23 @@ public class SoraUI {
 
     public void printInvalidDateTimeInputFormatResponse() {
         System.out.printf(SoraUI.INVALID_DATE_TIME_INPUT_FORMAT_RESPONSE, getRandomNegativeAcknowledgement());
+    /**
+     * Prints a message when an IOException is caught, including the class that caught it and the class
+     * that it is throwing to.
+     *
+     * @param catchingClass The name of the class that caught the IOException.
+     * @param throweeClass The name of the class that the catching class will rethrow the exception to.
+     */
+    public void printIOExceptionRethrowMessage(String catchingClass, String throweeClass) {
+        System.out.printf(IO_EXCEPTION_RETHROW_MESSAGE, catchingClass, throweeClass);
+    }
+
+    /**
+     * Prints a message when the handleInvalidCommandException method in SoraExceptionHandler class
+     * is unable to categorise the InvalidCommandException that it received.
+     */
+    public void printUncategorisedInvalidCommandExceptionMessage() {
+        System.out.printf(UNCATEGORISED_INVALID_COMMAND_EXCEPTION_MESSAGE);
     }
 }
 
