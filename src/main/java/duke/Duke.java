@@ -21,6 +21,12 @@ public class Duke {
     static Storage storage = new Storage();
     static Parser parser = new Parser();
 
+    /**
+     * This method adds a new <code>Todo</code> to <code>taskList</code>.
+     *
+     * @param todoDescription Description of event.
+     * @return Nothing.
+     */
     public static void addTodoToList(String todoDescription) {
         Todo newTodo = new Todo(todoDescription);
         //add the new object to taskList.
@@ -28,13 +34,27 @@ public class Duke {
         ui.printAddedTask(taskList);
     }
 
-    // overloaded function called when loading data.
+    /**
+     * This method overloads <code>addTodoToList(String todoDescription)</code>
+     * and has essentially the same functionality. This method is called when data is being loaded.
+     *
+     * @param todoDescription Description of todo.
+     * @param isUserMode Unused.
+     * @return Nothing.
+     */
     public static void addTodoToList(String todoDescription, boolean isUserMode) {
         Todo newTodo = new Todo(todoDescription);
         //add the new object to taskList.
         taskList.add(newTodo);
     }
 
+    /**
+     * This method adds a new <code>Event</code> to <code>taskList</code>.
+     *
+     * @param eventDescription Description of event.
+     * @param eventTime Event time associated to event.
+     * @return Nothing.
+     */
     public static void addEventToList(String eventDescription, String eventTime) {
         Event newEvent = new Event(eventDescription, eventTime);
         // add the new object to taskList.
@@ -42,13 +62,29 @@ public class Duke {
         ui.printAddedTask(taskList);
     }
 
-    // overloaded function called when loading data.
+
+    /**
+     * This method overloads <code>addEventToList(String eventDescription, String eventTime)</code>
+     * and has essentially the same functionality. This method is called when data is being loaded.
+     *
+     * @param eventDescription Description of event.
+     * @param eventTime Event time associated to event.
+     * @param isUserMode Unused.
+     * @return Nothing.
+     */
     public static void addEventToList(String eventDescription, String eventTime, boolean isUserMode) {
         Event newEvent = new Event(eventDescription, eventTime);
         // add the new object to taskList.
         taskList.add(newEvent);
     }
 
+    /**
+     * This method adds a new <code>Deadline</code> to <code>taskList</code>.
+     *
+     * @param deadlineDescription Description of deadline.
+     * @param dueDate Due date associated to deadline.
+     * @return Nothing.
+     */
     public static void addDeadlineToList(String deadlineDescription, String dueDate) {
         Deadline newDeadline = new Deadline(deadlineDescription, dueDate);
         // add the new object to taskList.
@@ -56,7 +92,15 @@ public class Duke {
         ui.printAddedTask(taskList);
     }
 
-    // overloaded function called when loading data.
+    /**
+     * This method overloads <code>addDeadlineToList(String deadlineDescription, String dueDate)</code>
+     * and has essentially the same functionality. This method is called when data is being loaded.
+     *
+     * @param deadlineDescription Description of deadline.
+     * @param dueDate Due date associated to deadline.
+     * @param isUserMode Unused.
+     * @return Nothing.
+     */
     public static void addDeadlineToList(String deadlineDescription, String dueDate, boolean isUserMode) {
         Deadline newDeadline = new Deadline(deadlineDescription, dueDate);
         // add the new object to taskList.
@@ -64,7 +108,12 @@ public class Duke {
     }
 
 
-    // method adds task to task_list.
+    /**
+     * This method adds <code>Task</code> to <code>taskList</code>.
+     *
+     * @param userInput String containing user input with add command.
+     * @return Nothing.
+     */
     public static void addTaskToList(String userInput) {
         if (parser.isTodo(userInput)) {
             if (parser.isInvalidTodo(userInput)) {
@@ -106,7 +155,13 @@ public class Duke {
         isModified = true;
     }
 
-    //method marks task in list with taskNumber as done.
+
+    /**
+     * This method marks <code>task</code> in list with <code>taskNumber</code> as done.
+     *
+     * @param taskNumber Index at which the <code>Task</code> object is to be marked as yet to be done.
+     * @return Nothing.
+     */
     public static void markTaskAsDone(int taskNumber) {
         if (taskNumber == INVALID_TASKNUMBER) {
             ui.printInvalidTaskNumber();
@@ -118,7 +173,12 @@ public class Duke {
         isModified = true;
     }
 
-    //method marks task in list with taskNumber as not yet done.
+    /**
+     * This method marks <code>task</code> in list with <code>taskNumber</code> as not yet done.
+     *
+     * @param taskNumber Index at which the <code>Task</code> object is to be marked as yet to be done.
+     * @return Nothing.
+     */
     public static void unmarkTaskAsDone(int taskNumber) {
         if (taskNumber == INVALID_TASKNUMBER) {
             ui.printInvalidTaskNumber();
@@ -130,6 +190,12 @@ public class Duke {
         isModified = true;
     }
 
+    /**
+     * This method deletes <code>Task</code> at <code>taskNumber</code> in <code>taskList</code>.
+     *
+     * @param taskNumber Index at which the <code>Task</code> object is to be deleted.
+     * @return Nothing.
+     */
     public static void deleteTask(int taskNumber) {
         if (taskNumber == INVALID_TASKNUMBER) {
             ui.printInvalidTaskNumber();
@@ -141,7 +207,6 @@ public class Duke {
     }
 
 
-    // load data if data file exists, else create file.
     public static void loadData() {
         storage.loadData(taskList);
     }
@@ -163,6 +228,12 @@ public class Duke {
     }
 
     // method runs main echo functionality of duke.
+
+    /**
+     * This method runs main echo functionality of duke.
+     *
+     * @return Nothing.
+     */
     public static void echo() {
         while (true) {
             isModified = false;
@@ -199,25 +270,38 @@ public class Duke {
         }
     }
 
+    /**
+     * This method prints greeting.
+     *
+     * @return Nothing.
+     */
     public static void greeting(){
         ui.greeting();
     }
 
+    /**
+     * This method prints goodbye.
+     *
+     * @return Nothing.
+     */
     public static void goodbye(){
         ui.goodbye();
     }
 
+    /**
+     * This method executes greeting of Duke, before loading data and running main interactive loop functionality
+     * and then terminating.
+     *
+     * @param args Unused.
+     * @return Nothing.
+     */
     public static void main(String[] args) {
-        // opening sequence.
         greeting();
 
-        // if data exists, load.
         loadData();
 
-        // echo loop between user and Dukebot.
         echo();
 
-        // ending sequence.
         goodbye();
     }
 }
