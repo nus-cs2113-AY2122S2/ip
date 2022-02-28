@@ -46,8 +46,6 @@ public class Sora {
         // Load saved task list from file
         try {
             soraStorage.loadTaskListFromFile(getTasksManager());
-        } catch (InvalidCommandException e) {
-            soraExceptionHandler.handleInvalidCommandException(e);
         } catch (IOException e) {
             // Throw to caller method to handle to exit
             soraUI.printIOExceptionRethrowMessage("Sora", "Main");

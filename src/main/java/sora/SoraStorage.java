@@ -72,10 +72,9 @@ public class SoraStorage {
      * this running instance of Sora's list.
      *
      * @param taskList An instance of taskList to add the file's task data to.
-     * @throws InvalidCommandException If the task data in the file was not successfully added to Sora's list.
      * @throws IOException If this method fails to create a directory and/or file (whenever necessary).
      */
-    protected void loadTaskListFromFile(TaskList taskList) throws InvalidCommandException, IOException {
+    protected void loadTaskListFromFile(TaskList taskList) throws IOException {
         // Check if required directory and file exist
         boolean directoryAlreadyExists = checkAndCreateDataDirectory(getDirectoryPath());
         boolean fileAlreadyExists = checkAndCreateDataFile(getFilePath(), directoryAlreadyExists);
@@ -97,12 +96,7 @@ public class SoraStorage {
             String[] parsedLineData = parseFileLineData(rawLineData);
 
             // Add this line of text data into Sora's task list
-            try {
-                taskList.addTaskFromFile(parsedLineData);
-            } catch (InvalidCommandException e) {
-                // Rethrow it to Sora class for SoraExceptionHandler to handle
-                throw e;
-            }
+            taskList.addTaskFromFile(parsedLineData);
         }
 
         soraUI.printLoadedFileDataResponse();

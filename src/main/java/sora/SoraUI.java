@@ -173,9 +173,9 @@ public class SoraUI {
     protected static final String LOADED_FILE_DATA_RESPONSE =
             "I've loaded your tasks from our previous interactions!\n";
     protected static final String TASK_FILE_LOAD_FAILURE_RESPONSE =
-            "%s, I failed to add a task from the saved data file to\n" +
+            "\n%s, I failed to add a task from the saved data file to\n" +
                     "my task list. Here's some details about the error:\n" +
-                    "\t%s";
+                    "\t%s\n";
 
     // Exception messages caused by errors beyond Sora's (and maybe user's) control
     protected static final String IO_EXCEPTION_RETHROW_MESSAGE =

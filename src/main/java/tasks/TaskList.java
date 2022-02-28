@@ -139,10 +139,8 @@ public class TaskList {
      * Adds a new task that was read from a file in the user's system storage.
      *
      * @param taskDataFromFile A string array containing the information for the new task.
-     * @throws InvalidCommandException If one of the methods called threw an InvalidCommandException
-     * to signify that the task type is invalid.
      */
-    public void addTaskFromFile(String[] taskDataFromFile) throws InvalidCommandException {
+    public void addTaskFromFile(String[] taskDataFromFile) {
         String type;
         String description;
         String flag;
@@ -162,30 +160,24 @@ public class TaskList {
                 flag = "";
                 flagValue = "";
             }
-        } catch (InvalidCommandException e) {
-            // Re-throw it to Sora class to pass it to SoraExceptionHandler to handle
-            throw e;
-        }
 
-        // Craft the command to add task to list
-        StringBuilder commandBuilder = new StringBuilder(type + " " + description);
+            // Craft the command to add task to list
+            StringBuilder commandBuilder = new StringBuilder(type + " " + description);
 
-        if (!type.equalsIgnoreCase(SoraUI.ADD_TODO_COMMAND_KEYWORD)) {
-            // Include flag and flag value
-            commandBuilder.append(flag);
-            commandBuilder.append(" ");
-            commandBuilder.append(flagValue);
-        }
+            if (!type.equalsIgnoreCase(SoraUI.ADD_TODO_COMMAND_KEYWORD)) {
+                // Include flag and flag value
+                commandBuilder.append(flag);
+                commandBuilder.append(" ");
+                commandBuilder.append(flagValue);
+            }
 
-        String newTaskCommand = commandBuilder.toString();
+            String newTaskCommand = commandBuilder.toString();
 
-        // Add the task to the list
-        try {
-            addTask(newTaskCommand);
-        } catch (InvalidCommandException e) {
+            // Add the task to the list
+                addTask(newTaskCommand);
+        } catch (InvalidCommandException | DateTimeParseException e) {
             soraUI.printTaskFileLoadFailureMessage(e.getMessage());
-        } catch (DateTimeParseException e) {
-            soraUI.printInvalidDateTimeInputFormatResponse();
+            return;
         }
 
         // If task is marked as done in the file, reflect it in Sora's task list
