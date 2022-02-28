@@ -1,11 +1,18 @@
 package Duke;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
-    private final String schedule;
+    private LocalDate schedule;
 
     public Event(String content, String schedule) {
         super(content);
-        this.schedule = schedule;
+        try {
+            this.schedule = LocalDate.parse(schedule);
+        } catch (Exception e) {
+            this.schedule = LocalDate.parse(schedule, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        }
     }
 
     @Override
@@ -14,6 +21,6 @@ public class Event extends Task {
     }
 
     public String getSchedule() {
-        return schedule;
+        return schedule.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 }
