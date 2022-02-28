@@ -59,7 +59,10 @@ public class SoraExceptionHandler {
         case InvalidCommandException.FIND_NO_SEARCH_STRING:
             soraUI.printMissingSearchStringResponse();
             break;
-        // TODO: Add default branch?
+        default:
+            // Unexpected error has occurred. Terminate the program to be safe.
+            soraUI.printUncategorisedInvalidCommandExceptionMessage();
+            System.exit(-1);
         }
     }
 
