@@ -9,6 +9,13 @@ public class Duke {
     private static TaskList tasks;
     private static Ui ui;
 
+    /**
+     * Where the Duke program is launched. The user interface for user
+     * interaction, storage manager for saving data and task list for
+     * managing task operations are initialized here. Program will
+     * attempt to load the data/duke.txt file upon launch and execute
+     * all user command.
+     */
     public static void run() {
         ui = new Ui();
         storage = new Storage();

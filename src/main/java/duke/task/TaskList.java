@@ -8,10 +8,6 @@ import duke.exception.DukeTaskOutOfRangeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Locale;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class TaskList {
     private static ArrayList<Task> taskLists = new ArrayList<>();
@@ -21,12 +17,22 @@ public class TaskList {
 
     }
 
+    /**
+     * This method prints all the tasks in the taskLists array.
+     */
     public static void printList() {
         for (int i = 0; i < Task.getNumberOfTasks(); i++) {
             System.out.println((i + 1) + "."+ taskLists.get(i).toString());
         }
     }
 
+    /**
+     * This method add the task without deadline (Todo) into the taskLists array.
+     *
+     * @param userInput the input entered by user on terminal.
+     * @return the new task added into the taskLists array.
+     * @throws DukeEmptyDescriptionException If description of task is empty.
+     */
     public static Task addTask(String userInput) throws DukeEmptyDescriptionException {
         String extractedTaskDescription = parser.validateAndExtractTaskDescription(userInput);
         Task newTask = new Todo(extractedTaskDescription);
@@ -34,6 +40,17 @@ public class TaskList {
         return newTask;
     }
 
+    /**
+     * This method add the task with deadlines (Event, Deadlines) into the taskLists array.
+     * Also converts string deadline time to LocalDateTime time.
+     *
+     * @param userInput the input entered by user on terminal.
+     * @param stringSeparator
+     * @return the new task added into the taskLists array.
+     * @throws DukeEmptyDescriptionException If description of task is empty.
+     * @throws DukeMissingTimeSeparator If time separators (e.g. '/at') for each task type is missing.
+     * @throws DateTimeParseException If time could not be parsed properly.
+     */
     public static Task addTaskWithTime(String userInput, String stringSeparator) throws DukeEmptyDescriptionException, DukeMissingTimeSeparator, DateTimeParseException {
         String extractedStringsWithoutCommandType = parser.validateAndExtractTaskDescription(userInput);
         if ((extractedStringsWithoutCommandType.split(stringSeparator).length) <= 1) {
@@ -56,6 +73,16 @@ public class TaskList {
         return newTask;
     }
 
+    /**
+     * This method changes the mark status of the task to be marked/unmarked in the taskLists array.
+     *
+     * @param isMarked true if task is to be marked, false if it is to be unmarked.
+     * @param userInput the input entered by user on terminal.
+     * @return the task number to be marked.
+     * @throws DukeEmptyDescriptionException If description of task is empty.
+     * @throws NumberFormatException If task number could not be parsed into an integer.
+     * @throws DukeTaskOutOfRangeException If the task number supplied is less or more than the current task list.
+     */
     public static int markTask(boolean isMarked, String userInput) throws DukeEmptyDescriptionException, NumberFormatException, DukeTaskOutOfRangeException {
         if ((userInput.split(" ")).length <= 1) {
             throw new DukeEmptyDescriptionException();
@@ -69,6 +96,14 @@ public class TaskList {
         return taskNumber;
     }
 
+    /**
+     * This method removes the task to be deleted in the taskLists array.
+     *
+     * @param userInput the input entered by user on terminal.
+     * @return the task number to be deleted.
+     * @throws DukeEmptyDescriptionException If description of task is empty.
+     * @throws DukeTaskOutOfRangeException If the task number supplied is less or more than the current task list.
+     */
     public static int deleteTask(String userInput) throws DukeEmptyDescriptionException, DukeTaskOutOfRangeException {
         if ((userInput.split(" ")).length <= 1) {
             throw new DukeEmptyDescriptionException();
@@ -81,11 +116,22 @@ public class TaskList {
         return taskNumber;
     }
 
+    /**
+     * This method prints the message of tasks added to the taskLists array.
+     *
+     * @param newTask the new task to be added.
+     */
     public static void addTaskPrintMessage(Task newTask) {
         System.out.println("Task added:\n\t" + newTask.toString());
         System.out.println("Now you have " + Task.getNumberOfTasks() + " tasks in your list!");
     }
 
+    /**
+     * This method prints the message of tasks marked/unmarked.
+     *
+     * @param taskNumberMarked the task number to be marked/unmarked.
+     * @param isMarked true if task is to be marked, false if it is to be unmarked.
+     */
     public static void markStatusPrintMessage(int taskNumberMarked, boolean isMarked) {
         if (isMarked) {
             System.out.println("Fantastic! This task is done:\n" + taskLists.get(taskNumberMarked - 1).toString());
@@ -94,6 +140,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * This method finds the task that contains the search keyword supplied
+     * by the user in the taskLists array.
+     *
+     * @param userInput the input entered by user on terminal.
+     * @throws DukeEmptyDescriptionException If description of task is empty.
+     */
     public static void findTask(String userInput) throws DukeEmptyDescriptionException {
         String extractedFindKeyword = parser.validateAndExtractTaskDescription(userInput).toLowerCase();
         System.out.println("Here are the matching task(s) in your list:");

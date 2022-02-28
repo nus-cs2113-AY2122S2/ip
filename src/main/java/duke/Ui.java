@@ -11,6 +11,10 @@ public class Ui {
     public Ui() {
     }
 
+    /**
+     * This method prints the program greeting message when the
+     * user first launches the program.
+     */
     public static void printGreeting() {
         String logo = " _______     __   __  \n"
                 + "|   _   |[x]| | / / [x]  \n"
@@ -21,12 +25,23 @@ public class Ui {
         System.out.println("Hello! I'm Niki\nWhat can I do for you?\n" + BORDER_DECORATION);
     }
 
+    /**
+     * This method prints the program exit message when the
+     * user exits the program.
+     */
     public static void printExit() {
         System.out.println(BORDER_DECORATION);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(BORDER_DECORATION);
     }
 
+    /**
+     * This method continuously (until 'bye' is typed) takes in user input
+     * from the terminal and detects the command type. After detecting the command type,
+     * it calls the task methods appropriately.
+     *
+     * @param taskManager the object that manages task operations on tasks.
+     */
     public static void executeCommand(TaskList taskManager) {
         String userInput;
         Scanner in = new Scanner(System.in);
