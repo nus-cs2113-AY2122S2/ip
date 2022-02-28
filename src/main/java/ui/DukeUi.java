@@ -15,6 +15,7 @@ public class DukeUi {
     public DukeUi(){
         printWelcomeLogo();
     }
+
     public static void printWelcomeLogo() {
         String customNameLogo = " .______.                .__    .__                                           \n" +
                 "|   \\_ |______________  |  |__ |__| _________________    _____   ____  ______\n" +
@@ -25,6 +26,11 @@ public class DukeUi {
         System.out.println("Hello from\n" + customNameLogo);
         System.out.println("Hello! I'm Ibrahimramos, your friendly multi-racial bot\nWhat can I do for you?");
     }
+
+    /**
+     * Take user input from command line and execute the respective commands based on input until user inputs bye and exits program
+     *
+     */
     public static void takeInputAndProcess() {
         String input;
         Scanner sc = new Scanner(System.in);
@@ -45,7 +51,7 @@ public class DukeUi {
                 findTask(input);
                 break;
             case "unmark":
-                unmarkTaskAsIncomplete(input);
+                markTaskAsIncomplete(input);
                 break;
             case "todo":
                 addToDoTask(input);
@@ -67,6 +73,5 @@ public class DukeUi {
             input = sc.nextLine();
         }
     }
-
 
 }

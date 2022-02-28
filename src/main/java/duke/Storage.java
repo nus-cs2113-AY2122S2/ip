@@ -10,8 +10,10 @@ import static duke.TaskList.taskCounter;
 import static errors.Errors.ErrorTypes.FILE_NOT_FOUND;
 import static errors.Errors.ErrorTypes.IO_ERROR;
 
-
-
+/**
+ * This class is used to store and retrieve to file
+ *
+ */
 public class Storage {
     protected String filePath;
     public static final String DIRECTORYPATH = "data/";
