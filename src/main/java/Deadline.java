@@ -1,6 +1,6 @@
 public class Deadline extends Task {
     private String date;
-    private static String icon = "D";
+    private static final String ICON = "D";
 
     public Deadline(String description, String date) {
         super(description);
@@ -8,13 +8,21 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toStringInFormat() {
-        return icon + " / " + super.toStringInFormat() + " / " + date;
+    public boolean equals(Object task) {
+        if (!(task instanceof Deadline)) {
+            return false;
+        }
+        return super.equals(task);
+    }
+
+    @Override
+    public String toStringInSaveFormat() {
+        return ICON + " / " + super.toStringInSaveFormat() + " / " + date;
     }
 
     @Override
     public String toString() {
-        String taskIcon = "[" + icon + "]";
+        String taskIcon = "[" + ICON + "]";
         String dateString = String.format(" (by: %s)", date);
         return taskIcon + super.toString() + dateString;
     }

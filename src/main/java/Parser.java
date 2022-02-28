@@ -15,17 +15,10 @@ public class Parser {
         isExiting = false;
     }
 
-    public void parseString(String userInput) {
+    public void parseString(String input) {
         reset();
-        setParam(userInput);
-    }
-
-    private void setParam(String input) {
-        int spaceIndex = input.trim().indexOf(" ");
-        command = input.split(" ")[0].trim().toLowerCase();
-        if (spaceIndex != -1) {
-            description = input.substring(spaceIndex + 1).trim();
-        }
+        command = getCommandFromInput(input);
+        description = getDescriptionFromInput(input);
         if (command.equals("bye")) {
             isExiting = true;
         }
@@ -54,27 +47,40 @@ public class Parser {
         try {
             return Integer.parseInt(description);
         } catch (NumberFormatException e) {
-            throw new DukeException(Ui.taskIdInWrongFormat());
+            throw new DukeException(Ui.wrongTaskIdFormat());
         }
     }
 
+    private String getCommandFromInput(String input) {
+        return input.split(" ")[0].trim().toLowerCase();
+    }
+
+    private String getDescriptionFromInput(String input) {
+        String str = "";
+        int spaceIndex = input.trim().indexOf(" ");
+        if (spaceIndex != -1) {
+            str = input.substring(spaceIndex + 1).trim();
+        }
+        return str;
+    }
+
     private String[] splitString(String input) {
-        String[] splitInput = input.split(" "); // Future task: split.(" ", limit)
+        String[] splitInput = input.split(" ");
         String taskDescription = "";
         String op = "";
         String date = "";
         boolean hasSlash = false;
 
-        for (int i = 0; i < splitInput.length; i++) {
-            if (splitInput[i].equals("/by") || splitInput[i].equals("/at")) {
-                op = splitInput[i];
+        for (String str : splitInput) {
+            if (str.equals("/by") || str.equals("/at")) {
+                op = str;
                 hasSlash = true;
                 continue;
             }
             if (hasSlash) {
-                date += splitInput[i] + " ";
+                date += str + " ";
             } else {
-                taskDescription += splitInput[i] + " ";
+                taskDescription += str + " ";
             }
         }
 

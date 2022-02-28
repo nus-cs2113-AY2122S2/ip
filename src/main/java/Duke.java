@@ -4,7 +4,7 @@ public class Duke {
     private static Scanner SCANNER = new Scanner(System.in);
     private static Parser parser;
     private static TaskManager taskManager;
-    private static String userInput;
+    private static String input;
     private static String output;
 
     private static final String LIST_COMMAND = "list";
@@ -20,8 +20,8 @@ public class Duke {
         showWelcomeMessage();
 
         while (true) {
-            userInput = getUserInput();
-            parseUserInput(userInput);
+            input = getInput();
+            parseUserInput(input);
             if (parser.isExiting()) {
                 break;
             }
@@ -29,7 +29,7 @@ public class Duke {
                 output = executeCommand();
                 showOutput(output);
             } catch (DukeException e) {
-                showOutput(e.toString());
+                showError(e);
             }
         }
 
@@ -52,7 +52,11 @@ public class Duke {
     }
 
     private static void showOutput(String string) {
-        Ui.print(string);
+        Ui.printText(string);
+    }
+
+    private static void showError(Exception e) {
+        Ui.printError(e.toString());
     }
 
     private static void showWelcomeMessage() {
@@ -63,7 +67,7 @@ public class Duke {
         showOutput(Ui.exitMessage());
     }
 
-    private static String getUserInput() {
+    private static String getInput() {
         return SCANNER.nextLine().trim();
     }
 
@@ -72,7 +76,7 @@ public class Duke {
     }
 
     private static String executeCommand() throws DukeException {
-        String feedback = "";
+        String feedback;
         String command = parser.getCommand();
         switch (command) {
         case LIST_COMMAND:
@@ -108,7 +112,6 @@ public class Duke {
 
     private static String addTodo() throws DukeException {
         return taskManager.addTodo(parser.getTaskDescription());
-        // duplicate (future task)
     }
 
     private static String addDeadline() throws DukeException {

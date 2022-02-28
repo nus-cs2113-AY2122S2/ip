@@ -1,18 +1,26 @@
 public class Todo extends Task {
-    private static String icon = "T";
+    private static final String ICON = "T";
 
     public Todo(String description) {
         super(description);
     }
 
     @Override
-    public String toStringInFormat() {
-        return icon + " / " + super.toStringInFormat();
+    public boolean equals(Object task) {
+        if (!(task instanceof Todo)) {
+            return false;
+        }
+        return super.equals(task);
+    }
+
+    @Override
+    public String toStringInSaveFormat() {
+        return ICON + " / " + super.toStringInSaveFormat();
     }
 
     @Override
     public String toString() {
-        String taskIcon = "[" + icon + "]";
+        String taskIcon = "[" + ICON + "]";
         return taskIcon + super.toString();
     }
 }

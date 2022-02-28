@@ -11,6 +11,15 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Task)) {
+            return false;
+        }
+        Task task = (Task) obj;
+        return description.equals(task.description);
+    }
+
     private String getDoneIcon() {
         String icon = "[ ] ";
         if (isDone) {
@@ -19,7 +28,7 @@ public abstract class Task {
         return icon;
     }
 
-    public String toStringInFormat() {
+    public String toStringInSaveFormat() {
         String formatted = "";
         if (isDone) {
             formatted += String.valueOf(1);

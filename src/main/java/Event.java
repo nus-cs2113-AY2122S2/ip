@@ -1,6 +1,6 @@
 public class Event extends Task {
     private String date;
-    private static String icon = "E";
+    private static final String ICON = "E";
 
     public Event(String description, String date) {
         super(description);
@@ -8,13 +8,21 @@ public class Event extends Task {
     }
 
     @Override
-    public String toStringInFormat() {
-        return icon + " / " + super.toStringInFormat() + " / " + date;
+    public boolean equals(Object task) {
+        if (!(task instanceof Event)) {
+            return false;
+        }
+        return super.equals(task);
+    }
+
+    @Override
+    public String toStringInSaveFormat() {
+        return ICON + " / " + super.toStringInSaveFormat() + " / " + date;
     }
 
     @Override
     public String toString() {
-        String taskIcon = "[" + icon + "]";
+        String taskIcon = "[" + ICON + "]";
         String dateString = String.format(" (at: %s)", date);
         return taskIcon + super.toString() + dateString;
     }

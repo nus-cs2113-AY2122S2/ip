@@ -5,7 +5,7 @@ public class TaskList {
     private List<Task> tasks;
 
     public TaskList() {
-        this.tasks = new ArrayList<Task>();
+        this.tasks = new ArrayList<>();
     }
 
     public Task getTask(int index) {
@@ -16,14 +16,14 @@ public class TaskList {
         tasks.add(task);
     }
 
-    public void delTask(Task task) {
-        tasks.remove(task);
+    public void delTask(int index) {
+        tasks.remove(index);
     }
 
     public int getSize() {
         return tasks.size();
     }
-    
+
     @Override
     public String toString() {
         String taskListString = "Here are the tasks in your list:\n";

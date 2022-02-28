@@ -8,8 +8,12 @@ public class Ui {
                 + "____________________________________________________________\n";
     }
 
-    public static void print(String text) {
+    public static void printText(String text) {
         System.out.println(drawBorder((text)));
+    }
+
+    public static void printError(String text) {
+        System.out.println(drawBorder(formatError(text)));
     }
 
     public static String welcomeMessage() {
@@ -30,7 +34,13 @@ public class Ui {
     public static String delTaskMsg(Task task, int size) {
         return String.format("Got it. I've removed this task:\n%s\n" +
                         "Now you have %d tasks in list.",
-                task, size);
+                        task, size);
+    }
+
+    public static String dupTaskMsg(Task task, int size) {
+        return String.format("This task already exists:\n%s\n" +
+                        "Now you have %d tasks in list.",
+                        task, size);
     }
 
     public static String markTaskMsg(Task task, boolean markDone) {
@@ -41,31 +51,31 @@ public class Ui {
     }
 
     // Exception Messages
-    private static String errorFormatting(String message) {
+    private static String formatError(String message) {
         return ANSI_RED + message + ANSI_REST;
     }
 
     public static String missingDescription(String command) {
-        return errorFormatting(String.format("The description of %s cannot be empty!", command));
+        return String.format("The description of %s cannot be empty!", command);
     }
 
-    public static String inputInWrongFormat() {
-        return errorFormatting(String.format("The input is in the wrong format!"));
+    public static String wrongInputFormat() {
+        return String.format("The input is in the wrong format!");
     }
 
     public static String missingDate() {
-        return errorFormatting(String.format("The date/time is missing!"));
+        return String.format("The date/time is missing!");
     }
 
     public static String taskIdOutOfBound(int taskId) {
-        return errorFormatting(String.format("Task %d does not exist!", taskId));
+        return String.format("Task %d does not exist!", taskId);
     }
 
-    public static String taskIdInWrongFormat() {
-        return errorFormatting(String.format("The task ID has to be a number!"));
+    public static String wrongTaskIdFormat() {
+        return String.format("The task ID has to be a number!");
     }
 
     public static  String invalidInput() {
-        return errorFormatting(String.format("Invalid input!"));
+        return String.format("Invalid input!");
     }
 }
