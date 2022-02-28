@@ -34,6 +34,10 @@ public class Parser {
             description = splitCommands[1].trim();
             cmd = new DeleteCommand(Integer.parseInt(description));
             break;
+        case MarkCommand.COMMAND_WORD:
+            description = splitCommands[1].trim();
+            cmd = new MarkCommand(Integer.parseInt(description));
+            break;
         default:
             throw new DukeException("Sorry! I cannot read this command :(");
 

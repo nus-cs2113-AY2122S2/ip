@@ -201,15 +201,11 @@ public class TaskManager {
         System.out.println("\t" + "-".repeat(60));
     }
 
-    public void markTask(int idx) throws DukeException {
-        if(idx > tasks.size()){
-            throw new DukeException("Task index out of bound.");
-        }
+    public void markTask(int idx) {
+//        if(idx > tasks.size()){
+//            throw new DukeException("Task index out of bound.");
+//        }
         tasks.get(idx-1).markAsDone();
-        System.out.println("\t" + "-".repeat(60));
-        System.out.println("\t Nice! I've marked this task as done:");
-        System.out.println("\t\t " + idx + "." + tasks.get(idx-1).toString());
-        System.out.println("\t" + "-".repeat(60));
     }
 
     public void unmarkTask(int idx) throws DukeException {

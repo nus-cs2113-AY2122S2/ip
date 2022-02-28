@@ -60,6 +60,11 @@ public class Ui {
         }
     }
 
+    public void showMarkedCommand(int idx) {
+        System.out.println("\t Nice! I've marked this task as done:");
+        System.out.println("\t\t " + idx + "." + taskManager.getTask(idx).toString());
+    }
+
     public void showError(String message) {
         System.out.println("\t " + message);
         System.out.println("\t Please try again.");
