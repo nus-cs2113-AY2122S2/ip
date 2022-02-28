@@ -11,6 +11,22 @@ public class Duke {
     private static final String filePath = "data/duke.txt";
     public static final String PREFIX = "  \\[T]\\[ ]";
 
+    private static void checkFile() {
+        File f = new File(filePath);
+        File folder = new File("data");
+        if (!folder.exists()) {
+            folder.mkdir();
+        }
+        if (!f.exists()) {
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                System.out.println(UI.ERROR_FAILED_TO_CREATE_FILE);
+            }
+        }
+        System.out.println("full path: " + f.getAbsolutePath());
+    }
+
     public static void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
@@ -35,6 +51,11 @@ public class Duke {
         checkFile();
         greet();
         executeCommands();
+    }
+
+    private static void greet() throws IOException {
+        System.out.println(UI.LOGO);
+        System.out.println(UI.MESSAGE_GREET);
     }
 
     private static void executeCommands() {
@@ -96,35 +117,12 @@ public class Duke {
         task.instruction = in.nextLine();
     }
 
-    private static void checkFile() {
-        File f = new File(filePath);
-        File folder = new File("data");
-        if (!folder.exists()) {
-            folder.mkdir();
-        }
-        if (!f.exists()) {
-            try {
-                f.createNewFile();
-            } catch (IOException e) {
-                System.out.println(UI.ERROR_FAILED_TO_CREATE_FILE);
-            }
-        }
-        System.out.println("full path: " + f.getAbsolutePath());
-    }
-
-    private static void greet() throws IOException {
-        System.out.println(UI.LOGO);
-        System.out.println(UI.MESSAGE_GREET);
-    }
-
     private static void executeBye() throws IOException {
         System.out.println(UI.MESSAGE_BYE);
     }
 
     private static void executeFind(ArrayList<String> instructionsList, Task task, String[] arrayOfStr) throws DukeException {
-        if (arrayOfStr.length == 1){
-            throw new DukeException(UI.ERROR_NO_KEYWORD);
-        }
+        checkExceptionsFind(arrayOfStr);
 
         String keyword = arrayOfStr[1];
         int numOfMatching = 0;
@@ -133,14 +131,9 @@ public class Duke {
     }
 
     private static void executeEvent(ArrayList<String> instructionsList, Task task, Event event, String[] arrayOfStr, String[] arrayOfEvent) throws DukeException {
-        String updatedInstructionLine;
-        if (arrayOfStr.length == 1){
-            throw new DukeException(UI.ERROR_NO_EVENT);
-        }
-        if (arrayOfEvent.length == 1){
-            throw new DukeException(UI.ERROR_NO_EVENT_DATE);
-        }
+        checkExceptionsEvent(arrayOfStr, arrayOfEvent);
 
+        String updatedInstructionLine;
         event.instruction = arrayOfEvent[0];
         event.setAt(arrayOfEvent[1]);
         updatedInstructionLine = event.toString();
@@ -152,13 +145,9 @@ public class Duke {
     }
 
     private static void executeDeadline(ArrayList<String> instructionsList, Task task, Deadline deadline, String[] arrayOfStr, String[] arrayOfDeadline) throws DukeException {
+        checkExceptionsDeadline(arrayOfStr, arrayOfDeadline);
+
         String updatedInstructionLine;
-        if (arrayOfStr.length == 1){
-            throw new DukeException(UI.ERROR_NO_TASK);
-        }
-        if (arrayOfDeadline.length == 1){
-            throw new DukeException(UI.ERROR_NO_DUE_DATE);
-        }
         deadline.instruction = arrayOfDeadline[0];
         deadline.setBy(arrayOfDeadline[1]);
         updatedInstructionLine = deadline.toString();
@@ -170,11 +159,9 @@ public class Duke {
     }
 
     private static void executeDelete(ArrayList<String> instructionsList, Task task, String[] arrayOfStr) throws DukeException {
-        String instructionNum;
-        if (arrayOfStr.length == 1) {
-            throw new DukeException(UI.ERROR_NO_TASK_NUMBER);
-        }
+        checkExceptionsDelete(arrayOfStr);
 
+        String instructionNum;
         instructionNum = arrayOfStr[1];
         int index = Integer.parseInt(instructionNum) - 1;
         task.number--;
@@ -188,15 +175,13 @@ public class Duke {
     }
 
     private static void executeMark(ArrayList<String> instructionsList, String[] arrayOfStr) throws DukeException {
-        String instructionNum;
-        if (arrayOfStr.length == 1){
-            throw new DukeException(UI.ERROR_NO_TASK_NUMBER);
-        }
 
+        checkExceptionsMark(arrayOfStr);
+
+        String instructionNum;
         instructionNum = arrayOfStr[1];
         int index = Integer.parseInt(instructionNum) - 1;
         String temp = instructionsList.get(index);
-
         temp = temp.replaceAll(PREFIX, "  [T][X]");
         instructionsList.set(index, temp); //updates the list
 
@@ -204,11 +189,9 @@ public class Duke {
     }
 
     private static void executeTodo(ArrayList<String> instructionsList, Task task, String instructionLine, String[] arrayOfStr) throws DukeException, IOException {
-        String updatedInstructionLine;
-        if (arrayOfStr.length == 1) {
-            throw new DukeException(UI.ERROR_NO_TASK);
-        }
+        checkExceptionsTodo(arrayOfStr);
 
+        String updatedInstructionLine;
         updatedInstructionLine = "  [T][ ]" + instructionLine;
         instructionsList.add("0");
         instructionsList.set(task.number, updatedInstructionLine);
@@ -260,6 +243,80 @@ public class Duke {
                 numOfMatching++;
                 System.out.println(numOfMatching + ". " + instructionsList.get(j - 1));
             }
+        }
+    }
+
+    private static void checkExceptionsFind(String[] arrayOfStr) throws DukeException {
+        if (arrayOfStr.length == 1){
+            //if user input "find"
+            throw new DukeException(UI.ERROR_NO_KEYWORD);
+        }
+        if (arrayOfStr.length == 2 && arrayOfStr[1].equals("")){
+            //if user input "find "
+            throw new DukeException(UI.ERROR_NO_KEYWORD);
+        }
+    }
+
+    private static void checkExceptionsEvent(String[] arrayOfStr, String[] arrayOfEvent) throws DukeException {
+        if (arrayOfStr.length == 1 || arrayOfStr[1].equals("/at")){
+            //if user input "event" or "event /at"
+            throw new DukeException(UI.ERROR_NO_EVENT);
+        }
+        if (arrayOfStr.length == 2 && arrayOfStr[1].equals("")){
+            //if user input "event "
+            throw new DukeException(UI.ERROR_NO_EVENT);
+        }
+        if (arrayOfEvent.length == 1){
+            //if user did not input "/at"
+            throw new DukeException(UI.ERROR_NO_EVENT_DATE);
+        }
+    }
+
+    private static void checkExceptionsDeadline(String[] arrayOfStr, String[] arrayOfDeadline) throws DukeException {
+        if (arrayOfStr.length == 1 || arrayOfStr[1].equals("/by")){
+            //if user input "deadline" or "deadline /by"
+            throw new DukeException(UI.ERROR_NO_TASK);
+        }
+        if (arrayOfStr.length == 2 && arrayOfStr[1].equals("")){
+            //if user input "deadline "
+            throw new DukeException(UI.ERROR_NO_TASK);
+        }
+        if (arrayOfDeadline.length == 1){
+            //if user did not input "/by"
+            throw new DukeException(UI.ERROR_NO_DUE_DATE);
+        }
+    }
+
+    private static void checkExceptionsDelete(String[] arrayOfStr) throws DukeException {
+        if (arrayOfStr.length == 1) {
+            //if user input "delete"
+            throw new DukeException(UI.ERROR_NO_TASK_NUMBER);
+        }
+        if (arrayOfStr.length == 2 && arrayOfStr[1].equals("")){
+            //if user input "delete "
+            throw new DukeException(UI.ERROR_NO_TASK_NUMBER);
+        }
+    }
+
+    private static void checkExceptionsMark(String[] arrayOfStr) throws DukeException {
+        if (arrayOfStr.length == 1){
+            //if user input "mark"
+            throw new DukeException(UI.ERROR_NO_TASK_NUMBER);
+        }
+        if (arrayOfStr.length == 2 && arrayOfStr[1].equals("")){
+            //if user input "mark "
+            throw new DukeException(UI.ERROR_NO_TASK_NUMBER);
+        }
+    }
+
+    private static void checkExceptionsTodo(String[] arrayOfStr) throws DukeException {
+        if (arrayOfStr.length == 1) {
+            //if user input "todo"
+            throw new DukeException(UI.ERROR_NO_TASK);
+        }
+        if (arrayOfStr.length == 2 && arrayOfStr[1].equals("")){
+            //if user input "todo "
+            throw new DukeException(UI.ERROR_NO_TASK);
         }
     }
 }
