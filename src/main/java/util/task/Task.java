@@ -13,7 +13,6 @@ public abstract class Task {
 
     public void mark() {
         this.taskStatus = "[X]";
-        this.typeOfTask = "[ ]";
     }
 
     public void unmark() {
