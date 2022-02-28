@@ -5,8 +5,13 @@ import duke.exception.DukeEmptyDescriptionException;
 import duke.exception.DukeMissingTimeSeparator;
 import duke.exception.DukeTaskOutOfRangeException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class TaskList {
     private static ArrayList<Task> taskLists = new ArrayList<>();
@@ -29,7 +34,7 @@ public class TaskList {
         return newTask;
     }
 
-    public static Task addTaskWithTime(String userInput, String stringSeparator) throws DukeEmptyDescriptionException, DukeMissingTimeSeparator {
+    public static Task addTaskWithTime(String userInput, String stringSeparator) throws DukeEmptyDescriptionException, DukeMissingTimeSeparator, DateTimeParseException {
         String extractedStringsWithoutCommandType = parser.validateAndExtractTaskDescription(userInput);
         if ((extractedStringsWithoutCommandType.split(stringSeparator).length) <= 1) {
             throw new DukeMissingTimeSeparator();
@@ -37,11 +42,13 @@ public class TaskList {
 
         String extractedTaskDescription = extractedStringsWithoutCommandType.split(stringSeparator)[0];
         String extractedTaskDeadlineTime = extractedStringsWithoutCommandType.split(stringSeparator)[1];
+        LocalDateTime convertToLocalDateTime = parser.parseDateTime(extractedTaskDeadlineTime);
+
         Task newTask;
         if (stringSeparator.equals("/by ")) {
-            newTask = new Deadline(extractedTaskDescription, extractedTaskDeadlineTime);
+            newTask = new Deadline(extractedTaskDescription, convertToLocalDateTime);
         } else if (stringSeparator.equals("/at ")) {
-            newTask = new Event(extractedTaskDescription, extractedTaskDeadlineTime);
+            newTask = new Event(extractedTaskDescription, convertToLocalDateTime);
         } else {
             throw new DukeMissingTimeSeparator();
         }

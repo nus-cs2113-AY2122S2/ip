@@ -17,18 +17,18 @@ Now you have 1 tasks in your list!
 _____________________________________________________
 _____________________________________________________
 Task added:
-	[D][ ] return book  (by: June 6th )
+	[D][ ] return book  (by: Jun 6 2022 01AM)
 Now you have 2 tasks in your list!
 _____________________________________________________
 _____________________________________________________
 Task added:
-	[E][ ] project meeting  (at: Aug 6th 2-4pm )
+	[E][ ] project meeting  (at: Aug 6 2022 14PM)
 Now you have 3 tasks in your list!
 _____________________________________________________
 _____________________________________________________
 1.[T][ ] read book 
-2.[D][ ] return book  (by: June 6th )
-3.[E][ ] project meeting  (at: Aug 6th 2-4pm )
+2.[D][ ] return book  (by: Jun 6 2022 01AM)
+3.[E][ ] project meeting  (at: Aug 6 2022 14PM)
 _____________________________________________________
 _____________________________________________________
 Task added:
@@ -37,8 +37,8 @@ Now you have 4 tasks in your list!
 _____________________________________________________
 _____________________________________________________
 1.[T][ ] read book 
-2.[D][ ] return book  (by: June 6th )
-3.[E][ ] project meeting  (at: Aug 6th 2-4pm )
+2.[D][ ] return book  (by: Jun 6 2022 01AM)
+3.[E][ ] project meeting  (at: Aug 6 2022 14PM)
 4.[T][ ] join sports club 
 _____________________________________________________
 _____________________________________________________
@@ -47,8 +47,8 @@ Fantastic! This task is done:
 _____________________________________________________
 _____________________________________________________
 1.[T][X] read book 
-2.[D][ ] return book  (by: June 6th )
-3.[E][ ] project meeting  (at: Aug 6th 2-4pm )
+2.[D][ ] return book  (by: Jun 6 2022 01AM)
+3.[E][ ] project meeting  (at: Aug 6 2022 14PM)
 4.[T][ ] join sports club 
 _____________________________________________________
 _____________________________________________________
@@ -57,8 +57,8 @@ Uh oh! This task is undone:
 _____________________________________________________
 _____________________________________________________
 1.[T][ ] read book 
-2.[D][ ] return book  (by: June 6th )
-3.[E][ ] project meeting  (at: Aug 6th 2-4pm )
+2.[D][ ] return book  (by: Jun 6 2022 01AM)
+3.[E][ ] project meeting  (at: Aug 6 2022 14PM)
 4.[T][ ] join sports club 
 _____________________________________________________
 _____________________________________________________
@@ -106,8 +106,8 @@ Noted. Task removed:
 Now you have 2 tasks in your list!
 _____________________________________________________
 _____________________________________________________
-1.[D][ ] return book  (by: June 6th )
-2.[E][ ] project meeting  (at: Aug 6th 2-4pm )
+1.[D][ ] return book  (by: Jun 6 2022 01AM)
+2.[E][ ] project meeting  (at: Aug 6 2022 14PM)
 _____________________________________________________
 _____________________________________________________
 Here are the matching task(s) in your list:

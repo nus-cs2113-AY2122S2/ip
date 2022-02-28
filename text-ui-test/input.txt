@@ -1,6 +1,6 @@
 todo read book
-deadline return book /by June 6th
-event project meeting /at Aug 6th 2-4pm
+deadline return book /by 2022-06-06 01
+event project meeting /at 2022-08-06 14
 list
 todo join sports club
 list
