@@ -136,6 +136,8 @@ public class TaskList {
             throw e;
         } catch (DateTimeParseException e) {
             // Re-throw it to caller method
+        } catch (InvalidCommandException | DateTimeParseException e) {
+            // Re-throw it to caller method in Sora class to pass to SoraExceptionHandler to handle
             throw e;
         }
 

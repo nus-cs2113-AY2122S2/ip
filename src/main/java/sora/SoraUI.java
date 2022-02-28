@@ -161,6 +161,9 @@ public class SoraUI {
     protected static final String DEADLINE_INVALID_FLAGS =
             "%s, the flags used in your deadline command is invalid...\nCould you try again?\n";
 
+    protected static final String INVALID_TASK_TYPE_RESPONSE =
+            "%s, the task type given is invalid.\n";
+
     protected static final String NO_DIRECTORY_FOUND_RESPONSE =
             "\n%s, I couldn't find the directory that contains my data\nfile. Let me go and create it...\n";
     protected static final String NO_FILE_FOUND_RESPONSE =
@@ -169,6 +172,10 @@ public class SoraUI {
             "%s, I've created my data file in the following\nlocation:\n\t%s\n";
     protected static final String LOADED_FILE_DATA_RESPONSE =
             "I've loaded your tasks from our previous interactions!\n";
+    protected static final String TASK_FILE_LOAD_FAILURE_RESPONSE =
+            "%s, I failed to add a task from the saved data file to\n" +
+                    "my task list. Here's some details about the error:\n" +
+                    "\t%s";
 
     // Exception messages caused by errors beyond Sora's (and maybe user's) control
     protected static final String IO_EXCEPTION_RETHROW_MESSAGE =
@@ -602,6 +609,23 @@ public class SoraUI {
      */
     public void printUncategorisedInvalidCommandExceptionMessage() {
         System.out.printf(UNCATEGORISED_INVALID_COMMAND_EXCEPTION_MESSAGE);
+    }
+
+    /**
+     * Prints a message when a task that is stored in the local disk file could not be added to
+     * the current session of Sora's task list.
+     *
+     * @param exceptionMessage The error message that was produced by the unsuccessful task addition.
+     */
+    public void printTaskFileLoadFailureMessage(String exceptionMessage) {
+        System.out.printf(TASK_FILE_LOAD_FAILURE_RESPONSE, getRandomNegativeAcknowledgement(), exceptionMessage);
+    }
+
+    /**
+     * Prints a message when a task type is not one of the three task types: deadline, event, or todo
+     */
+    public void printInvalidTaskTypeResponse() {
+        System.out.printf(INVALID_TASK_TYPE_RESPONSE, getRandomNegativeAcknowledgement());
     }
 }
 
