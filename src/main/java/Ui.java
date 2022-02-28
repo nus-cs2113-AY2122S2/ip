@@ -12,8 +12,8 @@ public class Ui {
         System.out.println(drawBorder((text)));
     }
 
-    public static void printError(String text) {
-        System.out.println(drawBorder(formatError(text)));
+    public static void printError(Exception e) {
+        System.out.println(drawBorder(formatError(e.toString())));
     }
 
     public static String welcomeMessage() {
@@ -55,12 +55,16 @@ public class Ui {
         return ANSI_RED + message + ANSI_REST;
     }
 
+    public static  String invalidCommand() {
+        return String.format("Invalid command!");
+    }
+
     public static String missingDescription(String command) {
         return String.format("The description of %s cannot be empty!", command);
     }
 
     public static String wrongInputFormat() {
-        return String.format("The input is in the wrong format!");
+        return String.format("Wrong input format!");
     }
 
     public static String missingDate() {
@@ -75,7 +79,7 @@ public class Ui {
         return String.format("The task ID has to be a number!");
     }
 
-    public static  String invalidInput() {
-        return String.format("Invalid input!");
+    public static String wrongFileFormat(String line) {
+        return String.format("Invalid input from local file! \n%s", line);
     }
 }

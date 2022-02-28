@@ -12,7 +12,7 @@ public class Writer {
             File file = new File(PATH + "/" + FILE);
             file.createNewFile();
         } catch (Exception e) { //Future task: exception
-            System.out.println(e);
+            Ui.printError(e);
         }
     }
 
@@ -22,7 +22,7 @@ public class Writer {
             fileWriter.write(str);
             fileWriter.close();
         } catch (Exception e) { //Future task: exception
-            System.out.println(e);
+            Ui.printError(e);
         }
     }
 }

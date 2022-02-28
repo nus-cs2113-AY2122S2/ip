@@ -1,10 +1,13 @@
 import java.io.File;
 import java.io.FileReader;
-import java.io.BufferedReader;
+import java.util.Scanner;
 
 public class Reader {
     private static final String PATH = "./data/";
     private static final String FILE = "duke.txt";
+    public static final String EVENT = "E";
+    public static final String DEADLINE = "D";
+    public static final String TODO = "T";
     private File file;
     private boolean isFileExists;
 
@@ -19,44 +22,60 @@ public class Reader {
 
     public TaskManager readFile(TaskManager taskManager) {
         try {
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                taskManager.addTask(getTaskFromLine(line));
-            }
+            Scanner scanner = new Scanner(file);
+            taskManager = readByLine(taskManager, scanner);
         } catch (Exception e) { //Future task: exception
-            System.out.println(e);
+            Ui.printError(e);
         }
         return taskManager;
     }
 
-    public Task getTaskFromLine(String line) {
-        Task task;
-        String[] splitline = splitStringBySlash(line);
-        switch (getTaskType(splitline)) {
-        case "E":
-            task = new Event(getTaskDescription(splitline), getTaskDate(splitline));
-            break;
-        case "D":
-            task = new Deadline(getTaskDescription(splitline), getTaskDate(splitline));
-            break;
-        default:
-            task = new Todo(getTaskDescription(splitline));
+    private TaskManager readByLine(TaskManager taskManager, Scanner sc) {
+        String line;
+        while (sc.hasNext()) {
+            try {
+                line = sc.nextLine();
+                taskManager.addTask(createTask(line));
+            } catch (Exception e) { //Future task: exception
+                Ui.printError(e);
+            }
         }
-        if (isTaskDone(getTaskDone(splitline))) {
-            task.setDone(true);
-        }
-        return task;
+        return taskManager;
     }
 
-    private boolean isTaskDone(int isDone) {
-        return isDone == 1;
+    private Task createTask(String line) throws DukeException {
+        try {
+            Task task;
+            String[] splitLine = splitStringBySlash(line);
+            switch (getTaskType(splitLine)) {
+            case EVENT:
+                task = new Event(getTaskDescription(splitLine), getTaskDate(splitLine));
+                break;
+            case DEADLINE:
+                task = new Deadline(getTaskDescription(splitLine), getTaskDate(splitLine));
+                break;
+            case TODO:
+                task = new Todo(getTaskDescription(splitLine));
+                break;
+            default:
+                throw new DukeException(Ui.wrongFileFormat(line));
+            }
+            if (isTaskDone(getTaskDone(splitLine))) {
+                task.setDone(true);
+            }
+            return task;
+        } catch (Exception e) {
+            throw new DukeException(Ui.wrongFileFormat(line));
+        }
     }
 
     private String[] splitStringBySlash(String line) {
         String[] splitLine = line.split("/");
         return splitLine;
+    }
+
+    private boolean isTaskDone(int isDone) {
+        return isDone == 1;
     }
 
     private String getTaskType(String[] splitLine) {

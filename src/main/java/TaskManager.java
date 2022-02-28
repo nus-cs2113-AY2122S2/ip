@@ -26,7 +26,7 @@ public class TaskManager {
         return Ui.dupTaskMsg(task, taskList.getSize());
     }
 
-    public String addTodo(String[] taskDescription) {
+    public String createTodo(String[] taskDescription) {
         Todo todo = new Todo(taskDescription[0]);
         if (isDuplicate(todo).isPresent()) {
             return notAddDuplicate(isDuplicate(todo).get());
@@ -34,7 +34,7 @@ public class TaskManager {
         return addTask(todo);
     }
 
-    public String addDeadline(String[] taskDescription) throws DukeException {
+    public String createDeadline(String[] taskDescription) throws DukeException {
         if (!taskDescription[1].equals("/by")) {
             throw new DukeException(Ui.wrongInputFormat());
         }
@@ -48,7 +48,7 @@ public class TaskManager {
         return addTask(deadline);
     }
 
-    public String addEvent(String[] taskDescription) throws DukeException {
+    public String createEvent(String[] taskDescription) throws DukeException {
         if (!taskDescription[1].equals("/at")) {
             throw new DukeException(Ui.wrongInputFormat());
         }

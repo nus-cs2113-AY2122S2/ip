@@ -56,7 +56,7 @@ public class Duke {
     }
 
     private static void showError(Exception e) {
-        Ui.printError(e.toString());
+        Ui.printError(e);
     }
 
     private static void showWelcomeMessage() {
@@ -101,7 +101,7 @@ public class Duke {
             feedback = delEvent();
             break;
         default:
-            throw new DukeException(Ui.invalidInput());
+            throw new DukeException(Ui.invalidCommand());
         }
         return feedback;
     }
@@ -111,15 +111,15 @@ public class Duke {
     }
 
     private static String addTodo() throws DukeException {
-        return taskManager.addTodo(parser.getTaskDescription());
+        return taskManager.createTodo(parser.getTaskDescription());
     }
 
     private static String addDeadline() throws DukeException {
-        return taskManager.addDeadline(parser.getTaskDescription());
+        return taskManager.createDeadline(parser.getTaskDescription());
     }
 
     private static String addEvent() throws DukeException {
-        return taskManager.addEvent(parser.getTaskDescription());
+        return taskManager.createEvent(parser.getTaskDescription());
     }
 
     private static String markTask(boolean isDone) throws DukeException {
