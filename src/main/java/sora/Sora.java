@@ -48,6 +48,7 @@ public class Sora {
             soraStorage.loadTaskListFromFile(getTasksManager());
         } catch (IOException e) {
             // Throw to caller method to handle to exit
+            soraUI.printIOExceptionRethrowMessage("Sora", "Main");
             throw e;
         }
     }
@@ -109,6 +110,7 @@ public class Sora {
                 executeCommand(userRawInput);
             } catch (IOException e) {
                 // Throw it up to Main class for program termination
+                soraUI.printIOExceptionRethrowMessage("Sora", "Main");
                 throw e;
             }
         }
@@ -185,6 +187,7 @@ public class Sora {
             soraExceptionHandler.handleInvalidDateTimeInputFormat();
         } catch (IOException e) {
             // Throw it up to calling method for program termination
+            soraUI.printIOExceptionRethrowMessage("Sora", "Main");
             throw e;
         } catch (ArrayIndexOutOfBoundsException e) {
             soraExceptionHandler.handleOutOfRangeListReferences();
