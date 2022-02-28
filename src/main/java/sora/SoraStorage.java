@@ -191,7 +191,8 @@ public class SoraStorage {
         // Add line of text to end of file
         try {
             FileWriter fileWriter = new FileWriter(filePath.toString(), true);
-            fileWriter.append(taskInFileFormat + System.lineSeparator());
+            fileWriter.append(taskInFileFormat);
+            fileWriter.append(System.lineSeparator());
             fileWriter.close();
         } catch (IOException e) {
             System.out.println("Error opening data file for writing. Here are some details:");
@@ -273,7 +274,8 @@ public class SoraStorage {
 
             for (Task task  : tasksList) {
                 String taskText = buildTaskTextForFile(task);
-                fileWriter.append(taskText + System.lineSeparator());
+                fileWriter.append(taskText);
+                fileWriter.append(System.lineSeparator());
             }
 
             fileWriter.close();
