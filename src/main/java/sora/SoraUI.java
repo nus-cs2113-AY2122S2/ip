@@ -165,7 +165,7 @@ public class SoraUI {
             "\n%s, I couldn't find the directory that contains my data\nfile. Let me go and create it...\n";
     protected static final String NO_FILE_FOUND_RESPONSE =
             "\n%s, I%s couldn't find my data file. I shall create\nthat%s.\n\n";
-    protected static final String FILE_CREATED_REPSONSE =
+    protected static final String FILE_CREATED_RESPONSE =
             "%s, I've created my data file in the following\nlocation:\n\t%s\n";
     protected static final String LOADED_FILE_DATA_RESPONSE =
             "I've loaded your tasks from our previous interactions!\n";
@@ -397,7 +397,7 @@ public class SoraUI {
 
     /**
      * Prints a response and displays a list of the tasks in searchResults, which contains the
-     * tasks that matches a certain search parameter.
+     * tasks that match a certain search parameter.
      *
      * @param searchResults The list of tasks that are part of the search results.
      */
@@ -528,7 +528,7 @@ public class SoraUI {
      * @param filePathName The path to the newly-created file that will store tasks' data.
      */
     public void printFileCreatedResponse(Path filePathName) {
-        System.out.printf(FILE_CREATED_REPSONSE, getRandomPositiveAcknowledgement(), filePathName);
+        System.out.printf(FILE_CREATED_RESPONSE, getRandomPositiveAcknowledgement(), filePathName);
     }
 
     /**
@@ -570,12 +570,21 @@ public class SoraUI {
         System.out.printf(INVALID_TASK_NUMBER_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
+    /**
+     * Prints a response when the user did not input a search parameter when using the 'find' command.
+     */
     public void printMissingSearchStringResponse() {
-        System.out.printf(SoraUI.MISSING_SEARCH_STRING_RESPONSE, getRandomNegativeAcknowledgement());
+        System.out.printf(MISSING_SEARCH_STRING_RESPONSE, getRandomNegativeAcknowledgement());
     }
 
+    /**
+     * Prints a response when the user enters an invalid date-time format while creating a new Event or
+     * Deadline task.
+     */
     public void printInvalidDateTimeInputFormatResponse() {
-        System.out.printf(SoraUI.INVALID_DATE_TIME_INPUT_FORMAT_RESPONSE, getRandomNegativeAcknowledgement());
+        System.out.printf(INVALID_DATE_TIME_INPUT_FORMAT_RESPONSE, getRandomNegativeAcknowledgement());
+    }
+
     /**
      * Prints a message when an IOException is caught, including the class that caught it and the class
      * that it is throwing to.
