@@ -81,7 +81,6 @@ public class Parser {
      * @param taskCount the number of present tasks the user has
      * @return the index that the user input, INVALID if the user input an invalid index
      */
-
     public int parseIndex(Ui ui, int taskCount) {
         int index;
         try {
@@ -138,7 +137,7 @@ public class Parser {
         return line.split(" ")[0];
     }
 
-    public void removeTaskType(String taskType) {
+    public void removeCommand(String taskType) {
         if (line.length() > taskType.length()) {
             line = line.substring(taskType.length() + 1);
         }

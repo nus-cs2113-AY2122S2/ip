@@ -160,7 +160,7 @@ public class TaskList {
      */
     public void addNewTask(Ui ui, Storage storage, Parser parser){
         String taskType = parser.parseTaskType();
-        parser.removeTaskType(taskType);
+        parser.removeCommand(taskType);
         try {
             switch (taskType) {
             case TODO:
