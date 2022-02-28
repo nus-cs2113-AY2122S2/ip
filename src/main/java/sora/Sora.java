@@ -72,7 +72,7 @@ public class Sora {
     /**
      * Returns the taskList field, which contains an instance of the taskList class.
      *
-     * @return
+     * @return The TaskList instance.
      */
     protected TaskList getTasksManager() {
         return this.taskList;
@@ -89,7 +89,7 @@ public class Sora {
 
         while (!doesUserWantsToExit()) {
             // Get user input
-            String userRawInput = "";
+            String userRawInput;
 
             soraUI.printPrompter(isFirstPrompt);
 
