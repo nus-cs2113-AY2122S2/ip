@@ -1,5 +1,6 @@
 package commands;
 
+import common.DukeException;
 import data.Task;
 import data.TaskManager;
 import storage.FileManager;
@@ -17,12 +18,15 @@ public class MarkCommand extends Command {
 
     @Override
     public void execute(TaskManager taskManager, FileManager fileManager, Ui ui) {
-        taskManager.markTask(idx);
-        ui.showMarkedTask(idx);
         try {
+            taskManager.markTask(idx);
+            ui.showMarkedTask(idx);
             fileManager.saveData(taskManager.getAllTasks());
+        } catch (DukeException e) {
+            ui.showError(e.getMessage());
         } catch (IOException e) {
-            System.out.println("\t Error: Failed to save data.");
+            ui.showError(e.getMessage());
+            System.exit(0);
         }
     }
 }

@@ -5,7 +5,6 @@ import storage.FileManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class TaskManager {
     private ArrayList<Task> tasks = new ArrayList<>();
@@ -60,7 +59,11 @@ public class TaskManager {
 //        }
 //    }
 
-    public Task getTask(int idx) {
+    public Task getTask(int idx) throws DukeException {
+        if(idx <= 0 || idx > tasks.size()) {
+            throw new DukeException(". Index out of bound." + "Failed to get task " + idx + ".");
+        }
+
         return tasks.get(idx - 1);
     }
 
@@ -73,21 +76,17 @@ public class TaskManager {
         tasks.remove(idx - 1);
     }
 
-    public void markTask(int idx) {
-//        if(idx > tasks.size()){
-//            throw new DukeException("Task index out of bound.");
-//        }
+    public void markTask(int idx) throws DukeException {
+        if(idx <=0 || idx > tasks.size()){
+            throw new DukeException("Task index out of bound. I cannot mark task " + idx + ".");
+        }
         tasks.get(idx-1).markAsDone();
     }
 
-    public void unmarkTask(int idx) {
-//        if(idx > tasks.size()){
-//            throw new DukeException("Task index out of bound.");
-//        }
+    public void unmarkTask(int idx) throws DukeException {
+        if(idx <=0 || idx > tasks.size()){
+            throw new DukeException("Task index out of bound. I cannot unmark task " + idx + ".");
+        }
         tasks.get(idx-1).unmark();
-//        System.out.println("\t" + "-".repeat(60));
-//        System.out.println("\t OK, I've marked this task as not done yet:");
-//        System.out.println("\t\t " + idx + "." + tasks.get(idx-1).toString());
-//        System.out.println("\t" + "-".repeat(60));
     }
 }

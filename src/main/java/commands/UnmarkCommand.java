@@ -1,5 +1,6 @@
 package commands;
 
+import common.DukeException;
 import data.TaskManager;
 import storage.FileManager;
 import ui.Ui;
@@ -16,10 +17,12 @@ public class UnmarkCommand extends Command {
 
     @Override
     public void execute(TaskManager taskManager, FileManager fileManager, Ui ui) {
-        taskManager.unmarkTask(idx);
-        ui.showUnmarkedTask(idx);
         try {
+            taskManager.unmarkTask(idx);
+            ui.showUnmarkedTask(idx);
             fileManager.saveData(taskManager.getAllTasks());
+        } catch (DukeException e) {
+            ui.showError(e.getMessage());
         } catch (IOException e) {
             System.out.println("\t Error: Failed to save data.");
         }

@@ -18,11 +18,14 @@ public class DeleteCommand extends Command{
 
     @Override
     public void execute(TaskManager taskManager, FileManager fileManager, Ui ui) {
-        Task deletedTask = taskManager.getTask(idx);
-        taskManager.deleteTask(idx);
-        ui.showRemovedTask(deletedTask);
+
         try {
+            Task deletedTask = taskManager.getTask(idx);
+            taskManager.deleteTask(idx);
+            ui.showRemovedTask(deletedTask);
             fileManager.saveData(taskManager.getAllTasks());
+        } catch (DukeException e) {
+            ui.showError(e.getMessage());
         } catch (IOException e) {
             System.out.println("\t Error: Failed to save data.");
         }

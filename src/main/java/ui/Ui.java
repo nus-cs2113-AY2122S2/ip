@@ -1,4 +1,5 @@
 package ui;
+import common.DukeException;
 import common.Messages;
 import data.Task;
 import data.TaskManager;
@@ -60,12 +61,12 @@ public class Ui {
         }
     }
 
-    public void showMarkedTask(int idx) {
+    public void showMarkedTask(int idx) throws DukeException {
         System.out.println("\t Nice! I've marked this task as done:");
         System.out.println("\t\t " + idx + "." + taskManager.getTask(idx).toString());
     }
 
-    public void showUnmarkedTask(int idx) {
+    public void showUnmarkedTask(int idx) throws DukeException{
         System.out.println("\t OK, I've marked this task as not done yet:");
         System.out.println("\t\t " + idx + "." + taskManager.getTask(idx).toString());
 
