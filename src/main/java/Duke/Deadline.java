@@ -1,7 +1,9 @@
 package Duke;
 
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
     private LocalDate deadlineTime;
@@ -10,8 +12,12 @@ public class Deadline extends Task {
         super(content);
         try {
             this.deadlineTime = LocalDate.parse(deadlineTime);
-        } catch (Exception e) {
-            this.deadlineTime = LocalDate.parse(deadlineTime, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        } catch (DateTimeParseException e) {
+            try {
+                this.deadlineTime = LocalDate.parse(deadlineTime, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            } catch (DateTimeParseException e1) {
+                this.deadlineTime = LocalDate.parse("1970-01-01");
+            }
         }
     }
 

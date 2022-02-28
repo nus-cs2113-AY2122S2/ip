@@ -7,244 +7,165 @@ Hello from
 
 ------------------------------
 Hello, I'm Duke
-What can I do for you? HAOXUAN
+What can I do for you? INPUT
 ------------------------------
-HAOXUAN > ------------------------------
+INPUT > ------------------------------
 Sorry I don't understand this sentence:
 		Do you understand this?
 
 ------------------------------
-HAOXUAN > ------------------------------
-Sorry I don't understand this sentence:
-		Of course, you cannot understand this.
-
-------------------------------
-HAOXUAN > ------------------------------
-Sorry I don't understand this sentence:
-		Because I didn't program you.
-
-------------------------------
-HAOXUAN > ------------------------------
-Sorry I don't understand this sentence:
-		But you will understand those.
-
-------------------------------
-HAOXUAN > ------------------------------
-Sorry I don't understand this sentence:
-		Now I will add multiple tasks
-
-------------------------------
-HAOXUAN > ------------------------------
-Added: [ ] multiple task1   
-Added: [ ] multiple_task2
-Added: [ ]     multiple task3
-Added: [ ] multiple    task4
-Now you have 4 task(s) in the list.
-------------------------------
-HAOXUAN > ------------------------------
-Sorry I don't understand this sentence:
-		Now I will finish task 1 and 4
-
-------------------------------
-HAOXUAN > ------------------------------
-[X] multiple task1   
-[X] multiple    task4
-Nice! I've marked those valid tasks as done
-
-------------------------------
-HAOXUAN > ------------------------------
-Sorry I don't understand this sentence:
-		Now I will try to finish task5, which is not created.
-
-------------------------------
-HAOXUAN > ------------------------------
-There is no 5 task.
-Nice! I've marked those valid tasks as done
-
-------------------------------
-HAOXUAN > ------------------------------
-Sorry I don't understand this sentence:
-		Now show me all the tasks.
-
-------------------------------
-HAOXUAN > ------------------------------
-1. [X] multiple task1   
-2. [ ] multiple_task2
-3. [ ]     multiple task3
-4. [X] multiple    task4
-------------------------------
-HAOXUAN > ------------------------------
-Sorry I don't understand this sentence:
-		I lied to you, I didn't finish task4, so unmark
-
-------------------------------
-HAOXUAN > ------------------------------
-Nice! I've marked these tasks as not done yet
-
-[ ] multiple    task4
-------------------------------
-HAOXUAN > ------------------------------
-Sorry I don't understand this sentence:
-		Show me all the tasks again
-
-------------------------------
-HAOXUAN > ------------------------------
-1. [X] multiple task1   
-2. [ ] multiple_task2
-3. [ ]     multiple task3
-4. [ ] multiple    task4
-------------------------------
-HAOXUAN > ------------------------------
-Sorry I don't understand this sentence:
-		Now I will add multiple todoes
-
-------------------------------
-HAOXUAN > ------------------------------
+INPUT > ------------------------------
 Added: [T][ ]    multiple todo1
 Added: [T][ ] multiple_todo2
 Added: [T][ ]     multiple todo3
 Added: [T][ ] multiple       todo4
-Now you have 8 task(s) in the list.
+Now you have 4 task(s) in the list.
 ------------------------------
-HAOXUAN > ------------------------------
-1. [X] multiple task1   
-2. [ ] multiple_task2
-3. [ ]     multiple task3
-4. [ ] multiple    task4
-5. [T][ ]    multiple todo1
-6. [T][ ] multiple_todo2
-7. [T][ ]     multiple todo3
-8. [T][ ] multiple       todo4
+INPUT > ------------------------------
+[T][X]    multiple todo1
+[T][X] multiple       todo4
+Nice! I've marked those valid tasks as done
 ------------------------------
-HAOXUAN > ------------------------------
-Sorry I don't understand this sentence:
-		Now I will add multiple deadlines
-
+INPUT > ------------------------------
+There is no 5 task.
+Nice! I've marked those valid tasks as done
 ------------------------------
-HAOXUAN > ------------------------------
-Added: [D][ ]   ddl  1  (by: time for ddl1,2,3)
-Added: [D][ ] d d l 2 (by: time for ddl1,2,3)
-Added: [D][ ] ddl3 (by: time for ddl1,2,3)
-Added: [D][ ] d d l 4 (by: timefor4,5,6)
-Added: [D][ ] ddl5 (by: timefor4,5,6)
-Added: [D][ ] ddl6 (by: timefor4,5,6)
-Now you have 14 task(s) in the list.
+INPUT > ------------------------------
+1. [T][X]    multiple todo1
+2. [T][ ] multiple_todo2
+3. [T][ ]     multiple todo3
+4. [T][X] multiple       todo4
 ------------------------------
-HAOXUAN > ------------------------------
-1. [X] multiple task1   
-2. [ ] multiple_task2
-3. [ ]     multiple task3
-4. [ ] multiple    task4
-5. [T][ ]    multiple todo1
-6. [T][ ] multiple_todo2
-7. [T][ ]     multiple todo3
-8. [T][ ] multiple       todo4
-9. [D][ ]   ddl  1  (by: time for ddl1,2,3)
-10. [D][ ] d d l 2 (by: time for ddl1,2,3)
-11. [D][ ] ddl3 (by: time for ddl1,2,3)
-12. [D][ ] d d l 4 (by: timefor4,5,6)
-13. [D][ ] ddl5 (by: timefor4,5,6)
-14. [D][ ] ddl6 (by: timefor4,5,6)
+INPUT > ------------------------------
+Nice! I've marked these tasks as not done yet:
+	[T][ ] multiple       todo4
 ------------------------------
-HAOXUAN > ------------------------------
-Sorry I don't understand this sentence:
-		Now I will add multiple events
-
+INPUT > ------------------------------
+1. [T][X]    multiple todo1
+2. [T][ ] multiple_todo2
+3. [T][ ]     multiple todo3
+4. [T][ ] multiple       todo4
 ------------------------------
-HAOXUAN > ------------------------------
-Added: [E][ ] event1 (at: duration for event 1, 2, 3)
-Added: [E][ ] event2 (at: duration for event 1, 2, 3)
-Added: [E][ ]   ev ent  3   (at: duration for event 1, 2, 3)
-Added: [E][ ] event4 (at: duration_for_event_4,5,6)
-Added: [E][ ] event5 (at: duration_for_event_4,5,6)
-Added: [E][ ] ddl6 (at: duration_for_event_4,5,6)
-Now you have 20 task(s) in the list.
+INPUT > ------------------------------
+Added: [D][ ]   ddl  1  (by: Jan 01 2020)
+Added: [D][ ] d d l 2 (by: Jan 01 2020)
+Added: [D][ ] ddl3 (by: Jan 01 2020)
+Added: [D][ ] d d l 4 (by: Feb 02 2020)
+Added: [D][ ] ddl5 (by: Feb 02 2020)
+Added: [D][ ] ddl6 (by: Feb 02 2020)
+Now you have 10 task(s) in the list.
 ------------------------------
-HAOXUAN > ------------------------------
-Sorry I don't understand this sentence:
-		Now I will mark and unmark random tasks/todoes/ddls/events
-
+INPUT > ------------------------------
+1. [T][X]    multiple todo1
+2. [T][ ] multiple_todo2
+3. [T][ ]     multiple todo3
+4. [T][ ] multiple       todo4
+5. [D][ ]   ddl  1  (by: Jan 01 2020)
+6. [D][ ] d d l 2 (by: Jan 01 2020)
+7. [D][ ] ddl3 (by: Jan 01 2020)
+8. [D][ ] d d l 4 (by: Feb 02 2020)
+9. [D][ ] ddl5 (by: Feb 02 2020)
+10. [D][ ] ddl6 (by: Feb 02 2020)
 ------------------------------
-HAOXUAN > ------------------------------
-[X] multiple task1   
-[X]     multiple task3
+INPUT > ------------------------------
+Added: [E][ ] event1 (at: Mar 02 2020)
+Added: [E][ ] event2 (at: Mar 02 2020)
+Added: [E][ ]   ev ent  3   (at: Mar 02 2020)
+Added: [E][ ] event4 (at: Apr 07 2020)
+Added: [E][ ] event5 (at: Apr 07 2020)
+Added: [E][ ] ddl6 (at: Apr 07 2020)
+Now you have 16 task(s) in the list.
+------------------------------
+INPUT > ------------------------------
 [T][X]    multiple todo1
 [T][X]     multiple todo3
-[D][X]   ddl  1  (by: time for ddl1,2,3)
-[D][X] ddl3 (by: time for ddl1,2,3)
-[D][X] ddl5 (by: timefor4,5,6)
-[E][X] event1 (at: duration for event 1, 2, 3)
-[E][X]   ev ent  3   (at: duration for event 1, 2, 3)
-[E][X] event5 (at: duration_for_event_4,5,6)
+[D][X]   ddl  1  (by: Jan 01 2020)
+[D][X] ddl3 (by: Jan 01 2020)
+[D][X] ddl5 (by: Feb 02 2020)
+[E][X] event1 (at: Mar 02 2020)
+[E][X]   ev ent  3   (at: Mar 02 2020)
+[E][X] event5 (at: Apr 07 2020)
+There is no 17 task.
+There is no 19 task.
 There is no 21 task.
 There is no 23 task.
 There is no 25 task.
 There is no 27 task.
 There is no 29 task.
 Nice! I've marked those valid tasks as done
-
 ------------------------------
-HAOXUAN > ------------------------------
-1. [X] multiple task1   
-2. [ ] multiple_task2
-3. [X]     multiple task3
-4. [ ] multiple    task4
-5. [T][X]    multiple todo1
-6. [T][ ] multiple_todo2
-7. [T][X]     multiple todo3
-8. [T][ ] multiple       todo4
-9. [D][X]   ddl  1  (by: time for ddl1,2,3)
-10. [D][ ] d d l 2 (by: time for ddl1,2,3)
-11. [D][X] ddl3 (by: time for ddl1,2,3)
-12. [D][ ] d d l 4 (by: timefor4,5,6)
-13. [D][X] ddl5 (by: timefor4,5,6)
-14. [D][ ] ddl6 (by: timefor4,5,6)
-15. [E][X] event1 (at: duration for event 1, 2, 3)
-16. [E][ ] event2 (at: duration for event 1, 2, 3)
-17. [E][X]   ev ent  3   (at: duration for event 1, 2, 3)
-18. [E][ ] event4 (at: duration_for_event_4,5,6)
-19. [E][X] event5 (at: duration_for_event_4,5,6)
-20. [E][ ] ddl6 (at: duration_for_event_4,5,6)
+INPUT > ------------------------------
+1. [T][X]    multiple todo1
+2. [T][ ] multiple_todo2
+3. [T][X]     multiple todo3
+4. [T][ ] multiple       todo4
+5. [D][X]   ddl  1  (by: Jan 01 2020)
+6. [D][ ] d d l 2 (by: Jan 01 2020)
+7. [D][X] ddl3 (by: Jan 01 2020)
+8. [D][ ] d d l 4 (by: Feb 02 2020)
+9. [D][X] ddl5 (by: Feb 02 2020)
+10. [D][ ] ddl6 (by: Feb 02 2020)
+11. [E][X] event1 (at: Mar 02 2020)
+12. [E][ ] event2 (at: Mar 02 2020)
+13. [E][X]   ev ent  3   (at: Mar 02 2020)
+14. [E][ ] event4 (at: Apr 07 2020)
+15. [E][X] event5 (at: Apr 07 2020)
+16. [E][ ] ddl6 (at: Apr 07 2020)
 ------------------------------
-HAOXUAN > ------------------------------
-Nice! I've marked these tasks as not done yet
-
-[ ]     multiple task3
-[T][ ] multiple       todo4
-[D][ ]   ddl  1  (by: time for ddl1,2,3)
-[D][ ] d d l 2 (by: time for ddl1,2,3)
-There is no 21 task.
-There is no 25 task.
-There is no 27 task.
-There is no 29 task.
+INPUT > ------------------------------
+There is no task 21.
+There is no task 25.
+There is no task 27.
+There is no task 29.
+Nice! I've marked these tasks as not done yet:
+	[T][ ]     multiple todo3
+	[D][ ] d d l 4 (by: Feb 02 2020)
+	[D][ ] ddl5 (by: Feb 02 2020)
+	[D][ ] ddl6 (by: Feb 02 2020)
 ------------------------------
-HAOXUAN > ------------------------------
-1. [X] multiple task1   
-2. [ ] multiple_task2
-3. [ ]     multiple task3
-4. [ ] multiple    task4
-5. [T][X]    multiple todo1
-6. [T][ ] multiple_todo2
-7. [T][X]     multiple todo3
-8. [T][ ] multiple       todo4
-9. [D][ ]   ddl  1  (by: time for ddl1,2,3)
-10. [D][ ] d d l 2 (by: time for ddl1,2,3)
-11. [D][X] ddl3 (by: time for ddl1,2,3)
-12. [D][ ] d d l 4 (by: timefor4,5,6)
-13. [D][X] ddl5 (by: timefor4,5,6)
-14. [D][ ] ddl6 (by: timefor4,5,6)
-15. [E][X] event1 (at: duration for event 1, 2, 3)
-16. [E][ ] event2 (at: duration for event 1, 2, 3)
-17. [E][X]   ev ent  3   (at: duration for event 1, 2, 3)
-18. [E][ ] event4 (at: duration_for_event_4,5,6)
-19. [E][X] event5 (at: duration_for_event_4,5,6)
-20. [E][ ] ddl6 (at: duration_for_event_4,5,6)
+INPUT > ------------------------------
+1. [T][X]    multiple todo1
+2. [T][ ] multiple_todo2
+3. [T][ ]     multiple todo3
+4. [T][ ] multiple       todo4
+5. [D][X]   ddl  1  (by: Jan 01 2020)
+6. [D][ ] d d l 2 (by: Jan 01 2020)
+7. [D][X] ddl3 (by: Jan 01 2020)
+8. [D][ ] d d l 4 (by: Feb 02 2020)
+9. [D][ ] ddl5 (by: Feb 02 2020)
+10. [D][ ] ddl6 (by: Feb 02 2020)
+11. [E][X] event1 (at: Mar 02 2020)
+12. [E][ ] event2 (at: Mar 02 2020)
+13. [E][X]   ev ent  3   (at: Mar 02 2020)
+14. [E][ ] event4 (at: Apr 07 2020)
+15. [E][X] event5 (at: Apr 07 2020)
+16. [E][ ] ddl6 (at: Apr 07 2020)
 ------------------------------
-HAOXUAN > ------------------------------
-Sorry I don't understand this sentence:
-		Nice, if you are clever enough, you will recognize my next sentence and terminate
-
+INPUT > ------------------------------
+Noted. I've removed this task:
+	[D][X] ddl3 (by: Jan 01 2020)
+Noted. I've removed this task:
+	[D][X]   ddl  1  (by: Jan 01 2020)
+Noted. I've removed this task:
+	[E][X] event5 (at: Apr 07 2020)
+Noted. I've removed this task:
+	[T][X]    multiple todo1
+Noted. I've removed this task:
+	[E][X] event1 (at: Mar 02 2020)
+Noted. I've removed this task:
+	[E][X]   ev ent  3   (at: Mar 02 2020)
 ------------------------------
-HAOXUAN > ------------------------------
-Bye, HAOXUAN. Hope to see you soon!
+INPUT > ------------------------------
+1. [T][ ] multiple_todo2
+2. [T][ ]     multiple todo3
+3. [T][ ] multiple       todo4
+4. [D][ ] d d l 2 (by: Jan 01 2020)
+5. [D][ ] d d l 4 (by: Feb 02 2020)
+6. [D][ ] ddl5 (by: Feb 02 2020)
+7. [D][ ] ddl6 (by: Feb 02 2020)
+8. [E][ ] event2 (at: Mar 02 2020)
+9. [E][ ] event4 (at: Apr 07 2020)
+10. [E][ ] ddl6 (at: Apr 07 2020)
 ------------------------------
+INPUT > ------------------------------
+Bye, INPUT. Hope to see you soon!

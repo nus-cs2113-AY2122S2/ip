@@ -2,6 +2,7 @@ package Duke;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
     private LocalDate schedule;
@@ -10,8 +11,12 @@ public class Event extends Task {
         super(content);
         try {
             this.schedule = LocalDate.parse(schedule);
-        } catch (Exception e) {
-            this.schedule = LocalDate.parse(schedule, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        } catch (DateTimeParseException e) {
+            try {
+                this.schedule = LocalDate.parse(schedule, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            } catch (DateTimeParseException e1) {
+                this.schedule = LocalDate.parse("1970-01-01");
+            }
         }
     }
 

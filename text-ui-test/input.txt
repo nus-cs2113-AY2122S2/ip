@@ -1,31 +1,17 @@
 Do you understand this?
-Of course, you cannot understand this.
-Because I didn't program you.
-But you will understand those.
-Now I will add multiple tasks
-add "multiple task1   " multiple_task2 "    multiple task3" "multiple    task4"
-Now I will finish task 1 and 4
-mark 1 4
-Now I will try to finish task5, which is not created.
-mark 5
-Now show me all the tasks.
-list
-I lied to you, I didn't finish task4, so unmark
-unmark 4
-Show me all the tasks again
-list
-Now I will add multiple todoes
 todo "   multiple todo1" multiple_todo2 "    multiple todo3" "multiple       todo4"
+mark 1 4
+mark 5
 list
-Now I will add multiple deadlines
-deadline "  ddl  1 " "d d l 2" ddl3 /by "time for ddl1,2,3" "d d l 4" ddl5 ddl6 /by timefor4,5,6
+unmark 4
 list
-Now I will add multiple events
-event "event1" event2 "  ev ent  3  " /at "duration for event 1, 2, 3" event4 event5 "ddl6" /at duration_for_event_4,5,6
-Now I will mark and unmark random tasks/todoes/ddls/events
+deadline "  ddl  1 " "d d l 2" ddl3 /by "2020-01-01" "d d l 4" ddl5 ddl6 /by "2020-02-02"
+list
+event "event1" event2 "  ev ent  3  " /at "2020-03-02" event4 event5 "ddl6" /at 2020-04-07
 mark 1 3 5 7 9 11 13 15 17 19 21 23 25 27 29
 list
 unmark 3 8 9 10 21 25 27 29
 list
-Nice, if you are clever enough, you will recognize my next sentence and terminate
-hahahahhahahahahhahahahahahahahahhaahah bye hahahahahhahahahahahahhahahahahahahaha
+delete 7 5 15 1 11 13
+list
+bye

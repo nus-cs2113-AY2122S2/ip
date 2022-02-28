@@ -99,7 +99,6 @@ public class Duke {
      */
     private static void printUserFarewell() {
         System.out.println("Bye, " + userName + ". Hope to see you soon!");
-        printLineDivider();
     }
 
     /**
