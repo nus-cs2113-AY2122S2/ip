@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileManager {
-    private static final String DIR_PATH = "data";
+    private static String DIR_PATH = "data";
     private static final String fileName = "duke.txt";
 
     public FileManager(){
-
+        DIR_PATH = System.getProperty("user.dir") + File.separator +"data";
     }
 
     public ArrayList<Task> loadData() throws IOException {
