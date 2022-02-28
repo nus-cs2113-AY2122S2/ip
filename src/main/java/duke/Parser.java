@@ -92,7 +92,15 @@ public class Parser {
         }
         return true;
     }
-
+  
+    public static void performFindTask(TaskList taskManager, String userInput) {
+        try {
+            taskManager.findTask(userInput);
+        } catch (DukeEmptyDescriptionException e) {
+            System.out.print("OOPS! The keyword to find cannot be empty!\n");
+        }
+    }
+  
     public static LocalDateTime parseDateTime(String dateTimeToConvert) {
         String correctDatePattern = "\\d{4}-\\d{2}-\\d{2}\\s\\d{2}";
         if(!dateTimeToConvert.trim().matches(correctDatePattern)) {

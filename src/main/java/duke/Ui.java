@@ -56,6 +56,9 @@ public class Ui {
             case "delete":
                 parser.performDeletion(taskManager, userInput);
                 break;
+            case "find":
+                parser.performFindTask(taskManager, userInput);
+                break;
             default:
                 System.out.println("I'm sorry, but I don't know what that means :(");
             }
