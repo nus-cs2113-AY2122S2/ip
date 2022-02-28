@@ -12,11 +12,20 @@ import java.util.regex.Pattern;
 import static alexis.ui.Ui.DEADLINE_EXCEPTION_MESSAGE_TEXT;
 import static alexis.ui.Ui.EVENT_EXCEPTION_MESSAGE_TEXT;
 
+/**
+ * Parse commands. Also parses dates and timings of individual tasks.
+ */
 public class Parser {
 
     public static final String DATE_TIME_EXCEPTION_MESSAGE = "Please key in the date in the format dd/MM/yyyy";
     public static final String MISSING_DESCRIPTION_MESSAGE = "Please input a description/task number after your command";
 
+    /**
+     * Parses full command written by user
+     *
+     * @param fullCommand Input of user
+     * @return Command. It will be called in the "execute" method next.
+     */
     public static Command parse(String fullCommand) {
 
         String[] userInputArr = fullCommand.trim().split(" ");
@@ -72,6 +81,12 @@ public class Parser {
         return newCommand;
     }
 
+    /**
+     * Parses the task's date in the format dd/MM/yyyy into the LocalDate format
+     *
+     * @param inputDate String format dd/MM/yyyy of date
+     * @return LocalDate date
+     */
     public static LocalDate parseDate(String inputDate) {
         //following code finds the number of "/"s in inputDate
         int numOccurrences = 0;
@@ -88,6 +103,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the task's date of format LocalDate into a string format readable by user
+     *
+     * @param date date of format LocalDate
+     * @return String format of date, aka timing
+     */
     public static String parseTiming(LocalDate date) {
         if (date.equals(null)) {
             throw new DateTimeException(DATE_TIME_EXCEPTION_MESSAGE);

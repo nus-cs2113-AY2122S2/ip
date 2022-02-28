@@ -7,6 +7,9 @@ import java.util.Scanner;
 
 import static alexis.task.Task.BUFFER;
 
+/**
+ * Stores print messages that are too bulky to fit in their own classes.
+ */
 public class Ui {
 
     public static final String BORDER_LINE = "---------------------------------------------------------------";
@@ -60,10 +63,20 @@ public class Ui {
         }
     }
 
+    /**
+     * Shows welcome message
+     */
     public static void showWelcome() {
         showToUser(BORDER_LINE, HELLO, ALEXIS_ICON, PROMPT, BORDER_LINE);
     }
 
+    /**
+     * Prints out the task that has been deleted.
+     *
+     * @param tasks Alexis.tasks
+     * @param numOfTasks Alexis.tasks.getListSize()
+     * @param taskNumber Task number of deleted task
+     */
     public static void printDeleteOutput(TaskList tasks, int numOfTasks, int taskNumber) {
         showToUser(
                 "Noted. I've removed this task:",
@@ -71,6 +84,11 @@ public class Ui {
                 "Now, you have " + (numOfTasks - 1) + " tasks in the list.");
     }
 
+    /**
+     * Advances the scanner to the next line
+     *
+     * @return Scanner for next line
+     */
     public String readCommand() {
         return in.nextLine();
     }

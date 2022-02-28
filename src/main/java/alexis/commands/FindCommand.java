@@ -6,6 +6,9 @@ import alexis.taskList.TaskList;
 
 import java.util.ArrayList;
 
+/**
+ * Finds the tasks that contain the keyword the user has inputted.
+ */
 public class FindCommand extends Command {
 
     public static final String FIND_MESSAGE = "Here are the matching tasks in your list:";
@@ -13,10 +16,23 @@ public class FindCommand extends Command {
 
     protected String keyword;
 
+    /**
+     * Sets the user's input as the keyword
+     *
+     * @param fullDescription user's input excluding the "find" part
+     */
     public FindCommand(String fullDescription) {
         keyword = fullDescription;
     }
 
+    /**
+     * Iterating through the task list, counts how many instances that the task description contains the keyword.
+     * Prints out all the matching tasks.
+     * If no instances found, print a negative message.
+     *
+     * @param taskList Alexis.tasks
+     * @param storage Alexis.storage
+     */
     @Override
     public void execute(TaskList taskList, Storage storage) {
         ArrayList<Integer> indexesWithKeywordArr = new ArrayList<>(100);

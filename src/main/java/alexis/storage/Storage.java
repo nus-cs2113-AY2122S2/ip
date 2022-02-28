@@ -18,10 +18,18 @@ import java.util.ArrayList;
 
 import static alexis.parser.Parser.parseTiming;
 
+/**
+ * Loads task.txt file into program's task list and saves program's task list into task.txt file.
+ */
 public class Storage {
     protected String dataPath;
     protected File dataFile;
 
+    /**
+     * Creates a new data/ directory and creates a new file tasks.txt in it.
+     *
+     * @param filepath ./data/tasks.txt
+     */
     public Storage(String filepath) {
         dataPath = filepath;
         File dataFile = new File(filepath);
@@ -48,6 +56,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the dataFile to create an ArrayList of strings corresponding to the lines in the dataFile.
+     *
+     * @return ArrayList of strings from the dataFile
+     * @throws AlexisException If dataFile does not exist in user's pc
+     * @throws IOException If program is interrupted unexpectedly
+     */
     public ArrayList<String> readFile() throws AlexisException, IOException {
         if (!dataFile.exists()) {
             throw new AlexisException();
@@ -60,6 +75,15 @@ public class Storage {
         return (ArrayList<String>) Files.readAllLines(dataFile.toPath(), Charset.defaultCharset());
     }
 
+    /**
+     * When the Alexis program is first started, if ./data/tasks.txt file is present,
+     * reads from the file and stores info into a new task list.
+     * If ./data/tasks.txt file is not present, throws an exception.
+     *
+     * @return Filled up taskList
+     * @throws AlexisException If dataFile does not exist in user's pc
+     * @throws IOException If program is interrupted unexpectedly
+     */
     public ArrayList<Task> load() throws AlexisException, IOException {
         ArrayList<Task> taskList = new ArrayList<>(100);
         try {
@@ -72,6 +96,14 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Parses the ArrayList of strings containing the encoded tasks based on the type of tasks they are.
+     * Returns the decoded list.
+     *
+     * @param encodedList ArrayList of strings
+     * @return Decoded list which is an ArrayList of Tasks
+     * @throws DateTimeException If saved date is not an instance of Date
+     */
     private ArrayList<Task> parse(ArrayList<String> encodedList) throws DateTimeException {
         ArrayList<Task> decodedList = new ArrayList<>();
         int taskCounter = 0;
@@ -122,6 +154,12 @@ public class Storage {
         return line.charAt(4);
     }
 
+    /**
+     * Parses the task list and saves it into the ./data/tasks.txt file in an appropriate format.
+     *
+     * @param numOfTasks Number of tasks in task list
+     * @param tasks ArrayList of the tasks
+     */
     public void save(int numOfTasks, ArrayList<Task> tasks) {
         try {
             FileWriter fw = new FileWriter(this.dataPath);

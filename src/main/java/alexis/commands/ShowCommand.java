@@ -10,6 +10,9 @@ import java.time.LocalDate;
 import static alexis.parser.Parser.parseDate;
 import static alexis.parser.Parser.parseTiming;
 
+/**
+ * Shows the user all events and deadlines that fall on the date the user has specified.
+ */
 public class ShowCommand extends Command{
 
     public static final String SHOW_MESSAGE = "Here are the events/deadlines on ";
@@ -17,10 +20,25 @@ public class ShowCommand extends Command{
 
     protected LocalDate date;
 
+    /**
+     * Sets up the Show Command.
+     *
+     * @param fullDescription Specified date by the user
+     * @throws DateTimeException If fullDescription is not instance of Date
+     */
     public ShowCommand(String fullDescription) throws DateTimeException {
         this.date = parseDate(fullDescription);
     }
 
+    /**
+     * Iterating through the task list, counts how many instances that the date of the task is equal to the user's
+     * specified date.
+     * Prints out all the matching tasks.
+     * If no instances found, print a negative message.
+     *
+     * @param taskList Alexis.task
+     * @param storage Alexis.storage
+     */
     @Override
     public void execute(TaskList taskList, Storage storage) {
         boolean hasOccurance = false;

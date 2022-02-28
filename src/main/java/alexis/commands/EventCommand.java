@@ -11,12 +11,22 @@ import java.time.LocalDate;
 import static alexis.parser.Parser.parseDate;
 import static alexis.parser.Parser.parseTiming;
 
+/**
+ * Adds a new event command
+ */
 public class EventCommand extends Command{
 
     protected String description;
     protected String timing;
     protected LocalDate date;
 
+    /**
+     * Sets up the Event Command, parsing the user's input to extract the description, timing and date of the task.
+     *
+     * @param fullDescription fullDescription of user's input excluding the "event" part
+     * @throws MissingEventTimingException If event timing is missing
+     * @throws DateTimeException If date is not instance of LocalDate
+     */
     public EventCommand(String fullDescription) throws MissingEventTimingException, DateTimeException {
         if (!fullDescription.contains(" /at ")) {
             throw new MissingEventTimingException();
@@ -28,6 +38,12 @@ public class EventCommand extends Command{
         }
     }
 
+    /**
+     * Adds event task to Alexis.tasks
+     *
+     * @param taskList Alexis.tasks
+     * @param storage Alexis.ui
+     */
     @Override
     public void execute(TaskList taskList, Storage storage) {
         taskList.add(new Event(description, timing));
