@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static java.util.stream.Collectors.toList;
+
 public class TaskManager implements Serializable {
     private static final String LIST = "list";
     private static final String TODO = "todo";
@@ -12,6 +14,7 @@ public class TaskManager implements Serializable {
     private static final String EVENT = "event";
     private static final String DEADLINE = "deadline";
     private static final String DELETE = "delete";
+    private static final String FIND = "find";
     private static final String BYE = "bye";
     private static final String END_OF_SECTION = "___________________________________________________";
 
@@ -107,6 +110,9 @@ public class TaskManager implements Serializable {
         case DELETE:
             deleteTask(commandArg);
             break;
+        case FIND:
+            findTask(commandArg);
+            break;
         default:
             throw new DukeException();
         }
@@ -194,6 +200,18 @@ public class TaskManager implements Serializable {
             System.out.println("Please input the correct index");
             printEndLine();
         }
+    }
+
+    private static ArrayList<Task> findTask(String commandArg) {
+        ArrayList<Task> filteredList = (ArrayList<Task>) allTasks.stream()
+                .filter((t) -> t.getDescription().contains(commandArg))
+                .collect(toList());
+
+        for (int i = 0; i < filteredList.size(); ++i) {
+            System.out.println(String.format("%d.%s", i + 1, filteredList.get(i).toString()));
+        }
+        System.out.println(END_OF_SECTION);
+        return filteredList;
     }
 
     private static Task getTask(String commandArg) {
