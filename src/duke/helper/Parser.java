@@ -1,6 +1,5 @@
 package duke.helper;
 
-import duke.main.Duke;
 import duke.main.DukeException;
 
 import java.time.LocalDate;
@@ -9,6 +8,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * Represents an object to parse the user input
+ * Contains the last user's input parsed into suitable categories
+ */
 public class Parser {
     protected static Scanner in = new Scanner(System.in);
     protected static String line;
@@ -18,6 +21,7 @@ public class Parser {
     protected static LocalDate startDate;
     protected static LocalTime startTime;
     public static final int INVALID = -1;
+    public static final String FIND_CMD = "find";
 
     public String getTaskName() {
         return taskName;
@@ -43,10 +47,6 @@ public class Parser {
         line = in.nextLine();
     }
 
-    public String getLine() {
-        return line;
-    }
-
     public boolean isMarkCommand() {
         return line.split(" ")[0].equals("mark");
     }
@@ -67,6 +67,21 @@ public class Parser {
         return line.equals("list");
     }
 
+    public boolean isFindCommand() {
+        return line.split(" ")[0].equals(FIND_CMD);
+    }
+
+    public String getLine() {
+        return line;
+    }
+
+    /**
+     * Returns the index that the user input to use with the command
+     * @param ui Ui object to handle communication with the user
+     * @param taskCount the number of present tasks the user has
+     * @return the index that the user input, INVALID if the user input an invalid index
+     */
+
     public int parseIndex(Ui ui, int taskCount) {
         int index;
         try {
@@ -81,6 +96,14 @@ public class Parser {
         return index;
     }
 
+    /**
+     * Continuously wait for the user to input a command.
+     * Infinite Loop unless user terminates program
+     * or when user inputs exit command
+     * @param ui Ui object to handle communication with the user
+     * @param storage Storage object to handle saving and loading tasks
+     * @param tasks TaskList object that contains the list of all tasks from the user
+     */
     public void waitForInput(Ui ui,Storage storage, TaskList tasks) {
         while (true) {
             getNextLine();
@@ -97,12 +120,20 @@ public class Parser {
             }else if (isDeleteCommand()) {
                 int index = parseIndex(ui, tasks.getTaskCount());
                 tasks.deleteTask(index, ui, storage);
+            }else if (isFindCommand()) {
+                removeCommand(FIND_CMD);
+                String keyword = getLine();
+                tasks.findTasks(keyword);
             }else {
                 tasks.addNewTask(ui, storage, this);
             }
         }
     }
 
+    /**
+     * Returns the task type (Todo, Deadline, Event)
+     * @return Task Type (Todo, Deadline, Event)
+     */
     public String parseTaskType() {
         return line.split(" ")[0];
     }
@@ -110,11 +141,25 @@ public class Parser {
     public void removeTaskType(String taskType) {
         if (line.length() > taskType.length()) {
             line = line.substring(taskType.length() + 1);
+        }
+    }
+
+    /**
+     * Removes the command from the line input by user
+     * @param command the command of the user input
+     */
+    public void removeCommand(String command) {
+        if (line.length() > command.length()) {
+            line = line.substring(command.length() + 1);
         }else {
             line = "";
         }
     }
 
+    /**
+     * Extracts the task name from the line that the user typed
+     * @throws DukeException if there is no task name given as input
+     */
     public void parseTodo() throws DukeException {
         if (line.equals("")) {
             throw new DukeException("Argument of todo should not be empty.");
@@ -122,14 +167,21 @@ public class Parser {
         taskName = line;
     }
 
+    /**
+     * Extracts the task name, end date and time from the line that the user type
+     * @throws DukeException if unable to parse the deadlines or task name
+     */
     public void parseDeadline() throws DukeException {
         String[] taskNameAndDeadline = line.split(" /by ");
         taskName = taskNameAndDeadline[0];
+        if (taskName.equals("")) {
+            throw new DukeException("A Deadline Task should have its name.");
+        }
         if (taskNameAndDeadline.length < 2) {
             throw new DukeException("A Deadline Task should have the deadline.");
         }
         String[] deadlineDateAndTime = taskNameAndDeadline[1].split(" ");
-        if (deadlineDateAndTime.length != 2){
+        if (deadlineDateAndTime.length != 2) {
             throw new DukeException("Invalid Date/Time format");
         }
         try {
@@ -140,22 +192,29 @@ public class Parser {
         }
     }
 
+    /**
+     * Extracts the task name, start date, start time,end date and time from the line that the user type
+     * @throws DukeException if unable to parse the timings or task name
+     */
     public void parseEvent() throws DukeException {
         String[] taskNameAndTiming = line.split(" /at ");
         taskName = taskNameAndTiming[0];
+        if (taskName.equals("")) {
+            throw new DukeException("A Deadline Task should have its name.");
+        }
         if (taskNameAndTiming.length < 2) {
             throw new DukeException("An Event Task should have the event timing.");
         }
         String[] eventDateAndTime = taskNameAndTiming[1].split(" to ");
-        if (eventDateAndTime.length != 2){
+        if (eventDateAndTime.length != 2) {
             throw new DukeException("An Event Task should have both start and end timings.");
         }
         String[] startDateAndTime = eventDateAndTime[0].split(" ");
-        if (startDateAndTime.length != 2){
+        if (startDateAndTime.length != 2) {
             throw new DukeException("Start Timing should have both Date and Time, separated with a space");
         }
         String[] endDateAndTime = eventDateAndTime[1].split(" ");
-        if (endDateAndTime.length != 2){
+        if (endDateAndTime.length != 2) {
             throw new DukeException("End Timing should have both Date and Time, separated with a space");
         }
         try {
