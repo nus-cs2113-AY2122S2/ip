@@ -134,8 +134,6 @@ public class SoraUI {
 
     protected static final String DELETE_TASK_SUCCESS_RESPONSE =
             "%s, I've deleted this task:\n";
-    protected static final String DELETE_TASK_FAILURE_RESPONSE =
-            "%s, I couldn't delete this task.\nSorry about that...\n";
 
     protected static final String COMMAND_NOT_UNDERSTOOD_RESPONSE =
             "%s, I can't understand what you've just typed...\nCould you try again?\n";
