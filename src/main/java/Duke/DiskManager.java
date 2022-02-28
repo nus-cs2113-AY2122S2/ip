@@ -21,6 +21,12 @@ public class DiskManager {
         readDisk();
     }
 
+    /**
+     * Read disk file to recognize event, deadline, and todo.
+     * Formatting: "{type} {content} keyword(/by or /at) {time} | {isDone}"
+     *
+     * @throws IOException
+     */
     public static void readDisk() throws IOException {
         Scanner sc = new Scanner(TASKS_TXT);
         while (sc.hasNext()) {
@@ -63,6 +69,12 @@ public class DiskManager {
         }
     }
 
+    /**
+     * Use when there is only new increment of tasks. Do not empty the disk file.
+     *
+     * @param tasks the task to add
+     * @throws IOException
+     */
     public static void appendToDisk(Task[] tasks) throws IOException {
         FileWriter fw = new FileWriter(TASKS_TXT, true);
         for (int i = 0; i < tasks.length; i++) {
@@ -80,12 +92,22 @@ public class DiskManager {
         fw.close();
     }
 
+    /**
+     * Empty the disk file and write everything to it again.
+     *
+     * @throws IOException
+     */
     public static void syncWithDisk() throws IOException {
         emptyDisk();
         Task[] tasks = TaskManager.getCurrentTasks();
         appendToDisk(tasks);
     }
 
+    /**
+     * Empty the disk file.
+     *
+     * @throws IOException
+     */
     private static void emptyDisk() throws IOException {
         FileWriter fw = new FileWriter(TASKS_TXT, false);
         fw.close();
