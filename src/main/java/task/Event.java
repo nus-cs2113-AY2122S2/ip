@@ -26,7 +26,12 @@ public class Event extends Task {
         return super.toString() + " (at: " + at + ")";
     }
 
-
+    /**
+     * Get task name of task type eve t
+     *
+     * @param input User input of event
+     *
+     */
     public static String getEventTask(String input) {
         //first space
         int firstSpaceIndex = input.indexOf(" ");
@@ -38,7 +43,12 @@ public class Event extends Task {
         //System.out.println(deadlineTask);
         return eventTask;
     }
-
+    /**
+     * Get deadtime of event of task of type Event
+     *
+     * @param input User input of event
+     *
+     */
     public static String getEventDateTime(String input) {
         int atIndex = input.indexOf("/at");
         int eventDateTimeIndex = input.indexOf(" ",atIndex);

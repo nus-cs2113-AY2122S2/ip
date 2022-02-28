@@ -1,7 +1,5 @@
 package task;
-
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Task implements Serializable {
 
@@ -56,13 +54,15 @@ public class Task implements Serializable {
         return " ";
     }
 
-
-
-    public static void printTask(Task t) {
-        System.out.println(t.toString());
+    /**
+     * Print task in param neatly
+     *
+     * @param task task object to print out details
+     *
+     */
+    public static void printTask(Task task) {
+        System.out.println(task.toString());
     }
-
-
 
 }
 

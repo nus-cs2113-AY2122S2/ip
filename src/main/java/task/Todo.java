@@ -22,13 +22,19 @@ public class Todo extends Task {
     public String toString() {
         return super.toString();
     }
-    public static String getToDoTask(String s) {
-        int spaceIndex = s.indexOf(" ");
-        String firstWord = s.substring(spaceIndex).trim();
-        if (firstWord.length() == 0){
+
+    /**
+     * Get task name of task type todo
+     *
+     * @param taskDetails string to retrieve task name from
+     *
+     */
+    public static String getToDoTask(String taskDetails) {
+        int spaceIndex = taskDetails.indexOf(" ");
+        String taskName = taskDetails.substring(spaceIndex).trim();
+        if (taskName.length() == 0){
             throw new StringIndexOutOfBoundsException();
         }
-        return firstWord.trim();
+        return taskName.trim();
     }
-
 }

@@ -4,9 +4,8 @@ import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 
-
-
 public class Deadline extends Task {
+    
     public static final String DATE_STRING_PATTERN = "MMM dd yyyy";
     private LocalDate by;
 
@@ -17,7 +16,6 @@ public class Deadline extends Task {
     }
 
     public LocalDate getBy() {
-
         return this.by;
     }
 
@@ -31,24 +29,35 @@ public class Deadline extends Task {
         return super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern(DATE_STRING_PATTERN)) + ")";
     }
 
-
-    public static String getDeadlineTask(String input) {
+    /**
+     * Get task name of task type deadline
+     *
+     * @param taskDetails string to retrieve task name from
+     *
+     */
+    public static String getDeadlineTask(String taskDetails) {
         //first space
-        int firstSpaceIndex = input.indexOf(" ");
-        int byIndex = input.indexOf("/by");
-        String deadlineTask = input.substring(firstSpaceIndex+1,byIndex-1).trim();
+        int firstSpaceIndex = taskDetails.indexOf(" ");
+        int byIndex = taskDetails.indexOf("/by");
+        String deadlineTask = taskDetails.substring(firstSpaceIndex+1,byIndex-1).trim();
         if (deadlineTask.length() == 0){
             throw new StringIndexOutOfBoundsException();
         }
         return deadlineTask.trim();
     }
 
-    public static LocalDate getDateObject(String date){
+    /**
+     * Based on user input generate and return a date object
+     *
+     * @param dateString user input of date string
+     *
+     */
+    public static LocalDate getDateObject(String dateString){
         LocalDate dateObject = LocalDate.now();
         try {
-            int year = Integer.parseInt(date.substring(0, 4));
-            int month = Integer.parseInt(date.substring(5, 7));
-            int day = Integer.parseInt(date.substring(8,10));
+            int year = Integer.parseInt(dateString.substring(0, 4));
+            int month = Integer.parseInt(dateString.substring(5, 7));
+            int day = Integer.parseInt(dateString.substring(8,10));
             dateObject = LocalDate.of(year,month,day);
             System.out.println(year + month + day);
         } catch (DateTimeParseException e){
@@ -57,6 +66,12 @@ public class Deadline extends Task {
         return dateObject;
     }
 
+    /**
+     * Get deadline date of task type deadline
+     *
+     * @param input user input of deadline task
+     *
+     */
     public static LocalDate getDeadlineDate(String input) {
         int byIndex = input.indexOf("/by");
         int deadlineDateIndex = input.indexOf(" ",byIndex);
