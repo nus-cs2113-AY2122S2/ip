@@ -36,9 +36,15 @@ public class Ui {
         return fullInputLine;
     }
 
-    public void showNewTask (Task task) {
+    public void showNewTask(Task task) {
         System.out.println("\t Got it. I've added this task:");
         System.out.println("\t\t" + task.toString());
+        System.out.println("\t Now you have " + taskManager.getNoOfTasks() + " tasks in the list.");
+    }
+
+    public void showRemovedTask(Task task) {
+        System.out.println("\t Noted. I've removed this task:");
+        System.out.println("\t\t " + task.toString());
         System.out.println("\t Now you have " + taskManager.getNoOfTasks() + " tasks in the list.");
     }
 

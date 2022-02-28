@@ -1,7 +1,0 @@
-D / false / submit report / Friday
-D / true / ip / Mar 4
-D / false / ddl test 1 / tmr
-E / false / event test 1 / today
-T / false / todo1
-T / false / todo2
-E / false / e1 / today 2pm

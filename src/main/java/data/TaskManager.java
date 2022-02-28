@@ -167,19 +167,23 @@ public class TaskManager {
 //        }
 //    }
 
-    public void deleteTask(int idx) throws DukeException {
-        if(idx < 0 || idx > tasks.size()){
-            throw new DukeException("Task index out of bound.");
-        }
+    public Task getTask(int idx) {
+        return tasks.get(idx - 1);
+    }
 
-        Task deleted = tasks.get(idx - 1);
+    public void deleteTask(int idx) {
+//        if(idx < 0 || idx > tasks.size()){
+//            throw new DukeException("Task index out of bound.");
+//        }
+//
+//        Task deleted = tasks.get(idx - 1);
         tasks.remove(idx - 1);
 
-        System.out.println("\t" + "-".repeat(60));
-        System.out.println("\t Noted. I've removed this task:");
-        System.out.println("\t\t " + deleted.toString());
-        System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println("\t" + "-".repeat(60));
+//        System.out.println("\t" + "-".repeat(60));
+//        System.out.println("\t Noted. I've removed this task:");
+//        System.out.println("\t\t " + deleted.toString());
+//        System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
+//        System.out.println("\t" + "-".repeat(60));
     }
 
     public void listTasks() {

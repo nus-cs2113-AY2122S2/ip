@@ -5,7 +5,7 @@ import common.DukeException;
 
 public class Parser {
     public static Command parse(String fullCommand) throws DukeException {
-        fullCommand.trim();
+        fullCommand = fullCommand.trim();
         String[] splitCommands = fullCommand.split(" ", 2);
         String description;
         String commandWord = splitCommands[0].trim();
@@ -29,6 +29,10 @@ public class Parser {
             break;
         case ByeCommand.COMMAND_WORD:
             cmd = new ByeCommand();
+            break;
+        case DeleteCommand.COMMAND_WORD:
+            description = splitCommands[1].trim();
+            cmd = new DeleteCommand(Integer.parseInt(description));
             break;
         default:
             throw new DukeException("Sorry! I cannot read this command :(");
