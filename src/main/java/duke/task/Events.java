@@ -9,24 +9,27 @@ public class Events extends Task {
         setTime(time);
     }
 
-    public String printTaskDescription() {
-        return EVENTS_SYMBOL + super.printTaskDescription() + String.format(" (at: %s)", getTime());
+    public String getTaskInformation() {
+        return EVENTS_SYMBOL + super.getTaskInformation() + String.format(" (at: %s)", getTime());
+    }
+    public String getTaskDescription() {
+        return super.getTaskDescription() + String.format(" (at: %s)", getTime());
     }
 
     public String addTaskMessage(){
         String message;
-        message = super.addTaskMessage() + "\t   " + printTaskDescription();
+        message = super.addTaskMessage() + "\t   " + getTaskInformation();
         return message;
     }
 
     public String getTaskUpdatedMessage(){
         String message;
-        message = super.getTaskUpdatedMessage() + "\t   " + printTaskDescription();
+        message = super.getTaskUpdatedMessage() + "\t   " + getTaskInformation();
         return message;
     }
 
     public String removeTaskMessage(){
-        String acknowledgementMessage = super.removeTaskMessage() + "\t   " + printTaskDescription();
+        String acknowledgementMessage = super.removeTaskMessage() + "\t   " + getTaskInformation();
         return acknowledgementMessage;
     }
 

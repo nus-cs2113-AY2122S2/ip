@@ -22,9 +22,9 @@ public class AddTaskCommand extends Command {
     }
 
     public TaskType extractTaskType(String userInput) {
-        if (userInput.contains("deadline")) {
+        if (userInput.startsWith("deadline ")) {
             return TaskType.DEADLINE;
-        } else if (userInput.contains("event")) {
+        } else if (userInput.startsWith("event ")) {
             return TaskType.EVENT;
         } else {
             return TaskType.TODO;

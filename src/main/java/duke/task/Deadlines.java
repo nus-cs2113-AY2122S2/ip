@@ -9,24 +9,28 @@ public class Deadlines extends Task {
         setBy(by);
     }
 
-    public String printTaskDescription() {
-        return DEAD_LINE_SYMBOL + super.printTaskDescription() + " (by: " + getBy() + ")";
+    public String getTaskInformation() {
+        return DEAD_LINE_SYMBOL + super.getTaskInformation() + " (by: " + getBy() + ")";
+    }
+
+    public String getTaskDescription(){
+        return super.getTaskDescription() + " (by: " + getBy() + ")";
     }
 
     public String addTaskMessage(){
         String message;
-        message = super.addTaskMessage() + "\t   " + printTaskDescription();
+        message = super.addTaskMessage() + "\t   " + getTaskInformation();
         return message;
     }
 
     public String getTaskUpdatedMessage(){
         String message;
-        message = super.getTaskUpdatedMessage() + "\t   " + printTaskDescription();
+        message = super.getTaskUpdatedMessage() + "\t   " + getTaskInformation();
         return message;
     }
 
     public String removeTaskMessage(){
-        String acknowledgementMessage = super.removeTaskMessage() + "\t   " + printTaskDescription();
+        String acknowledgementMessage = super.removeTaskMessage() + "\t   " + getTaskInformation();
         return acknowledgementMessage;
     }
 

@@ -1,9 +1,11 @@
 package duke;
 
+import duke.command.FindTaskCommand;
+import duke.command.UpdateTaskStatusCommand;
 import duke.command.AddTaskCommand;
 import duke.command.DeleteTaskCommand;
 import duke.command.Command;
-import duke.command.UpdateTaskStatusCommand;
+
 import duke.exception.DukeException;
 import duke.exception.DukeExceptionCause;
 import duke.task.Deadlines;
@@ -20,9 +22,8 @@ public class ChatBot {
     private Ui ui;
 
     public ChatBot(Ui ui, TaskList listOfTasks) {
-        System.out.println("\t Greetings Human! I'm " + BOT_NAME + ".");
-        System.out.println("\t How may i be of service to you?");
         setUi(ui);
+        ui.showWelcomeMessage();
         setListOfTasks(listOfTasks);
     }
 
@@ -43,11 +44,15 @@ public class ChatBot {
                 UpdateTaskStatusCommand newUpdateCommand = (UpdateTaskStatusCommand) inputCommand;
                 updateTaskStatusInList(newUpdateCommand);
             } else if (inputCommand.getType() == Command.CommandType.PRINTLIST) {
-                printList();
+                ui.printList(listOfTasks,false);
                 return false;
             } else if (inputCommand.getType() == Command.CommandType.DELETETASKS) {
                 DeleteTaskCommand newDeleteCommand = (DeleteTaskCommand) inputCommand;
                 deleteTask(newDeleteCommand.getTaskIndex());
+            }else if(inputCommand.getType() == Command.CommandType.FINDTASKS){
+                FindTaskCommand newFindCommand = (FindTaskCommand) inputCommand;
+                TaskList matchingTaskList= findTaskInList(newFindCommand.getKeyWord());
+                ui.printList(matchingTaskList,true);
             }
         }catch(DukeException de){
             ui.showIndexOutOfBoundError();
@@ -55,15 +60,7 @@ public class ChatBot {
         return true;
     }
 
-    public void printList() {
-        System.out.println("\t Here are the tasks in your list:");
-        Task taskToPrint;
-        for (int i = 0; i < listOfTasks.getListSize(); i++) {
-            int taskNumber = i + 1;
-            taskToPrint = listOfTasks.getTask(i);
-            ui.printTaskAndIndex(taskNumber,taskToPrint.printTaskDescription());
-        }
-    }
+
 
     public void deleteTask(int taskIndex) throws DukeException{
         String acknowledgementMessage = "\t Noted. I've removed this task:\n\t   ";
@@ -115,6 +112,12 @@ public class ChatBot {
         }catch(DukeException de) {
             ui.showIndexOutOfBoundError();
         }
+    }
+
+    public TaskList findTaskInList(String keyWord){
+        TaskList listOfMatchingTask;
+        listOfMatchingTask = listOfTasks.findTasks(keyWord);
+        return listOfMatchingTask;
     }
 
 }

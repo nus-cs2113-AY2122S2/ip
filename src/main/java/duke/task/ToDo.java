@@ -7,24 +7,24 @@ public class ToDo extends Task {
         super(taskName);
     }
 
-    public String printTaskDescription() {
-        return TO_DO_SYMBOL + super.printTaskDescription();
+    public String getTaskInformation() {
+        return TO_DO_SYMBOL + super.getTaskInformation();
     }
 
     public String addTaskMessage(){
         String message;
-        message = super.addTaskMessage() + "\t   " + printTaskDescription();
+        message = super.addTaskMessage() + "\t   " + getTaskInformation();
         return message;
     }
 
     public String getTaskUpdatedMessage(){
         String message;
-        message = super.getTaskUpdatedMessage() + "\t   " + printTaskDescription();
+        message = super.getTaskUpdatedMessage() + "\t   " + getTaskInformation();
         return message;
     }
 
     public String removeTaskMessage(){
-        String acknowledgementMessage = super.removeTaskMessage() + "\t   " + printTaskDescription();
+        String acknowledgementMessage = super.removeTaskMessage() + "\t   " + getTaskInformation();
         return acknowledgementMessage;
     }
 

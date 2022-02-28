@@ -56,4 +56,15 @@ public class TaskList {
         getListOfTasks().remove(taskIndex);
         return AcknowledgementMessage;
     }
+
+    public TaskList findTasks(String keyWord){
+        TaskList listOfMatchingTask = new TaskList();
+        for (int i = 0; i < getListSize(); i++){
+            String taskDescription = listOfTasks.get(i).getTaskDescription();
+            if (taskDescription.contains(keyWord)){
+                listOfMatchingTask.addTask(listOfTasks.get(i));
+            }
+        }
+        return listOfMatchingTask;
+    }
 }

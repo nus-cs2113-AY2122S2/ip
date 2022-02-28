@@ -13,7 +13,7 @@ public class Duke {
 
     public Duke(String filePath) {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(filePath,ui);
         try {
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
@@ -24,30 +24,30 @@ public class Duke {
 
     public void run() {
         boolean shouldExitProgram = false;
-        ui.printHorizontalLine();
+        ui.showHorizontalLine();
         ChatBot bigBob;
         bigBob = new ChatBot(ui,tasks);
-        ui.printHorizontalLine();
+        ui.showHorizontalLine();
         Command inputCommand;
         boolean writeListToFile;
         while (!shouldExitProgram) {
             String userInput = ui.readUserInput();
-            ui.printHorizontalLine();
+            ui.showHorizontalLine();
             try {
                 inputCommand = Parser.parseInput(userInput);
             } catch (DukeException de) {
                 ui.showParsingError(de);
-                ui.printHorizontalLine();
+                ui.showHorizontalLine();
                 continue;
             }
             if (inputCommand.getType() == Command.CommandType.EXITPROGRAM) {
                 shouldExitProgram = true;
                 ui.echoFarewellGreeting();
-                ui.printHorizontalLine();
+                ui.showHorizontalLine();
                 continue;
             }
             writeListToFile = bigBob.executeCommand(inputCommand);
-            ui.printHorizontalLine();
+            ui.showHorizontalLine();
             if (!writeListToFile) {
                 continue;
             }

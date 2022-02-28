@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.util.ArrayList;
+
 public abstract class Task {
     private boolean isDone;
     private String taskName;
@@ -20,7 +22,7 @@ public abstract class Task {
         setTaskName(taskName);
     }
 
-    public String printTaskDescription() {
+    public String getTaskInformation() {
         String taskNameAndStatus;
         if (getDone()) {
             taskNameAndStatus = DONE_SYMBOL;
@@ -29,6 +31,10 @@ public abstract class Task {
         }
         taskNameAndStatus = taskNameAndStatus + getTaskName();
         return taskNameAndStatus;
+    }
+
+    public String getTaskDescription(){
+        return getTaskName();
     }
 
     public void setDone(boolean isDone) {
@@ -66,5 +72,4 @@ public abstract class Task {
     public String getTaskName() {
         return taskName;
     }
-
 }

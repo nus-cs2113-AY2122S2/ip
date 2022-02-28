@@ -2,16 +2,25 @@ package duke;
 
 import duke.exception.DukeException;
 import duke.exception.DukeExceptionCause;
+import duke.task.Task;
+
 import java.util.Scanner;
 
 public class Ui {
     private Scanner in;
+    private final String BOT_NAME = "Big Bob";
+
     public Ui() {
         in = new Scanner(System.in);
     }
 
-    public void printHorizontalLine() {
-        System.out.println("    ------------------------------------------------------------");
+    public void showWelcomeMessage(){
+        System.out.println("\t Greetings Human! I'm " + BOT_NAME + ".");
+        System.out.println("\t How may i be of service to you?");
+    }
+
+    public void showHorizontalLine() {
+        System.out.println("    -----------------------------------------------------------------");
     }
     public String readUserInput(){
         String userInput = in.nextLine();
@@ -63,11 +72,16 @@ public class Ui {
             echoMissingTaskIndexMessage();
         case TASKINDEXOUTOFRANGE:
             echoTaskIndexOutOfRangeMessage();
+        case EMPTYKEYWORD:
+            showEmptyKeywordMessage();
         default:
             break;
         }
     }
 
+    public void showEmptyKeywordMessage(){
+        System.out.println("\t Error Occurred!! The find command cannot have an empty keyword.");
+    }
     public void showAcknowledgementMessage(String message){
         System.out.println(message);
     }
@@ -90,5 +104,19 @@ public class Ui {
 
     public void showInvalidTaskTypeMessage(){
         System.out.println("Error Occurred!! Invalid Task Type found in file. Skipping that particular task.");
+    }
+
+    public void printList(TaskList listOfTasks, boolean isMatching){
+        if(isMatching){
+            System.out.println("\t Here are the matching tasks in your list:");
+        }else {
+            System.out.println("\t Here are the tasks in your list:");
+        }
+        Task taskToPrint;
+        for (int i = 0; i < listOfTasks.getListSize(); i++) {
+            int taskNumber = i + 1;
+            taskToPrint = listOfTasks.getTask(i);
+            printTaskAndIndex(taskNumber,taskToPrint.getTaskInformation());
+        }
     }
 }

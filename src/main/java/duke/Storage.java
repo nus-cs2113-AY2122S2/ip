@@ -18,16 +18,17 @@ import java.util.StringTokenizer;
 public class Storage {
     private String filePath;
     private Ui ui;
-    public Storage(String filePath){
+    public Storage(String filePath, Ui ui){
         setFilePath(filePath);
-    }
-
-    public String getFilePath() {
-        return filePath;
+        setUi(ui);
     }
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+
+    public void setUi(Ui ui) {
+        this.ui = ui;
     }
 
     public void createFile(File f) throws DukeException {
@@ -117,7 +118,7 @@ public class Storage {
                     newTask = extractDeadlineFromFile(st);
                     break;
                 default:
-                   // System.out.println("\t Invalid Task Type found within the input file, skipping the invalid Task Type.");
+                    ui.showInvalidTaskTypeMessage();
                     continue;
                 }
                 listOfTasks.add(newTask);
