@@ -39,8 +39,8 @@ The clean interface helps the user to be focused and productive.
    <img src="https://i.imgur.com/i84PHUP.png" /><br>
    The terminal will pop-up. Do double-check that you are in the same folder as the downloaded <code>ip.jar</code> file.<br><br>
 
-Alternatively, open your command prompt and navigate to the folder containing the <code>ip.jar</code> file.</li><br>
-<img src="https://i.imgur.com/3pzfe7J.png" /><br>
+Alternatively, open your command prompt and navigate to the folder containing the <code>ip.jar</code> file.</li>
+<img src="https://i.imgur.com/3pzfe7J.png" /><br><br>
 
 <li>Type in <code>java -jar ip.jar</code> and hit <code>Enter</code>.<br>
 You should be able to see this if you have followed the steps correctly:<br>
@@ -55,7 +55,7 @@ You should be able to see this if you have followed the steps correctly:<br>
     /   /  \\  \( \_|:  \(:      "| /  \   \  /\  |\  /" \   :) 
    (___/    \___)\_______)\_______)|___/\\__|(__\_|_)(_______/
    </font></code></pre>
-</li>
+</li><br>
 <li>Enjoy!! :D</li>
 </ol>
 <hr>
@@ -70,7 +70,7 @@ You should be able to see this if you have followed the steps correctly:<br>
     e.g. in <code>todo TASK</code>, <code>TASK</code> is a parameter which can be used as <code>todo return book</code>. </li>
         <li>Expected format of inputted date is <code>dd/MM/yyyy</code>. e.g. <code>28/02/2022</code> </li>
     <br></ul>
-</div><hr>
+</div>
 
 <h3>1. Create a New Task </h3>
 Create a new task that is a deadline, an event, or a to-do, and add it to Alexis's list for him to keep track of your tasks.
