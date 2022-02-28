@@ -6,7 +6,7 @@ public class UI {
                                 + "| |_| | |_| |   <  __/\n"
                                 + "|____/ \\__,_|_|\\_\\___|\n";
 
-    public static final String MESSAGE_GREET = "Hi! I'm Duke! :)\n" + "What can I do for you?\n";
+    public static final String MESSAGE_GREET = "Hello! I'm Duke! :)\n" + "What can I do for you?\n";
     public static final String MESSAGE_BYE = "Bye. Hope to see you again soon! :)";
     public static final String COMMAND_BYE = "bye";
     public static final String COMMAND_LIST = "list";

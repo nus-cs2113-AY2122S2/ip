@@ -17,10 +17,18 @@ public class Duke {
         fw.close();
     }
 
-    private static void appendToFile(String filePath, String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
-        fw.write(textToAppend);
-        fw.close();
+    public static void saveFile (ArrayList<String> instructionList) {
+        String task;
+        ArrayList<String> list = new ArrayList<>();
+        try {
+            for (int i = 1; i <= instructionList.size(); i++) {
+                task = i + ". " + instructionList.get(i - 1);
+                list.add(task);
+            }
+            writeToFile(filePath, String.valueOf(list));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void main(String[] args) throws IOException {
@@ -79,6 +87,7 @@ public class Duke {
             } catch(DukeException | IOException e) {
                 System.out.println(e.getMessage());
             }
+            saveFile(instructionsList);
         }
     }
 
@@ -104,14 +113,12 @@ public class Duke {
     }
 
     private static void greet() throws IOException {
-        System.out.println("Hello from\n" + UI.LOGO);
+        System.out.println(UI.LOGO);
         System.out.println(UI.MESSAGE_GREET);
-        writeToFile(filePath, "start program\n");
     }
 
     private static void executeBye() throws IOException {
         System.out.println(UI.MESSAGE_BYE);
-        writeToFile(filePath, "exit program\n");
     }
 
     private static void executeFind(ArrayList<String> instructionsList, Task task, String[] arrayOfStr) throws DukeException {
@@ -142,12 +149,6 @@ public class Duke {
         task.number++;
 
         printEventMessage(task, event);
-
-        try {
-            appendToFile(filePath, updatedInstructionLine + System.lineSeparator());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
     }
 
     private static void executeDeadline(ArrayList<String> instructionsList, Task task, Deadline deadline, String[] arrayOfStr, String[] arrayOfDeadline) throws DukeException {
@@ -166,12 +167,6 @@ public class Duke {
         task.number++;
 
         printDeadlineMessage(task, deadline);
-
-        try {
-            appendToFile(filePath, updatedInstructionLine + System.lineSeparator());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
     }
 
     private static void executeDelete(ArrayList<String> instructionsList, Task task, String[] arrayOfStr) throws DukeException {
@@ -188,7 +183,7 @@ public class Duke {
         instructionsList.remove(index);
     }
 
-    private static void executeList(ArrayList<String> instructionsList, Task task) {
+    private static void executeList(ArrayList<String> instructionsList, Task task) throws IOException {
         printListMessage(instructionsList, task);
     }
 
@@ -206,15 +201,9 @@ public class Duke {
         instructionsList.set(index, temp); //updates the list
 
         printMarkMessage(instructionsList, index);
-
-        try {
-            appendToFile(filePath, instructionsList.get(index) + System.lineSeparator());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
     }
 
-    private static void executeTodo(ArrayList<String> instructionsList, Task task, String instructionLine, String[] arrayOfStr) throws DukeException {
+    private static void executeTodo(ArrayList<String> instructionsList, Task task, String instructionLine, String[] arrayOfStr) throws DukeException, IOException {
         String updatedInstructionLine;
         if (arrayOfStr.length == 1) {
             throw new DukeException(UI.ERROR_NO_TASK);
@@ -226,12 +215,6 @@ public class Duke {
         task.number++;
 
         printTodoMessage(task, updatedInstructionLine);
-
-        try {
-            appendToFile(filePath, updatedInstructionLine + System.lineSeparator());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
     }
 
     private static void printTodoMessage(Task task, String updatedInstructionLine) {
