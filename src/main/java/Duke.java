@@ -1,32 +1,31 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.ArrayList;
-import util.miscellaneous.DukeOperation;
-import util.task.Task;
-import java.io.File;
 
-public class Duke extends DukeOperation {
+import util.DukeClasses.*;
+import util.task.Task;
+
+public class Duke extends DukePrinter {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         String line;
 
-        ArrayList<Task> tasks = new ArrayList<>();
+        DukeTaskList list = new DukeTaskList();
 
         System.out.println("Hello from\n" + LOGO);
 
-        printGreeting();
+        DukePrinter.printGreeting();
 
-        loadData(tasks);
+        DukeStorage.loadData(list);
 
         line = input.nextLine();
         while (!line.equalsIgnoreCase("bye")) {
             boolean needUpdateTaskStatus = false;
             boolean isLoadingData = false;
 
-            loadAndRun(tasks, line, isLoadingData, needUpdateTaskStatus);
+            DukeUI.loadAndRun(list, line, isLoadingData, needUpdateTaskStatus);
             line =input.nextLine();
         }
 
-        exitLine();
+        DukePrinter.exitLine();
     }
 }
