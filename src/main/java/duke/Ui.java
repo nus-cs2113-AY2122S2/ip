@@ -30,11 +30,27 @@ public class Ui {
         displayLine();
     }
 
+    public void printKeywordError(){
+        System.out.println("Keyword is missing. Enter valid keyword.");
+        displayLine();
+    }
+
     public void printList(TaskList taskList) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskList.getTaskCount(); i++) {
             System.out.print(String.format("%d. ", i + 1));
             System.out.println(taskList.get(i));
+        }
+        displayLine();
+    }
+
+    public void printSelectiveList(TaskList taskList, String keyword) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < taskList.getTaskCount(); i++) {
+            if (taskList.get(i).getDescription().contains(keyword)) {
+                System.out.print(String.format("%d. ", i + 1));
+                System.out.println(taskList.get(i));
+            }
         }
         displayLine();
     }

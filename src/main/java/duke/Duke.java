@@ -8,6 +8,7 @@ public class Duke {
     public static final int MINIMUM_LENGTH_OF_DEADLINE_STATEMENT = 8;
     public static final int MINIMUM_LENGTH_OF_EVENT_STATEMENT = 5;
     public static final int MINIMUM_LENGTH_OF_MARK_STATEMENT = 4;
+    public static final int MINIMUM_LENGTH_OF_FIND_STATEMENT = 4;
     public static final int MINIMUM_LENGTH_OF_UNMARK_STATEMENT = 6;
     public static final int MINIMUM_LENGTH_OF_DELETE_STATEMENT = 6;
     public static final String DATAFILE_RELATIVE_PATH = "data\\duke.txt";
@@ -153,6 +154,14 @@ public class Duke {
         ui.printList(taskList);
     }
 
+    public static void printTasksThatMatchWith(String keyword){
+        if (keyword.length() == 0){
+            ui.printKeywordError();
+            return;
+        }
+        ui.printSelectiveList(taskList, keyword);
+    }
+
     // method runs main echo functionality of duke.
     public static void echo() {
         while (true) {
@@ -167,6 +176,8 @@ public class Duke {
                 return;
             } else if (parser.isListCommand(userInput)) {
                 printList();
+            } else if(parser.isFindCommand(userInput)) {
+                printTasksThatMatchWith(parser.getKeyword(userInput));
             } else if (parser.isMarkCommand(userInput)) {
                 int taskNumber = parser.getTaskNumber(taskList, userInput);
                 markTaskAsDone(taskNumber);
