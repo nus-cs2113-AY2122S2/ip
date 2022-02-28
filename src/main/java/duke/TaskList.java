@@ -29,9 +29,11 @@ public class TaskList {
 
     public void addTask(Task task){
         tasks.add(task);
+        incrementTasks();
     }
 
-    public void deleteTask(Task task){
-        tasks.remove(task);
+    public void deleteTask(int taskIndex){
+        tasks.remove(taskIndex);
+        decrementTasks();
     }
 }

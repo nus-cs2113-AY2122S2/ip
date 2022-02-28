@@ -19,11 +19,10 @@ public class DeleteCommand extends Command{
         ArrayList<Task> tasks = taskList.getTasks();
         try {
             message = tasks.get(taskIndex-1).printTask();
-            tasks.remove(taskIndex-1);
+            taskList.deleteTask(taskIndex-1);
             System.out.println("Noted. I've removed this task:");
             System.out.println(message);
             System.out.println("Now you have " + taskList.getTaskCount() + " tasks in the list.");
-            taskList.decrementTasks();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("This task does not exist!");
         } catch (NumberFormatException e){

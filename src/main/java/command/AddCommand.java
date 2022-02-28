@@ -24,9 +24,9 @@ public class AddCommand extends Command {
         try {
             Task addedTask = addTask(userInput);
             if(addedTask != null) {
-                tasks.add(addedTask);
-                System.out.println(tasks.get(taskList.getTaskCount()).printTask());
-                taskList.incrementTasks();
+                taskList.addTask(addedTask);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks.get(taskList.getTaskCount()-1).printTask());
                 System.out.println("Now you have " + (taskList.getTaskCount()) + " tasks in the list.");
             }else{
                 System.out.println("Please try again!");
