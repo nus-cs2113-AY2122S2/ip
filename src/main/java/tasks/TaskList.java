@@ -22,15 +22,18 @@ public class TaskList {
     public static final int FILE_DATA_DESCRIPTION_INDEX_NUM = 2;
     public static final int FILE_DATA_FLAG_VALUE_INDEX_NUM = 3;
 
+    private SoraUI soraUI;
+
     private ArrayList<Task> list;
     private int numberOfTasks;
-    SoraStorage soraStorage;
 
     /**
      * Constructs a TaskList instance, and instantiates an empty ArrayList<Task>.
      */
     public TaskList() {
-        this.list = new ArrayList<Task>();
+        soraUI = new SoraUI();
+
+        this.list = new ArrayList<>();
         this.numberOfTasks = 0;
     }
 
@@ -62,15 +65,6 @@ public class TaskList {
     }
 
     /**
-     * Sets the variable that stores the number of tasks stored in the list to a specified number.
-     *
-     * @param numberOfTasks The new number of tasks that the list has.
-     */
-    public void setNumberOfTasks(int numberOfTasks) {
-        this.numberOfTasks = numberOfTasks;
-    }
-
-    /**
      * Increases the number stored in the variable that stores the number of tasks in the list by 1.
      */
     public void incrementNumberOfTasks() {
@@ -97,7 +91,7 @@ public class TaskList {
      */
     public Task addTask(String userInput) throws InvalidCommandException, DateTimeParseException {
         // Create new Task object with text
-        Task newTask = null;
+        Task newTask;
         String taskType = extractTaskType(userInput);
 
         try {
@@ -131,11 +125,6 @@ public class TaskList {
             default:
                 throw new InvalidCommandException(InvalidCommandException.NO_SUCH_COMMAND_MSG);
             }
-        } catch (InvalidCommandException e) {
-            // Re-throw it to caller method
-            throw e;
-        } catch (DateTimeParseException e) {
-            // Re-throw it to caller method
         } catch (InvalidCommandException | DateTimeParseException e) {
             // Re-throw it to caller method in Sora class to pass to SoraExceptionHandler to handle
             throw e;
@@ -150,25 +139,32 @@ public class TaskList {
      * Adds a new task that was read from a file in the user's system storage.
      *
      * @param taskDataFromFile A string array containing the information for the new task.
+     * @throws InvalidCommandException If one of the methods called threw an InvalidCommandException
+     * to signify that the task type is invalid.
      */
-    public void addTaskFromFile(String[] taskDataFromFile) {
+    public void addTaskFromFile(String[] taskDataFromFile) throws InvalidCommandException {
         String type;
         String description;
         String flag;
         String flagValue;
         String isDoneValue = taskDataFromFile[1];
-        boolean isDone = (isDoneValue.equals("1")) ? true : false;
+        boolean isDone = isDoneValue.equals("1");
 
         // Get details of task
-        type = getTaskType(taskDataFromFile[FILE_DATA_TASK_TYPE_INDEX_NUM]);
-        description = taskDataFromFile[FILE_DATA_DESCRIPTION_INDEX_NUM];
+        try {
+            type = getTaskType(taskDataFromFile[FILE_DATA_TASK_TYPE_INDEX_NUM]);
+            description = taskDataFromFile[FILE_DATA_DESCRIPTION_INDEX_NUM];
 
-        if (!type.equalsIgnoreCase(SoraUI.ADD_TODO_COMMAND_KEYWORD)) {
-            flag = getFlag(type);
-            flagValue = taskDataFromFile[FILE_DATA_FLAG_VALUE_INDEX_NUM];
-        } else {
-            flag = "";
-            flagValue = "";
+            if (!type.equalsIgnoreCase(SoraUI.ADD_TODO_COMMAND_KEYWORD)) {
+                flag = getFlag(type);
+                flagValue = taskDataFromFile[FILE_DATA_FLAG_VALUE_INDEX_NUM];
+            } else {
+                flag = "";
+                flagValue = "";
+            }
+        } catch (InvalidCommandException e) {
+            // Re-throw it to Sora class to pass it to SoraExceptionHandler to handle
+            throw e;
         }
 
         // Craft the command to add task to list
@@ -176,7 +172,9 @@ public class TaskList {
 
         if (!type.equalsIgnoreCase(SoraUI.ADD_TODO_COMMAND_KEYWORD)) {
             // Include flag and flag value
-            commandBuilder.append(flag + " " + flagValue);
+            commandBuilder.append(flag);
+            commandBuilder.append(" ");
+            commandBuilder.append(flagValue);
         }
 
         String newTaskCommand = commandBuilder.toString();
@@ -185,11 +183,9 @@ public class TaskList {
         try {
             addTask(newTaskCommand);
         } catch (InvalidCommandException e) {
-            System.out.println("Oh no! I failed to add a task from the saved data file to my task list.");
-            System.out.println("Here's some details about the error: ");
-            System.out.println("\t" + e.getMessage());
-
-            // TODO: Refine exception handling
+            soraUI.printTaskFileLoadFailureMessage(e.getMessage());
+        } catch (DateTimeParseException e) {
+            soraUI.printInvalidDateTimeInputFormatResponse();
         }
 
         // If task is marked as done in the file, reflect it in Sora's task list
@@ -208,8 +204,9 @@ public class TaskList {
      *
      * @param abbreviation The abbreviated task type.
      * @return The command keyword based on the specified task type abbreviation.
+     * @throws InvalidCommandException If the taskType is not one of the accepted task types.
      */
-    private String getTaskType(String abbreviation) {
+    private String getTaskType(String abbreviation) throws InvalidCommandException {
         switch (abbreviation) {
         case SoraStorage.TODO_TYPE_FILE_ABBREVIATION:
             return SoraUI.ADD_TODO_COMMAND_KEYWORD;
@@ -218,8 +215,7 @@ public class TaskList {
         case SoraStorage.DEADLINE_TYPE_FILE_ABBREVIATION:
             return SoraUI.ADD_DEADLINE_COMMAND_KEYWORD;
         default:
-            // TODO: Implement exception?
-            return "";
+            throw new InvalidCommandException(InvalidCommandException.INVALID_TASK_TYPE);
         }
     }
 
@@ -228,16 +224,16 @@ public class TaskList {
      *
      * @param taskType The type of task (i.e. "deadline", "event", or "todo").
      * @return The flags corresponding to the task type specified.
+     * @throws InvalidCommandException If the taskType is not one of the accepted task types.
      */
-    private String getFlag(String taskType) {
+    private String getFlag(String taskType) throws InvalidCommandException {
         switch (taskType) {
         case SoraUI.ADD_EVENT_COMMAND_KEYWORD:
             return SoraUI.ADD_EVENT_FLAG_KEYWORD;
         case SoraUI.ADD_DEADLINE_COMMAND_KEYWORD:
             return SoraUI.ADD_DEADLINE_FLAG_KEYWORD;
         default:
-            // TODO: Implement exception?
-            return "";
+            throw new InvalidCommandException(InvalidCommandException.INVALID_TASK_TYPE);
         }
     }
 
@@ -285,10 +281,9 @@ public class TaskList {
 
         // Check if user input has no description
         boolean hasLessThanTwoElements = commandAndDescription.length < 2;
-        /**
-         *  This factor has to be checked first before hasEmptySecondElement to avoid an unexpected
-         *  ArrayIndexOutOfBoundsException, which can disrupt the intended flow of the exception handling.
-         */
+
+        // This factor has to be checked first before hasEmptySecondElement to avoid an unexpected
+        // ArrayIndexOutOfBoundsException, which can disrupt the intended flow of the exception handling.
         if (hasLessThanTwoElements) {
             String noDescriptionExceptionMsg = getDeadlineOrEventNoDescriptionExceptionMsg(taskType);
             throw new InvalidCommandException(noDescriptionExceptionMsg);
@@ -484,7 +479,7 @@ public class TaskList {
 
     private LocalDateTime getDateTimeObject(String dateTimeString) throws DateTimeParseException {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(SoraUI.DATE_TIME_INPUT_FORMAT);
-        LocalDateTime dateTimeObject = null;
+        LocalDateTime dateTimeObject;
 
         try {
             dateTimeObject = LocalDateTime.parse(dateTimeString, dateTimeFormatter);
