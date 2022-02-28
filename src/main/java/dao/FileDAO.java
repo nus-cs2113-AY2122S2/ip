@@ -12,7 +12,7 @@ import java.io.ObjectOutputStream;
 /**
  * File data access object handle the storage and load of data, abstract the storage and memory
  */
-public class FileDAO {
+public abstract class FileDAO {
     private String basePath;
     private String fileName;
     protected File targetFile;

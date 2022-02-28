@@ -9,7 +9,7 @@ import tasks.TaskList;
 /**
  * AddOperation handle adding command into tasklist
  */
-public class AddOperation extends Operation {
+public  abstract class AddOperation extends Operation {
 
     /**
      * Initializes operation with operationName
