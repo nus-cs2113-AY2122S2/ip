@@ -208,15 +208,15 @@ public class TaskManager {
         tasks.get(idx-1).markAsDone();
     }
 
-    public void unmarkTask(int idx) throws DukeException {
-        if(idx > tasks.size()){
-            throw new DukeException("Task index out of bound.");
-        }
+    public void unmarkTask(int idx) {
+//        if(idx > tasks.size()){
+//            throw new DukeException("Task index out of bound.");
+//        }
         tasks.get(idx-1).unmark();
-        System.out.println("\t" + "-".repeat(60));
-        System.out.println("\t OK, I've marked this task as not done yet:");
-        System.out.println("\t\t " + idx + "." + tasks.get(idx-1).toString());
-        System.out.println("\t" + "-".repeat(60));
+//        System.out.println("\t" + "-".repeat(60));
+//        System.out.println("\t OK, I've marked this task as not done yet:");
+//        System.out.println("\t\t " + idx + "." + tasks.get(idx-1).toString());
+//        System.out.println("\t" + "-".repeat(60));
     }
 
     public void displayInvalidCmd() {
