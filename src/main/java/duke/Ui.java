@@ -16,13 +16,13 @@ public class Ui {
      * user first launches the program.
      */
     public static void printGreeting() {
-        String logo = " _______     __   __  \n"
-                + "|   _   |[x]| | / / [x]  \n"
-                + "|  | |  || ||  / /  | |\n"
-                + "|  | |  || ||  <    | |\n"
-                + "|__/ |__||_||_| |_| |_|\n";
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo +"\n" + BORDER_DECORATION);
-        System.out.println("Hello! I'm Niki\nWhat can I do for you?\n" + BORDER_DECORATION);
+        System.out.println("Hello! I'm Duke.\nWhat can I do for you?\n" + BORDER_DECORATION);
     }
 
     /**
