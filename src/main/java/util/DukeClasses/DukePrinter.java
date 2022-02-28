@@ -22,8 +22,12 @@ public class DukePrinter implements Chatbot {
     public static void printList(ArrayList<Task> tasks) {
         linePrinter();
 
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("\t" + " " + Integer.toString(i + 1) + " " + (tasks.get(i)).toString());
+        if (tasks.isEmpty()) {
+            System.out.println("\t" + NO_TASK_FOUND_MSG);
+        } else {
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println("\t" + " " + Integer.toString(i + 1) + " " + (tasks.get(i)).toString());
+            }
         }
 
         linePrinter();

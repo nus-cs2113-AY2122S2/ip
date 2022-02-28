@@ -11,7 +11,7 @@ public class DukeTaskList {
     protected ArrayList<Task> tasks;
 
     public DukeTaskList() {
-        this.tasks = new ArrayList<Task>();
+        this.tasks = new ArrayList<>();
     }
 
     protected Task getTask(int index) {
@@ -44,5 +44,17 @@ public class DukeTaskList {
 
     protected void addEvent(String event, String at) {
         this.tasks.add(new Event(event, at));
+    }
+
+    protected ArrayList<Task> find(String key) {
+        ArrayList<Task> ans = new ArrayList<>();
+
+        for(Task t : tasks) {
+            if(t.getTask().contains(key)) {
+                ans.add(t);
+            }
+        }
+
+        return ans;
     }
 }

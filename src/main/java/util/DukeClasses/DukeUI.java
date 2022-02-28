@@ -103,6 +103,10 @@ public class DukeUI implements Chatbot {
             DukeStorage.saveData(list.tasks);
             DukePrinter.printSave();
             break;
+        case FIND:
+            ArrayList ans = list.find(line.substring(FIND_INDEX));
+            DukePrinter.printList(ans);
+            break;
         case NIL:
             DukePrinter.echo(UNRECOGNIZED_COMMAND_MSG);
             break;

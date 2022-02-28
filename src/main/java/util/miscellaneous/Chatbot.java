@@ -20,7 +20,8 @@ public interface Chatbot {
     String IO_ERROR_MSG = " Oh no! File IO error just occurred.";
     String NO_PREVIOUS_RECORD = " There is currently no save file.";
     String SAVE_MSG = " You have saved your current list.";
-    String UNRECOGNIZED_COMMAND_MSG = " Sorry but I cannot understand your command";
+    String UNRECOGNIZED_COMMAND_MSG = " Sorry but I cannot understand your command.";
+    String NO_TASK_FOUND_MSG = " There is no task found.";
 
 
     String ADD_TODO_CMD = "Todo ";
@@ -52,4 +53,5 @@ public interface Chatbot {
     int ERROR_INDICATION_NUMBER = 1;
     int TASK_DETAIL = 6;
     int TASK_STATUS_INDEX = 3;
+    int FIND_INDEX = 4;
 }

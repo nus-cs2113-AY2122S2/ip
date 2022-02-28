@@ -11,6 +11,10 @@ public abstract class Task {
         this.typeOfTask = "[ ]";
     }
 
+    public String getTask() {
+        return task;
+    }
+
     public void mark() {
         this.taskStatus = "[X]";
     }
