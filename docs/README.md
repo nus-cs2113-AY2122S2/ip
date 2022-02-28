@@ -41,6 +41,7 @@ Total number of tasks now: 1
 ### `deadline` - Add a new Deadline task
 
 The deadline should have the format of YYYY-MM-DD for the date and HH:mm for the time
+Note that for all single digits (in Months, Day, Hour or Time), there should be a preceding 0 to make up the 2 digits.
 
 Example of usage:
 
@@ -58,6 +59,8 @@ Total number of tasks now: 2
 
 The Event task takes in two dates and times, one for the start and one for the end.
 Format for both dates is YYYY-MM-DD and format for both times is HH:mm
+Note that for all single digits (in Months, Day, Hour or Time), there should be a preceding 0 to make up the 2 digits.
+
 
 Example of usage:
 

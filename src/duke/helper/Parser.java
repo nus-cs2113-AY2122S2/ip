@@ -218,5 +218,12 @@ public class Parser {
         }catch (DateTimeParseException e) {
             throw new DukeException("Invalid Date/Time format");
         }
+        if (startDate.isAfter(endDate)) {
+            throw new DukeException("Start Date after End Date");
+        }else if (startDate.isEqual(endDate)) {
+            if (startTime.isAfter(endTime)) {
+                throw new DukeException("Start Time after End Time");
+            }
+        }
     }
 }
