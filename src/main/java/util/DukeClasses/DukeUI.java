@@ -104,7 +104,7 @@ public class DukeUI implements Chatbot {
             DukePrinter.printSave();
             break;
         case NIL:
-            DukePrinter.echo(line);
+            DukePrinter.echo(UNRECOGNIZED_COMMAND_MSG);
             break;
         default:
             break;
