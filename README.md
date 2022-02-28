@@ -1,24 +1,37 @@
-# Duke project template
+# Alexis - Your Trusty Task Manager
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Alexis is a CLI-based application that helps you manage your tasks. 
+Tasks are split into todos, deadlines and events, and you can mark them as completed or not completed. 
+There is also a function to quickly locate your tasks using a keyword, and also a function to locate tasks based on their dates.
+The task list will be automatically saved into a .txt file on your PC, so a saved task list will be loaded when you start up the program,
+and also the task list will be automatically saved into the .txt file when you exit the program. 
 
-## Setting up in Intellij
+## Downloading the Application
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+Click on the latest release of this application and download the `ip.jar` file.  
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+##Run it!
+
+1. Locate the `ip.jar` file in your directory.
+2. Right-click and open up your preferred terminal.
+
+   You should see a window pop-up. Do double-check that you are in the same directory as the downloaded `ip.jar` file.
+3. Type in `java -jar ip.jar` and hit `Enter`
+
+   You should be able to see this if you have followed the steps correctly:
+
    ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+   Hello! I'm Alexis, your trusty helper!
+         __      ___       _______  ___  ___   __      ________
+        /""\    |"  |     /"     "||"  \/"  | |" \    /"       ) 
+       /    \   ||  |    (: ______) \   \  /  ||  |  (:   \___/ 
+      /' /\  \  |:  |     \/    |    \\  \/   |:  |   \___  \
+     //  __'  \ \\  |___  // ___)_   /\.  \   |.  |    __/  \\ 
+    /   /  \\  \( \_|:  \(:      "| /  \   \  /\  |\  /" \   :) 
+   (___/    \___)\_______)\_______)|___/\\__|(__\_|_)(_______/
    ```
+   
+4. Enjoy!! :D 
+
+##User Guide
+For a more in-depth guide into Alexis, please refer to my [user guide](https://github.com/BradenTeo/ip/tree/master/docs).
