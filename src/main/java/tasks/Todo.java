@@ -1,3 +1,5 @@
+package tasks;
+
 public class Todo extends Task {
     private static final String TASK_CODE = "T";
 
@@ -21,6 +23,6 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return "[" + getTaskCode() + "]" + super.toString() + "\n";
+        return "[" + getTaskCode() + "]" + super.toString();
     }
 }

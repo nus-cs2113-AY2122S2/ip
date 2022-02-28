@@ -1,3 +1,5 @@
+package tasks;
+
 public class Event extends Task {
     private static final String TASK_CODE = "E";
     protected String at;
@@ -24,6 +26,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[" + getTaskCode() + "]" + super.toString() + " (at: " + at + ")\n";
+        return "[" + getTaskCode() + "]" + super.toString() + " (at: " + at + ")";
     }
 }

@@ -1,37 +1,29 @@
+import commands.*;
+import exceptions.InvalidCommandException;
+import exceptions.MissingDescriptionException;
+
 public class Parser {
-    private String[] parsedInput;
 
-    public Parser(String line) throws InvalidCommandException, MissingDescriptionException {
-        parsedInput = line.split(" ");
+    public static Command parseInput(String parsedInput) throws InvalidCommandException, MissingDescriptionException {
+        String commandWord = parsedInput.split(" ")[0];
 
-        switch (parsedInput[0]) {
+        switch (commandWord) {
         case "todo":
-            if (parsedInput.length < 2) {
-                throw new MissingDescriptionException();
-            }
-            break;
+            return new TodoCommand(parsedInput);
         case "deadline":
-            // Fallthrough
+            return new DeadlineCommand(parsedInput);
         case "event":
-            // Fallthrough
+            return new EventCommand(parsedInput);
         case "list":
-            break;
+            return new ListCommand();
         case "delete":
-            // Fallthrough
+            return new DeleteCommand(parsedInput);
         case "mark":
-            // Fallthrough
+            return new MarkCommand(parsedInput);
         case "unmark":
-            if (parsedInput.length != 2) { //simple workaround for now, need better checks later
-                throw new MissingDescriptionException();
-            }
-            break;
+            return new UnmarkCommand(parsedInput);
         default:
             throw new InvalidCommandException();
         }
     }
-
-    public String[] getParsedInput() {
-        return parsedInput;
-    }
-
 }

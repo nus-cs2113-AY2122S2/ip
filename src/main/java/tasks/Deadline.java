@@ -1,3 +1,5 @@
+package tasks;
+
 public class Deadline extends Task {
     private static final String TASK_CODE = "D";
     protected String by;
@@ -24,6 +26,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[" + getTaskCode() + "]" + super.toString() + " (by: " + by + ")\n";
+        return "[" + getTaskCode() + "]" + super.toString() + " (by: " + by + ")l";
     }
 }
