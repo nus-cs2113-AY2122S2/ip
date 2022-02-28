@@ -168,6 +168,16 @@ public class Parser {
         return getTodoFromUserInput(userInput);
     }
 
+
+
+    public String getKeyword(String userInput) {
+        String[] inputSplit = userInput.split(" ");
+        if (inputSplit.length <= 1){
+            return "";
+        }
+        return inputSplit[1];
+    }
+
     /**
      * This method returns a String Pair representing the event description and corresponding event time
      * stored in the user input.
@@ -175,12 +185,13 @@ public class Parser {
      * @param userInput String containing user input.
      * @return A pair of strings representing the event description and corresponding event time.
      */
-    public StringPair getEventDescriptionAndTime(String userInput){
+    public StringPair getEventDescriptionAndTime(String userInput) {
         int eventTimeIdx = userInput.indexOf("/");
         String description = getEventFromUserInput(userInput, eventTimeIdx);
         String eventTime = getEventTimeFromUserInput(userInput, eventTimeIdx);
         return new StringPair(description, eventTime);
     }
+
 
     /**
      * This method returns a String Pair representing the deadline description and corresponding due date.
@@ -193,6 +204,16 @@ public class Parser {
         String description = getDeadlineFromUserInput(userInput, dueDateIdx);
         String dueDate = getDueDateFromUserInput(userInput, dueDateIdx);
         return new StringPair(description, dueDate);
+    }
+
+
+
+    public boolean isFindCommand(String userInput) {
+        if (userInput.length() >= Duke.MINIMUM_LENGTH_OF_FIND_STATEMENT) {
+            // return true if first 4 letters of userInput spell "mark", else false
+            return userInput.substring(0, Duke.MINIMUM_LENGTH_OF_FIND_STATEMENT).equals("find");
+        }
+        return false;
     }
 
     /**
