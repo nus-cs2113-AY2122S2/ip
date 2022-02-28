@@ -22,4 +22,6 @@ mark 3
 delete 4
 delete 3
 list
+find book
+find
 bye

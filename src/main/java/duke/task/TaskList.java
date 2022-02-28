@@ -6,6 +6,7 @@ import duke.exception.DukeMissingTimeSeparator;
 import duke.exception.DukeTaskOutOfRangeException;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class TaskList {
     private static ArrayList<Task> taskLists = new ArrayList<>();
@@ -83,6 +84,22 @@ public class TaskList {
             System.out.println("Fantastic! This task is done:\n" + taskLists.get(taskNumberMarked - 1).toString());
         } else {
             System.out.println("Uh oh! This task is undone:\n" + taskLists.get(taskNumberMarked - 1).toString());
+        }
+    }
+
+    public static void findTask(String userInput) throws DukeEmptyDescriptionException {
+        String extractedFindKeyword = parser.validateAndExtractTaskDescription(userInput).toLowerCase();
+        System.out.println("Here are the matching task(s) in your list:");
+        int countNumberOfTasks = 0;
+        for (int i = 0; i < Task.getNumberOfTasks(); i++) {
+            if (taskLists.get(i).toString().toLowerCase().contains(extractedFindKeyword)) {
+                System.out.println((i + 1) + "."+ taskLists.get(i).toString());
+                countNumberOfTasks += 1;
+            }
+        }
+
+        if (countNumberOfTasks == 0) {
+            System.out.println("No task(s) found from keyword...:(");
         }
     }
 }

@@ -85,4 +85,12 @@ public class Parser {
         }
         return true;
     }
+
+    public static void performFindTask(TaskList taskManager, String userInput) {
+        try {
+            taskManager.findTask(userInput);
+        } catch (DukeEmptyDescriptionException e) {
+            System.out.print("OOPS! The keyword to find cannot be empty!\n");
+        }
+    }
 }
