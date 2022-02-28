@@ -1,18 +1,17 @@
-package dao;
+package storage;
 
 import exceptions.DukeException;
 import exceptions.FileCreateDukeException;
 import exceptions.FileNotFoundDukeException;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 
 /**
  * File data access object handle the storage and load of data, abstract the storage and memory
  */
-public abstract class FileDAO {
+public abstract class FileStorage {
     private String basePath;
     private String fileName;
     protected File targetFile;
@@ -24,7 +23,7 @@ public abstract class FileDAO {
      * @param fileName The name of the file
      * @throws DukeException
      */
-    public FileDAO(String basePath, String fileName) throws DukeException {
+    public FileStorage(String basePath, String fileName) throws DukeException {
         targetFile = new File(String.format("%s/%s", basePath, fileName));
         if (!targetFile.exists()) {
             try {

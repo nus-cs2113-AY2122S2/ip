@@ -3,8 +3,7 @@ package tasks;
 import exceptions.DukeException;
 import exceptions.TaskListDukeException;
 
-import dao.TaskFileDAO;
-import exceptions.DukeException;
+import storage.TaskFileStorage;
 
 import java.util.ArrayList;
 
@@ -15,11 +14,11 @@ public class TaskList {
     private static ArrayList<Task> taskArrayList;
     private static final String TASK_DAO_BASE_PATH = "data";
     private static final String TASK_DAO_FILE_NAME = "tasks.txt";
-    private static TaskFileDAO taskFileDao;
+    private static TaskFileStorage taskFileDao;
 
     public TaskList() throws DukeException {
         try {
-            taskFileDao = new TaskFileDAO(TASK_DAO_BASE_PATH, TASK_DAO_FILE_NAME);
+            taskFileDao = new TaskFileStorage(TASK_DAO_BASE_PATH, TASK_DAO_FILE_NAME);
             taskArrayList = taskFileDao.readTasks();
         } catch (DukeException e) {
             taskArrayList = new ArrayList<>();

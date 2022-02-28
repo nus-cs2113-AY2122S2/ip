@@ -1,6 +1,5 @@
 import exceptions.DukeException;
 import operations.Operation;
-import operations.OperationFactory;
 
 import java.util.Scanner;
 
@@ -39,13 +38,13 @@ public class Controller {
 
         Scanner sc = new Scanner(System.in);
 
-        OperationFactory operationFactory = new OperationFactory();
+        OperationParserFactory operationParserFactory = new OperationParserFactory();
 
         while (true) {
             try {
                 String order = sc.nextLine();
-                operationFactory.setOrder(order);
-                Operation operation = operationFactory.getOperation();
+                operationParserFactory.setOrder(order);
+                Operation operation = operationParserFactory.getOperation();
                 ChatBox.printChatBox(operation.getResult());
                 if (operation.getOperationName().equals(EXIT_COMMAND)) {
                     break;

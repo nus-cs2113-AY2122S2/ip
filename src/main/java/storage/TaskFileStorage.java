@@ -1,4 +1,4 @@
-package dao;
+package storage;
 
 import exceptions.DAOReadStreamBrokenDukeException;
 import exceptions.DAOWriteStreamBrokenDukeException;
@@ -15,7 +15,7 @@ import java.util.HashMap;
 /**
  * Dao for task
  */
-public class TaskFileDAO extends FileDAO {
+public class TaskFileStorage extends FileStorage {
 
     /**
      * Initializes a file data access object
@@ -23,7 +23,7 @@ public class TaskFileDAO extends FileDAO {
      * @param fileName The name of the file
      * @throws DukeException Exception in creating taskFileDAO
      */
-    public TaskFileDAO(String basePath, String fileName) throws DukeException {
+    public TaskFileStorage(String basePath, String fileName) throws DukeException {
         super(basePath, fileName);
     }
 

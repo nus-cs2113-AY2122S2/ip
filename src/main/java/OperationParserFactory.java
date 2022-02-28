@@ -1,11 +1,10 @@
-package operations;
-
 import java.util.HashMap;
 
 import exceptions.DukeException;
 import exceptions.UnknownOrderDukeException;
+import operations.*;
 
-public class OperationFactory {
+public class OperationParserFactory {
 
     private String order;
 
@@ -26,11 +25,11 @@ public class OperationFactory {
     private HashMap<String, Operation> operationCache;
     private String[] helpMessages;
 
-    public OperationFactory(String orderLocal) {
+    public OperationParserFactory(String orderLocal) {
         order = orderLocal;
     }
 
-    public OperationFactory() {
+    public OperationParserFactory() {
         helpMessages = new String[OPERATION_NAME_LIST.length];
         operationCache = new HashMap<>();
     }
