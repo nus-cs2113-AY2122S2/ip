@@ -1,6 +1,7 @@
 package Duke;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -268,6 +269,17 @@ public class TaskManager {
         }
     }
 
+    public static void find(String[] args) throws DukeException {
+        throwIfArgsIsNotValid(args, "find");
+        for (int i = 0; i < tasks.size(); i++) {
+            for(int j = 1; j < args.length; j++) {
+                if(tasks.get(i).getContent().contains(args[j])) {
+                    System.out.println(getTaskID(i) + ". " + tasks.get(i));
+                    break;
+                }
+            }
+        }
+    }
 
     private static void addMultipleEvents(List<String> contents, String deadlineTime) {
         for (String content : contents) {

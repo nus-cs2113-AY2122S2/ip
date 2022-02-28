@@ -13,6 +13,8 @@ public class CommandManager {
     private final static String CMD_TODO = "todo";
     private final static String CMD_ECHO = "echo";
     private final static String CMD_DELETE = "delete";
+    private final static String CMD_FIND = "find";
+
     /**
      * Scanner to get user input.
      */
@@ -71,6 +73,9 @@ public class CommandManager {
                 break;
             case CMD_ECHO:
                 echo(args);
+                break;
+            case CMD_FIND:
+                TaskManager.find(args);
                 break;
             default:
                 defaultCmd(command);
