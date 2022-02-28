@@ -58,7 +58,7 @@ public class SoraParser {
             int taskNum = Integer.parseInt(userInput.split(" ")[1]);
             return taskNum;
         } catch (NumberFormatException e) {
-            // Re-throw it to calling method to handle
+            // Re-throw it to calling method to handle, which should send it to SoraExceptionHandler
             throw e;
         }
     }
@@ -67,7 +67,7 @@ public class SoraParser {
      * Checks if the user's input contains at least one character that is specified in the
      * ILLEGAL_CHARACTERS string array.
      *
-     * @param userInput
+     * @param userInput The user input that will be checked for illegal characters.
      * @return true if the user's input contains at least one illegal character. Otherwise, false is returned.
      */
     private boolean checkForIllegalCharacters(String userInput) {
