@@ -1,15 +1,17 @@
-public class Event extends Task {
-    private String date;
-    private static final String ICON = "E";
+package duke;
 
-    public Event(String description, String date) {
+public class Deadline extends Task {
+    private String date;
+    private static final String ICON = "D";
+
+    public Deadline(String description, String date) {
         super(description);
         this.date = date;
     }
 
     @Override
     public boolean equals(Object task) {
-        if (!(task instanceof Event)) {
+        if (!(task instanceof Deadline)) {
             return false;
         }
         return super.equals(task);
@@ -23,7 +25,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         String taskIcon = "[" + ICON + "]";
-        String dateString = String.format(" (at: %s)", date);
+        String dateString = String.format(" (by: %s)", date);
         return taskIcon + super.toString() + dateString;
     }
 }

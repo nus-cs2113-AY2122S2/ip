@@ -1,3 +1,5 @@
+package duke;
+
 public class Ui {
     public static final String ANSI_REST = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -13,7 +15,7 @@ public class Ui {
     }
 
     public static void printError(Exception e) {
-        System.out.println(drawBorder(formatError(e.toString())));
+        System.out.println(drawBorder(formatError(e.getMessage())));
     }
 
     public static String welcomeMessage() {
@@ -72,7 +74,7 @@ public class Ui {
     }
 
     public static String taskIdOutOfBound(int taskId) {
-        return String.format("Task %d does not exist!", taskId);
+        return String.format("duke.Task %d does not exist!", taskId);
     }
 
     public static String wrongTaskIdFormat() {

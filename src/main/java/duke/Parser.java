@@ -1,9 +1,11 @@
+package duke;
+
 public class Parser {
     private String command;
     private String description;
     private boolean isExiting;
 
-    Parser() {
+    public Parser() {
         this.command = "";
         this.description = "";
         this.isExiting = false;
