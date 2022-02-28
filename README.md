@@ -12,21 +12,20 @@ Click on the <a href="https://github.com/BradenTeo/ip/releases">latest release</
 ##Run it!
 
 <ol>
-<li>Locate the `ip.jar` file in your directory.
+<li>Locate the `ip.jar` file in your directory.<br>
    <img src="https://i.imgur.com/VeWCrGc.png" /></li><br>
-<li>Right-click and open up your terminal.
-   <img src="https://i.imgur.com/i84PHUP.png" />
+<li>Right-click and open up your terminal.<br>
+   <img src="https://i.imgur.com/i84PHUP.png" /><br>
    The terminal will pop-up. Do double-check that you are in the same folder as the downloaded <code>ip.jar</code> file.<br><br>
 
-Alternatively, open your command prompt and navigate to the folder containing the <code>ip.jar</code> file.</li>
+Alternatively, open your command prompt and navigate to the folder containing the <code>ip.jar</code> file.</li><br>
 <img src="https://i.imgur.com/3pzfe7J.png" /><br>
 
-<li>Type in <code>java -jar ip.jar</code> and hit <code>Enter</code>.
+<li>Type in <code>java -jar ip.jar</code> and hit <code>Enter</code>.<br>
+You should be able to see this if you have followed the steps correctly:<br>
 
-You should be able to see this if you have followed the steps correctly:
-
-   ```
-   Hello! I'm Alexis, your trusty helper!
+   <pre><code>
+   Hello! I'm Alexis, your trusty helper!<font color="purple">
          __      ___       _______  ___  ___   __      ________
         /""\    |"  |     /"     "||"  \/"  | |" \    /"       ) 
        /    \   ||  |    (: ______) \   \  /  ||  |  (:   \___/ 
@@ -34,7 +33,7 @@ You should be able to see this if you have followed the steps correctly:
      //  __'  \ \\  |___  // ___)_   /\.  \   |.  |    __/  \\ 
     /   /  \\  \( \_|:  \(:      "| /  \   \  /\  |\  /" \   :) 
    (___/    \___)\_______)\_______)|___/\\__|(__\_|_)(_______/
-   ```
+   </font></code></pre>
 </li>
 <li>Enjoy!! :D</li>
 </ol>
