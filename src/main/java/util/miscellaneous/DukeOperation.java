@@ -64,6 +64,12 @@ public class DukeOperation implements Chatbot {
 
     }
 
+    public static void printSave() {
+        linePrinter();
+        System.out.println("\t" + SAVE_MSG);
+        linePrinter();
+    }
+
     public static void checkFilePath() throws IOException {
         File file = new File(FILEPATH);
         file.getParentFile().mkdirs();
@@ -310,6 +316,7 @@ public class DukeOperation implements Chatbot {
             break;
         case SAVE:
             saveData(tasks);
+            printSave();
             break;
         case NIL:
             echo(line);

@@ -19,6 +19,7 @@ public interface Chatbot {
     String NO_DATE_MSG = " Sorry but you haven't input a date here.";
     String IO_ERROR_MSG = " Oh no! File IO error just occurred.";
     String NO_PREVIOUS_RECORD = " There is currently no save file.";
+    String SAVE_MSG = " You have saved your current list.";
 
 
     String ADD_TODO_CMD = "Todo ";

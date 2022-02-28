@@ -7,7 +7,7 @@ import java.io.File;
 
 public class Duke extends DukeOperation {
     public static void main(String[] args) {
-        Scanner input2 = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         String line;
 
         ArrayList<Task> tasks = new ArrayList<>();
@@ -18,13 +18,13 @@ public class Duke extends DukeOperation {
 
         loadData(tasks);
 
-        line = input2.nextLine();
+        line = input.nextLine();
         while (!line.equalsIgnoreCase("bye")) {
             boolean needUpdateTaskStatus = false;
             boolean isLoadingData = false;
 
             loadAndRun(tasks, line, isLoadingData, needUpdateTaskStatus);
-            line =input2.nextLine();
+            line =input.nextLine();
         }
 
         exitLine();
