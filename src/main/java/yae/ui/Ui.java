@@ -5,6 +5,7 @@ public class Ui {
     public static final String WELCOME_MESSAGE = "____________________________________________________________\n"
             + "Hello, nice to meet you. I'm Yae! (*^▽^*)\n"
             + "What can I do for you?\n"
+            + "Type help to find out more about what I can do or bye to exit the program.\n"
             + "____________________________________________________________";
     public static final String DEFAULT_ERROR = "Sorry, I did not understand that command. Input help to find out more.";
     public static final String DESCRIPTION_MISSING = "Description/Task Number could not be found!";
