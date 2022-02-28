@@ -11,7 +11,7 @@ public class DiskManager {
     private static final File TASKS_TXT = new File(PATH);
 
     public static void diskInit() throws IOException {
-        if(!TASKS_TXT.exists()) {
+        if (!TASKS_TXT.exists()) {
             try {
                 TASKS_TXT.createNewFile();
             } catch (IOException exception) {
@@ -20,11 +20,12 @@ public class DiskManager {
         }
         readDisk();
     }
+
     public static void readDisk() throws IOException {
         Scanner sc = new Scanner(TASKS_TXT);
         while (sc.hasNext()) {
             String line = sc.nextLine();
-            if(line.equals(System.lineSeparator())) {
+            if (line.equals(System.lineSeparator())) {
                 continue;
             }
             String[] token = line.split("\\|");
@@ -56,7 +57,7 @@ public class DiskManager {
     }
 
     private static void markIfDone(String isDone_string, String[] command_mark) throws DukeException {
-        if(isDone_string.equals("X")) {
+        if (isDone_string.equals("X")) {
             command_mark[1] = Integer.toString(TaskManager.getTaskNumber());
             TaskManager.mark(command_mark, false);
         }
@@ -70,14 +71,15 @@ public class DiskManager {
                 fw.write("deadline \"" + ddl.getContent() + "\" /by \"" + ddl.getDeadlineTime() + "\" | " + (ddl.isDone() ? "X" : "_") + System.lineSeparator());
             } else if (tasks[i] instanceof Event) {
                 Event event = (Event) tasks[i];
-                fw.write("event \""  + event.getContent() + "\" /at \"" + event.getSchedule() +  "\" | " + (event.isDone() ? "X" : "_") + System.lineSeparator());
+                fw.write("event \"" + event.getContent() + "\" /at \"" + event.getSchedule() + "\" | " + (event.isDone() ? "X" : "_") + System.lineSeparator());
             } else if (tasks[i] instanceof ToDo) {
                 ToDo todo = (ToDo) tasks[i];
-                fw.write("todo \"" + todo.getContent()  + "\" | " + (todo.isDone() ? "X" : "_") + System.lineSeparator());
+                fw.write("todo \"" + todo.getContent() + "\" | " + (todo.isDone() ? "X" : "_") + System.lineSeparator());
             }
         }
         fw.close();
     }
+
     public static void syncWithDisk() throws IOException {
         emptyDisk();
         Task[] tasks = TaskManager.getCurrentTasks();

@@ -13,7 +13,7 @@ public class Duke {
     /**
      * Exit commands
      */
-    private static String[] exitCommands = {"bye", "exit", "quit"};
+    private static final String[] exitCommands = {"bye", "exit", "quit"};
 
     /**
      * The main method of Duke, do program initialization and then start running Duke

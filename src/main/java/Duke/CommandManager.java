@@ -5,11 +5,6 @@ import java.util.Scanner;
 
 
 public class CommandManager {
-    /**
-     * Scanner to get user input.
-     */
-    private static Scanner sc = new Scanner(System.in);
-
     private final static String CMD_MARK = "mark";
     private final static String CMD_UNMARK = "unmark";
     private final static String CMD_LIST = "list";
@@ -18,6 +13,10 @@ public class CommandManager {
     private final static String CMD_TODO = "todo";
     private final static String CMD_ECHO = "echo";
     private final static String CMD_DELETE = "delete";
+    /**
+     * Scanner to get user input.
+     */
+    private static final Scanner sc = new Scanner(System.in);
 
     /**
      * Get the input string (raw command) from user.

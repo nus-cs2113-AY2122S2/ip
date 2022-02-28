@@ -7,7 +7,7 @@ public class Task {
     /**
      * The content of a reminder
      */
-    private String content;
+    private final String content;
     /**
      * Whether this reminder is marked as done or not
      */

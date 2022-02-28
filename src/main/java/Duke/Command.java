@@ -68,6 +68,7 @@ public class Command {
 
     /**
      * Get original user input string.
+     *
      * @return the original user input (raw string)
      */
     public String getRawCommand() {
@@ -76,6 +77,7 @@ public class Command {
 
     /**
      * Get tokens from original input string.
+     *
      * @return the tokens/args
      */
     public String[] getCommandTokens() {

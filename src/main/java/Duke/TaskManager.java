@@ -1,7 +1,6 @@
 package Duke;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -62,7 +61,7 @@ public class TaskManager {
     public static void listTasks(String[] args) throws DukeException {
         // TODO args can be used to control the style of output
         // not throwing anything because no args is needed.
-        if(tasks.isEmpty()) {
+        if (tasks.isEmpty()) {
             System.out.println("Oooooops, you haven't added anything.");
             return;
         }
@@ -83,7 +82,7 @@ public class TaskManager {
             int taskID = Integer.parseInt(args[i]);
             int arrayID = getArrayID(taskID);
             if (arrayID < 0 || arrayID >= tasks.size()) {
-                if(isPrintingPrompt) {
+                if (isPrintingPrompt) {
                     System.out.println("There is no " + taskID + " task.");
                 }
                 continue;
@@ -247,15 +246,15 @@ public class TaskManager {
         }
     }
 
-    public static void delete(String[] args) throws DukeException{
+    public static void delete(String[] args) throws DukeException {
         throwIfArgsIsNotValid(args, "delete");
         List<Integer> toDelete = new ArrayList<>();
         for (int i = 1; i < args.length; i++) {
             Integer arrayID = tryParseIntAndThrow(args[i], "delete");
-            if(arrayID == null) {
+            if (arrayID == null) {
                 continue;
             }
-            if(arrayID < 0 || tasks.size() <= arrayID) {
+            if (arrayID < 0 || tasks.size() <= arrayID) {
                 System.out.println("The " + getTaskID(arrayID) + " task doesn't exist");
                 return;
             }
@@ -265,7 +264,7 @@ public class TaskManager {
         }
         Collections.sort(toDelete);
         for (int i = toDelete.size() - 1; i >= 0; i--) {
-            tasks.remove((int)toDelete.get(i));
+            tasks.remove((int) toDelete.get(i));
         }
     }
 

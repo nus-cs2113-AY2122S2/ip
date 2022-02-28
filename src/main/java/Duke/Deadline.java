@@ -1,7 +1,7 @@
 package Duke;
 
 public class Deadline extends Task {
-    private String deadlineTime;
+    private final String deadlineTime;
 
     public Deadline(String content, String deadlineTime) {
         super(content);
