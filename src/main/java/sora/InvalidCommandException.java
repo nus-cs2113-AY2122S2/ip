@@ -26,6 +26,8 @@ public class InvalidCommandException extends Exception {
     public static final String DEADLINE_NO_DUE_DATE = "No due date for deadline command was found";
     public static final String DEADLINE_INVALID_FLAGS = "Usage of flags in deadline command was invalid";
 
+    public static final String INVALID_TASK_TYPE = "Task type not found";
+
     public static final String FIND_NO_SEARCH_STRING = "No search phrase provided";
 
     /**
