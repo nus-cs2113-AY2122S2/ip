@@ -42,8 +42,12 @@ public class Parser {
             description = splitCommands[1].trim();
             cmd = new UnmarkCommand(Integer.parseInt(description));
             break;
+        case HelpCommand.COMMAND_WORD:
+            cmd = new HelpCommand();
+            break;
         default:
-            throw new DukeException("Sorry! I cannot read this command :(");
+            throw new DukeException("Sorry! I cannot read this command :(\n\t "
+                    + "Type \"help\" to view supported command.");
 
         }
 
