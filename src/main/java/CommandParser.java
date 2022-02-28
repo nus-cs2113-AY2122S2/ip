@@ -7,6 +7,7 @@ public class CommandParser {
     static final public String TODO = "todo:";
     static final public String DEADLINE = "deadline:";
     static final public String EVENT = "event:";
+    static final public String FIND = "find";
     private final char INDICATE_DEADLINE = '~';
     private final char INDICATE_EVENT = '@';
 
@@ -30,12 +31,14 @@ public class CommandParser {
             return addDeadline(commandString);
         } else if (commandString.startsWith(EVENT)) {
             return addEvent(commandString);
+        } else if (commandString.startsWith((FIND))) {
+            return findTask(commandString);
         }
         throw new DukeWrongCommandException("Invalid Wish Command");
     }
 
-    private int getChoiceNumber(String commandString, String tick) throws DukeWrongCommandException {
-        String choice = commandString.substring(tick.length()).trim();
+    private int getChoiceNumber(String commandString, String wishType) throws DukeWrongCommandException {
+        String choice = commandString.substring(wishType.length()).trim();
         try {
             return Integer.parseInt(choice) - 1;
         } catch (NumberFormatException numError) {
@@ -58,10 +61,20 @@ public class CommandParser {
         return storeTimeDate;
     }
 
+    private FindCommand findTask(String userInput) throws DukeWrongCommandException {
+        String description = "";
+        try {
+            description = deriveDescription(userInput, FIND);
+        } catch (DukeEmptyStringException e) {
+            throw new DukeWrongCommandException("The search input for wish: cannot be empty");
+        }
+        return new FindCommand(description);
+    }
+
     private CreateTaskCommand addEvent(String userInput) throws DukeWrongCommandException {
         String description = "";
         try {
-            description = deriveDescription(userInput, "event:");
+            description = deriveDescription(userInput, EVENT);
         } catch (DukeEmptyStringException e) {
             throw new DukeWrongCommandException("The description for event: cannot be empty");
         }
