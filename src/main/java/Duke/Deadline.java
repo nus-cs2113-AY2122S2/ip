@@ -1,11 +1,18 @@
 package Duke;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    private final String deadlineTime;
+    private LocalDate deadlineTime;
 
     public Deadline(String content, String deadlineTime) {
         super(content);
-        this.deadlineTime = deadlineTime;
+        try {
+            this.deadlineTime = LocalDate.parse(deadlineTime);
+        } catch (Exception e) {
+            this.deadlineTime = LocalDate.parse(deadlineTime, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        }
     }
 
     @Override
@@ -14,6 +21,6 @@ public class Deadline extends Task {
     }
 
     public String getDeadlineTime() {
-        return deadlineTime;
+        return deadlineTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 }

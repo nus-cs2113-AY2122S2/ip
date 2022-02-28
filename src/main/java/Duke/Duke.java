@@ -7,13 +7,13 @@ import java.io.IOException;
  */
 public class Duke {
     /**
-     * The appellation for the guest
-     */
-    private static String userName = "Mr/Mrs Geek";
-    /**
      * Exit commands
      */
     private static final String[] exitCommands = {"bye", "exit", "quit"};
+    /**
+     * The appellation for the guest
+     */
+    private static String userName = "Mr/Mrs Geek";
 
     /**
      * The main method of Duke, do program initialization and then start running Duke
