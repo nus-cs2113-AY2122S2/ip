@@ -1,5 +1,8 @@
 package util.miscellaneous;
 
+/**
+ * Include the constants used for Duke
+ */
 public interface Chatbot {
     String LOGO = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
