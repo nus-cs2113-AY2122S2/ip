@@ -52,7 +52,7 @@ public class Parser {
         } catch (DukeMissingTimeSeparator e) {
             System.out.println("OOPS! You did not include '" + stringSeparator + "' in your command!");
         } catch (DateTimeParseException e) {
-            System.out.println("Incorrect date time format supplied. Use 'yyyy-mm-dd [01-23]'\n" +
+            System.out.println("Incorrect date time format supplied. Use 'yyyy-mm-dd [01-24]'\n" +
                     "Example: event party /at 2021-10-09 05");
         }
     }

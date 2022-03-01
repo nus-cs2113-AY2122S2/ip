@@ -44,15 +44,14 @@ public class Storage {
      * @param taskManager the object that manages task operations on tasks.
      * @throws IOException If file operation failed.
      */
-    public static void loadDukeDataFile(TaskList taskManager) throws IOException {
+    public static void loadDukeDataFile(TaskList taskManager) throws IOException,
+            ArrayIndexOutOfBoundsException, NumberFormatException, DukeInvalidFileContentException {
         isLoadFile = true;
         checkFileExists();
         try {
             populateDukeFromDataFile(taskManager);
         } catch (IOException e) {
             System.out.println("Unable to populate data...");
-        } catch (DukeInvalidFileContentException e) {
-            System.out.println("Invalid file content...");
         }
         isLoadFile = false;
     }
@@ -69,7 +68,8 @@ public class Storage {
      * @throws NumberFormatException If task number could not be parsed into an integer.
      * @throws ArrayIndexOutOfBoundsException For any operations which involves index checking.
      */
-    public static void populateDukeFromDataFile(TaskList taskManager) throws IOException, DukeInvalidFileContentException, NumberFormatException, ArrayIndexOutOfBoundsException {
+    public static void populateDukeFromDataFile(TaskList taskManager) throws IOException,
+            DukeInvalidFileContentException, NumberFormatException, ArrayIndexOutOfBoundsException {
         List<String> fileContentLines = Files.readAllLines(FILE_PATH);
         for (String lines:fileContentLines) {
             String[] arrayOfContentsInALine = lines.split("\\|");
@@ -126,7 +126,8 @@ public class Storage {
      * @throws ArrayIndexOutOfBoundsException For any operations which involves index checking.
      * @throws DukeInvalidFileContentException If data file is of invalid format.
      */
-    public static String buildTaskCommand(String taskType, String[] arrayOfContentsInALine) throws ArrayIndexOutOfBoundsException, DukeInvalidFileContentException {
+    public static String buildTaskCommand(String taskType, String[] arrayOfContentsInALine) throws
+            ArrayIndexOutOfBoundsException, DukeInvalidFileContentException {
         String finalizedCommand = "";
         switch (taskType) {
         case "T":
