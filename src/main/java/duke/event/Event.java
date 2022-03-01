@@ -9,7 +9,7 @@ public class Event extends Task {
 
     public Event(String description, String time) {
         super(description);
-        System.out.println(time);
+//        System.out.println(time);
         if (time == null || time.length() < 2){
             this.time = "";
         } else {

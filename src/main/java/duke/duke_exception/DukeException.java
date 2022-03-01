@@ -4,8 +4,9 @@
  * */
 
 package duke.duke_exception;
-public class DukeException extends Exception {
-    public DukeException(String errorMessage) {
-        super(errorMessage);
+public class DukeException extends Exception{
+    public String error;
+    public DukeException(String error){
+        this.error = error;
     }
 }
