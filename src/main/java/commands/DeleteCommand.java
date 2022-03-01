@@ -18,7 +18,6 @@ public class DeleteCommand extends Command{
 
     @Override
     public void execute(TaskManager taskManager, FileManager fileManager, Ui ui) {
-
         try {
             Task deletedTask = taskManager.getTask(idx);
             taskManager.deleteTask(idx);

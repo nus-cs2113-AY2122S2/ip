@@ -9,6 +9,7 @@ public class Parser {
         String[] splitCommands = fullCommand.split(" ", 2);
         String description;
         String commandWord = splitCommands[0].trim();
+        int idx;
         Command cmd;
 
         switch (commandWord) {
@@ -31,16 +32,31 @@ public class Parser {
             cmd = new ByeCommand();
             break;
         case DeleteCommand.COMMAND_WORD:
-            description = splitCommands[1].trim();
-            cmd = new DeleteCommand(Integer.parseInt(description));
+            try {
+                description = splitCommands[1].trim();
+                idx = Integer.parseInt(description);
+                cmd = new DeleteCommand(Integer.parseInt(description));
+            } catch (NumberFormatException e) {
+                throw new DukeException("Index is not an integer.");
+            }
             break;
         case MarkCommand.COMMAND_WORD:
-            description = splitCommands[1].trim();
-            cmd = new MarkCommand(Integer.parseInt(description));
+            try {
+                description = splitCommands[1].trim();
+                idx = Integer.parseInt(description);
+                cmd = new MarkCommand(idx);
+            } catch (NumberFormatException e) {
+                throw new DukeException("Index is not an integer.");
+            }
             break;
         case UnmarkCommand.COMMAND_WORD:
-            description = splitCommands[1].trim();
-            cmd = new UnmarkCommand(Integer.parseInt(description));
+            try {
+                description = splitCommands[1].trim();
+                idx = Integer.parseInt(description);
+                cmd = new UnmarkCommand(Integer.parseInt(description));
+            } catch (NumberFormatException e) {
+                throw new DukeException("Index is not an integer.");
+            }
             break;
         case HelpCommand.COMMAND_WORD:
             cmd = new HelpCommand();

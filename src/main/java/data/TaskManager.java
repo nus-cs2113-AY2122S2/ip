@@ -1,14 +1,11 @@
 package data;
 
 import common.DukeException;
-import storage.FileManager;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskManager {
     private ArrayList<Task> tasks = new ArrayList<>();
-    private FileManager fileManager = new FileManager();
 
     public TaskManager() {
 
@@ -61,30 +58,29 @@ public class TaskManager {
 
     public Task getTask(int idx) throws DukeException {
         if(idx <= 0 || idx > tasks.size()) {
-            throw new DukeException(". Index out of bound." + "Failed to get task " + idx + ".");
+            throw new DukeException("Index out of bound. Failed to get task " + idx + ".");
         }
 
         return tasks.get(idx - 1);
     }
 
-    public void deleteTask(int idx) {
-//        if(idx < 0 || idx > tasks.size()){
-//            throw new DukeException("Task index out of bound.");
-//        }
-//
-//        Task deleted = tasks.get(idx - 1);
+    public void deleteTask(int idx) throws DukeException{
+        if(idx <= 0 || idx > tasks.size()){
+            throw new DukeException("Task index out of bound. I cannot delete task " + idx + ".");
+        }
+
         tasks.remove(idx - 1);
     }
 
     public void markTask(int idx) throws DukeException {
-        if(idx <=0 || idx > tasks.size()){
+        if(idx <= 0 || idx > tasks.size()){
             throw new DukeException("Task index out of bound. I cannot mark task " + idx + ".");
         }
         tasks.get(idx-1).markAsDone();
     }
 
     public void unmarkTask(int idx) throws DukeException {
-        if(idx <=0 || idx > tasks.size()){
+        if(idx <= 0 || idx > tasks.size()){
             throw new DukeException("Task index out of bound. I cannot unmark task " + idx + ".");
         }
         tasks.get(idx-1).unmark();
