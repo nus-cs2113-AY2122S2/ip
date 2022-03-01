@@ -1,6 +1,6 @@
 public class Task {
     protected String instruction;
-    protected int number;
+    protected static int number;
     protected boolean isDone;
 
     public Task(String instruction) {
@@ -20,6 +20,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() +"]";
+        return "(" + getStatusIcon() +")";
     }
 }

@@ -1,11 +1,11 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Storage {
 
     private static final String filePath = "data/duke.txt";
+
     public static void checkFile() {
         File f = new File(filePath);
         File folder = new File("data");
@@ -28,15 +28,37 @@ public class Storage {
         fw.close();
     }
 
-    public static void saveFile (ArrayList<String> instructionList) {
+    public static void saveToFile(ArrayList<String> instructionsList) {
         String task;
         ArrayList<String> list = new ArrayList<>();
         try {
-            for (int i = 1; i <= instructionList.size(); i++) {
-                task = i + ". " + instructionList.get(i - 1);
+            for (int i = 1; i <= instructionsList.size(); i++) {
+                task = i + ". " + instructionsList.get(i - 1);
                 list.add(task);
             }
-            writeToFile(filePath, String.valueOf(list));
+            writeToFile(filePath, String.valueOf(instructionsList));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void loadFromFile(ArrayList<String> instructionsList) throws IOException {
+
+        try {
+            File f = new File(filePath); // create a File for the given file path
+            Scanner scan = new Scanner(f); // create a Scanner using the File as the source
+            String[] array;
+            while (scan.hasNextLine()) {
+                String instructions = scan.nextLine();
+                instructions = instructions.replace("[", "");
+                instructions = instructions.replace("]", "");
+                array = instructions.split(", ", 200);
+                for (int i = 0; i < array.length; i++) {
+                    instructionsList.add("");
+                    instructionsList.set(i, array[i]);
+                    Task.number++;
+                }
+            }
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
