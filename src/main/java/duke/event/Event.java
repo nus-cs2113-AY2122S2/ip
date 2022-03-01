@@ -2,6 +2,9 @@ package duke.event;
 import duke.task.Task;
 import org.json.simple.JSONObject;
 
+/**
+ * Event class that stores description of event and location it'll be held
+ */
 public class Event extends Task {
     private String time;
     private String symbol = "E";
@@ -18,12 +21,20 @@ public class Event extends Task {
 
     }
 
-
+    /**
+     * Gets an event's status
+     * @return The formatted status of the event
+     */
     @Override
     public String getStatus() {
         String taskStr = super.getStatus();
         return String.format("[%s]%s (at: %s)", this.symbol, taskStr, this.time);
     }
+
+    /**
+     * Converts an Event's properties into a json object
+     * @return Json object of event's properties.
+     */
     @Override
     public JSONObject serialize() {
         JSONObject task = super.serialize();

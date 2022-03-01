@@ -13,6 +13,9 @@ import java.util.stream.Collectors;
  * Parses user input and handles them.
  * */
 public class Parser {
+    /**
+     * String constants of main command
+     * */
     private static final String MARK_CMD = "mark";
     private static final String UNMARK_CMD = "unmark";
     private static final String LIST_CMD = "list";
@@ -27,6 +30,11 @@ public class Parser {
         this.in = new Scanner(System.in);
     }
 
+    /**
+     * Begins user input loop, returns when "bye" command issued
+     *
+     * @throws DukeException
+     * */
     public void enterInputLoop() throws DukeException {
         while (true) {
             String input = this.in.nextLine();
@@ -60,7 +68,12 @@ public class Parser {
     }
 
 
-
+    /**
+     * Updates the mark status of a task is tasklist by index
+     *
+     * @param isMark the mark status of task
+     * @param cmd Command parameters, may include sub commands
+     * */
     private void updateMark(String isMark, String[] cmd) {
         int idx;
         String param = cmd[1];
@@ -85,6 +98,11 @@ public class Parser {
             return;
         }
     }
+    /**
+     * Handles the main add command
+     * @param input Full string user input
+     * @param cmd list of cmdlline pararms and comamands
+     * */
     private void handleAdd(String input, String[] cmd) throws DukeException {
         System.out.println("handleAdd");
         System.out.println(cmd);
@@ -109,7 +127,7 @@ public class Parser {
         } else if (sub_cmd.equals("event")) {
             newTask = tasks.addEvent(params);
         } else {
-            System.out.println("☹ OOPS!!! I'm sorry, but task has to be either todo, deadline or event");
+            System.out.println("☹ OOPS!!! I'm sorry, but sub command has to be either todo, deadline or event");
             return;
         }
         if (newTask != null){
@@ -118,6 +136,11 @@ public class Parser {
 
     }
 
+    /**
+     * Handles the main delete command
+     * @param input Full string user input
+     * @param cmd list of cmdlline pararms and comamands
+     * */
     private void handleDelete(String input, String[] cmd) throws DukeException {
         if (cmd.length < 2) {
 //            throw new DukeException("☹ OOPS!!! I'm sorry, but delete requires an index");
@@ -140,6 +163,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the main find command
+     * @param input Full string user input
+     * @param cmd list of cmdlline pararms and comamands
+     * */
     private void handleFind(String input, String[] cmd) throws DukeException {
         if (cmd.length < 2) {
             System.out.println("☹ OOPS!!! I'm sorry, but delete require something to search for");

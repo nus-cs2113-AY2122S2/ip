@@ -25,10 +25,18 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
+/**
+ * Duke class that runs highest level logic of todo app
+ */
 public class Duke {
 
     private static final Boolean isDebugMode = false;
 
+    /**
+     * Main function where highest level logic runs
+     * @param args Command line arguments
+     * @throws DukeException
+     */
     public static void main(String[] args) throws DukeException {
         Ui.printHello();
         TaskList tasks = new TaskList();
