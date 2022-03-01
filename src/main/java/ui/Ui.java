@@ -76,12 +76,12 @@ public class Ui {
         System.out.println("\t Supported commands:");
         System.out.println("\t Type \"help\" to view supported command");
         System.out.println("\t Type \"todo <task>\" to add a todo task");
-        System.out.println("\t Type \"deadline <task> /by <time>\" to add a deadline task");
-        System.out.println("\t Type \"event <task> /at <time>\" to add a event task");
+        System.out.println("\t Type \"deadline <task> /by <yyyy-MM-dd HH:mm>\" to add a deadline task");
+        System.out.println("\t Type \"event <task> /at <yyyy-MM-dd HH:mm>\" to add a event task");
         System.out.println("\t Type \"list\" to list all tasks");
-        System.out.println("\t Type \"delete <task number>\" to delete a task");
-        System.out.println("\t Type \"mark <task number>\" to mark a task");
-        System.out.println("\t Type \"unmark <task number>\" to unmark a task");
+        System.out.println("\t Type \"delete <task index>\" to delete a task");
+        System.out.println("\t Type \"mark <task index>\" to mark a task");
+        System.out.println("\t Type \"unmark <task index>\" to unmark a task");
         System.out.println("\t Type \"bye\" to exit");
     }
 

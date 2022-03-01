@@ -6,12 +6,13 @@ import storage.FileManager;
 import ui.Ui;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class EventCommand extends Command{
     public static final String COMMAND_WORD = "event";
     private Event toAdd;
 
-    public EventCommand(String description, String at) {
+    public EventCommand(String description, LocalDateTime at) {
         toAdd = new Event(description, at);
         isExit = false;
     }
