@@ -53,6 +53,10 @@ public class Parser {
             case HelpCommand.COMMAND_WORD:
                 cmd = new HelpCommand();
                 break;
+            case FindCommand.COMMAND_WORD:
+                description = splitCommands[1].trim();
+                cmd = new FindCommand(description);
+                break;
             default:
                 throw new DukeException("Sorry! I cannot read this command :(\n\t "
                         + "Type \"help\" to view supported command.");

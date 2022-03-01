@@ -56,4 +56,16 @@ public class TaskManager {
         }
         tasks.get(idx-1).unmark();
     }
+
+    public ArrayList<Integer> findTask(String keyword) {
+        ArrayList<Integer> results = new ArrayList<>();
+
+        for(int i = 0; i < tasks.size(); i++) {
+            if(tasks.get(i).getDescription().contains(keyword)) {
+                results.add(i + 1);
+            }
+        }
+
+        return results;
+    }
 }
