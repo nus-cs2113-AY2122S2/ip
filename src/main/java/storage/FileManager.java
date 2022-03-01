@@ -14,7 +14,7 @@ public class FileManager {
     private static final String fileName = "duke.txt";
 
     public FileManager(){
-        DIR_PATH = System.getProperty("user.dir") + File.separator +"data";
+        DIR_PATH = System.getProperty("user.dir") + File.separator + "data";
     }
 
     public ArrayList<Task> loadData() throws IOException {
@@ -32,9 +32,6 @@ public class FileManager {
             records.add(s.nextLine());
         }
 
-        if(!records.isEmpty() && records.get(records.size()-1).equals(System.lineSeparator())){
-            records.remove(records.size()-1);
-        }
         return decodeData(records);
     }
 

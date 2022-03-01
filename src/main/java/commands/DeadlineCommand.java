@@ -7,7 +7,7 @@ import ui.Ui;
 
 import java.io.IOException;
 
-public class DeadlineCommand extends Command{
+public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
     private Deadline toAdd;
 

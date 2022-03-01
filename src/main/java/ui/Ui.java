@@ -92,5 +92,6 @@ public class Ui {
 
     public void showLoadingError(String message) {
         System.out.println("\t Error: Failed to load data.");
+        System.out.println("\t " + message);
     }
 }

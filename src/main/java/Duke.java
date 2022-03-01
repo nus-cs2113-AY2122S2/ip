@@ -12,7 +12,7 @@ public class Duke {
     private TaskManager taskManager;
     private FileManager fileManager;
 
-    public Duke(String filePath) {
+    public Duke() {
         fileManager = new FileManager();
 
         try {
@@ -47,7 +47,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("data/tasks/txt").run();
+        new Duke().run();
     }
 
 

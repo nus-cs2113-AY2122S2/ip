@@ -7,8 +7,8 @@ public class Parser {
     public static Command parse(String fullCommand) throws DukeException {
         fullCommand = fullCommand.trim();
         String[] splitCommands = fullCommand.split(" ", 2);
-        String description;
         String commandWord = splitCommands[0].trim();
+        String description;
         int idx;
         Command cmd;
 
