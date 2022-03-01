@@ -1,8 +1,5 @@
 package duke;
 
-import duke.exceptions.DeleteIndexException;
-import duke.exceptions.TaskEmptyException;
-
 import java.util.Scanner;
 
 public class Ui {

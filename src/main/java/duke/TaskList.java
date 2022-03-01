@@ -9,7 +9,6 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TaskList {
