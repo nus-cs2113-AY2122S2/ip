@@ -28,8 +28,7 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * This is the execute method that runs when there is an deadline command.
-     * The method will add the task to the list of tasks in the TaskList object.
+     * Runs when there is a deadline command by adding the deadline task to the list of tasks.
      * It will then print the confirmation for adding the task and updates the file.
      *
      * @param tasks The TaskList object that contains the list of tasks.
@@ -56,6 +55,13 @@ public class DeadlineCommand extends Command {
         storage.save(deadline);
     }
 
+    /**
+     * Adds a new deadline task from the file to the list of tasks.
+     *
+     * @param listOfTasks This is the list of tasks that the new task is to be added to.
+     * @throws AdditionalException If there is no description provided in the fullCommand.
+     * @see AdditionalException
+     */
     @Override
     public void executeFromFile(ArrayList<Task> listOfTasks) throws AdditionalException {
         String description = Parser.getDescription(TYPE_OF_TASK, PREPOSITION, fullCommand);

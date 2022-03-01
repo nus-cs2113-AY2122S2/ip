@@ -8,7 +8,6 @@ import duke.storage.Storage;
 import duke.task.Task;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Represents the unmark command which is to be executed.
@@ -22,8 +21,7 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * This is the execute method that runs when there is an unmark command.
-     * The method will identify the task to be unmarked and proceeds to mark it as NOT done.
+     * Runs when there is an unmark command by identifying the task to be unmarked and proceeds to mark it as NOT done.
      * It will then print the confirmation for unmarking the task and updates the file.
      *
      * @param tasks The TaskList object that contains the list of tasks.
@@ -36,7 +34,7 @@ public class UnmarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, AdditionalException {
         int indexToUnmark = Parser.getIndex(fullCommand);
         Task taskToUnmark = tasks.getTask(indexToUnmark);
-        taskToUnmark.markAsUndone();
+        taskToUnmark.setUndone();
         ui.showUnmarkCompleted(taskToUnmark);
         storage.saveAll(tasks);
     }

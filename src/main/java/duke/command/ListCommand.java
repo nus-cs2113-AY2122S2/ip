@@ -14,8 +14,7 @@ import java.util.ArrayList;
 public class ListCommand extends Command {
 
     /**
-     * This is the execute method that runs when there is a list command.
-     * The method will print the list of tasks that is stored in the TaskList tasks.
+     * Runs when there is a list command by printing the list of tasks.
      *
      * @param tasks The TaskList object that contains the list of tasks.
      * @param ui The user interface object that allows for printing of the confirmation message.

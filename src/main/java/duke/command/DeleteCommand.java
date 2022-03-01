@@ -21,8 +21,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * This is the execute method that runs when there is a delete command.
-     * The method will identify the task to be deleted and proceeds to delete it.
+     * Runs when there is a delete command by identifying the task to be deleted and proceeds to delete it.
      * It will then print the confirmation for deleting the task and updates the file.
      *
      * @param tasks The TaskList object that contains the list of tasks.
@@ -43,16 +42,6 @@ public class DeleteCommand extends Command {
         int numberOfTasks = tasks.getSize();
         ui.showDeleteDone(taskToDelete, numberOfTasks);
         storage.saveAll(tasks);
-    }
-
-    /**
-     * This is the isBye method that returns whether the command is "bye".
-     *
-     * @return False because the command is "delete".
-     */
-    @Override
-    public boolean isBye() {
-        return false;
     }
 
     @Override

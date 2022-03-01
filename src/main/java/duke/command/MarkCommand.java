@@ -22,8 +22,7 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * This is the execute method that runs when there is a mark command.
-     * The method will identify the task to be marked and proceeds to mark it as done.
+     * Runs when there is a mark command by identify the task to be marked and proceeds to mark it as done.
      * It will then print the confirmation for marking the task and updates the file.
      *
      * @param tasks The TaskList object that contains the list of tasks.
@@ -36,20 +35,19 @@ public class MarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, AdditionalException {
         int indexToMark = Parser.getIndex(fullCommand);
         Task taskToMark = tasks.getTask(indexToMark);
-        taskToMark.markAsDone();
+        taskToMark.setDone();
         ui.showMarkCompleted(taskToMark);
         storage.saveAll(tasks);
     }
 
     /**
-     * This is the executeFromFile method that takes in the list of tasks.
-     * It then marks the last task of the list of tasks to be done.
+     * Marks the task that is just added from the file as done.
      *
      * @param listOfTasks The list of tasks where the last task is to be marked as done.
      */
     @Override
     public void executeFromFile(ArrayList<Task> listOfTasks) {
         Task task = listOfTasks.get(listOfTasks.size() - 1);
-        task.markAsDone();
+        task.setDone();
     }
 }

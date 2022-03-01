@@ -23,9 +23,8 @@ public class DateCommand extends Command {
     }
 
     /**
-     * This is the execute method that runs when there is a date command.
-     * The method will search through the list of tasks that is stored in the TaskList tasks and print the tasks
-     * that match the date which the user input.
+     * Runs when there is a date command by searching through the list of tasks and print the tasks
+     * that match the date which the user inputted.
      *
      * @param tasks The TaskList object that contains the list of tasks.
      * @param ui The user interface object that allows for printing of the confirmation message.
@@ -40,22 +39,12 @@ public class DateCommand extends Command {
         ui.showList(listOfTasks);
     }
 
-    /**
-     * This is the isBye method that returns whether the command is "bye".
-     *
-     * @return False because the command is "date".
-     */
-    @Override
-    public boolean isBye() {
-        return false;
-    }
-
     @Override
     public void executeFromFile(ArrayList<Task> listOfTasks) throws AdditionalException {
     }
 
     /**
-     * This is the getDate method that gets the date the user is requesting to search for.
+     * Rets the date the user is requesting to search for.
      *
      * @return The date that to be searched for.
      * @throws AdditionalException If the date is in an incorrect format.
@@ -71,8 +60,7 @@ public class DateCommand extends Command {
     }
 
     /**
-     * This is the getListOfSameDates method that returns a list of tasks with the same date amongst the tasks
-     * in the list of tasks.
+     * Returns a list of tasks with the same date amongst the tasks in the list of tasks.
      *
      * @param date The date that is to be compared with the date of tasks.
      * @return The list of tasks with the same date.
@@ -86,8 +74,7 @@ public class DateCommand extends Command {
     }
 
     /**
-     * This is the addToList method that takes in the list of tasks with same date and passes it to the addIfSameDate
-     * method when there is a task, with the same date of the user input, in the list of tasks.
+     * Determines if the task is a deadline task or an event task and adds the task to the list of tasks accordingly.
      *
      * @param tasksWithSameDate The list of tasks with the same date.
      * @param date The date that is to be compared with the date of tasks.
@@ -110,8 +97,7 @@ public class DateCommand extends Command {
     }
 
     /**
-     * This is the addIfSameDate method that takes in the list of tasks with same date and adds the task to the
-     * list of tasks with same date when the date matches.
+     * Adds the task to the list of tasks with the same date when the date matches.
      *
      * @param tasksWithSameDate The list of tasks with the same date.
      * @param date The date that is to be compared with the date of the tasks.

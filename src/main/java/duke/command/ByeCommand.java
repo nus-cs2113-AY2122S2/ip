@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class ByeCommand extends Command {
 
     /**
-     * This is the isBye method that returns whether the command is "bye".
+     * Returns true given that the command is "bye".
      *
      * @return True because the command is "bye".
      */

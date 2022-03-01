@@ -15,8 +15,8 @@ import java.util.ArrayList;
 public abstract class Command {
 
     /**
-     * This is the isBye method that returns false if the command is not "bye".
-     * By default, the method returns bye and is only overridden by the ByeCommand.
+     * Returns false if the command is not "bye".
+     * By default, the method returns false and is only overridden by the ByeCommand.
      *
      * @return false by default.
      */

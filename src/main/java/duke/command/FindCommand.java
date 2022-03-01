@@ -21,9 +21,8 @@ public class FindCommand extends Command {
     }
 
     /**
-     * This is the execute method that runs when there is a find command.
-     * The method will search through the list of tasks that is stored in the TaskList tasks and print the tasks
-     * that match the keyword which the user input.
+     * Runs when there is a find command by searching through the list of tasks prints the tasks
+     * that match the keyword which the user inputted.
      *
      * @param tasks The TaskList object that contains the list of tasks.
      * @param ui The user interface object that allows for printing of the list of tasks.
@@ -42,9 +41,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * This is the getTasks method that searches through the tasks in the TaskList.
-     * It creates a new list of tasks and adds the tasks that contain the keyword.
-     * After searching and adding the tasks, it then returns the list of tasks.
+     * Searches through the list of tasks and returns the list of tasks that contain the keyword.
      *
      * @param tasks The TaskList object that contains the list of tasks.
      * @param ui The user interface object that allows for printing when no results are found.
@@ -64,8 +61,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * This is the addTaskIfContains method that checks if the description of the task contains the keyword.
-     * If it contains, the method will add the task to the list of tasks.
+     * Checks if the description of the task contains the keyword, then adds the tasks to a list.
      *
      * @param keyword The keyword that the user input.
      * @param listOfTasks The list of tasks with tasks which description matches the keyword.

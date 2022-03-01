@@ -29,9 +29,8 @@ public class EventCommand extends Command {
     }
 
     /**
-     * This is the execute method that runs when there is an event command.
-     * The method will add the task to the list of tasks in the TaskList object.
-     * It will then print the confirmation for adding the task and updates the file.
+     * Runs when there is an event command by adding the event task to the list of tasks.
+     * It will then print the confirmation for adding the event task and updates the file.
      *
      * @param tasks The TaskList object that contains the list of tasks.
      * @param ui The user interface object that allows for printing of the confirmation message.
@@ -62,7 +61,7 @@ public class EventCommand extends Command {
     }
 
     /**
-     * This is the executeFromFile method that takes in a list of tasks and adds a new event task to the list of tasks.
+     * Adds a new event task from the file to the list of tasks.
      *
      * @param listOfTasks This is the list of tasks that the new task is to be added to.
      * @throws AdditionalException If there is no description provided in the fullCommand.
