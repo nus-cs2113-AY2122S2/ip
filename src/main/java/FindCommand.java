@@ -11,7 +11,7 @@ public class FindCommand extends Command {
 
     public void execute(ArrayList<Task> taskList, UiManager uiManager, TaskFileManager fileManager) throws DukeWrongCommandException {
         ArrayList<Task> taskFound = (ArrayList<Task>) taskList.stream()
-                .filter((t) -> t.getTaskName().contains(searchInput))
+                .filter((t) -> t.getTaskName().toLowerCase().contains(searchInput))
                 .collect(toList());
         if (taskFound.isEmpty()) {
             uiManager.printMessage("Opps! There is no search result found in wishlist");

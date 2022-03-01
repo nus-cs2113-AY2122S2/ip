@@ -1,3 +1,5 @@
+import java.util.Locale;
+
 public class CommandParser {
     static final public String BYE = "bye";
     static final public String LIST = "list";
@@ -64,7 +66,7 @@ public class CommandParser {
     private FindCommand findTask(String userInput) throws DukeWrongCommandException {
         String description = "";
         try {
-            description = deriveDescription(userInput, FIND);
+            description = deriveDescription(userInput, FIND).toLowerCase();
         } catch (DukeEmptyStringException e) {
             throw new DukeWrongCommandException("The search input for wish: cannot be empty");
         }
