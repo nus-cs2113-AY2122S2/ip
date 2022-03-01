@@ -100,7 +100,6 @@ public class TaskList {
      * @throws DukeException
      */
     public Task addTodo(String params) throws DukeException {
-        Ui.printEmptyDescription();
         if (params.strip().length() == 0) {
             Ui.printEmptyDescription();
             return null;
@@ -198,10 +197,12 @@ public class TaskList {
 
     /**
      * Removes a task based on it's positional index in the list
-     * @param idx Integer index of task to remove 
+     * @param idx Integer index of task to remove
+     * @return removed the removed task
      */
-    public void removeTaskByIdx(Integer idx){
-        taskList.remove(idx);
+    public Task removeTaskByIdx(int idx){
+        Task removed = taskList.remove(idx);
+        return removed;
     }
 
 
