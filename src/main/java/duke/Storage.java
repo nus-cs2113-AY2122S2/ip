@@ -6,17 +6,30 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Handles the saving and loading of tasks
+ */
 public class Storage {
     private String filePath;
     private String directoryPath;
     private TaskList taskList;
 
+    /**
+     * Initialise storage with necessary parameters
+     * @param filePath name of file
+     * @param directoryPath where the file is going to be stored
+     * @param taskList list of tasks in current session of application
+     */
     public Storage(String filePath, String directoryPath, TaskList taskList){
         this.filePath = filePath;
         this.directoryPath = directoryPath;
         this.taskList = taskList;
     }
 
+    /**
+     * Loads the list of tasks into application from saved file, and creates a new file if no file is found
+     */
+    // Solution below adapted from https://nus-cs2113-ay2122s2.github.io/website/schedule/week6/topics.html#W6-3
     public void loadTasks(){
         try{
             File f = new File(filePath); // create a File for the given file path
@@ -32,6 +45,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads a line from the saved file and uses it to load the list of tasks
+     * @param taskDetails line from saved file which specifies the task to be loaded
+     */
     public void readTaskFromFile(String taskDetails){
         String[] task = taskDetails.split("\\|");
         switch (task[0]) {
@@ -50,6 +67,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a new file for data to be stored into
+     * @param filepath storage location of file
+     */
+    // Solution below adapted from https://stackoverflow.com/questions/28947250/create-a-directory-if-it-does-not-exist-and-then-create-the-files-in-that-direct
     public void createNewFile(String filepath){
         try {
             File taskFile = new File(filepath);
@@ -64,6 +86,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Translates each task in the current list of tasks into individual strings to be written into data file
+     */
+    // Solution below adapted from https://nus-cs2113-ay2122s2.github.io/website/schedule/week6/topics.html#W6-3
     public void saveTasks(){
         FileWriter writer;
         String description;
@@ -82,6 +108,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Formats the task details such that it is easy for reading from the file when loading
+     * @param description unformatted description of task
+     * @return formatted description of task
+     */
     public String formatDescDate(String description){
         String formattedDesc;
         int startOfDate, endOfDate;

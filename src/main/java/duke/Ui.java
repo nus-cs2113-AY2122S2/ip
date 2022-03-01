@@ -1,8 +1,12 @@
 package duke;
 
-import java.util.Scanner;
-
+/**
+ * Handles UI that is shown to user
+ */
 public class Ui {
+    /**
+     * Shows welcome message to user
+     */
     public void showWelcome(){
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -16,6 +20,9 @@ public class Ui {
         System.out.println("================================================");
     }
 
+    /**
+     * Shows goodbye message to user before termination of application
+     */
     public void showGoodbye(){
         System.out.println("Bye. Hope to see you again soon!");
     }
