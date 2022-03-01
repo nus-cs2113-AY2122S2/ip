@@ -9,7 +9,7 @@ public class Task {
 
     @Override
     public String toString(){
-        return ("[T][" + getStatusIcon() + "] " + getDescription() + "\n");
+        return ("[T][" + getStatusIcon() + "] " + getDescription());
     }
 
     public String getStatusIcon(){

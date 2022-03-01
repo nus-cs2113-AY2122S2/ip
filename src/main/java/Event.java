@@ -7,7 +7,7 @@ public class Event extends Task{
     }
 
     public String toString(){
-        return ("[E][" + getStatusIcon() + "] " + getDescription() + " (at: " + getAt() +")\n");
+        return ("[E][" + getStatusIcon() + "] " + getDescription() + " (at: " + getAt() +")");
     }
 
     public String getAt() {

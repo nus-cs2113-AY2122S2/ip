@@ -8,7 +8,7 @@ public class Deadline extends Task{
 
     @Override
     public String toString(){
-        return ("[D][" + getStatusIcon() + "] " + getDescription() + " (by: " + getBy() +")\n");
+        return ("[D][" + getStatusIcon() + "] " + getDescription() + " (by: " + getBy() +")");
     }
 
     public String getBy() {
