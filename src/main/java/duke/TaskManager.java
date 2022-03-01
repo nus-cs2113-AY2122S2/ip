@@ -6,6 +6,10 @@ import java.util.Scanner;
 
 import static java.util.stream.Collectors.toList;
 
+/**
+ * Task Manager that manage all the task given by the user command
+ * and retrieves task stored in the given text file.
+ */
 public class TaskManager implements Serializable {
     private static final String LIST = "list";
     private static final String TODO = "todo";
@@ -23,6 +27,11 @@ public class TaskManager implements Serializable {
 
     private static File duke;
 
+    /**
+     * A TaskManager constructor that retrieves all the task stored in the given file
+     * and interpret user command.
+     * @param file the given file.
+     */
     public TaskManager(File file) {
         if (this.duke.length() != 0) {
             readFileContent(file);
@@ -30,6 +39,12 @@ public class TaskManager implements Serializable {
         readUserInputUntilExit();
     }
 
+    /**
+     * A method call to interpret the user command
+     * @param command the representation of the command type
+     * @param commandArg the command description
+     * @throws DukeException if the user input the command line incorrectly.
+     */
     private void taskDecoder(String command, String commandArg) throws DukeException {
         switch(command) {
         case LIST:
@@ -161,6 +176,11 @@ public class TaskManager implements Serializable {
         return filteredList;
     }
 
+    /**
+     * Locate and return the Task object given by the indices according to its stored position.
+     * @param commandArg the index of the Task object in the stored ArrayList.
+     * @return the task object
+     */
     private Task getTask(String commandArg) {
         return allTasks.get(Integer.parseInt(commandArg) - 1);
     }
