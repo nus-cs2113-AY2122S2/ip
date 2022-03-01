@@ -64,21 +64,38 @@ public class Parser {
         return cmd;
     }
 
-    private static Command prepareTodo(String description) {
+    private static Command prepareTodo(String description) throws DukeException {
+        if(description.isEmpty()) {
+            throw new DukeException("Todo description is unspecified.");
+        }
         return new TodoCommand(description);
     }
 
-    private static Command prepareDeadline(String fullDescription) {
-        String[] descriptions = fullDescription.split("/by", 2);
-        String description = descriptions[0].trim();
-        String by = descriptions[1].trim();
-        return new DeadlineCommand(description, by);
+    private static Command prepareDeadline(String fullDescription) throws DukeException {
+        try {
+            String[] descriptions = fullDescription.split("/by", 2);
+            String description = descriptions[0].trim();
+            String by = descriptions[1].trim();
+            if(description.isEmpty() || by.isEmpty()) {
+                throw new DukeException("Deadline description is unspecified.");
+            }
+            return new DeadlineCommand(description, by);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("Deadline description is unspecified.");
+        }
     }
 
-    private static Command prepareEvent(String fullDescription) {
-        String[] descriptions = fullDescription.split("/at", 2);
-        String description = descriptions[0].trim();
-        String at = descriptions[1].trim();
-        return new EventCommand(description, at);
+    private static Command prepareEvent(String fullDescription) throws DukeException {
+        try {
+            String[] descriptions = fullDescription.split("/at", 2);
+            String description = descriptions[0].trim();
+            String at = descriptions[1].trim();
+            if(description.isEmpty() || at.isEmpty()) {
+                throw new DukeException("Event description is unspecified.");
+            }
+            return new EventCommand(description, at);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("Event description is unspecified.");
+        }
     }
 }

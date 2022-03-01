@@ -5,10 +5,10 @@ import common.DukeException;
 import java.util.ArrayList;
 
 public class TaskManager {
-    private ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks;
 
     public TaskManager() {
-
+        tasks = new ArrayList<>();
     }
 
     public TaskManager(ArrayList<Task> tasks) {
@@ -26,35 +26,6 @@ public class TaskManager {
     public int getNoOfTasks () {
         return tasks.size();
     }
-
-
-//    public void addTask(String option, String taskDescription) throws DukeException{
-//        if(option.equals("todo")) {
-//            taskDescription = taskDescription.trim();
-//            tasks.add(new Todo(taskDescription));
-//            return;
-//        }
-//
-//        if(option.equals("deadline")) {
-//            try {
-//                String[] descriptions = taskDescription.split("/by", 2);
-//                descriptions[0] = descriptions[0].trim();
-//                descriptions[1] = descriptions[1].trim();
-//                tasks.add(new Deadline(descriptions[0], descriptions[1]));
-//            } catch (IndexOutOfBoundsException e) {
-//                throw new DukeException("Deadline is not specified.");
-//            }
-//        } else if(option.equals("event")) {
-//            try {
-//                String[] descriptions = taskDescription.split("/at", 2);
-//                descriptions[0] = descriptions[0].trim();
-//                descriptions[1] = descriptions[1].trim();
-//                tasks.add(new Event(descriptions[0], descriptions[1]));
-//            } catch (IndexOutOfBoundsException e){
-//                throw new DukeException("Event time is not specified.");
-//            }
-//        }
-//    }
 
     public Task getTask(int idx) throws DukeException {
         if(idx <= 0 || idx > tasks.size()) {
