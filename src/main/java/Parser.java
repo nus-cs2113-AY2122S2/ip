@@ -115,7 +115,7 @@ public class Parser {
 
     /**
      * Convert string from stored file to ArrayList of elements. If the type tag is recognised, items returned will be in the order:
-     * <p>
+     *
      * 1. type tag, character 'T', 'D' or 'E'
      * 2. completion string, 'true' or 'false'
      * 3. task information
