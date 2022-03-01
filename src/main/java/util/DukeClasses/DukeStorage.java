@@ -12,13 +12,27 @@ import java.util.Scanner;
 
 import static util.DukeClasses.DukeUI.loadAndRun;
 
+/**
+ * Implements the code to save and load data
+ */
 public class DukeStorage implements Chatbot {
+    /**
+     * Check if the file exists and create a new file if it does not
+     *
+     * @throws IOException Error occurs when creating a new file
+     */
     public static void checkFilePath() throws IOException {
         File file = new File(FILEPATH);
         file.getParentFile().mkdirs();
         file.createNewFile();
     }
 
+    /**
+     * Save the data to a file
+     *
+     * @param tasks The tasks user adds
+     * @throws IOException error occurs saving the data to file
+     */
     public static void saveToFile(ArrayList<Task> tasks) throws IOException {
         FileWriter writer = new FileWriter(FILEPATH);
         for (int i = 0; i < tasks.size(); i++) {
@@ -28,6 +42,11 @@ public class DukeStorage implements Chatbot {
         writer.close();
     }
 
+    /**
+     * Run the process of saving data to a file and check for error
+     *
+     * @param tasks The tasks user adds
+     */
     public static void saveData(ArrayList<Task> tasks) {
         try {
             checkFilePath();
@@ -37,6 +56,11 @@ public class DukeStorage implements Chatbot {
         }
     }
 
+    /**
+     * Load the data from the file to a DukeTaskList object
+     *
+     * @param tasks The list of tasks that user adds
+     */
     public static void loadData(DukeTaskList tasks) {
         try {
             File file = new File(FILEPATH);
