@@ -79,7 +79,7 @@ public class Controller {
     /**
      * Listen the instruction and operate during the session
      */
-    public void listen() throws Exception {
+    public void listen() throws DukeExceptions {
                 Scanner msg = new Scanner(System.in);
                 this.recvMsg = msg.nextLine();
                 try {

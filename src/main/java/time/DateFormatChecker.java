@@ -5,9 +5,9 @@ import exceptions.IllegalTimeFormatException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.*;
-import java.util.concurrent.ScheduledExecutorService;
+import java.util.Arrays;
+import java.util.List;
+
 
 public class DateFormatChecker extends Time {
     private static final List<String> formatStrings =

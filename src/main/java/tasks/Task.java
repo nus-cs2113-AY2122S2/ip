@@ -18,7 +18,7 @@ public class Task {
     }
 
     public void setListName(){
-        if(isDone == false){
+        if(!isDone){
             this.listName = this.unmarkedStatus + this.taskName;
         }else{
             this.listName = this.markedStatus + this.taskName;

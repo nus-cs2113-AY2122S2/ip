@@ -1,10 +1,6 @@
 package tasks;
 
-import UI.*;
 import exceptions.*;
-
-import java.time.LocalDate;
-import java.util.Date;
 
 public class TaskManager {
     Storage Tasks = new Storage();
@@ -16,10 +12,11 @@ public class TaskManager {
     protected static final String DELETE_RESPONSE = "ψ(._. )> Okay! I've deleted this task:\n";
     protected static final String NOT_FOUND_RESPONSE = "(￣ε￣；) Sorry, I can't find any result from the list.";
     protected static final String FOUND_RESPONSE = "o(≧v≦)o Here are the matching tasks in your list:";
-    Chatbox chatbox = new Chatbox();
 
     public String taskNumberMsg(int taskNumber){
-        return "Now you have " + taskNumber + " tasks in your list.";
+        StringBuilder content = new StringBuilder();
+        content.append("Now you have ").append(taskNumber).append(" tasks in your list.");
+        return content.toString();
     }
     public void saveTask() throws DukeExceptions {
         Tasks.saveTask();
@@ -33,25 +30,14 @@ public class TaskManager {
         Tasks.createFile();
     }
     /**
-     * Adds a general task in the list
-     * @param name refers to the name of the task
-     */
-    public void addTask(String name) {
-        Task newTask = new Task(name);
-        Tasks.add(newTask);
-        chatbox.setContent("added: " + name);
-        chatbox.chatboxPrinter();
-    }
-
-    /**
      * Adds a deadline task to the list
      * @param name refers to the name of the task
      * @param by refers to the deadline of the task
      */
-    public String addDeadline(String name, String by) throws Exception{
+    public String addDeadline(String name, String by) {
         Deadline newDeadline = new Deadline(name, by);
         Tasks.add(newDeadline);
-        int s = Tasks.size();
+        int s = Tasks.getSize();
         return ADD_RESPONSE + newDeadline.getListName() +
                 "\n" + this.taskNumberMsg(s);
     }
@@ -61,12 +47,13 @@ public class TaskManager {
      * @param name refers to the name of the task
      * @param at refers to the happening time of the event
      */
-    public String addEvent(String name, String at) throws Exception{
+    public String addEvent(String name, String at) {
+        StringBuilder content = new StringBuilder(ADD_RESPONSE);
         Event newEvent = new Event(name, at);
         Tasks.add(newEvent);
-        int s = Tasks.size();
-        return ADD_RESPONSE + newEvent.getListName() +
-                "\n" + this.taskNumberMsg(s);
+        int s = Tasks.getSize();
+        content.append(newEvent.getListName()).append("\n").append(this.taskNumberMsg(s));
+        return content.toString();
     }
 
     /**
@@ -74,88 +61,93 @@ public class TaskManager {
      * @param name refers to the name of the todo task
      */
     public String addToDo(String name) {
+        StringBuilder content = new StringBuilder(ADD_RESPONSE);
         ToDo newToDo = new ToDo(name);
         Tasks.add(newToDo);
-        int s = Tasks.size();
-        return ADD_RESPONSE + newToDo.getListName() + "\n" +
-                this.taskNumberMsg(s);
+        int s = Tasks.getSize();
+        content.append(newToDo.getListName()).append("\n").append(this.taskNumberMsg(s));
+        return  content.toString();
     }
 
     /**
      * Lists all tasks in the list with adding time order
      */
     public String listTask() throws DukeExceptions{
-        if(Tasks.size() == 0){
+        if(Tasks.getSize() == 0){
             throw new EmptyListException();
         }else {
-            String content = LIST_RESPONSE;
-            for (int i = 0; i < Tasks.size(); i++) {
+            StringBuilder content = new StringBuilder(LIST_RESPONSE);
+            for (int i = 0; i < Tasks.getSize(); i++) {
                 String index = String.valueOf(i + 1);
                 String name = index + ". " + Tasks.get(i).getListName();
-                content += name;
-                if(i < Tasks.size() - 1){
-                    content += "\n";
+                content.append(name);
+                if(i < Tasks.getSize() - 1){
+                    content.append("\n");
                 }
             }
-            return content;
+            return content.toString();
         }
 
     }
 
     /**
      * Marks specific task in the list as done
-     * @param n refers to the index of the task in adding time order
+     * @param indexOfTask refers to the indexOfTask of the task in adding time order
      */
-    public String markTask(int n) throws DukeExceptions{
-        System.out.println(n);
-        if(n < 1 || n > Tasks.size()) {
+    public String markTask(int indexOfTask) throws DukeExceptions{
+        if(isOutOfBoundary(indexOfTask)) {
             //Beyonds boundaries
             throw new IllegalIndexException();
         }else {
-            Tasks.get(n - 1).mark();
-            return MARK_RESPONSE + Tasks.get(n - 1).listName;
+            Tasks.get(indexOfTask - 1).mark();
+            return MARK_RESPONSE + Tasks.get(indexOfTask - 1).listName;
         }
     }
 
     /**
      * Unmarks specific task in the list as undone
-     * @param n refers to the index of the task in adding time order
+     * @param indexOfTask refers to the indexOfTask of the task in adding time order
      */
-    public String unmarkTask(int n) throws DukeExceptions{
-        if(n < 1 || n > Tasks.size()){
+    public String unmarkTask(int indexOfTask) throws DukeExceptions{
+        if(isOutOfBoundary(indexOfTask)){
             throw new IllegalIndexException();
         }else {
-            Tasks.get(n - 1).unmark();
-            return UNMARK_RESPONSE + Tasks.get(n - 1).listName;
+            Tasks.get(indexOfTask - 1).unmark();
+            return UNMARK_RESPONSE + Tasks.get(indexOfTask - 1).listName;
 
         }
     }
 
-    public String deleteTask(int n) throws DukeExceptions{
-        if(n < 1 || n > Tasks.size()) {
+    private boolean isOutOfBoundary(int indexOfTask) {
+        return indexOfTask < 1 || indexOfTask > Tasks.getSize();
+    }
+
+
+    public String deleteTask(int indexOfTask) throws DukeExceptions{
+        if(isOutOfBoundary(indexOfTask)) {
             //Beyonds boundaries
             throw new IllegalIndexException();
         }else {
-            String content =  DELETE_RESPONSE + Tasks.get(n - 1).listName;
-            Tasks.remove(n-1);
-            int s = Tasks.size();
+            String content =  DELETE_RESPONSE + Tasks.get(indexOfTask - 1).listName;
+            Tasks.remove(indexOfTask-1);
+            int s = Tasks.getSize();
             content += "\n" + this.taskNumberMsg(s);
             return content;
         }
     }
 
     public String searchTask(String keywords) throws DukeExceptions{
-        if(Tasks.size() == 0){
+        if(Tasks.getSize() == 0){
             throw new EmptyListException();
         }else {
-            String content = "";
+            StringBuilder content = new StringBuilder();
             int count  = 0;
-            for (int i = 0; i < Tasks.size(); i++) {
-                if (Tasks.get(i).getListName().contains(keywords)) {
-                    content += "\n";
+            for (int i = 0; i < Tasks.getSize(); i++) {
+                if (Tasks.get(i).getTaskName().contains(keywords)) {
+                    content.append("\n");
                     String index = String.valueOf(count + 1);
                     String name = index + ". " + Tasks.get(i).getListName();
-                    content += name;
+                    content.append(name);
                     count ++;
                 }
             }

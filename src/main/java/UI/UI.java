@@ -1,7 +1,5 @@
 package UI;
 
-import exceptions.DukeExceptions;
-
 public class UI {
     protected static final String HELLO_WORDS = "Hello! I'm Duke :P\nWhat can I do for you?";
     protected static final String GOODBYE_WORDS = "Bye. Hope to see you again soon! ;)";
