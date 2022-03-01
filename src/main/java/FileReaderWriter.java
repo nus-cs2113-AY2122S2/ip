@@ -23,13 +23,13 @@ public class FileReaderWriter {
      */
     public static void writeToFile(ArrayList<Task> taskList) {
         try {
-            FileWriter fw = new FileWriter(FILE_NAME);
+            FileWriter fileWriter = new FileWriter(FILE_NAME);
             for (Task task : taskList) {
-                fw.write(task.toString() + System.lineSeparator());
+                fileWriter.write(task.toString() + System.lineSeparator());
             }
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+            fileWriter.close();
+        } catch (IOException exception) {
+            System.out.println("Something went wrong: " + exception.getMessage());
         }
     }
 
@@ -41,15 +41,15 @@ public class FileReaderWriter {
     public static ArrayList<String> readFromFile() {
         ArrayList<String> oldList = new ArrayList<>();
         try {
-            File f = new File(FILE_NAME);
-            Scanner s = new Scanner(f);
-            while (s.hasNext()) {
-                String line = s.nextLine();
+            File file = new File(FILE_NAME);
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                String line = scanner.nextLine();
                 if (!line.equals("")) {
                     oldList.add(line);
                 }
             }
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException exception) {
             System.out.println("File not found!");
             return oldList;
         }

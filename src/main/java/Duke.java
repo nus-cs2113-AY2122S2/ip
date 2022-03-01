@@ -27,7 +27,7 @@ public class Duke {
 
     public static void main(String[] args) {
 
-        Scanner s = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         InputReader inputReader = new InputReader();
         FileReaderWriter fileReaderWriter = new FileReaderWriter();
 
@@ -58,7 +58,7 @@ public class Duke {
 
         while (true) {
 
-            String input = s.nextLine().trim();
+            String input = scanner.nextLine().trim();
 
             if (input.equals("bye")) {
                 break;
