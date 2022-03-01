@@ -28,15 +28,14 @@ public class Ui {
     }
 
     /**
-     * This is the showLoadingError method that prints the error message when the file to be read from does not
-     * exist.
+     * Prints the error message when the file to be read from does not exist.
      */
     public void showLoadingError() {
         System.out.println("Duke.txt doesn't exist so I'M GOING TO CREATE ONE FOR YOU LATER");
     }
 
     /**
-     * This is the printGreeting method that prints out greeting message and the logo of Duke.
+     * Prints out greeting message and the logo of Duke.
      */
     public void printGreeting() {
         System.out.println("Hello from\n" + LOGO);
@@ -47,7 +46,7 @@ public class Ui {
     }
 
     /**
-     * This is the readCommand method that reads the user input from the command line.
+     * Reads the user input from the command line.
      *
      * @return The user input as a String.
      */
@@ -56,7 +55,7 @@ public class Ui {
     }
 
     /**
-     * This is the printGoodbye method that prints the goodbye message.
+     * Prints the goodbye message.
      */
     public void printGoodbye() {
         System.out.println("Bye! Hope to see you soon :D");
@@ -70,7 +69,7 @@ public class Ui {
     }
 
     /**
-     * This is the showError method that prints the error message.
+     * Prints the error message.
      *
      * @param message The error message to be printed.
      */
@@ -86,7 +85,7 @@ public class Ui {
     }
 
     /**
-     * This is the showMarkCompleted method that prints the confirmation that a task has been marked as done.
+     * Prints the confirmation that a task has been marked as done.
      *
      * @param taskMarked The task that is marked as done.
      */
@@ -96,7 +95,7 @@ public class Ui {
     }
 
     /**
-     * This is the showUnmarkCompleted method that prints the confirmation that a task has been marked as NOT done.
+     * Prints the confirmation that a task has been marked as NOT done.
      *
      * @param taskUnmarked The task that is marked as NOT done.
      */
@@ -106,7 +105,7 @@ public class Ui {
     }
 
     /**
-     * This is the showDeleteDone method that prints the confirmation that a task has been deleted.
+     * Prints the confirmation that a task has been deleted.
      *
      * @param taskDeleted The task that is deleted.
      * @param numberOfTasks The number of tasks left in the list of tasks.
@@ -118,7 +117,7 @@ public class Ui {
     }
 
     /**
-     * This is the showAddDone method that prints the confirmation that a task has been added.
+     * Prints the confirmation that a task has been added.
      *
      * @param task The task that is added.
      * @param numberOfTasks The number of tasks in the list of tasks.
@@ -130,31 +129,28 @@ public class Ui {
     }
 
     /**
-     * This is the showIndexError method that prints the error message when the index is out of range.
+     * Prints the error message when the index is out of range.
      */
     public void showIndexError() {
         System.out.println("The index is out of range, please try again.");
     }
 
     /**
-     * This is the showFormatError method that prints the error message when the user input should be an integer
-     * rather than a String.
+     * Prints the error message when the user input should be an integer rather than a word or sentence.
      */
     public void showFormatError() {
         System.out.println("The index should be an integer, please try again.");
     }
 
     /**
-     * This is the showNoResults method that prints the error message when the keyword cannot be found in any of the
-     * tasks.
+     * Prints the error message when the keyword cannot be found in any of the tasks.
      */
     public void showNoResults() {
         System.out.println("I'm afraid that it is a 404 not found kinda scenario");
     }
 
     /**
-     * This is the showDateError method that prints the error message when the date which the user input is in the
-     * incorrect format.
+     * Prints the error message when the date which the user inputted is in the incorrect format.
      */
     public void showDateError() {
         System.out.println("Please input the date in the following format: yyyy-mm-dd");

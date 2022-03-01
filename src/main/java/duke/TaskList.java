@@ -1,11 +1,8 @@
 package duke;
 
 import duke.exception.AdditionalException;
-import duke.task.Deadline;
-import duke.task.Event;
 import duke.task.Task;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -24,7 +21,7 @@ public class TaskList {
     }
 
     /**
-     * This is the getList method that returns this TaskList's list of tasks.
+     * Returns this TaskList's list of tasks.
      * If the list is empty, an AdditionalException will be raised.
      *
      * @return This TaskList's list of tasks.
@@ -39,7 +36,7 @@ public class TaskList {
     }
 
     /**
-     * This is the getTask method that returns the task stored a particular index.
+     * Returns the task stored a particular index.
      *
      * @param index the index of the task to be returned from the list of tasks.
      * @return The task stored at a particular index.
@@ -49,7 +46,7 @@ public class TaskList {
     }
 
     /**
-     * This is the getSize method that returns the number of tasks stored in the list of tasks.
+     * Returns the number of tasks stored in the list of tasks.
      *
      * @return The number of tasks stored in the list of tasks.
      */
@@ -58,7 +55,7 @@ public class TaskList {
     }
 
     /**
-     * This is deleteTask method that deletes the task stored at a particular index.
+     * Deletes the task stored at a particular index.
      *
      * @param indexToDelete The index of the task to be deleted from the list of tasks.
      */
@@ -67,7 +64,7 @@ public class TaskList {
     }
 
     /**
-     * This is the addTask method that adds a task at the end of the list of tasks.
+     * Adds a task at the end of the list of tasks.
      *
      * @param task The task to be added to the list of tasks.
      */
