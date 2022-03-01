@@ -40,7 +40,7 @@ public class Parser {
             String input = this.in.nextLine();
             String[] cmd = input.split(" ");
             String main_cmd = cmd[0];
-            System.out.println(main_cmd);
+//            System.out.println(main_cmd);
             if (cmd.length == 0) {
                 Ui.printEmptyInput();
                 continue;
@@ -104,7 +104,7 @@ public class Parser {
      * @param cmd list of cmdlline pararms and comamands
      * */
     private void handleAdd(String input, String[] cmd) throws DukeException {
-        System.out.println("handleAdd");
+//        System.out.println("handleAdd");
 //        System.out.println(cmd);
         if (cmd.length < 2) {
 //            throw new DukeException("☹ OOPS!!! I'm sorry, but delete requires an index");
@@ -120,7 +120,7 @@ public class Parser {
             return;
         }
         String params = input.substring(removeSubstrlength);
-        System.out.println("params: " + params);
+//        System.out.println("params: " + params);
         if (sub_cmd.equals("todo")) {
             newTask = tasks.addTodo(params);
         } else if (sub_cmd.equals("deadline")) {
