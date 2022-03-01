@@ -1,0 +1,9 @@
+list
+todo read book
+deadline return book /by Sunday
+event Project Meeting /at Mon 3-6pm
+list
+mark 2
+list
+deadline rcg wgr e ge rg tg t hc h  h  \\\   /By Tuesday
+bye
