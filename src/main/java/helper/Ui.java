@@ -86,7 +86,7 @@ public class Ui {
 
     public void printHelp() {
         print("It seems like you need some help! Fret not I am here to save the day!\n"
-            + "There are 11 commands that you can use to tell me what to do.\n"
+            + "There are 12 commands that you can use to tell me what to do.\n"
             + "I have listed them below and provided examples on how you should use them.\n\n"
             +"1. help\n"
             +"The help command brings you to this page where you can figure out how to use Duke.\n\n"
@@ -116,9 +116,12 @@ public class Ui {
             + "You can use the delete command to delete a task from the list. Delete takes in a positive integer as a parameter.\n"
             + "All deleted tasks are sent to the bin which are them permanently destroyed on the exit of the app.\n"
             + "(for e.g: delete 4)\n\n"
-            + "10. bin\n"
+            + "10. retrieve\n"
+            + "You can use the retrieve command to recover a task from the bin. Retrieve takes in a positive integer as a parameter.\n"h
+            + "(for e.g: retrieve 1)\n\n"
+            + "11. bin\n"
             + "You can view items you have deleted by saying bin.\n\n"
-            +"11. bye\n"
+            +"12. bye\n"
             + "You can exit the application at any point in time by saying bye.\n\n");
     }
 

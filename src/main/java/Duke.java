@@ -83,6 +83,13 @@ public class Duke {
                     ui.manageExceptions(numberFormatException);
                 }
                 break;
+            case "retrieve":
+                try {
+                    taskManager.retrieveTask(parser.parseDelete(taskName));
+                } catch (NumberFormatException numberFormatException) {
+                    ui.manageExceptions(numberFormatException);
+                }
+                break;
             case "bin":
                 taskManager.printDeletedTasks();
                 break;

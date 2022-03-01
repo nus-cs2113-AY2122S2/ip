@@ -121,6 +121,21 @@ public class TaskManager {
         storage.saveData();
     }
 
+    // Method to retrieve a single task from the bin
+    // @param (number) (number refers to the indexing(1-based) of that particular task in the list)
+    // throws NumberFormatException when number does not fall within acceptable range
+    public void retrieveTask(int number) throws NumberFormatException {
+        if (number > bin.size || number < 1) {
+            throw new NumberFormatException();
+        } else {
+            ui.print("The following task has been retrieved from the rubbish bin.");
+            ui.print(bin.getTask(number));
+            ui.printCont("You can say \"list\" to view all your saved items.");
+            tasks.add(bin.getTask(number), true);
+            bin.delete(number);
+        }
+    }
+
     // Method to print all tasks in list
     public void printTasks() {
         if (tasks.size == 0) {
@@ -141,6 +156,8 @@ public class TaskManager {
         }
     }
 
+
+    //Method to find task by name
     public void findTask(String key) {
         ui.print("Following tasks matches your search");
         boolean hasPassed = false;
