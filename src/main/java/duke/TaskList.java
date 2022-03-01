@@ -19,9 +19,15 @@ import java.util.ArrayList;
 import java.util.List;
 import duke.Storage;
 
+/**
+ * TaskList class that handles Create, Read, Update and Delete operations on a list of tasks 
+ */
 public class TaskList {
     private List<Task> taskList;
     private Storage fileClass;
+    /**
+     * Sets up lists of tasks and load tasks from save file to it.
+     */
     public TaskList(){
         taskList = new ArrayList<Task>();
         fileClass = new Storage();
@@ -36,6 +42,10 @@ public class TaskList {
         this.taskList = taskList;
     }
 
+    /**
+     * Gets the number of tasks on the list (both done and not done)
+     * @return length of task list
+     */
     public Integer getTaskListSize() {
         return taskList.size();
     }
@@ -60,11 +70,14 @@ public class TaskList {
         }
     }
 
-    public void loadTaskList() {
+    private void loadTaskList() {
         String saveStr = fileClass.readSaveFile();
         parseJSONTasks(saveStr);
     }
 
+    /**
+     * Saves current state of task list to save file
+     */
     public void saveTaskList(){
         String storeStr = serializeTaskList();
         fileClass.writeSaveFile(storeStr);
@@ -80,6 +93,12 @@ public class TaskList {
     }
 
 
+    /**
+     * Validates add to do parameters and adds a todo to the task list
+     * @param params String of parameters for this command
+     * @return The created task. Returns null if parameters invalidated 
+     * @throws DukeException
+     */
     public Task addTodo(String params) throws DukeException {
         Ui.printEmptyDescription();
         if (params.strip().length() == 0) {
@@ -91,6 +110,12 @@ public class TaskList {
         return newTask;
     }
 
+    /**
+     * Validates add deadline parameters and adds a deadline to the task list
+     * @param params String of parameters for this command
+     * @return The created task. Returns null if parameters invalidated 
+     * @throws DukeException
+     */
     public Task addDeadline(String params) throws DukeException {
         if (params.strip().length() == 0) {
             Ui.printEmptyDescription();
@@ -123,6 +148,13 @@ public class TaskList {
         return newTask;
     }
 
+
+    /**
+     * Validates add event parameters and adds a event to the task list
+     * @param params String of parameters for this command
+     * @return The created task. Returns null if parameters invalidated 
+     * @throws DukeException
+     */
     public Task addEvent(String params) throws DukeException {
         if (params.strip().length() == 0) {
             Ui.printEmptyDescription();
@@ -155,18 +187,32 @@ public class TaskList {
         return newTask;
     }
 
+
+    /**
+     * Adds a Task to a tasklist
+     * @param newTask A Task object
+     */
     public void addTask(Task newTask){
         taskList.add(newTask);
     }
 
+    /**
+     * Removes a task based on it's positional index in the list
+     * @param idx Integer index of task to remove 
+     */
     public void removeTaskByIdx(Integer idx){
         taskList.remove(idx);
     }
 
+
     public Task getTaskByIdx(Integer idx){
         return taskList.get(idx);
     }
-
+    /**
+     * Finds tasks which the query string is a substring of the task's description 
+     * @param query The substring to search for in task description
+     * @return the list of query results containing Tasks
+     */
     public List<Task> findTasks(String query){
         List<Task> queryResult = new ArrayList<Task>();
         for (Task t : taskList){
