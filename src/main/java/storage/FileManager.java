@@ -66,7 +66,8 @@ public class FileManager {
                 tasks.add(new Deadline(data[2], by, Boolean.parseBoolean(data[1])));
                 break;
             case "E":
-                tasks.add(new Event(data[2], data[3], Boolean.parseBoolean(data[1])));
+                LocalDateTime at = LocalDateTime.parse(data[3], formatter);
+                tasks.add(new Event(data[2], at, Boolean.parseBoolean(data[1])));
                 break;
             default:
                 break;

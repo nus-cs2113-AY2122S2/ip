@@ -98,13 +98,19 @@ public class Parser {
         try {
             String[] descriptions = fullDescription.split("/at", 2);
             String description = descriptions[0].trim();
-            String at = descriptions[1].trim();
-            if(description.isEmpty() || at.isEmpty()) {
+            String atStr = descriptions[1].trim();
+            if(description.isEmpty() || atStr.isEmpty()) {
                 throw new DukeException("Event description is unspecified.");
             }
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime at = LocalDateTime.parse(atStr, formatter);
+
             return new EventCommand(description, at);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Event description is unspecified.");
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Event date or time format is incorrect.");
         }
     }
 }
