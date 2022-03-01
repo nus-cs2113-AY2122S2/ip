@@ -191,7 +191,8 @@ public class Storage {
      * @throws IOException If file operation failed.
      * @throws ArrayIndexOutOfBoundsException For any operations which involves index checking.
      */
-    public static void modifyMarkStatusDataFile(int taskNumber, boolean isMarked) throws IOException, ArrayIndexOutOfBoundsException {
+    public static void modifyMarkStatusDataFile(int taskNumber, boolean isMarked) throws
+            IOException, ArrayIndexOutOfBoundsException {
         List<String> fileContentLines = Files.readAllLines(FILE_PATH);
         int lineNumber = 1;
         String replacedFileContents = "";

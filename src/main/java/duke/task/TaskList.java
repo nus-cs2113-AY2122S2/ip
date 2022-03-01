@@ -51,7 +51,8 @@ public class TaskList {
      * @throws DukeMissingTimeSeparator If time separators (e.g. '/at') for each task type is missing.
      * @throws DateTimeParseException If time could not be parsed properly.
      */
-    public static Task addTaskWithTime(String userInput, String stringSeparator) throws DukeEmptyDescriptionException, DukeMissingTimeSeparator, DateTimeParseException {
+    public static Task addTaskWithTime(String userInput, String stringSeparator) throws
+            DukeEmptyDescriptionException, DukeMissingTimeSeparator, DateTimeParseException {
         String extractedStringsWithoutCommandType = parser.validateAndExtractTaskDescription(userInput);
         if ((extractedStringsWithoutCommandType.split(stringSeparator).length) <= 1) {
             throw new DukeMissingTimeSeparator();
@@ -83,7 +84,8 @@ public class TaskList {
      * @throws NumberFormatException If task number could not be parsed into an integer.
      * @throws DukeTaskOutOfRangeException If the task number supplied is less or more than the current task list.
      */
-    public static int markTask(boolean isMarked, String userInput) throws DukeEmptyDescriptionException, NumberFormatException, DukeTaskOutOfRangeException {
+    public static int markTask(boolean isMarked, String userInput) throws
+            DukeEmptyDescriptionException, NumberFormatException, DukeTaskOutOfRangeException {
         if ((userInput.split(" ")).length <= 1) {
             throw new DukeEmptyDescriptionException();
         }

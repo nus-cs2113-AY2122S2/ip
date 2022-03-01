@@ -43,7 +43,8 @@ public class Parser {
      * @param stringSeparator such as '/at' or '/by' to identify different type of tasks.
      * @param taskType holds the task child classes, for instance, deadline.
      */
-    public static void performTaskWithTimeConstraints(TaskList taskManager, String userInput, String stringSeparator, String taskType) {
+    public static void performTaskWithTimeConstraints(TaskList taskManager, String userInput,
+                                                      String stringSeparator, String taskType) {
         try {
             Task newTask = taskManager.addTaskWithTime(userInput, stringSeparator);
             Storage.saveDataAddToListOperation(taskManager, newTask);
