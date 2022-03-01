@@ -80,6 +80,7 @@ Syntax:
 | `<description>` | Description of your event.                                                                                                 |
 | `<date>`        | When the event date begins. The format is: `yyyy-mm-dd` whereby `yyyy` is the year, `mm` is the month and `dd` is the day. |
 | `<time>`        | What time the event starts. The format is: `kk` whereby `kk` is the time in 24 hours format ranging from 01 - 24.          |
+
 Example of usage:
 
 ```
