@@ -9,7 +9,7 @@ import duke.exception.AdditionalException;
 public class Parser {
 
     /**
-     * This is the parse method that takes in the fullCommand and makes sense of what type of command it is.
+     * Makes sense of what type of command it is.
      * It then creates a Command object, depending on the type of command, and returns in to the caller.
      *
      * @param fullCommand The user input.
@@ -59,8 +59,7 @@ public class Parser {
     }
 
     /**
-     * This is the parseFromFile method that takes in the nextLine from the file and makes sense of what the command
-     * that is saved in the file means.
+     * Makes sense of what the command that is saved in the file is.
      * It then creates a Command object, depending on the type of command and returns it to the caller.
      *
      * @param nextLine The next line from the file.
@@ -90,8 +89,7 @@ public class Parser {
     }
 
     /**
-     * This is the getFullCommand method that takes in an array of words and combine them to make out the actual
-     * command and then proceeds to return it.
+     * Combine an array of Strings to make out the actual command and then proceeds to return it.
      *
      * @param words The array of words from the file.
      * @return The actual command for parsing.
@@ -106,7 +104,7 @@ public class Parser {
     }
 
     /**
-     * This is the getDescription function that is used to get the description for todo commands.
+     * Returns the description for todo commands.
      *
      * @param typeOfTask This is the type of task.
      * @param fullCommand This is the full command that the user input
@@ -120,7 +118,7 @@ public class Parser {
     }
 
     /**
-     * This is the getDescription method that is used to get the description for deadline and event commands.
+     * Returns the description for deadline and event commands.
      *
      * @param typeOfTask This is the type of task.
      * @param preposition This is the preposition that is used in the commands.
@@ -138,7 +136,7 @@ public class Parser {
     }
 
     /**
-     * This is the getLocation method that is used to get the location for event commands.
+     * Returns the location for event commands.
      *
      * @param firstPreposition This is the first preposition used in the commands.
      * @param secondPreposition This is the second preposition used in the commands.
@@ -157,7 +155,7 @@ public class Parser {
     }
 
     /**
-     * This is the getDate method that is used to get the date for deadline and event commands.
+     * Returns the date for deadline and event commands.
      *
      * @param preposition This is the preposition used in the commands.
      * @param fullCommand This is the full command that the user input.
@@ -171,11 +169,12 @@ public class Parser {
     }
 
     /**
-     * This is the getIndex method that is used to get the index for mark and unmark commands.
+     * Returns the index for mark and unmark commands.
      *
      * @param fullCommand This is the full command that the user input.
      * @return The index to mark or unmark.
      * @throws AdditionalException If the user did not input exactly 1 index.
+     * @see AdditionalException
      */
     public static int getIndex(String fullCommand) throws AdditionalException {
         String[] words = fullCommand.split(" ");
