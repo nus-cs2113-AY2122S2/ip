@@ -22,7 +22,7 @@ public class Storage {
             while ((i=fr.read()) != -1){
                 saveStr += ((char)i);
             }
-            System.out.println(saveStr);
+//            System.out.println(saveStr);
             fr.close();
         } catch (IOException e){
             System.err.println("Failed to open save file!" + e.getMessage());

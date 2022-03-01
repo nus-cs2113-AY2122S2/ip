@@ -3,6 +3,7 @@ package duke.task;
 import org.json.simple.JSONObject;
 
 public class Task {
+
     protected String description;
     protected boolean isDone;
     private String TYPE = "TASK";
@@ -11,6 +12,9 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+    public String getDescription() {
+        return description;
     }
 
     public String getStatusIcon() {

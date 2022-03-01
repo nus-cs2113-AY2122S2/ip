@@ -46,7 +46,7 @@ public class TaskList {
             if ( o instanceof JSONObject) {
                 JSONObject jo = (JSONObject)o;
                 String type = (String)jo.get("type");
-                System.out.println("type: " + type);
+//                System.out.println("type: " + type);
                 Task toAdd = null;
                 if (type.equals("TODO")) {
                     toAdd = new ToDo((String)jo.get("description"));
@@ -84,7 +84,7 @@ public class TaskList {
         Ui.printEmptyDescription();
         if (params.strip().length() == 0) {
             Ui.printEmptyDescription();
-            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+            return null;
         }
         Task newTask = new ToDo(params);
         addTask(newTask);
@@ -94,11 +94,29 @@ public class TaskList {
     public Task addDeadline(String params) throws DukeException {
         if (params.strip().length() == 0) {
             Ui.printEmptyDescription();
-            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+//            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+            return null;
         }
         String[] params2 = params.split("/");
-        if (params2.length != 2) {
-            throw new DukeException("☹ OOPS!!! Deadlines should have two parts");
+
+        if (params2.length < 2) {
+            System.out.println("☹ OOPS!!! Deadlines should have two parts");
+            return null;
+        }
+//        System.out.println(params2[0]);
+//        System.out.println(params2[1]);
+
+        if (params2[0].strip().length() == 0){
+            Ui.printEmptyDescription();
+            return null;
+        }
+        if (!params2[1].contains("by")) {
+            System.out.println("☹ OOPS!!! Deadlines can only take in /by");
+            return null;
+        }
+        if (params2[1].strip().length() < 3){
+            System.out.println("☹ OOPS!!! Missing /by");
+            return null;
         }
         Task newTask = new Deadline(params2[0], params2[1]);
         addTask(newTask);
@@ -108,12 +126,30 @@ public class TaskList {
     public Task addEvent(String params) throws DukeException {
         if (params.strip().length() == 0) {
             Ui.printEmptyDescription();
-            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+//            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+            return null;
         }
         String[] params2 = params.split("/");
-        if (params2.length != 2) {
-            throw new DukeException("☹ OOPS!!! Events should have two parts");
+//        System.out.println(params);
+//        System.out.println(params2.length);
+//        System.out.println(params2);
+        if (params2.length < 2 ) {
+            System.out.println("☹ OOPS!!! Events should have two parts");
+            return null;
         }
+        if (params2[0].strip().length() == 0){
+            Ui.printEmptyDescription();
+            return null;
+        }
+        if (!params2[1].contains("at")) {
+            System.out.println("☹ OOPS!!! Events can only take in /at");
+            return null;
+        }
+        if (params2[1].strip().length() < 3){
+            System.out.println("☹ OOPS!!! Missing /at");
+            return null;
+        }
+
         Task newTask = new Event(params2[0], params2[1]);
         addTask(newTask);
         return newTask;
@@ -130,4 +166,17 @@ public class TaskList {
     public Task getTaskByIdx(Integer idx){
         return taskList.get(idx);
     }
+
+    public List<Task> findTasks(String query){
+        List<Task> queryResult = new ArrayList<Task>();
+        for (Task t : taskList){
+            String description = t.getDescription();
+            boolean isFound = description.contains(query);
+            if (isFound){
+                queryResult.add(t);
+            }
+        }
+        return queryResult;
+    }
+
 }

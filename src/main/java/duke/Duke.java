@@ -33,6 +33,7 @@ public class Duke {
         Ui.printHello();
         TaskList tasks = new TaskList();
         Parser parser = new Parser(tasks);
+        parser.enterInputLoop();
         tasks.saveTaskList();
         Ui.printBye();
     }
