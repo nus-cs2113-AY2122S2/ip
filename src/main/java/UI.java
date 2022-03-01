@@ -36,8 +36,7 @@ public class UI {
     }
 
     public String getUserCommand(){
-        String rawInput = in.nextLine().trim();
-        return rawInput;
+        return in.nextLine().trim();
     }
 
     public void showFileFailedToOpenMsg(){
@@ -92,6 +91,13 @@ public class UI {
         ArrayList<Task> list = taskList.getTasks();
         for(int i = 0; i< list.size(); i++){
             out.printf("%d. %s" + LS, i + DISPLAYED_INDEX_OFFSET, list.get(i));
+        }
+    }
+
+    public void showFilteredTasks(ArrayList<Task> tasks){
+        out.print("Here are the tasks that match your search:" + LS);
+        for(int i = 0; i< tasks.size(); i++){
+            out.printf("%d. %s" + LS, i + DISPLAYED_INDEX_OFFSET, tasks.get(i));
         }
     }
 }

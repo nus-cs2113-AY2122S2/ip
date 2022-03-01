@@ -21,6 +21,16 @@ public class TaskList {
         this.ui = ui;
     }
 
+    public void find(String searchterm){
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+        for(Task t: tasks){
+            if(t.getDescription().contains(searchterm)){
+                filteredTasks.add(t);
+            }
+        }
+        ui.showFilteredTasks(filteredTasks);
+    }
+
     public void mark(String info){
         int index;
         try{
