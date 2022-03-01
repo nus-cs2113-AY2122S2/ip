@@ -219,11 +219,11 @@ public class Parser {
                 System.out.println(" Please refer to the command guide below.\n");
                 Ui.printGuide();
             }
+            Storage.writeToFile(taskList);
             in = new Scanner(System.in);
             textIn = in.nextLine();
 
         }
         Ui.bye();
-        Storage.writeToFile(taskList);
     }
 }
