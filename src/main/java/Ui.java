@@ -52,21 +52,34 @@ public class Ui {
         System.out.println(PROMPT_CORRECT_INDEX_USE);
     }
 
+    /**
+     * Greet user upon startup
+     */
     static void greet() {
         System.out.println(GREET_STRING);
     }
 
+    /**
+     * Print exit string when user exits
+     */
     static void bye() {
         System.out.println(BYE_STRING);
     }
 
+    /**
+     * Continually get input from the user till user terminates program.
+     * @param scanner
+     * @param parser
+     * @param storage
+     * @param taskList
+     */
     static void askForInput(Scanner scanner, Parser parser, Storage storage, TaskList taskList) {
         while (true) {
 
             String input = scanner.nextLine().trim();
 
             if (input.equals("bye")) {
-                break;
+                return;
             } else if (input.equals("list")) {
                 taskList.displayTasks();
             } else if (input.startsWith("unmark")) {

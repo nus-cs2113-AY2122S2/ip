@@ -53,7 +53,13 @@ public class Storage {
         return oldList;
     }
 
-    static void loadPastTasks(Parser parser, Storage storage, TaskList taskList) {
+    /**
+     * Load tasks from "tasks.txt" prior to taking in new commands .
+     * @param parser
+     * @param storage
+     * @param taskList
+     */
+    public static void loadPastTasks(Parser parser, Storage storage, TaskList taskList) {
         ArrayList<String> oldTaskStrings = storage.readFromFile();
         for (String taskString : oldTaskStrings) {
 
