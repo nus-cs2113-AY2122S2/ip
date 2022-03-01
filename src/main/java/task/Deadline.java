@@ -72,13 +72,11 @@ public class Deadline extends Task {
      * @param input user input of deadline task
      *
      */
-    public static LocalDate getDeadlineDate(String input) {
+    public static LocalDate getDeadlineDate(String input)  {
         int byIndex = input.indexOf("/by");
         int deadlineDateIndex = input.indexOf(" ",byIndex);
-        int deadlineTimeIndex = input.indexOf(" ",deadlineDateIndex + 1);
-        String deadlineDate = input.substring(deadlineDateIndex + 1,deadlineTimeIndex).trim();
-        String deadlineTime = input.substring(deadlineTimeIndex + 1).trim();
-        if (deadlineDate.length() == 0 || deadlineTime.length() == 0){
+        String deadlineDate = input.substring(deadlineDateIndex + 1).trim();
+        if (deadlineDate.length() == 0){
             throw new StringIndexOutOfBoundsException();
         }
         LocalDate dateObject = getDateObject(deadlineDate);

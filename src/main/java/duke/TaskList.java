@@ -82,7 +82,6 @@ public class TaskList {
             taskCounter++;
             System.out.println("Got it. I've added this task:");
             printTask(newDeadline);
-            TaskList.printNumberOfTasksInList(taskCounter);
         } catch (StringIndexOutOfBoundsException se){
             System.out.println(INVALID_TASK_DETAILS_ERROR);
         }
@@ -96,9 +95,8 @@ public class TaskList {
     public static void markTaskAsComplete(String input){
         try {
             int taskNum = getTaskNumberArgument(input);
-            Task taskToMark = taskList.get(taskNum-1);
-            taskToMark.setDone(true);
-            printTask(taskToMark);
+            taskList.get(taskNum-1).setDone(true);
+            printTask(taskList.get(taskNum-1));
             System.out.println("Nice! I've marked this task as done:\n");
         } catch (NumberFormatException nfe){
             System.out.println(Errors.INVALID_TASK_MARK_ERROR);
@@ -149,14 +147,18 @@ public class TaskList {
      * @param input user input of task they want to mark as complete
      *
      */
-    public static void deleteTask(String input){
+    public static void deleteTask(String input) {
         try {
             int taskNum = getTaskNumberArgument(input);
-            taskList.remove(taskNum-1);
+            taskList.remove(taskNum - 1);
             System.out.println("Ok I have deleted this task as requested:\n");
-            taskCounter--;
-        } catch (NumberFormatException nfe){
+            if (taskCounter > 0){
+                taskCounter--;
+            }
+        } catch (NumberFormatException nfe) {
             System.out.println(Errors.INVALID_TASK_DELETE_ERROR);
+        } catch (IndexOutOfBoundsException i) {
+            System.out.println(Errors.INVALID_TASK_MARK_ERROR);
         }
     }
 

@@ -1,5 +1,4 @@
 todo read book
-deadline return book /by Sunday
 event attend CS2113T lecture /at Friday 4-6pm
 deadline return book /by 2019-10-15 1800
 list
