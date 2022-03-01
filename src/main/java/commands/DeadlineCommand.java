@@ -4,6 +4,8 @@ import data.Deadline;
 import data.TaskManager;
 import storage.FileManager;
 import ui.Ui;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import java.io.IOException;
 
@@ -11,7 +13,7 @@ public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
     private Deadline toAdd;
 
-    public DeadlineCommand(String description, String by) {
+    public DeadlineCommand(String description, LocalDateTime by) {
         toAdd = new Deadline(description, by);
         isExit = false;
     }

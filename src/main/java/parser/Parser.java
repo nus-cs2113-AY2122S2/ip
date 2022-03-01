@@ -2,6 +2,9 @@ package parser;
 
 import commands.*;
 import common.DukeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Parser {
     public static Command parse(String fullCommand) throws DukeException {
@@ -75,13 +78,19 @@ public class Parser {
         try {
             String[] descriptions = fullDescription.split("/by", 2);
             String description = descriptions[0].trim();
-            String by = descriptions[1].trim();
-            if(description.isEmpty() || by.isEmpty()) {
+            String byStr = descriptions[1].trim();
+            if(description.isEmpty() || byStr.isEmpty()) {
                 throw new DukeException("Deadline description is unspecified.");
             }
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime by = LocalDateTime.parse(byStr, formatter);
+
             return new DeadlineCommand(description, by);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Deadline description is unspecified.");
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Deadline date or time format is incorrect.");
         }
     }
 

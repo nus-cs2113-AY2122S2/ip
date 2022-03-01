@@ -8,6 +8,8 @@ import data.Todo;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class FileManager {
     private static String DIR_PATH = "data";
@@ -47,6 +49,8 @@ public class FileManager {
 
     public ArrayList<Task> decodeData(ArrayList<String> records) {
         ArrayList<Task> tasks = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         for(String record: records) {
             String[] data = record.split("/");
             for (int i = 0; i < data.length; i++){
@@ -58,7 +62,8 @@ public class FileManager {
                 tasks.add(new Todo(data[2], Boolean.parseBoolean(data[1])));
                 break;
             case "D":
-                tasks.add(new Deadline(data[2], data[3], Boolean.parseBoolean(data[1])));
+                LocalDateTime by = LocalDateTime.parse(data[3], formatter);
+                tasks.add(new Deadline(data[2], by, Boolean.parseBoolean(data[1])));
                 break;
             case "E":
                 tasks.add(new Event(data[2], data[3], Boolean.parseBoolean(data[1])));

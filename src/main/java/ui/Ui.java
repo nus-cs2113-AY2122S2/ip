@@ -76,7 +76,7 @@ public class Ui {
         System.out.println("\t Supported commands:");
         System.out.println("\t Type \"help\" to view supported command");
         System.out.println("\t Type \"todo <task>\" to add a todo task");
-        System.out.println("\t Type \"deadline <task> /by <time>\" to add a deadline task");
+        System.out.println("\t Type \"deadline <task> /by <yyyy-MM-dd HH:mm>\" to add a deadline task");
         System.out.println("\t Type \"event <task> /at <time>\" to add a event task");
         System.out.println("\t Type \"list\" to list all tasks");
         System.out.println("\t Type \"delete <task number>\" to delete a task");
