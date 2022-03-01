@@ -11,7 +11,8 @@ import main.java.duke.exception.DukeException;
 
 public class Ui {
 
-    private final static String HORIZONTAL_LINE = "____________________________________________________________";
+    private final static String HORIZONTAL_LINE = "____________________________________" +
+            "________________________";
 
     public static void printFormat(String... args) {
         System.out.println(HORIZONTAL_LINE);
@@ -38,6 +39,23 @@ public class Ui {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < Duke.tasks.size(); i++) {
             System.out.println(String.valueOf(i + 1) + "." + Duke.tasks.get(i).toString());
+        }
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    public static void printFind(String keyword) {
+        Boolean foundTask = false;
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < Duke.tasks.size(); i++) {
+            Task task = Duke.tasks.get(i);
+            if (task.toString().contains(keyword)) {
+                foundTask = true;
+                System.out.println(String.valueOf(i + 1) + "." + task.toString());
+            }
+        }
+        if (!foundTask) {
+            System.out.println("There are no matching task in your list");
         }
         System.out.println(HORIZONTAL_LINE);
     }
@@ -70,11 +88,17 @@ public class Ui {
                 "   (X is a number) e.g. 'mark 3' marks item 3 on the list",
                 "'unmark X' - unmarks item X on the list as done",
                 "   (X is a number) e.g. 'unmark 3' unmarks item 3 on the list",
+                "'delete X' - deletes item X on the list",
+                "   (X is a number) e.g. 'delete 3' deletes item 3 on the list",
+                "'find X - lists items in the list that contain the keyword X",
+                "   (X is a string) e.g. 'find book' lists items in the list that contain 'book'",
                 "'todo X' - ToDos are tasks without specific deadlines",
-                "   (X is a string) e.g. 'todo buy shampoo' adds the task 'buy shampoo' to the list",
-                "'deadline X /by date time' - Deadlines are tasks that need to be done before a specific date/time",
-                "   e.g. 'deadline math homework /by tues 2pm' adds a task with a deadline to the list",
-                "'event X /at date time' - Events are tasks that start at a specific time and ends at a specific time",
+                "   (X is a string) e.g. 'todo buy soap' adds the task 'buy soap' to the list",
+                "'deadline X /by date time' - Deadlines are tasks that need " +
+                        "to be done before a specific date/time",
+                "   e.g. 'deadline homework /by mon 2pm' adds a task with a deadline to the list",
+                "'event X /at date time' - Events are tasks that start at a specific " +
+                        "time and ends at a specific time",
                 "   e.g. 'event project meeting /at sunday 8-10pm' adds a task with a time range");
     }
 
