@@ -1,29 +1,27 @@
 package jarvis;
 
-import jarvis.commands.UserList;
 import jarvis.display.DisplayMessages;
+import jarvis.load.Storage;
+import jarvis.exceptions.JarvisNoSavedData;
 
 import java.util.Scanner;
-import java.io.File;
+
 
 public class Jarvis {
-    protected static boolean hasLoadedFile (File savedFile) {
-        return savedFile.exists();
-    }
+    private static Storage storage;
 
     public static void main(String[] args) {
         DisplayMessages.startingMessage();
-        File savedFile = new File("data/Jarvis.txt");
-        if (hasLoadedFile(savedFile)) {
-            DisplayMessages.savedFileDetected();
-            UserList.loadFile(savedFile);
-            DisplayMessages.fileLoaded();
-        } else {
+        storage = new Storage();
+        try {
+            storage.load();
+        } catch (JarvisNoSavedData e) {
             DisplayMessages.noFileDetected();
-        }
-        Scanner in = new Scanner(System.in);
-        while (true) {
-            Formatter.inputHandler(in);
+        } finally {
+            Scanner in = new Scanner(System.in);
+            while (true) {
+                Formatter.inputHandler(in);
+            }
         }
     }
 }
