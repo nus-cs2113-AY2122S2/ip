@@ -22,6 +22,8 @@ public class Parser {
             return new MarkCommand(parsedInput);
         case "unmark":
             return new UnmarkCommand(parsedInput);
+        case "find":
+            return new FindCommand(parsedInput);
         default:
             throw new InvalidCommandException();
         }
