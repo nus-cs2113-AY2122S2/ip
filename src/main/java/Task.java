@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Task {
     protected String instruction;
     protected String[] instructions;
