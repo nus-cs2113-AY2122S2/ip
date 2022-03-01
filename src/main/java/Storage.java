@@ -11,8 +11,8 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Storage {
-    private Scanner fileIn;
-    private UI ui;
+    private final Scanner fileIn;
+    private final UI ui;
 
     /** Default file path */
     public static final String DEFAULT_STORAGE_FILEPATH = "duke.txt";
@@ -41,9 +41,9 @@ public class Storage {
                 continue;
             }
             if(info.contains("(at:")){
-                taskList.addEventfromText(info);
+                taskList.addEventFromText(info);
             }else if(info.contains("(by:")){
-                taskList.addDeadlinefromText(info);
+                taskList.addDeadlineFromText(info);
             }else{
                 taskList.addTodofromText(info);
             }
@@ -69,6 +69,5 @@ public class Storage {
             return;
         }
         ui.showFileSaveSuccessfulMsg();
-        return;
     }
 }
