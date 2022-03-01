@@ -12,16 +12,11 @@ public class Duke {
     private static final String END_OF_SECTION = "___________________________________________________";
 
     public static void main(String[] args) {
-//        try {
-//            File file = new File("./Duke/duke.txt");
-//        } catch (IOException e) {
-//            System.out.println("An error occured.");
-//        }
-
-        File duke = FileManager.openFile();
-
         printGreeting();
+        File duke = new File("./Duke.txt");
+        new FileManager(duke);
         new TaskManager(duke);
+
         printExitProgram();
     }
 
