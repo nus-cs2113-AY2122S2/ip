@@ -2,17 +2,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.Files;
 import java.util.ArrayList;
 
 import duke.task.Task;
+import duke.task.TaskList;
 
 import java.util.Scanner;
 
-public class FileReaderWriter {
+public class Storage {
 
     private static final String FILE_NAME = "tasks.txt";
 
@@ -56,4 +53,27 @@ public class FileReaderWriter {
         return oldList;
     }
 
+    static void loadPastTasks(Parser parser, Storage storage, TaskList taskList) {
+        ArrayList<String> oldTaskStrings = storage.readFromFile();
+        for (String taskString : oldTaskStrings) {
+
+            ArrayList<String> splitString = parser.parseSavedString(taskString);
+            if (splitString.size() == 0) {
+                continue;
+            }
+            switch (splitString.get(0)) {
+            case "T":
+                taskList.addToDo(splitString.get(2), Boolean.parseBoolean(splitString.get(1)));
+                break;
+            case "D":
+                taskList.addDeadline(splitString.get(2), Boolean.parseBoolean(splitString.get(1)), splitString.get(3));
+                break;
+            case "E":
+                taskList.addEvent(splitString.get(2), Boolean.parseBoolean(splitString.get(1)), splitString.get(3));
+                break;
+            default:
+                System.out.println("not an acceptable task string!" + System.lineSeparator() + taskString);
+            }
+        }
+    }
 }

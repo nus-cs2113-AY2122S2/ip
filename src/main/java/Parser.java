@@ -1,17 +1,14 @@
 import duke.exception.IncompleteCommandException;
 import duke.exception.MissingIndexException;
 
-import java.lang.reflect.Array;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.ArrayList;
 
 /**
  *
  */
-public class InputReader {
+public class Parser {
 
-    public InputReader() {
+    public Parser() {
     }
 
     /**
