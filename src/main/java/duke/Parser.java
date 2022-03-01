@@ -105,14 +105,14 @@ public class Parser {
      * */
     private void handleAdd(String input, String[] cmd) throws DukeException {
         System.out.println("handleAdd");
-        System.out.println(cmd);
+//        System.out.println(cmd);
         if (cmd.length < 2) {
 //            throw new DukeException("☹ OOPS!!! I'm sorry, but delete requires an index");
             System.out.println("☹ OOPS!!! I'm sorry, but add requires more params");
             return;
         }
         String sub_cmd = cmd[1];
-        System.out.println(sub_cmd.length());
+//        System.out.println(sub_cmd.length());
         Task newTask;
         Integer removeSubstrlength = cmd[0].length() + sub_cmd.length() + 2;
         if (input.length() <= removeSubstrlength){
@@ -120,6 +120,7 @@ public class Parser {
             return;
         }
         String params = input.substring(removeSubstrlength);
+        System.out.println("params: " + params);
         if (sub_cmd.equals("todo")) {
             newTask = tasks.addTodo(params);
         } else if (sub_cmd.equals("deadline")) {
@@ -152,11 +153,11 @@ public class Parser {
             idx = Integer.parseInt(cmd[1]) - 1;
         } catch (NumberFormatException e) {
             Ui.printNaNError(input);
+            return;
         }
         Task removed = null;
         try {
-            removed = tasks.getTaskByIdx(idx);
-            tasks.removeTaskByIdx(idx);
+            removed = tasks.removeTaskByIdx(idx);
             Ui.printRemovedTask(removed.getStatus(),tasks.getTaskListSize());
         } catch (IndexOutOfBoundsException e) {
             Ui.printIndexError(idx, tasks.getTaskListSize());
