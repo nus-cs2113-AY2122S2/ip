@@ -1,1 +1,4 @@
-1|D|0|test|tmr
+1|T|0|test
+2|D|1|something|tmr
+3|E|1|testing|3pm
+4|T|0|testtest
