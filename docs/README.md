@@ -300,7 +300,7 @@ Process finished with exit code 0
 ## Editing the Duke data file
 The Duke data file is saved as a text file `[Duke.jar file location]/data/duke.txt`. You may modify the Duke data directly by editing the `duke.txt` file.
 
-###Caution
+### Caution
 If modifications made to the data file causes its format to be invalid, the Duke program will not load the data into the program. Thus, you have to start on a clean slate.
 
 
