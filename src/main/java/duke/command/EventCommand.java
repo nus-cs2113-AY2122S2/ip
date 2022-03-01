@@ -21,6 +21,7 @@ public class EventCommand extends Command {
     private static final String TYPE_OF_TASK = "event";
     private static final String PREPOSITION_AT = "/at";
     private static final String PREPOSITION_ON = "/on";
+    private static final int MINIMUM_LENGTH = 1;
 
     private String fullCommand;
 
@@ -42,15 +43,15 @@ public class EventCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AdditionalException, IOException,
             DateTimeParseException {
         String description = Parser.getDescription(TYPE_OF_TASK, PREPOSITION_AT, fullCommand);
-        if (description.length() < 1) {
+        if (description.length() < MINIMUM_LENGTH) {
             throw new AdditionalException("Yea... I know you don't have an event because you're a loner.");
         }
         String location = Parser.getLocation(PREPOSITION_AT, PREPOSITION_ON, fullCommand);
-        if (location.length() < 1) {
+        if (location.length() < MINIMUM_LENGTH) {
             throw new AdditionalException("So your event is at nowhere-land?");
         }
         String date = Parser.getDate(PREPOSITION_ON, fullCommand);
-        if (date.length() < 1) {
+        if (date.length() < MINIMUM_LENGTH) {
             throw new AdditionalException("YAY! Your event is never going to happen :DDDD");
         }
         LocalDate dateOfEvent = LocalDate.parse(date);
@@ -72,7 +73,12 @@ public class EventCommand extends Command {
         String description = Parser.getDescription(TYPE_OF_TASK, PREPOSITION_AT, fullCommand);
         String location = Parser.getLocation(PREPOSITION_AT, PREPOSITION_ON, fullCommand);
         String date = Parser.getDate(PREPOSITION_ON, fullCommand);
-        if (description.length() < 1 | location.length() < 1 | date.length() < 1) {
+        boolean isDescriptionMissing = description.length() < MINIMUM_LENGTH;
+        boolean isLocationMissing = location.length() < MINIMUM_LENGTH;
+        boolean isDateMissing = date.length() < MINIMUM_LENGTH;
+        boolean isDescriptionOrLocationMissing = isDescriptionMissing && isLocationMissing;
+        boolean isInformationMissing = isDescriptionOrLocationMissing && isDateMissing;
+        if (isInformationMissing) {
             throw new AdditionalException("YAY! Your event is never going to happen :DDDD");
         }
         LocalDate dateOfEvent = LocalDate.parse(date);

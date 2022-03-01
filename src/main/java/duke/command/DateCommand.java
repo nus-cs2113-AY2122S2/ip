@@ -16,6 +16,7 @@ import java.util.ArrayList;
  */
 public class DateCommand extends Command {
 
+    private static final int CORRECT_NUMBER_OF_WORDS = 2;
     private String fullCommand;
 
     public DateCommand(String fullCommand) {
@@ -52,7 +53,7 @@ public class DateCommand extends Command {
      */
     private LocalDate getDate() throws AdditionalException {
         String[] words = fullCommand.split(" ");
-        if (words.length != 2) {
+        if (words.length != CORRECT_NUMBER_OF_WORDS) {
             throw new AdditionalException("Please input the date in the correct format and only the date");
         }
         LocalDate date = LocalDate.parse(words[1]);
@@ -66,11 +67,11 @@ public class DateCommand extends Command {
      * @return The list of tasks with the same date.
      */
     private ArrayList<Task> getListOfSameDates(TaskList tasks, LocalDate date) {
-        ArrayList<Task> listOfTasksWithSameDate = new ArrayList<>();
+        ArrayList<Task> tasksWithSameDate = new ArrayList<>();
         for (int i = 0; i < tasks.getSize(); i++) {
-            addToList(listOfTasksWithSameDate, date, tasks.getTask(i));
+            addToList(tasksWithSameDate, date, tasks.getTask(i));
         }
-        return listOfTasksWithSameDate;
+        return tasksWithSameDate;
     }
 
     /**
