@@ -9,15 +9,26 @@ import duke.EmptyDescriptionException;
 
 import java.util.ArrayList;
 
+/**
+ * Subclass of Command to handle adding of tasks
+ */
 public class AddCommand extends Command {
     private TaskList taskList;
     private String userInput;
 
+    /**
+     * Initialises an AddCommand with the TaskList to be added onto and user input to be processed
+     * @param taskList list of tasks to be added onto
+     * @param userInput user input to be processed
+     */
     public AddCommand(TaskList taskList, String userInput){
         this.taskList = taskList;
         this.userInput = userInput;
     }
 
+    /**
+     * Add the new Task into the existing list and output result to user
+     */
     public void execute(){
         ArrayList<Task> tasks = taskList.getTasks();
         System.out.println("================================================");
@@ -37,6 +48,11 @@ public class AddCommand extends Command {
         System.out.println("================================================");
     }
 
+    /**
+     * Processes the user input to determine what type of task is to be added
+     * @param userInput string of task described by user
+     * @return Task to be added to the list of tasks
+     */
     public static Task addTask(String userInput){
         if (userInput.startsWith("todo")) {
             try{
@@ -66,6 +82,11 @@ public class AddCommand extends Command {
         return null;
     }
 
+    /**
+     * Check for empty description of Task to be added
+     * @param description description of Task to be checked
+     * @throws EmptyDescriptionException
+     */
     public static void checkEmptyDescription(String description) throws EmptyDescriptionException{
         if(description.isBlank()){
             throw new EmptyDescriptionException();
