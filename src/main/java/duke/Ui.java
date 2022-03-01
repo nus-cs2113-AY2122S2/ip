@@ -43,8 +43,8 @@ public class Ui {
         System.out.println(String.format("OOPS, %d exceed your list of size %d", idx, size));
     }
 
-    public static void printParamMissing(){
-
+    public static void printParamMissing(String funcName){
+        System.out.println("Parameters for " + funcName + " are missing");
     }
 
     public static void printEmptyInput(){
@@ -59,8 +59,13 @@ public class Ui {
 
     }
 
-    public static void printTasks(TaskList tasks){
-        List<Task> tdList = tasks.getTaskList();
+    public static void printTasks(List<Task> tdList){
+        if (tdList.size() == 0){
+//            System.out.println("Seems like you're free of any task!");
+            System.out.println("No tasks found!");
+            return;
+        }
+//        List<Task> tdList = tasks.getTaskList();
         System.out.println("Here are the tasks in your list:");
         int idx = 1;
         for (Task todo : tdList) {
