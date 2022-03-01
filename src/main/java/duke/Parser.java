@@ -23,10 +23,12 @@ public class Parser {
         }else if(userInput.startsWith("unmark")){
             taskIndex = Integer.parseInt(userInput.substring(7));
             return new UnmarkCommand(taskList,taskIndex);
-        }else if(userInput.startsWith("delete")){
+        }else if(userInput.startsWith("delete")) {
             taskIndex = Integer.parseInt(userInput.substring(7));
             return new DeleteCommand(taskList, taskIndex);
-
+        }else if(userInput.startsWith("find")){
+            String keyword = userInput.split(" ")[1];
+            return new FindCommand(taskList, keyword);
         } else{
             switch(userInput){
             case "bye":
