@@ -19,6 +19,10 @@ public class Task implements Serializable {
         this.taskName = taskName;
         this.isDone = false;
     }
+    public Task(String taskName,boolean isDone) {
+        this.taskName = taskName;
+        this.isDone = isDone;
+    }
 
     public String getTaskName() {
         return this.taskName;
@@ -35,9 +39,15 @@ public class Task implements Serializable {
     public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
+    public boolean getStatus(String status){
+        if (status.equals("X")){
+            return true;
+        }
+        return false;
+    }
 
     public String getStatusIcon() {
-        if (isDone) {
+        if (this.isDone) {
             return "X";
         } else {
             return " ";

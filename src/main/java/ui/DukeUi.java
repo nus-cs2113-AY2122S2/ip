@@ -63,7 +63,7 @@ public class DukeUi {
                 addEventTask(input);
                 break;
             case "exit":
-                Storage.saveToFile(taskList);
+                Storage.writeToFile(taskList);
                 System.out.println("Bye. Hope to see you again soon!");
                 return;
             default:
