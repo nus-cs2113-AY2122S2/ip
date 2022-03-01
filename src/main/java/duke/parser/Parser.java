@@ -19,43 +19,43 @@ public class Parser {
      */
     public static Command parse(String fullCommand) throws AdditionalException {
         String[] words = fullCommand.split(" ");
-        String command = words[0].toLowerCase();
-        Command c;
-        switch (command) {
+        String actualCommand = words[0].toLowerCase();
+        Command command;
+        switch (actualCommand) {
         case "bye":
-            c = new ByeCommand();
+            command = new ByeCommand();
             break;
         case "list":
-            c = new ListCommand();
+            command = new ListCommand();
             break;
         case "find":
-            c = new FindCommand(fullCommand);
+            command = new FindCommand(fullCommand);
             break;
         case "date":
-            c = new DateCommand(fullCommand);
+            command = new DateCommand(fullCommand);
             break;
         case "mark":
-            c = new MarkCommand(fullCommand);
+            command = new MarkCommand(fullCommand);
             break;
         case "unmark":
-            c = new UnmarkCommand(fullCommand);
+            command = new UnmarkCommand(fullCommand);
             break;
         case "delete":
-            c = new DeleteCommand(fullCommand);
+            command = new DeleteCommand(fullCommand);
             break;
         case "todo":
-            c = new ToDoCommand(fullCommand);
+            command = new ToDoCommand(fullCommand);
             break;
         case "deadline":
-            c = new DeadlineCommand(fullCommand);
+            command = new DeadlineCommand(fullCommand);
             break;
         case "event":
-            c = new EventCommand(fullCommand);
+            command = new EventCommand(fullCommand);
             break;
         default:
             throw new AdditionalException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
-        return c;
+        return command;
     }
 
     /**
