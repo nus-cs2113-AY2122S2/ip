@@ -1,8 +1,5 @@
-import java.util.ArrayList;
-
 public class Task {
     protected String instruction;
-    protected String[] instructions;
     protected int number;
     protected boolean isDone;
 
@@ -14,7 +11,6 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
-
     public void setStatusIcon(Boolean isDone){
         this.isDone = isDone;
     }
