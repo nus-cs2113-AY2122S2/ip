@@ -5,13 +5,24 @@ import util.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Includes Duke outputs
+ */
 public class DukePrinter implements Chatbot {
+    /**
+     * Print a straight solid line
+     */
     public static void linePrinter() {
         System.out.print("\t");
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Print the greeting message
+     */
     public static void printGreeting() {
+        System.out.println("Hello from\n" + LOGO);
+
         linePrinter();
         System.out.println("\t" + GREETING_MSG_01);
         System.out.println("\t" + GREETING_MSG_02);
@@ -19,6 +30,11 @@ public class DukePrinter implements Chatbot {
 
     }
 
+    /**
+     * Print the list of tasks that user adds
+     *
+     * @param tasks The tasks that user adds
+     */
     public static void printList(ArrayList<Task> tasks) {
         linePrinter();
 
@@ -33,6 +49,12 @@ public class DukePrinter implements Chatbot {
         linePrinter();
     }
 
+    /**
+     * Print the delete message
+     *
+     * @param tasks The tasks that user adds
+     * @param index The index of the deleted task
+     */
     public static void printDelete(ArrayList<Task> tasks, int index) {
         linePrinter();
         System.out.println("\t" + DELETE_MSG);
@@ -40,6 +62,12 @@ public class DukePrinter implements Chatbot {
         linePrinter();
     }
 
+    /**
+     * Print the mark message
+     *
+     * @param tasks The tasks that user adds
+     * @param markedItem The index of the marked task
+     */
     public static void printMark(ArrayList<Task> tasks, int markedItem) {
         linePrinter();
         System.out.println("\t" + MARKED_MSG);
@@ -48,6 +76,12 @@ public class DukePrinter implements Chatbot {
 
     }
 
+    /**
+     * Print the unmark message
+     *
+     * @param tasks The tasks that user adds
+     * @param unmarkedItem The index of the unmarked task
+     */
     public static void printUnmark(ArrayList<Task> tasks, int unmarkedItem) {
         linePrinter();
         System.out.println("\t" + UNMARKED_MSG);
@@ -56,19 +90,28 @@ public class DukePrinter implements Chatbot {
 
     }
 
+    /**
+     * Print the save message
+     */
     public static void printSave() {
         linePrinter();
         System.out.println("\t" + SAVE_MSG);
         linePrinter();
     }
 
-
+    /**
+     * Print the exit message
+     */
     public static void exitLine() {
         linePrinter();
         System.out.println("\t" + GOODBYE_MSG);
         linePrinter();
     }
 
+    /**
+     * Print the string given
+     * @param line The string given
+     */
     public static void echo (String line) {
         linePrinter();
         System.out.println("\t" + " " + line);

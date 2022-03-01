@@ -7,9 +7,15 @@ import util.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks that user adds
+ */
 public class DukeTaskList {
     protected ArrayList<Task> tasks;
 
+    /**
+     * Initialize a new DukeTaskList object
+     */
     public DukeTaskList() {
         this.tasks = new ArrayList<>();
     }

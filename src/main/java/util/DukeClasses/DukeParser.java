@@ -9,7 +9,16 @@ import util.exception.NoDateException;
 import util.exception.NoTaskException;
 import util.exception.NoItemException;
 
+/**
+ * Inclues the code to make sense of user's command
+ */
 public class DukeParser implements Chatbot {
+    /**
+     * Find the command type of user's command
+     *
+     * @param line The user's command
+     * @return Command type
+     */
     public static CommandType findCommandType(String line) {
         CommandType c;
 
@@ -38,6 +47,17 @@ public class DukeParser implements Chatbot {
         return c;
     }
 
+    /**
+     * Check if the command is correct
+     *
+     * @param tasks The tasks that user adds
+     * @param line User's input
+     * @param c Command type
+     *
+     * @throws NoTaskException The user did not input a task
+     * @throws NoDateException The user did not input a date
+     * @throws NoItemException The task the user is trying to find is not added
+     */
     public static void checkCommand(ArrayList<Task> tasks,String line, CommandType c) throws NoTaskException, NoDateException, NoItemException {
         switch (c) {
         case TODO:

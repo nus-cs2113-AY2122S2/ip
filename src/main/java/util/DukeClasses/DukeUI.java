@@ -9,7 +9,19 @@ import util.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Implement the user interface of Duke
+ */
 public class DukeUI implements Chatbot {
+    /**
+     *  Handle some possible error
+     *
+     * @param tasks The tasks that user add
+     * @param line User input
+     * @param c Type of user's command
+     *
+     * @return Whether the code catch error or not
+     */
     public static int handleError(ArrayList<Task> tasks, String line, CommandType c) {
         try {
             DukeParser.checkCommand(tasks, line, c);
@@ -25,11 +37,19 @@ public class DukeUI implements Chatbot {
         } catch (NoItemException e04) {
             DukePrinter.echo(ITEM_NOT_EXIST_MSG);
             return 1;
-        } finally {
-            return 0;
         }
+
+        return 0;
     }
 
+    /**
+     * Load the data store in the data file or run Duke
+     *
+     * @param list The list of tasks the user add
+     * @param line User input
+     * @param isLoadingData Check if Duke need to load data
+     * @param needUpdateTaskStatus Check if there is a task that needs status update
+     */
     public static void loadAndRun(DukeTaskList list, String line, boolean isLoadingData, boolean needUpdateTaskStatus) {
         CommandType command = DukeParser.findCommandType(line);
 
