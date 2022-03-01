@@ -136,6 +136,11 @@ public class Parser {
 
     }
 
+    /**
+     * Handles the main delete command
+     * @param input Full string user input
+     * @param cmd list of cmdlline pararms and comamands
+     * */
     private void handleDelete(String input, String[] cmd) throws DukeException {
         if (cmd.length < 2) {
 //            throw new DukeException("☹ OOPS!!! I'm sorry, but delete requires an index");
@@ -158,6 +163,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the main find command
+     * @param input Full string user input
+     * @param cmd list of cmdlline pararms and comamands
+     * */
     private void handleFind(String input, String[] cmd) throws DukeException {
         if (cmd.length < 2) {
             System.out.println("☹ OOPS!!! I'm sorry, but delete require something to search for");

@@ -10,10 +10,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * Storage class that handles save file IO for task list
+ */
 public class Storage {
     private static final String OUT_DIR = "output";    // Honestly create a config file or smth
     private static final String SAVE_PATH = String.format("%s/%s", OUT_DIR, "SAVE.json");
 
+    /**
+     * Opens and reads file at SAVE_PATH 
+     * @return saveStr the JSON string from save file
+     */
     public String readSaveFile(){
         String saveStr = "";
         try {
@@ -30,6 +37,9 @@ public class Storage {
         return saveStr;
     }
 
+    /**
+     * Opens and writes serialised string versino of tasklist to file at SAVE_PATH 
+     */
     public void writeSaveFile(String storeStr){
         Path dir = Paths.get(OUT_DIR);
 //        File f = new File(OUT_DIR);
