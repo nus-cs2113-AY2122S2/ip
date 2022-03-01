@@ -28,8 +28,10 @@ public class MarkCommand extends Command{
     public void execute(){
         ArrayList<Task> tasks = taskList.getTasks();
         try {
+            System.out.println("================================================");
             tasks.get(taskIndex-1).markAsDone();
             System.out.println(tasks.get(taskIndex-1).printTask());
+            System.out.println("================================================");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("This task does not exist!");
         } catch (NumberFormatException e){
