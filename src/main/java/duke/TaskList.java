@@ -72,6 +72,7 @@ public class TaskList {
 
     private void loadTaskList() {
         String saveStr = fileClass.readSaveFile();
+        if (saveStr == null){return;}
         parseJSONTasks(saveStr);
     }
 

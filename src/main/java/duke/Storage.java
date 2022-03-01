@@ -22,7 +22,7 @@ public class Storage {
      * @return saveStr the JSON string from save file
      */
     public String readSaveFile(){
-        String saveStr = "";
+        String saveStr = null;
         try {
             FileReader fr = new FileReader(SAVE_PATH);
             int i;
@@ -32,7 +32,7 @@ public class Storage {
 //            System.out.println(saveStr);
             fr.close();
         } catch (IOException e){
-            System.err.println("Failed to open save file!" + e.getMessage());
+            System.err.println("Failed to open save file!" + e.getMessage() + "\n");
         }
         return saveStr;
     }
