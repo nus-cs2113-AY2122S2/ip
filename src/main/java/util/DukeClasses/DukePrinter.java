@@ -5,6 +5,9 @@ import util.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Includes Duke outputs
+ */
 public class DukePrinter implements Chatbot {
     /**
      * Print a straight solid line
@@ -18,6 +21,8 @@ public class DukePrinter implements Chatbot {
      * Print the greeting message
      */
     public static void printGreeting() {
+        System.out.println("Hello from\n" + LOGO);
+
         linePrinter();
         System.out.println("\t" + GREETING_MSG_01);
         System.out.println("\t" + GREETING_MSG_02);

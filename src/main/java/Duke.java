@@ -11,8 +11,6 @@ public class Duke extends DukePrinter {
 
         DukeTaskList list = new DukeTaskList();
 
-        System.out.println("Hello from\n" + LOGO);
-
         DukePrinter.printGreeting();
 
         DukeStorage.loadData(list);
