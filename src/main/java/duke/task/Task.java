@@ -15,7 +15,7 @@ public class Task {
     }
 
     /**
-     * This is the getStatusIcon method that returns the icon that represents whether a task is done.
+     * Returns the icon that represents whether a task is done.
      *
      * @return The string "X" when a task is done and an empty string when a task is not done.
      */
@@ -24,21 +24,21 @@ public class Task {
     }
 
     /**
-     * This is the markAsDone method that marks the task as done and saves it in this task.
+     * Marks the task as done and saves it in this task.
      */
-    public void markAsDone() {
+    public void setDone() {
         this.isDone = true;
     }
 
     /**
-     * This is the markAsUndone method that marks the task as not done and saves it in this task.
+     * Marks the task as not done and saves it in this task.
      */
-    public void markAsUndone() {
+    public void setUndone() {
         this.isDone = false;
     }
 
     /**
-     * This is the getDescription method that returns the description of this task.
+     * Returns the description of this task.
      *
      * @return The description of this task.
      */
@@ -47,7 +47,7 @@ public class Task {
     }
 
     /**
-     * This is the isDone method that returns whether this task is done.
+     * Returns true if this task is done.
      *
      * @return True if this task is done and false if this task is not done.
      */
@@ -56,7 +56,7 @@ public class Task {
     }
 
     /**
-     * This is the getTypeOfTask method that returns the type of task for this task.
+     * Returns the type of task for this task.
      *
      * @return The type of task for this task.
      */
@@ -65,7 +65,7 @@ public class Task {
     }
 
     /**
-     * This is the toString method that returns a particular format to represent this task.
+     * Returns a particular format to represent this task.
      *
      * @return The printing format of this task.
      */

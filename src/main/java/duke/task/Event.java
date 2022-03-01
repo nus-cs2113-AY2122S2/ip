@@ -18,27 +18,27 @@ public class Event extends Task{
     }
 
     /**
-     * This is the getLocation method that returns the location of this task.
+     * Returns the location of this event task.
      *
-     * @return The location of this task.
+     * @return The location of this event task.
      */
     public String getLocation() {
         return location;
     }
 
     /**
-     * This is the getDate method that returns the location of this task.
+     * Returns the date of this event task.
      *
-     * @return The date of event of this task.
+     * @return The date of event of this event task.
      */
     public LocalDate getDate() {
         return dateOfEvent;
     }
 
     /**
-     * This is the toString method that returns a particular format to represent this task.
+     * Returns a particular format to represent this event task.
      *
-     * @return The printing format of this task.
+     * @return The printing format of this event task.
      */
     @Override
     public String toString() {

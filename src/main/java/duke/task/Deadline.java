@@ -16,18 +16,18 @@ public class Deadline extends Task{
     }
 
     /**
-     * This is the getDate method that returns the date of this task.
+     * Returns the date of this deadline task.
      *
-     * @return The date of deadline of this task.
+     * @return The date of deadline of this deadline task.
      */
     public LocalDate getDate() {
         return dateOfDeadline;
     }
 
     /**
-     * This is the toString method that returns a particular format to represent this task.
+     * Returns a particular format to represent this deadline task.
      *
-     * @return The printing format of this task.
+     * @return The printing format of this deadline task.
      */
     @Override
     public String toString() {

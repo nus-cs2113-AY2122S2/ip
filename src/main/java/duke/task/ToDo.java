@@ -10,9 +10,9 @@ public class ToDo extends Task{
     }
 
     /**
-     * This is the toString method that returns a particular format to represent this task.
+     * Returns a particular format to represent this todo task.
      *
-     * @return The printing format of this task.
+     * @return The printing format of this todo task.
      */
     @Override
     public String toString() {
