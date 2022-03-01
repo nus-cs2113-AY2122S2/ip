@@ -82,7 +82,7 @@ public class TaskManager {
         if (taskName.equals("")) {
             throw new IllegalInputException();
         }
-        tasks.add(new Todo(taskName));
+        tasks.add(new Todo(taskName.trim()));
         storage.saveData();
     }
 

@@ -117,7 +117,7 @@ public class Ui {
             + "All deleted tasks are sent to the bin which are them permanently destroyed on the exit of the app.\n"
             + "(for e.g: delete 4)\n\n"
             + "10. retrieve\n"
-            + "You can use the retrieve command to recover a task from the bin. Retrieve takes in a positive integer as a parameter.\n"h
+            + "You can use the retrieve command to recover a task from the bin. Retrieve takes in a positive integer as a parameter.\n"
             + "(for e.g: retrieve 1)\n\n"
             + "11. bin\n"
             + "You can view items you have deleted by saying bin.\n\n"
