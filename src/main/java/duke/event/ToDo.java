@@ -3,6 +3,9 @@ package duke.event;
 import duke.task.Task;
 import org.json.simple.JSONObject;
 
+/**
+ * Todo class, most basic form of task
+ */
 public class ToDo extends Task {
 
     private final String symbol = "T";
