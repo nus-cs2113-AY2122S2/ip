@@ -304,13 +304,13 @@ The Duke data file is saved as a text file `[Duke.jar file location]/data/duke.t
 If modifications made to the data file causes its format to be invalid, the Duke program will not load the data into the program. Thus, you have to start on a clean slate.
 
 ## Command summary
-| Action          | Format, Examples                                                                                                  |
-|-----------------|-------------------------------------------------------------------------------------------------------------------|
-| Create todo     | `todo <description>`<br/>e.g., `todo shower` |
-| Create event    | `event <description> /at <date> <time>`<br/>e.g., `event housewarming /at 2022-03-01 10`                                                                                                                                                                                                                                         |
-| Create deadline | `deadline <description> /by <date> <time>`<br/>e.g., `deadline coding project /by 2022-05-03 11`                                                                                                                                                                                                                                           |
-| Delete task     | `delete <task number>`<br/>e.g., `delete 2`                                                                                                                                                                                                                                           |
-| Find task       | `find <keyword>`<br/>e.g., `find coding`                                                                                                                                                                                                                                              |
-| Mark task       | Mark task: `mark <task number>`<br/>e.g., `mark 2`<br/><br/>Unmark task: `unmark <task number>`<br/>e.g., `unmark 2`                                                                                                                                                                  |
-| List task       | `list`                                                                                                                                                                                                                                                                                |
-| Exit            | `bye`                                                                                                                                                                                                                                                                                 |                                                                                                                                                                                                                                                                                     |
+| Action          | Format, Examples                                                                                                    |
+|-----------------|---------------------------------------------------------------------------------------------------------------------|
+| Create todo     | `todo <description>`<br/>e.g., `todo shower`                                                                        |
+| Create event    | `event <description> /at <date> <time>`<br/>e.g., `event housewarming /at 2022-03-01 10`                            |
+| Create deadline | `deadline <description> /by <date> <time>`<br/>e.g., `deadline coding project /by 2022-05-03 11`                    |
+| Delete task     | `delete <task number>`<br/>e.g., `delete 2`                                                                         |
+| Find task       | `find <keyword>`<br/>e.g., `find coding`                                                                            |
+| Mark task       | Mark task: `mark <task number>`<br/>e.g., `mark 2`<br/><br/>Unmark task: `unmark <task number>`<br/>e.g., `unmark 2`|
+| List task       | `list`                                                                                                              |
+| Exit            | `bye`                                                                                                               |
