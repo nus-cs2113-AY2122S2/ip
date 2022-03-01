@@ -100,8 +100,8 @@ public class Ui {
                 }
             } else if (input.startsWith("find")){
                 try {
-                    String toDoTask = parser.extractFindTerm(input);
-                    taskList.showResults(toDoTask);
+                    String findTerm = parser.extractFindTerm(input);
+                    taskList.showResults(findTerm);
                 } catch (IncompleteCommandException e) {
                     promptAgain();
                     promptFind();
