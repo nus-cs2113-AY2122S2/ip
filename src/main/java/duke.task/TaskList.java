@@ -1,5 +1,6 @@
 package duke.task;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -130,6 +131,20 @@ public class TaskList {
         System.out.println("   " + task);
     }
 
+    /**
+     * Given a string, print all strings that are found in a particular task
+     * @param keyword
+     */
+    public void showResults(String keyword){
+        System.out.println("The matching tasks are as follows:");
+        int returnNum = 1;
+        for (Task task: taskList){
+            if (task.getTaskInfo().contains(keyword)) {
+                System.out.println(returnNum+". "+task);
+                returnNum++;
+            }
+        }
+    }
 
     public ArrayList<Task> getTaskList() {
         return taskList;

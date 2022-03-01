@@ -8,10 +8,20 @@ public class Ui {
     private static final String GREET_STRING = "Hello! I'm Duke" + System.lineSeparator() + "What can I do for you?";
     private static final String BYE_STRING = "Bye. Hope to see you again soon!";
     private static final String PROMPT_GENERIC_INVALID_COMMAND = "I don't understand what you are saying. Please follow this syntax:";
-    private static final String PROMPT_ALL_FEATURES = "Recognised Commands:" + System.lineSeparator() + "'list'     | show you all your tasks" + System.lineSeparator() + "'mark'     | mark tasks by index once completed" + System.lineSeparator() + "'unmark'   | unmark tasks by index to undo 'mark'" + System.lineSeparator() + "'delete'   | delete tasks by index (irreversible!)" + System.lineSeparator() + "'todo'     | create general task" + System.lineSeparator() + "'deadline' | create task with deadline: include '/by' for deadline" + System.lineSeparator() + "'event'    | create task as event: include '/at' for the date/time" + System.lineSeparator() + "'bye'      | exit Duke";
+    private static final String PROMPT_ALL_FEATURES = "Recognised Commands:" + System.lineSeparator() +
+            "'list'     | show you all your tasks" + System.lineSeparator() +
+            "'mark'     | mark tasks by index once completed" + System.lineSeparator() +
+            "'unmark'   | unmark tasks by index to undo 'mark'" + System.lineSeparator() +
+            "'delete'   | delete tasks by index (irreversible!)" + System.lineSeparator() +
+            "'todo'     | create general task" + System.lineSeparator() +
+            "'deadline' | create task with deadline: include '/by' for deadline" + System.lineSeparator() +
+            "'event'    | create task as event: include '/at' for the date/time" + System.lineSeparator() +
+            "'find'     | find tasks that include a short string" + System.lineSeparator() +
+            "'bye'      | exit Duke";
     private static final String PROMPT_CORRECT_DEADLINE = "example: `deadline Rush CS2113 Assignment /by today`";
     private static final String PROMPT_CORRECT_EVENT = "example: `event Watch CS2113 Lecture /at 4-6pm on Friday`";
     private static final String PROMPT_CORRECT_TODO = "example: `todo Make sure that the user knows I need some text here!`";
+    private static final String PROMPT_CORRECT_FIND = "example: `find try`";
     private static final String PROMPT_CORRECT_INDEX_USE = "when marking, unmarking or deleting, use syntax like: `delete 2` for task #2" + System.lineSeparator() + "you can do so for any of the tasks in `list`";
 
     private static void promptToDo() {
@@ -28,6 +38,10 @@ public class Ui {
 
     private static void promptEvent() {
         System.out.println(PROMPT_CORRECT_EVENT);
+    }
+
+    private static void promptFind(){
+        System.out.println(PROMPT_CORRECT_FIND);
     }
 
     private static void promptAgain() {
@@ -83,6 +97,14 @@ public class Ui {
                 } catch (IncompleteCommandException e) {
                     promptAgain();
                     promptToDo();
+                }
+            } else if (input.startsWith("find")){
+                try {
+                    String toDoTask = parser.extractFindTerm(input);
+                    taskList.showResults(toDoTask);
+                } catch (IncompleteCommandException e) {
+                    promptAgain();
+                    promptFind();
                 }
             } else if (input.startsWith("deadline")) {
                 try {

@@ -27,10 +27,11 @@ public class Parser {
     }
 
     /**
-     * Reformats string to remove "todo " substring from user input
+     * Reformats string to remove todo substring from user input
      *
      * @param input
-     * @return input less "todo " substring
+     * @return input less todo substring
+     * @throws IncompleteCommandException
      */
     public String extractToDoTask(String input) throws IncompleteCommandException {
         String returnString = input.replace("todo", "").trim();
@@ -41,7 +42,21 @@ public class Parser {
     }
 
     /**
-     * Reformats string to remove "deadline " substring from user input, then
+     * Reformats string to remove find substring from user input
+     * @param input
+     * @return input less find substring
+     * @throws IncompleteCommandException
+     */
+    public String extractFindTerm(String input) throws IncompleteCommandException {
+        String returnString = input.replace("find", "").trim();
+        if (returnString.equals("")) {
+            throw new IncompleteCommandException();
+        }
+        return returnString;
+    }
+
+    /**
+     * Reformats string to remove deadline substring from user input, then
      * splits into task name and deadline.
      *
      * @param input
@@ -56,7 +71,7 @@ public class Parser {
     }
 
     /**
-     * Reformats string to remove "event " substring from user input, then
+     * Reformats string to remove event substring from user input, then
      * splits into task name and event time.
      *
      * @param input
