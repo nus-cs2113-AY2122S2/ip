@@ -12,59 +12,53 @@ public class Parser {
         int idx;
         Command cmd;
 
-        switch (commandWord) {
-        case TodoCommand.COMMAND_WORD:
-            description = splitCommands[1].trim();
-            cmd = prepareTodo(description);
-            break;
-        case DeadlineCommand.COMMAND_WORD:
-            description = splitCommands[1].trim();
-            cmd = prepareDeadline(description);
-            break;
-        case EventCommand.COMMAND_WORD:
-            description = splitCommands[1].trim();
-            cmd = prepareEvent(description);
-            break;
-        case ListCommand.COMMAND_WORD:
-            cmd = new ListCommand();
-            break;
-        case ByeCommand.COMMAND_WORD:
-            cmd = new ByeCommand();
-            break;
-        case DeleteCommand.COMMAND_WORD:
-            try {
+        try {
+            switch (commandWord) {
+            case TodoCommand.COMMAND_WORD:
+                description = splitCommands[1].trim();
+                cmd = prepareTodo(description);
+                break;
+            case DeadlineCommand.COMMAND_WORD:
+                description = splitCommands[1].trim();
+                cmd = prepareDeadline(description);
+                break;
+            case EventCommand.COMMAND_WORD:
+                description = splitCommands[1].trim();
+                cmd = prepareEvent(description);
+                break;
+            case ListCommand.COMMAND_WORD:
+                cmd = new ListCommand();
+                break;
+            case ByeCommand.COMMAND_WORD:
+                cmd = new ByeCommand();
+                break;
+            case DeleteCommand.COMMAND_WORD:
                 description = splitCommands[1].trim();
                 idx = Integer.parseInt(description);
-                cmd = new DeleteCommand(Integer.parseInt(description));
-            } catch (NumberFormatException e) {
-                throw new DukeException("Index is not an integer.");
-            }
-            break;
-        case MarkCommand.COMMAND_WORD:
-            try {
+                cmd = new DeleteCommand(idx);
+                break;
+            case MarkCommand.COMMAND_WORD:
                 description = splitCommands[1].trim();
                 idx = Integer.parseInt(description);
                 cmd = new MarkCommand(idx);
-            } catch (NumberFormatException e) {
-                throw new DukeException("Index is not an integer.");
-            }
-            break;
-        case UnmarkCommand.COMMAND_WORD:
-            try {
+                break;
+            case UnmarkCommand.COMMAND_WORD:
                 description = splitCommands[1].trim();
                 idx = Integer.parseInt(description);
-                cmd = new UnmarkCommand(Integer.parseInt(description));
-            } catch (NumberFormatException e) {
-                throw new DukeException("Index is not an integer.");
+                cmd = new UnmarkCommand(idx);
+                break;
+            case HelpCommand.COMMAND_WORD:
+                cmd = new HelpCommand();
+                break;
+            default:
+                throw new DukeException("Sorry! I cannot read this command :(\n\t "
+                        + "Type \"help\" to view supported command.");
             }
-            break;
-        case HelpCommand.COMMAND_WORD:
-            cmd = new HelpCommand();
-            break;
-        default:
-            throw new DukeException("Sorry! I cannot read this command :(\n\t "
+        } catch (NumberFormatException e) {
+            throw new DukeException("Index is not an integer.");
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("Sorry! The command format is incorrect :(\n\t "
                     + "Type \"help\" to view supported command.");
-
         }
 
         return cmd;
