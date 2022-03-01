@@ -1,7 +1,4 @@
 import java.util.Scanner;
-import java.util.Arrays;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class Duke {
 
@@ -29,11 +26,14 @@ public class Duke {
         String userInput;
         TaskManager t = new TaskManager();
 
-        String firstWord = "";
-        String index;
+        t.readData();
+
 
         do {
             userInput = in.nextLine();
+            String firstWord = "";
+            String index;
+
             if (userInput.contains(" ")) {
                 firstWord = userInput.substring(0, userInput.indexOf(" "));
             }
@@ -50,7 +50,7 @@ public class Duke {
             }
             else if (firstWord.equalsIgnoreCase(UNMARK_COMMAND)) {
                 index = userInput.substring(userInput.indexOf(" ") + 1);
-                t.unmarkAsNotDone(Integer.parseInt(index) - 1);
+                t.markAsNotDone(Integer.parseInt(index) - 1);
                 System.out.println(HORIZONTAL_LINE);
             }
             else if (firstWord.equalsIgnoreCase(DELETE_COMMAND)) {
@@ -65,8 +65,11 @@ public class Duke {
             }
         } while (!userInput.equalsIgnoreCase(EXIT_COMMAND));
 
+        t.saveData();
         System.out.println(HORIZONTAL_LINE);
         System.out.println(" Bye. Hope to see you again soon!");
         System.out.println(HORIZONTAL_LINE);
+
+
     }
 }
