@@ -10,6 +10,9 @@ import java.util.Scanner;
  * Parses user input and handles them.
  * */
 public class Parser {
+    /**
+     * String constants of main command
+     * */
     private static final String MARK_CMD = "mark";
     private static final String UNMARK_CMD = "unmark";
     private static final String LIST_CMD = "list";
@@ -24,6 +27,11 @@ public class Parser {
         enterInputLoop();
     }
 
+    /**
+     * Begins user input loop, returns when "bye" command issued
+     *
+     * @throws DukeException
+     * */
     private void enterInputLoop() throws DukeException {
         while (true) {
             String input = this.in.nextLine();
@@ -42,7 +50,7 @@ public class Parser {
             } else if (main_cmd.equals(UNMARK_CMD)) {
                 updateMark(UNMARK_CMD, cmd);
             } else if (main_cmd.equals(ADD_CMD)) {
-                this.handleAdd(input, main_cmd);
+                this.handleAdd(input, cmd);
             } else if (main_cmd.equals(DELETE_CMD)) {
                 this.handleDelete(input, cmd);
             } else if (main_cmd.equals(HELP_CMD)){
@@ -54,7 +62,12 @@ public class Parser {
     }
 
 
-
+    /**
+     * Updates the mark status of a task is tasklist by index
+     *
+     * @param isMark the mark status of task
+     * @param cmd Command parameters, may include sub commands
+     * */
     private void updateMark(String isMark, String[] cmd) {
         int idx;
         String param = cmd[1];
@@ -79,8 +92,15 @@ public class Parser {
             return;
         }
     }
-    private void handleAdd(String input, String main_cmd) throws DukeException {
+
+    /**
+     * Handles the main add command
+     * @param input Full string user input
+     * @param cmd list of cmdlline pararms and comamands
+     * */
+    private void handleAdd(String input, String[] cmd) throws DukeException {
         Task newTask;
+        String main_cmd = cmd[0];
         String params = input.substring(main_cmd.length());
         if (main_cmd.equals("todo")) {
             newTask = tasks.addTodo(params);
@@ -89,7 +109,8 @@ public class Parser {
         } else if (main_cmd.equals("event")) {
             newTask = tasks.addEvent(params);
         } else {
-            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what this sub command means:-(");
+            return;
         }
         Ui.printTaskAdded(tasks,newTask);
     }
