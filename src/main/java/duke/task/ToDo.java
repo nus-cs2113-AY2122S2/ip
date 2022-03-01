@@ -7,14 +7,25 @@ public class ToDo extends Task {
         super(taskName);
     }
 
-    public String printTaskDescription() {
-        return TO_DO_SYMBOL + super.printTaskDescription();
+    public String getTaskInformation() {
+        return TO_DO_SYMBOL + super.getTaskInformation();
     }
 
-    public String setDone(boolean isDone) {
-        String taskStatusSymbol;
-        taskStatusSymbol = super.setDone(isDone);
-        return TO_DO_SYMBOL + taskStatusSymbol + this.getTaskName();
+    public String addTaskMessage(){
+        String message;
+        message = super.addTaskMessage() + "\t   " + getTaskInformation();
+        return message;
+    }
+
+    public String getTaskUpdatedMessage(){
+        String message;
+        message = super.getTaskUpdatedMessage() + "\t   " + getTaskInformation();
+        return message;
+    }
+
+    public String removeTaskMessage(){
+        String acknowledgementMessage = super.removeTaskMessage() + "\t   " + getTaskInformation();
+        return acknowledgementMessage;
     }
 
 }

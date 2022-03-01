@@ -7,48 +7,60 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
-    public static void printHorizontalLine() {
-        System.out.println("    ------------------------------------------------------------");
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath,ui);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showLoadingError(e);
+            tasks = new TaskList();
+        }
     }
 
-    public static void startBot(Scanner in, boolean shouldExitProgram) {
-        printHorizontalLine();
+    public void run() {
+        boolean shouldExitProgram = false;
+        ui.showHorizontalLine();
         ChatBot bigBob;
-        try {
-            bigBob = new ChatBot();
-        } catch(IOException io){
-            if(io.getMessage().equals("Folder is unable to be created")){
-                System.out.println("File was not found and the parent folder of the file is unable to be created.");
-            }
-            System.out.println("File was not found and the file is unable to be created.");
-            return;
-        }
-        printHorizontalLine();
+        bigBob = new ChatBot(ui,tasks);
+        ui.showHorizontalLine();
         Command inputCommand;
+        boolean writeListToFile;
         while (!shouldExitProgram) {
-            String userInput = in.nextLine();
-            printHorizontalLine();
+            String userInput = ui.readUserInput();
+            ui.showHorizontalLine();
             try {
-                inputCommand = Decoder.parseInput(userInput);
+                inputCommand = Parser.parseInput(userInput);
             } catch (DukeException de) {
-                bigBob.processExceptions(de);
-                printHorizontalLine();
+                ui.showParsingError(de);
+                ui.showHorizontalLine();
                 continue;
             }
             if (inputCommand.getType() == Command.CommandType.EXITPROGRAM) {
                 shouldExitProgram = true;
-                bigBob.echoFarewellGreeting();
-                printHorizontalLine();
+                ui.echoFarewellGreeting();
+                ui.showHorizontalLine();
                 continue;
             }
-            bigBob.executeCommand(inputCommand);
-            printHorizontalLine();
+            writeListToFile = bigBob.executeCommand(inputCommand);
+            ui.showHorizontalLine();
+            if (!writeListToFile) {
+                continue;
+            }
+            try {
+                storage.writeArrayListToFile(tasks.getListOfTasks(),ui);
+            } catch (IOException io) {
+                ui.showFileWritingError();
+            }
         }
     }
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        boolean shouldExitProgram = false;
-        startBot(in, shouldExitProgram);
+        new Duke("data/duke.txt").run();
     }
 }

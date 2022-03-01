@@ -27,8 +27,8 @@
     ------------------------------------------------------------
 	 Here are the tasks in your list:
 	 1.[T][ ] borrow book
-	 2.[D][ ] return book(by: Sunday)
-	 3.[E][ ] project meeting(at: Mon 2-4pm)
+	 2.[D][ ] return book (by: Sunday)
+	 3.[E][ ] project meeting (at: Mon 2-4pm)
     ------------------------------------------------------------
     ------------------------------------------------------------
 	 Nice! I've marked this task as done:
@@ -37,31 +37,31 @@
     ------------------------------------------------------------
 	 Here are the tasks in your list:
 	 1.[T][X] borrow book
-	 2.[D][ ] return book(by: Sunday)
-	 3.[E][ ] project meeting(at: Mon 2-4pm)
+	 2.[D][ ] return book (by: Sunday)
+	 3.[E][ ] project meeting (at: Mon 2-4pm)
     ------------------------------------------------------------
     ------------------------------------------------------------
 	 ☹ OOPS!!! The description of a deadline cannot be empty.
     ------------------------------------------------------------
     ------------------------------------------------------------
 	 Nice! I've marked this task as done:
-	   [D][X] return book
+	   [D][X] return book (by: Sunday)
     ------------------------------------------------------------
     ------------------------------------------------------------
 	 Here are the tasks in your list:
 	 1.[T][X] borrow book
-	 2.[D][X] return book(by: Sunday)
-	 3.[E][ ] project meeting(at: Mon 2-4pm)
+	 2.[D][X] return book (by: Sunday)
+	 3.[E][ ] project meeting (at: Mon 2-4pm)
     ------------------------------------------------------------
     ------------------------------------------------------------
 	 Nice! I've marked this task as done:
-	   [E][X] project meeting
+	   [E][X] project meeting (at: Mon 2-4pm)
     ------------------------------------------------------------
     ------------------------------------------------------------
 	 Here are the tasks in your list:
 	 1.[T][X] borrow book
-	 2.[D][X] return book(by: Sunday)
-	 3.[E][X] project meeting(at: Mon 2-4pm)
+	 2.[D][X] return book (by: Sunday)
+	 3.[E][X] project meeting (at: Mon 2-4pm)
     ------------------------------------------------------------
     ------------------------------------------------------------
 	 ☹ OOPS!!! The description of a todo cannot be empty.
@@ -73,12 +73,12 @@
     ------------------------------------------------------------
 	 Here are the tasks in your list:
 	 1.[T][ ] borrow book
-	 2.[D][X] return book(by: Sunday)
-	 3.[E][X] project meeting(at: Mon 2-4pm)
+	 2.[D][X] return book (by: Sunday)
+	 3.[E][X] project meeting (at: Mon 2-4pm)
     ------------------------------------------------------------
     ------------------------------------------------------------
 	 OK, I've marked this task as not done yet:
-	   [D][ ] return book
+	   [D][ ] return book (by: Sunday)
     ------------------------------------------------------------
     ------------------------------------------------------------
 	 ☹ OOPS!!! The description of a event cannot be empty.
@@ -86,28 +86,28 @@
     ------------------------------------------------------------
 	 Here are the tasks in your list:
 	 1.[T][ ] borrow book
-	 2.[D][ ] return book(by: Sunday)
-	 3.[E][X] project meeting(at: Mon 2-4pm)
+	 2.[D][ ] return book (by: Sunday)
+	 3.[E][X] project meeting (at: Mon 2-4pm)
     ------------------------------------------------------------
     ------------------------------------------------------------
 	 OK, I've marked this task as not done yet:
-	   [E][ ] project meeting
+	   [E][ ] project meeting (at: Mon 2-4pm)
     ------------------------------------------------------------
     ------------------------------------------------------------
 	 Here are the tasks in your list:
 	 1.[T][ ] borrow book
-	 2.[D][ ] return book(by: Sunday)
-	 3.[E][ ] project meeting(at: Mon 2-4pm)
+	 2.[D][ ] return book (by: Sunday)
+	 3.[E][ ] project meeting (at: Mon 2-4pm)
     ------------------------------------------------------------
     ------------------------------------------------------------
 	 Noted. I've removed this task:
-	   [D][ ] return book(by: Sunday)
+	   [D][ ] return book (by: Sunday)
 	 Now you have 2 tasks in the list.
     ------------------------------------------------------------
     ------------------------------------------------------------
 	 Here are the tasks in your list:
 	 1.[T][ ] borrow book
-	 2.[E][ ] project meeting(at: Mon 2-4pm)
+	 2.[E][ ] project meeting (at: Mon 2-4pm)
     ------------------------------------------------------------
     ------------------------------------------------------------
 	 Noted. I've removed this task:
@@ -116,11 +116,11 @@
     ------------------------------------------------------------
     ------------------------------------------------------------
 	 Here are the tasks in your list:
-	 1.[E][ ] project meeting(at: Mon 2-4pm)
+	 1.[E][ ] project meeting (at: Mon 2-4pm)
     ------------------------------------------------------------
     ------------------------------------------------------------
 	 Noted. I've removed this task:
-	   [E][ ] project meeting(at: Mon 2-4pm)
+	   [E][ ] project meeting (at: Mon 2-4pm)
 	 Now you have 0 tasks in the list.
     ------------------------------------------------------------
     ------------------------------------------------------------
