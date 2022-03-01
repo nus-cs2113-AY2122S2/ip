@@ -11,14 +11,25 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Manages the file used to store task data.
+ */
 public class FileManager {
+    /** Default directory path of the storage file. */
     private static String DIR_PATH = "data";
+    /** Default storage file name. */
     private static final String fileName = "duke.txt";
 
     public FileManager(){
         DIR_PATH = System.getProperty("user.dir") + File.separator + "data";
     }
 
+    /**
+     * Loads the Task data from storage file, then returns it.
+     *
+     * @return the list of tasks stored in storage file
+     * @throws IOException If an output exception occurs
+     */
     public ArrayList<Task> loadData() throws IOException {
         File dir = new File(DIR_PATH);
         if(!dir.exists()) {
@@ -37,6 +48,12 @@ public class FileManager {
         return decodeData(records);
     }
 
+    /**
+     * Stores the list of tasks in storage file.
+     *
+     * @param tasks the list of tasks to be stored
+     * @throws IOException if an input exception occurs
+     */
     public void saveData(ArrayList<Task> tasks) throws IOException{
         FileWriter fw = new FileWriter(DIR_PATH + File.separator + fileName);
         ArrayList<String> records = encodeData(tasks);
@@ -47,7 +64,13 @@ public class FileManager {
         fw.close();
     }
 
-    public ArrayList<Task> decodeData(ArrayList<String> records) {
+    /**
+     * Decodes the strings loaded from storage file into a list of tasks.
+     *
+     * @param records the data loaded from storage file as a list of strings
+     * @return a list of tasks
+     */
+    private ArrayList<Task> decodeData(ArrayList<String> records) {
         ArrayList<Task> tasks = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
@@ -77,7 +100,13 @@ public class FileManager {
         return tasks;
     }
 
-    public ArrayList<String> encodeData(ArrayList<Task> tasks) {
+    /**
+     * Encodes the list of tasks into a list of strings to be stored in storage file.
+     *
+     * @param tasks the list of tasks to be stored
+     * @return a list of strings storing the task information
+     */
+    private ArrayList<String> encodeData(ArrayList<Task> tasks) {
         ArrayList<String> records = new ArrayList<>();
         for (Task task : tasks) {
             records.add(task.getInfo());

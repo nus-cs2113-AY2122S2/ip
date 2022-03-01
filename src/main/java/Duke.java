@@ -9,7 +9,7 @@ import java.io.IOException;
 
 /**
  * Entry point of the Duke application.
- * Initialize the application and starts the interaction with the user.
+ * Initializes the application and starts the interaction with the user.
  */
 public class Duke {
     private Ui ui;
@@ -30,8 +30,8 @@ public class Duke {
     }
 
     /**
-     * Read user input command and execute the command repeatedly.
-     * Stop and exit when the command is an exit command.
+     * Reads user input command and executes the command repeatedly.
+     * Stops and exits when the command is an exit command.
      */
     public void run() {
         ui.showGreetingMessage();

@@ -7,6 +7,9 @@ import data.TaskManager;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ *  Text UI of the application.
+ */
 public class Ui {
     private final Scanner sc;
     private final TaskManager taskManager;
@@ -28,6 +31,9 @@ public class Ui {
         System.out.println(Messages.Exit);
     }
 
+    /**
+     * Displays the separator between two command results.
+     */
     public void showLine() {
         System.out.println(Messages.LINE);
     }
@@ -37,12 +43,22 @@ public class Ui {
         return fullInputLine;
     }
 
+    /**
+     * Displays the newly added task.
+     *
+     * @param task the new task
+     */
     public void showNewTask(Task task) {
         System.out.println("\t Got it. I've added this task:");
         System.out.println("\t\t" + task.toString());
         System.out.println("\t Now you have " + taskManager.getNoOfTasks() + " tasks in the list.");
     }
 
+    /**
+     * Displays the newly deleted task.
+     *
+     * @param task the deleted task
+     */
     public void showRemovedTask(Task task) {
         System.out.println("\t Noted. I've removed this task:");
         System.out.println("\t\t " + task.toString());
@@ -61,11 +77,23 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays the newly marked task specified by its index.
+     *
+     * @param idx the index of the marked task
+     * @throws DukeException If the task index is out of bound
+     */
     public void showMarkedTask(int idx) throws DukeException {
         System.out.println("\t Nice! I've marked this task as done:");
         System.out.println("\t\t " + idx + "." + taskManager.getTask(idx).toString());
     }
 
+    /**
+     * Displays the newly unmarked task specified by its index.
+     *
+     * @param idx the index of the unmarked task
+     * @throws DukeException If the task index is out of bound
+     */
     public void showUnmarkedTask(int idx) throws DukeException{
         System.out.println("\t OK, I've marked this task as not done yet:");
         System.out.println("\t\t " + idx + "." + taskManager.getTask(idx).toString());
@@ -85,11 +113,21 @@ public class Ui {
         System.out.println("\t Type \"bye\" to exit");
     }
 
+    /**
+     * Displays the error message and prompts the user to try again.
+     *
+     * @param message the error message to be displayed
+     */
     public void showError(String message) {
         System.out.println("\t " + message);
         System.out.println("\t Please try again.");
     }
 
+    /**
+     * Displays the error caused by loading data from local file.
+     *
+     * @param message the error message to be displayed
+     */
     public void showLoadingError(String message) {
         System.out.println("\t Error: Failed to load data.");
         System.out.println("\t " + message);
