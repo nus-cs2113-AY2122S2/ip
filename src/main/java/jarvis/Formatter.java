@@ -5,7 +5,8 @@ import jarvis.commands.Event;
 import jarvis.commands.Task;
 import jarvis.commands.UserList;
 import jarvis.display.DisplayMessages;
-import jarvis.exceptions.JarvisException;
+import jarvis.exceptions.JarvisInvalidInput;
+import jarvis.exceptions.JarvisOutOfBounds;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -19,7 +20,6 @@ public class Formatter {
     }
 
     public static int indexOf(String[] userInput, String toFind) {
-        // if array is Null
         if (userInput == null) {
             return -1;
         }
@@ -52,36 +52,36 @@ public class Formatter {
     protected static boolean isValidCommand(int numOfArgs) {
         return numOfArgs > 1;
     }
-    protected static void markCommand(String[] userCommand) throws JarvisException {
+    protected static void markCommand(String[] userCommand) throws JarvisOutOfBounds {
         int taskIndex = getTaskIndex(userCommand);
         if (isValidIndex(taskIndex)) {
             UserList.markTask(taskIndex, true);
         } else {
-            throw new JarvisException();
+            throw new JarvisOutOfBounds();
         }
     }
 
-    protected static void unmarkCommand(String[] userCommand) throws JarvisException {
+    protected static void unmarkCommand(String[] userCommand) throws JarvisOutOfBounds {
         int taskIndex = getTaskIndex(userCommand);
         if (isValidIndex(taskIndex)) {
             UserList.unmarkTask(taskIndex);
         } else {
-            throw new JarvisException();
+            throw new JarvisOutOfBounds();
         }
     }
 
-    protected static void todoCommand(String[] userCommand) throws JarvisException {
+    protected static void todoCommand(String[] userCommand) throws JarvisInvalidInput {
         int numOfArgs = userCommand.length;
         if (isValidCommand(numOfArgs)) {
             String taskDescription = parseUserInput(userCommand, 1, numOfArgs);
             Task newTask = new Task(taskDescription);
             UserList.insertTask(newTask);
         } else {
-           throw new JarvisException();
+           throw new JarvisInvalidInput();
         }
     }
 
-    protected static void deadlineCommand(String[] userCommand) throws JarvisException {
+    protected static void deadlineCommand(String[] userCommand) throws JarvisInvalidInput {
         int indexOfBy = indexOf(userCommand, "/by");
         int numOfArgs = userCommand.length;
         boolean isValidIndex = indexOfBy > 1;
@@ -93,11 +93,11 @@ public class Formatter {
             Deadline newDeadline = new Deadline(deadlineDescription, deadlineDate);
             UserList.insertTask(newDeadline);
         } else {
-            throw new JarvisException();
+            throw new JarvisInvalidInput();
         }
     }
 
-    protected static void eventCommand(String[] userCommand) throws JarvisException {
+    protected static void eventCommand(String[] userCommand) throws JarvisInvalidInput {
         int indexOfAt = indexOf(userCommand, "/at");
         int numOfArgs = userCommand.length;
         boolean isValidIndex = indexOfAt > 1;
@@ -109,85 +109,67 @@ public class Formatter {
             Event newEvent = new Event(eventDescription, eventDate);
             UserList.insertTask(newEvent);
         } else {
-            throw new JarvisException();
+            throw new JarvisInvalidInput();
         }
     }
 
-    protected static void deleteCommand(String[] userCommand) throws JarvisException {
+    protected static void deleteCommand(String[] userCommand) throws JarvisOutOfBounds {
         try {
             Integer taskIndex = Integer.parseInt(userCommand[1]);
             UserList.removeTask(taskIndex - 1);
-        } catch (NumberFormatException e){
-            throw new JarvisException();
-        } catch (IndexOutOfBoundsException e) {
-            throw new JarvisException();
+        } catch (NumberFormatException | IndexOutOfBoundsException er){
+            throw new JarvisOutOfBounds();
         }
     }
 
     public static void inputHandler(Scanner in) {
         String inputLine = in.nextLine();
         String[] userCommand = inputLine.split(" ");
+        try {
+            switch (userCommand[0]) {
+            case "bye":
+                DisplayMessages.savingData();
+                UserList.saveData();
+                DisplayMessages.closingMessage();
+                System.exit(0);
+                break;
 
-        switch (userCommand[0]) {
-        case "bye": //exit command
-            DisplayMessages.savingData();
-            UserList.saveData();
-            DisplayMessages.closingMessage();
-            System.exit(0);
-            break;
+            case "list":
+                UserList.printList();
+                break;
 
-        case "list":
-            UserList.printList();
-            break;
-
-        case "mark":
-            try {
+            case "mark":
                 markCommand(userCommand);
-            } catch (JarvisException e) {
-                DisplayMessages.outOfBounds();
-            }
-            break;
+                break;
 
-        case "unmark":
-            try {
+            case "unmark":
                 unmarkCommand(userCommand);
-            } catch (JarvisException e) {
-                DisplayMessages.outOfBounds();
-            }
-            break;
+                break;
 
-        case "todo":
-            try {
+            case "todo":
                 todoCommand(userCommand);
-            } catch(JarvisException e) {
-                DisplayMessages.invalidInput();
-            }
-            break;
+                break;
 
-        case "deadline":
-            try {
+            case "deadline":
                 deadlineCommand(userCommand);
-            } catch(JarvisException e) {
-                DisplayMessages.invalidInput();
-            }
-            break;
+                break;
 
-        case "event":
-            try {
+            case "event":
                 eventCommand(userCommand);
-            } catch (JarvisException e) {
-                DisplayMessages.invalidInput();
-            }
-            break;
-        case "delete":
-            try {
+                break;
+
+            case "delete":
                 deleteCommand(userCommand);
-            } catch (JarvisException e) {
+                break;
+
+            default:
                 DisplayMessages.invalidInput();
             }
-            break;
-        default:
+        } catch (JarvisInvalidInput e) {
             DisplayMessages.invalidInput();
+        } catch (JarvisOutOfBounds e) {
+            DisplayMessages.outOfBounds();
         }
+
     }
 }

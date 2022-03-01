@@ -10,28 +10,31 @@ import java.util.Scanner;
 import java.io.FileNotFoundException;
 
 public class UserList extends Task {
-    private static ArrayList<Task> userList= new ArrayList<>(); //list of Tasks
+    private static ArrayList<Task> userTaskList = new ArrayList<>();
+
+    private static final String TASK_ICON = "T";
+    private static final String EVENT_ICON = "E";
+    private static final String DEADLINE_ICON = "D";
 
     public UserList(String description) {
         super(description);
     }
 
     public static int getListSize() {
-        return userList.size();
+        return userTaskList.size();
     }
 
     public static void insertTask(Task newTask) {
-        userList.add(newTask);
+        userTaskList.add(newTask);
         DisplayMessages.taskAdded(newTask.getDescription());
     }
 
-    public static void printList() { //consider converting this function to Jarvis.DisplayMessages
-
-        if (!userList.isEmpty()) {
+    public static void printList() {
+        if (!userTaskList.isEmpty()) {
             DisplayMessages.horizontalLine();
-            for (int i = 0; i < userList.size(); i++) {
+            for (int i = 0; i < userTaskList.size(); i++) {
                 String taskIndex = Integer.toString(i+1) + ".";
-                System.out.println(taskIndex.toString() + userList.get(i).getFullTask());
+                System.out.println(taskIndex.toString() + userTaskList.get(i).getFullTask());
 
             }
             DisplayMessages.horizontalLine();
@@ -41,16 +44,16 @@ public class UserList extends Task {
     }
 
     public static String getStatusIcon(int index){
-        return userList.get(index).getStatusIcon();
+        return userTaskList.get(index).getStatusIcon();
     }
 
     public static String getTask(int index) {
-        return userList.get(index).getDescription();
+        return userTaskList.get(index).getDescription();
     }
 
 
     public static void markTask(int index, boolean toPrintMessage) {
-        Task targetTask = userList.get(index);
+        Task targetTask = userTaskList.get(index);
         DisplayMessages.horizontalLine();
         boolean isSuccessfullyMarked = targetTask.markAsDone();
         if (isSuccessfullyMarked && toPrintMessage) {
@@ -60,7 +63,7 @@ public class UserList extends Task {
     }
 
     public static void unmarkTask(int taskIndex) {
-        Task targetTask = userList.get(taskIndex);
+        Task targetTask = userTaskList.get(taskIndex);
         DisplayMessages.horizontalLine();
         boolean isSuccessfullyUnmarked = targetTask.markAsUndone();
         if (isSuccessfullyUnmarked) {
@@ -69,9 +72,9 @@ public class UserList extends Task {
     }
 
     public static void removeTask(int taskIndex) {
-        Task taskRemoved = userList.get(taskIndex);
-        userList.remove(taskIndex);
-        DisplayMessages.taskDeleted(taskRemoved, userList.size());
+        Task taskRemoved = userTaskList.get(taskIndex);
+        userTaskList.remove(taskIndex);
+        DisplayMessages.taskDeleted(taskRemoved, userTaskList.size());
     }
 
     protected static void parseSavedData(String data) {
@@ -90,21 +93,21 @@ public class UserList extends Task {
         }
 
         switch (taskType) {
-        case ("T"):
-            userList.add(new Task(description));
+        case TASK_ICON:
+            userTaskList.add(new Task(description));
             break;
-        case("D"):
-            userList.add(new Deadline(description, date));
+        case DEADLINE_ICON:
+            userTaskList.add(new Deadline(description, date));
             break;
-        case("E"):
-            userList.add(new Event(description, date));
+        case EVENT_ICON:
+            userTaskList.add(new Event(description, date));
             break;
         default:
             break;
         }
 
         if (taskIsDone) {
-            markTask(userList.size()-1, false);
+            markTask(userTaskList.size()-1, false);
         }
     }
 
@@ -123,9 +126,9 @@ public class UserList extends Task {
 
     protected static String getData() {
         StringBuffer data = new StringBuffer();
-        for (Task t : userList) {
-            String temp = t.exportData() + "\n";
-            data.append(temp);
+        for (Task t : userTaskList) {
+            String taskData = t.exportData() + "\n";
+            data.append(taskData);
         }
         return data.toString();
     }
