@@ -305,8 +305,9 @@ If modifications made to the data file causes its format to be invalid, the Duke
 
 
 ## Command summary
-| Action      | Format, Examples                                                                                                                                                                                                                                                                                |
-|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+| Action      | Format, Examples                                                                                                  |
+|-------------|-------------------------------------------------------------------------------------------------------------------|
 | Create task | Todo task: `todo <description>`<br/>e.g., `todo shower`<br/><br/>Event task: `event <description> /at <date> <time>`<br/>e.g., `event housewarming /at 2022-03-01 10`<br/><br/> Deadline task: `deadline <description> /by <date> <time>`<br/>e.g., `deadline coding project /by 2022-05-03 11` |
 | Delete task | `delete <task number>`<br/>e.g., `delete 2`                                                                                                                                                                                                                                                     |
 | Find task   | `find <keyword>`<br/>e.g., `find coding`                                                                                                                                                                                                                                                        |
