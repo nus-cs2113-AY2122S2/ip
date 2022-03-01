@@ -51,9 +51,9 @@ public class Duke {
     private boolean runFullCommand(String fullCommand) {
         boolean isBye = false;
         try {
-            Command c = Parser.parse(fullCommand);
-            c.execute(tasks, ui, storage);
-            isBye = c.isBye();
+            Command command = Parser.parse(fullCommand);
+            command.execute(tasks, ui, storage);
+            isBye = command.isBye();
         } catch (AdditionalException | IOException e) {
             ui.showError(e.getMessage());
         } catch (IndexOutOfBoundsException e) {
