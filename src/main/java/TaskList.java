@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> tasks;
-    private UI ui;
+    private final ArrayList<Task> tasks;
+    private final UI ui;
 
     /** Offset required to convert between 1-indexing and 0-indexing.  */
     public static final int DISPLAYED_INDEX_OFFSET = 1;
@@ -10,6 +10,16 @@ public class TaskList {
     public TaskList(UI ui){
         tasks = new ArrayList<>();
         this.ui = ui;
+    }
+
+    public void find(String searchterm){
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+        for(Task t: tasks){
+            if(t.getDescription().contains(searchterm)){
+                filteredTasks.add(t);
+            }
+        }
+        ui.showFilteredTasks(filteredTasks);
     }
 
     public void mark(String info){
@@ -50,7 +60,6 @@ public class TaskList {
         Task newTask = new Task(info);
         tasks.add(newTask);
         ui.showSuccessfulTaskAdded(newTask);
-        return;
     }
 
     public void addDeadline(String info){
@@ -71,7 +80,6 @@ public class TaskList {
         Deadline newDeadline = new Deadline(task, by);
         tasks.add(newDeadline);
         ui.showSuccessfulTaskAdded(newDeadline);
-        return;
     }
 
     public void addEvent(String info){
