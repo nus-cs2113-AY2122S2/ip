@@ -1,1 +1,1 @@
-[  (D)( ) hw (by: tmr),   (E)( ) hehe (at: 7am),   (T)(X) heh,   (T)(X) cs2101,   (D)( ) cs2101 (by: tmr),   (T)(X) haha,   (E)( ) test (at: 9pm tmr),   (D)( ) hihi (by: tmr)]
+[  (D)( ) hw (by: tmr),   (E)(X) hehe (at: 7am),   (T)(X) cs2101]

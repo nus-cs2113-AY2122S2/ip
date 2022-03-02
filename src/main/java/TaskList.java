@@ -83,6 +83,8 @@ public class TaskList {
         int index = Integer.parseInt(instructionNum) - 1;
         String temp = instructionsList.get(index);
         temp = temp.replace("  (T)( )", "  (T)(X)");
+        temp = temp.replace("  (E)( )", "  (E)(X)");
+        temp = temp.replace("  (D)( )", "  (D)(X)");
         instructionsList.set(index, temp);
 
         printMarkMessage(instructionsList, index);

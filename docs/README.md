@@ -80,23 +80,23 @@ Got it. I've added this task:
   (E)( ) project meeting (at: Tue 2-4pm)
 Now you have 3 task(s) in the list.
 ```
-
 ### Mark tasks - `mark`
 
-For "Todo" tasks that you have completed, and you wish to mark it as done, you can input `mark` to mark the task as completed.
+For tasks that you have completed, and you wish to mark it as done, you can input `mark` followed by its task number.
 
 Format: `mark [TASK_NUMBER]`
 
 Example input:
 ```
-mark 1
+mark 2
 ```
 
 Expected output:
 ```
 Nice! I've marked this task as done:
-  (T)(X) visit new theme park
+  (D)(X) lumiNUS quiz (by: Fri 4pm)
 ```
+
 ### List all tasks - `list`
 If you wish to list all existing tasks, you can input `list`.
 
@@ -110,8 +110,8 @@ list
 Expected output:
 ```
 Here are the task(s) in your list:
-1.  (T)(X) visit new theme park
-2.  (D)( ) lumiNUS quiz (by: Fri 4pm)
+1.  (T)( ) visit new theme park
+2.  (D)(X) lumiNUS quiz (by: Fri 4pm)
 3.  (E)( ) project meeting (at: Tue 2-4pm)
 ```
 
@@ -123,13 +123,13 @@ Format: `delete [TASK_NUMBER]`
 
 Example input:
 ```
-delete 1
+delete 2
 ```
 
 Expected output:
 ```
 Noted. I've removed this task:
-  (T)(X) visit new theme park
+  (D)(X) lumiNUS quiz (by: Fri 4pm)
 Now you have 2 task(s) in the list.
 ```
 
