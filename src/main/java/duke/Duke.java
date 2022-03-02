@@ -249,5 +249,5 @@ public class Duke {
         dones.remove(index);
         System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("    ____________________________________________________________");
-    }l
+    }
 }
