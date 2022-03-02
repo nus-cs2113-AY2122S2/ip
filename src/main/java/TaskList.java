@@ -1,9 +1,15 @@
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Contains the task list and execution of different commands
+ */
 public class TaskList {
 
-    public static void executeCommands() throws IOException {
+    /**
+     * main method to take in user input and execute different commands
+     */
+    public static void executeCommands() {
 
         ArrayList<String> instructionsList = new ArrayList<>();
         Task task = new Task("homework");
@@ -18,7 +24,6 @@ public class TaskList {
 
             Duke.scanInput(task);
             String instructionLine = task.instruction.replaceAll("todo|deadline|event", "");
-            //String updatedInstructionLine; (updated instruction line is in the form of ()() instructionline)
 
             String[] arrayOfStr = task.instruction.split(" ", 50);
             String[] arrayOfDeadline = instructionLine.split("/by ", 2);
@@ -38,17 +43,17 @@ public class TaskList {
                     executeBye();
                     break;
                 } else if (isList) {
-                    executeList(instructionsList, task);
+                    executeList(instructionsList);
                 } else if (isMark) {
                     executeMark(instructionsList, arrayOfStr);
                 } else if (isTodo) {
-                    executeTodo(instructionsList, task, instructionLine, arrayOfStr);
+                    executeTodo(instructionsList, instructionLine, arrayOfStr);
                 } else if (isDelete){
-                    executeDelete(instructionsList, task, arrayOfStr);
+                    executeDelete(instructionsList, arrayOfStr);
                 } else if (isDeadline) {
-                    executeDeadline(instructionsList, task, deadline, arrayOfStr, arrayOfDeadline);
+                    executeDeadline(instructionsList, deadline, arrayOfStr, arrayOfDeadline);
                 } else if (isEvent) {
-                    executeEvent(instructionsList, task, event, arrayOfStr, arrayOfEvent);
+                    executeEvent(instructionsList, event, arrayOfStr, arrayOfEvent);
                 } else if (isFind) {
                     executeFind(instructionsList, task, arrayOfStr);
                 } else {
@@ -65,8 +70,8 @@ public class TaskList {
         System.out.println(UI.MESSAGE_BYE);
     }
 
-    private static void executeList(ArrayList<String> instructionsList, Task task) throws IOException {
-        printListMessage(instructionsList, task);
+    private static void executeList(ArrayList<String> instructionsList) throws IOException {
+        printListMessage(instructionsList);
     }
 
     private static void executeMark(ArrayList<String> instructionsList, String[] arrayOfStr) throws DukeException {
@@ -78,12 +83,12 @@ public class TaskList {
         int index = Integer.parseInt(instructionNum) - 1;
         String temp = instructionsList.get(index);
         temp = temp.replace("  (T)( )", "  (T)(X)");
-        instructionsList.set(index, temp); //updates the list
+        instructionsList.set(index, temp);
 
         printMarkMessage(instructionsList, index);
     }
 
-    private static void executeTodo(ArrayList<String> instructionsList, Task task, String instructionLine, String[] arrayOfStr) throws DukeException, IOException {
+    private static void executeTodo(ArrayList<String> instructionsList, String instructionLine, String[] arrayOfStr) throws DukeException, IOException {
         Parser.checkExceptionsTodo(arrayOfStr);
 
         String updatedInstructionLine;
@@ -92,7 +97,7 @@ public class TaskList {
         instructionsList.set(Task.number, updatedInstructionLine);
         Task.number++;
 
-        printTodoMessage(task, updatedInstructionLine);
+        printTodoMessage(updatedInstructionLine);
     }
 
     private static void executeFind(ArrayList<String> instructionsList, Task task, String[] arrayOfStr) throws DukeException {
@@ -101,10 +106,10 @@ public class TaskList {
         String keyword = arrayOfStr[1];
         int numOfMatching = 0;
 
-        printFindMessage(instructionsList, task, keyword, numOfMatching);
+        printFindMessage(instructionsList, keyword, numOfMatching);
     }
 
-    private static void executeEvent(ArrayList<String> instructionsList, Task task, Event event, String[] arrayOfStr, String[] arrayOfEvent) throws DukeException {
+    private static void executeEvent(ArrayList<String> instructionsList, Event event, String[] arrayOfStr, String[] arrayOfEvent) throws DukeException {
         Parser.checkExceptionsEvent(arrayOfStr, arrayOfEvent);
 
         String updatedInstructionLine;
@@ -115,10 +120,10 @@ public class TaskList {
         instructionsList.set(Task.number, updatedInstructionLine);
         Task.number++;
 
-        printEventMessage(task, event);
+        printEventMessage(event);
     }
 
-    private static void executeDeadline(ArrayList<String> instructionsList, Task task, Deadline deadline, String[] arrayOfStr, String[] arrayOfDeadline) throws DukeException {
+    private static void executeDeadline(ArrayList<String> instructionsList, Deadline deadline, String[] arrayOfStr, String[] arrayOfDeadline) throws DukeException {
         Parser.checkExceptionsDeadline(arrayOfStr, arrayOfDeadline);
 
         String updatedInstructionLine;
@@ -129,10 +134,10 @@ public class TaskList {
         instructionsList.set(Task.number, updatedInstructionLine);
         Task.number++;
 
-        printDeadlineMessage(task, deadline);
+        printDeadlineMessage(deadline);
     }
 
-    private static void executeDelete(ArrayList<String> instructionsList, Task task, String[] arrayOfStr) throws DukeException {
+    private static void executeDelete(ArrayList<String> instructionsList, String[] arrayOfStr) throws DukeException {
         Parser.checkExceptionsDelete(arrayOfStr);
 
         String instructionNum;
@@ -140,11 +145,11 @@ public class TaskList {
         int index = Integer.parseInt(instructionNum) - 1;
         Task.number--;
 
-        printDeleteMessage(instructionsList, task, index);
+        printDeleteMessage(instructionsList, index);
         instructionsList.remove(index);
     }
 
-    private static void printTodoMessage(Task task, String updatedInstructionLine) {
+    private static void printTodoMessage(String updatedInstructionLine) {
         System.out.println("Got it. I've added this task: ");
         System.out.println(updatedInstructionLine);
         System.out.println("Now you have " + Task.number + " task(s) in the list.");
@@ -155,32 +160,32 @@ public class TaskList {
         System.out.println(instructionsList.get(index));
     }
 
-    private static void printDeleteMessage(ArrayList<String> instructionsList, Task task, int index) {
+    private static void printDeleteMessage(ArrayList<String> instructionsList, int index) {
         System.out.println("Noted. I've removed this task: ");
         System.out.println(instructionsList.get(index));
         System.out.println("Now you have " + Task.number + " task(s) in the list.");
     }
 
-    private static void printDeadlineMessage(Task task, Deadline deadline) {
+    private static void printDeadlineMessage(Deadline deadline) {
         System.out.println("Got it. I've added this task: ");
         System.out.println(deadline);
         System.out.println("Now you have " + Task.number + " task(s) in the list.");
     }
 
-    private static void printEventMessage(Task task, Event event) {
+    private static void printEventMessage(Event event) {
         System.out.println("Got it. I've added this task: ");
         System.out.println(event);
         System.out.println("Now you have " + Task.number + " task(s) in the list.");
     }
 
-    private static void printListMessage(ArrayList<String> instructionsList, Task task) {
+    private static void printListMessage(ArrayList<String> instructionsList) {
         System.out.println("Here are the task(s) in your list:");
         for (int j = 1; j <= Task.number; j++) {
             System.out.println(j + ". " + instructionsList.get(j - 1));
         }
     }
 
-    private static void printFindMessage(ArrayList<String> instructionsList, Task task, String keyword, int numOfMatching) {
+    private static void printFindMessage(ArrayList<String> instructionsList, String keyword, int numOfMatching) {
         System.out.println("Here are the matching task(s) in your list:");
         for (int j = 1; j <= Task.number; j++) {
             if (instructionsList.get(j - 1).contains(keyword)){

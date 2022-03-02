@@ -1,3 +1,7 @@
+/**
+ * Deals with command "event", takes in instruction and the event date after "/at"
+ */
+
 public class Event extends Task{
 
     protected String at;
@@ -15,6 +19,10 @@ public class Event extends Task{
         return at;
     }
 
+    /**\
+     * Method that will be called by printEventMessage
+     * @return returns a message to print
+     */
     @Override
     public String toString() {
         return "  (E)" + super.toString() + this.instruction + "(at: " + at + ")";
