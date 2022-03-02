@@ -5,7 +5,7 @@
 
 ## Starting the program
 
-**Using IntelliJ** +
+**Using IntelliJ**
 Prerequisites: JDK 11, update Intellij to the most recent version.
 
 1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
@@ -28,60 +28,60 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 5. Now you can interact with the program through the CLI.
 
 ## Supported commands
-1. *Viewing help: `help`*
+1. **Viewing help: `help`**
    * Format: `help`
 
-2. *Adding a todo task: `todo`*
+2. **Adding a todo task: `todo`**
    * Add a todo task to the list of tasks.
    * Format: `todo <description>`
    * Words inside `< >` are parameters. There is no need to type the `<` and `>`.
    * Example:
      * `todo Read textbook`
 
-3. *Adding a deadline task: `deadline`*
+3. **Adding a deadline task: `deadline`**
    * Add a deadline task to the list of tasks.
    * Format: `deadline <task> /by <yyyy-MM-dd HH:mm>`
    * Example:
      * `deadline Submit lab report /by 2022-03-05 23:59`
    
-4. *Adding a event task: `event`*
+4. **Adding a event task: `event`**
    * Add an event task to the list of tasks.
    * Format: `event <task> /at <yyyy-MM-dd HH:mm>`
    * Example:
      * `event Attend meeting /at 2022-03-29 14:00`
 
-5. *Listing all tasks: `list`*
+5. **Listing all tasks: `list`**
    * Display the entire list of tasks.
    * Format: `list`
 
-6. *Finding all tasks containing a keyword in their description: `find`*
+6. **Finding all tasks containing a keyword in their description: `find`**
    * Find all the tasks whose description contains the specified keyword.
    * Format: `find <keyword>`
    * Example:
      * `find meeting` + 
       Returns all tasks containing `meeting` in description.
 
-7. *Deleting a task: `delete`*
+7. **Deleting a task: `delete`**
    * Delete a task by specifying the index of it.
    * Format: `delete <index>`
    * Example:
      * `delete 2` +
       Deletes the second task in the task list.
 
-8. *Marking a task: `mark`*
+8. **Marking a task: `mark`**
    * Mark a task as done by specifying the index of it.
    * Format: `mark <index>`
    * Example:
       * `mark 3` +
         Marks the third task in the task list as done.
 
-9. *Marking a task: `unmark`*
+9. **Marking a task: `unmark`**
    * Unmark a task as not done yet by specifying the index of it.
    * Format: `unmark <index>`
    * Example:
       * `mark 1` +
         Unmark the first task in the task list.
       
-10. *Exiting the program: `bye`*
+10. **Exiting the program: `bye`**
     * Exit the program.
       * Format: `bye`
