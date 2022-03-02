@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+/**
+ * The Ui class handles anything related to user interaction such as printing to CLI or reading user input
+ */
 public class Ui {
 
     public static final String WELCOME_MESSAGE = "##    ##  #######  ##    ##  ######      ##     ## #### ##    ##  ######\n"
@@ -46,6 +49,9 @@ public class Ui {
         System.out.println(END_MESSAGE);
     }
 
+    /**
+     * Prints all the tasks in user's TaskList to give user an overview of his tasks
+     */
     public static void printList() {
         if (TaskList.size() == 0) {
             System.out.println("There are no tasks yet!\n");
@@ -58,6 +64,10 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the number of tasks in user's TaskList
+     * Method is invoked when user adds or deletes a task from TaskList to update user on the number of remaining tasks
+     */
     public static void printListSize() {
         if (TaskList.size() == 0) {
             System.out.println("Now you have no tasks in the list\n");
@@ -68,13 +78,24 @@ public class Ui {
         }
     }
 
+    /**
+     * Informs user that task has been added to TaskList
+     */
     public static void printAddToList() {
-        System.out.println("Got it. I've added this task:" + System.lineSeparator() + TaskList.get(TaskList.size() - 1));
+        int newTaskIndex = TaskList.size() - 1;
+        Task addedTask = TaskList.get(newTaskIndex);
+        System.out.println("Got it. I've added this task:" + System.lineSeparator() + addedTask);
         printListSize();
     }
 
+    /**
+     * Informs user which task is going to be deleted
+     *
+     * @param taskIndex Index of the task that is to be deleted
+     */
     public static void printDeleteFromList(int taskIndex) {
-        System.out.println("Got it. Removing this task:" + System.lineSeparator() + TaskList.get(taskIndex));
+        Task targetTask = TaskList.get(taskIndex);
+        System.out.println("Got it. Removing this task:" + System.lineSeparator() + targetTask);
     }
 
     public static String readCommand(Scanner in) {
