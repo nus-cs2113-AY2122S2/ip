@@ -5,8 +5,12 @@ public class Task {
     protected String markedStatus = "[X]";
     protected String taskName; //the name of the task
     protected boolean isDone = false;
-    protected String listName; //the name of the task that appears when listing
+    protected String listName; //the name of the task that appears when listing and searching
 
+    /**
+     * Initialize a task object
+     * @param name the name of the task
+     */
     public Task(String name){
         this.taskName = name;
         this.isDone = false;
@@ -18,7 +22,7 @@ public class Task {
     }
 
     public void setListName(){
-        if(isDone == false){
+        if(!isDone){
             this.listName = this.unmarkedStatus + this.taskName;
         }else{
             this.listName = this.markedStatus + this.taskName;
@@ -29,17 +33,20 @@ public class Task {
         return this.listName;
     }
 
+    /**
+     * Marks task as done and change list name
+     */
     public void mark(){
         this.isDone = true;
         this.setListName();
     }
 
+    /**
+     * Marks tasks as undone and change list name
+     */
     public void unmark(){
         this.isDone = false;
         this.setListName();
     }
 
-    public void taskPrinter(){
-        System.out.println(listName);
-    }
 }

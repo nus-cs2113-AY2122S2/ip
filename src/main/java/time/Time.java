@@ -3,7 +3,6 @@ package time;
 import exceptions.DukeExceptions;
 import exceptions.IllegalTimeFormatException;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 public class Time {
@@ -16,6 +15,10 @@ public class Time {
     DateTimeFormatChecker checkTime;
     DateFormatChecker checkDate;
 
+    /**
+     * Initializes a time object for time format checking and converting
+     * @param date the date for checking and converting in String format
+     */
     public Time(String date) {
         oldDate = date;
         isValidDate = false;
@@ -23,20 +26,20 @@ public class Time {
         isValid = false;
     }
 
+    /**
+     * Checks whether the string is a date without time or a date with time
+     * @throws DukeExceptions if the string fails in checking
+     */
     public void check() throws DukeExceptions {
-        if(oldDate.contains(":")) {
+        if(oldDate.contains(":")) { //the string contains time, may be a date with time
             checkTime = new DateTimeFormatChecker(oldDate);
-        } else {
+        } else { //the string does not contain time, may be a date without time
             checkDate = new DateFormatChecker(oldDate);
         }
-
+        //throws exceptions if the string is neither date with time nor date without time
         if (!isValidTime && !isValidDate) {
             throw new IllegalTimeFormatException();
         }
-    }
-
-    public boolean validation() {
-        return isValid;
     }
 
     public Date getNewDate() {

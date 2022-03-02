@@ -2,6 +2,10 @@ package tasks;
 
 public class ToDo extends Task {
 
+    /**
+     * Initializes a todo task by given task name
+     * @param name the name of the todo task
+     */
     public ToDo(String name){
         super(name);
     }

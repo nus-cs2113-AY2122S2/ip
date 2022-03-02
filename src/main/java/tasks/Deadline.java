@@ -1,9 +1,5 @@
 package tasks;
 
-import time.TimeToStringConverter;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import time.*;
 
@@ -12,7 +8,12 @@ public class Deadline extends Task {
     protected String byString;
     Time timeConverter;
 
-    public Deadline(String name, String byString) throws Exception{
+    /**
+     * Initializes a deadline task by given task name and deadline
+     * @param name the name of the task
+     * @param byString the deadline of the task in String format
+     */
+    public Deadline(String name, String byString){
         super(name);
         this.byString = byString;
         timeConverter = new Time(byString);

@@ -5,12 +5,11 @@ public class Chatbox {
     //border of the chatbox
     private final String HORIZON_LINE = "-------------------------------------";
 
+    /**
+     * Initialize a chatbox
+     */
     public void chatboxPrinter(){
         System.out.println(content);
-        System.out.println(HORIZON_LINE);
-    }
-
-    public void linePrinter(){
         System.out.println(HORIZON_LINE);
     }
 

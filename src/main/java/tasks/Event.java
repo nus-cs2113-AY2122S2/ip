@@ -1,10 +1,5 @@
 package tasks;
 
-import time.TimeToStringConverter;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import time.*;
 
@@ -13,12 +8,16 @@ public class Event extends Task {
     protected String atString;
     Time timeConverter;
 
-    public Event(String name, String atString) throws Exception{
+    /**
+     * Initializes an event task by given task name and event time
+     * @param name the name of the event task
+     * @param atString the time of the task in String format
+     */
+    public Event(String name, String atString) {
         super(name);
         this.atString = atString;
         timeConverter = new Time(atString);
         at = timeConverter.getNewDate();
-        //System.out.println(this.at.toString());
         setListName();
     }
 
