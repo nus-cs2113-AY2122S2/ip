@@ -1,4 +1,4 @@
-# Duke
+# Duke User Guide
 ## Introduction
 Do you often forget your deadlines or lose track of the things you have to do for the week? Duke
 comes to the rescue, Duke is a CLI (Command Line Interface) Application that helps you store various tasks you might have
