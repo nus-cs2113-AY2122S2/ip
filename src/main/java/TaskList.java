@@ -181,7 +181,7 @@ public class TaskList {
     private static void printListMessage(ArrayList<String> instructionsList) {
         System.out.println("Here are the task(s) in your list:");
         for (int j = 1; j <= Task.number; j++) {
-            System.out.println(j + ". " + instructionsList.get(j - 1));
+            System.out.println(j + "." + instructionsList.get(j - 1));
         }
     }
 
@@ -190,7 +190,7 @@ public class TaskList {
         for (int j = 1; j <= Task.number; j++) {
             if (instructionsList.get(j - 1).contains(keyword)){
                 numOfMatching++;
-                System.out.println(numOfMatching + ". " + instructionsList.get(j - 1));
+                System.out.println(numOfMatching + "." + instructionsList.get(j - 1));
             }
         }
     }
