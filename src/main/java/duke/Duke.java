@@ -1,12 +1,8 @@
 package duke;// import libraries here
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.nio.file.*;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Set;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class Duke {
     private static Storage storage = new Storage("data/tasks.txt");
@@ -49,7 +45,7 @@ public class Duke {
             }
             if (input.startsWith("find")) {
                 System.out.println("    ____________________________________________________________");
-                System.out.println("Here are the matching tasks in your list:");
+                System.out.println("    Here are the matching tasks in your list:");
                 String keyword = input.split(" ")[1].trim();
                 for (int i = 0; i < tasks.size(); i++) {
                     String description = tasks.get(i);
