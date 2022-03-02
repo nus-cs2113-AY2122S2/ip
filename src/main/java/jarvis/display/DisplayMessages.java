@@ -131,6 +131,11 @@ public class DisplayMessages {
 
         public static void loadError() {
             System.out.println("There seems to be an error loading your data. Please contact Glendon.");
-
+        }
+        public static void invalidDateTime() {
+            System.out.println(HORIZONTAL_LINE);
+            System.out.println("You have entered an invalid date/time format. Please ensure that your input date and time is of format: \n" +
+                    "DD/MM/YYYY HHMM");
+            System.out.println(HORIZONTAL_LINE);
         }
 }

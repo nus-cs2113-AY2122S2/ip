@@ -8,6 +8,7 @@ import jarvis.display.DisplayMessages;
 import jarvis.exceptions.JarvisInvalidInput;
 import jarvis.exceptions.JarvisOutOfBounds;
 
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -89,9 +90,12 @@ public class Formatter {
 
         if (isValidIndex && hasSufficientArgs) {
             String deadlineDescription = parseUserInput(userCommand, 1, indexOfBy);
-            String deadlineDate = parseUserInput(userCommand, indexOfBy + 1, numOfArgs);
-            Deadline newDeadline = new Deadline(deadlineDescription, deadlineDate);
-            UserList.insertTask(newDeadline);
+            String deadlineDate = userCommand[indexOfBy + 1];
+            String deadlineTime = userCommand[indexOfBy + 2];
+            Deadline newDeadline = new Deadline(deadlineDescription, deadlineDate, deadlineTime);
+            if (newDeadline.getDeadlineDate() != "") {
+                UserList.insertTask(newDeadline);
+            }
         } else {
             throw new JarvisInvalidInput();
         }
@@ -101,13 +105,16 @@ public class Formatter {
         int indexOfAt = indexOf(userCommand, "/at");
         int numOfArgs = userCommand.length;
         boolean isValidIndex = indexOfAt > 1;
-        boolean hasSufficientArgs = numOfArgs >= 4;
+        boolean hasSufficientArgs = numOfArgs >= 5;
 
         if (isValidIndex && hasSufficientArgs) {
             String eventDescription = parseUserInput(userCommand, 1, indexOfAt);
-            String eventDate = parseUserInput(userCommand, indexOfAt + 1, numOfArgs);
-            Event newEvent = new Event(eventDescription, eventDate);
-            UserList.insertTask(newEvent);
+            String eventDay = userCommand[indexOfAt + 1];
+            String eventTime = userCommand[indexOfAt + 2];
+            Event newEvent = new Event(eventDescription, eventDay, eventTime);
+            if (newEvent.getEventDate() != "") {
+                UserList.insertTask(newEvent);
+            }
         } else {
             throw new JarvisInvalidInput();
         }
@@ -116,7 +123,7 @@ public class Formatter {
     protected static void deleteCommand(String[] userCommand) throws JarvisOutOfBounds {
         try {
             Integer taskIndex = Integer.parseInt(userCommand[1]);
-            UserList.removeTask(taskIndex - 1);
+            UserList.removeTask(taskIndex - 1, true);
         } catch (NumberFormatException | IndexOutOfBoundsException er){
             throw new JarvisOutOfBounds();
         }
@@ -170,6 +177,5 @@ public class Formatter {
         } catch (JarvisOutOfBounds e) {
             DisplayMessages.outOfBounds();
         }
-
     }
 }

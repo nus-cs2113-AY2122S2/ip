@@ -5,7 +5,7 @@ import jarvis.exceptions.JarvisNoSavedData;
 
 import java.io.File;
 
-public class Storage { //add throw exception
+public class Storage {
     private static File savedFile;
     public Storage() {
         savedFile = new File("data/Jarvis.txt");
