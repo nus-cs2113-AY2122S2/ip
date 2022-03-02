@@ -8,6 +8,7 @@ import Commands.UnknownCommand;
 
 import Exceptions.BadDateTimeFormatException;
 import Exceptions.NoDateTimeException;
+import Exceptions.NoKeywordException;
 import Exceptions.NoTaskDescriptionException;
 
 import static Constants.BaoConstants.LOGO;
@@ -44,10 +45,10 @@ public class BaoUI implements UI {
                 command.execute(taskManager, this);
             } catch (NoTaskDescriptionException e) {
                 printWithLine("What do you have to do?");
-            } catch (NoDateTimeException e) {
+            } catch (NoDateTimeException | BadDateTimeFormatException e) {
                 printWithLine("When is this again?");
-            } catch (BadDateTimeFormatException e) {
-                printWithLine("");
+            } catch (NoKeywordException e) {
+                printWithLine("What are you looking for mate?");
             }
         } while (!command.isExit());
     }
