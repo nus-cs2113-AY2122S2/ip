@@ -102,6 +102,12 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
     }
 
+    /**
+     *
+     * @param line
+     * @throws EmptyDescriptionException
+     * @throws InvalidCommandException
+     */
     private static void checkCommand(String line) throws EmptyDescriptionException, InvalidCommandException {
         Set<String> validCommands = Set.of("todo", "deadline", "event", "find");
         String[] splitLine = line.split(" ");
@@ -142,6 +148,11 @@ public class Duke {
         }
     }
 
+    /**
+     *
+     * @param pathName
+     * @param fileName
+     */
     private static void createFileOrFolder(String pathName, String fileName) {
         try {
             Path path = Paths.get(pathName);
@@ -183,6 +194,11 @@ public class Duke {
         }
     }
 
+    /**
+     *
+     * @param pathName
+     * @param fileName
+     */
     private static void flushFile(String pathName, String fileName) {
         File file = new File(pathName + fileName);
         try {
@@ -193,12 +209,22 @@ public class Duke {
         }
     }
 
+    /**
+     *
+     * @param textToAppend
+     * @param filePath
+     * @throws IOException
+     */
     private static void appendToFile(String filePath, String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
         fw.write(textToAppend);
         fw.close();
     }
-    
+
+    /**
+     *
+     * @param line
+     */
     private static void handleCommand(String line) {
         String description;
         String date;
@@ -262,6 +288,10 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
     }
 
+    /**
+     *
+     * @param number
+     */
     private static void markAsDone(int number) {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Nice! I've marked this task as done:");
@@ -290,6 +320,10 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
     }
 
+    /**
+     *
+     * @param number
+     */
     private static void deleteTask(int number) {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Noted. I've removed this task:");
