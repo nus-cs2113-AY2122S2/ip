@@ -11,4 +11,9 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (at: " + at + ")";
     }
+
+    @Override
+    public String getDetails() {
+        return "E|" + (isDone ? "1" : "0") + "|" + description + "|" + at;
+    }
 }
