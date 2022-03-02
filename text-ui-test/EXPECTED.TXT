@@ -11,39 +11,41 @@ Is there anything I can do for you?
 [0m----------------------------------------------------
 Okay! I've added this task:
 [T][ ] borrow book
-Now you have 1 tasks in the list.
+Now you have 2 tasks in the list.
 ----------------------------------------------------
 ----------------------------------------------------
 Okay! I've added this task:
 [D][ ] return book (by: sunday)
-Now you have 2 tasks in the list.
-----------------------------------------------------
-----------------------------------------------------
-Here are the tasks in your list: 
-1. [T][ ] borrow book
-2. [D][ ] return book (by: sunday)
-----------------------------------------------------
-----------------------------------------------------
-Okay! I've added this task:
-[E][ ] project meeting (at: mon 2-4pm)
 Now you have 3 tasks in the list.
 ----------------------------------------------------
 ----------------------------------------------------
 Here are the tasks in your list: 
-1. [T][ ] borrow book
-2. [D][ ] return book (by: sunday)
-3. [E][ ] project meeting (at: mon 2-4pm)
+1. [E][ ] project meeting (at: mon 2-4pm)
+2. [T][ ] borrow book
+3. [D][ ] return book (by: sunday)
+----------------------------------------------------
+----------------------------------------------------
+Okay! I've added this task:
+[E][ ] project meeting (at: mon 2-4pm)
+Now you have 4 tasks in the list.
+----------------------------------------------------
+----------------------------------------------------
+Here are the tasks in your list: 
+1. [E][ ] project meeting (at: mon 2-4pm)
+2. [T][ ] borrow book
+3. [D][ ] return book (by: sunday)
+4. [E][ ] project meeting (at: mon 2-4pm)
 ----------------------------------------------------
 ----------------------------------------------------
 Nice! I've marked this as done:
-[T][X] borrow book
+[E][X] project meeting (at: mon 2-4pm)
 ----------------------------------------------------
 ----------------------------------------------------
 OK, I've marked this task as not done yet:
-[T][ ] borrow book
+[E][ ] project meeting (at: mon 2-4pm)
 ----------------------------------------------------
 ----------------------------------------------------
-There are 3 items in the list
+There are 4 items in the list
 Please input which item you would like to mark.
 For eg. 'mark 2' 
 ----------------------------------------------------
@@ -53,9 +55,19 @@ For eg. 'deadline work /by Sunday'
 ----------------------------------------------------
 ----------------------------------------------------
 Here are the tasks in your list: 
+1. [E][ ] project meeting (at: mon 2-4pm)
+2. [T][ ] borrow book
+3. [D][ ] return book (by: sunday)
+4. [E][ ] project meeting (at: mon 2-4pm)
+----------------------------------------------------
+----------------------------------------------------
+Here are the tasks in your list: 
 1. [T][ ] borrow book
 2. [D][ ] return book (by: sunday)
-3. [E][ ] project meeting (at: mon 2-4pm)
+----------------------------------------------------
+----------------------------------------------------
+Please input a description
+For eg. 'find book'
 ----------------------------------------------------
 ----------------------------------------------------
 Please input a description
@@ -63,13 +75,14 @@ For eg. 'todo borrow book'
 ----------------------------------------------------
 ----------------------------------------------------
 Okay! I have removed this task from the list!
-[D][ ] return book (by: sunday)
-You have 2 items left in the list:)
+[T][ ] borrow book
+You have 3 items left in the list:)
 ----------------------------------------------------
 ----------------------------------------------------
 Here are the tasks in your list: 
-1. [T][ ] borrow book
-2. [E][ ] project meeting (at: mon 2-4pm)
+1. [E][ ] project meeting (at: mon 2-4pm)
+2. [D][ ] return book (by: sunday)
+3. [E][ ] project meeting (at: mon 2-4pm)
 ----------------------------------------------------
 ----------------------------------------------------
 Please input a number
@@ -77,8 +90,8 @@ For eg. 'delete 2'
 ----------------------------------------------------
 ----------------------------------------------------
 Okay! I have removed this task from the list!
-[T][ ] borrow book
-You have 1 items left in the list:)
+[E][ ] project meeting (at: mon 2-4pm)
+You have 2 items left in the list:)
 ----------------------------------------------------
 Please input a valid command:)
 ----------------------------------------------------

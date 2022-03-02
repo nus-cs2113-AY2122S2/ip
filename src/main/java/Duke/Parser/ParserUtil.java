@@ -47,6 +47,21 @@ public class ParserUtil {
         }
     }
 
+    public static Command parseFindCommand (String message, TaskList taskList) throws DukeException {
+        if (taskList.isEmpty()) {
+            throw new DukeException(Ui.DISPLAY_LINE + System.lineSeparator() + "Please add something to the list first:)"
+                    + System.lineSeparator() + Ui.DISPLAY_LINE);
+        } else {
+            String[] splitMessage = message.split(" ");
+            if (splitMessage.length != 2) {
+                throw new DukeException(Ui.DISPLAY_LINE + System.lineSeparator() + "Please input a description\n" +
+                        "For eg. 'find book'\n" + Ui.DISPLAY_LINE);
+            }
+            String getDescription = splitMessage[1];
+            return new FindCommand(getDescription);
+        }
+    }
+
     public static Command parseDeleteCommand (String message, TaskList taskList) throws DukeException {
         if (taskList.isEmpty()) {
             throw new DukeException(Ui.DISPLAY_LINE + System.lineSeparator() + "Please add something to the list first:)"
@@ -119,4 +134,5 @@ public class ParserUtil {
             return new EventCommand(getDescription, isDone,getDate);
         }
     }
+
 }
