@@ -4,15 +4,15 @@ import duke.task.Task;
 
 public class Event extends Task {
 
-    private String time;
+    private String on;
 
-    public Event(String name, String time) {
+    public Event(String name, String on) {
         super(name);
-        this.time= time;
+        this.on= on;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + String.format("(%s)", this.time) ;
+        return "[E]" + super.toString() + String.format("(%s)", this.on) ;
     }
 }

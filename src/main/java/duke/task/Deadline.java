@@ -4,15 +4,15 @@ import duke.task.Task;
 
 public class Deadline extends Task {
 
-    private String deadline;
+    private String by;
 
-    public Deadline(String name, String deadline) {
+    public Deadline(String name, String by) {
         super(name);
-        this.deadline= deadline;
+        this.by= by;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + String.format("(%s)", this.deadline) ;
+        return "[D]" + super.toString() + String.format("(%s)", this.by) ;
     }
 }
