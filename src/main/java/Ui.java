@@ -70,6 +70,7 @@ public class Ui {
      */
     public static void displayFoundTask(ArrayList<Task> taskList, ArrayList<Integer> keywordList) {
         System.out.println(LINE_SEPARATOR);
+        System.out.println("Remainder: Search is case sensitive");
         //System.out.println("Here are the matching tasks in your list:");
         if (keywordList.size() == 0) {
             System.out.println("No task found!");

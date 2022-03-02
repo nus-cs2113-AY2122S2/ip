@@ -77,15 +77,14 @@ public class TaskList {
      * @throws InvalidUserInputException If the task description is empty.
      * @throws IOException               If the input and output have error.
      */
-    public static void addTaskAndTime(String userInput, ArrayList<Task> taskList, Boolean isUserCommand) {
+    public static void addTaskAndTime(String userInput, ArrayList<Task> taskList, Boolean isUserCommand) throws InvalidUserInputException {
         String[] arrayOfUserInput = userInput.split("/", 2);
         String[] taskDescription = arrayOfUserInput[0].split(" ", 2);
-        System.out.println(taskDescription[0]);
         String[] timing = arrayOfUserInput[1].split(" ", 2);
         String formattedTimeAndDate = processDateAndTime(timing[1]);
 
         if (formattedTimeAndDate.equals(timing[1]) && isUserCommand) {
-            return;
+            throw new InvalidUserInputException(INVALID_TIME_OR_DATE);
         }
 
         timing[1] = formattedTimeAndDate;
