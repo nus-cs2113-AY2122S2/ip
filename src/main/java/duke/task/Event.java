@@ -1,18 +1,15 @@
 package duke.task;
 
-import duke.task.Task;
 
-public class Event extends Task {
 
-    private String time;
+public class Event extends DatedTask {
 
-    public Event(String name, String time) {
-        super(name);
-        this.time= time;
+    public Event(String name, String on) {
+        super(name, on);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + String.format("(%s)", this.time) ;
+        return "[E]" + super.toString() + String.format("(on: %s)", this.getDateTimeString()) ;
     }
 }
