@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Storage {
@@ -61,7 +62,7 @@ public class Storage {
             case 'D':
                 int byIndex = currentLine.indexOf("(");
                 String by = currentLine.substring(byIndex + 5, currentLine.length() - 1);
-                final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
+                final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
                 tasks.addDeadline(currentLine.substring(7, byIndex - 1), String.valueOf(LocalDate.parse(by, formatter)));
                 break;
             case 'E':

@@ -14,7 +14,7 @@ public class Duke {
         try {
             Storage.readToList(tasks);
         } catch (FileNotFoundException e) {
-            System.out.println("Hmm...File creation failed, I cannot write to the data file.");
+            System.out.println("Hmm...I think I need to create a new data file.");
         } catch (ParseException e) {
             System.out.println("Hmm...There's something wrong with Deadlines in your data file.");
         }

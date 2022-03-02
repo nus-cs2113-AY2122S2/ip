@@ -1,5 +1,14 @@
 # User Guide
 
+Duke is a desktop app for managing tasks, optimized for use via a Command Line Interface (CLI).
+
+## Quick Start
+
+1. Ensure you have Java `11` or above installed in your Computer.
+2. Download the latest duke.jar from [here](https://github.com/cczhouqi/ip/releases).
+3. Copy the file to the folder you want to use as the home folder for your Duke.
+4. Run the command `java -jar ip.jar` in the same folder as the jar file.
+
 ## Features 
 
 ### Add task
@@ -17,6 +26,10 @@ View existing tasks by using `list`
 ### Find task
 
 Search for tasks with a keyword by using `find`
+
+### Mark task
+
+Mark a task as finished/unfinished by using `mark` and `unmark`
 
 ## Usage
 
