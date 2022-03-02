@@ -16,7 +16,7 @@ public class Ui {
         print("Hello! I'm Duke\nWhat can I do for you?");
     }
     public void goodBye () {
-         print("Goodbye! Hope to see you again soon!\"");
+         print("Goodbye! Hope to see you again soon!");
      }
 
     // Method that reads in User's input, a single word command
