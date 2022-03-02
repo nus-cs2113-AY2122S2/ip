@@ -34,7 +34,7 @@ public class Bim {
 
         boolean isExit = false;
         while (!isExit) {
-            String fullCommand = parser.readInput();
+            String fullCommand = ui.readInput();
             Command command = parser.parseCommand(fullCommand);
             ui.printLineSeparator();
             command.execute(tasks, ui, storage);

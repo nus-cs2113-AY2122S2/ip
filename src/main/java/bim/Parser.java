@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 /**
- * Reads and extract relevant information from user input. The information is then used to prepare the command
+ * Extract relevant information from user input. The information is then used to prepare the command
  * that the user wishes to execute.
  */
 public class Parser {
@@ -32,25 +32,7 @@ public class Parser {
     private static final String OP_DELETE_TASK = "delete";
     private static final String OP_FIND_TASK = "find";
 
-    private static final Scanner scanner = new Scanner(System.in);
-
     public Parser() {
-    }
-
-    /**
-     * Returns the user input.
-     * Inputs that are empty or blank are ignored.
-     *
-     * @return User input
-     */
-    public String readInput() {
-        String input;
-
-        do {
-            input = scanner.nextLine();
-        } while (input.isBlank());
-
-        return input;
     }
 
     /**
@@ -63,10 +45,7 @@ public class Parser {
     public Command parseCommand(String input) {
         String[] words = input.split(" ", 2);
         String commandWord = words[0].toLowerCase();
-        String commandArg = "";
-        if (words.length > 1) {
-            commandArg = words[1].toLowerCase();
-        }
+        String commandArg = (words.length > 1) ? words[1] : "";
 
         Command command;
 
@@ -80,11 +59,13 @@ public class Parser {
             command = parseMarkAndUnmarkCommand(commandWord, commandArg);
             break;
         case OP_ADD_TODO:
-            // Fallthrough
+            command = parseTodoCommand(commandArg);
+            break;
         case OP_ADD_DEADLINE:
-            // Fallthrough
+            command = parseDeadlineCommand(commandArg);
+            break;
         case OP_ADD_EVENT:
-            command = parseAddCommand(commandWord, commandArg);
+            command = parseEventCommand(commandArg);
             break;
         case OP_DELETE_TASK:
             command = parseDeleteCommand(commandArg);
@@ -106,49 +87,71 @@ public class Parser {
         if (commandArg.isEmpty()) {
             return new IncorrectCommand(ERROR_EMPTY_KEYWORD);
         }
-        return new FindCommand(commandArg);
+        return new FindCommand(commandArg.toLowerCase());
     }
 
     /**
-     * Parses the argument supplied based on the type of command.
-     * If the argument is valid, an AddCommand object is created
-     * and returned. Else, an IncorrectCommand object is returned instead.
+     * Returns a TodoCommand ready for execution
+     * If the argument is empty, then an IncorrectCommand object is returned instead.
      *
-     * @param type       todo, event or deadline
      * @param commandArg The full argument given by the user.
-     * @return AddCommand if parameters are valid, IncorrectCommand otherwise.
+     * @return TodoCommand if parameters are valid, IncorrectCommand otherwise.
      */
-    public Command parseAddCommand(String type, String commandArg) {
-        if (type.equals(OP_ADD_TODO)) {
-            if (commandArg.isEmpty()) {
-                return new IncorrectCommand(ERROR_COMMAND_ARG);
-            }
-
-            return new AddCommand(type, commandArg);
+    public Command parseTodoCommand(String commandArg) {
+        if (commandArg.isEmpty()) {
+            return new IncorrectCommand(ERROR_COMMAND_ARG);
         }
-        else {
-            if (!isValidArgument(DELIMITER_DEADLINE, commandArg) && !isValidArgument(DELIMITER_EVENT, commandArg)) {
-                return new IncorrectCommand(ERROR_COMMAND_ARG);
-            }
+        return new TodoCommand(commandArg);
+    }
 
-            String[] splitValues;
+    /**
+     * Returns a DeadlineCommand ready for execution
+     * If the argument is empty or invalid, then an IncorrectCommand object is returned instead.
+     *
+     * @param commandArg The full argument given by the user.
+     * @return DeadlineCommand if parameters are valid, IncorrectCommand otherwise.
+     */
+    public Command parseDeadlineCommand(String commandArg) {
+        if (!isValidArgument(DELIMITER_DEADLINE, commandArg)) {
+            return new IncorrectCommand(ERROR_COMMAND_ARG);
+        }
 
-            if (type.equals(OP_ADD_DEADLINE)) {
-                splitValues = commandArg.split(DELIMITER_DEADLINE);
-            }
-            else {
-                splitValues = commandArg.split(DELIMITER_EVENT);
-            }
+        String[] splitValues;
+        splitValues = commandArg.split(DELIMITER_DEADLINE);
 
-            try {
-                String description = splitValues[0];
-                LocalDate date = LocalDate.parse(splitValues[1]);
-                return new AddCommand(type, description, date);
-            } catch (DateTimeParseException invalidDate) {
-                return new IncorrectCommand(ERROR_COMMAND_DATE);
-            }
+        try {
+            String description = splitValues[0];
+            LocalDate date = LocalDate.parse(splitValues[1]);
+            return new DeadlineCommand(description, date);
+        } catch (DateTimeParseException invalidDate) {
+            return new IncorrectCommand(ERROR_COMMAND_DATE);
         }
     }
+
+    /**
+     * Returns a EventCommand ready for execution
+     * If the argument is empty or invalid, then an IncorrectCommand object is returned instead.
+     *
+     * @param commandArg The full argument given by the user.
+     * @return EventCommand if parameters are valid, IncorrectCommand otherwise.
+     */
+    public Command parseEventCommand(String commandArg) {
+        if (!isValidArgument(DELIMITER_EVENT, commandArg)) {
+            return new IncorrectCommand(ERROR_COMMAND_ARG);
+        }
+
+        String[] splitValues;
+        splitValues = commandArg.split(DELIMITER_EVENT);
+
+        try {
+            String description = splitValues[0];
+            LocalDate date = LocalDate.parse(splitValues[1]);
+            return new EventCommand(description, date);
+        } catch (DateTimeParseException invalidDate) {
+            return new IncorrectCommand(ERROR_COMMAND_DATE);
+        }
+    }
+
 
     /**
      * Parses the argument supplied for mark and unmark commands.
