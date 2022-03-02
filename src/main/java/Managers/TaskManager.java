@@ -3,34 +3,28 @@ package Managers;
 import java.util.ArrayList;
 
 import Components.Task;
-import Components.Todo;
-import Components.Deadline;
-import Components.Event;
 
-import Exceptions.BadDateTimeFormatException;
 import Exceptions.BadIndexException;
 import Exceptions.MaxTaskException;
-import Exceptions.NoDateTimeException;
-import Exceptions.NoTaskDescriptionException;
+
 
 
 import java.io.IOException;
 
 import static Constants.TaskManagerConstants.MAX_TASKS;
-import static Constants.TaskManagerConstants.TODO_LENGTH;
-import static Constants.TaskManagerConstants.DEADLINE_LENGTH;
-import static Constants.TaskManagerConstants.EVENT_LENGTH;
-import static Constants.TaskManagerConstants.DATETIME_DELIMITER_LENGTH;
 
 public class TaskManager {
-    private static ArrayList<Task> tasks = new ArrayList<>();
-    private static int numTasks = 0;
+    private ArrayList<Task> tasks;
+    private int numTasks;
+    private Storage storage;
 
-    public static void TaskManager() {
+    public TaskManager(Storage storage) {
         numTasks = 0;
+        tasks = new ArrayList<>();
+        this.storage = storage;
     }
 
-    private static void addTask(Task task) throws MaxTaskException {
+    public void addTask(Task task) throws MaxTaskException {
         try {
             if (numTasks == MAX_TASKS) {
                 throw new MaxTaskException("Max tasks reached");
@@ -44,10 +38,9 @@ public class TaskManager {
         }
     }
 
-    static Task deleteTask(String msg) throws BadIndexException, NumberFormatException {
+    public Task deleteTask(int index) throws BadIndexException, NumberFormatException {
         try {
-            int ind = getIndex(msg);
-            Task deletedTask = tasks.remove(ind);
+            Task deletedTask = tasks.remove(index);
             numTasks--;
             saveTasklist();
             return deletedTask;
@@ -56,149 +49,57 @@ public class TaskManager {
         }
     }
 
-    static void addToDo(String msg) throws NoTaskDescriptionException, MaxTaskException {
-        String description;
-        description = msg.substring(TODO_LENGTH).trim();
-        Task todo = new Todo(description);
-
+    public String markTask(int index) throws NumberFormatException, BadIndexException {
         try {
-            if (description.isBlank()){
-                throw new NoTaskDescriptionException("Task description cannot be blank.");
-            }
-            addTask(todo);
-        } catch (Exception e) {
-            throw e;
-        }
-    }
 
-    // String parser for Deadline and Task
-    private static String[] descWithDateTimeParse(String msg) throws BadDateTimeFormatException,
-            NoTaskDescriptionException, NoDateTimeException {
-        int dateTimeDelimiterIndex, descDelimiterIndex;
-        String[] strings = new String[2];
-        boolean isDeadline = msg.indexOf("/by") > -1;
-
-        try {
-            // Get delimiters
-            if (isDeadline) {
-                dateTimeDelimiterIndex = msg.indexOf("/by");
-                descDelimiterIndex = DEADLINE_LENGTH;
-            } else {
-                dateTimeDelimiterIndex = msg.indexOf("/at");
-                descDelimiterIndex = EVENT_LENGTH;
+            if (index > numTasks){
+                throw new BadIndexException("No task number " + index);
             }
 
-            if (dateTimeDelimiterIndex == -1) {
-                throw new BadDateTimeFormatException("No delimiter.");
-            }
-
-            // Parse message (0 - Description, 1 - DateTime)
-            strings[0] = msg.substring(descDelimiterIndex, dateTimeDelimiterIndex).trim(); // Task description
-            strings[1] = msg.substring(dateTimeDelimiterIndex + DATETIME_DELIMITER_LENGTH).trim(); // DateTime
-
-            if (strings[0].isBlank()) {
-                throw new NoTaskDescriptionException("Task description cannot be blank.");
-            }
-
-            if (strings[1].isBlank()) {
-                throw new NoDateTimeException("Task DateTime is empty.");
-            }
-
-            return strings;
-        } catch (Exception e) {
-            throw e;
-        }
-    }
-
-    static void addDeadline(String msg) throws BadDateTimeFormatException, NoTaskDescriptionException,
-            NoDateTimeException, MaxTaskException {
-        try {
-            String[] msgParsed = descWithDateTimeParse(msg);
-            Task deadline = new Deadline(msgParsed[0], msgParsed[1]);
-
-            addTask(deadline);
-        } catch (Exception e) {
-            throw e;
-        }
-    }
-
-    static Task addEvent(String msg) throws BadDateTimeFormatException, NoTaskDescriptionException,
-            NoDateTimeException, MaxTaskException {
-        try {
-            String[] msgParsed = descWithDateTimeParse(msg);
-            Task event = new Event(msgParsed[0], msgParsed[1]);
-
-            addTask(event);
-            return event;
-        } catch (Exception e) {
-            throw e;
-        }
-    }
-
-    // Return the index of task to mark/unmark
-    private static int getIndex(String msg) throws NumberFormatException, BadIndexException {
-        try {
-            // Extract Task number as String and parse into int
-            int ind = Integer.parseInt( msg.substring(msg.indexOf(' ') + 1) );
-
-            // Return index of Task number
-            if (ind > numTasks){
-                throw new BadIndexException("No task number " + ind);
-            }
-
-            return --ind;
-        } catch (Exception e) {
-            throw e;
-        }
-    }
-
-    static void markTask(String msg) throws NumberFormatException, BadIndexException {
-        try {
-            int ind = getIndex(msg);
-            tasks.get(ind).setIsDone(true);
-            System.out.println(tasks.get(ind).toString());
+            tasks.get(index).setIsDone(true);
             saveTasklist();
+            return tasks.get(index).toString();
         } catch (Exception e) {
             throw e;
         }
     }
 
-    static void unmarkTask(String msg) throws NumberFormatException, BadIndexException {
+    public String unmarkTask(int index) throws NumberFormatException, BadIndexException {
         try {
-            int ind = getIndex(msg);
-            tasks.get(ind).setIsDone(false);
-            System.out.println(tasks.get(ind).toString());
+            if (index > numTasks){
+                throw new BadIndexException("No task number " + index);
+            }
+
+            tasks.get(index).setIsDone(false);
             saveTasklist();
+            return tasks.get(index).toString();
         } catch (Exception e) {
             throw e;
         }
     }
 
-    static void listTasks() {
+    public void listTasks() {
         for (int i = 0; i < numTasks; i++) {
             System.out.println(i+1 + ". " + tasks.get(i).toString());
         }
     }
 
-    static int getNumTasks() {
+    public int getNumTasks() {
         return numTasks;
     }
 
-    static Task getLastTask() {
-        return tasks.get(numTasks - 1);
-    }
-
-    public static void loadTasklist() {
+    public void loadTasklist() throws IOException {
         try {
-            numTasks = TaskListFileManager.loadTasklist(tasks);
+            tasks = storage.loadTasklist();
+            numTasks = tasks.size();
         } catch (IOException e) {
-            System.out.println("Loading failed.");
+            throw e;
         }
     }
 
-    public static void saveTasklist() {
+    private void saveTasklist() {
         try {
-            TaskListFileManager.saveTasklist(tasks);
+            storage.saveTasklist(tasks);
         } catch (IOException e) {
             System.out.println("Saving failed.");
         }

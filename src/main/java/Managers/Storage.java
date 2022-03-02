@@ -1,7 +1,6 @@
 package Managers;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,11 +11,16 @@ import Components.Event;
 import Components.Task;
 import Components.Todo;
 
-public class TaskListFileManager {
-    private static final String DIR_PATH = "./data";
-    private static final String FILE_PATH = "./data/tasklist.txt";
+public class Storage {
+    private final String DIR_PATH;
+    private final String FILE_PATH;
 
-    private static Task taskStringToTask(String taskString) {
+    public Storage(String dirPath, String filePath) {
+        DIR_PATH = dirPath;
+        FILE_PATH = filePath;
+    }
+
+    private Task taskStringToTask(String taskString) {
         String[] taskStringSplit = taskString.split("] ", 2);
         char taskType = taskStringSplit[0].charAt(1);
         boolean isDone = taskStringSplit[0].charAt(4) == 'X';
@@ -43,7 +47,7 @@ public class TaskListFileManager {
         }
     }
 
-    static int loadTasklist(ArrayList<Task> tasks) throws IOException {
+    ArrayList<Task> loadTasklist() throws IOException {
         try {
             File dataDir = new File(DIR_PATH);
             if (!dataDir.exists()) {
@@ -55,6 +59,7 @@ public class TaskListFileManager {
                 tasklistFile.createNewFile();
             }
 
+            ArrayList<Task> tasks = new ArrayList<>();
             Scanner s = new Scanner(tasklistFile);
 
             while (s.hasNext()) {
@@ -62,13 +67,13 @@ public class TaskListFileManager {
                 tasks.add(taskStringToTask(taskString));
             }
 
-            return tasks.size();
+            return tasks;
         } catch (IOException e) {
             throw e;
         }
     }
 
-    static void saveTasklist(ArrayList<Task> tasks) throws IOException {
+    void saveTasklist(ArrayList<Task> tasks) throws IOException {
         try {
             FileWriter fw = new FileWriter(FILE_PATH);
             fw.write("");

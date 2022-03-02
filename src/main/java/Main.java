@@ -1,8 +1,8 @@
-import Managers.Bao;
+import Managers.BaoUI;
 
 public class Main {
     public static void main(String[] args){
-        Bao bao = new Bao();
+        BaoUI bao = new BaoUI("./data", "./data/baoTaskList.txt");
         bao.initiateBao();
     }
 }
