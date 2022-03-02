@@ -1,24 +1,42 @@
-# Duke project template
+# Alexis - Your Trusty Task Manager
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Alexis is a CLI-based application that helps you manage your tasks. 
+Tasks are split into todos, deadlines and events, and you can mark them as completed or not completed. 
+There is also a function to quickly locate your tasks using a keyword, and also a function to locate tasks based on their dates.
+The task list will be automatically saved into a .txt file on your PC, so a saved task list will be loaded when you start up the program,
+and also the task list will be automatically saved into the .txt file when you exit the program. 
 
-## Setting up in Intellij
+## Downloading the Application
+Click on the <a href="https://github.com/BradenTeo/ip/releases">latest release</a> of this application  and download the `ip.jar` file.</li><br>
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+##Run it!
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+<ol>
+<li>Locate the `ip.jar` file in your directory.<br>
+   <img src="https://i.imgur.com/VeWCrGc.png" /></li><br>
+<li>Right-click and open up your terminal.<br>
+   <img src="https://i.imgur.com/i84PHUP.png" /><br>
+   The terminal will pop-up. Do double-check that you are in the same folder as the downloaded <code>ip.jar</code> file.<br><br>
+
+Alternatively, open your command prompt and navigate to the folder containing the <code>ip.jar</code> file.</li>
+<img src="https://i.imgur.com/3pzfe7J.png" /><br><br>
+
+<li>Type in <code>java -jar ip.jar</code> and hit <code>Enter</code>.<br>
+You should be able to see this if you have followed the steps correctly:<br>
+
+   <pre><code>
+   Hello! I'm Alexis, your trusty helper!<font color="purple">
+         __      ___       _______  ___  ___   __      ________
+        /""\    |"  |     /"     "||"  \/"  | |" \    /"       ) 
+       /    \   ||  |    (: ______) \   \  /  ||  |  (:   \___/ 
+      /' /\  \  |:  |     \/    |    \\  \/   |:  |   \___  \
+     //  __'  \ \\  |___  // ___)_   /\.  \   |.  |    __/  \\ 
+    /   /  \\  \( \_|:  \(:      "| /  \   \  /\  |\  /" \   :) 
+   (___/    \___)\_______)\_______)|___/\\__|(__\_|_)(_______/
+   </font></code></pre>
+</li><br>
+<li>Enjoy!! :D</li>
+</ol>
+
+##User Guide
+For a more in-depth guide into Alexis, please refer to my [user guide](https://bradenteo.github.io/ip/).
