@@ -2,4 +2,3 @@ T|1|hello|
 T|0|work|
 E|0|destiny|home tonight
 D|0|this code|friday
-T|0|test|

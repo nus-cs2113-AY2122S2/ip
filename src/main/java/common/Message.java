@@ -1,8 +1,5 @@
 package common;
 
-/**
- * Contains almost all the relevant messages that will be output through the Ui.
- */
 public class Message {
     public static final String HORIZONTAL_LINE = "__________________________________________________";
 
@@ -25,7 +22,4 @@ public class Message {
     public static final String DELETE_MESSAGE = "Either you're done with that or you gave up. Anyways, it's gone!";
     public static final String MARK_MESSAGE = "Marked this task as done!";
     public static final String UNMARK_MESSAGE = "Guess you messed up huh? Reverted that task!";
-    public static final String INVALID_COMMAND_MESSAGE = "Whoopsies! I dont know what you're talking about! Try again!";
-    public static final String MISSING_DESCRIPTION_MESSAGE = "I think you forgot some stuff there for that command! Try again!";
-    public static final String INVALID_INDEX_MESSAGE = "Don't think that's a valid index bro! Try again!";
 }
