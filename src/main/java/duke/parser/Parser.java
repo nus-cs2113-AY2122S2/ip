@@ -59,9 +59,9 @@ public class Parser {
                 if (command.equals("event") || command.equals("deadline")) {
                     int indexOfSlash = input.indexOf("/");
                     String date = indexOfSlash == -1 ? "" : input.substring(indexOfSlash);
-                    date = Parser.splitToTwo(date, " ").get;
                     if (date.length() <= 1) {
-                        String errorMsg = String.format("%s requires a valid date in the format taskName /date\n", command);
+                        String errorMsg = String.format("%s requires a valid date in the format taskName /date" +
+                                "date could be a string or in /dd-MM-yyyy hh:mm format\n", command);
                         throw new DukeException(errorMsg);
                     }
                 }
@@ -114,8 +114,8 @@ public class Parser {
             case "event":
                 ArrayList<String> description_split = Parser.splitToTwo(description, "/");
                 String taskName = description_split.get(0);
-                String addInfo = words.size() >= 2 ? words.get(1) : null;
-                addInfo = addInfo != null ? Parser.splitToTwo(addInfo, " ").get(1) : null;
+                String addInfo = description_split.size() >= 2 ? description_split.get(1) : null;
+
                 return new AddCommand(command, taskName, addInfo);
             case "delete":
                 return new DeleteCommand(Integer.parseInt(description));

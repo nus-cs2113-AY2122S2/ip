@@ -36,8 +36,8 @@ public class TaskManager {
         default:
             toBeAdded = new Task(taskName);
             break;
-
         }
+
         this.numOfTasks++;
         this.tasks.add(toBeAdded);
 
