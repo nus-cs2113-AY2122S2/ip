@@ -5,7 +5,7 @@ ensuring that you will not forget them.
 
 ### Managing your tasks
 
-Tasks are categorized into 3 different category.
+Tasks are categorized into 3 different categories.
 
 |   Task   | Requires description | Requires date |
 |:--------:|:--------------------:|:-------------:|
