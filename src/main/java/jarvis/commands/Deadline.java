@@ -1,15 +1,20 @@
 package jarvis.commands;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task{
-    private String deadlineDate;
+    private LocalDateTime deadlineDate;
+    private static final String DEADLINE_ICON = "D";
+    private static final DateTimeFormatter STORING_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
     public String getTypeIcon() {
-        return "D";
+        return DEADLINE_ICON;
     }
 
-    public Deadline(String taskDescription, String deadline) {
+    public Deadline(String taskDescription, String deadlineDate, String deadlineTime) {
         super(taskDescription);
-        this.deadlineDate = deadline;
+        this.deadlineDate = super.parseDate(deadlineDate, deadlineTime);
     }
 
     public void printItem() {
@@ -18,7 +23,10 @@ public class Deadline extends Task{
     }
 
     public String getDeadlineDate() {
-        return deadlineDate;
+        if (deadlineDate != null) {
+            return super.dateToString(this.deadlineDate);
+        }
+        return "";
     }
 
     public String getDescription() {
@@ -28,6 +36,10 @@ public class Deadline extends Task{
 
     public String exportData() {
         String status = isDone ? "YES" : "NO";
-        return getTypeIcon() + " " + status + " " + super.getDescription() + " | " + this.getDeadlineDate();
+        return getTypeIcon() + " " + status + " " + super.getDescription() + " | " + this.exportDate();
+    }
+
+    private String exportDate() {
+        return deadlineDate.format(STORING_FORMAT);
     }
 }
