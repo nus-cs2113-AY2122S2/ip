@@ -134,6 +134,7 @@ public class TaskManager {
             tasks.add(bin.getTask(number), true);
             bin.delete(number);
         }
+        storage.saveData();
     }
 
     // Method to print all tasks in list
