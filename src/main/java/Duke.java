@@ -1,9 +1,10 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
 
-    public static Task[] tasks = new Task[100];
+    private static ArrayList<Task> tasks = new ArrayList<>();
     public static int taskCount = 0;
 
     public static void main(String[] args) {
@@ -21,6 +22,7 @@ public class Duke {
         boolean isListRequest = false;
         boolean isMarkRequest = false;
         boolean isUnmarkRequest = false;
+        boolean isDeleteRequest = false;
         String taskType;
         do {
             userInput = in.nextLine().trim();
@@ -38,7 +40,7 @@ public class Duke {
             isListRequest = detectListRequest(lowerCaseUserInput);
             isMarkRequest = detectMarkRequest(lowerCaseUserInput);
             isUnmarkRequest = detectUnmarkRequest(lowerCaseUserInput);
-
+            isDeleteRequest = detectDeleteRequest(lowerCaseUserInput);
             if (isListRequest) {
                 list();
             } else if (isMarkRequest || isUnmarkRequest) {
@@ -51,12 +53,11 @@ public class Duke {
                 }
                 int taskNumber = -1;
                 try {
-                    taskNumber = Integer.parseInt(splitUserInput[1]); // need to make sure there's even a number
-                    checkTaskNumberValidity(taskNumber);
+                    taskNumber = Integer.parseInt(splitUserInput[1]);
                     if (isMarkRequest) {
-                        tasks[taskNumber - 1].markTaskAsDone();
+                        tasks.get(taskNumber-1).markTaskAsDone();
                     } else {
-                        tasks[taskNumber - 1].markTaskAsUndone();
+                        tasks.get(taskNumber-1).markTaskAsUndone();
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("____________________________________________________________\n");
@@ -68,14 +69,42 @@ public class Duke {
                     System.out.println("☹ OOPS!!! You haven't entered a valid task number to mark or unmark. Please enter a task number!");
                     System.out.println("____________________________________________________________");
                     continue;
-                } catch (DukeException e) {
+                } catch (IndexOutOfBoundsException e) {
                     System.out.println("____________________________________________________________\n");
                     System.out.println("☹ OOPS!!! The task number that you have entered is out of range. Please enter a different task number!");
                     System.out.println("____________________________________________________________");
                     continue;
                 }
-                System.out.println(tasks[taskNumber - 1]);
+                System.out.println(tasks.get(taskNumber - 1));
                 System.out.println("____________________________________________________________");
+            } else if (isDeleteRequest) {
+                boolean isEmptyTaskList = checkTaskListSize();
+                if (isEmptyTaskList) {
+                    System.out.println("____________________________________________________________\n");
+                    System.out.println("☹ OOPS!!! There are currently no tasks to delete! Please add a task first.");
+                    System.out.println("____________________________________________________________");
+                    continue;
+                }
+                int taskNumber = -1;
+                try {
+                    taskNumber = Integer.parseInt(splitUserInput[1]);
+                    deleteTask(taskNumber);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("____________________________________________________________\n");
+                    System.out.println("☹ OOPS!!! You haven't entered a task number. Please enter a task number!");
+                    System.out.println("____________________________________________________________");
+                    continue;
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("____________________________________________________________\n");
+                    System.out.println("☹ OOPS!!! The task number that you have entered is out of range. Please enter a different task number!");
+                    System.out.println("____________________________________________________________");
+                    continue;
+                } catch (InputMismatchException e) {
+                    System.out.println("____________________________________________________________\n");
+                    System.out.println("☹ OOPS!!! You haven't entered a valid task number to mark or unmark. Please enter a task number!");
+                    System.out.println("____________________________________________________________");
+                    continue;
+                }
             } else {
                 taskType = splitUserInput[0];
                 try {
@@ -147,6 +176,17 @@ public class Duke {
         return description;
     }
 
+    private static void deleteTask(int taskNumber) {
+        Task taskToDelete = tasks.get(taskNumber-1);
+        System.out.println("____________________________________________________________");
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(taskToDelete);
+        tasks.remove(taskToDelete);
+        taskCount--;
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        System.out.println("____________________________________________________________");
+    }
+
     private static boolean checkTaskListSize() {
         if (taskCount == 0) {
             return true;
@@ -157,12 +197,6 @@ public class Duke {
 
     private static void checkEmptyInput(String userInput) throws DukeException {
         if (userInput.length() == 0) {
-            throw new DukeException();
-        }
-    }
-
-    private static void checkTaskNumberValidity(int taskNumber) throws DukeException {
-        if (taskNumber > taskCount || taskNumber <= 0) {
             throw new DukeException();
         }
     }
@@ -197,6 +231,10 @@ public class Duke {
         return input.startsWith("unmark");
     }
 
+    public static boolean detectDeleteRequest(String input) {
+        return input.startsWith("delete");
+    }
+
     public static void greet() {
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Duke");
@@ -205,7 +243,7 @@ public class Duke {
     }
 
     public static void addTask(Task t){
-        tasks[taskCount] = t;
+        tasks.add(t);
         taskCount++;
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task:");
@@ -225,7 +263,7 @@ public class Duke {
             System.out.println("Here are the task(s) in your list:");
             for (int i = 0; i < taskCount; i++) {
                 System.out.print((i+1) + ".");
-                System.out.println(tasks[i]);
+                System.out.println(tasks.get(i));
             }
         }
     }
