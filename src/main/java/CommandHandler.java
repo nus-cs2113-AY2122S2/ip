@@ -56,6 +56,22 @@ public class CommandHandler {
     }
 
     /**
+     * Call the Parser class to extract the keyword of the task that the user wishes to find
+     * All the tasks containing the keyword will then be printed by the Ui class
+     * If IndexOutOfBoundsException is caught, it implies that the user has failed to supply the task's description
+     *
+     * @param userInput
+     */
+    public static void findTask(String userInput) {
+        try {
+            String targetDescription = Parser.getTargetDescription(userInput);
+            Ui.printMatchingTasks(targetDescription);
+        } catch (IndexOutOfBoundsException e) {
+            Ui.printWrongFormat();
+        }
+    }
+
+    /**
      * Add a new ToDo Task
      *
      * @param todoTask String containing description of ToDo

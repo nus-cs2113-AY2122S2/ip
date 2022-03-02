@@ -14,6 +14,7 @@ public class Parser {
     public static final String TODO_MESSAGE = "todo";
     public static final String DEADLINE_MESSAGE = "deadline";
     public static final String EVENT_MESSAGE = "event";
+    public static final String FIND_MESSAGE = "find";
 
     /**
      * This method is called when the user wishes to mark / unmark / delete a specific task
@@ -24,8 +25,20 @@ public class Parser {
      * @return Corresponding task index
      */
     public static int getTaskIndex(String userInput) {
-        String taskNumber = userInput.split(" ")[1];
+        String[] commandInputs = userInput.split(" ");
+        String taskNumber = commandInputs[1];
         return Integer.parseInt(taskNumber) - 1;
+    }
+
+    /**
+     * This method is called when the user wishes to find a task based on its description, which is second word of input
+     *
+     * @param userInput String containing the keyword of the task that the user wishes to find
+     * @return Keyword of the task that the user wishes to find
+     */
+    public static String getTargetDescription(String userInput) {
+        String[] commandInputs = userInput.split(" ", 2);
+        return commandInputs[1];
     }
 
     /**
@@ -89,6 +102,8 @@ public class Parser {
                 CommandHandler.unmarkTask(userInput);
             } else if (userInput.startsWith(DELETE_MESSAGE)) {
                 CommandHandler.deleteTask(userInput);
+            } else if (userInput.startsWith(FIND_MESSAGE)) {
+                CommandHandler.findTask(userInput);
             } else {
                 try {
                     parseTask(userInput);
