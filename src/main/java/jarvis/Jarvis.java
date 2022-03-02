@@ -10,6 +10,9 @@ import java.util.Scanner;
 public class Jarvis {
     private static Storage storage;
 
+    /**
+     * Main driver function of the Jarvis bot
+     */
     public static void main(String[] args) {
         DisplayMessages.startingMessage();
         storage = new Storage();

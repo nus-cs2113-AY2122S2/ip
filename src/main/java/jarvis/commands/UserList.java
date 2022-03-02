@@ -3,7 +3,6 @@ package jarvis.commands;
 import jarvis.Formatter;
 import jarvis.display.DisplayMessages;
 
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
@@ -22,15 +21,29 @@ public class UserList extends Task {
         super(description);
     }
 
+    /**
+     * Getter function for retrieving size of user's list.
+     *
+     * @return size of list as an int
+     */
     public static int getListSize() {
         return userTaskList.size();
     }
 
+    /**
+     * Function to insert a Task into the back of the user's list.
+     *
+     * @param newTask Task argument to be added to user's list.
+     */
     public static void insertTask(Task newTask) {
             userTaskList.add(newTask);
             DisplayMessages.taskAdded(newTask.getDescription());
     }
 
+    /**
+     * Function to print the user's list of tasks, with the index being printed before the Task's icon, status and
+     * description. Includes a check for when user's list is empty.
+     */
     public static void printList() {
         if (!userTaskList.isEmpty()) {
             DisplayMessages.horizontalLine();
@@ -44,14 +57,33 @@ public class UserList extends Task {
         }
     }
 
+    /**
+     * Getter function for retrieving the status icon of a task
+     *
+     * @param index Index of element to be checked
+     * @return a String to represent Task type
+     */
     public static String getStatusIcon(int index){
         return userTaskList.get(index).getStatusIcon();
     }
 
+    /**
+     * Getter function for retrieving the description of a task
+     *
+     * @param index Index of element to be retrieved
+     * @return a String to represent the Task's description
+     */
     public static String getTask(int index) {
         return userTaskList.get(index).getDescription();
     }
 
+    /**
+     * Driver function to mark a task. Function is reused for when loading user's saved data so a flag is
+     * included to prevent printing default marked task message when loading user's data.
+     *
+     * @param index Index of the task to be marked
+     * @param toPrintMessage a flag to indicate if default messages should be called
+     */
     public static void markTask(int index, boolean toPrintMessage) {
         Task targetTask = userTaskList.get(index);
         DisplayMessages.horizontalLine();
@@ -62,6 +94,12 @@ public class UserList extends Task {
         }
     }
 
+    /**
+     * Driver function to unmark a task. Includes call to print default message when task is successfully processed,
+     * regardless if task is unmarked, or already unmarked.
+     *
+     * @param taskIndex Index of the task to be unmarked
+     */
     public static void unmarkTask(int taskIndex) {
         Task targetTask = userTaskList.get(taskIndex);
         DisplayMessages.horizontalLine();
@@ -71,6 +109,12 @@ public class UserList extends Task {
         }
     }
 
+
+    /**
+     * Function to remove a Task from the user's list of tasks.
+     *
+     * @param taskIndex Index of task to be removed from list
+     */
     public static void removeTask(int taskIndex, boolean toPrintMessage) {
         Task taskRemoved = userTaskList.get(taskIndex);
         userTaskList.remove(taskIndex);
@@ -79,6 +123,13 @@ public class UserList extends Task {
         }
     }
 
+    /**
+     * Function for when Jarvis is booting up to process saved file's data. Takes in 1 line of saved data at a
+     * time through the data argument. Includes parsing of data and calling functions to add tasks to list. This assumes
+     * that the saved data file is perfectly formatted and uncorrupted/untempered.
+     *
+     * @param data Next line of data in the user's stored data file
+     */
     protected static void parseSavedData(String data) {
         String[] dataArray = data.split(" ");
         String taskType = dataArray[0];
@@ -114,6 +165,13 @@ public class UserList extends Task {
         }
     }
 
+    /**
+     * Driver function to call when Jarvis is booting up to load any saved user's data file from previous
+     * session of usage. File checking is done before this command is called by the main Jarvis function so this
+     * function assumes that the file pointed to by the argument exists.
+     *
+     * @param savedFile File argument that points to the user's saved data file
+     */
     public static void loadFile(File savedFile) {
         try {
             Scanner fileReader = new Scanner(savedFile);
@@ -127,6 +185,12 @@ public class UserList extends Task {
         }
     }
 
+    /**
+     * Function that is called when Jarvis is exiting to extract all current tasks in User's list. Uses a StringBuffer
+     * to store the extracted data up till then before converting to a String to return
+     *
+     * @return Formatted data of user's current list to be stored on the user's list.
+     */
     protected static String getData() {
         StringBuffer data = new StringBuffer();
         for (Task t : userTaskList) {
@@ -136,6 +200,10 @@ public class UserList extends Task {
         return data.toString();
     }
 
+    /**
+     * Driver function for when Jarvis exits and calls other functions to extract current user's list of Tasks and data.
+     * Creates new saved data file if it does not exist yet.
+     */
     public static void saveData() {
         File filename = new File("data/Jarvis.txt");
         try {
