@@ -36,8 +36,8 @@ public class TaskManager {
         default:
             toBeAdded = new Task(taskName);
             break;
-
         }
+
         this.numOfTasks++;
         this.tasks.add(toBeAdded);
 
@@ -46,6 +46,7 @@ public class TaskManager {
                 this.numOfTasks > 1 ? "s" : ""));
 
     }
+
 
     public void deleteTask(int taskNumber) throws DukeException {
         try {
