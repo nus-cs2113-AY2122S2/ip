@@ -17,7 +17,8 @@ public class Ui {
                                                     + "event [description] /at [time]\n"
                                                     + "mark [Task#]\n"
                                                     + "unmark [Task#]\n"
-                                                    + "delete [Task#]\n";
+                                                    + "delete [Task#]\n"
+                                                    + "find [task description]\n";
     public static final String WRONG_INPUT_MESSAGE = "OOPS!!! I'm sorry, but I don't know what that means :-(\n"
                                                    + "The accepted inputs are:\n"
                                                    + "> todo [description]\n"
@@ -27,6 +28,7 @@ public class Ui {
                                                    + "> mark [Task#]\n"
                                                    + "> unmark [Task#]\n"
                                                    + "> delete [Task#]\n"
+                                                   + "> find [Task description]\n"
                                                    + "> bye\n";
     public static final String END_MESSAGE = "Bye! Hope to see you again soon :)";
 
@@ -79,6 +81,25 @@ public class Ui {
 
     public static String readCommand(Scanner in) {
         return in.nextLine();
+    }
+
+    public static void printMatchingTasks(String targetDescription) {
+        boolean isFirst = true;
+        for (int i = 0; i < TaskList.size(); i++) {
+            Task tempTask = TaskList.get(i);
+            String taskDescription = tempTask.description;
+            if (taskDescription.contains(targetDescription)) {
+                if (isFirst) {
+                    isFirst = false;
+                    System.out.println("Here are the matching tasks in your list:");
+                }
+                System.out.println(tempTask);
+            }
+        }
+        if (isFirst) {
+            System.out.println("There are no matching tasks in your list!");
+        }
+        System.out.println();
     }
 
 }

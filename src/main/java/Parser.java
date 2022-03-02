@@ -10,10 +10,17 @@ public class Parser {
     public static final String TODO_MESSAGE = "todo";
     public static final String DEADLINE_MESSAGE = "deadline";
     public static final String EVENT_MESSAGE = "event";
+    public static final String FIND_MESSAGE = "find";
 
     public static int getTaskIndex(String userInput) {
-        String taskNumber = userInput.split(" ")[1];
+        String[] commandInputs = userInput.split(" ");
+        String taskNumber = commandInputs[1];
         return Integer.parseInt(taskNumber) - 1;
+    }
+
+    public static String getTargetDescription(String userInput) {
+        String[] commandInputs = userInput.split(" ", 2);
+        return commandInputs[1];
     }
 
     public static String[] parseAdditionalParameters (String parsedUserInput, String indicator) {
@@ -23,7 +30,7 @@ public class Parser {
         return additionalParameters;
     }
 
-    private static void addTask(String userInput) throws DukeException {
+    private static void parseTask(String userInput) throws DukeException {
         String[] parsedUserInputs = userInput.split(" ", 2);
         parsedUserInputs[0] = parsedUserInputs[0].toLowerCase();
         switch (parsedUserInputs[0]) {
@@ -52,9 +59,11 @@ public class Parser {
                 CommandHandler.unmarkTask(userInput);
             } else if (userInput.startsWith(DELETE_MESSAGE)) {
                 CommandHandler.deleteTask(userInput);
+            } else if (userInput.startsWith(FIND_MESSAGE)) {
+                CommandHandler.findTask(userInput);
             } else {
                 try {
-                    addTask(userInput);
+                    parseTask(userInput);
                 } catch (DukeException e) {
                     Ui.printWrongInput();
                 } catch (IndexOutOfBoundsException e) {
