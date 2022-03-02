@@ -76,8 +76,8 @@ public class EventCommand extends Command {
         boolean isDescriptionMissing = description.length() < MINIMUM_LENGTH;
         boolean isLocationMissing = location.length() < MINIMUM_LENGTH;
         boolean isDateMissing = date.length() < MINIMUM_LENGTH;
-        boolean isDescriptionOrLocationMissing = isDescriptionMissing && isLocationMissing;
-        boolean isInformationMissing = isDescriptionOrLocationMissing && isDateMissing;
+        boolean isDescriptionOrLocationMissing = isDescriptionMissing || isLocationMissing;
+        boolean isInformationMissing = isDescriptionOrLocationMissing || isDateMissing;
         if (isInformationMissing) {
             throw new AdditionalException("YAY! Your event is never going to happen :DDDD");
         }
