@@ -52,7 +52,6 @@ public class UserList extends Task {
         return userTaskList.get(index).getDescription();
     }
 
-
     public static void markTask(int index, boolean toPrintMessage) {
         Task targetTask = userTaskList.get(index);
         DisplayMessages.horizontalLine();
@@ -110,7 +109,6 @@ public class UserList extends Task {
         default:
             break;
         }
-
         if (taskIsDone) {
             markTask(userTaskList.size()-1, false);
         }
@@ -150,5 +148,16 @@ public class UserList extends Task {
         } catch (IOException e) {
             DisplayMessages.saveError();
         }
+    }
+
+    public static ArrayList<Task> getSearchResult(String keyword) {
+        ArrayList<Task> resultList = new ArrayList<>();
+        for (Task t : userTaskList) {
+            String taskDescription = t.getDescription();
+            if (taskDescription.contains(keyword)) {
+                resultList.add(t);
+            }
+        }
+        return resultList;
     }
 }

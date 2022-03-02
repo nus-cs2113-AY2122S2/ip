@@ -8,7 +8,8 @@ import jarvis.display.DisplayMessages;
 import jarvis.exceptions.JarvisInvalidInput;
 import jarvis.exceptions.JarvisOutOfBounds;
 
-import java.time.format.DateTimeParseException;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -129,6 +130,31 @@ public class Formatter {
         }
     }
 
+    private static void printList(ArrayList<Task> list) {
+        DisplayMessages.horizontalLine();
+        System.out.println("Here are the matching tasks in your list:\n");
+        Integer index = 1;
+        for (Task t : list) {
+            System.out.println(index.toString() + ". " + t.getFullTask());
+            index++;
+        }
+        DisplayMessages.horizontalLine();
+    }
+
+    protected static void findCommand(String[] userCommand) throws JarvisInvalidInput {
+        if (userCommand.length < 2) {
+            throw new JarvisInvalidInput();
+        } else {
+            String keyword = parseUserInput(userCommand, 1, userCommand.length);
+            ArrayList<Task> resultList = UserList.getSearchResult(keyword);
+            if (resultList.isEmpty()) {
+                DisplayMessages.emptySearchResult();
+            } else {
+                printList(resultList);
+            }
+        }
+    }
+
     public static void inputHandler(Scanner in) {
         String inputLine = in.nextLine();
         String[] userCommand = inputLine.split(" ");
@@ -168,7 +194,9 @@ public class Formatter {
             case "delete":
                 deleteCommand(userCommand);
                 break;
-
+            case "find":
+                findCommand(userCommand);
+                break;
             default:
                 DisplayMessages.invalidInput();
             }
