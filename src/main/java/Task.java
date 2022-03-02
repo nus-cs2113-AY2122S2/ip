@@ -1,3 +1,6 @@
+/**
+ * Represents the parent class for all task type.
+ */
 public class Task {
     protected String taskName;
     protected boolean isCompleted;

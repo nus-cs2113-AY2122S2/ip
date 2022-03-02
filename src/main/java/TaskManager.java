@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Reads input from user constantly until user decides to end the program.
+ * It also first loads current task in file if exists when starting up
+ */
 public class TaskManager {
     private final String BOT_NAME = "[iWish]: ";
     private ArrayList<Task> taskList = new ArrayList<>();

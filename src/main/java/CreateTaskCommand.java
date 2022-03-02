@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 
+/**
+ * Identify task type and updates into the list of wish task.
+ * Updates to file when new wishes is being made.
+ */
 public class CreateTaskCommand extends Command {
     private String taskType;
     private String description;
