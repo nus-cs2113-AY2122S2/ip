@@ -9,10 +9,21 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * This class handles with the reading and writing of data from and onto
+ * a file for storing the tasks a user input during a run of the program.
+ */
 public class Storage {
     private static final String DIRECTORY_NAME = "data";
     private static final String FILE_NAME = "Duke.txt";
 
+    /**
+     * This function sets up the storage of all the tasks into the TaskList.
+     * If the directory or file does not exist, it will create one.
+     * If it does exist, then this will read from the file the relevant data.
+     *
+     * @param tasks The TaskList to store the tasks
+     */
     public static void storageSetup(TaskList tasks) {
         File directory = new File(DIRECTORY_NAME);
         File file = new File(DIRECTORY_NAME + "/" + FILE_NAME);
@@ -30,6 +41,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates the "data" directory.
+     *
+     * @param directory The "data" directory
+     */
     public static void createDirectory(File directory) {
         try {
             directory.mkdir();
@@ -38,6 +54,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates the "duke.txt" file for storing the tasks.
+     *
+     * @param file The "duke.txt" file
+     */
     public static void createFile(File file) {
         try {
             file.createNewFile();
@@ -46,6 +67,13 @@ public class Storage {
         }
     }
 
+    /**
+     * This function reads tasks from the file and loads it onto the TaskList tasks.
+     *
+     * @param file The "duke.txt" file
+     * @param tasks The TaskList to store all tasks
+     * @throws FileNotFoundException
+     */
     public static void readTasksFromFile(File file, TaskList tasks) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
         while (scanner.hasNext()) {
@@ -53,6 +81,13 @@ public class Storage {
         }
     }
 
+    /**
+     * This function loads the tasks onto the TaskList.
+     * It creates the correct instance of task based on the first character it encounters.
+     *
+     * @param tasks The TaskList to store all tasks
+     * @param line The line of data read from the file
+     */
     public static void loadTaskFromFile(TaskList tasks, String line) {
         String[] content = line.split("\\|");
         boolean isCompleted = ("1".equals(content[1]));
@@ -76,6 +111,12 @@ public class Storage {
         }
     }
 
+    /**
+     * This function writes tasks created while running onto the correct file
+     * with the correct format.
+     *
+     * @param tasks The TaskList storing all the tasks to be written onto a file
+     */
     public static void writeTasksToFile(TaskList tasks) {
         try {
             FileWriter file = new FileWriter(DIRECTORY_NAME + "/" + FILE_NAME);
