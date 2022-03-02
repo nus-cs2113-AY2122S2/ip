@@ -1,6 +1,5 @@
-package controller;
+package commandsParser;
 
-import commands.Command;
 import exceptions.*;
 
 import java.util.Locale;
@@ -23,49 +22,61 @@ public class OperationAnalyst {
     protected static final String UPDATE = "update";
     Command command;
 
+    /**
+     * Compute and parse the instruction into several parts and store them in different
+     * format into different parameters.
+     * @param input the raw input that user type in the command line
+     * @throws DukeExceptions if there's any uuacceptable condition exist while
+     * parsing the instruction
+     */
     public OperationAnalyst(String input) throws DukeExceptions {
+        //split the raw input into several keywords
         this.keywords = input.split(" ");
         this.rawInput = input;
+        //Standardize the instruction
         this.instruction = keywords[0].toLowerCase(Locale.ROOT);
-        parseInstruction();
+        //Create a command for further parsing
         command = new Command(keywords, rawInput);
+        parseInstruction();
     }
 
     /**
-     * Computes the command for further operation, which is the first element in the keywords array
-     * @return the command, whether it is deadline, todo, event, list, mark or unmark
+     * @return the command, whether it is deadline, todo, event,
+     * list, mark, unmark, delete or find
      */
     public String getCommand() {
         return this.instruction;
     }
 
     /**
-     * Analyses raw input to determine the task name and time
+     * Parses the command and store the task name, index of task and time
+     * in different parameters.
+     * @throws DukeExceptions if there's unacceptable condition exist
      */
     public void parseInstruction() throws DukeExceptions{
         switch (this.instruction) {
         case ADD_DEADLINE_TASK_COMMAND:
-            command.execute(ADD_DEADLINE_TASK_COMMAND);
+            command.decomposeInstruction(ADD_DEADLINE_TASK_COMMAND);
             this.time = command.getDateString();
             this.taskName = command.getTaskName();
             break;
         case ADD_EVENT_TASK_COMMAND:
-            command.execute(ADD_EVENT_TASK_COMMAND);
+            command.decomposeInstruction(ADD_EVENT_TASK_COMMAND);
             this.time = command.getDateString();
             this.taskName = command.getTaskName();
             break;
         case ADD_TODO_TASK_COMMAND:
-            command.execute(ADD_TODO_TASK_COMMAND);
+            command.decomposeInstruction(ADD_TODO_TASK_COMMAND);
             this.taskName = command.getTaskName();
             break;
         case MARK_TASK_COMMAND:
         case UNMARK_TASK_COMMAND:
         case DELETE_TASK_COMMAND:
-            command.execute(UPDATE);
+            command.decomposeInstruction(UPDATE);
             this.taskName = command.getTaskName();
             break;
         case SEARCH_COMMAND:
-            command.execute(SEARCH_COMMAND);
+            command.decomposeInstruction(SEARCH_COMMAND);
             this.taskName = command.getTaskName();
             break;
         case LIST_TASKS_COMMAND:
@@ -77,10 +88,10 @@ public class OperationAnalyst {
 
     }
 
-    public String getTaskName() {
-        return this.taskName;
-    }
-
+    /**
+     * Returns the information stored in time
+     * @return the date in string format
+     */
     public String getTime() {
         return this.time;
     }

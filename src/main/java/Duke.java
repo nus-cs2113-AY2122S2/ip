@@ -1,5 +1,4 @@
-import controller.*;
-import exceptions.*;
+import commandsParser.Controller;
 
 public class Duke {
     public static void main(String[] args) throws Exception {

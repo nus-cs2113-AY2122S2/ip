@@ -1,13 +1,14 @@
-package controller;
+package commandsParser;
 
-import UI.*;
-import exceptions.*;
+import UI.UI;
+import exceptions.DukeExceptions;
+import exceptions.TaskIndexLossException;
+import exceptions.IllegalInstructionException;
 import tasks.TaskManager;
 
 import java.util.Scanner;
 
 public class Controller {
-    //greeting msg and exit msg
     protected String recvMsg;
     protected String replyMsg;
     protected static final String MARK_TASK_COMMAND = "mark";
@@ -24,14 +25,14 @@ public class Controller {
     UI userInterface = new UI();
 
     /**
-     * Prints greeting msg
+     * Prints greeting msg on the interface
      */
     public void greet() {
         userInterface.greet();
     }
 
     /**
-     * Prints goodbye msg and exits
+     * Prints goodbye msg on the interface and exits
      */
     public void bye() {
         userInterface.goodbye();
@@ -39,49 +40,44 @@ public class Controller {
     }
 
     /**
-     * Unmarks task in the list
+     * Checks if the input to indicate the index of the task for operation is a number
+     * @param indexOfTask is the index of the task in String format
+     * @return the index of the task in Integer format
+     * @throws DukeExceptions if the input is not a number
      */
-    public String unmarkTask() throws DukeExceptions {
+    private int parseInt(String indexOfTask) throws DukeExceptions {
         try {
-            int index= Integer.parseInt(analyst.taskName);
-            return manager.unmarkTask(index);
+            int index = Integer.parseInt(indexOfTask);
+            return index;
         } catch (NumberFormatException e) {
             throw new TaskIndexLossException();
         }
     }
 
-    public String markTask() throws DukeExceptions{
-        try {
-            int index = Integer.parseInt(analyst.taskName);
-            return manager.markTask(index);
-        } catch (NumberFormatException e) {
-            throw new TaskIndexLossException();
-        }
-    }
-
-    public String deleteTask() throws DukeExceptions {
-        try {
-            int index = Integer.parseInt(analyst.taskName);
-            return manager.deleteTask(index);
-        } catch (NumberFormatException e) {
-            throw new TaskIndexLossException();
-        }
-    }
-
+    /**
+     * Calls task manager to create a new file for saving task
+     * @throws DukeExceptions if the creation is failed
+     */
     public void createFile() throws DukeExceptions{
         manager.createFile();
     }
 
+    /**
+     * Calls task manager to load tasks from the file
+     * @throws DukeExceptions if the loading action is failed
+     */
     public void loadTask() throws DukeExceptions{
         manager.loadTask();
     }
 
     /**
-     * Listen the instruction and operate during the session
+     * listen to the instruction from user and do operation after user open a session
+     * @throws DukeExceptions if it is failed to operate the instruction user given
      */
     public void listen() throws DukeExceptions {
                 Scanner msg = new Scanner(System.in);
                 this.recvMsg = msg.nextLine();
+                int indexOfTask;
                 try {
                     analyst = new OperationAnalyst(this.recvMsg);
                     String command = analyst.getCommand();
@@ -93,10 +89,12 @@ public class Controller {
                         this.replyMsg = manager.listTask();
                         break;
                     case MARK_TASK_COMMAND:
-                        this.replyMsg = this.markTask();
+                        indexOfTask = parseInt(analyst.taskName);
+                        this.replyMsg = manager.markTask(indexOfTask);
                         break;
                     case UNMARK_TASK_COMMAND:
-                        this.replyMsg = this.unmarkTask();
+                        indexOfTask = parseInt(analyst.taskName);
+                        this.replyMsg = manager.unmarkTask(indexOfTask);
                         break;
                     case ADD_DEADLINE_TASK_COMMAND:
                         this.replyMsg = manager.addDeadline(analyst.taskName, analyst.time);
@@ -108,7 +106,8 @@ public class Controller {
                         this.replyMsg = manager.addToDo(analyst.taskName);
                         break;
                     case DELETE_TASK_COMMAND:
-                        this.replyMsg = this.deleteTask();
+                        indexOfTask = parseInt(analyst.taskName);
+                        this.replyMsg = manager.deleteTask(indexOfTask);
                         break;
                     case SEARCH_COMMAND:
                         this.replyMsg = manager.searchTask(analyst.taskName);
@@ -122,6 +121,4 @@ public class Controller {
                     userInterface.printMsg(e.toString());
                 }
             }
-
-
 }
