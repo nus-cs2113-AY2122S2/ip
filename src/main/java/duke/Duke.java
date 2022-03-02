@@ -9,20 +9,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Duke {
-    private static ArrayList<String> tasks = new ArrayList<>();
-    private static ArrayList<Boolean> dones = new ArrayList<>();
-    private static ArrayList<String> types = new ArrayList<>();
-    private static ArrayList<String> dates = new ArrayList<>();
+    private static Storage storage = new Storage("data/tasks.txt");
+    private static Ui ui = new Ui();
+    protected static ArrayList<String> tasks = new ArrayList<>();
+    protected static ArrayList<Boolean> dones = new ArrayList<>();
+    protected static ArrayList<String> types = new ArrayList<>();
+    protected static ArrayList<String> dates = new ArrayList<>();
 
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        greeting();
-        loadTasks();
+        ui.greeting();
+        storage.loadTasks();
         getCommand();
     }
 
@@ -40,14 +36,14 @@ public class Duke {
             if (input.startsWith("done")) {
                 int number = Integer.parseInt(input.substring(input.length() - 1));
                 markAsDone(number);
-                saveTasks();
+                storage.saveTasks();
                 input = in.nextLine();
                 continue;
             }
             if (input.startsWith("delete")) {
                 int number = Integer.parseInt(input.substring(input.length() - 1));
                 deleteTask(number);
-                saveTasks();
+                storage.saveTasks();
                 input = in.nextLine();
                 continue;
             }
@@ -92,7 +88,7 @@ public class Duke {
             System.out.println("    ____________________________________________________________");
             System.out.println("     Got it. I've added this task: ");
             handleCommand(input);
-            saveTasks();
+            storage.saveTasks();
             System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
             System.out.println("    ____________________________________________________________");
             input = in.nextLine();
@@ -118,107 +114,6 @@ public class Duke {
         if (splitLine.length == 1) {
             throw new EmptyDescriptionException();
         }
-    }
-
-    private static void loadTasks() {
-        String pathName = "./data/";
-        String fileName = "duke.txt";
-        File file = new File(pathName + fileName);
-        try {
-            Scanner sc = new Scanner(file);
-            while (sc.hasNext()) {
-                String line = sc.nextLine();
-                String[] splitLine = line.split(" \\| ");
-                String type = splitLine[0];
-                boolean done = Boolean.parseBoolean(splitLine[1]);
-                String description = splitLine[2];
-                String date;
-                types.add(type);
-                dones.add(done);
-                tasks.add(description);
-                if (!type.equals("T")) {
-                    date = splitLine[3];
-                } else {
-                    date = "";
-                }
-                dates.add(date);
-            }
-        } catch (FileNotFoundException e) {
-            createFileOrFolder(pathName, fileName);
-        }
-    }
-
-    /**
-     *
-     * @param pathName
-     * @param fileName
-     */
-    private static void createFileOrFolder(String pathName, String fileName) {
-        try {
-            Path path = Paths.get(pathName);
-            Files.createDirectory(path);
-            Path file = Paths.get(pathName + fileName);
-            Files.createFile(file);
-        } catch (FileAlreadyExistsException ignored) {
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
-    }
-
-    private static void saveTasks() {
-        String pathName = "./data/";
-        String fileName = "duke.txt";
-        String separator = " | ";
-        flushFile(pathName, fileName);
-        for (int i = 0; i < tasks.size(); i++) {
-            StringBuilder sb = new StringBuilder();
-            String description = tasks.get(i);
-            boolean done = dones.get(i);
-            String type = types.get(i);
-            String date = dates.get(i);
-            sb.append(type);
-            sb.append(separator);
-            sb.append(done);
-            sb.append(separator);
-            sb.append(description);
-            if (!date.equals("")) {
-                sb.append(separator);
-                sb.append(date);
-            }
-            String textToAppend = sb.toString();
-            try {
-                appendToFile(pathName + fileName, textToAppend + System.lineSeparator());
-            } catch (IOException e) {
-                System.out.println("Something went wrong: " + e.getMessage());
-            }
-        }
-    }
-
-    /**
-     *
-     * @param pathName
-     * @param fileName
-     */
-    private static void flushFile(String pathName, String fileName) {
-        File file = new File(pathName + fileName);
-        try {
-            FileWriter fw = new FileWriter(file);
-            fw.write("");
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
-    }
-
-    /**
-     *
-     * @param textToAppend
-     * @param filePath
-     * @throws IOException
-     */
-    private static void appendToFile(String filePath, String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
-        fw.write(textToAppend);
-        fw.close();
     }
 
     /**
@@ -354,14 +249,5 @@ public class Duke {
         dones.remove(index);
         System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("    ____________________________________________________________");
-    }
-
-    private static void greeting() {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Hello! I'm duke.Duke");
-        System.out.println("     What can I do for you?");
-        System.out.println("    ____________________________________________________________");
-        System.out.println();
-    }
-
+    }l
 }
