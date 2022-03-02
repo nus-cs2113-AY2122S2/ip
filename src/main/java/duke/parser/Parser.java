@@ -75,7 +75,13 @@ public class Parser {
                 throw new DukeException(errorMsg);
             }
             break;
-
+        case "find":
+            String keyword = getNextWord(input, command);
+            if (keyword.equals("")) {
+                String errorMsg = String.format("%s requires a word\n", command);
+                throw new DukeException(errorMsg);
+            }
+            break;
         case "mark":
         case "unmark":
         case "delete":
@@ -86,6 +92,7 @@ public class Parser {
                 throw new DukeException(errorMsg);
             }
             break;
+
 
         default:
             String errorMsg = String.format("Command not understood");
@@ -115,10 +122,11 @@ public class Parser {
                 ArrayList<String> description_split = Parser.splitToTwo(description, "/");
                 String taskName = description_split.get(0);
                 String addInfo = description_split.size() >= 2 ? description_split.get(1) : null;
-
                 return new AddCommand(command, taskName, addInfo);
             case "delete":
                 return new DeleteCommand(Integer.parseInt(description));
+            case "find":
+                return new FindCommand(description);
             case "bye":
                 return new ByeCommand();
             default:
