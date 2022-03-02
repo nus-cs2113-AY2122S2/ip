@@ -16,7 +16,7 @@ This is a product named _Duke_, a Personal Assistant Chatbot that helps a person
 5. Run the command  `java -jar Duke.jar` to start the program.
 6. You can now enter different commands.
 
-Note: The program will not stop until you have entered `bye`. See [exit program](#exitprogram)
+Note: The program will not stop until you have entered `bye`. See [exit program](#exit-program---bye).
 
 ## Features
 _Duke_ is able to 
