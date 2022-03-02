@@ -2,6 +2,8 @@ package jarvis.commands;
 
 import jarvis.Formatter;
 import jarvis.display.DisplayMessages;
+
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
@@ -25,8 +27,8 @@ public class UserList extends Task {
     }
 
     public static void insertTask(Task newTask) {
-        userTaskList.add(newTask);
-        DisplayMessages.taskAdded(newTask.getDescription());
+            userTaskList.add(newTask);
+            DisplayMessages.taskAdded(newTask.getDescription());
     }
 
     public static void printList() {
@@ -69,10 +71,12 @@ public class UserList extends Task {
         }
     }
 
-    public static void removeTask(int taskIndex) {
+    public static void removeTask(int taskIndex, boolean toPrintMessage) {
         Task taskRemoved = userTaskList.get(taskIndex);
         userTaskList.remove(taskIndex);
-        DisplayMessages.taskDeleted(taskRemoved, userTaskList.size());
+        if (toPrintMessage) {
+            DisplayMessages.taskDeleted(taskRemoved, userTaskList.size());
+        }
     }
 
     protected static void parseSavedData(String data) {
@@ -80,14 +84,16 @@ public class UserList extends Task {
         String taskType = dataArray[0];
         int separatorIndex = Formatter.indexOf(dataArray, "|");
         String description = "";
-        String date = "";
+        String day = "";
+        String time = "";
         boolean taskIsDone = dataArray[1].equals("YES") ? true : false;
         if (separatorIndex == -1) {
             description = Formatter.parseUserInput(dataArray, 2, dataArray.length);
         } else {
             //saved Task is either an event or deadline
             description = Formatter.parseUserInput(dataArray, 2, separatorIndex);
-            date = Formatter.parseUserInput(dataArray, separatorIndex+1, dataArray.length);
+            day = dataArray[separatorIndex+1];
+            time = dataArray[separatorIndex+2];
         }
 
         switch (taskType) {
@@ -95,10 +101,10 @@ public class UserList extends Task {
             userTaskList.add(new Task(description));
             break;
         case DEADLINE_ICON:
-            userTaskList.add(new Deadline(description, date));
+            userTaskList.add(new Deadline(description, day, time));
             break;
         case EVENT_ICON:
-            userTaskList.add(new Event(description, date));
+            userTaskList.add(new Event(description, day, time));
             break;
         default:
             break;
