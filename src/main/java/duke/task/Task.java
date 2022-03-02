@@ -1,6 +1,5 @@
 package duke.task;
 
-import java.util.ArrayList;
 
 public abstract class Task {
     private boolean isDone;
@@ -18,22 +17,22 @@ public abstract class Task {
     private final String NOT_DONE_SYMBOL = "[ ] ";
 
     public Task(String taskName) {
-        isDone = false;
+        setDone(false);
         setTaskName(taskName);
     }
 
     public String getTaskInformation() {
         String taskNameAndStatus;
         if (getDone()) {
-            taskNameAndStatus = DONE_SYMBOL;
+            taskNameAndStatus = getDoneSymbol();
         } else {
-            taskNameAndStatus = NOT_DONE_SYMBOL;
+            taskNameAndStatus = getNotDoneSymbol();
         }
         taskNameAndStatus = taskNameAndStatus + getTaskName();
         return taskNameAndStatus;
     }
 
-    public String getTaskDescription(){
+    public String getTaskDescription() {
         return getTaskName();
     }
 
@@ -41,22 +40,22 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
-    public String getTaskUpdatedMessage(){
+    public String getTaskUpdatedMessage() {
         String message;
         if (isDone) {
-            message = "\t Nice! I've marked this task as done:\n" ;
+            message = "\t Nice! I've marked this task as done:\n";
         } else {
             message = "\t OK, I've marked this task as not done yet:\n";
         }
         return message;
     }
 
-    public String addTaskMessage(){
+    public String addTaskMessage() {
         String message = "\t Got it. I've added this task:\n";
         return message;
     }
 
-    public String removeTaskMessage(){
+    public String removeTaskMessage() {
         String acknowledgementMessage = "\t Noted. I've removed this task:\n";
         return acknowledgementMessage;
     }

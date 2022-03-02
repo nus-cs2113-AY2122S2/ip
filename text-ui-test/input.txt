@@ -6,16 +6,16 @@ event project meeting /at Mon 2-4pm
 list
 mark 1
 list
-deadline
+deadline 
 mark 2
 list
 mark 3
 list
-todo
+todo 
 unmark 1
 list
 unmark 2
-event
+event  
 list
 unmark 3
 list

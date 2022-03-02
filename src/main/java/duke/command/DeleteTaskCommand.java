@@ -1,8 +1,14 @@
 package duke.command;
 
-import duke.Duke;
 import duke.exception.DukeException;
 import duke.exception.DukeExceptionCause;
+
+
+/**
+ * Converts the users input into a DeleteTaskCommand object.
+ * The DeleteTaskCommand object contains the index
+ * of the task that the user wants to delete within the task list.
+ */
 
 public class DeleteTaskCommand extends Command {
 

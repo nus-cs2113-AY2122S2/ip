@@ -14,9 +14,12 @@ import duke.task.Task;
 import duke.task.TaskType;
 import duke.task.ToDo;
 
+/**
+ * Represents an instance of the bot which communicates with the user.
+ * A ChatBot object contains methods for the various functionalities of the bot
+ * such as Add Task, View Tasks, Update Task, Find Tasks and Delete Task.
+ */
 public class ChatBot {
-    private final String BOT_NAME = "Big Bob";
-    private final String FILE_PATH = "data/duke.txt";
     private TaskList listOfTasks;
 
     private Ui ui;
@@ -27,14 +30,22 @@ public class ChatBot {
         setListOfTasks(listOfTasks);
     }
 
-    public void setListOfTasks(TaskList listOfTasks) {
+    private void setListOfTasks(TaskList listOfTasks) {
         this.listOfTasks = listOfTasks;
     }
 
-    public void setUi(Ui ui) {
+    private void setUi(Ui ui) {
         this.ui = ui;
     }
 
+    /**
+     * Returns true if the Task List has been updated due to the command executed.
+     * This ensures that the updated Task List would be written to the data file.
+     * This method takes in a Command Object and performs the relevant actions based on the command.
+     *
+     * @param inputCommand The Command object that was created from the user input.
+     * @return true if the task list has been updated, false if it hasn't been updated.
+     */
     public boolean executeCommand(Command inputCommand) {
         try {
             if (inputCommand.getType() == Command.CommandType.ADDTASK) {
@@ -44,25 +55,33 @@ public class ChatBot {
                 UpdateTaskStatusCommand newUpdateCommand = (UpdateTaskStatusCommand) inputCommand;
                 updateTaskStatusInList(newUpdateCommand);
             } else if (inputCommand.getType() == Command.CommandType.PRINTLIST) {
-                ui.printList(listOfTasks,false);
+                ui.printList(listOfTasks, false);
                 return false;
             } else if (inputCommand.getType() == Command.CommandType.DELETETASKS) {
                 DeleteTaskCommand newDeleteCommand = (DeleteTaskCommand) inputCommand;
                 deleteTask(newDeleteCommand.getTaskIndex());
-            }else if(inputCommand.getType() == Command.CommandType.FINDTASKS){
+            } else if (inputCommand.getType() == Command.CommandType.FINDTASKS) {
                 FindTaskCommand newFindCommand = (FindTaskCommand) inputCommand;
-                TaskList matchingTaskList= findTaskInList(newFindCommand.getKeyWord());
-                ui.printList(matchingTaskList,true);
+                TaskList matchingTaskList = findTaskInList(newFindCommand);
+                ui.printList(matchingTaskList, true);
+                return false;
             }
-        }catch(DukeException de){
+        } catch (DukeException de) {
             ui.showIndexOutOfBoundError();
         }
         return true;
     }
 
-
-
-    public void deleteTask(int taskIndex) throws DukeException{
+    /**
+     * This method takes in the index of the task that the user wants to delete within the task list
+     * and deletes that task from the task list.
+     * Once the task has been deleted, an acknowledgement message would be shown
+     * informing the user of the task that was deleted and the number of tasks remaining in the task list
+     *
+     * @param taskIndex The index within the task list of the task to delete.
+     * @throws DukeException if the index of the task given is out of range.
+     */
+    private void deleteTask(int taskIndex) throws DukeException {
         String acknowledgementMessage = "\t Noted. I've removed this task:\n\t   ";
         Task taskToDelete;
         try {
@@ -78,12 +97,13 @@ public class ChatBot {
             ToDo toDoToDelete = (ToDo) taskToDelete;
         }
         acknowledgementMessage = listOfTasks.removeTask(taskIndex - 1);
-        acknowledgementMessage = acknowledgementMessage + String.format("\n\t Now you have %d tasks in the list.",listOfTasks.getListSize());
+        acknowledgementMessage = acknowledgementMessage + String.format("\n\t Now you have %d tasks in the list.",
+                listOfTasks.getListSize());
         ui.showAcknowledgementMessage(acknowledgementMessage);
     }
 
 
-    public void addTaskToList(AddTaskCommand inputCommand) {
+    private void addTaskToList(AddTaskCommand inputCommand) {
         String acknowledgementMessage = "";
         String taskName = inputCommand.getTaskName();
         Task freshTask;
@@ -99,23 +119,45 @@ public class ChatBot {
         }
         listOfTasks.addTask(freshTask);
         acknowledgementMessage = freshTask.addTaskMessage();
-        acknowledgementMessage =  acknowledgementMessage + String.format("\n\t Now you have %d tasks in the list.",listOfTasks.getListSize());
+        acknowledgementMessage = acknowledgementMessage + String.format("\n\t Now you have %d tasks in the list.",
+                listOfTasks.getListSize());
         ui.showAcknowledgementMessage(acknowledgementMessage);
     }
 
-    public void updateTaskStatusInList(UpdateTaskStatusCommand newUpdateCommand) {
+    /**
+     * This method takes in a UpdateTaskStatusCommand object which contains the index of the task
+     * the user wants to update within the task list as well as the updated status of the task.
+     * The status of a task is whether the task has been done.
+     * Once the task has been updated, an acknowledgement message would be shown
+     * informing the user of the task that was updated as well as its new status.
+     *
+     * @param newUpdateCommand The UpdateTaskStatusCommand object which contains the index of the task to update
+     *                         as well as the task's new status.
+     */
+    private void updateTaskStatusInList(UpdateTaskStatusCommand newUpdateCommand) {
         boolean isTaskDone = newUpdateCommand.isTaskDone();
         int taskIndex = newUpdateCommand.getTaskIndex();
         try {
             String acknowledgementMessage = listOfTasks.updateTask(taskIndex, isTaskDone);
+
             ui.showAcknowledgementMessage(acknowledgementMessage);
-        }catch(DukeException de) {
+        } catch (DukeException de) {
             ui.showIndexOutOfBoundError();
         }
     }
 
-    public TaskList findTaskInList(String keyWord){
+    /**
+     * Returns a task list containing all the tasks that matches the keyword the user is searching for.
+     * This method takes in the FindTaskCommand object and finds all the matching task within the task lists
+     * using the keyword in the FindTaskCommand object and returns a task list of matching tasks.
+     *
+     * @param newFindTaskCommand The FindTaskCommand object which contains the keyword
+     *                           that the user wants to use to search for tasks within the task list.
+     * @return A task list containing all the matching tasks.
+     */
+    private TaskList findTaskInList(FindTaskCommand newFindTaskCommand) {
         TaskList listOfMatchingTask;
+        String keyWord = newFindTaskCommand.getKeyWord();
         listOfMatchingTask = listOfTasks.findTasks(keyWord);
         return listOfMatchingTask;
     }
