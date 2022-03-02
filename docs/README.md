@@ -9,14 +9,14 @@ This is a product named _Duke_, a Personal Assistant Chatbot that helps a person
      |____/ \__,_|_|\_\___|
 
 ## Quick Start
-1. Please make sure you have _Java 11_ or above installed in your computer. The link to _Java 11_ installer is [here] (https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html).
+1. Please make sure you have _Java 11_ or above installed in your computer. The link to _Java 11_ installer is [here](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html) .
 2. Download the _v2.0 Duke.jar_ from
 3. Copy the jar file into an empty folder.
 4. Open a terminal and go to the working directory of that folder.
 5. Run the command  `java -jar Duke.jar` to start the program.
 6. You can now enter different commands.
 
-Note: The program will not stop until you have entered `bye`. See [exit program] (#exitprogram)
+Note: The program will not stop until you have entered `bye`. See [exit program](#exitprogram)
 
 ## Features
 _Duke_ is able to 
