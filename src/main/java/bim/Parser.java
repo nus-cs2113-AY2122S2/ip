@@ -1,10 +1,18 @@
 package bim;
 
-import bim.command.*;
+import bim.command.Command;
+import bim.command.ExitCommand;
+import bim.command.DeadlineCommand;
+import bim.command.EventCommand;
+import bim.command.TodoCommand;
+import bim.command.FindCommand;
+import bim.command.MarkCommand;
+import bim.command.IncorrectCommand;
+import bim.command.DeleteCommand;
+import bim.command.ListCommand;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 /**
  * Extract relevant information from user input. The information is then used to prepare the command

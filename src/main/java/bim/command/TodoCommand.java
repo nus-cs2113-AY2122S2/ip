@@ -20,8 +20,8 @@ public class TodoCommand extends Command {
      * Writes the new task to the data file. Only if the writing is successful, add the new task
      * to the task list and print the newly added task.
      *
-     * @param tasks The task list to add the new todo into
-     * @param ui Ui object to print messages
+     * @param tasks   The task list to add the new todo into
+     * @param ui      Ui object to print messages
      * @param storage Storage object for saving to disk.
      */
     @Override

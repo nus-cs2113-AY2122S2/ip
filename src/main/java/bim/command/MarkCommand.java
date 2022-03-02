@@ -1,6 +1,5 @@
 package bim.command;
 
-import bim.Bim;
 import bim.BimException;
 import bim.Storage;
 import bim.Ui;

@@ -17,8 +17,8 @@ public class FindCommand extends Command {
     /**
      * Search the task list and print the results.
      *
-     * @param tasks The task list to be searched
-     * @param ui Ui object to print messages
+     * @param tasks   The task list to be searched
+     * @param ui      Ui object to print messages
      * @param storage Storage object for saving to disk.
      */
     @Override

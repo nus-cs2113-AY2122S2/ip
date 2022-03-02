@@ -14,6 +14,11 @@ public class Event extends Task {
         this.date = date;
     }
 
+    /**
+     * Returns the date of the Event in 'MMM-dd-yyyy' format
+     *
+     * @return The date of the event
+     */
     public String getDate() {
         return date.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
     }

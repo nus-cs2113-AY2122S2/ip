@@ -14,6 +14,10 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    /**
+     * Returns the deadline of the task in 'MMM-dd-yyyy' format
+     * @return The deadline of the task.
+     */
     public String getDeadline() {
         return deadline.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
     }

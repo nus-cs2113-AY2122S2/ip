@@ -52,7 +52,7 @@ public class TaskList {
     public String findTask(String keyword) {
         int count = 1;
         String result = "";
-        for(int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             Task currentTask = tasks.get(i);
             String currentTaskDescription = currentTask.getDescription().toLowerCase();
             if (currentTaskDescription.contains(keyword)) {
@@ -68,7 +68,7 @@ public class TaskList {
 
     /**
      * Returns a string that lists all tasks in the arraylist <br>
-     * Format: INDEX + task.toString()
+     * Format: INDEX.task.toString()
      *
      * @return A String representation of all tasks in the TaskList
      */

@@ -30,7 +30,7 @@ I have added a new task!
 You now have 4 task(s)!
 ----------------------------------
 ----------------------------------
-Okie Dokie!
+Task has been marked. Well done!
 	[T][X] steal alice phone
 ----------------------------------
 ----------------------------------
@@ -49,11 +49,11 @@ I have added a new task!
 You now have 5 task(s)!
 ----------------------------------
 ----------------------------------
-Oh no! Anyways..
+Task has been unmarked. Keep going!
 	[T][ ] steal alice phone
 ----------------------------------
 ----------------------------------
-Okie Dokie!
+Task has been marked. Well done!
 	[T][X] get together with alice
 ----------------------------------
 ----------------------------------
@@ -104,5 +104,5 @@ Listing all tasks!
 Error: I couldn't understand that!
 ----------------------------------
 ----------------------------------
-See you soon!
+Have a great day!
 ----------------------------------
