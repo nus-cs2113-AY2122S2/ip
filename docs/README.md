@@ -1,20 +1,8 @@
 # Bim User Guide
-## Features
-1. Managing your tasks
-   - Adding tasks
-     - Adding a todo: [`todo`](#todo---add-a-todo)
-     - Adding a deadline: [`deadline`](#deadline---add-a-deadline)
-     - Adding an event: [`event`](#event---add-an-event)
-   - Listing all tasks: [`list`](#list---list-all-tasks)
-   - Deleting tasks: [`delete`](#delete---delete-a-task)
-   - Modifying status of tasks
-     - Mark a task as complete: [`mark`](#mark---set-the-task-to-be-completed)
-     - Mark a task as incomplete: [`unmark`](#unmark---set-the-task-to-be-uncompleted)
-3. Search for tasks: [`find`](#find---find-a-task-with-a-keyword)
-4. Exiting the program: [`bye`](#bye---exit-the-program)
-5. Saving tasks
-
 ## Quick Start
+Bim is an application that helps you keep track of your tasks 
+ensuring that you will not forget them.
+
 ### Managing your tasks
 
 Tasks are categorized into 3 different category.
@@ -38,14 +26,29 @@ incomplete.
 
 ### Search for tasks
 
-You can search for any task that contains a keyword or a phrase that you want. 
+You can search for any task that contains a keyword or a phrase that you want.
 
 ### Saving the tasks
 All tasks are saved into a text file at `[JAR file location]/data/BimData.txt`.
 After any command that modifies the data, the file will be updated automatically.
 
 
-##Command Format
+## Features
+1. Managing your tasks
+   - Adding tasks
+     - Adding a todo: [`todo`](#todo---add-a-todo)
+     - Adding a deadline: [`deadline`](#deadline---add-a-deadline)
+     - Adding an event: [`event`](#event---add-an-event)
+   - Listing all tasks: [`list`](#list---list-all-tasks)
+   - Deleting tasks: [`delete`](#delete---delete-a-task)
+   - Modifying status of tasks
+     - Mark a task as complete: [`mark`](#mark---set-the-task-to-be-completed)
+     - Mark a task as incomplete: [`unmark`](#unmark---set-the-task-to-be-uncompleted)
+3. Search for tasks: [`find`](#find---find-a-task-with-a-keyword)
+4. Exiting the program: [`bye`](#bye---exit-the-program)
+5. Saving tasks
+
+## Command Format
 - Words in `UPPERCASE` are parameters to be specified by the user.
 - `INDEX` refers to the number shown in the `list` command.
 
@@ -100,7 +103,7 @@ I have added a new task!
 
 ### `list` - List all tasks
 
-Lists all tasks that Bim is storing.
+Lists all tasks that Bim has in store.
 
 <br />
 
@@ -137,21 +140,21 @@ Format: `delete INDEX`
 
 ### `find` - Find a task with a keyword
 
-Lists all task that contains the keyword
+Lists all task that contains the keyword.
 
 Format: `find KEYWORD`
 
-`KEYWORD` can be a word or a phrase
+- `KEYWORD` can be a word or a phrase
+- `KEYWORD` is case-insensitive
 
 Example: `find meeting`
 ```
 These are the tasks containing your keyword!
-	1.[D][ ] submit project (by: Oct-10-2022)
-	2.[E][ ] project meeting (at: Oct-10-2022)
+	1.[E][ ] project meeting (at: Oct-10-2022)
 ```
 
 <br />
 
 ### `bye` - Exit the program
 
-The program will terminate
+Terminate the program
