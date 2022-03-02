@@ -1,14 +1,20 @@
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Allow user to save data in a .txt file and load the saved data
+ * Check if the .txt file exists, able to save tasks in the file, and load previous tasks from file after program restarts
+ */
 public class Storage {
 
     private static final String filePath = "data/duke.txt";
 
+    /**
+     * Check if user has the .txt file, create new file if it doesn't
+     */
     public static void checkFile() {
         File f = new File(filePath);
         File folder = new File("data");
@@ -31,6 +37,10 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Save updated list of tasks in the .txt file
+     * @param instructionsList an ArrayList containing list of tasks
+     */
     public static void saveToFile(ArrayList<String> instructionsList) {
         String task;
         ArrayList<String> list = new ArrayList<>();
@@ -45,7 +55,11 @@ public class Storage {
         }
     }
 
-    public static void loadFromFile(ArrayList<String> instructionsList) throws IOException {
+    /**
+     * Load the list of tasks previously saved in .txt file
+     * @param instructionsList an ArrayList containing list of tasks
+     */
+    public static void loadFromFile(ArrayList<String> instructionsList) {
 
         try {
             File f = new File(filePath); // create a File for the given file path

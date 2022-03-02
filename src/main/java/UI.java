@@ -1,3 +1,7 @@
+/**
+ * Deals with communicating to the user
+ * Prints error messages, welcome and goodbye messages
+ */
 public class UI {
 
     public static final String LOGO = " ____        _        \n"

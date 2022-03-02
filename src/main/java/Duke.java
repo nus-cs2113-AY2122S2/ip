@@ -1,15 +1,16 @@
-
 import java.util.Scanner;
 import java.io.IOException;
 
 public class Duke {
 
-    public static final String PREFIX = "  \\[T]\\[ ]";
-
+    /**
+     * main method that calls other methods when the program starts
+     * @param args arguments passed to the program
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
         Storage.checkFile();
         greet();
-
         TaskList.executeCommands();
     }
 

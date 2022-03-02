@@ -3,19 +3,18 @@ import java.util.ArrayList;
 
 public class TaskList {
 
-    //public static ArrayList<String> instructionsList = new ArrayList<>();
-
     public static void executeCommands() throws IOException {
 
         ArrayList<String> instructionsList = new ArrayList<>();
         Task task = new Task("homework");
-        task.number = 0;
+        Task.number = 0;
         Deadline deadline = new Deadline("return book", "holiday");
         Event event = new Event("test", "7pm");
 
         Storage.loadFromFile(instructionsList);
 
-        for (int i = 0; i < 200; i++) { // can have 200 input lines (including wrong command)
+        for (int i = 0; i < 200; i++) {
+            // take in up to 200 input lines (including invalid commands)
 
             Duke.scanInput(task);
             String instructionLine = task.instruction.replaceAll("todo|deadline|event", "");
@@ -78,7 +77,7 @@ public class TaskList {
         instructionNum = arrayOfStr[1];
         int index = Integer.parseInt(instructionNum) - 1;
         String temp = instructionsList.get(index);
-        temp = temp.replaceAll(Duke.PREFIX, "  (T)(X)");
+        temp = temp.replace("  (T)( )", "  (T)(X)");
         instructionsList.set(index, temp); //updates the list
 
         printMarkMessage(instructionsList, index);
