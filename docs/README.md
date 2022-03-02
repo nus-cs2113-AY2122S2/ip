@@ -19,11 +19,11 @@
 ## Quick start
 
 1. Ensure you have **Java `11` or above** installed in your Computer.
-2. Download the latest `Duke.jar` from [here](https://github.com/TianaiYan/ip/).
+2. Download the latest `Duke.jar` from [here](https://github.com/TianaiYan/ip/releases/tag/v0.2).
 3. Copy the file to the folder you want to use as the *home folder* for your Duke.
 4. Open a terminal window and type `java -jar Duke.jar`.
 5. Type the command below the greeting and press <kbd>Enter</kbd> to execute it. Some example commands you can try:
-6. Refer to the [Usage](#Usage) below for details of each command.
+6. Refer to the **Features and Usage** below for details of each command.
 
 ## Feature and Usage
 ❗️**Notes:**
