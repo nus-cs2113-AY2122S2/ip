@@ -61,7 +61,6 @@ public class TaskManager {
         }
     }
 
-
     public void setTasks(ArrayList<Task> tasks) {
         this.tasks = tasks;
         this.numOfTasks = tasks.size();
@@ -87,6 +86,18 @@ public class TaskManager {
         catch (IndexOutOfBoundsException e) {
             throw new DukeException("Index out of bounds!");
         }
+    }
+
+    public TaskManager findTask (String keyword) {
+        TaskManager relatedTaskManager = new TaskManager();
+        ArrayList<Task> relatedTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getName().contains(keyword)) {
+                relatedTasks.add(task);
+            }
+        }
+        relatedTaskManager.setTasks(relatedTasks);
+        return relatedTaskManager;
     }
 
     @Override
