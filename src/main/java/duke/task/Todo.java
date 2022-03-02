@@ -5,6 +5,7 @@ public class Todo extends Task {
         super(description);
     }
 
+    // Print the todo task in a fixed format
     @Override
     public String toString() {
         return "[T]" + super.toString();
