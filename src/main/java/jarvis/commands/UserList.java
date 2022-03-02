@@ -2,6 +2,7 @@ package jarvis.commands;
 
 import jarvis.Formatter;
 import jarvis.display.DisplayMessages;
+
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
@@ -35,8 +36,8 @@ public class UserList extends Task {
      * @param newTask Task argument to be added to user's list.
      */
     public static void insertTask(Task newTask) {
-        userTaskList.add(newTask);
-        DisplayMessages.taskAdded(newTask.getDescription());
+            userTaskList.add(newTask);
+            DisplayMessages.taskAdded(newTask.getDescription());
     }
 
     /**
@@ -49,7 +50,6 @@ public class UserList extends Task {
             for (int i = 0; i < userTaskList.size(); i++) {
                 String taskIndex = Integer.toString(i+1) + ".";
                 System.out.println(taskIndex.toString() + userTaskList.get(i).getFullTask());
-
             }
             DisplayMessages.horizontalLine();
         } else {
@@ -109,15 +109,18 @@ public class UserList extends Task {
         }
     }
 
+
     /**
      * Function to remove a Task from the user's list of tasks.
      *
      * @param taskIndex Index of task to be removed from list
      */
-    public static void removeTask(int taskIndex) {
+    public static void removeTask(int taskIndex, boolean toPrintMessage) {
         Task taskRemoved = userTaskList.get(taskIndex);
         userTaskList.remove(taskIndex);
-        DisplayMessages.taskDeleted(taskRemoved, userTaskList.size());
+        if (toPrintMessage) {
+            DisplayMessages.taskDeleted(taskRemoved, userTaskList.size());
+        }
     }
 
     /**
@@ -132,14 +135,16 @@ public class UserList extends Task {
         String taskType = dataArray[0];
         int separatorIndex = Formatter.indexOf(dataArray, "|");
         String description = "";
-        String date = "";
+        String day = "";
+        String time = "";
         boolean taskIsDone = dataArray[1].equals("YES") ? true : false;
         if (separatorIndex == -1) {
             description = Formatter.parseUserInput(dataArray, 2, dataArray.length);
         } else {
             //saved Task is either an event or deadline
             description = Formatter.parseUserInput(dataArray, 2, separatorIndex);
-            date = Formatter.parseUserInput(dataArray, separatorIndex+1, dataArray.length);
+            day = dataArray[separatorIndex+1];
+            time = dataArray[separatorIndex+2];
         }
 
         switch (taskType) {
@@ -147,15 +152,14 @@ public class UserList extends Task {
             userTaskList.add(new Task(description));
             break;
         case DEADLINE_ICON:
-            userTaskList.add(new Deadline(description, date));
+            userTaskList.add(new Deadline(description, day, time));
             break;
         case EVENT_ICON:
-            userTaskList.add(new Event(description, date));
+            userTaskList.add(new Event(description, day, time));
             break;
         default:
             break;
         }
-
         if (taskIsDone) {
             markTask(userTaskList.size()-1, false);
         }
@@ -212,5 +216,16 @@ public class UserList extends Task {
         } catch (IOException e) {
             DisplayMessages.saveError();
         }
+    }
+
+    public static ArrayList<Task> getSearchResult(String keyword) {
+        ArrayList<Task> resultList = new ArrayList<>();
+        for (Task t : userTaskList) {
+            String taskDescription = t.getDescription();
+            if (taskDescription.contains(keyword)) {
+                resultList.add(t);
+            }
+        }
+        return resultList;
     }
 }

@@ -51,18 +51,18 @@ public class DisplayMessages {
      */
     public static void startingMessage() {
         String message =
-                  " _    _      _                          \n"
-                + "| |  | |    | |                         \n"
-                + "| |  | | ___| | ___ ___  _ __ ___   ___ \n"
-                + "| |/\\| |/ _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\\n"
-                + "\\  /\\  /  __/ | (_| (_) | | | | | |  __/\n"
-                + " \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___\n"
-                + " _            ___                  _     \n"
-                + "| |          |_  |                (_)    \n"
-                + "| |_ ___       | | __ _ _ ____   ___ ___ \n"
-                + "| __/ _ \\      | |/ _` | '__\\ \\ / / / __|\n"
-                + "| || (_) | /\\__/ / (_| | |   \\ V /| \\__ \\\n"
-                + " \\__\\___/  \\____/ \\__,_|_|    \\_/ |_|___/\n";
+                " _    _      _                          \n"
+                        + "| |  | |    | |                         \n"
+                        + "| |  | | ___| | ___ ___  _ __ ___   ___ \n"
+                        + "| |/\\| |/ _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\\n"
+                        + "\\  /\\  /  __/ | (_| (_) | | | | | |  __/\n"
+                        + " \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___\n"
+                        + " _            ___                  _     \n"
+                        + "| |          |_  |                (_)    \n"
+                        + "| |_ ___       | | __ _ _ ____   ___ ___ \n"
+                        + "| __/ _ \\      | |/ _` | '__\\ \\ / / / __|\n"
+                        + "| || (_) | /\\__/ / (_| | |   \\ V /| \\__ \\\n"
+                        + " \\__\\___/  \\____/ \\__,_|_|    \\_/ |_|___/\n";
 
         System.out.println(message);
     }
@@ -97,8 +97,8 @@ public class DisplayMessages {
      */
     public static void emptyList() {
         String message = HORIZONTAL_LINE
-                    + "Your list is currently empty. Try adding some items to your list first.\n"
-                    + HORIZONTAL_LINE;
+                + "Your list is currently empty. Try adding some items to your list first.\n"
+                + HORIZONTAL_LINE;
         System.out.println(message);
     }
 
@@ -195,6 +195,17 @@ public class DisplayMessages {
      */
     public static void loadError() {
         System.out.println("There seems to be an error loading your data. Please contact Glendon.");
+    }
 
+    public static void emptySearchResult() {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Your search returned nothing. Try using another keyword.");
+    }
+
+    public static void invalidDateTime() {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("You have entered an invalid date/time format. Please ensure that your input date and time is of format: \n" +
+                "DD/MM/YYYY HHMM");
+        System.out.println(HORIZONTAL_LINE);
     }
 }
