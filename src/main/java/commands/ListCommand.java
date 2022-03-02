@@ -1,0 +1,25 @@
+package commands;
+
+import data.Task;
+import data.TaskManager;
+import storage.FileManager;
+import ui.Ui;
+
+import java.util.ArrayList;
+
+/**
+ * Command to view all tasks.
+ */
+public class ListCommand extends Command{
+    public static final String COMMAND_WORD = "list";
+
+    public ListCommand() {
+        isExit = false;
+    }
+
+    @Override
+    public void execute(TaskManager taskManager, FileManager fileManager, Ui ui) {
+        ArrayList<Task> tasks = taskManager.getAllTasks();
+        ui.listAllTasks(tasks);
+    }
+}
