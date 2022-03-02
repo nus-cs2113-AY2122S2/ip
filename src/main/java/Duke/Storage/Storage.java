@@ -1,9 +1,7 @@
-package Duke.Helper;
+package Duke.Storage;
 
-import Duke.Tasks.Deadline;
-import Duke.Tasks.Event;
-import Duke.Tasks.Task;
-import Duke.Tasks.Todo;
+import Duke.DukeException;
+import Duke.Tasks.*;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -11,18 +9,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileCommand {
-
+public class Storage {
     protected static final char TODO = 'T';
     protected static final char EVENT = 'E';
     protected static final char DEADLINE = 'D';
+    private String filepath;
 
-    public static void loadFile(ArrayList<Task> listArray) throws IOException {
+    public Storage(String filepath) {
+        this.filepath = filepath;
+    }
+
+    public ArrayList<Task> loadFile() throws DukeException {
         try {
             File f = new File("data/duke.txt");
             f.getParentFile().mkdirs();
             f.createNewFile();
             Scanner s = new Scanner(f);
+            ArrayList<Task> listArray = new ArrayList<>();
             while (s.hasNext()) {
                 boolean isDone = true;
                 String message = s.nextLine();
@@ -50,17 +53,18 @@ public class FileCommand {
                 }
             }
             s.close();
+            return listArray;
         } catch (IOException e) {
-            System.out.println("IO exception");
+            throw new DukeException(e.getMessage());
         }
     }
 
-    public static void saveFile(ArrayList<Task> listArray) throws IOException {
+    public void saveFile(TaskList task) throws IOException {
         try {
             FileWriter fw = new FileWriter("data/duke.txt");
             StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < listArray.size(); i++) {
-                sb.append(listArray.get(i).saveTasks());
+            for (int i = 0; i < task.size(); i++) {
+                sb.append(task.get(i).saveTasks());
             }
             fw.write(sb.toString());
             fw.close();
