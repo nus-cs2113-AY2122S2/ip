@@ -128,9 +128,14 @@ public class DisplayMessages {
         public static void saveError(){
             System.out.println("There seems to be an error saving your data. Please contact Glendon.");
         }
-
         public static void loadError() {
             System.out.println("There seems to be an error loading your data. Please contact Glendon.");
-
         }
+
+        public static void emptySearchResult() {
+            System.out.println(HORIZONTAL_LINE);
+            System.out.println("Your search returned nothing. Try using another keyword.");
+            System.out.println(HORIZONTAL_LINE);
+        }
+
 }

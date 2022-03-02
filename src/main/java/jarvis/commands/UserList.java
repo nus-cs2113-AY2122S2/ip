@@ -35,7 +35,6 @@ public class UserList extends Task {
             for (int i = 0; i < userTaskList.size(); i++) {
                 String taskIndex = Integer.toString(i+1) + ".";
                 System.out.println(taskIndex.toString() + userTaskList.get(i).getFullTask());
-
             }
             DisplayMessages.horizontalLine();
         } else {
@@ -50,7 +49,6 @@ public class UserList extends Task {
     public static String getTask(int index) {
         return userTaskList.get(index).getDescription();
     }
-
 
     public static void markTask(int index, boolean toPrintMessage) {
         Task targetTask = userTaskList.get(index);
@@ -105,7 +103,6 @@ public class UserList extends Task {
         default:
             break;
         }
-
         if (taskIsDone) {
             markTask(userTaskList.size()-1, false);
         }
@@ -145,5 +142,16 @@ public class UserList extends Task {
         } catch (IOException e) {
             DisplayMessages.saveError();
         }
+    }
+
+    public static ArrayList<Task> getSearchResult(String keyword) {
+        ArrayList<Task> resultList = new ArrayList<>();
+        for (Task t : userTaskList) {
+            String taskDescription = t.getDescription();
+            if (taskDescription.contains(keyword)) {
+                resultList.add(t);
+            }
+        }
+        return resultList;
     }
 }
