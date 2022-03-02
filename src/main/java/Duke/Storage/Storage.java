@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Deals with loading tasks from the file and saving tasks in the file
+ */
 public class Storage {
     protected static final char TODO = 'T';
     protected static final char EVENT = 'E';
@@ -19,6 +22,12 @@ public class Storage {
         this.filepath = filepath;
     }
 
+    /**
+     * Loads contents from the file and adds it to an array.
+     *
+     * @return A list of tasks to be restored.
+     * @throws DukeException When there is an IOException.
+     */
     public ArrayList<Task> loadFile() throws DukeException {
         try {
             File f = new File("data/duke.txt");
@@ -59,6 +68,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the tasks in the file.
+     *
+     * @param task A list of tasks to be saved.
+     * @throws IOException When there is issue writing to file.
+     */
     public void saveFile(TaskList task) throws IOException {
         try {
             FileWriter fw = new FileWriter("data/duke.txt");

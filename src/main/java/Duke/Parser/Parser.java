@@ -7,8 +7,19 @@ import Duke.DukeException;
 import Duke.Tasks.TaskList;
 import Duke.Ui.Ui;
 
+/**
+ * Represents the parser for input commands.
+ */
 public class Parser {
 
+    /**
+     * Parses the input command into a command for execution. Checks whether the command is a valid command.
+     *
+     * @param message The input command.
+     * @param taskList TaskList that contains the task.
+     * @return Commands that executes.
+     * @throws DukeException When the command is invalid.
+     */
     public static Command parse(String message, TaskList taskList) throws DukeException {
         boolean isDone = false;
         if (message.equals("bye")) {
