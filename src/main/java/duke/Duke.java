@@ -1,5 +1,4 @@
 package duke;// import libraries here
-import duke.Deadline;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.*;
@@ -52,9 +51,34 @@ public class Duke {
                 input = in.nextLine();
                 continue;
             }
-            if (input.startsWith("delete")) {
-                int number = Integer.parseInt(input.substring(input.length() - 1));
-                deleteTask(number);
+            if (input.startsWith("find")) {
+                System.out.println("    ____________________________________________________________");
+                System.out.println("Here are the matching tasks in your list:");
+                String keyword = input.split(" ")[1].trim();
+                for (int i = 0; i < tasks.size(); i++) {
+                    String description = tasks.get(i);
+                    String type = types.get(i);
+                    boolean isDone = dones.get(i);
+                    String date = dates.get(i);
+                    if (description.contains(keyword)) {
+                        System.out.printf("     %d.", i + 1);
+                        switch (type) {
+                            case "T":
+                                Todo todo = new Todo(description);
+                                System.out.println(todo.toString(isDone));
+                                break;
+                            case "D":
+                                Deadline deadline = new Deadline(description, date);
+                                System.out.println(deadline.toString(isDone));
+                                break;
+                            case "E":
+                                Event event = new Event(description, date);
+                                System.out.println(event.toString(isDone));
+                                break;
+                        }
+                    }
+                }
+                System.out.println("    ____________________________________________________________");
                 input = in.nextLine();
                 continue;
             }
@@ -79,7 +103,7 @@ public class Duke {
     }
 
     private static void checkCommand(String line) throws EmptyDescriptionException, InvalidCommandException {
-        Set<String> validCommands = Set.of("todo", "deadline", "event");
+        Set<String> validCommands = Set.of("todo", "deadline", "event", "find");
         String[] splitLine = line.split(" ");
         String type = splitLine[0];
         if (!validCommands.contains(type)) {
@@ -174,7 +198,7 @@ public class Duke {
         fw.write(textToAppend);
         fw.close();
     }
-
+    
     private static void handleCommand(String line) {
         String description;
         String date;
