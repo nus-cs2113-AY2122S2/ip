@@ -23,7 +23,8 @@ Add an event to the task list.
 Format: `event description /at at_description`      
 
 Examples: 
->>> `todo eat `      
+>>> `todo read book `
+>>> `event lecture /at today`      
 >>> `deadline finish assignment /by next monday `     
 
 ### Display Your Tasks
