@@ -1,5 +1,8 @@
 package common;
 
+/**
+ * The container for user visible messages.
+ */
 public class Messages {
     public static final String GREETING = "\t" + "-".repeat(60) + "\n" +
             "\t Hello! I'm Maahes\n" +

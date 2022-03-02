@@ -8,6 +8,9 @@ import ui.Ui;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+/**
+ * Command to add an event task.
+ */
 public class EventCommand extends Command{
     public static final String COMMAND_WORD = "event";
     private Event toAdd;

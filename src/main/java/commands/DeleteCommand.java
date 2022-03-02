@@ -8,6 +8,9 @@ import ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Command to delete a task using the last displayed index.
+ */
 public class DeleteCommand extends Command{
     public static final String COMMAND_WORD = "delete";
     int idx;
