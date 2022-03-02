@@ -326,6 +326,7 @@ tasks information of previous session as well as the current session.
 
 
 ### Caution
+
 During the booting of EM, the database file wil be loaded. If modifications have been 
 made to the file and is in invalid format, EM will fail to load the data into the program.
 As a result, you would have to delete the compromised file.
