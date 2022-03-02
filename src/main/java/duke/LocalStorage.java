@@ -31,11 +31,9 @@ public class LocalStorage {
     protected String fileStoragePath;
 
     /**
-     * Initialise LocalStorage for file storage
-     * and sets the fileStoragePath attribute.
+     * Initialises LocalStorage for file storage.
      * This function takes in a file path and
      * initialises the reader and writer buffers.
-     * If files does not exist, write CSV header into file.
      *
      * @param fileStoragePath The path and file name as String
      */
@@ -53,11 +51,9 @@ public class LocalStorage {
     }
 
     /**
-     * Initialize bufferedWriter and bufferedReader
+     * Initializes bufferedWriter and bufferedReader
      * for writing and reading of file.
-     * This function would check if the file exist with
-     * the specified file path.
-     * If the file does not exist, create a new file
+     * If the specified file does not exist, create a new file
      * at the specified file path.
      *
      * @return true if file exist, else false.
@@ -106,23 +102,20 @@ public class LocalStorage {
     }
 
     /**
-     * Returns a list of task that was previously
-     * stored in the storage file.
-     * The function would retrieve the list of task from the file.
-     * The function returns an empty list
-     * if no task was retrieved from the file.
-     * Else, it would convert the Task retrieve from the file
-     * into a Task object and add it to the return list.
+     * Returns a list of task stored in the storage file.
+     * The function retrieves the list of task from the file.
+     * It would return list of task stored in file,
+     * else an empty list if not task were found.
      *
      * @return A list of task.
      */
     public ArrayList<Task> getTasksFromFile() {
         ArrayList<Task> listOfStoredTask = new ArrayList<>();
-        ArrayList<String[]> listOfTaskString = getListOfTaskStringFromFile();
+        ArrayList<String[]> stringTasks = getListOfTaskStringFromFile();
         // start from 1 to skip header of CSV file
         int taskIndex = 1;
-        while (taskIndex < (listOfTaskString.size())) {
-            Task newTaskFromFile = getTaskFromListOfTaskString(listOfTaskString.get(taskIndex));
+        while (taskIndex < (stringTasks.size())) {
+            Task newTaskFromFile = getTaskFromListOfTaskString(stringTasks.get(taskIndex));
             // If newTaskFromFile was not null, it indicates a valid task.
             if (newTaskFromFile != null) {
                 listOfStoredTask.add(newTaskFromFile);
@@ -143,18 +136,18 @@ public class LocalStorage {
      * @return A list of task as String[]
      */
     private ArrayList<String[]> getListOfTaskStringFromFile() {
-        ArrayList<String[]> listOfStringTask = new ArrayList<>();
+        ArrayList<String[]> stringTasks = new ArrayList<>();
         try {
             String currentLine = csvFileReader.readLine();
             while (currentLine != null) {
                 String[] stringOutput = currentLine.split(",");
-                listOfStringTask.add(stringOutput);
+                stringTasks.add(stringOutput);
                 currentLine = csvFileReader.readLine();
             }
         } catch (IOException e) {
             System.out.println("Oops! IO exception occurred at: " +e.getMessage());
         }
-        return listOfStringTask;
+        return stringTasks;
     }
 
     /**
@@ -207,9 +200,8 @@ public class LocalStorage {
 
     /**
      * Converts a Task into a String to be stored into the file.
-     * The function would create a String[] as a temporary storage,
-     * it would then append the taskType, taskStatus, taskDescription and taskDate
-     * into the String[].
+     * The function creates a String[] and
+     * it would append the taskType, taskStatus, taskDescription and taskDate
      * The function would then join the String[] with ','
      * to return it as a String for file storage.
      *
