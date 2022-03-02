@@ -47,6 +47,7 @@ public class TaskManager {
 
     }
 
+
     public void deleteTask(int taskNumber) throws DukeException {
         try {
             Task task = tasks.get(taskNumber - 1);
