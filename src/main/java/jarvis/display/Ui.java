@@ -2,7 +2,7 @@ package jarvis.display;
 
 import jarvis.commands.Task;
 
-public class DisplayMessages {
+public class Ui {
     final static String HORIZONTAL_LINE = "____________________________________________________________\n";
 
     /**
@@ -68,7 +68,7 @@ public class DisplayMessages {
     }
 
     /**
-     * Default message to print to screen when Jarvis shuts down. Currently printing "Bye! Powering down..."
+     * Default message to print to screen when Jarvis shuts down. Will print "Bye! Powering down..."
      */
     public static void closingMessage() {
         String message = HORIZONTAL_LINE

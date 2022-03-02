@@ -1,6 +1,6 @@
 package jarvis.load;
-import jarvis.commands.UserList;
-import jarvis.display.DisplayMessages;
+import jarvis.commands.TaskList;
+import jarvis.display.Ui;
 import jarvis.exceptions.JarvisNoSavedData;
 
 import java.io.File;
@@ -22,9 +22,9 @@ public class Storage {
      */
     public static void load() throws JarvisNoSavedData {
         if (hasLoadedFile(savedFile)) {
-            DisplayMessages.savedFileDetected();
-            UserList.loadFile(savedFile);
-            DisplayMessages.fileLoaded();
+            Ui.savedFileDetected();
+            TaskList.loadFile(savedFile);
+            Ui.fileLoaded();
         } else {
             throw new JarvisNoSavedData();
         }

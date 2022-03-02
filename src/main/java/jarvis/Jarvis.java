@@ -1,6 +1,6 @@
 package jarvis;
 
-import jarvis.display.DisplayMessages;
+import jarvis.display.Ui;
 import jarvis.load.Storage;
 import jarvis.exceptions.JarvisNoSavedData;
 
@@ -14,16 +14,16 @@ public class Jarvis {
      * Main driver function of the Jarvis bot
      */
     public static void main(String[] args) {
-        DisplayMessages.startingMessage();
+        Ui.startingMessage();
         storage = new Storage();
         try {
             storage.load();
         } catch (JarvisNoSavedData e) {
-            DisplayMessages.noFileDetected();
+            Ui.noFileDetected();
         } finally {
             Scanner in = new Scanner(System.in);
             while (true) {
-                Formatter.inputHandler(in);
+                Parser.inputHandler(in);
             }
         }
     }

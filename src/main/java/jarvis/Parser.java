@@ -3,8 +3,8 @@ package jarvis;
 import jarvis.commands.Deadline;
 import jarvis.commands.Event;
 import jarvis.commands.Task;
-import jarvis.commands.UserList;
-import jarvis.display.DisplayMessages;
+import jarvis.commands.TaskList;
+import jarvis.display.Ui;
 import jarvis.exceptions.JarvisInvalidInput;
 import jarvis.exceptions.JarvisOutOfBounds;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Formatter {
+public class Parser {
     /**
      *  This function selects a range of elements in the given inputLine argument, and returns the element joined in
      *  a single String. This is used for handling user inputs
@@ -37,7 +37,6 @@ public class Formatter {
      * @param toFind Keyword to find, either '/at' or '/by'
      * @return an integer representing the index of the keyword. Returns -1 if not present.
      */
-
     public static int indexOf(String[] userInput, String toFind) {
         if (userInput == null) {
             return -1;
@@ -59,7 +58,7 @@ public class Formatter {
      */
     public static int getTaskIndex(String[] userCommand) {
         int taskIndex = Integer.parseInt(userCommand[1]) - 1;
-        if (taskIndex >= UserList.getListSize()) {
+        if (taskIndex >= TaskList.getListSize()) {
             return -1;
         }
         return taskIndex;
@@ -71,7 +70,6 @@ public class Formatter {
      * @param index index to be checked
      * @return A boolean to indicate if index is valid
      */
-
     protected static boolean isValidIndex(int index) {
         return index != -1;
     }
@@ -96,7 +94,7 @@ public class Formatter {
     protected static void markCommand(String[] userCommand) throws JarvisOutOfBounds {
         int taskIndex = getTaskIndex(userCommand);
         if (isValidIndex(taskIndex)) {
-            UserList.markTask(taskIndex, true);
+            TaskList.markTask(taskIndex, true);
         } else {
             throw new JarvisOutOfBounds();
         }
@@ -112,7 +110,7 @@ public class Formatter {
     protected static void unmarkCommand(String[] userCommand) throws JarvisOutOfBounds {
         int taskIndex = getTaskIndex(userCommand);
         if (isValidIndex(taskIndex)) {
-            UserList.unmarkTask(taskIndex);
+            TaskList.unmarkTask(taskIndex);
         } else {
             throw new JarvisOutOfBounds();
         }
@@ -130,7 +128,7 @@ public class Formatter {
         if (isValidCommand(numOfArgs)) {
             String taskDescription = parseUserInput(userCommand, 1, numOfArgs);
             Task newTask = new Task(taskDescription);
-            UserList.insertTask(newTask);
+            TaskList.insertTask(newTask);
         } else {
            throw new JarvisInvalidInput();
         }
@@ -155,7 +153,7 @@ public class Formatter {
             String deadlineTime = userCommand[indexOfBy + 2];
             Deadline newDeadline = new Deadline(deadlineDescription, deadlineDate, deadlineTime);
             if (newDeadline.getDeadlineDate() != "") {
-                UserList.insertTask(newDeadline);
+                TaskList.insertTask(newDeadline);
             }
         } else {
             throw new JarvisInvalidInput();
@@ -181,7 +179,7 @@ public class Formatter {
             String eventTime = userCommand[indexOfAt + 2];
             Event newEvent = new Event(eventDescription, eventDay, eventTime);
             if (newEvent.getEventDate() != "") {
-                UserList.insertTask(newEvent);
+                TaskList.insertTask(newEvent);
             }
         } else {
             throw new JarvisInvalidInput();
@@ -198,21 +196,21 @@ public class Formatter {
     protected static void deleteCommand(String[] userCommand) throws JarvisOutOfBounds {
         try {
             Integer taskIndex = Integer.parseInt(userCommand[1]);
-            UserList.removeTask(taskIndex - 1, true);
+            TaskList.removeTask(taskIndex - 1, true);
         } catch (NumberFormatException | IndexOutOfBoundsException er){
             throw new JarvisOutOfBounds();
         }
     }
 
     private static void printList(ArrayList<Task> list) {
-        DisplayMessages.horizontalLine();
+        Ui.horizontalLine();
         System.out.println("Here are the matching tasks in your list:\n");
         Integer index = 1;
         for (Task t : list) {
             System.out.println(index.toString() + ". " + t.getFullTask());
             index++;
         }
-        DisplayMessages.horizontalLine();
+        Ui.horizontalLine();
     }
 
     protected static void findCommand(String[] userCommand) throws JarvisInvalidInput {
@@ -220,14 +218,15 @@ public class Formatter {
             throw new JarvisInvalidInput();
         } else {
             String keyword = parseUserInput(userCommand, 1, userCommand.length);
-            ArrayList<Task> resultList = UserList.getSearchResult(keyword);
+            ArrayList<Task> resultList = TaskList.getSearchResult(keyword);
             if (resultList.isEmpty()) {
-                DisplayMessages.emptySearchResult();
+                Ui.emptySearchResult();
             } else {
                 printList(resultList);
             }
         }
     }
+
     /**
      * This function handles user input and is constantly looped by main driver function in the Jarvis
      * file. Calls other command main driver function after parsing user input as String array. Includes error-handling
@@ -241,14 +240,14 @@ public class Formatter {
         try {
             switch (userCommand[0]) {
             case "bye":
-                DisplayMessages.savingData();
-                UserList.saveData();
-                DisplayMessages.closingMessage();
+                Ui.savingData();
+                TaskList.saveData();
+                Ui.closingMessage();
                 System.exit(0);
                 break;
 
             case "list":
-                UserList.printList();
+                TaskList.printList();
                 break;
 
             case "mark":
@@ -278,12 +277,12 @@ public class Formatter {
                 findCommand(userCommand);
                 break;
             default:
-                DisplayMessages.invalidInput();
+                Ui.invalidInput();
             }
         } catch (JarvisInvalidInput e) {
-            DisplayMessages.invalidInput();
+            Ui.invalidInput();
         } catch (JarvisOutOfBounds e) {
-            DisplayMessages.outOfBounds();
+            Ui.outOfBounds();
         }
     }
 }

@@ -8,6 +8,11 @@ public class Event extends Task {
     private static final String EVENT_ICON = "E";
     private static final DateTimeFormatter STORING_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
+    public Event(String eventDescription, String eventDay, String eventTime) {
+        super(eventDescription);
+        this.eventDate = super.parseDate(eventDay, eventTime);
+    }
+
     /**
      * Override getter function for retrieving Event's icon
      *
@@ -15,25 +20,6 @@ public class Event extends Task {
      */
     public String getTypeIcon() {
         return EVENT_ICON;
-    }
-
-    /**
-     * Constructor for an Event.
-     *
-     * @param eventDescription A description of the event in String
-     * @param eventTime
-     */
-    public Event(String eventDescription, String eventDay, String eventTime) {
-        super(eventDescription);
-        this.eventDate = super.parseDate(eventDay, eventTime);
-    }
-
-    /**
-     * Function to print the Event formatted with icon, status and description.
-     */
-    public void printItem() {
-        String message = "[" + getTypeIcon() + "]" + "[" + getStatusIcon() + "] " + getDescription();
-        System.out.println(message);
     }
 
     /**

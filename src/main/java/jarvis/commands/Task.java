@@ -1,6 +1,6 @@
 package jarvis.commands;
 
-import jarvis.display.DisplayMessages;
+import jarvis.display.Ui;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -56,8 +56,8 @@ public class Task {
     public boolean markAsDone() {
         boolean isTaskDone = this.isDone == true;
         if (isTaskDone) {
-            DisplayMessages.unmarkError();
-            DisplayMessages.horizontalLine();
+            Ui.unmarkError();
+            Ui.horizontalLine();
             return false;
         }
         this.isDone = true;
@@ -71,9 +71,9 @@ public class Task {
      * @return True if task is successfully unmarked. False otherwise.
      */
     public boolean markAsUndone() {
-        boolean isTaskUndone = this.isDone == false;
+        boolean isTaskUndone = !this.isDone;
         if (isTaskUndone) {
-            DisplayMessages.markError();
+            Ui.markError();
             return false;
         }
         this.isDone = false;
@@ -106,7 +106,7 @@ public class Task {
         try {
             taskDate = LocalDateTime.parse(date + " " + time, STORE_FORMAT);
         } catch (DateTimeParseException e) {
-            DisplayMessages.invalidDateTime();
+            Ui.invalidDateTime();
         }
         return taskDate;
     }

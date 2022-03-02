@@ -8,25 +8,17 @@ public class Deadline extends Task{
     private static final String DEADLINE_ICON = "D";
     private static final DateTimeFormatter STORING_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
-    /**
-     * Override getter function to retrieve Deadline's icon
-     * @return An icon in String data type to represent a Deadline
-     */
-    public String getTypeIcon() {
-        return DEADLINE_ICON;
-    }
-
     public Deadline(String taskDescription, String deadlineDate, String deadlineTime) {
         super(taskDescription);
         this.deadlineDate = super.parseDate(deadlineDate, deadlineTime);
     }
 
     /**
-     * Override function to print a Deadline formatted with icon, status and description.
+     * Override getter function to retrieve Deadline's icon
+     * @return An icon in String data type to represent a Deadline
      */
-    public void printItem() {
-        String message = "[" + getTypeIcon() + "]" + "[" + getStatusIcon() + "] " + getDescription();
-        System.out.println(message);
+    public String getTypeIcon() {
+        return DEADLINE_ICON;
     }
 
     /**

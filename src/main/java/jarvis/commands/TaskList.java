@@ -1,7 +1,7 @@
 package jarvis.commands;
 
-import jarvis.Formatter;
-import jarvis.display.DisplayMessages;
+import jarvis.Parser;
+import jarvis.display.Ui;
 
 import java.util.ArrayList;
 import java.io.File;
@@ -10,14 +10,14 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
-public class UserList extends Task {
+public class TaskList extends Task {
     private static ArrayList<Task> userTaskList = new ArrayList<>();
 
     private static final String TASK_ICON = "T";
     private static final String EVENT_ICON = "E";
     private static final String DEADLINE_ICON = "D";
 
-    public UserList(String description) {
+    public TaskList(String description) {
         super(description);
     }
 
@@ -37,7 +37,7 @@ public class UserList extends Task {
      */
     public static void insertTask(Task newTask) {
             userTaskList.add(newTask);
-            DisplayMessages.taskAdded(newTask.getDescription());
+            Ui.taskAdded(newTask.getDescription());
     }
 
     /**
@@ -46,14 +46,14 @@ public class UserList extends Task {
      */
     public static void printList() {
         if (!userTaskList.isEmpty()) {
-            DisplayMessages.horizontalLine();
+            Ui.horizontalLine();
             for (int i = 0; i < userTaskList.size(); i++) {
                 String taskIndex = Integer.toString(i+1) + ".";
                 System.out.println(taskIndex.toString() + userTaskList.get(i).getFullTask());
             }
-            DisplayMessages.horizontalLine();
+            Ui.horizontalLine();
         } else {
-            DisplayMessages.emptyList();
+            Ui.emptyList();
         }
     }
 
@@ -86,11 +86,11 @@ public class UserList extends Task {
      */
     public static void markTask(int index, boolean toPrintMessage) {
         Task targetTask = userTaskList.get(index);
-        DisplayMessages.horizontalLine();
+        Ui.horizontalLine();
         boolean isSuccessfullyMarked = targetTask.markAsDone();
         if (isSuccessfullyMarked && toPrintMessage) {
-            DisplayMessages.printTaskMarked(targetTask);
-            DisplayMessages.horizontalLine();
+            Ui.printTaskMarked(targetTask);
+            Ui.horizontalLine();
         }
     }
 
@@ -102,10 +102,10 @@ public class UserList extends Task {
      */
     public static void unmarkTask(int taskIndex) {
         Task targetTask = userTaskList.get(taskIndex);
-        DisplayMessages.horizontalLine();
+        Ui.horizontalLine();
         boolean isSuccessfullyUnmarked = targetTask.markAsUndone();
         if (isSuccessfullyUnmarked) {
-            DisplayMessages.printTaskUnmarked(targetTask);
+            Ui.printTaskUnmarked(targetTask);
         }
     }
 
@@ -119,7 +119,7 @@ public class UserList extends Task {
         Task taskRemoved = userTaskList.get(taskIndex);
         userTaskList.remove(taskIndex);
         if (toPrintMessage) {
-            DisplayMessages.taskDeleted(taskRemoved, userTaskList.size());
+            Ui.taskDeleted(taskRemoved, userTaskList.size());
         }
     }
 
@@ -133,16 +133,16 @@ public class UserList extends Task {
     protected static void parseSavedData(String data) {
         String[] dataArray = data.split(" ");
         String taskType = dataArray[0];
-        int separatorIndex = Formatter.indexOf(dataArray, "|");
+        int separatorIndex = Parser.indexOf(dataArray, "|");
         String description = "";
         String day = "";
         String time = "";
-        boolean taskIsDone = dataArray[1].equals("YES") ? true : false;
+        boolean taskIsDone = dataArray[1].equals("YES");
         if (separatorIndex == -1) {
-            description = Formatter.parseUserInput(dataArray, 2, dataArray.length);
+            description = Parser.parseUserInput(dataArray, 2, dataArray.length);
         } else {
             //saved Task is either an event or deadline
-            description = Formatter.parseUserInput(dataArray, 2, separatorIndex);
+            description = Parser.parseUserInput(dataArray, 2, separatorIndex);
             day = dataArray[separatorIndex+1];
             time = dataArray[separatorIndex+2];
         }
@@ -181,7 +181,7 @@ public class UserList extends Task {
             }
             fileReader.close();
         } catch (FileNotFoundException e) {
-            DisplayMessages.loadError();
+            Ui.loadError();
         }
     }
 
@@ -214,7 +214,7 @@ public class UserList extends Task {
             fileUpdater.write(data);
             fileUpdater.close();
         } catch (IOException e) {
-            DisplayMessages.saveError();
+            Ui.saveError();
         }
     }
 
