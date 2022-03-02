@@ -1,10 +1,10 @@
-#Duke
-##Introduction
+# Duke
+## Introduction
 Do you often forget your deadlines or lose track of the things you have to do for the week? Duke
 comes to the rescue, Duke is a CLI (Command Line Interface) Application that helps you store various tasks you might have
 so that you will never have to worry about forgetting ever again.
 
-##Getting Started
+## Getting Started
 In order for Duke to run properly on your computer, you should ideally have Java 11 installed on
 your computer. If you are not sure on how to check if you have Java 11 installed on your computer,
 you can refer to [Check Java](https://www.howtogeek.com/717330/how-to-check-your-java-version-on-windows-10/).
@@ -16,7 +16,7 @@ If you do not have Java already installed...
 Once you are sure that you have Java installed, you can download the latest version of Duke from
 the releases.
 
-###How do you run Duke?
+### How do you run Duke?
 You can run Duke straight from the Terminal or Command Prompt. Navigate to the directory in which
 your jar file is located, and simply call `java -jar Duke.jar`. The naming of the jar file may differ
 depending on the versions of Duke. You can also choose to save the command in a .bat or .sh file for
@@ -24,7 +24,7 @@ easier access in the future.
 
 ![img.png](img.png)
 
-##Features
+## Features
 Duke has 12 in build commands that it can understand, you can use these 12 commands to direct Duke to
 perform certain tasks and operations. These commands are listed below.
 
