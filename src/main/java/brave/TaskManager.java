@@ -2,17 +2,13 @@ package brave;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
 
 public class TaskManager {
-    //    public static final int MAX_TASK = 100;
     public static final String LINE_SPLIT = "\t____________________________________________________________";
     private final ArrayList<Task> tasks = new ArrayList<>();
-//    private final Task[] tasks = new Task[MAX_TASK];
-//    private int tasksCount = 0;
 
     public TaskManager() {
     }
