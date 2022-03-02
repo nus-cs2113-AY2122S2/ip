@@ -14,6 +14,13 @@ public class FindCommand extends Command {
         this.keyword = keyword;
     }
 
+    /**
+     * Search the task list and print the results.
+     *
+     * @param tasks The task list to be searched
+     * @param ui Ui object to print messages
+     * @param storage Storage object for saving to disk.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.printSearchResult(tasks.findTask(keyword));

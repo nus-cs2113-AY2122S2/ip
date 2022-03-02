@@ -41,12 +41,21 @@ public class TaskList {
         return tasks.size();
     }
 
+    /**
+     * Returns a string with the search result.
+     * If no tasks were found, an empty string will be returned.
+     * Else, a formatted string listing all tasks will be returned.
+     *
+     * @param keyword The string to be searched for, case-insensitive.
+     * @return string containing search result.
+     */
     public String findTask(String keyword) {
         int count = 1;
         String result = "";
         for(int i = 0; i < tasks.size(); i++) {
             Task currentTask = tasks.get(i);
-            if (currentTask.getDescription().contains(keyword)) {
+            String currentTaskDescription = currentTask.getDescription().toLowerCase();
+            if (currentTaskDescription.contains(keyword)) {
                 result += LINE_INDENT + count + LIST_DOT + currentTask;
                 if (i != tasks.size() - 1) {
                     result += NEWLINE;

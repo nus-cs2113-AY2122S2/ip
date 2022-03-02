@@ -23,10 +23,11 @@ public class MarkCommand extends Command {
 
     /**
      * Mark or unmark the task specified by the user.
+     * The data file will be updated accordingly.
      *
      * @param tasks   The list of tasks
-     * @param ui
-     * @param storage
+     * @param ui      Ui object to print messages
+     * @param storage Storage object for saving to disk.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
