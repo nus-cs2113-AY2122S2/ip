@@ -11,12 +11,14 @@ This is a product named _Duke_, a Personal Assistant Chatbot that helps a person
 ## Quick Start
 1. Please make sure you have _Java 11_ or above installed in your computer. The link to _Java 11_ installer is [here](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html) .
 2. Download the _v2.0 ip.jar_ from [here](https://github.com/Yzkkk/ip/releases).
-3. Copy the jar file into an empty folder.
-4. Open a terminal and go to the working directory of that folder.
+3. Copy the jar file into an empty folder, and name the folder as Duke.
+4. Open Command Prompt on your laptop, and go to the working directory* where the file is in.
 5. Run the command  `java -jar ip.jar` to start the program.
 6. You can now enter different commands.
 
 Note: The program will not stop until you have entered `bye`. See [exit program](#exit-program---bye).
+
+*Not `Duke` but `Duke\ip_jar2`!
 
 ## Features
 _Duke_ is able to 
