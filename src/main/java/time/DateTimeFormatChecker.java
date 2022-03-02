@@ -5,12 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
-public class DateTimeFormatChecker extends Time{
+public class DateTimeFormatChecker extends Time {
     private static final List<String> formatStrings =
-            Arrays.asList("M/d/y H:m", "M/d/y H", "M-d-y H:m", "y-M-d H:m", "y/M/d H:m", "MMM dd yyyy H:m","M/d H:m",
-                    "M-d H:m", "d/M H:m", "d-M H:m");
+            Arrays.asList("M/d/y H:m", "M/d/y H", "M-d-y H:m", "y-M-d H:m", "y/M/d H:m", "MMM dd yyyy H:m",
+                    "M/d H:m", "M-d H:m", "d/M H:m", "d-M H:m");
 
-    protected static final SimpleDateFormat stdFormatter = new SimpleDateFormat("MMM dd yyyy HH:mm");
+    private static final SimpleDateFormat stdFormatter = new SimpleDateFormat("MMM dd yyyy HH:mm");
 
     /**
      * Initializes a checker to check whether the date with time string is in acceptable format
@@ -18,7 +18,7 @@ public class DateTimeFormatChecker extends Time{
      */
     public DateTimeFormatChecker(String date) {
         super(date);
-        for(String formatString: formatStrings) {
+        for (String formatString: formatStrings) {
             try {
                 SimpleDateFormat formatter = new SimpleDateFormat(formatString);
                 formatter.setLenient(false);

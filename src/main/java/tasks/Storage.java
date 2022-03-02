@@ -1,19 +1,25 @@
 package tasks;
 
-import exceptions.*;
-import time.Time;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
+import exceptions.CreatingFileException;
+import exceptions.DukeExceptions;
+import exceptions.IllegalReadingAction;
+import exceptions.IllegalSavingAction;
+import time.Time;
+
 public class Storage {
-    private static final ArrayList<Task> Tasks = new ArrayList<>();
     protected static final String FILE_NAME = "data/duke.txt";
     protected static final String DONE = "X";
     protected static final String TODO = "T";
     protected static final String EVENT = "E";
     protected static final String DEADLINE = "d";
-    Time timeChecker;
+    private static final ArrayList<Task> Tasks = new ArrayList<>();
+    private Time timeChecker;
 
     public int getSize() {
         return Tasks.size();
@@ -48,15 +54,14 @@ public class Storage {
             content.append(task.getListName());
             content.append("\n");
         }
-            try{
-                File file = new File(FILE_NAME);
-                FileWriter writeStream = new FileWriter(file);
-                writeStream.write(content.toString());
-                writeStream.close();
-            } catch (Exception e){
-                throw new IllegalSavingAction();
-            }
-
+        try {
+            File file = new File(FILE_NAME);
+            FileWriter writeStream = new FileWriter(file);
+            writeStream.write(content.toString());
+            writeStream.close();
+        } catch (Exception e) {
+            throw new IllegalSavingAction();
+        }
     }
 
     /**
@@ -78,8 +83,8 @@ public class Storage {
      * @param task The task that is going to be added to the list
      * @param status the status of task from the external file
      */
-    public void mark(Task task, String status){
-        if(status.equals(DONE)){
+    public void mark(Task task, String status) {
+        if (status.equals(DONE)) {
             task.isDone = true;
         }
     }
@@ -88,9 +93,9 @@ public class Storage {
      * Loads tasks from external file
      * @throws DukeExceptions if the action fails
      */
-    public void loadTask() throws DukeExceptions{
+    public void loadTask() throws DukeExceptions {
         //Reads input from external file line by line (task by task)
-        try (BufferedReader loadData = new BufferedReader(new FileReader(FILE_NAME))){
+        try (BufferedReader loadData = new BufferedReader(new FileReader(FILE_NAME))) {
             String listName;
             while ((listName = loadData.readLine()) != null) {
                 //parses input into key information array
@@ -98,7 +103,7 @@ public class Storage {
                 //imports task according to the information
                 importTask(keyInfo);
             }
-            } catch (Exception e){
+        } catch (Exception e) {
             throw new IllegalReadingAction();
         }
 
@@ -181,7 +186,7 @@ public class Storage {
                 dir.mkdirs();
                 file.createNewFile();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new CreatingFileException();
         }
     }

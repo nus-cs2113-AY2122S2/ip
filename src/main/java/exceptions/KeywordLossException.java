@@ -1,6 +1,6 @@
 package exceptions;
 
-public class KeywordLossException extends DukeExceptions{
+public class KeywordLossException extends DukeExceptions {
     protected static final String KEYWORD_LOSS_ERROR_MSG =
             "Did you specify the keyword?∑(っ °Д °;)っ";
 

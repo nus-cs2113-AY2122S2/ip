@@ -1,19 +1,23 @@
-package commandsParser;
+package controller;
 
-import exceptions.*;
+import exceptions.DukeExceptions;
+import exceptions.IllegalFormatException;
+import exceptions.IllegalTimeFormatException;
+import exceptions.KeywordLossException;
+import exceptions.TaskNameLossException;
 import time.Time;
 
 public class Command {
-    protected String taskName;
-    protected String dateString;
-    protected String rawInput;
-    protected String[] parsedInput;
     protected static final String ADD_EVENT = "event";
     protected static final String ADD_DEADLINE = "deadline";
     protected static final String ADD_TODO = "todo";
     protected static final String UPDATE = "update";
     protected static final String SEARCH = "find";
-    Time timeChecker;
+    protected String taskName;
+    protected String dateString;
+    protected String rawInput;
+    protected String[] parsedInput;
+    private Time timeChecker;
 
     /**
      * Create a new instruction executor
@@ -27,11 +31,11 @@ public class Command {
 
     /**
      * decomposes the instruction from user and store the information separately
-     * @param Instruction the instruction from user after analysed by Operation Analyst
-     * @throws DukeExceptions
+     * @param instruction the instruction from user after analysed by Operation Analyst
+     * @throws DukeExceptions if the instruction has incorrect format
      */
-    public void decomposeInstruction(String Instruction) throws DukeExceptions {
-        switch (Instruction) {
+    public void decomposeInstruction(String instruction) throws DukeExceptions {
+        switch (instruction) {
         case ADD_EVENT:
             decomposeAddWithTime("/at ");
             break;
@@ -46,6 +50,7 @@ public class Command {
             break;
         case UPDATE:
             decomposeUpdateDelete();
+            break;
         default:
             break;
         }
@@ -65,16 +70,16 @@ public class Command {
         parsedInputByTime = rawInput.split(regex);
         try {
             this.taskName = this.parsedInput[1];
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new TaskNameLossException();
         }
         try {
             timeChecker = new Time(parsedInputByTime[1]);
             timeChecker.check();
             this.dateString = timeChecker.getDateString();
-        } catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             throw new IllegalFormatException();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new IllegalTimeFormatException();
         }
     }
@@ -86,7 +91,7 @@ public class Command {
      */
     public void decomposeSearchByDescription() throws DukeExceptions {
         String[] parseInputByKeywords;
-        parseInputByKeywords = rawInput.split(" ",2);
+        parseInputByKeywords = rawInput.split(" ", 2);
         try {
             this.taskName = parseInputByKeywords[1];
         } catch (IndexOutOfBoundsException e) {
@@ -98,10 +103,10 @@ public class Command {
      * Decomposes decompose the instruction of adding task without time
      * @throws DukeExceptions if the task name is loss
      */
-    public void decomposeAddWithoutTime() throws DukeExceptions{
+    public void decomposeAddWithoutTime() throws DukeExceptions {
         try {
             this.taskName = this.parsedInput[1];
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new TaskNameLossException();
         }
     }
@@ -113,7 +118,7 @@ public class Command {
     public void decomposeUpdateDelete() throws DukeExceptions {
         try {
             this.taskName = this.parsedInput[1];
-        } catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             throw new IllegalFormatException();
         }
     }

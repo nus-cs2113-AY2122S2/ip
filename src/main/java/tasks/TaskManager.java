@@ -1,9 +1,10 @@
 package tasks;
 
-import exceptions.*;
+import exceptions.DukeExceptions;
+import exceptions.EmptyListException;
+import exceptions.IllegalIndexException;
 
 public class TaskManager {
-    Storage Tasks = new Storage();
     //response messages of different action
     protected static final String ADD_RESPONSE = "ψ(._. )> Got it. I've added this task:\n";
     protected static final String MARK_RESPONSE = "ψ(._. )> Nice! I've marked this task as done:\n";
@@ -12,13 +13,13 @@ public class TaskManager {
     protected static final String DELETE_RESPONSE = "ψ(._. )> Okay! I've deleted this task:\n";
     protected static final String NOT_FOUND_RESPONSE = "(￣ε￣；) Sorry, I can't find any result from the list.";
     protected static final String FOUND_RESPONSE = "o(≧v≦)o Here are the matching tasks in your list:";
-
+    private Storage tasks = new Storage();
     /**
      * Generates a message that contains the number of tasks in the list currently
      * @return the message that contains the number of tasks in the list
      */
-    public String taskNumberMsg(){
-        int taskNumber = Tasks.getSize();
+    public String taskNumberMsg() {
+        int taskNumber = tasks.getSize();
         StringBuilder content = new StringBuilder();
         content.append("Now you have ").append(taskNumber).append(" tasks in your list.");
         return content.toString();
@@ -29,7 +30,7 @@ public class TaskManager {
      * @throws DukeExceptions if the action fails
      */
     public void saveTask() throws DukeExceptions {
-        Tasks.saveTask();
+        tasks.saveTask();
     }
 
     /**
@@ -37,7 +38,7 @@ public class TaskManager {
      * @throws DukeExceptions if the action fails
      */
     public void loadTask() throws DukeExceptions {
-        Tasks.loadTask();
+        tasks.loadTask();
     }
 
     /**
@@ -45,7 +46,7 @@ public class TaskManager {
      * @throws DukeExceptions if the action fails
      */
     public void createFile() throws DukeExceptions {
-        Tasks.createFile();
+        tasks.createFile();
     }
     /**
      * Adds a deadline task to the list
@@ -57,9 +58,9 @@ public class TaskManager {
      */
     public String addDeadline(String name, String by) {
         Deadline newDeadline = new Deadline(name, by);
-        Tasks.add(newDeadline);
-        return ADD_RESPONSE + newDeadline.getListName() +
-                "\n" + this.taskNumberMsg();
+        tasks.add(newDeadline);
+        return ADD_RESPONSE + newDeadline.getListName()
+                + "\n" + this.taskNumberMsg();
     }
 
     /**
@@ -73,7 +74,7 @@ public class TaskManager {
     public String addEvent(String name, String at) {
         StringBuilder content = new StringBuilder(ADD_RESPONSE);
         Event newEvent = new Event(name, at);
-        Tasks.add(newEvent);
+        tasks.add(newEvent);
         content.append(newEvent.getListName()).append("\n").append(this.taskNumberMsg());
         return content.toString();
     }
@@ -88,9 +89,9 @@ public class TaskManager {
     public String addToDo(String name) {
         StringBuilder content = new StringBuilder(ADD_RESPONSE);
         ToDo newToDo = new ToDo(name);
-        Tasks.add(newToDo);
+        tasks.add(newToDo);
         content.append(newToDo.getListName()).append("\n").append(this.taskNumberMsg());
-        return  content.toString();
+        return content.toString();
     }
 
     /**
@@ -99,17 +100,17 @@ public class TaskManager {
      * response of successful action and the information of the all the task in the list.
      * @throws DukeExceptions if there's no task in the list currently
      */
-    public String listTask() throws DukeExceptions{
+    public String listTask() throws DukeExceptions {
         //checks if there's any task in the list, otherwise throws an exception
-        if(Tasks.getSize() == 0){
+        if (tasks.getSize() == 0) {
             throw new EmptyListException();
-        }else {
+        } else {
             StringBuilder content = new StringBuilder(LIST_RESPONSE);
-            for (int i = 0; i < Tasks.getSize(); i++) {
+            for (int i = 0; i < tasks.getSize(); i++) {
                 String index = String.valueOf(i + 1);
-                String name = index + ". " + Tasks.get(i).getListName();
+                String name = index + ". " + tasks.get(i).getListName();
                 content.append(name);
-                if(i < Tasks.getSize() - 1){
+                if (i < tasks.getSize() - 1) {
                     content.append("\n");
                 }
             }
@@ -122,12 +123,12 @@ public class TaskManager {
      * Marks specific task in the list as done
      * @param indexOfTask refers to the indexOfTask of the task in adding time order
      */
-    public String markTask(int indexOfTask) throws DukeExceptions{
-        if(isOutOfBoundary(indexOfTask)) {
+    public String markTask(int indexOfTask) throws DukeExceptions {
+        if (isOutOfBoundary(indexOfTask)) {
             throw new IllegalIndexException();
-        }else {
-            Tasks.get(indexOfTask - 1).mark();
-            return MARK_RESPONSE + Tasks.get(indexOfTask - 1).listName;
+        } else {
+            tasks.get(indexOfTask - 1).mark();
+            return MARK_RESPONSE + tasks.get(indexOfTask - 1).listName;
         }
     }
 
@@ -135,13 +136,13 @@ public class TaskManager {
      * Unmarks specific task in the list as undone
      * @param indexOfTask refers to the indexOfTask of the task in adding time order
      */
-    public String unmarkTask(int indexOfTask) throws DukeExceptions{
+    public String unmarkTask(int indexOfTask) throws DukeExceptions {
         //Checks whether the given task index is out of the range
-        if(isOutOfBoundary(indexOfTask)){
+        if (isOutOfBoundary(indexOfTask)) {
             throw new IllegalIndexException();
-        }else {
-            Tasks.get(indexOfTask - 1).unmark();
-            return UNMARK_RESPONSE + Tasks.get(indexOfTask - 1).listName;
+        } else {
+            tasks.get(indexOfTask - 1).unmark();
+            return UNMARK_RESPONSE + tasks.get(indexOfTask - 1).listName;
 
         }
     }
@@ -152,7 +153,7 @@ public class TaskManager {
      * @return True if the index is out of boundaries
      */
     private boolean isOutOfBoundary(int indexOfTask) {
-        return indexOfTask < 1 || indexOfTask > Tasks.getSize();
+        return indexOfTask < 1 || indexOfTask > tasks.getSize();
     }
 
     /**
@@ -163,13 +164,13 @@ public class TaskManager {
      * deleting.
      * @throws DukeExceptions if the task is not appeared in the list
      */
-    public String deleteTask(int indexOfTask) throws DukeExceptions{
+    public String deleteTask(int indexOfTask) throws DukeExceptions {
         //Checks whether the given task index is out of the range
-        if(isOutOfBoundary(indexOfTask)) {
+        if (isOutOfBoundary(indexOfTask)) {
             throw new IllegalIndexException();
-        }else {
-            String content =  DELETE_RESPONSE + Tasks.get(indexOfTask - 1).listName;
-            Tasks.remove(indexOfTask-1);
+        } else {
+            String content = DELETE_RESPONSE + tasks.get(indexOfTask - 1).listName;
+            tasks.remove(indexOfTask - 1);
             content += "\n" + this.taskNumberMsg();
             return content;
         }
@@ -182,23 +183,23 @@ public class TaskManager {
      * response of successful action and the information of the matching tasks.
      * @throws DukeExceptions if the list is empty
      */
-    public String searchTask(String keywords) throws DukeExceptions{
+    public String searchTask(String keywords) throws DukeExceptions {
         //checks if there's any task in the list, otherwise throws an exception
-        if(Tasks.getSize() == 0){
+        if (tasks.getSize() == 0) {
             throw new EmptyListException();
-        }else {
+        } else {
             StringBuilder content = new StringBuilder();
-            int count  = 0; //count if there's any matching task
-            for (int i = 0; i < Tasks.getSize(); i++) {
-                if (Tasks.get(i).getTaskName().contains(keywords)) {
+            int count = 0; //count if there's any matching task
+            for (int i = 0; i < tasks.getSize(); i++) {
+                if (tasks.get(i).getTaskName().contains(keywords)) {
                     content.append("\n");
                     String index = String.valueOf(count + 1);
-                    String name = index + ". " + Tasks.get(i).getListName();
+                    String name = index + ". " + tasks.get(i).getListName();
                     content.append(name);
-                    count ++;
+                    count++;
                 }
             }
-            if(count == 0){
+            if (count == 0) {
                 return NOT_FOUND_RESPONSE;
             }
             return FOUND_RESPONSE + content;

@@ -1,21 +1,10 @@
-package commandsParser;
-
-import exceptions.*;
+package controller;
 
 import java.util.Locale;
 
-public class OperationAnalyst {
-    //the key information array after splitting raw input
-    protected String[] keyInfo;
-    //the raw input from user
-    protected String rawInput;
-    //the information of task time
-    protected String time;
-    //the information of task description
-    protected String taskName;
-    //the instruction after standardizing
-    protected String instruction;
+import exceptions.DukeExceptions;
 
+public class OperationAnalyst {
     protected static final String MARK_TASK_COMMAND = "mark";
     protected static final String UNMARK_TASK_COMMAND = "unmark";
     protected static final String DELETE_TASK_COMMAND = "delete";
@@ -26,7 +15,17 @@ public class OperationAnalyst {
     protected static final String EXIT_COMMAND = "bye";
     protected static final String SEARCH_COMMAND = "find";
     protected static final String UPDATE = "update";
-    Command command;
+    //the key information array after splitting raw input
+    protected String[] keyInfo;
+    //the raw input from user
+    protected String rawInput;
+    //the information of task time
+    protected String time;
+    //the information of task description
+    protected String taskName;
+    //the instruction after standardizing
+    protected String instruction;
+    private Command command;
 
     /**
      * Compute and parse the instruction into several parts and store them in different
@@ -59,7 +58,7 @@ public class OperationAnalyst {
      * in different parameters.
      * @throws DukeExceptions if there's unacceptable condition exist
      */
-    public void parseInstruction() throws DukeExceptions{
+    public void parseInstruction() throws DukeExceptions {
         switch (this.instruction) {
         case ADD_DEADLINE_TASK_COMMAND:
             command.decomposeInstruction(ADD_DEADLINE_TASK_COMMAND);

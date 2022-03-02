@@ -1,12 +1,13 @@
 package tasks;
 
 import java.util.Date;
-import time.*;
+
+import time.Time;
 
 public class Event extends Task {
     protected Date at;
     protected String atString;
-    Time timeConverter;
+    private Time timeConverter;
 
     /**
      * Initializes an event task by given task name and event time
@@ -23,9 +24,9 @@ public class Event extends Task {
 
     @Override
     public void setListName() {
-        if(!isDone){
+        if (!isDone) {
             this.listName = "[E]" + this.unmarkedStatus + this.taskName + "(at: " + atString + ")";
-        }else{
+        } else {
             this.listName = "[E]" + this.markedStatus + this.taskName + "(at: " + atString + ")";
         }
     }
