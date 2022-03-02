@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Manages the data or format stored in the file when saving,
+ * loading and creating.
+ */
 public class TaskFileManager {
     public void loadTaskList(String fileName, ArrayList<Task> taskList) throws IOException {
         File file = getFile(fileName);

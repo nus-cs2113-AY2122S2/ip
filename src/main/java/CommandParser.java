@@ -1,5 +1,7 @@
-import java.util.Locale;
-
+/**
+ * Identifies the type of command passed and based on the
+ * command passed, decide what type of command to return.
+ */
 public class CommandParser {
     static final public String BYE = "bye";
     static final public String LIST = "list";
@@ -13,6 +15,13 @@ public class CommandParser {
     private final char INDICATE_DEADLINE = '~';
     private final char INDICATE_EVENT = '@';
 
+    /**
+     * Identify and return what user expects.
+     *
+     * @param commandString input entered by user.
+     * @return action specify by user.
+     * @throws DukeWrongCommandException If wish is invalid.
+     */
     public Command parse(String commandString) throws DukeWrongCommandException {
         if (commandString.equals(BYE)) {
             return new ExitCommand();
@@ -39,6 +48,15 @@ public class CommandParser {
         throw new DukeWrongCommandException("Invalid Wish Command");
     }
 
+    /**
+     * Filters descriptions from user to derived the wish number user has
+     * input for deleting, ticking, un-ticking wishes.
+     *
+     * @param commandString input entered by user.
+     * @param wishType      to derive delete, tick, un-tick word length for filtering.
+     * @return choice number.
+     * @throws DukeWrongCommandException If choice is invalid.
+     */
     private int getChoiceNumber(String commandString, String wishType) throws DukeWrongCommandException {
         String choice = commandString.substring(wishType.length()).trim();
         try {
@@ -48,6 +66,14 @@ public class CommandParser {
         }
     }
 
+    /**
+     * Method to derive description entered.
+     *
+     * @param input   input entered by user.
+     * @param command type of wish command.
+     * @return description relevant for processing.
+     * @throws DukeEmptyStringException If description was not entered/empty.
+     */
     public String deriveDescription(String input, String command) throws DukeEmptyStringException {
         String description = input.substring(input.indexOf(command) + command.length());
         description = description.trim();
@@ -57,12 +83,27 @@ public class CommandParser {
         return description;
     }
 
+    /**
+     * Method to derive time or date needed for a specific wish task.
+     *
+     * @param input      stores wish task that either need to done or end
+     *                   before specific date/time.
+     * @param indication indicates if it is from deadline or event wish.
+     * @return date/time found.
+     */
     public String deriveTimeDate(String input, char indication) {
         String storeTimeDate = input.substring(input.indexOf(indication) + 1);
         storeTimeDate = storeTimeDate.trim();
         return storeTimeDate;
     }
 
+    /**
+     * Method to derive wish task words user wishes to find.
+     *
+     * @param userInput input entered by user.
+     * @return FindCommand to execute finding wish task.
+     * @throws DukeWrongCommandException when description entered by user is empty
+     */
     private FindCommand findTask(String userInput) throws DukeWrongCommandException {
         String description = "";
         try {
@@ -73,6 +114,13 @@ public class CommandParser {
         return new FindCommand(description);
     }
 
+    /**
+     * Method to derive wish task "event" which will be added into tasklist.
+     *
+     * @param userInput input entered by user.
+     * @return CreateTaskCommand to add new event in tasklist.
+     * @throws DukeWrongCommandException when description entered by user is empty or wrong.
+     */
     private CreateTaskCommand addEvent(String userInput) throws DukeWrongCommandException {
         String description = "";
         try {
@@ -89,6 +137,13 @@ public class CommandParser {
         return new CreateTaskCommand("E", description, eventAt);
     }
 
+    /**
+     * Method to derive wish task "Deadline" which will be added into tasklist.
+     *
+     * @param userInput input entered by user.
+     * @return CreateTaskCommand to add new deadline in tasklist.
+     * @throws DukeWrongCommandException when description entered by user is empty or wrong.
+     */
     private CreateTaskCommand addDeadline(String userInput) throws DukeWrongCommandException {
         String description = "";
         try {
@@ -105,6 +160,13 @@ public class CommandParser {
         return new CreateTaskCommand("D", description, deadlineBy);
     }
 
+    /**
+     * Method to derive wish task "Todo" which will be added into tasklist.
+     *
+     * @param userInput input entered by user.
+     * @return CreateTaskCommand to add new todo in tasklist.
+     * @throws DukeWrongCommandException when description entered by user is empty.
+     */
     private CreateTaskCommand addTodo(String userInput) throws DukeWrongCommandException {
         String description = "";
         try {

@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * Settles the interface/printing shown to the user.
+ */
 public class UiManager {
     private String botName;
 
@@ -26,11 +29,12 @@ public class UiManager {
         }
         System.out.println("We reached the end of the list. Anymore wish?");
     }
-
+    /** A general print method. */
     public void printMessage(String message) {
         System.out.println(botName + message);
     }
 
+    /** A general print method when encountered with error. */
     public void printError(String message) {
         System.out.println(botName + "ERROR ERROR!!!! -----> " + message);
     }

@@ -1,6 +1,10 @@
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Loads and update the taskfile and executes the
+ * required actions.
+ */
 abstract public class Command {
     protected boolean isExit;
 
@@ -10,6 +14,13 @@ abstract public class Command {
 
     public abstract void execute(ArrayList<Task> taskList, UiManager uiManager, TaskFileManager fileManager) throws DukeWrongCommandException;
 
+    /**
+     * Method to update the content of the file.
+     *
+     * @param fileName    name of file.
+     * @param taskList    contains list of task.
+     * @param fileManager fot updating to file.
+     */
     protected void updateToFile(String fileName, ArrayList<Task> taskList, TaskFileManager fileManager) {
         try {
             fileManager.saveTaskList(fileName, taskList);
@@ -18,6 +29,13 @@ abstract public class Command {
         }
     }
 
+    /**
+     * Method to load the content of the file.
+     *
+     * @param fileName    name of file.
+     * @param taskList    contains list of task.
+     * @param fileManager fot updating to file.
+     */
     protected void loadTaskFile(String fileName, ArrayList<Task> taskList, TaskFileManager fileManager) {
         try {
             fileManager.loadTaskList(fileName, taskList);

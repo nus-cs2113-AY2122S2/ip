@@ -9,6 +9,15 @@ public class CompleteTaskCommand extends Command {
         this.taskIndex = taskIndex;
     }
 
+    /**
+     * Execute complete task function to mark done task identified by the user.
+     * Updates details in the file. Prints remaining number of wish task.
+     *
+     * @param taskList    contains all wish task.
+     * @param uiManager   assist in printing exit message.
+     * @param fileManager manages the file.
+     * @throws DukeWrongCommandException when task number does not exist in the list.
+     */
     public void execute(ArrayList<Task> taskList, UiManager uiManager, TaskFileManager fileManager) throws DukeWrongCommandException {
         if (taskIndex < 0) {
             throw new DukeWrongCommandException("Invalid task index! Task should be at least 1");
