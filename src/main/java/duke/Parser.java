@@ -54,7 +54,7 @@ public class Parser {
             System.out.print(boundary + "Hmm...hi dear, when do u want to finish this by?"
                                      + System.lineSeparator() + boundary);
         } catch (DateTimeParseException e) {
-            System.out.print(boundary + "Hmm...hi dear, please input your Deadline in \"description /by yyyy-mm-dd\" format"
+            System.out.print(boundary + "Hmm...hi dear, please input your Deadline in \"deadline DESCRIPTION /by yyyy-mm-dd\" format"
                                      + System.lineSeparator() + boundary);
         } catch (EventFormatException e) {
             System.out.print(boundary + "Hmm...hi dear, when is this event happening?"
