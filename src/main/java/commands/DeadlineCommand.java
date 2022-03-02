@@ -5,10 +5,12 @@ import data.TaskManager;
 import storage.FileManager;
 import ui.Ui;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import java.io.IOException;
 
+/**
+ * Command to add a deadline task.
+ */
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
     private Deadline toAdd;

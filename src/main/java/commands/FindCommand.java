@@ -8,6 +8,9 @@ import ui.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Command to find and list all tasks whose description contains the specified keyword.
+ */
 public class FindCommand extends Command{
     public static final String COMMAND_WORD = "find";
     private String keyword;

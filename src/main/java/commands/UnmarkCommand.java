@@ -7,6 +7,9 @@ import ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Command to unmark a task as not done using the last displayed index.
+ */
 public class UnmarkCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
     int idx;

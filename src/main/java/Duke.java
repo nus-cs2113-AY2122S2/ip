@@ -7,6 +7,10 @@ import ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Entry point of the Duke application.
+ * Initializes the application and starts the interaction with the user.
+ */
 public class Duke {
     private Ui ui;
     private TaskManager taskManager;
@@ -25,6 +29,10 @@ public class Duke {
         ui = new Ui(taskManager);
     }
 
+    /**
+     * Reads user input command and executes the command repeatedly.
+     * Stops and exits when the command is an exit command.
+     */
     public void run() {
         ui.showGreetingMessage();
 

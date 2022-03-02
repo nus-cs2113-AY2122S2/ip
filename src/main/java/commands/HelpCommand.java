@@ -4,6 +4,9 @@ import data.TaskManager;
 import storage.FileManager;
 import ui.Ui;
 
+/**
+ * Command to display supported instructions.
+ */
 public class HelpCommand extends Command{
     public static final String COMMAND_WORD = "help";
 

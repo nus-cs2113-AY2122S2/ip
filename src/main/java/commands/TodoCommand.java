@@ -7,6 +7,9 @@ import ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Command to add a todo task.
+ */
 public class TodoCommand extends Command{
     public static final String COMMAND_WORD = "todo";
     private Todo toAdd;

@@ -7,6 +7,9 @@ import ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Command to mark a task as done using the last displayed index.
+ */
 public class MarkCommand extends Command {
     public static final String COMMAND_WORD = "mark";
     int idx;
