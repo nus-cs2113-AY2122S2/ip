@@ -6,27 +6,32 @@ import duke.exception.DukeException;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Represents the "brain" of the Duke program and acts as a link between the other components of the program such as the
+ * User Interface, Input Parser, ChatBot and Storage.
+ * The Duke Program implements an application which allows the user to keep track of any upcoming tasks.
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
-    public Duke(String filePath) {
+    private Duke(String filePath) {
         ui = new Ui();
-        storage = new Storage(filePath,ui);
+        storage = new Storage(filePath, ui);
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(storage.loadArrayListFromFile());
         } catch (DukeException e) {
             ui.showLoadingError(e);
             tasks = new TaskList();
         }
     }
 
-    public void run() {
+    private void run() {
         boolean shouldExitProgram = false;
         ui.showHorizontalLine();
         ChatBot bigBob;
-        bigBob = new ChatBot(ui,tasks);
+        bigBob = new ChatBot(ui, tasks);
         ui.showHorizontalLine();
         Command inputCommand;
         boolean writeListToFile;
@@ -42,7 +47,7 @@ public class Duke {
             }
             if (inputCommand.getType() == Command.CommandType.EXITPROGRAM) {
                 shouldExitProgram = true;
-                ui.echoFarewellGreeting();
+                ui.showFarewellGreeting();
                 ui.showHorizontalLine();
                 continue;
             }
@@ -52,7 +57,7 @@ public class Duke {
                 continue;
             }
             try {
-                storage.writeArrayListToFile(tasks.getListOfTasks(),ui);
+                storage.writeArrayListToFile(tasks.getListOfTasks(), ui);
             } catch (IOException io) {
                 ui.showFileWritingError();
             }

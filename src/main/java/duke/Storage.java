@@ -15,23 +15,29 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+
+/**
+ * Represents the storage component of the program.
+ * The storage object handles all the storage and retrieval operations to and from a file for the program.
+ */
 public class Storage {
     private String filePath;
     private Ui ui;
-    public Storage(String filePath, Ui ui){
+
+    public Storage(String filePath, Ui ui) {
         setFilePath(filePath);
         setUi(ui);
     }
 
-    public void setFilePath(String filePath) {
+    private void setFilePath(String filePath) {
         this.filePath = filePath;
     }
 
-    public void setUi(Ui ui) {
+    private void setUi(Ui ui) {
         this.ui = ui;
     }
 
-    public void createFile(File f) throws DukeException {
+    private void createFile(File f) throws DukeException {
         File directory = f.getParentFile();
         boolean isDirectoryCreated;
         if (!directory.exists()) {
@@ -47,7 +53,7 @@ public class Storage {
         }
     }
 
-    public Events extractEventFromFile(StringTokenizer st) {
+    private Events extractEventFromFile(StringTokenizer st) {
         Events newEventTask;
         boolean isDone;
         String taskName;
@@ -65,7 +71,7 @@ public class Storage {
         return newEventTask;
     }
 
-    public ToDo extractToDoFromFile(StringTokenizer st) {
+    private ToDo extractToDoFromFile(StringTokenizer st) {
         ToDo newToDoTask;
         boolean isDone;
         String taskName;
@@ -80,7 +86,7 @@ public class Storage {
         return newToDoTask;
     }
 
-    public Deadlines extractDeadlineFromFile(StringTokenizer st) {
+    private Deadlines extractDeadlineFromFile(StringTokenizer st) {
         Deadlines newDeadlineTask;
         boolean isDone;
         String taskName;
@@ -97,7 +103,14 @@ public class Storage {
         return newDeadlineTask;
     }
 
-    public ArrayList<Task> load() throws DukeException {
+    /**
+     * Returns an ArrayList of Tasks whose contents were loaded from a file containing tasks.
+     *
+     * @return An ArrayList of Tasks.
+     * @throws DukeException If the file to load the ArrayList from is not found and
+     *                       the program is unable to create the file or the folder the file is supposed to reside in.
+     */
+    public ArrayList<Task> loadArrayListFromFile() throws DukeException {
         File f = new File(filePath);
         ArrayList<Task> listOfTasks = new ArrayList<>();
         try {
@@ -133,12 +146,19 @@ public class Storage {
         return listOfTasks;
     }
 
-    public void clearFileContents() throws IOException {
+    private void clearFileContents() throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.close();
     }
 
-    public void writeArrayListToFile(ArrayList<Task>listOfTasks,Ui ui) throws IOException {
+    /**
+     * Writes the contents of the ArrayList of Tasks into a file.
+     *
+     * @param listOfTasks An ArrayList containing the list of tasks which would be written to the file.
+     * @param ui          The UserInterface object which outputs error messages to the user.
+     * @throws IOException If the program is unable to write to the file.
+     */
+    public void writeArrayListToFile(ArrayList<Task> listOfTasks, Ui ui) throws IOException {
         clearFileContents();
         FileWriter fw;
         fw = new FileWriter(filePath, true);
@@ -163,9 +183,9 @@ public class Storage {
                 ui.showInvalidTaskTypeMessage();
                 continue;
             }
-            if(i != listOfTasks.size() -1) {
+            if (i != listOfTasks.size() - 1) {
                 fw.write(taskDetails + System.lineSeparator());
-            }else{
+            } else {
                 fw.write(taskDetails);
             }
         }

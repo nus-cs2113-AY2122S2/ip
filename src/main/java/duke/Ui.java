@@ -6,6 +6,11 @@ import duke.task.Task;
 
 import java.util.Scanner;
 
+/**
+ * Represents the User Interface component of the program.
+ * The Ui object handles all interactions with the user such as printing the outputs to the user
+ * as well as reading in the user inputs .
+ */
 public class Ui {
     private Scanner in;
     private final String BOT_NAME = "Big Bob";
@@ -14,7 +19,7 @@ public class Ui {
         in = new Scanner(System.in);
     }
 
-    public void showWelcomeMessage(){
+    public void showWelcomeMessage() {
         System.out.println("\t Greetings Human! I'm " + BOT_NAME + ".");
         System.out.println("\t How may i be of service to you?");
     }
@@ -22,101 +27,114 @@ public class Ui {
     public void showHorizontalLine() {
         System.out.println("    -----------------------------------------------------------------");
     }
-    public String readUserInput(){
+
+    public String readUserInput() {
         String userInput = in.nextLine();
         return userInput;
     }
-    public void showLoadingError(DukeException DE){
-        if(DE.getExceptionCause() == DukeExceptionCause.FOLDERCREATIONFAIL){
+
+    public void showLoadingError(DukeException DE) {
+        if (DE.getExceptionCause() == DukeExceptionCause.FOLDERCREATIONFAIL) {
             System.out.println("File was not found and the parent folder of the file is unable to be created.");
-        }else if(DE.getExceptionCause() == DukeExceptionCause.FILECREATIONFAIL) {
+        } else if (DE.getExceptionCause() == DukeExceptionCause.FILECREATIONFAIL) {
             System.out.println("File was not found and the file is unable to be created.");
-        }else{
+        } else {
             System.out.println("Failure to load data from file.");
         }
         return;
     }
 
-    public void echoInvalidCommandMessage() {
-        System.out.println("\t ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+    public void showInvalidCommandMessage() {
+        System.out.println("\t OOPS!!! You have entered an invalid command.");
     }
 
-    public void echoMissingTaskNameMessage(String typeOfTask) {
-        System.out.println("\t ☹ OOPS!!! The description of a " + typeOfTask + " cannot be empty.");
+    public void showMissingTaskNameMessage(String typeOfTask) {
+        System.out.println("\t OOPS!!! The description of a " + typeOfTask + " cannot be empty.");
     }
 
-    public void echoMissingTaskIndexMessage() {
-        System.out.println("\t ☹ OOPS!!! The index of a task cannot be empty.");
+    public void showMissingTaskIndexMessage() {
+        System.out.println("\t OOPS!!! The index of a task cannot be empty.");
     }
 
-    public void echoTaskIndexOutOfRangeMessage() {
-        System.out.println("\t ☹ OOPS!!! You have entered an invalid index of a task.");
+    public void showInvalidTaskIndexMessage() {
+        System.out.println("\t  OOPS!!! You have entered an invalid index of a task.");
+    }
+
+    public void showTaskIndexOutOfRangeMessage() {
+        System.out.println("\t OOPS!!! You have entered a task index that is out of range.");
     }
 
     public void showParsingError(DukeException de) {
         DukeExceptionCause causeOfException = de.getExceptionCause();
         switch (causeOfException) {
         case INVALIDCOMMAND:
-            echoInvalidCommandMessage();
+            showInvalidCommandMessage();
             break;
         case TODOTASKNAMEEMPTY:
-            echoMissingTaskNameMessage("todo");
+            showMissingTaskNameMessage("todo");
             break;
         case EVENTTASKNAMEEMPTY:
-            echoMissingTaskNameMessage("event");
+            showMissingTaskNameMessage("event");
             break;
         case DEADLINETASKNAMEEMPTY:
-            echoMissingTaskNameMessage("deadline");
+            showMissingTaskNameMessage("deadline");
             break;
         case EMPTYTASKINDEX:
-            echoMissingTaskIndexMessage();
+            showMissingTaskIndexMessage();
+            break;
         case TASKINDEXOUTOFRANGE:
-            echoTaskIndexOutOfRangeMessage();
+            showTaskIndexOutOfRangeMessage();
+            break;
         case EMPTYKEYWORD:
             showEmptyKeywordMessage();
+            break;
+        case INVALIDTASKINDEX:
+            showInvalidTaskIndexMessage();
+            break;
         default:
             break;
         }
     }
 
-    public void showEmptyKeywordMessage(){
+    public void showEmptyKeywordMessage() {
         System.out.println("\t Error Occurred!! The find command cannot have an empty keyword.");
     }
-    public void showAcknowledgementMessage(String message){
+
+    public void showAcknowledgementMessage(String message) {
         System.out.println(message);
     }
 
-    public void showFileWritingError(){
-        System.out.println("Error Occurred!! Unable to write to file.");
+    public void showFileWritingError() {
+        System.out.println("\t Error Occurred!! Unable to write to file.");
     }
 
-    public void showIndexOutOfBoundError(){
-        System.out.println("Error Occurred!! Index provided is invalid. Kindly provide a valid one.");
+    public void showIndexOutOfBoundError() {
+        System.out.println("\t Error Occurred!! Index provided is invalid. Kindly provide a valid one.");
     }
 
-    public void printTaskAndIndex (int taskNumber,String taskDescription){
+    public void printTaskAndIndex(int taskNumber, String taskDescription) {
         System.out.println("\t " + taskNumber + "." + taskDescription);
     }
 
-    public void echoFarewellGreeting() {
-        System.out.println("    Good bye.See you soon :)) !");
+    public void showFarewellGreeting() {
+        System.out.println("    Good bye.See you soon :)");
     }
 
-    public void showInvalidTaskTypeMessage(){
-        System.out.println("Error Occurred!! Invalid Task Type found in file. Skipping that particular task.");
+    public void showInvalidTaskTypeMessage() {
+        System.out.println("\t Error Occurred!! Invalid Task Type found in file. Skipping that particular task.");
     }
 
-    public void printList(TaskList listOfTasks, boolean isMatching){
-        if(isMatching){
+    public void printList(TaskList listOfTasks, boolean isMatching) {
+        if (isMatching) {
             System.out.println("\t Here are the matching tasks in your list:");
-        }else {
+        } else {
             System.out.println("\t Here are the tasks in your list:");
         }
         Task taskToPrint;
         for (int i = 0; i < listOfTasks.getListSize(); i++) {
             int taskNumber = i + 1;
             taskToPrint = listOfTasks.getTask(i);
-            printTaskAndIndex(taskNumber,taskToPrint.getTaskInformation());
+            printTaskAndIndex(taskNumber, taskToPrint.getTaskInformation());
         }
     }
 }

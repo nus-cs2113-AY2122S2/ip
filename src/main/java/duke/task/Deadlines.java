@@ -1,5 +1,10 @@
 package duke.task;
 
+/**
+ * Represents a task that needs to be done before a specific date/time
+ * A Deadlines object corresponds to a specific task with a deadline, it contains the name of the task, the task's
+ * symbol as well as the task's deadline.
+ */
 public class Deadlines extends Task {
     private final String DEAD_LINE_SYMBOL = "[D]";
     private String by;
@@ -13,26 +18,45 @@ public class Deadlines extends Task {
         return DEAD_LINE_SYMBOL + super.getTaskInformation() + " (by: " + getBy() + ")";
     }
 
-    public String getTaskDescription(){
+    public String getTaskDescription() {
         return super.getTaskDescription() + " (by: " + getBy() + ")";
     }
 
-    public String addTaskMessage(){
+    /**
+     * Returns an acknowledgement message which informs the user that the task was successfully added.
+     *
+     * @return An acknowledgement message containing the name, status, type as well as deadline of the task that was
+     * added.
+     */
+    public String addTaskMessage() {
         String message;
         message = super.addTaskMessage() + "\t   " + getTaskInformation();
         return message;
     }
 
-    public String getTaskUpdatedMessage(){
+    /**
+     * Returns an acknowledgement message which informs the user that the task status was successfully updated.
+     * The task's status refers to whether or not a task is done.
+     *
+     * @return An acknowledgement message containing the updated details of the task that was updated.
+     */
+    public String getTaskUpdatedMessage() {
         String message;
         message = super.getTaskUpdatedMessage() + "\t   " + getTaskInformation();
         return message;
     }
 
-    public String removeTaskMessage(){
+    /**
+     * Returns an acknowledgement message which informs the user that the task was successfully removed.
+     *
+     * @return An acknowledgement message containing the name, status, type as well as deadline of the task that was
+     * removed.
+     */
+    public String removeTaskMessage() {
         String acknowledgementMessage = super.removeTaskMessage() + "\t   " + getTaskInformation();
         return acknowledgementMessage;
     }
+
 
     public String getBy() {
         return by;
