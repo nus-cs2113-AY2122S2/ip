@@ -13,6 +13,9 @@ public class InvalidUserInputException extends Exception {
             "Please ensure that the date format is in YYYY-MM-DD and the time format is in HHmm (24 hour) " +
             "(e.g. /at 2021-02-19 1330)";
     public static final String IO_EXCEPTION = "☹ OOPS!!! Something wrong with the input-output operation.";
+    public static final String INVALID_MATCH = "☹ OOPS!!! The command is invalid. Please ensure command is entered as: \n" +
+            " deadline [TASK DESCRIPTION] /by [DEADLINE TIMING] \n" + " event [TASK DESCRIPTION] /by [EVENT TIMING]" ;
+
     /**
      * Constructs an InvalidUserInputException with a specified error message.
      *

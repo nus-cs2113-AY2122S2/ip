@@ -38,8 +38,8 @@ public class TaskList {
      * In addition, the newly added task will also be written into the database file
      * which stores all the task information in the task list.
      *
-     * @param userInput command entered by user.
-     * @param taskList arrayList to store all tasks created.
+     * @param userInput     command entered by user.
+     * @param taskList      arrayList to store all tasks created.
      * @param isUserCommand states whether command is user input or file input.
      * @throws IOException If the input and output have error.
      */
@@ -64,37 +64,30 @@ public class TaskList {
      * To add a task with date and/or time into the task list.
      * Only add task type of "deadline" and "event".
      * It will ensure that the date and time of the task meets the required format.
-     *
+     * <p>
      * Upon successful adding the task into the task list, a message will
      * be displayed to indicate the command is processed successfully and also
      * indicates the total number of tasks that exist in the task list.
      * In addition, the newly added task will also be written into the database file
      * which stores all the task information in the task list.
      *
-     * @param userInput command entered by user.
-     * @param taskList arrayList to store all tasks created.
+     * @param userInput     command entered by user.
+     * @param taskList      arrayList to store all tasks created.
      * @param isUserCommand states whether command is user input or file input.
      * @throws InvalidUserInputException If the task description is empty.
-     * @throws IOException If the input and output have error.
+     * @throws IOException               If the input and output have error.
      */
     public static void addTaskAndTime(String userInput, ArrayList<Task> taskList, Boolean isUserCommand) {
         String[] arrayOfUserInput = userInput.split("/", 2);
         String[] taskDescription = arrayOfUserInput[0].split(" ", 2);
+        System.out.println(taskDescription[0]);
         String[] timing = arrayOfUserInput[1].split(" ", 2);
         String formattedTimeAndDate = processDateAndTime(timing[1]);
-        Boolean hasTimeAndDateFormattedFromFile = true;
-        Boolean needToChangeContent = false;
-        String oldTimeAndDate = null;
 
         if (formattedTimeAndDate.equals(timing[1]) && isUserCommand) {
             return;
         }
-        //file date and time input is not formatted
-        if (!(formattedTimeAndDate.equals(timing[1])) && !isUserCommand) { //date in file is not formatted
-            hasTimeAndDateFormattedFromFile = false;
-            oldTimeAndDate = timing[1];
-            needToChangeContent = true;
-        }
+
         timing[1] = formattedTimeAndDate;
         Task newTask;
         try {
@@ -102,13 +95,15 @@ public class TaskList {
                 throw new InvalidUserInputException(NO_DESCRIPTION); //check if there is task description
             }
 
-            if (timing[0].equals("by")) {
+            if (timing[0].equals("by") && taskDescription[0].equals("deadline")) {
                 newTask = new Deadline(taskDescription[1], timing[1]);
-            } else {
+            } else if (timing[0].equals("at") && taskDescription[0].equals("event")) {
                 newTask = new Event(taskDescription[1], timing[1]);
+            } else{
+                throw new InvalidUserInputException(INVALID_MATCH);
             }
-            taskList.add(newTask); //adding of new task
-            if (isUserCommand || !hasTimeAndDateFormattedFromFile) { // need to write in database
+            taskList.add(newTask);
+            if (isUserCommand) {
                 try {
                     String[] databaseInput = new String[3];
                     switch (timing[0]) {
@@ -126,14 +121,11 @@ public class TaskList {
                     databaseInput[2] = timing[1];
 
                     String newData = parser.formulateDatabaseInput(databaseInput);
-                    if (needToChangeContent){
-                        Storage.replaceContent(userInput, newData, oldTimeAndDate); //replace database format of unformatted files;
-                    } else {
-                        System.out.println(LINE_SEPARATOR + "Got it. I've added this task:");
-                        System.out.println(taskList.get(taskList.size() - 1).toString());
-                        System.out.println("Now you have " + taskList.size() + " tasks in the list.\n" + LINE_SEPARATOR);
-                        Storage.writeToFile(newData);
-                    }
+                    System.out.println(LINE_SEPARATOR + "Got it. I've added this task:");
+                    System.out.println(taskList.get(taskList.size() - 1).toString());
+                    System.out.println("Now you have " + taskList.size() + " tasks in the list.\n" + LINE_SEPARATOR);
+                    Storage.writeToFile(newData);
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -150,10 +142,10 @@ public class TaskList {
      *
      * @param DateAndTime time and date inputted by the user.
      * @return finalDateAndTime correct format of the date and time to be processed.
-     * @throws InvalidUserInputException If the time and date entered is invalid such as not a time/date.
+     * @throws InvalidUserInputException      If the time and date entered is invalid such as not a time/date.
      * @throws ArrayIndexOutOfBoundsException If DateAndTime length is out of bound.
-     * @throws DateTimeException If the format of the date is not in the right format/invalid.
-     * @throws NullPointerException If no date and time is being parsed in.
+     * @throws DateTimeException              If the format of the date is not in the right format/invalid.
+     * @throws NullPointerException           If no date and time is being parsed in.
      */
     public static String processDateAndTime(String DateAndTime) {
         String finalDateAndTime = DateAndTime;
@@ -161,10 +153,6 @@ public class TaskList {
         try {
             String[] arrayOfTimeAndDate = DateAndTime.split(" ");
             switch (arrayOfTimeAndDate.length) {
-            case (1):
-                date = processDate(arrayOfTimeAndDate[0]);
-                finalDateAndTime = date;
-                break;
             case (2):
                 date = processDate(arrayOfTimeAndDate[0]);
                 time = processTime(arrayOfTimeAndDate[1]);
@@ -280,7 +268,7 @@ public class TaskList {
      * @return List of task that matched with keyword search.
      * @throws InvalidUserInputException If keyword to be searched is not stated.
      */
-    public static ArrayList findContent (String keyword) {
+    public static ArrayList findContent(String keyword) {
         ArrayList<Integer> keywordList = new ArrayList<>();
         List<String> fileContentLines = null;
         try {

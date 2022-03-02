@@ -1,8 +1,10 @@
-E,1,read book ,Nov-11-2019 1:00PM
-D,1,book ,Nov-10-2019 12:12PM
-T,0, sndajdk
-E,1,sadnmkas ,Nov-10-2019 10:22AM
-T,1,gyhsdbajs
-E,1,return book ,Dec-11-2019 12:12PM
-E,1,helloworld ,Apr-2-2019
-E,0,run away ,Nov-22-2019 1299
+T,0,read book
+T,0,buy book
+E,0,meeting with kelly ,Nov-12-2019 5:30PM
+D,0,return book,Jan-11-2020 11:20AM
+D,0,return money to kenny ,Nov-12-2022 1:00PM
+D,1,test ,Nov-11-2022 12:00PM
+E,0,meet ben,Nov-12-2012 12:35PM
+D,1,assignment 3 ,Jan-1-2011 12:30PM
+D,0,meet james ,Oct-11-2021 1:30PM
+D,0,nda ,Oct-11-2021 7:00PM

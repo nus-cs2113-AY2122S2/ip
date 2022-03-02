@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,16 +34,17 @@ public class Storage extends Duke {
      * task is being reflected correctly from the database file into the taskArrayList.
      *
      * @return taskArrayList to store all the tasks being processed from the database file.
-     * @throws StorageException If input and/or output have error.
-     * @throws FileNotFoundException If input and/or output have error.
+     * @throws StorageException          If input and/or output have error.
+     * @throws FileNotFoundException     If input and/or output have error.
      * @throws InvalidUserInputException If input and/or output have error.
-     * @throws IOException If input and/or output have error.
+     * @throws IOException               If input and/or output have error.
      */
     public static ArrayList populateFileContents() throws FileNotFoundException, InvalidUserInputException, StorageException {
         List<String> fileContentLines = null;
         try {
             fileContentLines = Files.readAllLines(databasePath);
             for (String lines : fileContentLines) {
+                isFileContentValid(lines);
                 String userInput = null;
                 String[] contentsInALine = lines.split(",", -1);
                 if (contentsInALine.length < 1) {
@@ -105,15 +109,15 @@ public class Storage extends Duke {
      * its content and saved it back into the file.
      * If task is marked, the mark status of the file will be represented as "1" and
      * if the task is unmarked, the mark status of the file will be represented as "0".
-     *
+     * <p>
      * If the task is being deleted, the task details in the file will be replaced as
      * an empty string. The empty strings will be removed by the removeSpaces method.
      * If the task is being marked/unmarked, the task details in
      * the file will be modified to reflect the corresponding changes.
      *
      * @param taskNumber number of the task in the task list to be modified.
-     * @param isMark whether the task is being marked or unmarked.
-     * @param isDelete whether the task is being deleted.
+     * @param isMark     whether the task is being marked or unmarked.
+     * @param isDelete   whether the task is being deleted.
      * @throws IOException If input and/or output have error.
      */
     public static void modifyDatabase(int taskNumber, Boolean isMark, Boolean isDelete) {
@@ -141,7 +145,7 @@ public class Storage extends Duke {
      * if the task is unmarked, the mark status of the file will be represented as "0".
      *
      * @param taskNumber number of the task in the task list to be marked/unmarked.
-     * @param isMark whether the task is being marked or unmarked.
+     * @param isMark     whether the task is being marked or unmarked.
      * @return newLine the updated task details after its been marked/unmarked.
      * @throws IOException If input and/or output have error.
      */
@@ -160,53 +164,6 @@ public class Storage extends Duke {
         return newLine;
     }
 
-    /**
-     * Return an arrayList containing all the task details in the file that
-     * has been converted to user command format.
-     * Change the format of "D,1,return book, 2021-11-12 12:00PM" to "deadline 1 retyrn book /by 2021-11-12 12:00PM".
-     *
-     * @return processedContent the updated task details after it has been marked/unmarked.
-     * @throws StorageException If the file content is being corrupted.
-     * @throws InvalidUserInputException If the user command is invalid.
-     * @throws IOException If input and/or output have error.
-     */
-    public static ArrayList convertDatabaseInput() {
-        List<String> fileContentLines = null;
-        ArrayList<String> processedContent = new ArrayList<String>();
-        try {
-            fileContentLines = Files.readAllLines(databasePath);
-            for (String lines : fileContentLines) {
-                String userInput = null;
-                String[] contentsInALine = lines.split(",", -1);
-                if (contentsInALine.length < 1) {
-                    throw new InvalidUserInputException(INVALID_INPUT);
-                }
-                switch (contentsInALine[0].trim()) {
-                case "T":
-                    userInput = "todo " + contentsInALine[1].trim() + " " + contentsInALine[2].trim();
-                    processedContent.add(userInput);
-                    break;
-                case "D":
-                    userInput = "deadline " + contentsInALine[1].trim() + " " + contentsInALine[2].trim() + " " + "/by " + contentsInALine[3].trim();
-                    processedContent.add(userInput);
-                    break;
-                case "E":
-                    userInput = "event " + contentsInALine[1].trim() + " " + contentsInALine[2].trim() + " " + "/at " + contentsInALine[3].trim();
-                    processedContent.add(userInput);
-                    break;
-                default:
-                    throw new StorageException(INVALID_FILE_INPUT);
-                }
-            }
-        } catch (InvalidUserInputException e) {
-            System.out.println(e.getMessage());
-        } catch (IOException e) {
-            System.out.println(IO_EXCEPTION);
-        } catch (StorageException e) {
-            System.out.println(e.getMessage());
-        }
-        return processedContent;
-    }
 
     /**
      * Overwrite certain lines in the database file.
@@ -215,7 +172,7 @@ public class Storage extends Duke {
      * after file is being modified.
      *
      * @param lineNumber number of the line to be replaced in the database file.
-     * @param newLine command with the right date and time format.
+     * @param newLine    command with the right date and time format.
      * @throws IOException If input and/or output have error.
      */
     public static void overWrite(int lineNumber, String newLine) {
@@ -241,39 +198,6 @@ public class Storage extends Duke {
     }
 
     /**
-     * Overwrite certain lines in the database file.
-     * Replace the user command with the wrong format of time and date
-     * to the correct format in the database file.
-     *
-     * @param oldLine command with the wrong date and time format.
-     * @param newLine command with the right date and time format.
-     * @param oldTime time and date string before the reformatting.
-     */
-    public static void replaceContent(String oldLine, String newLine, String oldTime) {
-        ArrayList<String> processContent = convertDatabaseInput();
-        String[] oldLineArray = oldLine.split(" ", 4);
-        String[] newLineArray = newLine.split(",", 4);
-
-        int lineNumber = 1;
-        String realLine = null;
-        for (String line : processContent) {
-            String[] lineArray = line.split(" ", 5);
-            if (lineArray[0].equals("event") || lineArray[0].equals("deadline")) {
-                if (lineArray[0].equals(oldLineArray[0]) && lineArray[2].equals(oldLineArray[1]) && lineArray[4].equals(oldTime)) {
-                    realLine = lineArray[1];
-                    break;
-                }
-            }
-            lineNumber += 1;
-        }
-        if (realLine.equals("1")) {
-            newLineArray[1] = "1";
-            newLine = newLineArray[0] + "," + newLineArray[1] + "," + newLineArray[2] + "," + newLineArray[3];
-        }
-        overWrite(lineNumber, newLine);
-    }
-
-    /**
      * Check if the database file exists.
      * If directory or file does not exist, it will create the corresponding directory and file.
      */
@@ -288,4 +212,121 @@ public class Storage extends Duke {
         }
     }
 
+    /**
+     * Check for the validity of the file contents.
+     * Look through the whole database file and check the validity of each line.
+     * It will check for all the validations of the input and ensure all fulfilled the
+     * validations.
+     *
+     * @param fileCommand Command in the file.
+     * @throws StorageException If command in the file is invalid.
+     */
+    public static void isFileContentValid(String fileCommand) throws StorageException {
+        String[] fileCommandArray = fileCommand.split(",");
+        switch (fileCommandArray[0]) {
+        case "T":
+            if (fileCommandArray.length < 3) {
+                printFileCorrupted();
+            }
+            break;
+        case "E":
+        case "D":
+            if (fileCommandArray.length < 4) {
+                printFileCorrupted();
+            }
+            isTimeAndDateInFileValid(fileCommandArray[3]);
+            break;
+        default:
+            throw new StorageException(INVALID_FILE_INPUT);
+        }
+    }
+
+    /**
+     * Check for the validity of the time in the file command.
+     * Check if the time contains ":, AM, PM" and also whether the
+     * hour and minutes of the time in the file command satisfy the
+     * conditions of a time.
+     *
+     * If time failed to meet the conditions stated, an error message will
+     * be printed and the program will be terminated for file correction.
+     *
+     * @param Time Time found in Command in the file.
+     */
+    public static void isTimeValid(String Time) {
+        String[] TimeArray = Time.split(":"); //TimeArray[0] contain hour
+        String[] minArray = null;
+        if (Integer.parseInt(TimeArray[0]) > 12 || Integer.parseInt(TimeArray[0]) <= 0) {
+            printFileCorrupted();
+            return;
+        }
+
+        if (TimeArray[1].contains("AM")) {
+            minArray = TimeArray[1].split("AM"); //minArray[0] contains min
+        } else if (TimeArray[1].contains("PM")) {
+            minArray = TimeArray[1].split("PM");
+        } else {
+            printFileCorrupted();
+            return;
+        }
+
+        if (Integer.parseInt(minArray[0]) > 59) {
+            printFileCorrupted();
+            return;
+        }
+    }
+
+    /**
+     * Check for the validity of the date in the file command.
+     * Check if the date is in "MMM-d-yyyy" format.
+     *
+     * If date failed to meet the conditions stated, an error message will
+     * be printed and the program will be terminated for file correction.
+     *
+     * @param inDate Date found in Command in the file.
+     */
+    public static void isDateInFileValid(String inDate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM-d-yyyy");
+        dateFormat.setLenient(false);
+        try {
+            dateFormat.parse(inDate.trim());
+        } catch (ParseException pe) {
+            printFileCorrupted();
+            return;
+        }
+    }
+
+    /**
+     * Check for the validity of both the time and date in the file command.
+     * Check if the time contains ":, AM, PM" and also whether the
+     * hour and minutes of the time in the file command satisfy the
+     * conditions of a time.
+     * Check if the date is in "MMM-d-yyyy" format.
+     * Ensure that both date and time exist in the field for both event and deadline.
+     *
+     * If time or date failed to meet the conditions stated, an error message will
+     * be printed and the program will be terminated for file correction.
+     *
+     * @param DateAndTime Time found in Command in the file.
+     */
+    public static void isTimeAndDateInFileValid(String DateAndTime) {
+        String[] DateAndTimeArray = DateAndTime.split(" ");
+        if (DateAndTimeArray.length <= 1) {
+            printFileCorrupted();
+        }
+        isDateInFileValid(DateAndTimeArray[0].trim());
+        isTimeValid(DateAndTimeArray[1].trim());
+
+    }
+
+    /**
+     * Terminates the program if file contents is corrupted.
+     * If the content in the file is not stored in the correct format,
+     * the program will be terminated. It will also print an error message
+     * to remind the user to check the content in the file.
+     */
+    public static void printFileCorrupted() {
+        System.out.println(INVALID_FILE_INPUT);
+        System.exit(0);
+    }
 }
+
