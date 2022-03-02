@@ -8,12 +8,16 @@ public class Event extends Task {
     protected String atString;
     Time timeConverter;
 
+    /**
+     * Initializes an event task by given task name and event time
+     * @param name the name of the event task
+     * @param atString the time of the task in String format
+     */
     public Event(String name, String atString) {
         super(name);
         this.atString = atString;
         timeConverter = new Time(atString);
         at = timeConverter.getNewDate();
-        //System.out.println(this.at.toString());
         setListName();
     }
 

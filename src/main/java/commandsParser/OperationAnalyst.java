@@ -5,11 +5,17 @@ import exceptions.*;
 import java.util.Locale;
 
 public class OperationAnalyst {
-    protected String[] keywords;
+    //the key information array after splitting raw input
+    protected String[] keyInfo;
+    //the raw input from user
     protected String rawInput;
+    //the information of task time
     protected String time;
+    //the information of task description
     protected String taskName;
+    //the instruction after standardizing
     protected String instruction;
+
     protected static final String MARK_TASK_COMMAND = "mark";
     protected static final String UNMARK_TASK_COMMAND = "unmark";
     protected static final String DELETE_TASK_COMMAND = "delete";
@@ -26,17 +32,17 @@ public class OperationAnalyst {
      * Compute and parse the instruction into several parts and store them in different
      * format into different parameters.
      * @param input the raw input that user type in the command line
-     * @throws DukeExceptions if there's any uuacceptable condition exist while
+     * @throws DukeExceptions if there's any unacceptable condition exist while
      * parsing the instruction
      */
     public OperationAnalyst(String input) throws DukeExceptions {
         //split the raw input into several keywords
-        this.keywords = input.split(" ");
+        this.keyInfo = input.split(" ");
         this.rawInput = input;
         //Standardize the instruction
-        this.instruction = keywords[0].toLowerCase(Locale.ROOT);
+        this.instruction = keyInfo[0].toLowerCase(Locale.ROOT);
         //Create a command for further parsing
-        command = new Command(keywords, rawInput);
+        command = new Command(keyInfo, rawInput);
         parseInstruction();
     }
 
