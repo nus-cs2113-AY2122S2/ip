@@ -31,9 +31,11 @@ public class DeleteCommand extends Command{
         try {
             message = tasks.get(taskIndex-1).printTask();
             taskList.deleteTask(taskIndex-1);
+            separator();
             System.out.println("Noted. I've removed this task:");
             System.out.println(message);
             System.out.println("Now you have " + taskList.getTaskCount() + " tasks in the list.");
+            separator();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("This task does not exist!");
         } catch (NumberFormatException e){

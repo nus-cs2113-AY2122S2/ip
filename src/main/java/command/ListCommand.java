@@ -24,11 +24,11 @@ public class ListCommand extends Command {
      */
     public void execute(){
         ArrayList<Task> tasks = taskList.getTasks();
-        System.out.println("================================================");
+        separator();
         System.out.println("Here are the tasks in your list:");
         for(int j=0; j < taskList.getTaskCount(); j++){
             System.out.println((j+1) + "." + tasks.get(j).printTask());
         }
-        System.out.println("================================================");
+        separator();
     }
 }

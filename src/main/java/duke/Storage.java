@@ -32,10 +32,10 @@ public class Storage {
     // Solution below adapted from https://nus-cs2113-ay2122s2.github.io/website/schedule/week6/topics.html#W6-3
     public void loadTasks(){
         try{
-            File f = new File(filePath); // create a File for the given file path
-            Scanner s = new Scanner(f); // create a Scanner using the File as the source
-            while (s.hasNext()) {
-                readTaskFromFile(s.nextLine());
+            File file = new File(filePath); // create a File for the given file path
+            Scanner scanner = new Scanner(file); // create a Scanner using the File as the source
+            while (scanner.hasNext()) {
+                readTaskFromFile(scanner.nextLine());
             }
             System.out.println("Tasks loaded!");
         } catch(FileNotFoundException e){
@@ -92,7 +92,7 @@ public class Storage {
     // Solution below adapted from https://nus-cs2113-ay2122s2.github.io/website/schedule/week6/topics.html#W6-3
     public void saveTasks(){
         FileWriter writer;
-        String description;
+        String description, symbol, isDone;
         try{
             writer = new FileWriter(filePath);
             for(int j=0; j<taskList.getTaskCount(); j++){
@@ -100,7 +100,9 @@ public class Storage {
                 if(taskList.getTasks().get(j).getSymbol().equals("[D]") || taskList.getTasks().get(j).getSymbol().equals("[E]")){
                     description = formatDescDate(description);
                 }
-                writer.write(taskList.getTasks().get(j).getSymbol() + "|" + (taskList.getTasks().get(j).getIsDone() ? "true" : "false") + "|" + description + "\n");
+                symbol = taskList.getTasks().get(j).getSymbol();
+                isDone = (taskList.getTasks().get(j).getIsDone() ? "true" : "false");
+                writer.write(symbol + "|" + isDone + "|" + description + "\n");
             }
             writer.close();
         } catch(IOException e){

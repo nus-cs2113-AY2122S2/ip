@@ -17,7 +17,7 @@ public class FindCommand extends Command {
     public void execute(){
         ArrayList<Task> tasks = taskList.getTasks();
         int matchedIndex = 1;
-        System.out.println("================================================");
+        separator();
         System.out.println("Here are the matching tasks in your list:");
         for(int j=0; j < taskList.getTaskCount(); j++){
             if(tasks.get(j).getDescription().contains(keyword)){
@@ -25,6 +25,6 @@ public class FindCommand extends Command {
                 matchedIndex++;
             }
         }
-        System.out.println("================================================");
+        separator();
     }
 }

@@ -28,10 +28,10 @@ public class UnmarkCommand extends Command{
     public void execute(){
         ArrayList<Task> tasks = taskList.getTasks();
         try {
-            System.out.println("================================================");
+            separator();
             tasks.get(taskIndex-1).markAsUndone();
             System.out.println(tasks.get(taskIndex-1).printTask());
-            System.out.println("================================================");
+            separator();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("This task does not exist!");
         } catch (NumberFormatException e){

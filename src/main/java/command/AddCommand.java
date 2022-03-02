@@ -31,7 +31,7 @@ public class AddCommand extends Command {
      */
     public void execute(){
         ArrayList<Task> tasks = taskList.getTasks();
-        System.out.println("================================================");
+        separator();
         try {
             Task addedTask = addTask(userInput);
             if(addedTask != null) {
@@ -45,7 +45,7 @@ public class AddCommand extends Command {
         } catch (NullPointerException e) {
             System.out.println("Please try again!");
         }
-        System.out.println("================================================");
+        separator();
     }
 
     /**
