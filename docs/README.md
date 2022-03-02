@@ -18,7 +18,7 @@ Remove a task that you no longer wish to see in EM's list.
 ### Search for an Existing Task
 Enter a keyword search and EM will show you all the tasks that matches your keyword search. 
 
-### Automatic Saving of Task Data to Local Storage
+### Automatic Saving of Task Data to Local em.Storage
 Whenever you create, update or delete a task, EM will automatically save these changes into a file that is stored
 locally on your system. The file can be found in "../database/database.txt".
 

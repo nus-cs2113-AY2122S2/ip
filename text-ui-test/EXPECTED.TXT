@@ -13,157 +13,141 @@ Hello! I'm EM
 What can I do for you?
 ____________________________________________________________
 
-____________________________________________________________
-
-Here are the tasks in your list:
-1. [T][X] read book
-2. [D][ ] return book  (by: June 6th)
-3. [E][ ] project meeting  (at: Aug 6th 2-4pm)
-4. [T][X] join sports club
-____________________________________________________________
-
-____________________________________________________________
+> ____________________________________________________________
 Got it. I've added this task:
 [T][ ] read book
-Now you have 5 tasks in the list.
+Now you have 1 tasks in the list.
 ____________________________________________________________
 
-____________________________________________________________
+> ____________________________________________________________
 Got it. I've added this task:
-[E][ ] meeting at library  (at: 3pm Mon)
-Now you have 6 tasks in the list.
+[T][ ] buy book
+Now you have 2 tasks in the list.
 ____________________________________________________________
 
-____________________________________________________________
-
-Here are the tasks in your list:
-1. [T][X] read book
-2. [D][ ] return book  (by: June 6th)
-3. [E][ ] project meeting  (at: Aug 6th 2-4pm)
-4. [T][X] join sports club
-5. [T][ ] read book
-6. [E][ ] meeting at library  (at: 3pm Mon)
-____________________________________________________________
-
-____________________________________________________________
-OK, I've marked this task as done:
-[T][X] read book
-____________________________________________________________
-____________________________________________________________
-
-Here are the tasks in your list:
-1. [T][X] read book
-2. [D][ ] return book  (by: June 6th)
-3. [E][ ] project meeting  (at: Aug 6th 2-4pm)
-4. [T][X] join sports club
-5. [T][ ] read book
-6. [E][ ] meeting at library  (at: 3pm Mon)
-____________________________________________________________
-
-____________________________________________________________
-Got it. I've added this task:
-[D][ ] return book  (by: monday)
-Now you have 7 tasks in the list.
-____________________________________________________________
-
-____________________________________________________________
-
-Here are the tasks in your list:
-1. [T][X] read book
-2. [D][ ] return book  (by: June 6th)
-3. [E][ ] project meeting  (at: Aug 6th 2-4pm)
-4. [T][X] join sports club
-5. [T][ ] read book
-6. [E][ ] meeting at library  (at: 3pm Mon)
-7. [D][ ] return book  (by: monday)
-____________________________________________________________
-
-____________________________________________________________
-Got it. I've added this task:
-[D][ ] task2  (by: infinite)
-Now you have 8 tasks in the list.
-____________________________________________________________
-
-____________________________________________________________
-
-Here are the tasks in your list:
-1. [T][X] read book
-2. [D][ ] return book  (by: June 6th)
-3. [E][ ] project meeting  (at: Aug 6th 2-4pm)
-4. [T][X] join sports club
-5. [T][ ] read book
-6. [E][ ] meeting at library  (at: 3pm Mon)
-7. [D][ ] return book  (by: monday)
-8. [D][ ] task2  (by: infinite)
-____________________________________________________________
-
-____________________________________________________________
-☹ OOPS!!! I'm sorry, but I don't know what that means :-( 
-____________________________________________________________
-____________________________________________________________
-OK, I've marked this task as done:
-[E][X] project meeting  (at: Aug 6th 2-4pm)
-____________________________________________________________
-____________________________________________________________
-
-Here are the tasks in your list:
-1. [T][X] read book
-2. [D][ ] return book  (by: June 6th)
-3. [E][X] project meeting  (at: Aug 6th 2-4pm)
-4. [T][X] join sports club
-5. [T][ ] read book
-6. [E][ ] meeting at library  (at: 3pm Mon)
-7. [D][ ] return book  (by: monday)
-8. [D][ ] task2  (by: infinite)
-____________________________________________________________
-
-____________________________________________________________
-☹ OOPS!!! The task description cannot be empty.
-____________________________________________________________
-____________________________________________________________
-OK, I've marked this task as not done yet:
-[T][ ] read book
-____________________________________________________________
-____________________________________________________________
-OK, I've marked this task as not done yet:
-[T][ ] read book
-____________________________________________________________
-____________________________________________________________
+> ____________________________________________________________
 
 Here are the tasks in your list:
 1. [T][ ] read book
-2. [D][ ] return book  (by: June 6th)
-3. [E][X] project meeting  (at: Aug 6th 2-4pm)
-4. [T][X] join sports club
-5. [T][ ] read book
-6. [E][ ] meeting at library  (at: 3pm Mon)
-7. [D][ ] return book  (by: monday)
-8. [D][ ] task2  (by: infinite)
+2. [T][ ] buy book
 ____________________________________________________________
 
+> ____________________________________________________________
+OK, I've marked this task as done:
+[T][X] read book
 ____________________________________________________________
-Noted. I've removed this task:
-[T][ ] read book
-Now you have 7 tasks in the list.
-____________________________________________________________
-____________________________________________________________
-
-Here are the tasks in your list:
-1. [D][ ] return book  (by: June 6th)
-2. [E][X] project meeting  (at: Aug 6th 2-4pm)
-3. [T][X] join sports club
-4. [T][ ] read book
-5. [E][ ] meeting at library  (at: 3pm Mon)
-6. [D][ ] return book  (by: monday)
-7. [D][ ] task2  (by: infinite)
+> ____________________________________________________________
+Got it. I've added this task:
+[E][ ] meeting with kelly  (at: Jan-1-2022 5:30PM)
+Now you have 3 tasks in the list.
 ____________________________________________________________
 
+> ____________________________________________________________
+Got it. I've added this task:
+[D][ ] return book  (by: Feb-3-2022 11:20AM)
+Now you have 4 tasks in the list.
 ____________________________________________________________
-Noted. I've removed this task:
-[D][ ] return book (by: June 6th)
+
+> ____________________________________________________________
+Got it. I've added this task:
+[D][ ] return kelly water bottle  (by: Mar-11-2022 1:30PM)
+Now you have 5 tasks in the list.
+____________________________________________________________
+
+> ____________________________________________________________
+Got it. I've added this task:
+[E][ ] meet ben  (at: Oct-11-2022 2:15PM)
 Now you have 6 tasks in the list.
 ____________________________________________________________
+
+> ____________________________________________________________
+OK, I've marked this task as done:
+[E][X] meeting with kelly  (at: Jan-1-2022 5:30PM)
 ____________________________________________________________
+> ☹ OOPS!!! The task number entered is not valid.
+> ☹ OOPS!!! The task number entered is not a number.
+> ____________________________________________________________
+
+Here are the tasks in your list:
+1. [T][X] read book
+2. [T][ ] buy book
+3. [E][X] meeting with kelly  (at: Jan-1-2022 5:30PM)
+4. [D][ ] return book  (by: Feb-3-2022 11:20AM)
+5. [D][ ] return kelly water bottle  (by: Mar-11-2022 1:30PM)
+6. [E][ ] meet ben  (at: Oct-11-2022 2:15PM)
+____________________________________________________________
+
+> ____________________________________________________________
+OK, I've marked this task as done:
+[E][X] meet ben  (at: Oct-11-2022 2:15PM)
+____________________________________________________________
+> ____________________________________________________________
+
+Remainder: Search is case sensitive
+Here are the matching tasks in your list:
+1. [T][X] read book
+2. [T][ ] buy book
+3. [D][ ] return book  (by: Feb-3-2022 11:20AM)
+____________________________________________________________
+
+> ____________________________________________________________
+
+Remainder: Search is case sensitive
+No task found!
+____________________________________________________________
+
+> ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
+> ☹ OOPS!!! The time or date you entered is invalid.
+ Please ensure that the date format is in YYYY-MM-DD and the time format is in HHmm (24 hour) (e.g. /at 2021-02-19 1330)
+> ____________________________________________________________
+Got it. I've added this task:
+[D][ ] assignment 3  (by: Jan-1-2011 12:30PM)
+Now you have 7 tasks in the list.
+____________________________________________________________
+
+> ☹ OOPS!!! The time or date you entered is invalid.
+ Please ensure that the date format is in YYYY-MM-DD and the time format is in HHmm (24 hour) (e.g. /at 2021-02-19 1330)
+> ☹ OOPS!!! The command is invalid. Please ensure command is entered as: 
+ deadline [TASK DESCRIPTION] /by [DEADLINE TIMING] 
+ event [TASK DESCRIPTION] /by [EVENT TIMING]
+> ____________________________________________________________
+OK, I've marked this task as done:
+[D][X] assignment 3  (by: Jan-1-2011 12:30PM)
+____________________________________________________________
+> ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
+> ____________________________________________________________
+
+Here are the tasks in your list:
+1. [T][X] read book
+2. [T][ ] buy book
+3. [E][X] meeting with kelly  (at: Jan-1-2022 5:30PM)
+4. [D][ ] return book  (by: Feb-3-2022 11:20AM)
+5. [D][ ] return kelly water bottle  (by: Mar-11-2022 1:30PM)
+6. [E][X] meet ben  (at: Oct-11-2022 2:15PM)
+7. [D][X] assignment 3  (by: Jan-1-2011 12:30PM)
+____________________________________________________________
+
+> ____________________________________________________________
+OK, I've marked this task as not done yet:
+[D][ ] assignment 3  (by: Jan-1-2011 12:30PM)
+____________________________________________________________
+> ____________________________________________________________
+Noted. I've removed this task:
+[T][X] read book
+Now you have 6 tasks in the list.
+____________________________________________________________
+> ____________________________________________________________
+
+Here are the tasks in your list:
+1. [T][ ] buy book
+2. [E][X] meeting with kelly  (at: Jan-1-2022 5:30PM)
+3. [D][ ] return book  (by: Feb-3-2022 11:20AM)
+4. [D][ ] return kelly water bottle  (by: Mar-11-2022 1:30PM)
+5. [E][X] meet ben  (at: Oct-11-2022 2:15PM)
+6. [D][ ] assignment 3  (by: Jan-1-2011 12:30PM)
+____________________________________________________________
+
+> ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________
 

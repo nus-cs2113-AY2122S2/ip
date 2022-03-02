@@ -1,13 +1,15 @@
+package em;
+
 import java.io.*;
 import java.nio.file.Path;
 import java.util.*;
 
-import em.exception.*;
+import EmProgram.exception.*;
 import task.Task;
 
 import java.util.ArrayList;
 
-import static em.exception.InvalidUserInputException.INVALID_INPUT;
+import static EmProgram.exception.InvalidUserInputException.INVALID_INPUT;
 
 public class Duke {
     public static ArrayList<Task> taskArrayList = new ArrayList<>();

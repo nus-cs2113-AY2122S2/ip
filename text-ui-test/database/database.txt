@@ -1,7 +1,0 @@
-T,1,read book
-T,0,buy book
-E,1,meeting with kelly ,Jan-1-2122 5:30PM
-D,0,return book ,Feb-3-2022 11:20AM
-D,0,return kelly water bottle ,Mar-11-2022 1:30PM
-E,1,meet ben ,Oct-11-2122 2:15PM
-D,1,assignment 3 ,Jan-1-2111 12:30PM

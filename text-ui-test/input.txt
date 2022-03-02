@@ -16,5 +16,12 @@ find BOOK
 return 
 deadline assignment 3 /by 01-01-2011 1230
 deadline assignment 3 /by 2011-01-01 1230
-mark 7 
-list unmark 7
+event exam2 /by 2021-11-01 1299
+event exam2 /by 2021-11-01 1249
+mark 7
+hello
+list
+unmark 7
+delete 1
+list
+bye
