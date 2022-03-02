@@ -1,19 +1,22 @@
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
 
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static FileEditor fileEditor = new FileEditor();
     public static int taskCount = 0;
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        ArrayList<String> taskStrings = new ArrayList<>();
+        try {
+            taskStrings = fileEditor.readFileContents();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        tasks = storeAsTasks(taskStrings);
         greet();
         Scanner in = new Scanner(System.in);
         String userInput;
@@ -24,11 +27,11 @@ public class Duke {
         boolean isUnmarkRequest = false;
         boolean isDeleteRequest = false;
         String taskType;
-        do {
+        while (!isLastInput) {
             userInput = in.nextLine().trim();
             try {
                 checkEmptyInput(userInput);
-            } catch(DukeException e) {
+            } catch (DukeException e) {
                 System.out.println("____________________________________________________________\n");
                 System.out.println("☹ OOPS!!! You didn't enter anything. Please key in something!");
                 System.out.println("____________________________________________________________");
@@ -41,120 +44,127 @@ public class Duke {
             isMarkRequest = detectMarkRequest(lowerCaseUserInput);
             isUnmarkRequest = detectUnmarkRequest(lowerCaseUserInput);
             isDeleteRequest = detectDeleteRequest(lowerCaseUserInput);
-            if (isListRequest) {
-                list();
-            } else if (isMarkRequest || isUnmarkRequest) {
-                boolean isEmptyTaskList = checkTaskListSize();
-                if (isEmptyTaskList) {
-                    System.out.println("____________________________________________________________\n");
-                    System.out.println("☹ OOPS!!! There are currently no tasks to mark or unmark! Please add a task first.");
-                    System.out.println("____________________________________________________________");
-                    continue;
-                }
-                int taskNumber = -1;
-                try {
-                    taskNumber = Integer.parseInt(splitUserInput[1]);
-                    if (isMarkRequest) {
-                        tasks.get(taskNumber-1).markTaskAsDone();
-                    } else {
-                        tasks.get(taskNumber-1).markTaskAsUndone();
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("____________________________________________________________\n");
-                    System.out.println("☹ OOPS!!! You haven't entered a task number. Please enter a task number!");
-                    System.out.println("____________________________________________________________");
-                    continue;
-                } catch (InputMismatchException e) {
-                    System.out.println("____________________________________________________________\n");
-                    System.out.println("☹ OOPS!!! You haven't entered a valid task number to mark or unmark. Please enter a task number!");
-                    System.out.println("____________________________________________________________");
-                    continue;
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("____________________________________________________________\n");
-                    System.out.println("☹ OOPS!!! The task number that you have entered is out of range. Please enter a different task number!");
-                    System.out.println("____________________________________________________________");
-                    continue;
-                }
-                System.out.println(tasks.get(taskNumber - 1));
-                System.out.println("____________________________________________________________");
-            } else if (isDeleteRequest) {
-                boolean isEmptyTaskList = checkTaskListSize();
-                if (isEmptyTaskList) {
-                    System.out.println("____________________________________________________________\n");
-                    System.out.println("☹ OOPS!!! There are currently no tasks to delete! Please add a task first.");
-                    System.out.println("____________________________________________________________");
-                    continue;
-                }
-                int taskNumber = -1;
-                try {
-                    taskNumber = Integer.parseInt(splitUserInput[1]);
-                    deleteTask(taskNumber);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("____________________________________________________________\n");
-                    System.out.println("☹ OOPS!!! You haven't entered a task number. Please enter a task number!");
-                    System.out.println("____________________________________________________________");
-                    continue;
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("____________________________________________________________\n");
-                    System.out.println("☹ OOPS!!! The task number that you have entered is out of range. Please enter a different task number!");
-                    System.out.println("____________________________________________________________");
-                    continue;
-                } catch (InputMismatchException e) {
-                    System.out.println("____________________________________________________________\n");
-                    System.out.println("☹ OOPS!!! You haven't entered a valid task number to mark or unmark. Please enter a task number!");
-                    System.out.println("____________________________________________________________");
-                    continue;
-                }
-            } else {
-                taskType = splitUserInput[0];
-                try {
-                    checkInputValidity(taskType);
-                } catch(DukeException e) {
-                    System.out.println("____________________________________________________________\n");
-                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-( Please enter something else!");
-                    System.out.println("____________________________________________________________");
-                    continue;
-                }
-                String taskDescription;
-                try {
-                    taskDescription = extractDescription(userInput);
-                } catch (DukeException e) {
-                    System.out.println("____________________________________________________________");
-                    System.out.println("☹ OOPS!!! The description of a " + taskType + " cannot be empty.");
-                    System.out.println("____________________________________________________________");
-                    continue;
-                }
-                switch (taskType) {
-                case "todo":
-                    addTask(new Todo(taskDescription));
-                    break;
-                case "deadline":
-                    String date;
-                    try {
-                        date = extractDeadline(userInput);
-                    } catch (DukeException e) {
-                        System.out.println("____________________________________________________________");
-                        System.out.println("☹ OOPS!!! Please enter a deadline for your task!");
+            if (!isLastInput) {
+                if (isListRequest) {
+                    list();
+                } else if (isMarkRequest || isUnmarkRequest) {
+                    boolean isEmptyTaskList = checkTaskListSize();
+                    if (isEmptyTaskList) {
+                        System.out.println("____________________________________________________________\n");
+                        System.out.println("☹ OOPS!!! There are currently no tasks to mark or unmark! Please add a task first.");
                         System.out.println("____________________________________________________________");
                         continue;
                     }
-                    addTask(new Deadline(taskDescription, date));
-                    break;
-                case "event":
-                    String duration;
+                    int taskNumber = -1;
                     try {
-                        duration = extractDuration(userInput);
-                    } catch (DukeException e) {
+                        taskNumber = Integer.parseInt(splitUserInput[1]);
+                        if (isMarkRequest) {
+                            tasks.get(taskNumber - 1).markTaskAsDone();
+                        } else {
+                            tasks.get(taskNumber - 1).markTaskAsUndone();
+                        }
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("____________________________________________________________\n");
+                        System.out.println("☹ OOPS!!! You haven't entered a task number. Please enter a task number!");
                         System.out.println("____________________________________________________________");
-                        System.out.println("☹ OOPS!!! Please enter a duration for your task!");
+                        continue;
+                    } catch (InputMismatchException e) {
+                        System.out.println("____________________________________________________________\n");
+                        System.out.println("☹ OOPS!!! You haven't entered a valid task number to mark or unmark. Please enter a task number!");
+                        System.out.println("____________________________________________________________");
+                        continue;
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("____________________________________________________________\n");
+                        System.out.println("☹ OOPS!!! The task number that you have entered is out of range. Please enter a different task number!");
                         System.out.println("____________________________________________________________");
                         continue;
                     }
-                    addTask(new Event(taskDescription, duration));
-                    break;
+                    System.out.println(tasks.get(taskNumber - 1));
+                    System.out.println("____________________________________________________________");
+                } else if (isDeleteRequest) {
+                    boolean isEmptyTaskList = checkTaskListSize();
+                    if (isEmptyTaskList) {
+                        System.out.println("____________________________________________________________\n");
+                        System.out.println("☹ OOPS!!! There are currently no tasks to delete! Please add a task first.");
+                        System.out.println("____________________________________________________________");
+                        continue;
+                    }
+                    int taskNumber = -1;
+                    try {
+                        taskNumber = Integer.parseInt(splitUserInput[1]);
+                        deleteTask(taskNumber);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("____________________________________________________________\n");
+                        System.out.println("☹ OOPS!!! You haven't entered a task number. Please enter a task number!");
+                        System.out.println("____________________________________________________________");
+                        continue;
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("____________________________________________________________\n");
+                        System.out.println("☹ OOPS!!! The task number that you have entered is out of range. Please enter a different task number!");
+                        System.out.println("____________________________________________________________");
+                        continue;
+                    } catch (InputMismatchException e) {
+                        System.out.println("____________________________________________________________\n");
+                        System.out.println("☹ OOPS!!! You haven't entered a valid task number to mark or unmark. Please enter a task number!");
+                        System.out.println("____________________________________________________________");
+                        continue;
+                    }
+                } else {
+                    taskType = splitUserInput[0];
+                    try {
+                        checkInputValidity(taskType);
+                    } catch (DukeException e) {
+                        System.out.println("____________________________________________________________\n");
+                        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-( Please enter something else!");
+                        System.out.println("____________________________________________________________");
+                        continue;
+                    }
+                    String taskDescription;
+                    try {
+                        taskDescription = extractDescription(userInput);
+                    } catch (DukeException e) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println("☹ OOPS!!! The description of a " + taskType + " cannot be empty.");
+                        System.out.println("____________________________________________________________");
+                        continue;
+                    }
+                    switch (taskType) {
+                    case "todo":
+                        addTask(new Todo(taskDescription));
+                        break;
+                    case "deadline":
+                        String date;
+                        try {
+                            date = extractDeadline(userInput);
+                        } catch (DukeException e) {
+                            System.out.println("____________________________________________________________");
+                            System.out.println("☹ OOPS!!! Please enter a deadline for your task!");
+                            System.out.println("____________________________________________________________");
+                            continue;
+                        }
+                        addTask(new Deadline(taskDescription, date));
+                        break;
+                    case "event":
+                        String duration;
+                        try {
+                            duration = extractDuration(userInput);
+                        } catch (DukeException e) {
+                            System.out.println("____________________________________________________________");
+                            System.out.println("☹ OOPS!!! Please enter a duration for your task!");
+                            System.out.println("____________________________________________________________");
+                            continue;
+                        }
+                        addTask(new Event(taskDescription, duration));
+                        break;
+                    }
+                }
+                try {
+                    fileEditor.updateFile(tasks);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-        } while(!isLastInput);
+        }
         exit();
     }
 
@@ -237,6 +247,12 @@ public class Duke {
 
     public static void greet() {
         System.out.println("____________________________________________________________");
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println(logo);
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
@@ -298,6 +314,63 @@ public class Duke {
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
+    }
+
+    private static String extractDescriptionFromTaskString(String taskString) {
+        String taskDescription;
+        int startIndexOfDescription = taskString.indexOf("|", taskString.indexOf("|") + 1)+1;
+        int endIndexOfDescription = taskString.indexOf("|", startIndexOfDescription);
+        if (endIndexOfDescription == -1) {
+            taskDescription = taskString.substring(startIndexOfDescription);
+        } else {
+            taskDescription = taskString.substring(startIndexOfDescription, endIndexOfDescription);
+        }
+        return taskDescription;
+    }
+
+    private static String extractTimeFromTaskString(String taskString) {
+        int startIndexOfDescription = taskString.indexOf("|", taskString.indexOf("|") + 1)+1;
+        int startIndexOfTime = taskString.indexOf("|", startIndexOfDescription)+1;
+        String time = taskString.substring(startIndexOfTime);
+        return time;
+    }
+
+    private static Boolean extractDoneStatusFromTaskString(String taskString) {
+        int startIndex = taskString.indexOf("|")+1;
+        char doneStatus = taskString.charAt(startIndex);
+        if (doneStatus == '1') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    private static ArrayList<Task> storeAsTasks(ArrayList<String> taskStrings) {
+        ArrayList<Task> tasklist = new ArrayList<>();
+        for (String taskString : taskStrings) {
+            char taskType = taskString.charAt(0);
+            taskCount++;
+            Task task;
+            switch (taskType) {
+            case 'T':
+                task = new Todo(extractDescriptionFromTaskString(taskString));
+                task.setDone(extractDoneStatusFromTaskString(taskString));
+                tasklist.add(task);
+                break;
+            case 'D':
+                task = new Deadline(extractDescriptionFromTaskString(taskString), extractTimeFromTaskString(taskString));
+                task.setDone(extractDoneStatusFromTaskString(taskString));
+                tasklist.add(task);
+                break;
+            case 'E':
+                task = new Event(extractDescriptionFromTaskString(taskString), extractTimeFromTaskString(taskString));
+                task.setDone(extractDoneStatusFromTaskString(taskString));
+                tasklist.add(task);
+                break;
+            }
+        }
+        return tasklist;
     }
 
 }
