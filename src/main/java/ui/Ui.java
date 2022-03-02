@@ -94,10 +94,22 @@ public class Ui {
      * @param idx the index of the unmarked task
      * @throws DukeException If the task index is out of bound
      */
-    public void showUnmarkedTask(int idx) throws DukeException{
+    public void showUnmarkedTask(int idx) throws DukeException {
         System.out.println("\t OK, I've marked this task as not done yet:");
         System.out.println("\t\t " + idx + "." + taskManager.getTask(idx).toString());
 
+    }
+
+    public void showFoundResults(ArrayList<Integer> results) throws DukeException {
+        System.out.println("\t Here are the matching tasks in your list:");
+        if(results.isEmpty()) {
+            System.out.println("\t No matching result.");
+            return;
+        }
+
+        for(int idx: results) {
+            System.out.println("\t\t " + idx + "." + taskManager.getTask(idx).toString());
+        }
     }
 
     public void showSupportedCommand() {
@@ -110,6 +122,7 @@ public class Ui {
         System.out.println("\t Type \"delete <task index>\" to delete a task");
         System.out.println("\t Type \"mark <task index>\" to mark a task");
         System.out.println("\t Type \"unmark <task index>\" to unmark a task");
+        System.out.println("\t Type \"find <keyword>\" to search tasks");
         System.out.println("\t Type \"bye\" to exit");
     }
 
