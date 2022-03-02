@@ -1,6 +1,15 @@
 package solana;
 
-import solana.command.*;
+import solana.command.Command;
+import solana.command.DeadlineCommand;
+import solana.command.DeleteCommand;
+import solana.command.EventCommand;
+import solana.command.FindCommand;
+import solana.command.HelpCommand;
+import solana.command.ListCommand;
+import solana.command.MarkCommand;
+import solana.command.TodoCommand;
+import solana.command.UnmarkCommand;
 
 /**
  * Represents the input parser and deals with making sense of user commands.

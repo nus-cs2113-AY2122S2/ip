@@ -8,7 +8,7 @@ What can I do for you?
 
 > Invalid command! Type "help" to see the list of supported commands
 
-> Invalid Command! Type "help" to see the list of supported commands
+> Invalid command! Type "help" to see the list of supported commands
 
 > No tasks yet!
 
