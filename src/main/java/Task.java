@@ -1,5 +1,12 @@
 import java.io.Serializable;
 
+/**
+ * Represents a task that a user needs to do
+ * Task has 2 parameters - description that describes the task
+ *                       - isDone to indicate if the task has been marked as done
+ * Task is serializable so that it can be saved as an object when the programme ends
+ * Task is the parent class of ToDo, Deadline, Event
+ */
 public class Task implements Serializable {
 
     protected String description;
@@ -14,6 +21,9 @@ public class Task implements Serializable {
         return (isDone ? "X" : " ");
     }
 
+    /**
+     * If the task has not been marked as done yet, mark it as done
+     */
     public void markAsDone() {
         if (isDone) {
             System.out.println("This task has already been marked as done:");
@@ -24,6 +34,9 @@ public class Task implements Serializable {
         System.out.println(this + System.lineSeparator());
     }
 
+    /**
+     * If a task has been marked as done, marked it as not done yet
+     */
     public void markAsUndone() {
         if (!isDone) {
             System.out.println("This task has not been marked as done yet:");

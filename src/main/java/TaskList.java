@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * The TaskList class stores the user's list of tasks
+ */
 public class TaskList {
 
     public static final ArrayList<Task> list = new ArrayList<>();
