@@ -10,10 +10,10 @@ This is a product named _Duke_, a Personal Assistant Chatbot that helps a person
 
 ## Quick Start
 1. Please make sure you have _Java 11_ or above installed in your computer. The link to _Java 11_ installer is [here](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html) .
-2. Download the _v2.0 Duke.jar_ from
+2. Download the _v2.0 ip.jar_ from [here](https://github.com/Yzkkk/ip/releases).
 3. Copy the jar file into an empty folder.
 4. Open a terminal and go to the working directory of that folder.
-5. Run the command  `java -jar Duke.jar` to start the program.
+5. Run the command  `java -jar ip.jar` to start the program.
 6. You can now enter different commands.
 
 Note: The program will not stop until you have entered `bye`. See [exit program](#exit-program---bye).
@@ -28,6 +28,7 @@ _Duke_ is able to
 - exit program
 - save tasks and load the saved tasks when program starts
 
+
 ### Add tasks - `todo`, `deadline`, `event`
 
 You are able to add 3 types of tasks to your task list.
@@ -41,7 +42,7 @@ For general tasks _without_ date/time attached to it, you can input `todo` to ad
 
 Format: `todo [TASK_DESCRIPTION]`
 
-Example input: 
+Sample input: 
 ```
 todo visit new theme park
 ```
@@ -55,11 +56,11 @@ Now you have 1 task(s) in the list.
 
 #### `deadline`
 
-For tasks _with_ deadline, you can input `deadline` to add a new task.
+For tasks with deadline, you can input `deadline` to add a new task.
 
 Format: `deadline [TASK_DESCRIPTION] /by [DUE_DATE]`
 
-Example input:
+Sample input:
 ```
 deadline lumiNUS quiz /by Fri 4pm
 ```
@@ -76,7 +77,7 @@ For tasks that start at a specific time and/or ends at a specific time, you can 
 
 Format: `event [TASK_DESCRIPTION] /at [EVENT_DATE]`
 
-Example input:
+Sample input:
 ```
 event project meeting /at Tue 2-4pm
 ```
@@ -93,7 +94,7 @@ For tasks that you have completed, and you wish to mark it as done, you can inpu
 
 Format: `mark [TASK_NUMBER]`
 
-Example input:
+Sample input:
 ```
 mark 2
 ```
@@ -109,7 +110,7 @@ If you wish to list all existing tasks, you can input `list`.
 
 Format: `list`
 
-Example input:
+Sample input:
 ```
 list
 ```
@@ -128,7 +129,7 @@ If you wish to remove existing task on task list, you can input `delete`.
 
 Format: `delete [TASK_NUMBER]`
 
-Example input:
+Sample input:
 ```
 delete 2
 ```
@@ -145,7 +146,7 @@ If you wish to search for a task from your task list quickly, you can input `fin
 
 Format: `find [KEYWORD]`
 
-Example input:
+Sample input:
 ```
 find proj
 ```
@@ -161,7 +162,7 @@ If you wish to end the session, besides closing your terminal, you can also inpu
 
 Format: `bye`
 
-Example input:
+Sample input:
 ```
 bye
 ```
