@@ -17,6 +17,11 @@ public class Duke {
     private Storage storage;
 
     //methods
+
+    /**
+     * Creates a Duke Object
+     * @param filePath filePath of the input/output file
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -29,6 +34,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the main function
+     * @throws IOException
+     */
     public void run() throws IOException {
         ui.hello();
         boolean isExit = false;

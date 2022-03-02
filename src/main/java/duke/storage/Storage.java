@@ -19,6 +19,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Reads input and returns it as a task list
+     * @return TaskList from input file
+     * @throws IOException If no input file is found
+     */
     public ArrayList<Task> readFile() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         File input = new File(filePath);
@@ -32,6 +37,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves task list into a ile
+     * @param textToAdd text to be written
+     * @throws IOException if file not found
+     */
     public void writeFile(String textToAdd) throws IOException {
         FileWriter output = new FileWriter(this.filePath);
 
