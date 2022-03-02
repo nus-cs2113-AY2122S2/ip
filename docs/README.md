@@ -9,8 +9,14 @@ This is a product named _Duke_, a Personal Assistant Chatbot that helps a person
      |____/ \__,_|_|\_\___|
 
 ## Quick Start
-1. Please make sure you have _Java 11_ or above installed in your computer.
-2.
+1. Please make sure you have _Java 11_ or above installed in your computer. The link to _Java 11_ installer is [here] (https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html).
+2. Download the _v2.0 Duke.jar_ from
+3. Copy the jar file into an empty folder.
+4. Open a terminal and go to the working directory of that folder.
+5. Run the command  `java -jar Duke.jar` to start the program.
+6. You can now enter different commands.
+
+Note: The program will not stop until you have entered `bye`. See [exit program] (#exitprogram)
 
 ## Features
 _Duke_ is able to 
@@ -19,6 +25,7 @@ _Duke_ is able to
 - list all tasks
 - delete tasks
 - search tasks using keyword
+- exit program
 - save tasks and load the saved tasks when program starts
 
 ### Add tasks - `todo`, `deadline`, `event`
@@ -147,6 +154,21 @@ Expected output:
 ```
 Here are the matching task(s) in your list:
 1.  (E)( ) project meeting (at: Tue 2-4pm)
+```
+
+### Exit program - `bye`
+If you wish to end the session, besides closing your terminal, you can also input `bye`.
+
+Format: `bye`
+
+Example input:
+```
+bye
+```
+
+Expected output:
+```
+Bye. Hope to see you again soon! :)
 ```
 
 ### Save and load tasks
