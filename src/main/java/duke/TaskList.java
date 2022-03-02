@@ -48,8 +48,10 @@ public class TaskList {
      */
     private int getTaskNumberFromInput(String userInput) throws IndexOutOfBoundsException, NumberFormatException {
         int indexOfTask = Integer.parseInt(userInput.split(" ")[1]);
-        // check to see if an index of < 0 was given
-        if (indexOfTask <= 0 || indexOfTask > listOfTask.size()) {
+        boolean isNegativeNumber = indexOfTask <= 0;
+        boolean isAboveSizeLimit = indexOfTask > listOfTask.size();
+        boolean isWithinRange = isNegativeNumber || isAboveSizeLimit;
+        if (isWithinRange) {
             throw new IndexOutOfBoundsException("Invalid task to be marked!");
         }
         return indexOfTask;
@@ -155,13 +157,13 @@ public class TaskList {
         if (searchString == null) {
             return;
         }
-        ArrayList<Task> listOfMatchedTask = getSearchedList(searchString);
-        if (listOfMatchedTask == null) {
+        ArrayList<Task> matchedTasks = getSearchedList(searchString);
+        if (matchedTasks == null) {
             System.out.println("Oops! It seems that we could not find " +
                     "what you were looking for! Please try again.");
         } else {
             System.out.println("The tasks that matched your inputs are:");
-            printTaskList(listOfMatchedTask);
+            UI.printTaskList(matchedTasks);
         }
     }
 
@@ -169,7 +171,7 @@ public class TaskList {
      * Driver function to call printTaskList().
      */
     public void printTasksFromTaskList() {
-        printTaskList(listOfTask);
+        UI.printTaskList(listOfTask);
     }
 
     /**
@@ -263,13 +265,13 @@ public class TaskList {
      * @return List of task containing the matched string. Null if list is empty.
      */
     private ArrayList<Task> getSearchedList(String stringToMatch) {
-        ArrayList<Task> listOfSearchedTask = (ArrayList<Task>) listOfTask.stream()
+        ArrayList<Task> searchedTasks = (ArrayList<Task>) listOfTask.stream()
                 .filter((t) -> t.getDescription().contains(stringToMatch))
                 .collect(toList());
-        if (listOfSearchedTask.size() == 0) {
+        if (searchedTasks.size() == 0) {
             return null;
         }
-        return listOfSearchedTask;
+        return searchedTasks;
     }
 
     /**
@@ -302,20 +304,4 @@ public class TaskList {
         UI.printBorder();
     }
 
-    /**
-     * Prints the list of task from listOfTaskToBePrinted
-     * The function checks if the list is empty.
-     * If the list is empty it would let the user know.
-     * Else the list of task is printed.
-     *
-     * @param listOfTaskToBePrinted The list of task to be printed
-     */
-    private void printTaskList(ArrayList<Task> listOfTaskToBePrinted) {
-        if (listOfTaskToBePrinted.size() == 0) {
-            System.out.println("No task available!");
-        }
-        for (int i = 0 ; i < listOfTaskToBePrinted.size(); i++) {
-            System.out.println(" " +(i + 1) +"." + listOfTaskToBePrinted.get(i));
-        }
-    }
 }
