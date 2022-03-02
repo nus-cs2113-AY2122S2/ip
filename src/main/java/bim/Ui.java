@@ -6,7 +6,7 @@ import bim.task.TaskList;
 import java.util.Scanner;
 
 /**
- * Displays any message Bim has for the user like welcome greetings, goodbye messages, etc.
+ * Reads input from user. Display messages Bim has for the user like welcome greetings, goodbye messages, etc.
  */
 public class Ui {
     private static final String MESSAGE_GREETING_1 = "Hi! I'm Bim!";
@@ -21,7 +21,7 @@ public class Ui {
     private static final String MESSAGE_LIST_TASK = "Listing all tasks!";
     private static final String NONEMPTY_SEARCH_RESULT = "These are the tasks containing your keyword!";
     private static final String EMPTY_SEARCH_RESULT = "Sorry, I could not find any matching task!";
-    private static final String LINE_SEPARATOR = "----------------------------------";
+    private static final String LINE_SEPARATOR = "----------------------------------------";
     private static final String LINE_INDENT = "\t";
     private static final String ERROR_MARKER = "Error: ";
 

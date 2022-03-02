@@ -19,13 +19,14 @@ import java.util.Scanner;
  * created tasks, updating any tasks already in the data file and writing newly created tasks into the file.
  */
 public class Storage {
-    private File dataDirectory;
-    private File dataFile;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy");
+    private final File dataDirectory;
+    private final File dataFile;
+    private final DateTimeFormatter formatter;
 
     private static final String ERROR_WRITING_DATA_FILE = "Failed to write to data file!";
     private static final String ERROR_FINDING_DATA_FILE = "Could not find data file!";
     private static final String ERROR_CREATING_DATA_FILE = "Failed to create data file!";
+    private static final String ERROR_CREATING_DATA_DIRECTORY = "Failed to create data directory!";
 
     private static final String DELIMITER_DATA = " \\| ";
 
@@ -40,12 +41,13 @@ public class Storage {
     private static final String DATA_FILE_SEPARATOR = " | ";
     private static final String DATA_FILE_UNMARKED_TASK = "0";
     private static final String DATA_FILE_MARKED_TASK = "1";
-    private static final String DATA_FILE_EMPTY_FIELD = "Jan-01-2050";
+    private static final String DATA_FILE_DATE_PLACEHOLDER = "Jan-01-2050";
     private static final String NEWLINE = "\n";
 
     public Storage() {
         this.dataDirectory = new File(getDataDirectoryPath());
         this.dataFile = new File(getDataFilePath());
+        this.formatter =  DateTimeFormatter.ofPattern("MMM-dd-yyyy");
     }
 
     private String getDataDirectoryPath() {
@@ -82,8 +84,14 @@ public class Storage {
      */
     public void createDataFile() throws BimException {
         try {
-            dataDirectory.mkdir();
-            dataFile.createNewFile();
+            if (dataDirectory.mkdir()) {
+                if (!dataFile.createNewFile()) {
+                    throw new BimException(ERROR_CREATING_DATA_FILE);
+                }
+            }
+            else {
+                throw new BimException(ERROR_CREATING_DATA_DIRECTORY);
+            }
         } catch (IOException exception) {
             throw new BimException(ERROR_CREATING_DATA_FILE);
         }
@@ -140,7 +148,7 @@ public class Storage {
             }
             else {
                 writer.write(TYPE_TODO + DATA_FILE_SEPARATOR + DATA_FILE_UNMARKED_TASK + DATA_FILE_SEPARATOR
-                        + newTask.getDescription() + DATA_FILE_SEPARATOR + DATA_FILE_EMPTY_FIELD + NEWLINE);
+                        + newTask.getDescription() + DATA_FILE_SEPARATOR + DATA_FILE_DATE_PLACEHOLDER + NEWLINE);
             }
             writer.close();
         } catch (IOException exception) {

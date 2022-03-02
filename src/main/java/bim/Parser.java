@@ -22,10 +22,13 @@ public class Parser {
     private static final int EXPECTED_NUMBER_OF_FIELDS = 2;
     private static final int INDEX_CONVERTER = 1; // Used to convert 1-based indexing to 0-based indexing
 
-    private static final String ERROR_COMMAND_ARG = "Check your arguments!";
-    private static final String ERROR_COMMAND_DATE = "Invalid date format!";
-    private static final String ERROR_COMMAND = "I couldn't understand that!";
     private static final String ERROR_EMPTY_KEYWORD = "Keyword cannot be empty!";
+    private static final String ERROR_EMPTY_DESCRIPTION = "Task description cannot be empty!";
+    private static final String ERROR_COMMAND_DATE = "Invalid date format, expecting yyyy-mm-dd";
+    private static final String ERROR_COMMAND = "I could not understand that!";
+    private static final String ERROR_COMMAND_DELIMITER_1 = "Missing or invalid delimiter.";
+    private static final String ERROR_COMMAND_DELIMITER_2 = "Expecting /by for deadline, /at for event!";
+    private static final String ERROR_MISSING_ARGUMENT = "Please provide both description and date!";
 
     private static final String DELIMITER_EVENT = " /at ";
     private static final String DELIMITER_DEADLINE = " /by ";
@@ -107,7 +110,7 @@ public class Parser {
      */
     public Command parseTodoCommand(String commandArg) {
         if (commandArg.isEmpty()) {
-            return new IncorrectCommand(ERROR_COMMAND_ARG);
+            return new IncorrectCommand(ERROR_EMPTY_DESCRIPTION);
         }
         return new TodoCommand(commandArg);
     }
@@ -120,8 +123,8 @@ public class Parser {
      * @return DeadlineCommand if parameters are valid, IncorrectCommand otherwise.
      */
     public Command parseDeadlineCommand(String commandArg) {
-        if (!isValidArgument(DELIMITER_DEADLINE, commandArg)) {
-            return new IncorrectCommand(ERROR_COMMAND_ARG);
+        if (!commandArg.contains(DELIMITER_DEADLINE.strip())) {
+            return new IncorrectCommand(ERROR_COMMAND_DELIMITER_1 + "\n" + ERROR_COMMAND_DELIMITER_2);
         }
 
         String[] splitValues;
@@ -131,7 +134,9 @@ public class Parser {
             String description = splitValues[0];
             LocalDate date = LocalDate.parse(splitValues[1]);
             return new DeadlineCommand(description, date);
-        } catch (DateTimeParseException invalidDate) {
+        } catch (IndexOutOfBoundsException missingDate) {
+            return new IncorrectCommand(ERROR_MISSING_ARGUMENT);
+        }  catch (DateTimeParseException invalidDate) {
             return new IncorrectCommand(ERROR_COMMAND_DATE);
         }
     }
@@ -144,8 +149,8 @@ public class Parser {
      * @return EventCommand if parameters are valid, IncorrectCommand otherwise.
      */
     public Command parseEventCommand(String commandArg) {
-        if (!isValidArgument(DELIMITER_EVENT, commandArg)) {
-            return new IncorrectCommand(ERROR_COMMAND_ARG);
+        if (!commandArg.contains(DELIMITER_EVENT.strip())) {
+            return new IncorrectCommand(ERROR_COMMAND_DELIMITER_1 + "\n" + ERROR_COMMAND_DELIMITER_2);
         }
 
         String[] splitValues;
@@ -155,7 +160,9 @@ public class Parser {
             String description = splitValues[0];
             LocalDate date = LocalDate.parse(splitValues[1]);
             return new EventCommand(description, date);
-        } catch (DateTimeParseException invalidDate) {
+        } catch (IndexOutOfBoundsException missingDate) {
+            return new IncorrectCommand(ERROR_MISSING_ARGUMENT);
+        }  catch (DateTimeParseException invalidDate) {
             return new IncorrectCommand(ERROR_COMMAND_DATE);
         }
     }
@@ -211,7 +218,7 @@ public class Parser {
      * @param commandArg the full argument given by the user.
      * @return true if argument is valid, false otherwise.
      */
-    public boolean isValidArgument(String delimiter, String commandArg) {
+    public boolean hasValidDelimiter(String delimiter, String commandArg) {
         if (commandArg.contains(delimiter)) {
             String[] arguments = commandArg.split(delimiter);
             return arguments.length == EXPECTED_NUMBER_OF_FIELDS;
