@@ -1,0 +1,36 @@
+todo
+todo Read Book
+list
+event
+event /at
+event Test1 /at
+event /at some time
+event Test1 /at Test1
+event CS2113 Lecture /at 2022-02-19
+list
+deadline
+deadline
+deadline /by
+deadline Test2 /by
+deadline /by some time
+deadline Test2 /at test2
+deadline CS2113 UG /by 2022-02-19
+list
+mark -1
+mark apple
+mark 100
+mark 3
+unmark -1
+unmark apple
+unmark 100
+unmark 3
+delete -1
+delete apple
+delete 100
+delete 1
+find
+find something
+find CS
+find ^&*
+list
+bye

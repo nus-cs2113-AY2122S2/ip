@@ -1,7 +1,90 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+No present data file was present, a new data file was created at: C:\Users\roy_t\Documents\GitHub\ip\text-ui-test\localStorage.csv
+Total number of task loaded: 0
+__________________________________________________
+   ___             _               ___             _
+  |   \   _  _    | |__    ___    | _ )    ___    | |_
+  | |) | | +| |   | / /   / -_)   | _ \   / _ \   |  _|
+  |___/   \_,_|   |_\_\   \___|   |___/   \___/   _\__|
+_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""|
+"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'
+__________________________________________________
+ Good Morning sir, I am DukeBot, your personal assistant!
+ What can I do for you today?
+__________________________________________________
+Oops! The description of a todo task cannot be empty!
+__________________________________________________
+Got it!. I've added this task:
+[T][ ] Read Book
+Now you have 1 tasks in the list.
+__________________________________________________
+Current task list has been saved!
+ 1.[T][ ] Read Book
+Oops! It seems that you left out the /at in your command!
+Please check your command and formatting again!
+Please check your command and formatting again!
+Please check your command and formatting again!
+Oops! Date Format should be in yyyy-mm-dd. E.g (2022-02-19)
+__________________________________________________
+Got it!. I've added this task:
+[E][ ] CS2113 Lecture (at: 19 Feb 2022)
+Now you have 2 tasks in the list.
+__________________________________________________
+Current task list has been saved!
+ 1.[T][ ] Read Book
+ 2.[E][ ] CS2113 Lecture (at: 19 Feb 2022)
+Oops! It seems that you left out the /by in your command!
+Oops! It seems that you left out the /by in your command!
+Please check your command and formatting again!
+Please check your command and formatting again!
+Please check your command and formatting again!
+Oops! It seems that you left out the /by in your command!
+__________________________________________________
+Got it!. I've added this task:
+[D][ ] CS2113 UG (by: 19 Feb 2022)
+Now you have 3 tasks in the list.
+__________________________________________________
+Current task list has been saved!
+ 1.[T][ ] Read Book
+ 2.[E][ ] CS2113 Lecture (at: 19 Feb 2022)
+ 3.[D][ ] CS2113 UG (by: 19 Feb 2022)
+Invalid task number to be marked!
+Please enter a number to mark task.
+Invalid task number to be marked!
+Nice! I'v marked this task as done:
+[D][X] CS2113 UG (by: 19 Feb 2022)
+Current task list has been saved!
+Invalid task number to be marked!
+Please enter a number to mark task.
+Invalid task number to be marked!
+Okay! I'v marked this task as not done:
+[D][ ] CS2113 UG (by: 19 Feb 2022)
+Current task list has been saved!
+Invalid task number to be marked!
+Please enter a number to mark task.
+Invalid task number to be marked!
+__________________________________________________
+Got it!. I've removed this task:
+[T][ ] Read Book
+Now you have 2 tasks in the list.
+__________________________________________________
+Current task list has been saved!
+Oops! It seems that you did not type anything! Please try again!
+Oops! It seems that we could not find what you were looking for! Please try again.
+The tasks that matched your inputs are:
+ 1.[E][ ] CS2113 Lecture (at: 19 Feb 2022)
+ 2.[D][ ] CS2113 UG (by: 19 Feb 2022)
+Oops! It seems that we could not find what you were looking for! Please try again.
+ 1.[E][ ] CS2113 Lecture (at: 19 Feb 2022)
+ 2.[D][ ] CS2113 UG (by: 19 Feb 2022)
+Invalid type of task given!
+                               __
+                            _ / /
+  __ ___      ____      __ (_) |
+ / _` \ \ /\ / /\ \ /\ / /   | |
+| (_| |\ V  V /  \ V  V /   _| |
+ \__,_| \_/\_/    \_/\_/   (_) |
+                              \_\
+__________________________________________________
+ I guess it's time to say good bye...
+ Please come again soon!
+__________________________________________________
