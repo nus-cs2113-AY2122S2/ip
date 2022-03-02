@@ -77,11 +77,11 @@ public class DukeStorage implements Chatbot {
                 }
 
                 if (load.startsWith(DEADLINE_TYPE)) {
-                    String time = load.substring(load.lastIndexOf("(by: "));
-                    load = ADD_DEADLINE_CMD + load.substring(TASK_DETAIL, load.indexOf("by ")) + DEADLINE_OF_TASK_CMD + " " + time;
+                    String time = load.substring(load.indexOf("(by: ") + TIME_INDEX2, load.length() - 1);
+                    load = ADD_DEADLINE_CMD + load.substring(TASK_DETAIL, load.indexOf("(by: ")) + DEADLINE_OF_TASK_CMD + " " + time;
                 } else if (load.startsWith(EVENT_TYPE)) {
-                    String time = load.substring(load.lastIndexOf("(by: "));
-                    load = ADD_EVENT_CMD + load.substring(TASK_DETAIL, load.indexOf("by ")) + DURATION_OF_EVENT_CMD + " " + time;
+                    String time = load.substring(load.indexOf("(at: ") + TIME_INDEX2, load.length() - 1);
+                    load = ADD_EVENT_CMD + load.substring(TASK_DETAIL, load.indexOf("(at: ")) + DURATION_OF_EVENT_CMD + " " + time;
                 } else {
                     load = ADD_TODO_CMD + load.substring(TASK_DETAIL);
                 }

@@ -14,6 +14,7 @@ public class Deadline extends Todo {
      */
     public Deadline(String task, String by) {
         super(task);
+        super.typeOfTask = "[D]";
         this.by = by;
     }
 

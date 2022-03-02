@@ -51,6 +51,7 @@ public interface Chatbot {
     int DEADLINE_TASK_INDEX = 8;
     int EVENT_TASK_INDEX = 5;
     int TIME_INDEX = 4;
+    int TIME_INDEX2 = 5;
     int MARKED_ITEM_INDEX = 5;
     int UNMARKED_ITEM_INDEX = 7;
     int ERROR_INDICATION_NUMBER = 1;

@@ -14,6 +14,7 @@ public class Event extends Todo{
      */
     public Event(String task, String at) {
         super(task);
+        super.typeOfTask = "[E]";
         this.at = at;
     }
 

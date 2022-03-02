@@ -124,7 +124,7 @@ public class DukeUI implements Chatbot {
             DukePrinter.printSave();
             break;
         case FIND:
-            ArrayList ans = list.find(line.substring(FIND_INDEX));
+            ArrayList ans = list.find(line.substring(FIND_INDEX).trim());
             DukePrinter.printList(ans);
             break;
         case NIL:
