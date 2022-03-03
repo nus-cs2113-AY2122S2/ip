@@ -1,8 +1,8 @@
 public class Task {
-    private String description;
+    private final String description;
     private boolean isDone;
-    private char type;
-    private String time;
+    private final char type;
+    private final String time;
 
     public Task(String description, boolean isDone, char type, String time) {
         this.description = description;

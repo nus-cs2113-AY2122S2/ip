@@ -21,7 +21,7 @@ public class Duke {
             String input = ui.readInput();
             Command c = new Command(input);
             c.executeCommand();
-            if (c.getCommand() == "bye"){
+            if (c.getCommand().equals("bye")){
                 ui.printGoodByeMessage();
                 storage.storeFile();
                 break;

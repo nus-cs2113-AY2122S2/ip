@@ -1,5 +1,5 @@
 public class Parser {
-    private String inputCommand;
+    private final String inputCommand;
     public Parser(String inputCommand){
         this.inputCommand = inputCommand;
     }
@@ -15,17 +15,14 @@ public class Parser {
 
    public String parseTime(String input){
        int timeSeparator = input.indexOf('/');
-       String time = input.substring(timeSeparator + 4);
-       return time;
+       return input.substring(timeSeparator + 4);
    }
    public String parseTask(String  input){
        int commandSeparator = input.indexOf(' ');
-       String task = input.substring(commandSeparator + 1);
-       return task;
+       return input.substring(commandSeparator + 1);
    }
    public String parseTask(String input, int timeSeparator){
        int commandSeparator = input.indexOf(' ');
-       String task = input.substring(commandSeparator + 1,timeSeparator);
-       return task;
+       return input.substring(commandSeparator + 1,timeSeparator);
    }
 }
