@@ -9,13 +9,19 @@ import java.util.ArrayList;
 
 import static java.util.stream.Collectors.toList;
 
+/**
+ * Parses user input
+ * After parsing execute the given input
+ */
 public class Parser {
 
     private static boolean isExit;
-    private Ui ui;
+    private final Ui ui;
+    private final Storage storage;
 
-    public Parser(Ui ui) {
+    public Parser(Ui ui, Storage storage) {
         this.ui = ui;
+        this.storage = storage;
     }
 
     public void setExit(boolean exit) {
@@ -26,12 +32,19 @@ public class Parser {
         return isExit;
     }
 
+    /**
+     * Parses user input into a command for execution
+     *
+     * @param fullCommand the full user input command
+     * @param tasks       the TaskManager object containing all the tasks and action
+     * @throws IllegalArgumentException If the command is not recognized
+     */
     public void parse(String fullCommand, TaskManager tasks) {
         String[] splitInputs = fullCommand.split(" ", 2);
         String command = splitInputs[0]; //e.g. mark 2 -> take the first word as the command -> "mark"
 
         if (command.equals("bye")) {
-            Storage.encode(tasks.getTasks(), "data/brave.txt");
+            storage.save(tasks.getTasks());
             setExit(true);
             return;
         }
@@ -91,9 +104,7 @@ public class Parser {
         case "find":
             try {
                 String params = splitInputs[1];
-                ArrayList<Task> filteredTask = (ArrayList<Task>) tasks.getTasks().stream().
-                        filter(task -> task.getDescription().toLowerCase().
-                                contains(params.toLowerCase())).collect(toList());
+                ArrayList<Task> filteredTask = (ArrayList<Task>) tasks.getTasks().stream().filter(task -> task.getDescription().toLowerCase().contains(params.toLowerCase())).collect(toList());
 
                 ui.printTaskList(filteredTask);
             } catch (IndexOutOfBoundsException e) {
