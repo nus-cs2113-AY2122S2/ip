@@ -8,11 +8,10 @@ import duke.exception.DukeException;
 import duke.exception.IllegalDeadlineException;
 import duke.exception.IllegalDeleteException;
 import duke.exception.IllegalEventException;
+import duke.exception.IllegalFindException;
 import duke.exception.IllegalTodoException;
 
 import duke.database.TaskDatabase;
-
-
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -20,11 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
 
-
-
 public class Duke {
     public static final String taskAddedSuccessfully = "Got it, Olivia has added this task:";
     public static final String FILENAME = "taskdata.txt";
+    public static final List<String> VALID_COMMANDS_FOR_STARTS_WITH = Arrays.asList("todo", "event","deadline","mark",
+            "unmark","delete","find");
+    public static final List<String> VALID_COMMANDS_FOR_EQUALS = Arrays.asList("list","bye");
 
     public static void main(String[] args) throws IOException {
         printWelcomeMessage();
@@ -117,13 +117,48 @@ public class Duke {
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("The task number you entered does not exist");
                     }
+                } else if (userInput.startsWith("find")) {
+                    try {
+                        String keyword = getUserInputtedKeyword(userInput);
+                        printTasksMatchingKeyword(taskList, keyword);
+                    } catch (IllegalFindException e) {
+                        System.out.println("You can only search by a single keyword, try again.");
+                    }
                 }
                 userInput = sc.nextLine();
                 checkUserInputValidity(userInput);
+                System.out.println("-----------------------------");
             } catch (DukeException e) {
                 printIllegalCommandErrorMessage();
             }
         }
+    }
+
+    private static void printTasksMatchingKeyword(ArrayList<Task> taskList, String keyword) {
+        boolean isFound = false;
+        int i = 1;
+        for (Task task : taskList) {
+            if (task.getDescription().contains(keyword)) {
+                if (isFound == false) {
+                    System.out.println("Here are the matching tasks in your list: ");
+                    isFound = true;
+                }
+                System.out.print(i + ".");
+                System.out.println(task);
+                ++i;
+            }
+        }
+        if (isFound == false) {
+            System.out.println("Unfortunately, there are no matching keywords!");
+        }
+    }
+
+    private static String getUserInputtedKeyword(String userInput) throws IllegalFindException {
+        String[] tokenArray = stringToToken(userInput, " ");
+        if (tokenArray.length != 2) {
+            throw new IllegalFindException();
+        }
+        return tokenArray[1].trim();
     }
 
     private static int getIndexToDelete(String userInput) throws IllegalDeleteException {
@@ -143,11 +178,9 @@ public class Duke {
 
     private static void checkUserInputValidity(String userInput) throws DukeException {
         //checking validity of commands which uses "start with"
-        List<String> validCommandsForStartsWith = Arrays.asList("todo", "event","deadline","mark","unmark","delete");
-        boolean isStartWithCommandValid = validCommandsForStartsWith.stream().anyMatch(userInput::startsWith);
+        boolean isStartWithCommandValid = VALID_COMMANDS_FOR_STARTS_WITH.stream().anyMatch(userInput::startsWith);
         //checking validity of commands which uses "equals"
-        List<String> validCommandsForEquals = Arrays.asList("list","bye");
-        boolean isEqualsToCommandValid = validCommandsForEquals.stream().anyMatch(userInput::equals);
+        boolean isEqualsToCommandValid = VALID_COMMANDS_FOR_EQUALS.stream().anyMatch(userInput::equals);
         //if either 1 is true -> don't throw exception, else throw an exception
         if (!(isStartWithCommandValid ^ isEqualsToCommandValid)) {
             throw new DukeException();
@@ -164,7 +197,6 @@ public class Duke {
             throw new IllegalTodoException();
         }
         String description = tokenArray[1];
-        //Todo todo = new Todo(description);
         return new Todo(description);
     }
 
