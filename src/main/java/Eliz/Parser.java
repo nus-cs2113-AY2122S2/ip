@@ -64,6 +64,9 @@ public class Parser {
         System.out.println("mark [TASK_LIST_NUMBER]");
         System.out.println("unmark [TASK_LIST_NUMBER]");
         System.out.println(" ");
+        System.out.println("Commands to find tasks: ");
+        System.out.println("find [TASK_NAME]");
+        System.out.println(" ");
         System.out.println( "Exiting Eliz: ");
         System.out.println("Bye");
     }
@@ -97,6 +100,9 @@ public class Parser {
                 break;
             case "delete":
                 TaskList.delete(line, tasks);
+                break;
+            case "find":
+                TaskList.findTask(line, tasks);
                 break;
             case "todo":
             case "event":
