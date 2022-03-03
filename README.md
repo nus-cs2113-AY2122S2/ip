@@ -1,24 +1,202 @@
-# Duke project template
+# Duke project by Yaxin
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Duke is a personal assistant chatbot that helps a person to keep track of various tasks, optimized for use via a Command Line Interface. If you type fast, Duke can help you manage your tasks faster.
 
-## Setting up in Intellij
-
-Prerequisites: JDK 11, update Intellij to the most recent version.
-
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
    ```
    Hello from
     ____        _        
    |  _ \ _   _| | _____ 
    | | | | | | | |/ / _ \
    | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+   |____/ \____|_|\_\___|
    ```
+
+# User Guide
+
+Duke is a personal assistant chatbot that helps a person to keep track of various tasks, 
+optimized for use via a **Command Line Interface**. 
+If you type fast, Duke can help you manage your tasks faster.
+
+You can also view the User Guide [here](https://yaxinjoy.github.io/ip/).
+
+## Contents
+
+- [Features](#Features)
+  - [Add a task](#add-a-task-tasktype-taskname-)
+  - [List all tasks](#list-all-tasks-list)
+  - [Mark a task](#mark-a-task-mark)
+  - [Unmark a task](#unmark-a-task-unmark)
+  - [Find a task](#find-a-task-find)
+  - [Delete a task](#delete-a-task-delete)
+  - [Save data](#save-data-save)
+  - [Exit the program](#exit-the-program-bye)
+- [Command Summary](#command-summary)
+
+## Features
+
+All command types ignore the case.
+
+### Add a task: `taskType taskName ...` 
+
+Add a task based on its task type. Currently supporting types are `TODO`, `EVENT` and `DEADLINE`.
+
+Format:
+
+- TODO: `TODO taskName`. Example: `TODO read book`
+
+- EVENT: `EVENT eventName /at eventTime`. Example: `EVENT project meeting /at tomorrow`
+
+- DEADLINE: `DEADLINE deadlineName /by deadlineTime`. Example: `DEADLINE play the piano /by June 16`
+
+Expected outcome (TODO example):
+
+
+```
+Got it. I've added this task: 
+[T][ ] your task
+Now you have x tasks in the list. 
+```
+
+### List all tasks: `LIST`
+
+Show a list of current tasks in the format: `[taskType][isDone] task`
+
+Format:
+
+`LIST`
+
+Expected outcome (example):
+
+```
+Here are the tasks in your list:
+1. [T][ ] read book
+2. [D][ ] return book (by: June 6th)
+3. [E][ ] project meeting (at: Aug 6th 2-4pm)
+4. [T][X] join sports club
+```
+
+### Mark a task: `MARK`
+
+Mark certain task as done based on its index.
+- The index refers to the index number shown in the displayed task list.
+- The index must be a positive integer and does not exceed the range as displayed.
+
+Format:
+
+`MARK taskIndex`
+
+Expected outcome (example):
+
+```
+Nice! I've marked this task as done: 
+[T][X] your task
+```
+
+### Unmark a task: `UNMARK`
+
+Unmark certain task as not done based on its index.
+
+- The index refers to the index number shown in the displayed task list.
+- The index must be a positive integer and does not exceed the range as displayed.
+
+Format:
+
+`UNMARK taskIndex`
+
+Expected outcome (example):
+
+```
+OK, I've marked this task as not done yet:
+[T][ ] your task
+```
+
+### Find a task: `FIND`
+
+Find tasks containing a given keyword. The system will print all 
+
+- The search is case-insensitive. 
+e.g `Book` will match `book`
+- Only task description is searched.
+
+Format:
+
+`FIND keyword`
+
+Expected outcome (example):
+1. Find results for keyword
+```
+Here are the matching tasks in your list:
+1. [T][ ] your task1
+2. [D][ ] your task2
+...
+```
+2. Find no result for keyword
+```
+Here are the matching tasks in your list:
+No result found. Try to change your keyword!
+```
+
+### Delete a task: `DELETE`
+
+Delete certain task based on its index.
+- The index refers to the index number shown in the displayed task list.
+- The index must be a positive integer and does not exceed the range as displayed.
+
+Format:
+
+`DELETE taskIndex`
+
+Expected outcome (example):
+```
+Noted. I've removed this task: 
+[T][ ] your task
+Now you have x tasks in the list.
+```
+
+### Save data: `SAVE`
+
+Save current data list into local file.
+- It will display "Saved successfully" once finished.
+- The system will automatically save data once the execution ends. 
+User can also choose to save manually if she/ he wants.
+
+Format:
+
+`SAVE`
+
+Expected outcome:
+
+```
+Saved successfully!
+```
+
+### Exit the program: `BYE`
+
+Exit the project by typing `BYE`
+
+Format:
+
+`BYE`
+
+Expected outcome:
+```
+Bye. Hope to see you again soon!
+```
+
+## Command Summary
+
+| Action              | Format                                   |
+|---------------------|------------------------------------------|
+| Add `DEADLINE` task | `DEADLINE deadlineName /by deadlineTime` |
+| Add `EVENT` task    | `EVENT eventName /at eventTime`          |
+| Add `TODO` task     | `TODO taskName`                          |
+| Delete              | `DELETE taskIndex`                       |
+| Exit                | `BYE`                                    |
+| Find                | `FIND keyword`                           |
+| List                | `LIST`                                   |
+| Mark                | `MARK taskIndex`                         |
+| Save                | `SAVE`                                   |
+| Unmark              | `UNMARK taskIndex`                       |
+
+
+
