@@ -6,8 +6,15 @@ package boba.exception;
  */
 public class BobaException extends Exception{
 
+    /**
+     * Default Constructor
+     */
     public BobaException() {}
 
+    /**
+     * Constructor with errorMessage
+     * @param errorMessage
+     */
     public BobaException(String errorMessage) {
         super(errorMessage);
     }

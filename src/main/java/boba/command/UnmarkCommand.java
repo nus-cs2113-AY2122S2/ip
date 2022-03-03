@@ -6,6 +6,9 @@ import boba.response.Ui;
 import boba.task.Task;
 import boba.task.TaskList;
 
+/**
+ * Class for unmark command
+ */
 public class UnmarkCommand extends Command{
 
     private int index;
@@ -14,6 +17,12 @@ public class UnmarkCommand extends Command{
         index = Integer.parseInt(taskIndex) - 1;
     }
 
+    /**
+     * Executes instructions associated with Unmark
+     * @param tasks List of all tasks
+     * @param ui UI of Boba
+     * @param storage Save file of list
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
@@ -25,6 +34,9 @@ public class UnmarkCommand extends Command{
         }
     }
 
+    /**
+     * @return Not ExitCommand return false
+     */
     @Override
     public boolean isExit() {
         return false;

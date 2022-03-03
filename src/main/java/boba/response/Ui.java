@@ -6,14 +6,21 @@ import java.util.Scanner;
 
 public class Ui {
 
+    /** Scanner to input commands*/
     private Scanner scan;
 
+    /**
+     * Constructor sets up Scanner
+     */
     public Ui() {
         scan = new Scanner(System.in);
     }
 
+    /**
+     * Reads input from Scanner
+     * @return String of input
+     */
     public String readCommand() {
-        // Scanner is how commands are inputted
         return scan.nextLine();
     }
 
@@ -68,6 +75,10 @@ public class Ui {
         BobaResponse.printResponse();
     }
 
+    /**
+     * Response by Boba when command is invalid or inputted improperly
+     * @param errorMessage Extra message to better clarify error
+     */
     public void printInvalidCommand(String errorMessage) {
         BobaResponse.addResponse("Uh oh... Something went wrong!");
         BobaResponse.addResponse("Invalid Command. Please try again!");
@@ -75,6 +86,11 @@ public class Ui {
         BobaResponse.printResponse();
     }
 
+    /**
+     * Response for successful addition to taskList
+     * @param task Task added to the list
+     * @param taskCount Number of items in taskList
+     */
     public void printAddSuccess(Task task, int taskCount) {
         BobaResponse.addResponse("Got it. I've added this task:");
         BobaResponse.addResponse("\t" + task.toString());
@@ -82,6 +98,11 @@ public class Ui {
         BobaResponse.printResponse();
     }
 
+    /**
+     * Response for successful removal of taskList
+     * @param task Task removed to the list
+     * @param taskCount Number of items in taskList
+     */
     public void printRemoveSuccess(Task task, int taskCount) {
         BobaResponse.addResponse("Noted. I've removed this task:");
         BobaResponse.addResponse("\t" + task.toString());
@@ -89,6 +110,11 @@ public class Ui {
         BobaResponse.printResponse();
     }
 
+    /**
+     * Response for successful marking of task in taskList
+     * @param isDone If task is mark done or not done
+     * @param task Task that was marked
+     */
     public void printMarkSuccess(boolean isDone, Task task) {
         if (isDone) {
             BobaResponse.addResponse("Beep boop! I've marked this task as done:");
@@ -99,17 +125,27 @@ public class Ui {
         BobaResponse.printResponse();
     }
 
+    /**
+     * Response for when taskList is full
+     */
     public void printLimitError() {
         BobaResponse.addResponse("The list is full");
         BobaResponse.addResponse("Task could not be added");
         BobaResponse.printResponse();
     }
 
+    /**
+     * Response when attempt to index out of bounds
+     */
     public void printOutOfBounds() {
         BobaResponse.addResponse("Out of bounds!! Please provide a valid number");
         BobaResponse.printResponse();
     }
 
+    /**
+     * Response for using find command
+     * @param taskList
+     */
     public void printFindTask(TaskList taskList) {
         if (taskList.size() == 0) {
             BobaResponse.addResponse("Sorry! Looks like there is no task with that keyword");

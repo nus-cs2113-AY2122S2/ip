@@ -1,8 +1,11 @@
 package boba.data;
 
 import boba.response.BobaResponse;
-import boba.task.*;
-
+import boba.task.Deadline;
+import boba.task.Event;
+import boba.task.Task;
+import boba.task.TaskList;
+import boba.task.Todo;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;

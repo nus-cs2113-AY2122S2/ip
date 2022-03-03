@@ -10,8 +10,12 @@ import java.time.format.DateTimeParseException;
  */
 public class Event extends Task {
 
+    private static final String INVALID_DATE = "0000-01-01";
+
     /** The time the event is occurring*/
-    protected String at;
+    private String at;
+
+    /** Date for format of (YYYY-MM-DD) */
     private LocalDate date;
 
     /**
@@ -25,7 +29,7 @@ public class Event extends Task {
         try {
             date = LocalDate.parse(at);
         } catch (DateTimeParseException e) {
-            date = LocalDate.parse("0000-01-01");
+            date = LocalDate.parse(INVALID_DATE);
         }
     }
 
@@ -42,7 +46,11 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        String formatted = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        return "[E]" + super.toString() + " (at: " + formatted + ")";
+        if (date.toString().equals(INVALID_DATE)) {
+            return "[D]" + super.toString() + " (at: " + at + ")";
+        } else {
+            String formatted = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            return "[D]" + super.toString() + " (at: " + formatted + ")";
+        }
     }
 }

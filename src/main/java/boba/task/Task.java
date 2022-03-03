@@ -6,9 +6,9 @@ package boba.task;
 public class Task {
 
     /** The description of the task */
-    protected String description;
+    private String description;
     /** Track if the task is completed */
-    protected boolean isDone;
+    private boolean isDone;
 
     /**
      * Creates a new Task with the given description.

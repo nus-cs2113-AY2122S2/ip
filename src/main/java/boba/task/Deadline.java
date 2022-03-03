@@ -10,8 +10,12 @@ import java.time.format.DateTimeParseException;
  */
 public class Deadline extends Task {
 
+    private static final String INVALID_DATE = "0000-01-01";
+
     /** The deadline in which the task needs to be finish by*/
-    protected String by;
+    private String by;
+
+    /** Date for format of (YYYY-MM-DD) */
     private LocalDate date;
 
     /**
@@ -25,7 +29,7 @@ public class Deadline extends Task {
         try {
             date = LocalDate.parse(by);
         } catch (DateTimeParseException e) {
-            date = LocalDate.parse("0000-01-01");
+            date = LocalDate.parse(INVALID_DATE);
         }
     }
 
@@ -42,7 +46,11 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        String formatted = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        return "[D]" + super.toString() + " (by: " + formatted + ")";
+        if (date.toString().equals(INVALID_DATE)) {
+            return "[D]" + super.toString() + " (by: " + by + ")";
+        } else {
+            String formatted = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            return "[D]" + super.toString() + " (by: " + formatted + ")";
+        }
     }
 }

@@ -1,7 +1,6 @@
 package boba.task;
 
 import boba.exception.BobaException;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -14,12 +13,18 @@ public class TaskList implements Iterable<Task> {
     /** The list of tasks. Limited to 100 */
     private ArrayList<Task> taskList;
 
-
+    /**
+     * Default Constructor
+     */
     public TaskList() {
         this.taskList = new ArrayList<>();
         taskCount = 0;
     }
 
+    /**
+     * Constructor for saved file
+     * @param taskList
+     */
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
         taskCount = taskList.size();
@@ -74,18 +79,30 @@ public class TaskList implements Iterable<Task> {
         return taskList.remove(index);
     }
 
+    /**
+     * @param index Index of task
+     * @return Task of given index
+     */
     public Task getTask(int index) {
         return taskList.get(index);
     }
 
+    /**
+     * @return the size of the taskList
+     */
     public int size() {
         return taskCount;
     }
 
+    /**
+     * Fina all tasks description that contains the keyword
+     * @param keyword String to find
+     * @return list of tasks
+     */
     public TaskList findTask(String keyword) {
         TaskList result = new TaskList();
         for (Task task : taskList) {
-            if (task.description.contains(keyword)) {
+            if (task.getDescription().contains(keyword)) {
                 try {
                     result.addTask(task);
                 } catch (BobaException e) {
@@ -96,6 +113,10 @@ public class TaskList implements Iterable<Task> {
         return result;
     }
 
+    /**
+     * Iterator method for taskList
+     * @return
+     */
     @Override
     public Iterator<Task> iterator() {
         return taskList.iterator();
