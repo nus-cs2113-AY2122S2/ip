@@ -1,139 +1,146 @@
-import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskManager {
-    private static final String TODO_COMMAND = "todo";
-    private static final String DEADLINE_COMMAND = "deadline";
-    private static final String EVENT_COMMAND = "event";
+    public static final String TODO_COMMAND = "todo";
+    public static final String DEADLINE_COMMAND = "deadline";
+    public static final String EVENT_COMMAND = "event";
+    public static final String DEADLINE_SEPARATOR = "/by";
+    public static final String EVENT_SEPARATOR = "/at";
 
-    private static ArrayList<Task> tasks = new ArrayList<>();
-    private int tasksCount = 0;
 
-    public void addTask(String typeOfTask, String userInput) {
+    public static ArrayList<Task> tasks = new ArrayList<>();
+    public static int tasksCount = 0;
+
+    public static void addTask(String taskType, String userInput) {
+
+        String description;
+        String dueDate;
 
         try {
-            String[] inputs = userInput.split(" ");
-            String task = inputs[1];
-
-            if (typeOfTask.equalsIgnoreCase(TODO_COMMAND)) {
-                tasks.add(new ToDo(userInput.substring(userInput.indexOf(" ") + 1)));
-                System.out.println(" Got it. I've added this task: ");
-                System.out.println("   " + tasks.get(tasksCount));
-                System.out.println(" Now you have " + tasks.size() + " tasks in the list");
+            if (taskType.equalsIgnoreCase(TODO_COMMAND)) {
+                description = Parser.parseDescription(null, userInput, taskType);
+                if (description.isEmpty()) {
+                    throw new DukeException(Ui.EMPTY_DESCRIPTION_MESSAGE);
+                }
+                tasks.add(new ToDo(description));
+                Ui.showAddTaskMessage();
                 tasksCount++;
             }
-            else if (typeOfTask.equalsIgnoreCase(DEADLINE_COMMAND)) {
-                tasks.add(new Deadline(userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/by")), userInput.substring(userInput.indexOf("/by") + 4)));
-                System.out.println(" Got it. I've added this task: ");
-                System.out.println("   " + tasks.get(tasksCount));
-                System.out.println(" Now you have " + tasks.size() + " tasks in the list");
+            else if (taskType.equalsIgnoreCase(DEADLINE_COMMAND)) {
+                description = Parser.parseDescription(DEADLINE_SEPARATOR, userInput, taskType);
+                dueDate = Parser.parseDate(DEADLINE_SEPARATOR, userInput);
+                if (description.isEmpty()) {
+                    throw new DukeException(Ui.EMPTY_DESCRIPTION_MESSAGE);
+                }
+                if (dueDate.isEmpty()) {
+                    throw new DukeException(Ui.EMPTY_DATE_MESSAGE);
+                }
+                tasks.add(new Deadline(description,dueDate));
+                Ui.showAddTaskMessage();
                 tasksCount++;
             }
-            else if (typeOfTask.equalsIgnoreCase(EVENT_COMMAND)) {
-                tasks.add(new Event(userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("/at")), userInput.substring(userInput.indexOf("/at") + 4)));
-                System.out.println(" Got it. I've added this task: ");
-                System.out.println("   " + tasks.get(tasksCount));
-                System.out.println(" Now you have " + tasks.size() + " tasks in the list");
+            else if (taskType.equalsIgnoreCase(EVENT_COMMAND)) {
+                description = Parser.parseDescription(EVENT_SEPARATOR, userInput, taskType);
+                dueDate = Parser.parseDate(EVENT_SEPARATOR, userInput);
+                if (description.isEmpty()) {
+                    throw new DukeException(Ui.EMPTY_DESCRIPTION_MESSAGE);
+                }
+                if (dueDate.isEmpty()) {
+                    throw new DukeException(Ui.EMPTY_DATE_MESSAGE);
+                }
+                tasks.add(new Event(description, dueDate));
+                Ui.showAddTaskMessage();
                 tasksCount++;
             }
             else {
-                System.out.println(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new DukeException(Ui.ILLEGAL_COMMAND_MESSAGE);
             }
+        } catch (DukeException e) {
+            System.out.println(Ui.DIVIDER);
+            System.out.println(e.getMessage());
+            System.out.println(Ui.DIVIDER);
+        }
+    }
 
+    public static void markAsDone(int taskIndex) {
+        System.out.println(Ui.DIVIDER);
+        try {
+            if (tasks.get(taskIndex).getStatus() == false) {
+                tasks.get(taskIndex).markAsDone();
+                System.out.println(Ui.Mark_Task_MESSAGE);
+                System.out.println("   " + tasks.get(taskIndex));
+            }
+            else {
+                System.out.println(Ui.Mark_Failed_MESSAGE);
+                System.out.println("   " + tasks.get(taskIndex));
+            }
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(" ☹ OOPS!!! The description of a task cannot be empty.");
+            System.out.println(Ui.ILLEGAL_INDEX_MESSAGE);
         }
-
+        System.out.println(Ui.DIVIDER);
     }
 
-    public void markAsDone(int taskIndex) {
-        if (tasks.get(taskIndex).getStatus() == false) {
-            tasks.get(taskIndex).markAsDone();
-            System.out.println(" Nice! I've marked this task as done:");
-            System.out.println("   " + tasks.get(taskIndex));
+    public static void markAsNotDone(int taskIndex) {
+        System.out.println(Ui.DIVIDER);
+        try {
+            if (tasks.get(taskIndex).getStatus() == true) {
+                tasks.get(taskIndex).markAsNotDone();
+                System.out.println(Ui.Unmark_Task_MESSAGE);
+                System.out.println("   " + tasks.get(taskIndex));
+            }
+            else {
+                System.out.println(Ui.Unmark_Failed_MESSAGE);
+                System.out.println("   " + tasks.get(taskIndex));
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(Ui.ILLEGAL_INDEX_MESSAGE);
         }
-        else {
-            System.out.println(" ☹ OOPS!! This task has already been marked as done:");
-            System.out.println("   " + tasks.get(taskIndex));
-        }
+
+        System.out.println(Ui.DIVIDER);
     }
 
-    public void markAsNotDone(int taskIndex) {
-        if (tasks.get(taskIndex).getStatus() == true) {
-            tasks.get(taskIndex).markAsNotDone();
-            System.out.println(" OK, I've marked this task as not done yet:");
-            System.out.println("   " + tasks.get(taskIndex));
-        }
-        else {
-            System.out.println(" ☹ OOPS!! This task has not been marked as done:");
-            System.out.println("   " + tasks.get(taskIndex));
-        }
-    }
-
-    public void listTasks() {
-
+    public static void listTasks() {
         int taskIndex = 0;
-        System.out.println(" Here are the tasks in your list:");
+        System.out.println(Ui.DIVIDER);
+        System.out.println(Ui.LIST_TASK_MESSAGE);
         for (Task task : tasks) {
             taskIndex++;
             System.out.println(" " + (taskIndex) + ". " + task);
         }
+        System.out.println(Ui.DIVIDER);
     }
 
-    public void deleteTask(int taskIndex) {
-        System.out.println(" Noted. I've removed this task:");
-        System.out.println("   " + tasks.get(taskIndex));
-        tasks.remove(taskIndex);
-        tasksCount--;
-        System.out.println(" Now you have " + tasks.size() + " tasks in the list");
-    }
-
-    public void saveData() {
+    public static void deleteTask(int taskIndex) {
+        System.out.println(Ui.DIVIDER);
         try {
-            File dataFile = new File("Duke.txt");
-            dataFile.createNewFile();
-            FileOutputStream oFile = new FileOutputStream(dataFile, false);
-            FileWriter dataWriter =  new FileWriter(dataFile);
-            for (Task task : tasks) {
-                dataWriter.write(task.toString() + System.lineSeparator());
-            }
-            dataWriter.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            Task deletedTask = tasks.get(taskIndex);
+            System.out.println(Ui.DELETE_TASK_MESSAGE);
+            System.out.println("   " + deletedTask);
+            tasks.remove(taskIndex);
+            tasksCount--;
+            System.out.println(" Now you have " + tasks.size() + " tasks in the list");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(Ui.ILLEGAL_INDEX_MESSAGE);
         }
+        System.out.println(Ui.DIVIDER);
     }
 
-    public void readDataStatus(int taskIndex, char status) {
-        if (status == 'X') {
-            tasks.get(taskIndex).markAsDone();
-        }
-    }
-
-    public void readData() {
-        try {
-            File dataFile = new File("Duke.txt");
-            Scanner dataReader = new Scanner(dataFile);
-            while (dataReader.hasNextLine()) {
-                String data = dataReader.nextLine();
-                String typeOfTask = data.substring(data.indexOf("[") + 1, data.indexOf("]"));
-                char taskStatus = data.charAt(4);
-                switch (typeOfTask) {
-                case "T":
-                    tasks.add(new ToDo(data.substring(7)));
-                    break;
-                case "D":
-                    tasks.add(new Deadline(data.substring(7, data.indexOf("(by")), data.substring(data.indexOf("(by") + 5, data.indexOf(")"))));
-                    break;
-                case "E":
-                    tasks.add(new Event(data.substring(7, data.indexOf("(at")),data.substring(data.indexOf("(at") + 5, data.indexOf(")"))));
-                    break;
-                }
-                readDataStatus(tasksCount, taskStatus);
-                tasksCount++;
+    public static void findTask(String keyword) {
+        int taskIndex = 0;
+        boolean flag = false;
+        System.out.println(Ui.DIVIDER);
+        System.out.println(" Here are the matching tasks in your list:");
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                taskIndex++;
+                System.out.println(" " + (taskIndex) + "[" + (tasks.indexOf(task) + 1) + "]" + ". " + task);
+                flag = true;
             }
-        } catch (FileNotFoundException e) {
         }
+        if (flag == false) {
+            System.out.println(" Sorry! We couldn't find a match for " + '"' + keyword + '"' + ". Please try another keyword.");
+        }
+        System.out.println(Ui.DIVIDER);
     }
 }
