@@ -44,12 +44,12 @@ to manage your daily task, set deadlines and mark events, this is the app for yo
 
     * **`todo`**`Homework` : Adds a task named `Homework` to the list.
 
-    * *`deadline`*`CS2113T Project Work`*`/by `*`2023-03-03 16:45` :
+    * **`deadline`**`CS2113T Project Work`*`/by `*`2023-03-03 16:45` :
       Adds a task named `Homework` and deadline of `Mar 3 2023 4.45pm`to the list.
 
     * **`delete`**`2` : Deletes the 2nd task shown in the current list.
 
-    * *`find`*`task`*`homework`* : Shows a list of all tasks containing `Homework`.
+    * **`find`**`task`*`homework`* : Shows a list of all tasks containing `Homework`.
 
     * **`bye`** : Exits the app.
 
@@ -178,14 +178,9 @@ manually.
 
 ## FAQ
 
-Q: Why is Shrek not showing on my terminal, it only shows question marks?  
-A: You will need to enable your terminal to display UTF-8 characters, below are guides on how to do so on different
-platforms
-
-* [Windows](https://akr.am/blog/posts/using-utf-8-in-the-windows-terminal)
-* [MacOS](https://support.apple.com/lt-lt/guide/terminal/trml15220/mac)
-* [Linux](https://unix.stackexchange.com/questions/303712/how-can-i-enable-utf-8-support-in-the-linux-console)
-  Should already come with support for UTF-8 encoding
+Q: Why is my Shrek data not saved when I run Shrek in different folders?  
+A: Shrek saves data in the current directory. To ensure all Shrek data is saved properly, 
+run Shrek only in the _home folder_.  
 
 ## Command Summary
 
