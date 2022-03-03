@@ -8,6 +8,7 @@ import duke.tasks.Event;
 import duke.tasks.ToDo;
 import duke.Storage;
 import duke.Ui;
+import duke.tasks.TaskList;
 
 import java.io.File;
 import java.io.BufferedReader;
@@ -20,29 +21,31 @@ import java.util.Scanner;
 public class Duke {
 
     public static int taskCounter = 0; //counts number of tasks
-    public static Storage storage;
-    public static Ui ui;
+    private static Storage storage;
+    private static Ui ui;
+    private static TaskList toDos;
 
-    public static void main(String[] args) throws InputLengthException {
-
+    public Duke() {
         storage = new Storage();
         ui = new Ui();
-        //Scanner sc = new Scanner(System.in);
-        //ToDo[] toDos = new ToDo[100]; //holds all tasks given
-        ArrayList<ToDo> toDos = new ArrayList<>();
+        toDos = new TaskList();
+    }
 
+    public void run(String filePath) {
         ui.printGreeting();
 
-        taskCounter = storage.listCreate("./src/main/java/Duke/taskList.txt", toDos, taskCounter);
+        taskCounter = storage.listCreate(filePath, toDos, taskCounter);
 
         while (true) {
-
-            storage.fileWrite("./src/main/java/Duke/taskList.txt", toDos);
+            storage.fileWrite(filePath, toDos);
 
             ui.parseLine(toDos, taskCounter);
-
-
         }
+    }
+
+    public static void main(String[] args) throws InputLengthException {
+        Duke duke = new Duke();
+        duke.run("./src/main/java/Duke/taskList.txt");
 
     }
 }
