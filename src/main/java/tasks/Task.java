@@ -1,3 +1,5 @@
+package tasks;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -29,14 +31,10 @@ public abstract class Task {
 
     public void markTaskAsDone() {
         this.setDone(true);
-        System.out.println("____________________________________________________________");
-        System.out.println("Nice! I've marked this task as done:");
     }
 
     public void markTaskAsUndone() {
         this.setDone(false);
-        System.out.println("____________________________________________________________");
-        System.out.println("OK, I've marked this task as not done yet:");
     }
 
     public String toString() {
