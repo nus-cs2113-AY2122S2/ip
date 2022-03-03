@@ -2,20 +2,20 @@
 
 Duke is a desktop app meant to help users organise their tasks. 
 
-- Quick Start
-- Features
+- [Quick Start](https://github.com/hearobe/ip/blob/master/docs/README.md#quick-start)
+- [Features](https://github.com/hearobe/ip/blob/master/docs/README.md#features)
   - Create a Task
-    - Add a todo
-    - Add a deadline
-    - Add an event
-  - Display your Tasks
-  - Mark a Task as Completed
-  - Mark a Task as Incomplete
-  - Delete a Task
-  - Search for a Task
-  - Save your Tasks
-  - Quit
- - Command Summary
+    - [Add a todo](https://github.com/hearobe/ip/blob/master/docs/README.md#add-a-todo-todo)
+    - [Add a deadline](https://github.com/hearobe/ip/blob/master/docs/README.md#add-a-deadline-deadline)
+    - [Add an event](https://github.com/hearobe/ip/blob/master/docs/README.md#add-an-event-event)
+  - [Display your Tasks](https://github.com/hearobe/ip/blob/master/docs/README.md#display-your-tasks-list)
+  - [Mark a Task as Completed](https://github.com/hearobe/ip/blob/master/docs/README.md#mark-a-task-as-completed-mark)
+  - [Mark a Task as Incomplete](https://github.com/hearobe/ip/blob/master/docs/README.md#mark-a-task-as-incomplete-unmark)
+  - [Delete a Task](https://github.com/hearobe/ip/blob/master/docs/README.md#delete-a-task-delete)
+  - [Search for a Task](https://github.com/hearobe/ip/blob/master/docs/README.md#search-for-a-task-find)
+  - [Save your Tasks](https://github.com/hearobe/ip/blob/master/docs/README.md#save-your-tasks-save)
+  - [Quit](https://github.com/hearobe/ip/blob/master/docs/README.md#quit-bye)
+ - [Command Summary](https://github.com/hearobe/ip/blob/master/docs/README.md#command-summary)
 
 ## Quick Start
 
