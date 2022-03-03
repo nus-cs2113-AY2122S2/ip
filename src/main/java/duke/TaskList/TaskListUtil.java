@@ -5,7 +5,7 @@ import duke.TaskList.task.Task;
 
 import java.util.ArrayList;
 
-public class TaskListInit {
+public class TaskListUtil {
     private static final int MAX_SIZE = 100;
     public static final ArrayList<Task> list = new ArrayList<>(MAX_SIZE);
 

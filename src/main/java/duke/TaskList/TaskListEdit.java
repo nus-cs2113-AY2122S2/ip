@@ -1,8 +1,9 @@
 package duke.TaskList;
 
-import duke.Ui.CommandLineOutputUtil;
 import duke.DukeException;
+import duke.Parser.TaskString;
 import duke.TaskList.task.Task;
+import duke.Ui.CommandLineOutputUtil;
 
 public class TaskListEdit {
     public static void markStatus(Boolean shouldMark, String line) {
@@ -21,14 +22,12 @@ public class TaskListEdit {
     private static Task getTask(String line) {
         Task curr;
         try {
-            String stringOfTaskNum = line.split(" ", 0)[1];
-            int taskInd = Integer.parseInt(stringOfTaskNum) - 1;
-            if (taskInd > TaskListInit.list.size()) {
+            int taskInd = TaskString.parseTaskNum(line);
+            if (taskInd > TaskListUtil.list.size()) {
                 throw new DukeException("Please mark / unmark with a number that's in the list :')");
             }
-            curr = TaskListInit.list.get(taskInd);
+            curr = TaskListUtil.list.get(taskInd);
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            // NumberFormatException caught in IntelliJ runtime env but not in testing...
             CommandLineOutputUtil.printFormat("Please mark / unmark with a valid number :')");
             return null;
         } catch (DukeException e) {

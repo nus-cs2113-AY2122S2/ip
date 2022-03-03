@@ -8,6 +8,12 @@ import duke.TaskList.task.Todo;
 
 public class TaskString {
 
+    public static int parseTaskNum(String line) {
+        String stringOfTaskNum = line.split(" ", 0)[1];
+        int taskInd = Integer.parseInt(stringOfTaskNum) - 1;
+        return taskInd;
+    }
+
     static String getTimeSplitArgument(TaskType taskType) throws DukeException {
         switch (taskType) {
         case DEADLINE:
@@ -21,7 +27,7 @@ public class TaskString {
         }
     }
 
-    static  Task parseDeadlineOrEvent(TaskType taskType, String description) throws DukeException {
+    static Task parseDeadlineOrEvent(TaskType taskType, String description) throws DukeException {
         String time;
         try {
             String regexArg = getTimeSplitArgument(taskType);
@@ -31,7 +37,7 @@ public class TaskString {
         } catch (DukeException e) {
             throw new DukeException(e.msg);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Your deadline or event doesn't have a time");
+            throw new DukeException("You need to provide a time for your deadline or event");
         }
 
         Task task;
@@ -46,19 +52,25 @@ public class TaskString {
         return task;
     }
 
+    private static void missingDescriptionCheck(String description) throws DukeException {
+        if (description.equals("")) {
+            throw new DukeException("Please provide a task description!");
+        }
+    }
+
     public static Task parseTask(String type, String description) throws DukeException {
         Task t;
         switch (type) {
         case "todo":
-            if (description.equals("")) {
-                throw new DukeException("Please provide a task description!");
-            }
+            missingDescriptionCheck(description);
             t = new Todo(description);
             break;
         case "deadline":
+            missingDescriptionCheck(description);
             t = parseDeadlineOrEvent(TaskType.DEADLINE, description);
             break;
         case "event":
+            missingDescriptionCheck(description);
             t = parseDeadlineOrEvent(TaskType.EVENT, description);
             break;
         default:
@@ -87,7 +99,6 @@ public class TaskString {
         switch (details[0]) {
         case "T":
             t = new Todo(description);
-            t.setDone(status);
             break;
         case "D":
             String by = details[3];
@@ -101,6 +112,7 @@ public class TaskString {
             throw new DukeException("Invalid task type in data file :(");
         }
 
+        t.setDone(status);
         return t;
     }
 

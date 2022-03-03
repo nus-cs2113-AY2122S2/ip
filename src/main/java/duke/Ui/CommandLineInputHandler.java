@@ -2,7 +2,7 @@ package duke.Ui;
 
 import duke.TaskList.TaskListAddRemove;
 import duke.TaskList.TaskListEdit;
-import duke.TaskList.TaskListInit;
+import duke.TaskList.TaskListUtil;
 import duke.TaskList.task.Task;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class CommandLineInputHandler {
             willExit = true;
             CommandLineOutputUtil.bye();
         } else if (line.equals("list")) {
-            TaskListInit.list();
+            TaskListUtil.list();
         } else if (line.startsWith("delete")) {
             TaskListAddRemove.removeTask(line);
         } else if (line.startsWith("mark")) {
@@ -37,13 +37,13 @@ public class CommandLineInputHandler {
         String line;
         Scanner in = new Scanner(System.in);
         ArrayList<Task> existingTasks = readFile();
-        TaskListInit.list.addAll(existingTasks);
+        TaskListUtil.list.addAll(existingTasks);
 
         while (!willExit) {
             line = in.nextLine();
             parseCommands(line);
         }
 
-        writeList(TaskListInit.list);
+        writeList(TaskListUtil.list);
     }
 }

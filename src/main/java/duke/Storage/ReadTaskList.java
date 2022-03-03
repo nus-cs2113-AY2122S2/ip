@@ -13,7 +13,8 @@ import java.util.Scanner;
 import static duke.Storage.ReadWriteUtil.findFile;
 
 public class ReadTaskList {
-    private static final ArrayList<Task> list = new ArrayList<>(100);
+    private static final int MAX_SIZE = 100;
+    private static final ArrayList<Task> list = new ArrayList<>(MAX_SIZE);
 
     private static void readFileToList(String filePath) throws FileNotFoundException {
         File f = new File(filePath);
