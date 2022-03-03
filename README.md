@@ -1,24 +1,25 @@
-# Duke project template
+# I'm Duke, your personal chatbot assistant!
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
-
-## Setting up in Intellij
-
-Prerequisites: JDK 11, update Intellij to the most recent version.
-
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
+```
    Hello from
     ____        _        
    |  _ \ _   _| | _____ 
    | | | | | | | |/ / _ \
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
+   
+   I will keep track of all the tasks you created :)
    ```
+
+## What can I do?
+1. Create tasks of different types: Todo, Deadline and Event. 
+   1. Todo: Tasks you want to do with no deadline. 
+   2. Deadline: Tasks you want to do with deadlines to meet. 
+   3. Event: Events to attend with its start date and time.
+2. List all tasks
+3. Mark tasks as complete or incomplete 
+4. Find a task by keyword search 
+5. Delete a task
+
+## User Guide
+For a detailed explanation on how to use Duke, please refer to [Duke User Guide](https://musfirahe0556596.github.io/ip/)
