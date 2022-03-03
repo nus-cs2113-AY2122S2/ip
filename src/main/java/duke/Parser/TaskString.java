@@ -30,6 +30,8 @@ public class TaskString {
             time = breakdown[1];
         } catch (DukeException e) {
             throw new DukeException(e.msg);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("Your deadline or event doesn't have a time");
         }
 
         Task task;

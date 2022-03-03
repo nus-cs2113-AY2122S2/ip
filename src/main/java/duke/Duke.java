@@ -1,7 +1,8 @@
 package duke;
 
 import duke.Ui.CommandLineInputHandler;
-import duke.Ui.CommandLineOutputUtil;
+
+import static duke.Ui.CommandLineInputHandler.runDuke;
 
 /**
  * Runs the Duke chat-bot which takes in user input,
@@ -10,8 +11,7 @@ import duke.Ui.CommandLineOutputUtil;
 public class Duke {
 
     public static void main(String[] args) {
-        CommandLineOutputUtil.greet();
-        CommandLineInputHandler.runDuke();
+        runDuke();
     }
 
 }

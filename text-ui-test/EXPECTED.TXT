@@ -12,13 +12,13 @@ Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [D] [ ] code quality  (by: midnight before tutorial)
+  [D] [ ] code quality (by: midnight before tutorial)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
  1. [T] [ ] finish iP
- 2. [D] [ ] code quality  (by: midnight before tutorial)
+ 2. [D] [ ] code quality (by: midnight before tutorial)
 
 ____________________________________________________________
 ____________________________________________________________
@@ -35,12 +35,12 @@ Please provide a task description!
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
-  [D] [X] code quality  (by: midnight before tutorial)
+  [D] [X] code quality (by: midnight before tutorial)
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
  1. [T] [ ] finish iP
- 2. [D] [X] code quality  (by: midnight before tutorial)
+ 2. [D] [X] code quality (by: midnight before tutorial)
  3. [E] [X] tP meeting (at: 7-8pm)
 
 ____________________________________________________________
@@ -49,7 +49,7 @@ I don't understand what you want to do, big sad :(
 ____________________________________________________________
 ____________________________________________________________
 OK, I've marked this task as not done yet:
-  [D] [ ] code quality  (by: midnight before tutorial)
+  [D] [ ] code quality (by: midnight before tutorial)
 ____________________________________________________________
 ____________________________________________________________
 Please mark / unmark with a valid number :')
@@ -69,7 +69,7 @@ ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
  1. [T] [ ] finish iP
- 2. [D] [ ] code quality  (by: midnight before tutorial)
+ 2. [D] [ ] code quality (by: midnight before tutorial)
  3. [E] [X] tP meeting (at: 7-8pm)
 
 ____________________________________________________________
@@ -78,7 +78,7 @@ You can only delete with a valid task number :')
 ____________________________________________________________
 ____________________________________________________________
 Noted. I've removed this task:
- [D] [ ] code quality  (by: midnight before tutorial)
+  [D] [ ] code quality (by: midnight before tutorial)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________

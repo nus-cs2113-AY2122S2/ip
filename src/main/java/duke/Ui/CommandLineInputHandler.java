@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import static duke.Storage.ReadTaskList.readFile;
 import static duke.Storage.WriteTaskList.writeList;
+import static duke.Ui.CommandLineOutputUtil.greet;
 
 public class CommandLineInputHandler {
     static Boolean willExit = false;
@@ -32,6 +33,7 @@ public class CommandLineInputHandler {
     }
 
     public static void runDuke() {
+        greet();
         String line;
         Scanner in = new Scanner(System.in);
         ArrayList<Task> existingTasks = readFile();

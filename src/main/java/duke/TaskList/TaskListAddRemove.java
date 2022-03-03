@@ -23,7 +23,7 @@ public class TaskListAddRemove {
             CommandLineOutputUtil.printFormat(e.msg);
             return;
         }
-        CommandLineOutputUtil.printFormat("Noted. I've removed this task: \n  " + curr +
+        CommandLineOutputUtil.printFormat("Noted. I've removed this task:\n  " + curr +
                 String.format("\nNow you have %d tasks in the list.", TaskListInit.list.size()));
     }
 
