@@ -175,4 +175,5 @@ Bye. Hope to see you again soon! :)
 
 ### Save and load tasks
 
+
 The most updated task list will automatically be saved in the hard disk, and the saved data will be loaded when the program starts. This is to ensure that even if you close the program, you will not lose any data, and you can continue with the existing list of tasks when you start a new session. 
