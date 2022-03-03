@@ -2,7 +2,7 @@ package main.java.duke.command;
 
 import main.java.duke.ui.Ui;
 
-public class ListCommand implements Command {
+public class ListCommand extends Command {
 
     public ListCommand() {
 

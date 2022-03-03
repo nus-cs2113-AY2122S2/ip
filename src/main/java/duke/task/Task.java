@@ -1,5 +1,7 @@
 package main.java.duke.task;
 
+import java.time.LocalDate;
+
 public abstract class Task {
 
     public String description;
@@ -33,7 +35,11 @@ public abstract class Task {
 
     public abstract String getType();
 
-    public abstract String getDate();
+    public abstract LocalDate getStartDate();
+
+    public abstract LocalDate getEndDate();
+
+    public abstract String getDateTime();
 
     @Override
     public String toString() {

@@ -4,7 +4,7 @@ import main.java.duke.task.ToDo;
 import main.java.duke.Duke;
 import main.java.duke.ui.Ui;
 
-public class ToDoCommand implements Command {
+public class ToDoCommand extends Command {
     
     private String input;
 
