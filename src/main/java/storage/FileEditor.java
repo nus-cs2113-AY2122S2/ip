@@ -5,6 +5,9 @@ import ui.Ui;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.io.File;
 import java.util.Scanner;
@@ -44,15 +47,22 @@ public class FileEditor {
     }
 
     public ArrayList<Task> readFileContents() throws IOException {
-        Scanner s = new Scanner(userFile);
-        ArrayList<String> tasksFromFile = new ArrayList<>();
-        while (s.hasNextLine()) {
-            tasksFromFile.add(s.nextLine());
+        ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            Scanner s = new Scanner(userFile);
+            ArrayList<String> tasksFromFile = new ArrayList<>();
+            while (s.hasNextLine()) {
+                tasksFromFile.add(s.nextLine());
+            }
+            tasks = storeAsTasks(tasksFromFile);
+        } catch (IOException | DateTimeException e) {
+            System.out.println(Ui.CORRUPT_FILE_MESSAGE);
+            new FileWriter("./data/tasks.txt", false).close();
         }
-        return storeAsTasks(tasksFromFile);
+        return tasks;
     }
 
-    private static ArrayList<Task> storeAsTasks(ArrayList<String> taskStrings) {
+    private static ArrayList<Task> storeAsTasks(ArrayList<String> taskStrings) throws DateTimeException {
         ArrayList<Task> tasklist = new ArrayList<>();
         for (String taskString : taskStrings) {
             char taskType = taskString.charAt(0);
@@ -62,10 +72,10 @@ public class FileEditor {
                 task = new Todo(extractDescriptionFromTaskString(taskString));
                 break;
             case 'D':
-                task = new Deadline(extractDescriptionFromTaskString(taskString), extractTimeFromTaskString(taskString));
+                task = new Deadline(extractDescriptionFromTaskString(taskString), extractDateTimeFromTaskString(taskString));
                 break;
             case 'E':
-                task = new Event(extractDescriptionFromTaskString(taskString), extractTimeFromTaskString(taskString));
+                task = new Event(extractDescriptionFromTaskString(taskString), extractDurationFromTaskString(taskString));
                 break;
             }
             task.setDone(extractDoneStatusFromTaskString(taskString));
@@ -96,13 +106,21 @@ public class FileEditor {
         }
     }
 
-    private static String extractTimeFromTaskString(String taskString) {
+    private static LocalDateTime extractDateTimeFromTaskString(String taskString) throws DateTimeException {
         int startIndexOfDescription = taskString.indexOf("|", taskString.indexOf("|") + 1)+1;
         int startIndexOfTime = taskString.indexOf("|", startIndexOfDescription)+1;
-        String time = taskString.substring(startIndexOfTime);
-        return time;
+        String dateTimeString = taskString.substring(startIndexOfTime);
+        LocalDateTime dateTime = null;
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+        dateTime = LocalDateTime.from(f.parse(dateTimeString));
+        return dateTime;
     }
 
-
+    private static String extractDurationFromTaskString(String taskString) {
+        int startIndexOfDescription = taskString.indexOf("|", taskString.indexOf("|") + 1)+1;
+        int startIndexOfTime = taskString.indexOf("|", startIndexOfDescription)+1;
+        String duration = taskString.substring(startIndexOfTime);
+        return duration;
+    }
 
 }
