@@ -71,7 +71,7 @@ public class Parser {
         } else if (lowerCaseInput.startsWith(BYE)) {
             return new ByeCommand();
 
-        } else if (lowerCaseFirstWord.equals(FIND)) {
+        } else if (lowerCaseInput.startsWith(FIND)) {
             return new FindCommand(input);
 
         } else {

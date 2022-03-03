@@ -4,7 +4,7 @@ import main.java.duke.ui.Ui;
 import main.java.duke.Duke;
 import main.java.duke.exception.DukeException;
 
-public class FindCommand implements Command {
+public class FindCommand extends Command {
 
     private final String input;
 
