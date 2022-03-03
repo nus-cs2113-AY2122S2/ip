@@ -32,10 +32,14 @@ public class Parser {
     public static void runCommand(String input, String command, TaskList taskList) {
         try {
             switch (command) {
-            case "mark":
+            case "mark": {
+                int taskIndex = getTaskIndex(input);
+                taskList.markTask(taskIndex, command);
+                break;
+            }
             case "unmark": {
                 int taskIndex = getTaskIndex(input);
-                taskList.toggleStatus(taskIndex, command);
+                taskList.unmarkTask(taskIndex, command);
                 break;
             }
             case "list":
@@ -54,6 +58,7 @@ public class Parser {
                 break;
             case "delete":
                 taskList.deleteTask(getTaskIndex(input));
+                break;
             default:
                 throw new DukeException(" ", " ");
             }
@@ -63,9 +68,6 @@ public class Parser {
         }
         catch (NullPointerException e) {
             System.out.println("OOPS!!! I'm sorry, but seems like there is no such task :-( ");
-            System.out.println("----------------------------------------------------------------");
-        } catch (ChangeStatusException e) {
-            System.out.println("OOPS!!! I'm sorry, but seems like this task is already marked/unmarked");
             System.out.println("----------------------------------------------------------------");
         } catch (DukeException e) {
             System.out.print("OOPS!!! The description of a ");
@@ -77,43 +79,46 @@ public class Parser {
 
 
     public Task getTaskFromLocalFile() {
+
         try {
-            String curTask = input.substring(1,1);
+
+            char curTask = input.charAt(1);
             switch (curTask) {
-            case "T": {
-                return generateTodo(input);
+            case 'T': {
+              return generateTodo(input);
             }
 
-            case "D": {
+            case 'D': {
                 return generateDeadline(input);
             }
 
-            case "E": {
+            case 'E': {
                 return generateEvent(input);
             }
             }
-        }catch (StringIndexOutOfBoundsException e) {
+        } catch (StringIndexOutOfBoundsException e) {
             ui.PrintStringIndexOutOfBoundsException();
         }
         return new Task("Default task");
     }
 
+
     //1.[T][ ] borrow book
     public Todo generateTodo(String input) {
-        String description = input.substring(9);
+        String description = input.substring(7);
         return new Todo(description);
     }
 
     //1.[D][ ] return book (by: June 6th)
     public Deadline generateDeadline(String input) {
-        String description = input.substring(9, input.indexOf("("));
+        String description = input.substring(7, input.indexOf("("));
         String by = input.substring(input.indexOf(":"));
         return new Deadline(description, by);
     }
 
     //3.[E][ ] project meeting (at: Aug 6th 2-4pm)
     public Event generateEvent(String input) {
-        String description = input.substring(9, input.indexOf("("));
+        String description = input.substring(7, input.indexOf("("));
         String at = input.substring(input.indexOf(":"));
         return new Event(description, at);
     }
