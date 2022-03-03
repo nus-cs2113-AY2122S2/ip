@@ -45,7 +45,6 @@ public class Storage {
         return taskList;
     }
 
-
     public void writeToFile(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter("duke.txt");

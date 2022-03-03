@@ -1,6 +1,5 @@
 package duke.parser;
 
-import duke.exceptions.ChangeStatusException;
 import duke.exceptions.DukeException;
 import duke.task.Event;
 import duke.task.Deadline;
@@ -60,20 +59,17 @@ public class Parser {
                 taskList.deleteTask(getTaskIndex(input));
                 break;
             default:
-                throw new DukeException(" ", " ");
+                throw new DukeException("OOPS!!! I'm sorry, but I cannot understand you, please type in the correct format");
             }
-        } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-( ");
-            System.out.println("----------------------------------------------------------------");
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             System.out.println("OOPS!!! I'm sorry, but seems like there is no such task :-( ");
-            System.out.println("----------------------------------------------------------------");
+            Ui.printLine();
         } catch (DukeException e) {
-            System.out.print("OOPS!!! The description of a ");
-            System.out.print(e);
-            System.out.println(" cannot be empty");
-            System.out.println("----------------------------------------------------------------");
+            System.out.println("OOPS!!! I'm sorry, but I cannot understand you, please type in the correct format");
+            Ui.printLine();
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("OOPS!!! I'm sorry, but I cannot understand you, please type in the correct format");
+            Ui.printLine();
         }
     }
 

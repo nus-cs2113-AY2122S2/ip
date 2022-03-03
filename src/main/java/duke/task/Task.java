@@ -10,8 +10,12 @@ public class Task {
         this.isDone = false;
     }
 
-    public void changeStatus() {
-        this.isDone = !this.isDone;
+    public void mark() {
+        this.isDone = true;
+    }
+
+    public void unmark() {
+        this.isDone = false;
     }
 
     public String getStatusIcon() {
