@@ -57,6 +57,7 @@ Creates a new task that is a todo.
 
 #### Example
     todo make a reservation
+
 #### Expected Outcome
     ____________________________________
     Got it. I've added this task:
@@ -78,6 +79,7 @@ Creates a new task that is a deadline.
 
 #### Example
     deadline submission /23/02/2022
+
 #### Expected Outcome
     ____________________________________
     Got it. I've added this task:
@@ -100,6 +102,7 @@ Creates a new task that is an event.
 
 #### Example
     event meeting /4pm to 6pm
+
 #### Expected Outcome
     ____________________________________
     Got it. I've added this task:
@@ -116,6 +119,7 @@ Lists all the tasks in the task list.
 
 #### Example
     list
+
 #### Expected Outcome
     ____________________________________
     Here are the tasks in your list:
@@ -136,6 +140,7 @@ Mark a task as completed.
 
 #### Example
     mark 1
+
 #### Expected Outcome
     ____________________________________
     Nice! I've marked this task as done:
@@ -154,6 +159,7 @@ Unmarks a task that was previously marked as completed.
 
 #### Example
     unmark 1
+
 #### Expected Outcome
     ____________________________________
     OK, I've marked this task as not done yet:
@@ -172,6 +178,7 @@ Deletes a task from the task list.
 
 #### Example
     delete 1
+
 #### Expected Outcome
     ____________________________________
     Noted. I've removed this task:
@@ -191,6 +198,7 @@ Searches for task(s) that match the search from the task list.
 
 #### Example
     find m
+
 #### Expected Outcome
     ____________________________________
     Here are the matching tasks in your list:

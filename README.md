@@ -9,15 +9,15 @@
    |____/ \__,_|_|\_\___|
    ```
 
-I am capable of managing tasks that you need to keep track of. 
+I am capable of managing tasks that you need to keep track of.
 
 ## Features
 
-### 1. Create a New Task 
-Create a new task that can be a to-do, a deadline or an event. The 
+### 1. Create a New Task
+Create a new task that can be a to-do, a deadline or an event. The
 new task will be added to my task list.
 
-### 2. List Tasks 
+### 2. List Tasks
 List the tasks that I currently have in my tasklist.
 
 ### 3. Mark Task
@@ -29,26 +29,26 @@ If you want to unmark a previously completed task, it can be updated.
 ### 5. Delete Task
 Delete an existing task from the task list.
 
-### 6. Find task 
-Find an existing task from the task list using a search keyword. 
+### 6. Find task
+Find an existing task from the task list using a search keyword.
 All suitable matches will be listed.
 
 ### 7. Data File Read and Write
-Automatically updates the data file to store changes made to a task list. 
+Automatically updates the data file to store changes made to a task list.
 All tasks can be restored at the start of a new session.
 
-## Getting Started 
+## Getting Started
 1. Download the JAR file from the repository's release page.
-2. Create a new folder and transfer Duke.jar into it. 
+2. Create a new folder and transfer Duke.jar into it.
 3. From terminal navigate to the new folder.
 4. Start up Duke with ```java -jar Duke.jar ```
 
 ## User Manual
 
 ## ```todo``` - Create a new todo task
-Creates a new task that is a todo. 
+Creates a new task that is a todo.
 
-#### Syntax 
+#### Syntax
 ```todo <description>```
 
 | Parameter | Description |
@@ -57,6 +57,7 @@ Creates a new task that is a todo.
 
 #### Example
     todo make a reservation
+
 #### Expected Outcome
     ____________________________________
     Got it. I've added this task:
@@ -78,6 +79,7 @@ Creates a new task that is a deadline.
 
 #### Example
     deadline submission /23/02/2022
+
 #### Expected Outcome
     ____________________________________
     Got it. I've added this task:
@@ -100,6 +102,7 @@ Creates a new task that is an event.
 
 #### Example
     event meeting /4pm to 6pm
+
 #### Expected Outcome
     ____________________________________
     Got it. I've added this task:
@@ -116,6 +119,7 @@ Lists all the tasks in the task list.
 
 #### Example
     list
+
 #### Expected Outcome
     ____________________________________
     Here are the tasks in your list:
@@ -136,6 +140,7 @@ Mark a task as completed.
 
 #### Example
     mark 1
+
 #### Expected Outcome
     ____________________________________
     Nice! I've marked this task as done:
@@ -154,6 +159,7 @@ Unmarks a task that was previously marked as completed.
 
 #### Example
     unmark 1
+
 #### Expected Outcome
     ____________________________________
     OK, I've marked this task as not done yet:
@@ -172,6 +178,7 @@ Deletes a task from the task list.
 
 #### Example
     delete 1
+
 #### Expected Outcome
     ____________________________________
     Noted. I've removed this task:
@@ -191,6 +198,7 @@ Searches for task(s) that match the search from the task list.
 
 #### Example
     find m
+
 #### Expected Outcome
     ____________________________________
     Here are the matching tasks in your list:
