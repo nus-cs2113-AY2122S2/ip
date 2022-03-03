@@ -2,33 +2,30 @@ package duke;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import exceptions.UnknownCommandException;
+import storage.Storage;
+import tasklist.TaskList;
 import ui.Ui;
 
 public class Duke {
-    private static ArrayList<Task> tasks = new ArrayList<>();
-    private static TaskFileManager taskFileManager = new TaskFileManager();
-
-    //////////////////////////////
     private Ui ui;
+    private Storage storage;
+    private TaskList tasks;
 
     public Duke(String filePath) {
         ui = new Ui();
-//        storage = new Storage(filePath);
-//        try {
-//            tasks = new TaskList(storage.load());
-//        } catch (DukeException e) {
-//            ui.showLoadingError();
-//            tasks = new TaskList();
-//        }
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (IOException e) {
+            //ui.showLoadingError();
+            tasks = new TaskList();
+        }
     }
 
     public void run() {
-        //...
-        loadTaskFile();
         ui.startProgram();
         converse();
         ui.exit();
@@ -37,9 +34,8 @@ public class Duke {
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
     }
-    ////////////////////////
 
-    public static void converse() {
+    public void converse() {
         Scanner sc = new Scanner(System.in);
         String response = sc.nextLine();
 
@@ -47,7 +43,7 @@ public class Duke {
 
         while (isNotBye) {
             try {
-                runCommand(response);
+                runCommand(response, tasks, storage);
             } catch (UnknownCommandException e) {
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             } catch (NullPointerException e) {
@@ -68,7 +64,7 @@ public class Duke {
 
         switch (command) {
         case "list":
-            listTasks();
+            listTasks(tasks);
             break;
         case "mark":
             hasUpdate = markTask(response);
@@ -97,33 +93,33 @@ public class Duke {
         }
 
         if (hasAddedTask || hasUpdate) {
-            updateToFile();
+            storage.updateAndSave(tasks.taskArrayList);
         }
     }
 
-    public static void listTasks() {
-        //printLine();
+    public void listTasks(TaskList tasks) {
+        ui.printLine();
 
-        for (int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < tasks.getSize(); i++) {
             System.out.print(i + 1);
-            System.out.println("." + tasks.get(i));
+            System.out.println("." + tasks.getTaskViaIndex(i));
         }
 
-        //printLine();
+        ui.printLine();
     }
 
-    public static void addTask(Task task) {
-        //printLine();
+    public void addTask(Task task) {
+        ui.printLine();
 
-        tasks.add(task);
+        tasks.addTaskToList(task);
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
-        System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
+        System.out.println("Now you have " + tasks.getSize() + " task(s) in the list.");
 
-        //printLine();
+        ui.printLine();
     }
 
-    public static void addDeadline(String detail) {
+    public void addDeadline(String detail) {
         int byIndex = detail.indexOf("/by");
         boolean isByPresent = byIndex != -1;
         if (isByPresent) {
@@ -135,7 +131,7 @@ public class Duke {
         }
     }
 
-    public static void addEvent(String detail) {
+    public void addEvent(String detail) {
         int atIndex = detail.indexOf("/at");
         boolean isAtPresent = atIndex != -1;
         if (isAtPresent) {
@@ -148,20 +144,20 @@ public class Duke {
     }
 
 
-    public static boolean markTask(String response) {
-        //printLine();
+    public boolean markTask(String response) {
+        ui.printLine();
 
         try {
             String[] words = response.split(" ");
             int taskIndex = Integer.parseInt(words[1]);
-            boolean isNotIndex = taskIndex > tasks.size() || taskIndex == 0 || taskIndex < 0;
+            boolean isNotIndex = taskIndex > tasks.getSize() || taskIndex == 0 || taskIndex < 0;
 
             if (isNotIndex) {
                 System.out.println("Sorry, seems like there's no such task with that index.");
-                //printLine();
+                ui.printLine();
                 return false;
             } else {
-                Task t = tasks.get(taskIndex - 1); //list indexing to the user starts from 1 but list indexing in fact starts from 0 internally
+                Task t = tasks.getTaskViaIndex(taskIndex - 1); //list indexing to the user starts from 1 but list indexing in fact starts from 0 internally
                 boolean isNotDone = !t.isDone;
 
                 if (isNotDone) {
@@ -176,24 +172,24 @@ public class Duke {
             System.out.println("☹ OOPS!!! You forgot to indicate an index!");
         }
 
-        //printLine();
+        ui.printLine();
         return true;
     }
 
-    public static boolean unmarkTask(String response) {
-        //printLine();
+    public boolean unmarkTask(String response) {
+        ui.printLine();
 
         try {
             String[] words = response.split(" ");
             int taskIndex = Integer.parseInt(words[1]);
-            boolean isNotIndex = taskIndex > tasks.size() || taskIndex == 0;
+            boolean isNotIndex = taskIndex > tasks.getSize() || taskIndex == 0;
 
             if (isNotIndex) {
                 System.out.println("Sorry, seems like there's no such task with that index.");
-                //printLine();
+                ui.printLine();
                 return false;
             } else {
-                Task t = tasks.get(taskIndex - 1); //list indexing to the user starts from 1 but list indexing in fact starts from 0 internally
+                Task t = tasks.getTaskViaIndex(taskIndex - 1); //list indexing to the user starts from 1 but list indexing in fact starts from 0 internally
                 boolean isDone = t.isDone;
 
                 if (isDone) {
@@ -208,33 +204,33 @@ public class Duke {
             System.out.println("☹ OOPS!!! You forgot to indicate an index!");
         }
 
-        //printLine();
+        ui.printLine();
         return true;
     }
 
-    private static void deleteTask(String response) {
-        //printLine();
+    private void deleteTask(String response) {
+        ui.printLine();
 
-        try{
+        try {
             String[] words = response.split(" ");
             int taskIndex = Integer.parseInt(words[1]);
-            boolean isNotIndex = taskIndex > tasks.size() || taskIndex == 0;
+            boolean isNotIndex = taskIndex > tasks.getSize() || taskIndex == 0;
 
             if (isNotIndex) {
                 System.out.println("Sorry, seems like there's no such task with that index.");
-                //printLine();
+                ui.printLine();
                 return;
             } else {
-                Task t = tasks.get(taskIndex - 1);
-                tasks.remove(t);
+                Task t = tasks.getTaskViaIndex(taskIndex - 1);
+                tasks.removeTaskFromList(t);
                 System.out.println("Noted. I've removed this task:");
                 System.out.println(t);
-                System.out.println("Now you have " + tasks.size() + " tasks in the list");
+                System.out.println("Now you have " + tasks.getSize() + " tasks in the list");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("☹ OOPS!!! You forgot to indicate an index!");
         }
 
-        //printLine();
+        ui.printLine();
     }
 }
