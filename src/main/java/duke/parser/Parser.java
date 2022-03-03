@@ -13,6 +13,7 @@ import main.java.duke.command.DeadlineCommand;
 import main.java.duke.command.EventCommand;
 import main.java.duke.command.InvalidCommand;
 import main.java.duke.command.commandsCommand;
+import main.java.duke.command.CheckDateCommand;
 import main.java.duke.command.ByeCommand;
 import main.java.duke.command.FindCommand;
 
@@ -26,45 +27,48 @@ public class Parser {
     private final String EVENT = "event";
     private final String COMMANDS = "commands";
     private final String DELETE = "delete";
+    private final String CHECK_DATE = "check date";
     private final String BYE = "bye";
     private final String FIND = "find";
     
     public Command parse(String input) throws DukeException {
         String lowerCaseInput = input.toLowerCase();
-        String lowerCaseFirstWord = lowerCaseInput.split(" ")[0];
-        if (lowerCaseFirstWord.equals(LIST)) {
+        if (lowerCaseInput.startsWith(LIST)) {
             return parseList();
 
-        } else if (lowerCaseFirstWord.equals(UNMARK)) {
+        } else if (lowerCaseInput.startsWith(UNMARK)) {
             return parseUnmark(input);
 
-        } else if (lowerCaseFirstWord.equals(MARK)) {
+        } else if (lowerCaseInput.startsWith(MARK)) {
             return parseMark(input);
 
-        } else if (lowerCaseFirstWord.equals(TODO)) {
+        } else if (lowerCaseInput.startsWith(TODO)) {
             return parseToDo(input);
 
-        } else if (lowerCaseFirstWord.equals(DEADLINE)) {
+        } else if (lowerCaseInput.startsWith(DEADLINE)) {
             if (input.contains("/by")) {
                 return parseDeadline(input);
             } else {
                 throw new DukeException("Oh no! You need to include a '/by' in the command!");
             }
 
-        } else if (lowerCaseFirstWord.equals(EVENT)) {
+        } else if (lowerCaseInput.startsWith(EVENT)) {
             if (input.contains("/at")) {
                 return parseEvent(input);
             } else {
                 throw new DukeException("Oh no! You need to include a '/at' in the command!");
             }
 
-        } else if (lowerCaseFirstWord.equals(COMMANDS)) {
+        } else if (lowerCaseInput.startsWith(COMMANDS)) {
             return parseCommands();
 
-        } else if (lowerCaseFirstWord.equals(DELETE)) {
+        } else if (lowerCaseInput.startsWith(DELETE)) {
             return parseDelete(input);
 
-        } else if (lowerCaseFirstWord.equals(BYE)) {
+        } else if (lowerCaseInput.startsWith(CHECK_DATE)) {
+            return parseCheckDate(input);
+
+        } else if (lowerCaseInput.startsWith(BYE)) {
             return new ByeCommand();
 
         } else if (lowerCaseFirstWord.equals(FIND)) {
@@ -144,7 +148,7 @@ public class Parser {
 
         } else if (isNum(splitString[1])) {
             int deleteInt = Integer.parseInt(splitString[1]);
-            if ((deleteInt + 1 > Duke.taskCounter) || (deleteInt < 1)) {
+            if ((deleteInt > Duke.taskCounter) || (deleteInt < 1)) {
                 throw new DukeException("Oh no! The number you have chosen is not valid!");
 
             } else {
@@ -187,6 +191,17 @@ public class Parser {
         } else {
             return new EventCommand(splitString[1]);
 
+        }
+    }
+
+    private Command parseCheckDate(String input) throws DukeException {
+        String[] splitString = input.split(" ", 3);
+        if (splitString.length < 3) {
+            throw new DukeException("Oh no! You need to enter the date that you want to check!");
+
+        } else {
+            return new CheckDateCommand(splitString[2]);
+            
         }
     }
 

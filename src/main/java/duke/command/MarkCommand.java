@@ -4,7 +4,7 @@ import main.java.duke.task.Task;
 import main.java.duke.Duke;
 import main.java.duke.ui.Ui;
 
-public class MarkCommand implements Command {
+public class MarkCommand extends Command {
 
     private final int markInt;
 

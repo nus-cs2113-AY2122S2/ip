@@ -1,28 +1,54 @@
 package main.java.duke.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
     
-    protected String time;
+    private final String startDate;
+    private final String startTime;
+    private final String endDate;
+    private final String endTime;
+    private final LocalDate localStartDate;
+    private final LocalDate localEndDate;
 
-    public Event(String description, String time) {
+    public Event(String description, String startDate, String startTime, 
+            String endDate, String endTime) {
         super(description);
-        this.time = time;
-    }
-
-    public String getTime() {
-        return this.time;
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.endDate = endDate;
+        this.endTime = endTime;
+        this.localStartDate = LocalDate.parse(startDate);
+        this.localEndDate = LocalDate.parse(endDate);
     }
 
     public String getType() {
         return "E";
     }
 
-    public String getDate() {
-        return this.time;
+    public LocalDate getStartDate() {
+        return this.localStartDate;
+    }
+
+    public LocalDate getEndDate() {
+        return this.localEndDate;
+    }
+
+    public String getDateTime() {
+        return String.format("%s|%s|%s|%s", this.startDate, this.startTime, 
+                this.endDate, this.endTime);
     }
 
     @Override
     public String toString() {
-        return String.format("[E]%s (at: %s)", super.toString(), this.time);
+        String startDateTime = this.localStartDate.
+                format(DateTimeFormatter.ofPattern("MMM d yyyy")).toString() + " " + 
+                this.startTime;
+        String endDateTime = this.localEndDate.
+                format(DateTimeFormatter.ofPattern("MMM d yyyy")).toString() + " " + 
+                this.endTime;
+        return String.format("[E]%s (at: %s to %s)", super.toString(), 
+                startDateTime, endDateTime);
     }
 }

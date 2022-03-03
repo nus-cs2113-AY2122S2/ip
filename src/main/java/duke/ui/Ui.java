@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import main.java.duke.task.Task;
 import main.java.duke.Duke;
 import main.java.duke.exception.DukeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Ui {
 
@@ -93,13 +95,42 @@ public class Ui {
                 "'find X - lists items in the list that contain the keyword X",
                 "   (X is a string) e.g. 'find book' lists items in the list that contain 'book'",
                 "'todo X' - ToDos are tasks without specific deadlines",
-                "   (X is a string) e.g. 'todo buy soap' adds the task 'buy soap' to the list",
-                "'deadline X /by date time' - Deadlines are tasks that need " +
-                        "to be done before a specific date/time",
-                "   e.g. 'deadline homework /by mon 2pm' adds a task with a deadline to the list",
-                "'event X /at date time' - Events are tasks that start at a specific " +
-                        "time and ends at a specific time",
-                "   e.g. 'event project meeting /at sunday 8-10pm' adds a task with a time range");
+                "   (X is a string) e.g. 'todo buy shampoo' adds the task 'buy shampoo' to the list",
+                "'deadline X /by DD/MM/YYYY TIME' - Deadlines are tasks that need to" +
+                " be done before a specific date and time in 24-hour format",
+                "   e.g. 'deadline math homework /by 2/3/2022 1400' adds a " +
+                        "task with deadline Mar 2 2022 1400 to the list",
+                "'event X /at DD/MM/YYYY TIME /to DD/MM/YYYY TIME' - Events are tasks that start" + 
+                        " at a specific date and time and ends at a specific date and time",
+                "   e.g. 'event project meeting /at 3/3/2022 0900' /to 4/3/2022 1800 " +
+                        "adds a task with a time range");
+    }
+
+    public static void printCheckDate(LocalDate localDate) {
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Here are the tasks on " + 
+                localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")).toString() + ":");
+        for (int i = 0; i < Duke.tasks.size(); i++) {
+            Task task = Duke.tasks.get(i);
+            if (isOnDate(task, localDate)) {
+                System.out.println(String.valueOf(i + 1) + "." + task.toString());
+            }
+        }
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static boolean isOnDate(Task task, LocalDate localDate) {
+        if (task.getType().equals("D")) {
+            if (localDate.equals(task.getStartDate())) {
+                return true;
+            }
+        } else if (task.getType().equals("E")) {
+            if (localDate.equals(task.getStartDate()) || localDate.equals(task.getEndDate()) ||
+            (localDate.isAfter(task.getStartDate()) && localDate.isBefore(task.getEndDate()))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static void printBye() {
