@@ -34,6 +34,13 @@ public class Parser {
         return command;
     }
 
+    public String getDescription() throws DukeException {
+        if (description.isEmpty()) {
+            throw new DukeException(Ui.missingDescription(command));
+        }
+        return description;
+    }
+
     public String[] getTaskDescription() throws DukeException {
         String[] splitDescription = splitString(description);
         if (splitDescription[0].isEmpty()) {

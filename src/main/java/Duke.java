@@ -16,6 +16,7 @@ public class Duke {
     private static final String DEADLINE_COMMAND = "deadline";
     private static final String EVENT_COMMAND = "event";
     private static final String DELETE_COMMAND = "delete";
+    private static final String FIND_COMMAND = "find";
 
     public static void main(String[] args) {
         initDuke();
@@ -102,6 +103,9 @@ public class Duke {
         case DELETE_COMMAND:
             feedback = delEvent();
             break;
+        case FIND_COMMAND:
+            feedback = findEvent();
+            break;
         default:
             throw new DukeException(Ui.invalidCommand());
         }
@@ -130,5 +134,9 @@ public class Duke {
 
     private static String delEvent() throws DukeException {
         return taskManager.delTask(parser.getTaskId());
+    }
+
+    private static String findEvent() throws DukeException {
+        return taskManager.findTask(parser.getDescription());
     }
 }

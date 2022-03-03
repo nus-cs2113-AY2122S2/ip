@@ -52,6 +52,20 @@ public class Ui {
         return String.format("OK, I've marked this task as not done yet:\n%s", task);
     }
 
+    public static String listTaskMsg(TaskList taskList) {
+        if (taskList.isEmpty()) {
+            return "There is no task in your list.";
+        }
+        return "Here are the tasks in your list:\n" + taskList.toString();
+    }
+
+    public static String listMatchedTaskMsg(TaskList taskList) {
+        if (taskList.isEmpty()) {
+            return "There is no matching task in your list.";
+        }
+        return "Here are the matching tasks in your list:\n" + taskList;
+    }
+
     // Exception Messages
     private static String formatError(String message) {
         return ANSI_RED + message + ANSI_REST;
@@ -74,7 +88,7 @@ public class Ui {
     }
 
     public static String taskIdOutOfBound(int taskId) {
-        return String.format("duke.Task %d does not exist!", taskId);
+        return String.format("Task %d does not exist!", taskId);
     }
 
     public static String wrongTaskIdFormat() {

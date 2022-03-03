@@ -13,6 +13,10 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
+    public boolean containsWord(String word) {
+        return description.contains(word);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Task)) {

@@ -9,16 +9,6 @@ public class TaskManager {
         taskList = new TaskList();
     }
 
-    public String markTask(int id, boolean isDone) throws DukeException {
-        try {
-            int index = id - 1;
-            taskList.getTask(index).setDone(isDone);
-            return Ui.markTaskMsg(taskList.getTask(index), isDone);
-        } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(Ui.taskIdOutOfBound(id));
-        }
-    }
-
     public String addTask(Task task) {
         taskList.addTask(task);
         return Ui.addTaskMsg(task, taskList.getSize());
@@ -64,6 +54,27 @@ public class TaskManager {
         return addTask(event);
     }
 
+    public String markTask(int id, boolean isDone) throws DukeException {
+        try {
+            int index = id - 1;
+            taskList.getTask(index).setDone(isDone);
+            return Ui.markTaskMsg(taskList.getTask(index), isDone);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException(Ui.taskIdOutOfBound(id));
+        }
+    }
+
+    public String findTask(String matchWord) throws DukeException {
+        TaskList matchedTaskList = new TaskList();
+        for (int i = 0; i < taskList.getSize(); i++) {
+            Task task = taskList.getTask(i);
+            if (task.containsWord(matchWord)) {
+                matchedTaskList.addTask(task);
+            }
+        }
+        return Ui.listMatchedTaskMsg(matchedTaskList);
+    }
+
     public String delTask(int id) throws DukeException {
         try {
             int index = id - 1;
@@ -76,7 +87,7 @@ public class TaskManager {
     }
 
     public String listTask() {
-        return taskList.toString();
+        return Ui.listTaskMsg(taskList);
     }
 
     public String getList() {
