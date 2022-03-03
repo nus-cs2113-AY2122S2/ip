@@ -22,3 +22,42 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
    ```
+
+## User Guide
+
+#### 1. List all available tasks: list <br>
+List all tasks <br>
+Format: list <br>
+
+#### 2. Create a Todo: todo <br>
+Create a todo task <br>
+Format: todo td/TASK_DESCRIPTION
+
+#### 3. Create an Event: event <br>
+Create a event task <br>
+Format: event ed/EVENT_DESCRIPTION /at d/DURATION
+
+
+#### 4. Create a Deadline: deadline <br>
+Create a deadline task <br>
+Format: deadline dd/DEADLINE_DESCRIPTION /by d/DUEDATE
+
+#### 5. Mark a Task: mark <br>
+Mark a task as completed <br>
+Format: mark tn/TASK_NUMBER
+
+#### 6. Unmark a Task: unmark <br>
+unmark a task which has not been completed <br>
+Format: unmark tn/TASK_NUMBER
+
+#### 7. Delete a Task: delete <br>
+delete a task from task list <br>
+Format: delete tn/TASK_NUMBER
+
+#### 8. Find a Task: find <br>
+Search for a task in the task list by keyword <br>
+Format: find kw/KEYWORD
+
+#### 9. Exit Program: bye <br>
+To close program and store task list.
+Format: bye
