@@ -17,6 +17,9 @@ public class TaskDecoder {
         TaskList taskList = new TaskList();
         for (String taskString :taskListString){
             Task task = decodeStringToTask(taskString);
+            if (task == null){
+                continue;
+            }
             taskList.addTask(task);
         }
         return taskList;

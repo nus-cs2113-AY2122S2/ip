@@ -27,12 +27,12 @@ public class Duke {
 
     /** Initialize the application. */
 
-    public Duke(String dataPath) throws InvalidDataPathException {
+    public Duke(String dataPath) throws InvalidDataPathException, IOException {
         ui = new Ui();
         storage = new StorageFile(dataPath);
         try{
             tasks = new TaskList(storage.load());
-        }catch (InvalidDataPathException e){
+        }catch (InvalidDataPathException | IOException e){
             ui.showLoadingError();
             tasks = new TaskList(storage.load());
         }
@@ -65,14 +65,14 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) throws InvalidDataPathException {
+    public static void main(String[] args) throws InvalidDataPathException, IOException {
         new Duke(getPath()).run();
     }
 
     /** Get the path of stored data. */
     public static String getPath(){
         String workingDir = System.getProperty("user.dir");
-        String path = workingDir + "/Data/duke.txt";
+        String path = "duke.txt";
         return path;
     }
 
