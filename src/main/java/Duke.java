@@ -1,11 +1,65 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
 
     private static final String SEPARATOR = "-------------------------------------------";
-    private static int numberOfTasks = 0;
-    private static Task[] tasks = new Task[100];
+    private static ArrayList<Task> tasks = new ArrayList<>();
     private static Scanner in = new Scanner(System.in);
+    private static final String filePath = "./data/data.txt";
+
+    public static void loadData() {
+        try{
+            File data = new File(filePath);
+            Scanner line = new Scanner(data);
+            String task, description, isDone;
+            while (line.hasNext()) {
+                task = line.nextLine();
+                isDone = task.substring(4, 5);
+                description = task.substring(7);
+                if (task.startsWith("[T]")) {
+                    ToDo toDo = new ToDo(description);
+                    toDo.setDone(isDone.equals("X"));
+                    tasks.add(toDo);
+                } else if (task.startsWith("[D]")) {
+                    int separation = description.indexOf("(");
+                    String dueDate = description.substring(separation + 1);
+                    description = description.substring(0, separation - 6);
+                    Deadline deadline = new Deadline(description, dueDate);
+                    deadline.setDone(isDone.equals("X"));
+                    tasks.add(deadline);
+                } else if (task.startsWith("[E]")) {
+                    int separation = description.indexOf("(");
+                    String timing = description.substring(separation + 1);
+                    description = description.substring(0, separation - 5);
+                    Event event = new Event(description, timing);
+                    event.setDone(isDone.equals("X"));
+                    tasks.add(event);
+                }
+            }
+            line.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Error! File not found");
+        }
+    }
+
+    public static void writeData() {
+        try {
+            FileWriter fileWriter = new FileWriter(filePath);
+            fileWriter.write("");
+            for (int i = 0; i < tasks.size(); i++) {
+                Task task = tasks.get(i);
+                fileWriter.write(task.toString() + System.lineSeparator());
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Something Happened");
+        }
+    }
 
     /**
      * Prints the greeting of Cheems.
@@ -38,10 +92,10 @@ public class Duke {
     public static void printTasks() {
         String entryNumber;
         System.out.println("Hemre are the tamsks im youmr limst:");
-        for (int i = 0; i < numberOfTasks; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             entryNumber = String.valueOf(i + 1) + ". ";
             System.out.print(entryNumber);
-            System.out.println(tasks[i]);
+            System.out.println(tasks.get(i));
         }
         System.out.println(SEPARATOR);
     }
@@ -54,9 +108,10 @@ public class Duke {
     public static void handleMark(String command) {
         try{
             int taskPosition = Integer.parseInt(command.substring(5)) - 1;
-            tasks[taskPosition].setDone(true);
+            Task task = tasks.get(taskPosition);
+            task.setDone(true);
             System.out.println("Ok! I hamve markemd the tamsk:");
-            System.out.println(tasks[taskPosition]);
+            System.out.println(task);
         } catch (NullPointerException e) {
             System.out.println("Error! You don't have that many tasks");
         } catch (IndexOutOfBoundsException e) {
@@ -65,6 +120,7 @@ public class Duke {
             System.out.println("Error! Please input a number");
         } finally{
             System.out.println(SEPARATOR);
+            writeData();
         }
     }
 
@@ -76,9 +132,10 @@ public class Duke {
     public static void handleUnmark(String command) {
         try{
             int taskPosition = Integer.parseInt(command.substring(7)) - 1;
-            tasks[taskPosition].setDone(false);
+            Task task = tasks.get(taskPosition);
+            task.setDone(false);
             System.out.println("Oof! I hamve unmarkemd the tamsk: ");
-            System.out.println(tasks[taskPosition]);
+            System.out.println(task);
         } catch (NullPointerException e) {
             System.out.println("Error! Please enter a valid task number");
         } catch (IndexOutOfBoundsException e) {
@@ -87,6 +144,7 @@ public class Duke {
             System.out.println("Error! Please enter a valid task number");
         } finally{
             System.out.println(SEPARATOR);
+            writeData();
         }
     }
 
@@ -104,13 +162,14 @@ public class Duke {
             String dueDate = command.substring(dueDateIndex);
             String description = command.substring(9, dueDateIndex - 1);
             Deadline newDeadline = new Deadline(description, dueDate);
-            tasks[numberOfTasks++] = newDeadline;
+            tasks.add(newDeadline);
             System.out.println("I hamve addemd: ");
             System.out.println(newDeadline);
         } catch (CheemsException e) {
             System.out.println("Error! Please follow the format given");
         } finally {
             System.out.println(SEPARATOR);
+            writeData();
         }
     }
 
@@ -123,13 +182,14 @@ public class Duke {
         try {
             String description = command.substring(5);
             ToDo newToDo = new ToDo(description);
-            tasks[numberOfTasks++] = newToDo;
+            tasks.add(newToDo);
             System.out.println("I hamve addemd: ");
             System.out.println(newToDo);
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("Error! Tomdo cannomt be empty");
         } finally {
             System.out.println(SEPARATOR);
+            writeData();
         }
     }
 
@@ -147,14 +207,28 @@ public class Duke {
             String timing = command.substring(timingIndex);
             String description = command.substring(6, timingIndex - 1);
             Event newEvent = new Event(description, timing);
-            tasks[numberOfTasks++] = newEvent;
+            tasks.add(newEvent);
             System.out.println("I hamve addemd: ");
             System.out.println(newEvent);
         } catch (CheemsException e) {
             System.out.println("Error! Please follow the format given");
         } finally {
             System.out.println(SEPARATOR);
+            writeData();
         }
+    }
+
+    /**
+     * Deletes the Task with the corresponding task number.
+     *
+     * @param command The command given from input
+     */
+    public static void deleteTask(String command) {
+        int taskNumber = Integer.parseInt(command.substring(7));
+        Task task = tasks.remove(taskNumber - 1);
+        System.out.println("Succesfully removed: ");
+        System.out.println(taskNumber + ". " + task);
+        writeData();
     }
 
     /**
@@ -177,6 +251,10 @@ public class Duke {
                     addToDo(command);
                 } else if (command.startsWith("event")) {
                     addEvent(command);
+                } else if (command.startsWith("delete")) {
+                    deleteTask(command);
+                } else if (command.startsWith("bye")) {
+                    break;
                 } else {
                     throw new CheemsException();
                 }
@@ -190,6 +268,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
+        loadData();
         greet();
         askInput();
         farewell();
