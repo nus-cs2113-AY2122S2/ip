@@ -32,7 +32,7 @@ public class NewDeadlineCommand extends Command {
      * @param ui The interface that provides interaction with the user.
      */
     @Override
-    public void execute(TaskManager taskManager, UI ui) {
+    public void execute(TaskManager taskManager, UI ui) throws MaxTaskException {
         try{
             Deadline deadline = new Deadline(description, dateTime);
             taskManager.addTask(deadline);
@@ -40,8 +40,8 @@ public class NewDeadlineCommand extends Command {
                     + deadline.toString() + "," + System.lineSeparator()
                     + "annnd there we go, it's been added!" + System.lineSeparator()
                     + "You have " + taskManager.getNumTasks() + " tasks in the list.");
-        } catch (MaxTaskException e) {
-            printWithLine("Hey! Calm down, Charlie Brown. You've too many on your plate right now.");
+        } catch (Exception e) {
+            throw e;
         }
     }
 }

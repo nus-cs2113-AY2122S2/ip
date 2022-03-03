@@ -28,14 +28,12 @@ public class UnmarkCommand extends Command {
      * @param ui The interface that provides interaction with the user.
      */
     @Override
-    public void execute(TaskManager taskManager, UI ui) {
+    public void execute(TaskManager taskManager, UI ui) throws BadIndexException, NumberFormatException {
         try {
             printWithLine(taskManager.unmarkTask(index),
                     "Oh oops, overlooked that one did we?");
-        } catch (NumberFormatException e) {
-            printWithLine("Don't be embarrassed... What's the task number to unmark.");
-        } catch (IndexOutOfBoundsException e) {
-            printWithLine("I've checked and double checked. There is no such task.");
+        } catch (Exception e) {
+            throw e;
         }
     }
 }

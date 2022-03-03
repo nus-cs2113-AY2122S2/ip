@@ -30,17 +30,15 @@ public class DeleteTaskCommand extends Command {
      * @param ui The interface that provides interaction with the user.
      */
     @Override
-    public void execute(TaskManager taskManager, UI ui) {
+    public void execute(TaskManager taskManager, UI ui) throws BadIndexException, NumberFormatException {
         try {
             Task deletedTask = taskManager.deleteTask(index);
             printWithLine("You wanna see a magic trick? Now you see this: " + System.lineSeparator()
                     + deletedTask.toString() + "," + System.lineSeparator()
                     + "AND NOW, you don't!" + System.lineSeparator()
                     + "Check behind your ear, for you still have " + taskManager.getNumTasks() + " tasks in the list.");
-        } catch (NumberFormatException e) {
-            printWithLine("So close! You just need to provide me the task number to mark.");
-        } catch (IndexOutOfBoundsException e) {
-            printWithLine("I've checked and double checked. There is no such task.");
+        } catch (Exception e) {
+            throw e;
         }
     }
 }
