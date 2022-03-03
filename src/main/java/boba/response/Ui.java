@@ -63,6 +63,7 @@ public class Ui {
         BobaResponse.addResponse("\t" + helpCount++ + ". mark <number>");
         BobaResponse.addResponse("\t" + helpCount++ + ". unmark <number>");
         BobaResponse.addResponse("\t" + helpCount++ + ". delete <number>");
+        BobaResponse.addResponse("\t" + helpCount++ + ". find <keyword>");
         BobaResponse.addResponse("\t" + helpCount++ + ". help");
         BobaResponse.printResponse();
     }
@@ -106,6 +107,18 @@ public class Ui {
 
     public void printOutOfBounds() {
         BobaResponse.addResponse("Out of bounds!! Please provide a valid number");
+        BobaResponse.printResponse();
+    }
+
+    public void printFindTask(TaskList taskList) {
+        if (taskList.size() == 0) {
+            BobaResponse.addResponse("Sorry! Looks like there is no task with that keyword");
+        } else {
+            BobaResponse.addResponse("Here are the matching tasks in your list:");
+            for (Task task : taskList) {
+                BobaResponse.addResponse("\t" + task.toString());
+            }
+        }
         BobaResponse.printResponse();
     }
 }

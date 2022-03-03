@@ -1,16 +1,6 @@
 package boba.parser;
 
-import boba.command.Command;
-import boba.command.DeadlineCommand;
-import boba.command.DeleteCommand;
-import boba.command.EventCommand;
-import boba.command.ExitCommand;
-import boba.command.HelpCommand;
-import boba.command.ListCommand;
-import boba.command.MarkCommand;
-import boba.command.NoneCommand;
-import boba.command.TodoCommand;
-import boba.command.UnmarkCommand;
+import boba.command.*;
 import boba.exception.BobaException;
 
 public class Parser {
@@ -49,6 +39,8 @@ public class Parser {
                 return new UnmarkCommand(arguments[0]);
             case ("delete"):
                 return new DeleteCommand(arguments[0]);
+            case ("find"):
+                return new FindCommand(arguments[0]);
             case ("help"):
                 return new HelpCommand();
             default:
@@ -82,6 +74,7 @@ public class Parser {
         case ("mark"):
         case ("unmark"):
         case ("delete"):
+        case ("find"):
             int spaceIndex = input.indexOf(" ");
             if (spaceIndex == -1) {
                 throw new BobaException("Remember to include your argument");
