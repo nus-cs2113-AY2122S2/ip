@@ -118,9 +118,13 @@ public class TaskList {
                 .stream()
                 .filter((t) -> t.getTaskDescription().contains(keyword))
                 .collect(Collectors.toCollection(ArrayList::new));
-        System.out.println("Here are the matching tasks in your list:");
-        for (int i = 0; i < filteredTasks.size(); i += 1) {
-            System.out.println(i + 1 + ". " + filteredTasks.get(i));
+        if (!filteredTasks.isEmpty()) {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < filteredTasks.size(); i += 1) {
+                System.out.println(i + 1 + ". " + filteredTasks.get(i));
+            }
+            return;
         }
+        System.out.println("No matching tasks found.");
     }
 }

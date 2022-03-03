@@ -17,7 +17,8 @@ public class Ui {
             + "todo: adds a todo. (e.g. todo <description>)\n"
             + "deadline: adds a deadline. (e.g. deadline <description> /by <date>)\n"
             + "event: adds an event. (e.g. event <description> /at <date>)\n"
-            + "delete: delete a task. (e.g. delete <task number>)\n";
+            + "delete: delete a task. (e.g. delete <task number>)\n"
+            + "find: lists tasks with keyword. (.e.g find <keyword>)\n";
 
     public static void printWelcomeMessage() {
         System.out.println(WELCOME_MESSAGE);
