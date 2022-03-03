@@ -42,6 +42,11 @@ public class TaskListUtil {
         CommandLineOutputUtil.printFormat("Here are the tasks in your list:\n" + listAsString);
     }
 
+    /**
+     * Prints tasks that contain a certain keyword.
+     *
+     * @param line String of user input to parse.
+     */
     public static void find(String line) {
         String[] commands = line.split(" ");
         if (commands.length > 2) {
