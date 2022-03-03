@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
+
+import duke.taskList.TaskList;
 import duke.ui.Ui;
 import duke.parser.Parser;
 
@@ -30,6 +32,7 @@ public class Storage {
                 String input = scanner.nextLine();
                 Parser parser = new Parser(input);
                 Task task = parser.getTaskFromLocalFile();
+                //System.out.println(task);
                 taskList.add(task);
             }
             scanner.close();
@@ -43,12 +46,16 @@ public class Storage {
     }
 
 
-    private static void writeToFile(ArrayList<Task> tasks) throws IOException {
-        FileWriter fw = new FileWriter("duke.txt");
-        for(Task t: tasks){
-            fw.write(t.toString()+"\n");
+    public void writeToFile(TaskList taskList) {
+        try {
+            FileWriter fw = new FileWriter("duke.txt");
+            for (int i = 0; i < taskList.getSize(); i++) {
+                fw.write(taskList.getTask(i).toString() + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+
         }
-        fw.close();
     }
 
 
