@@ -5,7 +5,19 @@ import Duke.DukeException;
 import Duke.Tasks.TaskList;
 import Duke.Ui.Ui;
 
+/**
+ * Handles the exceptions to each command.
+ */
 public class ParserUtil {
+
+    /**
+     * Parses the mark command and check if command is valid. If valid, proceed to execute command.
+     *
+     * @param message Message to be separated.
+     * @param taskList List of task.
+     * @return Execution of command.
+     * @throws DukeException When there is no number given.
+     */
     public static Command parseMarkCommand(String message, TaskList taskList) throws DukeException {
         if (taskList.isEmpty()) {
             throw new DukeException(Ui.DISPLAY_LINE + System.lineSeparator() + "Please add something to the list first:)"
@@ -24,9 +36,16 @@ public class ParserUtil {
                 return new MarkCommand(positionToMark);
             }
         }
-
     }
 
+    /**
+     * Parses the unmark command and check if command is valid. If valid, proceed to execute command.
+     *
+     * @param message Message to be separated.
+     * @param taskList List of task.
+     * @return Execution of command.
+     * @throws DukeException When there is no number given.
+     */
     public static Command parseUnmarkCommand(String message, TaskList taskList) throws DukeException {
         if (taskList.isEmpty()) {
             throw new DukeException(Ui.DISPLAY_LINE + System.lineSeparator() + "Please add something to the list first:)"
@@ -47,6 +66,7 @@ public class ParserUtil {
         }
     }
 
+
     public static Command parseFindCommand (String message, TaskList taskList) throws DukeException {
         if (taskList.isEmpty()) {
             throw new DukeException(Ui.DISPLAY_LINE + System.lineSeparator() + "Please add something to the list first:)"
@@ -62,6 +82,14 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Parses the delete command and check if command is valid. If valid, proceed to execute command.
+     *
+     * @param message Message to be separated.
+     * @param taskList List of task.
+     * @return Execution of command.
+     * @throws DukeException When there is no number given.
+     */
     public static Command parseDeleteCommand (String message, TaskList taskList) throws DukeException {
         if (taskList.isEmpty()) {
             throw new DukeException(Ui.DISPLAY_LINE + System.lineSeparator() + "Please add something to the list first:)"
@@ -81,6 +109,14 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Parses the todo command and check if command is valid. If valid, proceed to execute command.
+     *
+     * @param message Message to be separated.
+     * @param isDone If task is marked as done.
+     * @return Execution of command.
+     * @throws DukeException When the description is not given.
+     */
     public static Command parseTodoCommand (String message, boolean isDone) throws DukeException {
         String[] splitMessage = message.split(" ", 2);
         if (splitMessage.length != 2) {
@@ -94,6 +130,15 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Splits Event and Deadline commands into smaller messages.
+     *
+     * @param message The message to be separated.
+     * @param regex The position to separate the message.
+     * @param type The type of command.
+     * @return A String array of the second part of the message.
+     * @throws DukeException
+     */
     public static String[] splitLongMessage (String message, String regex, String type) throws DukeException {
         String[] splitMessage = message.split(" ", 2);
         if (splitMessage.length != 2) {
@@ -107,6 +152,14 @@ public class ParserUtil {
         return getSecondPart.split(regex, 2);
     }
 
+    /**
+     * Parses the deadline command and check if command is valid. If valid, proceed to execute command.
+     *
+     * @param message The message to be separated.
+     * @param isDone If task is marked as done.
+     * @return Execution of command.
+     * @throws DukeException When the description is not given.
+     */
     public static Command parseDeadlineCommand (String message, boolean isDone) throws DukeException {
         String[] splitSecondPart = splitLongMessage(message, " /by ", "deadline");
         if (splitSecondPart.length != 2) {
@@ -121,6 +174,14 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Parses the deadline command and check if command is valid. If valid, proceed to execute command.
+     *
+     * @param message The message to be separated.
+     * @param isDone If task is marked as done.
+     * @return Execution of command.
+     * @throws DukeException When the description is not given.
+     */
     public static Command parseEventCommand (String message, boolean isDone) throws DukeException {
         String[] splitSecondPart = splitLongMessage(message, " /at ","event");
         if (splitSecondPart.length != 2) {

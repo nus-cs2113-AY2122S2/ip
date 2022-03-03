@@ -5,6 +5,9 @@ import Duke.Tasks.TaskList;
 import Duke.Tasks.Event;
 import Duke.Ui.Ui;
 
+/**
+ * Represents the command to add an event task.
+ */
 public class EventCommand extends Command {
     private Event event;
 
@@ -12,10 +15,22 @@ public class EventCommand extends Command {
         event = new Event(description, isDone, date);
     }
 
+    /**
+     * Indicates whether the program should exit.
+     *
+     * @return Indication on whether the program should exit.
+     */
     public boolean isExit() {
         return false;
     }
 
+    /**
+     * Executes the command.
+     *
+     * @param tasks Tasklist containing of  the tasks.
+     * @param ui    User interface of Duke.
+     * @param storage   Storage of Duke.
+     */
     @Override
     public void executeCommand(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(event);

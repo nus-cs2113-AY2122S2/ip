@@ -6,12 +6,19 @@ import Duke.Storage.Storage;
 import Duke.Tasks.TaskList;
 import Duke.Ui.Ui;
 
+/**
+ * Represents the entry point of Duke program. The program is initialized and starts to interact with the user.
+ */
 public class Duke {
     private final Storage storage;
     private final Ui ui;
     private TaskList tasks;
 
-
+    /**
+     * Constructs the Duke program.
+     *
+     * @param filepath The file path to where the tasks are saved in.
+     */
     public Duke(String filepath) {
         ui = new Ui();
         storage = new Storage(filepath);
@@ -23,7 +30,11 @@ public class Duke {
         }
     }
 
-
+    /**
+     * Starts the Duke program, takes in and parses the input command. Commands are executed and program runs till
+     * termination.
+     *
+     */
     public void run() {
         ui.displayGreetMessage();
         boolean isExit = false;
