@@ -1,7 +1,6 @@
 package boba.task;
 
 import boba.exception.BobaException;
-import boba.response.BobaResponse;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -81,6 +80,20 @@ public class TaskList implements Iterable<Task> {
 
     public int size() {
         return taskCount;
+    }
+
+    public TaskList findTask(String keyword) {
+        TaskList result = new TaskList();
+        for (Task task : taskList) {
+            if (task.description.contains(keyword)) {
+                try {
+                    result.addTask(task);
+                } catch (BobaException e) {
+                    System.out.println("Code shouldn't reach here, can't be more 100 items");
+                }
+            }
+        }
+        return result;
     }
 
     @Override
