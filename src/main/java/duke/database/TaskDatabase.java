@@ -68,8 +68,8 @@ public class TaskDatabase implements Database {
                     taskList.add(todo);
                     break;
                 }
-                System.out.println("Your data has been loaded successfully");
             }
+            System.out.println("Your data has been loaded successfully");
         } catch (NoSuchElementException e) {
             System.out.println("Your text file is an inappropriate format, hence no data was loaded.");
         }
