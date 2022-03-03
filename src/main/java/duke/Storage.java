@@ -4,12 +4,10 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.TaskList;
 import duke.tasks.ToDo;
-import java.io.File;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Storage {
 
@@ -23,13 +21,12 @@ public class Storage {
             BufferedReader reader = new BufferedReader(new FileReader(fileString));
             for (String line; (line = reader.readLine()) != null; ) {
                 if (line.charAt(1) == 'T') {
-                    toDos.add(new ToDo(line.substring(6, line.length())));
+                    toDos.add(new ToDo(line.substring(6)));
                     if (line.charAt(4) == 'X') {
                         toDos.get(taskCounter).setDone(true);
                     }
                     taskCounter++;
                 } else if (line.charAt(1) == 'D') {
-                    String[] commands = line.split("by");
                     toDos.add(new Deadline(line.substring(6, line.indexOf('(')),
                             line.substring(line.indexOf('(') + 5, line.length() - 1)));
                     if (line.charAt(4) == 'X') {
@@ -37,7 +34,6 @@ public class Storage {
                     }
                     taskCounter++;
                 } else if (line.charAt(1) == 'E') {
-                    String[] commands = line.split("at");
                     toDos.add(new Event(line.substring(6, line.indexOf('(')),
                             line.substring(line.indexOf('(') + 5, line.length() - 1)));
                     if (line.charAt(4) == 'X') {

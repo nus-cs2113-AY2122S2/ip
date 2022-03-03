@@ -7,7 +7,6 @@ import duke.tasks.Event;
 import duke.tasks.TaskList;
 import duke.tasks.ToDo;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
