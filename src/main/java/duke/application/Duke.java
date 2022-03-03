@@ -24,13 +24,32 @@ import java.io.IOException;
 
 public class Duke {
     public static final String taskAddedSuccessfully = "Got it, Olivia has added this task:";
+    public static final String FILENAME = "taskdata.txt";
 
     public static void main(String[] args) throws IOException {
         printWelcomeMessage();
         ArrayList<Task> taskList;
-        taskList = TaskDatabase.getInstance().read("taskdata.txt");
+        taskList = loadData();
+        getUserInput(taskList);
+        storeData(taskList);
+        printGoodbyeMessage();
+    }
+
+    private static void getUserInput(ArrayList<Task> taskList) {
         Scanner sc = new Scanner(System.in);
         String userInput = sc.nextLine();
+        parseCommand(taskList, sc, userInput);
+    }
+
+    private static void storeData(ArrayList<Task> taskList) throws IOException {
+        TaskDatabase.getInstance().save(FILENAME, taskList);
+    }
+
+    private static ArrayList<Task> loadData() {
+        return TaskDatabase.getInstance().read(FILENAME);
+    }
+
+    private static void parseCommand(ArrayList<Task> taskList, Scanner sc, String userInput) {
         while (!userInput.equals("bye")) {
             try {
                 System.out.println("-----------------------------");
@@ -105,8 +124,6 @@ public class Duke {
                 printIllegalCommandErrorMessage();
             }
         }
-        TaskDatabase.getInstance().save("taskdata.txt",taskList);
-        printGoodbyeMessage();
     }
 
     private static int getIndexToDelete(String userInput) throws IllegalDeleteException {
