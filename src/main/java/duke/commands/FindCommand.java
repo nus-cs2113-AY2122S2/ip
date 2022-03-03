@@ -5,6 +5,8 @@ import duke.exceptions.InvalidArgumentException;
 import duke.tasks.Task;
 
 import java.util.HashMap;
+import java.util.Locale;
+
 import duke.tasks.TaskList;
 import duke.Storage;
 import duke.Ui;
@@ -63,14 +65,15 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Given a task, check if its description corresponds to the description to search for as given in the user argument.
+     * Given a task, check if the description to search for is contained in the given task's description.
+     * Does a case-insensitive match.
      *
      * @param taskToSearch task to search for
      * @return a boolean indicating if the description to be searched for is found in the given Task
      */
     private boolean isMatch(Task taskToSearch) {
-        String searchDescription = arguments.get("");
-        String description = taskToSearch.getDescription();
+        String searchDescription = arguments.get("").toLowerCase();
+        String description = taskToSearch.getDescription().toLowerCase();
         boolean isMatchDescription = description.contains(searchDescription);
         return isMatchDescription;
     }
