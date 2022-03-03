@@ -1,13 +1,8 @@
-package brave;
+package brave.data;
 
 public class Todo extends Task {
     public Todo(String description) {
         super(description);
-    }
-
-    @Override
-    public String getStatusIcon() {
-        return "[T]" + super.getStatusIcon();
     }
 
     @Override
@@ -17,5 +12,10 @@ public class Todo extends Task {
         } else {
             return "T , 1 , " + description;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "[T] " + super.toString();
     }
 }

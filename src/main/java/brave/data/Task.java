@@ -1,4 +1,4 @@
-package brave;
+package brave.data;
 
 public abstract class Task {
     protected String description;
@@ -23,6 +23,11 @@ public abstract class Task {
 
     public void unmarkAsDone() {
         isDone = false;
+    }
+
+    @Override
+    public String toString() {
+        return getStatusIcon() + " " + getDescription();
     }
 
     public abstract String getSaveFormat();

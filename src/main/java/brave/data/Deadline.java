@@ -1,4 +1,4 @@
-package brave;
+package brave.data;
 
 public class Deadline extends Task {
     private String by;
@@ -8,13 +8,13 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    @Override
-    public String getStatusIcon() {
-        return "[D]" + super.getStatusIcon();
-    }
-
     public String getDescription() {
         return super.getDescription() + String.format(" (by: %s)", this.by);
+    }
+
+    @Override
+    public String toString() {
+        return "[D] " + super.toString();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package brave;
+package brave.data;
 
 public class Event extends Task {
     private String eventTime;
@@ -8,13 +8,13 @@ public class Event extends Task {
         this.eventTime = eventTime;
     }
 
-    @Override
-    public String getStatusIcon() {
-        return "[E]" + super.getStatusIcon();
-    }
-
     public String getDescription() {
         return super.getDescription() + String.format(" (at: %s)", this.eventTime);
+    }
+
+    @Override
+    public String toString() {
+        return "[E] " + super.toString();
     }
 
     @Override
