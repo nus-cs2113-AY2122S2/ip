@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class TaskManager {
     public static final String TODO_COMMAND = "todo";
