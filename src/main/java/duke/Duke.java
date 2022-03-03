@@ -58,35 +58,7 @@ public class Duke {
         }
     }
 
-
-
-
-
-
-
-
-
-    //@@author quitejasper-reused
-    //Reused from https://github.com/FaliciaOng/ip/blob/master/src/main/java/Duke.java
-    //with minor modifications
-    private static void updateToFile() {
-        try {
-            taskFileManager.saveTaskList("duke.txt", tasks);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public static void loadTaskFile() {
-        try {
-            taskFileManager.loadTaskList("duke.txt", tasks);
-        } catch (IOException e) {
-            System.out.println("--not valid file--");
-        }
-    }
-    //@@author
-
-    private static void runCommand(String response) throws UnknownCommandException {
+    private void runCommand(String response, TaskList tasks, Storage storage) throws UnknownCommandException {
         String[] words = response.split(" ", 2);
         String command = words[0];
         String detail = (words.length > 1) ? words[1] : null;
