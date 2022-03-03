@@ -1,179 +1,49 @@
-import java.util.Scanner;
-import duke.task.*;
 import duke.exceptions.*;
-import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
+import duke.ui.Ui;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.taskList.TaskList;
+import duke.messages.Messages;
 
 public class Duke {
 
-    public static void main(String[] args) throws FileNotFoundException, IOException {
-        ArrayList<Task> tasks = new ArrayList<>();
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+
         try {
-            printFileContents("duke.txt");
-        } catch (FileNotFoundException e) {
-            File f = new File("duke.txt");
-        }
-
-        int index = 0;
-        String greetings =
-              "______________________________________________________________\n"
-            + "Hello! I'm Duke\n"
-            + "What can I do for you?\n"
-            + "______________________________________________________________";
-        System.out.println(greetings);
-        String echo;
-
-        Scanner sc = new Scanner(System.in);
-
-
-        while(true) {
-            echo = sc.nextLine();
-
-            if (echo.equals("list")) {
-                printTasks(tasks, index);
-                continue;
-            } else if(echo.equals("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
-                System.out.println("----------------------------------------------------------------\n");
-                break;
-            }
-            System.out.println("----------------------------------------------------------------");
-
-            try{
-
-                if (echo.equals("todo")) {
-                    throw new DukeException("ERROR", "todo");
-                } else if (echo.equals("deadline")) {
-                    throw new DukeException("ERROR", "deadline");
-                } else if (echo.equals("event")) {
-                    throw new DukeException("ERROR", "event");
-                }
-
-                String curTask = echo.substring(0, (echo.indexOf(" ")));
-
-                if (curTask.equals("mark") || curTask.equals("unmark")) {
-                    int indexOfSpace = echo.indexOf(" ");
-                    int indexOfTask = Integer.parseInt(echo.substring(indexOfSpace + 1));
-                    if ((curTask.equals("mark") && (tasks.get(indexOfTask - 1).isDone)) ||
-                        (curTask.equals("unmark") && (!tasks.get(indexOfTask - 1).isDone))) {
-                        throw new ChangeStatusException("This task is already marked/unmarked");
-                    }
-                    toggleStatus(tasks, indexOfTask);
-                    writeToFile(tasks);
-                    continue;
-                } else if (curTask.equals("deadline")) {
-                    addDeadline(echo, tasks, index);
-                } else if (curTask.equals("event")) {
-                    addEvent(echo, tasks, index);
-                } else if (curTask.equals("todo")) {
-                    addTodo(echo, tasks, index);
-                } else if (curTask.equals("delete")) {
-                    deleteTask(tasks, index);
-                    index = index - 2;
-                }
-                index++;
-                writeToFile(tasks);
-                System.out.print("Now you have ");
-                System.out.println(index + " tasks in the list.");
-                System.out.println("----------------------------------------------------------------");
-
-            } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-( ");
-                System.out.println("----------------------------------------------------------------");
-            } catch (NullPointerException e) {
-                System.out.println("☹ OOPS!!! I'm sorry, but seems like there is no such task :-( ");
-                System.out.println("----------------------------------------------------------------");
-            } catch (ChangeStatusException e) {
-                System.out.println("☹ OOPS!!! I'm sorry, but seems like this task is already marked/unmarked");
-                System.out.println("----------------------------------------------------------------");
-            } catch (DukeException e) {
-                System.out.print("☹ OOPS!!! The description of a ");
-                System.out.print(e);
-                System.out.println(" cannot be empty");
-                System.out.println("----------------------------------------------------------------");
-            }
-        }
-        
-    }
-
-    private static void writeToFile(ArrayList<Task> tasks) throws IOException {
-        FileWriter fw = new FileWriter("duke.txt");
-        for(Task t: tasks){
-            fw.write(t.toString()+"\n");
-        }
-        fw.close();
-    }
-
-    private static void printFileContents(String filePath) throws IOException, FileNotFoundException {
-        File f = new File(filePath); // create a File for the given file path
-        Scanner s = new Scanner(f); // create a Scanner using the File as the source
-        while (s.hasNext()) {
-            System.out.println(s.nextLine());
+            tasks = new TaskList(storage.load());
+        } catch (IOException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
         }
     }
 
+    public void run() {
+        String command;
 
-    public static void deleteTask(ArrayList<Task> tasks, int index) {
-        System.out.println("Noted. I've removed this task: ");
-        System.out.println(tasks.get(index - 1));
-        tasks.remove(index - 1);
+        ui.printIntro();
 
+        do {
+            String input = ui.getCommand();
+            command = Parser.getCommandFromUserInput(input);
+            Parser.runCommand(input, command, tasks);
+        } while (!command.equalsIgnoreCase("bye"));
+
+        ui.printBye();
     }
 
-    public static void addTodo(String echo, ArrayList<Task> tasks, int index) {
-        String description = echo.substring(echo.indexOf(" ") + 1);
-        tasks.add(new Todo(description));
-        System.out.println("Got it. I've added this task:  ");
-        System.out.println(tasks.get(index));
-    }
-
-
-    public static void addEvent(String echo, ArrayList<Task> tasks, int index) {
-
-        String event = echo.substring(echo.indexOf("/") + 4);
-        String description = echo.substring(echo.indexOf(" "), echo.indexOf("/"));
-        tasks.add(new Event(description, event));
-
-        System.out.println("Got it. I've added this task:  ");
-        System.out.println(tasks.get(index));
+    public static void main(String[] args) throws FileNotFoundException, IOException {
+        new Duke(Messages.MESSAGE_FILEPATH).run();
     }
 
 
-    public static void addDeadline(String echo, ArrayList<Task> tasks, int index) {
-        String deadline = echo.substring(echo.indexOf("/") + 4);
-        String description = echo.substring(echo.indexOf(" "), echo.indexOf("/"));
-        tasks.add(new Deadline(description, deadline));
-
-        System.out.println("Got it. I've added this task:  ");
-        System.out.println(tasks.get(index));
-    }
-
-
-    public static void toggleStatus(ArrayList<Task> tasks, int indexOfTask) {
-        tasks.get(indexOfTask - 1).changeStatus();
-
-        if (tasks.get(indexOfTask -1).isDone) {
-            System.out.println("OK, I've marked this task as done:");
-        } else {
-            System.out.println("OK, I've marked this task as not done yet:");
-        }
-        System.out.print(indexOfTask);
-        System.out.println("." + tasks.get(indexOfTask - 1));
-    }
-
-
-    public static void printTasks(ArrayList<Task> tasks, int index) {
-        System.out.println("----------------------------------------------------------------");
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < index; i++) {
-            System.out.print(i + 1);
-            System.out.println("." + tasks.get(i));
-        }
-        System.out.println("\n----------------------------------------------------------------");
-    }
 
 }
