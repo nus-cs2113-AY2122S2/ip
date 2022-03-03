@@ -1,10 +1,27 @@
+/**
+ * Main driver class of the Duke application
+ */
+
 public class Duke {
+
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Duke(String filePath) {
+        storage = new Storage(filePath);
+        ui = new Ui();
+        tasks = new TaskList(storage, ui);
+    }
+
+    public void run() {
+        tasks.processTasks();
+    }
+
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        new Duke("data/duke.txt").run();
+        //new Duke("data/duke2.txt").run();
+        //new Duke("dataduke.txt").run();
     }
 }
+
