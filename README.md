@@ -1,6 +1,6 @@
 # Project Duke
 
-Duke is a Personal Assistant Chat Bot that helps a user manage his/her tasks via an optimized Command Line Interface (CLI). User guide can be found [here] (https://limjierui.github.io/ip)
+Duke is a Personal Assistant Chat Bot that helps a user manage his/her tasks via an optimized Command Line Interface (CLI). User guide can be found [here](https://limjierui.github.io/ip/)
 
 ## Setting up in Intellij
 
