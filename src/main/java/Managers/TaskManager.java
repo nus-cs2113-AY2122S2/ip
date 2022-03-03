@@ -86,6 +86,10 @@ public class TaskManager {
         }
     }
 
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
     public int getNumTasks() {
         return numTasks;
     }
