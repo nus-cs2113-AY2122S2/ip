@@ -62,6 +62,9 @@ public class Duke {
                     break;
                 case "error":
                     throw new DukeException();
+                case "default":
+                    System.out.println("    Sorry I do not know what that means!");
+                    break;
                 }
                 ui.printLine();
             } catch (DukeException e) {

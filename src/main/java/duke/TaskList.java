@@ -16,7 +16,7 @@ public class TaskList {
     public void listTasks() {
         System.out.println("    Here are the tasks in your list:");
         int i=1;
-        for(Task t:taskList) {
+        for(Task t: taskList) {
             System.out.println("    "+(i++ )+": "+t);
         }
     }
@@ -26,7 +26,7 @@ public class TaskList {
             storage = new Storage();
             task = task.replace("mark ", "");
             int i = Integer.parseInt(task) - 1;
-            if (taskList.get(i)!=null) {
+            if (taskList.get(i) != null) {
                 taskList.get(i).setDone(true);
                 System.out.println("    Nice! I've marked this task as done:");
                 System.out.println("    " + taskList.get(i));
@@ -35,7 +35,7 @@ public class TaskList {
                 System.out.println("    Please enter a valid task number");
             }
         } catch (IndexOutOfBoundsException e) {
-            if (taskList.size()==0) {
+            if (taskList.size() == 0) {
                 System.out.println("    OOPS there are no tasks in the list");
             } else {
                 System.out.println("    OOPS there are only " + taskList.size() + " tasks in the list");
@@ -50,7 +50,7 @@ public class TaskList {
             storage = new Storage();
             task = task.replace("unmark ","");
             int i = Integer.parseInt(task)-1;
-            if (taskList.get(i)!=null) {
+            if (taskList.get(i) != null) {
                 taskList.get(i).setDone(false);
                 System.out.println("    OK, I've marked this task as not done yet:");
                 System.out.println("    " + taskList.get(i));
@@ -59,7 +59,7 @@ public class TaskList {
                 System.out.println("    Please enter a valid task number");
             }
         } catch (IndexOutOfBoundsException e) {
-            if (taskList.size()==0) {
+            if (taskList.size() == 0) {
                 System.out.println("    OOPS there are no tasks in the list");
             } else {
                 System.out.println("    OOPS there are only " + taskList.size() + " tasks in the list");
@@ -75,7 +75,7 @@ public class TaskList {
             storage = new Storage();
             task = task.replace("delete ","");
             int i = Integer.parseInt(task)-1;
-            if (taskList.get(i)!=null) {
+            if (taskList.get(i) != null) {
                 System.out.println("deleting task");
                 Task removedTask = taskList.get(i);
                 taskList.remove(i);
@@ -85,7 +85,7 @@ public class TaskList {
                 storage.writeTaskFile();
             }
         } catch (IndexOutOfBoundsException e) {
-            if (taskList.size()==0) {
+            if (taskList.size() == 0) {
                 System.out.println("    OOPS there are no tasks in the list");
             } else {
                 System.out.println("    OOPS there are only " + taskList.size() + " tasks in the list");
@@ -149,7 +149,7 @@ public class TaskList {
         LocalDateTime byDate = extractDeadlineDate(by);
 
         //if we get a valid date store as a valid date, else store as a string
-        if(byDate!=null) {
+        if(byDate != null) {
             taskList.add(new Deadline(task,byDate));
         } else {
             taskList.add(new Deadline(task, by));
@@ -179,7 +179,7 @@ public class TaskList {
                 matches.add(t);
             }
         }
-        if (matches.size()==0) {
+        if (matches.size() == 0) {
             System.out.println("    There are no tasks that match \""+taskKeyword+"\"");
         }
         else {
@@ -190,7 +190,7 @@ public class TaskList {
     private void listMatches(ArrayList<Task> matches) {
         System.out.println("    Here are the matching tasks in your list:");
         int i=1;
-        for(Task t:matches) {
+        for(Task t: matches) {
             System.out.println("    "+(i++ )+": "+t);
         }
     }
