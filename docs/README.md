@@ -61,6 +61,7 @@ Format: `bye`
 
 ## Command Summary
 | Action       | Format, Examples                                                                    |
+
 |--------------|-------------------------------------------------------------------------------------|
 | Add todo     | `todo TASK_DESCRIPTION` <br/> e.g. `todo submit iP UG`                              |
 | Add deadline | `deadline TASK_DESCRIPTION /by TASK_TIME`<br/> e.g. `deadline ship iP /by 3/3/2022` |
