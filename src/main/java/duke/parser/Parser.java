@@ -14,6 +14,7 @@ import main.java.duke.command.EventCommand;
 import main.java.duke.command.InvalidCommand;
 import main.java.duke.command.commandsCommand;
 import main.java.duke.command.ByeCommand;
+import main.java.duke.command.FindCommand;
 
 public class Parser {
 
@@ -26,6 +27,7 @@ public class Parser {
     private final String COMMANDS = "commands";
     private final String DELETE = "delete";
     private final String BYE = "bye";
+    private final String FIND = "find";
     
     public Command parse(String input) throws DukeException {
         String lowerCaseInput = input.toLowerCase();
@@ -64,6 +66,9 @@ public class Parser {
 
         } else if (lowerCaseFirstWord.equals(BYE)) {
             return new ByeCommand();
+
+        } else if (lowerCaseFirstWord.equals(FIND)) {
+            return new FindCommand(input);
 
         } else {
             return new InvalidCommand();
