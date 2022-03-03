@@ -1,4 +1,4 @@
-package duke.TaskList.task;
+package duke.tasklist.task;
 
 public class Event extends Task {
     private String at;

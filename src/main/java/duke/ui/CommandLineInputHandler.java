@@ -1,19 +1,19 @@
-package duke.Ui;
+package duke.ui;
 
-import duke.TaskList.TaskListAddRemove;
-import duke.TaskList.TaskListEdit;
-import duke.TaskList.TaskListUtil;
-import duke.TaskList.task.Task;
+import duke.tasklist.TaskListAddRemove;
+import duke.tasklist.TaskListEdit;
+import duke.tasklist.TaskListUtil;
+import duke.tasklist.task.Task;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static duke.Storage.ReadTaskList.readFile;
-import static duke.Storage.WriteTaskList.writeList;
-import static duke.Ui.CommandLineOutputUtil.greet;
+import static duke.storage.ReadTaskList.readFile;
+import static duke.storage.WriteTaskList.writeList;
+import static duke.ui.CommandLineOutputUtil.greet;
 
 public class CommandLineInputHandler {
-    static Boolean willExit = false;
+    private static Boolean willExit = false;
 
     private static void parseCommands(String line) {
         if (line.equals("bye")) {

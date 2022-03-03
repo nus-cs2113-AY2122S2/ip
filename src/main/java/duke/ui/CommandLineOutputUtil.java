@@ -1,4 +1,4 @@
-package duke.Ui;
+package duke.ui;
 
 public class CommandLineOutputUtil {
     private static final String MESSAGE_BORDER =
@@ -10,7 +10,7 @@ public class CommandLineOutputUtil {
         System.out.println(MESSAGE_BORDER);
     }
 
-    public static void greet() {
+    static void greet() {
         printFormat(" Hey there! I'm Duke\n" +
                 " What can I do for you? uwu");
     }

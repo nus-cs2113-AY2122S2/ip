@@ -1,8 +1,8 @@
-package duke.Storage;
+package duke.storage;
 
 import duke.DukeException;
-import duke.Parser.TaskString;
-import duke.TaskList.task.Task;
+import duke.parser.TaskString;
+import duke.tasklist.task.Task;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static duke.Storage.ReadWriteUtil.findFile;
+import static duke.storage.ReadWriteUtil.findFile;
 
 public class ReadTaskList {
     private static final int MAX_SIZE = 100;

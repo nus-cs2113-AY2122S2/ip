@@ -1,4 +1,4 @@
-package duke.Storage;
+package duke.storage;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +10,7 @@ public class ReadWriteUtil {
     private static final String currDir = System.getProperty("user.dir");
 
     // Adapted from https://www.sghill.net/how-do-i-make-cross-platform-file-paths-in-java.html
-    protected static Path findFile() {
+    static Path findFile() {
         Path dataDirPath = Paths.get(currDir, "data");
         Path tasksPath = Paths.get(dataDirPath.toString(), "tasks.txt");
         boolean directoryExists = Files.exists(dataDirPath);

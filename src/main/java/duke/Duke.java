@@ -1,8 +1,6 @@
 package duke;
 
-import duke.Ui.CommandLineInputHandler;
-
-import static duke.Ui.CommandLineInputHandler.runDuke;
+import static duke.ui.CommandLineInputHandler.runDuke;
 
 /**
  * Runs the Duke chat-bot which takes in user input,

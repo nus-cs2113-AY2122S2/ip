@@ -1,10 +1,10 @@
-package duke.Parser;
+package duke.parser;
 
 import duke.DukeException;
-import duke.TaskList.task.Deadline;
-import duke.TaskList.task.Event;
-import duke.TaskList.task.Task;
-import duke.TaskList.task.Todo;
+import duke.tasklist.task.Deadline;
+import duke.tasklist.task.Event;
+import duke.tasklist.task.Task;
+import duke.tasklist.task.Todo;
 
 public class TaskString {
 
@@ -14,7 +14,7 @@ public class TaskString {
         return taskInd;
     }
 
-    static String getTimeSplitArgument(TaskType taskType) throws DukeException {
+    private static String getTimeSplitArgument(TaskType taskType) throws DukeException {
         switch (taskType) {
         case DEADLINE:
             return " /by ";
@@ -27,7 +27,7 @@ public class TaskString {
         }
     }
 
-    static Task parseDeadlineOrEvent(TaskType taskType, String description) throws DukeException {
+    private static Task parseDeadlineOrEvent(TaskType taskType, String description) throws DukeException {
         String time;
         try {
             String regexArg = getTimeSplitArgument(taskType);
@@ -35,7 +35,7 @@ public class TaskString {
             description = breakdown[0];
             time = breakdown[1];
         } catch (DukeException e) {
-            throw new DukeException(e.msg);
+            throw new DukeException(e.getMessage());
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("You need to provide a time for your deadline or event");
         }
@@ -80,7 +80,7 @@ public class TaskString {
         return t;
     }
 
-    public static Boolean decodeStatus(Integer taskStatusNum) throws DukeException {
+    private static Boolean decodeStatus(Integer taskStatusNum) throws DukeException {
         switch (taskStatusNum) {
         case 1:
             return true;
@@ -93,7 +93,7 @@ public class TaskString {
         }
     }
 
-    public static Task decodeTaskParsing(String[] details, String description,
+    private static Task decodeTaskParsing(String[] details, String description,
                                          Boolean status) throws DukeException {
         Task t;
         switch (details[0]) {

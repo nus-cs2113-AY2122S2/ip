@@ -24,4 +24,7 @@ delete 2
 list
 deadline dummy /at invalid time format
 event dummy /by invalid time format
+delete 1
+delete 2
+delete 1
 bye

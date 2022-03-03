@@ -1,4 +1,4 @@
-package duke.TaskList.task;
+package duke.tasklist.task;
 
 public class Todo extends Task {
 

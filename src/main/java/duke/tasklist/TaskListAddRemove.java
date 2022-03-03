@@ -1,18 +1,17 @@
-package duke.TaskList;
+package duke.tasklist;
 
-import duke.Ui.CommandLineOutputUtil;
+import duke.parser.TaskString;
+import duke.ui.CommandLineOutputUtil;
 import duke.DukeException;
-import duke.TaskList.task.Task;
+import duke.tasklist.task.Task;
 
-import static duke.Parser.TaskString.parseTask;
-import static duke.Parser.TaskString.parseTaskNum;
 
 public class TaskListAddRemove {
     public static void removeTask(String line) {
         Task curr;
         try {
-            int taskInd = parseTaskNum(line);
-            if (taskInd > TaskListUtil.list.size()) {
+            int taskInd = TaskString.parseTaskNum(line);
+            if (!TaskListUtil.indInTaskList(taskInd)) {
                 throw new DukeException("Please delete a task number that's in the list :')");
             }
             curr = TaskListUtil.list.get(taskInd);
@@ -21,7 +20,7 @@ public class TaskListAddRemove {
             CommandLineOutputUtil.printFormat("You can only delete with a valid task number :')");
             return;
         } catch (DukeException e) {
-            CommandLineOutputUtil.printFormat(e.msg);
+            CommandLineOutputUtil.printFormat(e.getMessage());
             return;
         }
         CommandLineOutputUtil.printFormat("Noted. I've removed this task:\n  " + curr +
@@ -37,12 +36,12 @@ public class TaskListAddRemove {
                 description = commands[1];
             }
 
-            Task task = parseTask(type, description);
+            Task task = TaskString.parseTask(type, description);
             TaskListUtil.list.add(task);
             CommandLineOutputUtil.printFormat("Got it. I've added this task:\n  " + task +
                     String.format("\nNow you have %d tasks in the list.", TaskListUtil.list.size()));
         } catch (DukeException e) {
-            CommandLineOutputUtil.printFormat(e.msg);
+            CommandLineOutputUtil.printFormat(e.getMessage());
         }
     }
 }
