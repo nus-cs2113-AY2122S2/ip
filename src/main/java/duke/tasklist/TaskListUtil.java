@@ -41,4 +41,25 @@ public class TaskListUtil {
         }
         CommandLineOutputUtil.printFormat("Here are the tasks in your list:\n" + listAsString);
     }
+
+    public static void find(String line) {
+        String[] commands = line.split(" ");
+        if (commands.length > 2) {
+            CommandLineOutputUtil.printFormat("Please only enter one keyword!");
+            return;
+        }
+        String keyword = commands[1];
+
+        String listAsString = "";
+        int taskNum = 1;
+        for (int i = 0; i < list.size(); i++) {
+            Task curr = list.get(i);
+            String taskDescription = curr.getDescription();
+            if (taskDescription.contains(keyword)) {
+                listAsString = listAsString.concat(String.format(" %d. %s\n", taskNum, curr));
+                taskNum++;
+            }
+        }
+        CommandLineOutputUtil.printFormat("Here are the matching tasks in your list:\n" + listAsString);
+    }
 }
