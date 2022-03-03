@@ -32,7 +32,11 @@ public class TaskList {
             System.out.print(i + 1);
             System.out.println("." + taskList.get(i));
         }
-        System.out.println("\n----------------------------------------------------------------");
+        System.out.println("----------------------------------------------------------------");
+    }
+
+    public Task getTask(int index) {
+        return taskList.get(index);
     }
 
     public void deleteTask(int index) {
@@ -68,18 +72,23 @@ public class TaskList {
 
         System.out.println("Got it. I've added this task:  ");
         System.out.println(taskList.get(taskList.size()-1));
+        System.out.println("----------------------------------------------------------------");
     }
 
-
-    public void toggleStatus(int indexOfTask, String command) throws ChangeStatusException {
-        taskList.get(indexOfTask - 1).changeStatus();
-        if ((taskList.get(indexOfTask -1).isDone && command == "mark") ||
-            (!taskList.get(indexOfTask -1).isDone && command == "unmark"))
-            throw new ChangeStatusException("This task is already marked/unmarked");
-
-        System.out.println("OK, I've marked this task as (not) done:");
+    public void unmarkTask(int indexOfTask, String command) {
+        taskList.get(indexOfTask - 1).unmark();
+        System.out.println("OK, I've unmarked this task:");
         System.out.print(indexOfTask);
         System.out.println("." + taskList.get(indexOfTask - 1));
+        System.out.println("----------------------------------------------------------------");
+    }
+
+    public void markTask(int indexOfTask, String command) {
+        taskList.get(indexOfTask - 1).mark();
+        System.out.println("OK, I've marked this task as done:");
+        System.out.print(indexOfTask);
+        System.out.println("." + taskList.get(indexOfTask - 1));
+        System.out.println("----------------------------------------------------------------");
     }
 
 
