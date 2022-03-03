@@ -1,16 +1,18 @@
-#### User Guide
+# User Guide
+This application is designed to help a user manage his or her tasks, optimized for use via a 
+Command Line Interface (CLI). 
 
 Notes: 
 - Words in UPPER_CASE are the parameters to be supplied by the user.
 - Most of the example expected outcomes demonstrated for each feature follow the demonstrated outcomes before it.
 
-### Features
+## Features
 
-## Adding a task: 
+### Adding a task: 
 
 Adds a task to the list of tasks. Tasks can be of 3 types.
 
-# 1. Todo: `todo`
+#### 1. Todo: `todo`
 
 Adds a "Todo" type task to the list of tasks. 
 
@@ -27,7 +29,7 @@ Noted. I've added:
 Now you have 1 tasks in the list.
 ```
 
-# 2. Event: `event`
+#### 2. Event: `event`
 
 Adds an "Event" type task to the list of tasks. 
 
@@ -44,7 +46,7 @@ Noted. I've added:
 Now you have 2 tasks in the list.
 ```
 
-# 3. Deadline: `deadline`
+#### 3. Deadline: `deadline`
 
 Adds a "Deadline" type task to the list of tasks.
 
@@ -61,7 +63,7 @@ Noted. I've added:
 Now you have 3 tasks in the list.
 ```
 
-## Viewing tasks currently in list: `list`
+### Viewing tasks currently in list: `list`
 
 Allows user to view the tasks that are currently in the list. 
 
@@ -79,7 +81,7 @@ Here are the tasks in your list:
 ```
 `T`, `E` and `D` signify a "Todo" task, an "Event" task and a "Deadline" task respectively.
 
-## Marking tasks currently in list as done: `mark`
+### Marking tasks currently in list as done: `mark`
 
 Allows user to mark tasks that are currently in the list as completed.
 
@@ -104,7 +106,7 @@ Here are the tasks in your list:
 We can see here that task 3 is marked with an `X` indicated it is completed.
 
 
-## Marking tasks currently in list as not yet done: `unmark`
+### Marking tasks currently in list as not yet done: `unmark`
 
 Allows user to mark tasks that are currently in the list as completed.
 
@@ -128,7 +130,7 @@ Here are the tasks in your list:
 ```
 Task 3 that used to be marked with an `X` is no longer marked as done. 
 
-## Finding tasks currently in list: `find`
+### Finding tasks currently in list: `find`
 
 Allows user to find tasks are currently in the list that match with keyword provided.
 If there are multiple tasks with the user-provided keyword in their description, all such tasks be displayed. 
@@ -145,7 +147,7 @@ Here are the matching tasks in your list:
 2. [E][ ] meeting with boss (at: 3pm Monday)
 ```
 
-## Deleting tasks currently in list: `delete`
+### Deleting tasks currently in list: `delete`
 
 Allows user to delete tasks that are currently in the list.
 
@@ -169,12 +171,12 @@ Here are the tasks in your list:
 ```
 Task 3 that used to be present in the list is no longer there as it has been deleted.
 
-## Saving and loading the data:
+### Saving and loading the data:
 
 Data in the list is saved automatically every time it is updated and loaded automatically when the program is launched.
 There is no need to do anything manually. 
 
-## Terminating the program: `bye`
+### Terminating the program: `bye`
 
 Allows user to properly terminate the program. 
 
