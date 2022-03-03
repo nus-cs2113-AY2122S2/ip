@@ -35,6 +35,9 @@ public class Parser {
         case EmptyCommand.COMMAND_WORD:
             command = new EmptyCommand();
             break;
+        case FindCommand.COMMAND_WORD:
+            command = new FindCommand(userInput);
+            break;
         default:
             command = new WrongCommand();
             break;

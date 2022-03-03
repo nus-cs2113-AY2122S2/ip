@@ -32,9 +32,16 @@ public class Ui {
     public static final String UNMARK_TASK_MESSAGE = "Nice! I've marked this task as done:";
     public static final String WRONG_INPUT_MESSAGE = "☹ OOPS!!! I'm sorry, but I don't know what that means :-( Please enter something else!";
     public static final String EMPTY_INPUT_MESSAGE = "☹ OOPS!!! You didn't enter anything. Please key in something!";
+    public static final String EMPTY_SEARCH_DESCRIPTION_MESSAGE = "☹ OOPS!!! You didn't enter any search phrases. Please key in something!";
+    public static final String SEARCH_RESULTS_MESSAGE = "Here are your search results:";
+
 
     public static void showLine() {
         System.out.println(LINE);
+    }
+
+    public static void showSearchResultsCount(int count) {
+        System.out.println("There were " + count + " tasks that matched your search.");
     }
 
     public void showGreetingMessage() {
