@@ -44,12 +44,12 @@ to manage your daily task, set deadlines and mark events, this is the app for yo
 
     * **`todo`**`Homework` : Adds a task named `Homework` to the list.
 
-    * **`deadline`**`CS2113T Project Work`*`/by `*`2023-03-03 16:45` :
+    * **`deadline`**`CS2113T Project Work /by 2023-03-03 16:45` :
       Adds a task named `Homework` and deadline of `Mar 3 2023 4.45pm`to the list.
 
     * **`delete`**`2` : Deletes the 2nd task shown in the current list.
 
-    * **`find`**`task`*`homework`* : Shows a list of all tasks containing `Homework`.
+    * **`find`**`task homework` : Shows a list of all tasks containing `Homework`.
 
     * **`bye`** : Exits the app.
 
