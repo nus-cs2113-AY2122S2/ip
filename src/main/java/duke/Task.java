@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * A description of the task object
  */
-abstract class Task implements Serializable {
+abstract class Task {
     protected String description;
 
     /**
