@@ -3,3 +3,5 @@
 [T][ ]eat
 [E][X]Gardens (at:  Monday 3om)
 [T][ ]finish project
+[D][ ]return books (by:  3pm March 3rd)
+[D][X]return more books (by:  4pm May 4th)

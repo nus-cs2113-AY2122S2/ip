@@ -4,6 +4,7 @@ import duke.exceptions.InputLengthException;
 import duke.exceptions.UnreachableTaskException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
+import duke.tasks.TaskList;
 import duke.tasks.ToDo;
 
 import java.util.ArrayList;
@@ -11,21 +12,22 @@ import java.util.Scanner;
 
 public class Ui {
 
-    String greeting = "____________________________________________________________\n"
-            + " Hello! I'm Duke\n"
-            + " What can I do for you?\n"
-            + "____________________________________________________________\n";
-    String underscoreLine = "____________________________________________________________";
+    String greeting;
+    String underscoreLine;
     
     public Ui() {
-        
+        greeting = "____________________________________________________________\n"
+                + " Hello! I'm Duke\n"
+                + " What can I do for you?\n"
+                + "____________________________________________________________\n";
+        underscoreLine = "____________________________________________________________";
     }
 
     public void printGreeting() {
         System.out.println(greeting);
     }
     
-    public void parseLine(ArrayList<ToDo> toDos, int taskCounter) {
+    public void parseLine(TaskList toDos, int taskCounter) {
         Scanner sc = new Scanner(System.in);
         String line = sc.nextLine();
         String[] commands = line.split(" ");
@@ -38,7 +40,7 @@ public class Ui {
             System.exit(0);
         case "list": //list out all tasks
             System.out.println(underscoreLine);
-            for (int i = 0; i < taskCounter; i++) {
+            for (int i = 0; i < toDos.taskCounter; i++) {
                 System.out.println("   " + (i + 1) + ". " + toDos.get(i).getStatusIcon()
                         + toDos.get(i).getDescription());
             }

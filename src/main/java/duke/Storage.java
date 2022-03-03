@@ -2,9 +2,13 @@ package duke;
 
 import duke.tasks.Deadline;
 import duke.tasks.Event;
+import duke.tasks.TaskList;
 import duke.tasks.ToDo;
-
-import java.io.*;
+import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Storage {
@@ -13,7 +17,7 @@ public class Storage {
 
     }
 
-    public static int listCreate(String fileString, ArrayList<ToDo> toDos, int taskCounter) {
+    public static int listCreate(String fileString, TaskList toDos, int taskCounter) {
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileString));
@@ -53,11 +57,11 @@ public class Storage {
         return taskCounter;
     }
 
-    public static void fileWrite(String fileString, ArrayList<ToDo> toDos) {
+    public static void fileWrite(String fileString, TaskList toDos) {
         try {
             new FileWriter(fileString, false).close();
             FileWriter myWriter = new FileWriter(fileString);
-            for (int i = 0; i < toDos.size(); i++) {
+            for (int i = 0; i < toDos.taskCounter; i++) {
                 myWriter.write(toDos.get(i).getStatusIcon() + toDos.get(i).getDescription() + "\n");
             }
             myWriter.close();
