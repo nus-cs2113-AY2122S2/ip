@@ -1,3 +1,5 @@
-[T][X]sleep
-[D][X]eat (by: 10pm)
-[E][X]cry (at: 11pm)
+[T][X]eat
+[D][ ]read a book (by:  1pm Tuesday)
+[T][ ]eat
+[E][ ]Gardens (at:  Monday 3om)
+[T][X]finish project
