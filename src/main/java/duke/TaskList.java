@@ -9,12 +9,19 @@ import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 
+/**
+ * Class to contain the list of tasks and methods to interact with the list.
+ */
 public class TaskList {
     public static ArrayList<Task> taskList = new ArrayList<>();
     Storage storage;
     void TaskList() {
         storage = new Storage();
     }
+
+    /**
+     * Lists the tasks from the task list.
+     */
     public void listTasks() {
         System.out.println("    Here are the tasks in your list:");
         int i=1;
@@ -23,6 +30,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task denoted by its index as complete.
+     * @param task Input string that contains the mark command and the task index to be marked.
+     */
     public void markTask(String task) {
         try {
             storage = new Storage();
@@ -47,6 +58,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Unmarks a task denoted by its index as complete.
+     * @param task Input string that contains the unmark command and the task index to be unmarked.
+     */
     public void unmarkTask(String task) {
         try {
             storage = new Storage();
@@ -72,6 +87,10 @@ public class TaskList {
 
     }
 
+    /**
+     * Deleted a task denoted by its index from the task list.
+     * @param task Input string that contains the delete command and the task index to be deleted.
+     */
     public void deleteTask(String task) {
         try {
             storage = new Storage();
@@ -97,6 +116,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a task to the task list after determining the type of the task.
+     * @param task Input string that contains the task type and the task desccription.
+     * @throws DukeException If the task type is present but the task description is empty.
+     */
     public void addTask(String task) {
         try {
             storage = new Storage();
@@ -131,11 +155,20 @@ public class TaskList {
         storage.writeTaskFile();
     }
 
+
+    /**
+     * Adds a task as a Todo class instance.
+     * @param task Description of the todo that needs to be added.
+     */
     private void addAsTodo(String task) {
         taskList.add(new Todo(task));
         showAddedTask();
     }
 
+    /**
+     * Adds a task as an Event class instance.
+     * @param task Description of the event and the event time that need to be added.
+     */
     private void addAsEvent(String task) {
         try {
             int index;
@@ -151,12 +184,16 @@ public class TaskList {
                 taskList.add(new Event(task,eventTime));
                 showAddedTask();
             }
-        } catch (DukeException e) {
+        } catch (DukeException | IndexOutOfBoundsException e) {
             System.out.println("    Please enter a time for your event");
         }
 
     }
 
+    /**
+     * Adds a task as a Deadline class instance
+     * @param task Description of the deadline and the deadline date that need to be added.
+     */
     private void addAsDeadline(String task) {
         try {
             int index;
@@ -183,6 +220,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Extracts the deadline date from the string as a datetime object.
+     * @param by String that contains the deadline date.
+     * @return
+     */
     private LocalDateTime extractDeadlineDate(String by) {
         try {
             DateTimeFormatter formatter = new DateTimeFormatterBuilder()
@@ -204,6 +246,10 @@ public class TaskList {
         System.out.println("    Now you have " + (taskList.size()) + " tasks in the list.");
     }
 
+    /**
+     * Finds a task from the tasklist specified by a keyword.
+     * @param taskKeyword Search keyword used to search for a particular task.
+     */
     public void findTasks(String taskKeyword) {
         taskKeyword = taskKeyword.replace("find ","");
         ArrayList<Task> matches = new ArrayList<>();
@@ -220,6 +266,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Lists the matches found after a task is searched.
+     * @param matches Arraylist that contains the matches found for after a search.
+     */
     private void listMatches(ArrayList<Task> matches) {
         System.out.println("    Here are the matching tasks in your list:");
         int i=1;

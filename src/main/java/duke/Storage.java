@@ -7,12 +7,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Represents the methods used to access stored data of Duke.
+ */
 public class Storage {
     TaskList tasks = new TaskList();
     public void Storage() {
         tasks = new TaskList();
     }
-    public  void readTaskFile() {
+
+    /**
+     * Reads the data file from directory to create a tasklist.
+     * If there is no directory or file specified, they will be created.
+     */
+    public void readTaskFile() {
         try {
             File directory = new File("data");
             if (!directory.exists()) {
@@ -50,6 +58,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes into the data file to update the changes from the current task list.
+     */
     public void writeTaskFile() {
         try {
             File dukeFile = new File("data/duke.txt");

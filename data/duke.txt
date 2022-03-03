@@ -1,3 +1,3 @@
-E | 0 | meeting | 4pm to 6pm
+E | 1 | meeting | 4pm to 6pm
 D | 0 | cs2113 Duke | Friday Week 7
 T | 0 | test

@@ -5,6 +5,9 @@ import exceptions.DukeException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The main class for Duke Task Manager
+ */
 public class Duke {
     private static ArrayList<Task> taskList = new ArrayList<>();
 
@@ -12,6 +15,12 @@ public class Duke {
     private TaskList tasks;
     private Storage storage;
     private Parser parser;
+
+
+    /**
+     * Initializes the different components of Duke such as User Interface, TaskList, Storage
+     * and Parser classes.
+     */
     public Duke() {
         ui = new Ui();
         tasks = new TaskList();
@@ -19,6 +28,9 @@ public class Duke {
         parser = new Parser();
     }
 
+    /**
+     * Starts the Duke Task Manager Application.
+     */
     public void run() {
         ui.greetUser("hi");
         startChatbot();
@@ -29,6 +41,10 @@ public class Duke {
         new Duke().run();
     }
 
+
+    /**
+     * Starts the chatbot where the user can type in commands to interact with Duke.
+     */
     private void startChatbot() {
         storage.readTaskFile();
         Scanner input = new Scanner(System.in);
