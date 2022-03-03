@@ -1,4 +1,3 @@
-import duke.exceptions.*;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
@@ -35,12 +34,12 @@ public class Duke {
             String input = ui.getCommand();
             command = Parser.getCommandFromUserInput(input);
             Parser.runCommand(input, command, tasks);
-        } while (!command.equalsIgnoreCase("bye"));
+        } while (!command.equals("bye"));
 
         ui.printBye();
     }
 
-    public static void main(String[] args) throws FileNotFoundException, IOException {
+    public static void main(String[] args) {
         new Duke(Messages.MESSAGE_FILEPATH).run();
     }
 
