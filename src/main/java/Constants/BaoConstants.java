@@ -1,5 +1,8 @@
 package Constants;
 
+/**
+ * Constants used by BaoUI.
+ */
 public class BaoConstants {
     public static final String LOGO = "\t  ____       _       ___  " + System.lineSeparator()
             + "\t | __ )     / \\     / _ \\" + System.lineSeparator()
