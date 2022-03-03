@@ -7,8 +7,11 @@ import baymax.data.Todo;
 import baymax.storage.Storage;
 import baymax.ui.Ui;
 import baymax.exception.BaymaxException;
+import baymax.data.Task;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import static java.util.stream.Collectors.toList;
 
 public class Parser {
     private static boolean isBye;
@@ -103,6 +106,17 @@ public class Parser {
                     }
                     //check branch merge
                     break;
+                case "find":
+                    try {
+                        String search = word_split[1];
+                        ArrayList<Task> filteredTask = (ArrayList<Task>) tManager.getTasks().stream().
+                                filter(task -> task.getDescription().toLowerCase().contains(search.toLowerCase())).collect(toList());
+                        ui.printTaskList(filteredTask);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Please enter something for Baymax to search for!!");
+                    }
+                    break;
+
                 default:
                     System.out.println("Error. Please retry");
                     break;
