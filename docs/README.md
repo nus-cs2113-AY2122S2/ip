@@ -15,7 +15,7 @@ Duke is a ***an optimized Command Line Interface (CLI) application used for mana
   * [Find tasks in the list: `find`](#find-tasks-in-the-list-find)
   * [Exit the program: `bye`](#exit-the-program-bye)
 
-##Quick Start
+## Quick Start
 
 1. Ensure you have Java`11`or above installed in your computer.
 2. Download the latest`Duke.jar`from [here](https://github.com/limjierui/ip/releases).
@@ -26,7 +26,7 @@ Duke is a ***an optimized Command Line Interface (CLI) application used for mana
 6. Enter the commands you wish to execute and start managing your tasks!
 7. Refer to [Command Summary](#Command Summary) below for details of each command
 
-##Command Summary
+## Command Summary
 
 | Commands | Format, Example                                                                                             |
 |----------|-------------------------------------------------------------------------------------------------------------|
