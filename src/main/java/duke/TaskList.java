@@ -97,7 +97,6 @@ public class TaskList {
             task = task.replace("delete ","");
             int i = Integer.parseInt(task)-1;
             if (taskList.get(i) != null) {
-                System.out.println("deleting task");
                 Task removedTask = taskList.get(i);
                 taskList.remove(i);
                 System.out.println("    Noted. I've removed this task:");
