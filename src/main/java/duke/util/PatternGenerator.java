@@ -1,7 +1,7 @@
 package duke.util;
 
 /**
- * Generate patterns for output.
+ * Generates patterns for output.
  */
 
 public class PatternGenerator {

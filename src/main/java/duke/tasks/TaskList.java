@@ -21,6 +21,9 @@ public class TaskList {
         this.tasks = load.tasks;
     }
 
+    public int getNumberOfTasks(){
+        return tasks.size();
+    }
 
     public void addTask(Task task){
         tasks.add(task);

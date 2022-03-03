@@ -3,7 +3,7 @@ package duke.Commands;
 import duke.tasks.Task;
 
 /**
- * Add a task to task list.
+ * Adds a task to task list.
  */
 public class AddCommand extends Command{
 

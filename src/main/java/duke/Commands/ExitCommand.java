@@ -4,7 +4,7 @@ import duke.exception.IndexOutOfRangeException;
 import duke.util.PatternGenerator;
 
 /**
- * Exit the program.
+ * Exits the program.
  */
 
 public class ExitCommand extends Command{

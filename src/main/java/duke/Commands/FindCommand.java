@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 
 /**
- * Find a task by a keyword.
+ * Finds a task by a keyword.
  */
 
 public class FindCommand extends Command{

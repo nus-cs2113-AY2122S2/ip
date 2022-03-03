@@ -81,7 +81,7 @@ public class Duke {
       * @param command user command
      * @throws IndexOutOfRangeException if the user enters wrong number of parameters.
      */
-    private void executeCommand(Command command) throws IndexOutOfRangeException {
+    private void executeCommand(Command command) throws IndexOutOfRangeException, IllegalFormatException {
         command.setData(tasks);
         command.execute();
         storage.save(tasks);

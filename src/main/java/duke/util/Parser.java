@@ -14,7 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Parse input.
+ * Parses input.
  */
 public class Parser {
 
@@ -99,8 +99,8 @@ public class Parser {
         if(arrOfS.length < 2){
             throw new IllegalFormatException();
         }
-        Task ddl = new Deadline(arrOfS[0], arrOfS[1]);
-        return new AddCommand(ddl);
+        Task deadline = new Deadline(arrOfS[0], arrOfS[1]);
+        return new AddCommand(deadline);
     }
 
     /**

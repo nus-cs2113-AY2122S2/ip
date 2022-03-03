@@ -1,5 +1,6 @@
 package duke.Commands;
 
+import duke.exception.IllegalFormatException;
 import duke.exception.IndexOutOfRangeException;
 import duke.tasks.TaskList;
 
@@ -8,7 +9,7 @@ import duke.tasks.TaskList;
  */
 
 public abstract class Command {
-    public abstract void execute() throws IndexOutOfRangeException;
+    public abstract void execute() throws IndexOutOfRangeException, IllegalFormatException;
     protected TaskList taskList;
 
     public Command(){
