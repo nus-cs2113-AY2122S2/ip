@@ -1,8 +1,6 @@
 package storage;
 
 import duke.*;
-import exceptions.DukeException;
-import tasklist.TaskList;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -16,8 +14,7 @@ public class Storage {
     public Storage(String filePath){
         this.filePath = filePath;
     }
-
-
+    
     //@@author quitejasper-reused
     //Reused from https://github.com/FaliciaOng/ip/blob/master/src/main/java/Duke.java
     //with minor modifications
