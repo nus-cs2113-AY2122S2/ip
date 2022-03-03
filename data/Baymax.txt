@@ -1,4 +1,2 @@
-T / 1 / read book
-D / 0 / return book / June 6th
-E / 0 / project meeting / Aug 6th 2-4pm
-T / 1 / join sports club
+E / 1 / Xinyi attend CS2113 lecture / Friday 18 Feb 2022 from 4 to 6pm
+E / 1 / 1234  / jkd
