@@ -7,7 +7,8 @@ import java.time.format.DateTimeParseException;
 public class Parser {
     public static String boundary = "____________________________________________________________" + System.lineSeparator();
 
-    /* Report error to user if he/she did not put task description.
+    /* Reports error to user if he/she did not put task description.
+     *
      * @param request The request by user.
      * @throws TaskEmptyException If user request only contains task type but no task description.
      */
@@ -19,7 +20,8 @@ public class Parser {
         }
     }
 
-    /* Report error if the user did not give an index of task to delete.
+    /* Reports error if the user did not give an index of task to delete.
+     *
      * @param request The request by user.
      * @throws DeleteIndexException If user request only contains "delete" but no index.
      */
@@ -29,7 +31,8 @@ public class Parser {
         }
     }
 
-    /* Report error if the user did not give a keyword to search.
+    /* Reports error if the user did not give a keyword to search.
+     *
      * @param request The request by user.
      * @throws FindKeywordException If user request only contains "find" but no keyword.
      */
@@ -39,7 +42,7 @@ public class Parser {
         }
     }
 
-    // Try adding a task and print error message when user's add request is not in correct format
+    // Tries adding a task and print error message when user's add request is not in correct format
     public void tryAddTask(TaskList tasks, String request) {
         try {
             checkDescription(request);
@@ -62,7 +65,7 @@ public class Parser {
         }
     }
 
-    // Try deleting a task and print error message when user's delete request is not in correct format
+    // Tries deleting a task and print error message when user's delete request is not in correct format
     public void tryDeleteTask(TaskList tasks, String request) {
         try {
             checkDeleteIndex(request);
@@ -73,7 +76,7 @@ public class Parser {
         }
     }
 
-    // Trying finding a task and print error message when user's find request is not in correct format
+    // Tries finding a task and print error message when user's find request is not in correct format
     public void tryFindTask(TaskList tasks, String request) {
         try {
             checkFindKeyword(request);

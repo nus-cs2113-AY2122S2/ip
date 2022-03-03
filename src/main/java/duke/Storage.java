@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class Storage {
     public static String boundary = "____________________________________________________________" + System.lineSeparator();
 
-    // Create data directory and dukeData.txt if they don't exist.
+    // Creates data directory and dukeData.txt if they don't exist.
     public Storage() {
         File dataDirectory = new File("./data");
         if (!dataDirectory.exists()) {
@@ -36,7 +36,8 @@ public class Storage {
         }
     }
 
-    /* Write the given string to dukeData.txt.
+    /* Writes the given string to dukeData.txt.
+     *
      * @param textToWrite The String to be written into the file.
      * @throws IOException
      */
@@ -46,7 +47,8 @@ public class Storage {
         fw.close();
     }
 
-    /* Add existing tasks from data file to the given task list.
+    /* Adds existing tasks from data file to the given task list.
+     *
      * @param tasks The task list to be written to.
      * @throws FileNotFoundException If the data file cannot be found.
      */
@@ -79,7 +81,8 @@ public class Storage {
         }
     }
 
-    /* Write tasks to the given file.
+    /* Writes the tasks to the given file.
+     *
      * @param dataFile The data file to be written to.
      * @param tasks The task list that is read from.
      */

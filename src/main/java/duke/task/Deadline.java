@@ -14,7 +14,7 @@ public class Deadline extends Task {
         this.date = LocalDate.parse(by);
     }
 
-    // Print Deadline in a fixed format
+    // Prints Deadline in a fixed format
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: "

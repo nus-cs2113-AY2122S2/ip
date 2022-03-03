@@ -20,7 +20,7 @@ public class Duke {
         }
     }
 
-    // Run the Duke program from start
+    // Runs the Duke program from start
     public void run() {
         Storage dataFile = new Storage();
         ui.sayHello();

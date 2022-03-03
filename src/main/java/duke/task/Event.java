@@ -8,7 +8,7 @@ public class Event extends Task {
         this.at = at;
     }
 
-    // Print event in a fixed format
+    // Prints event in a fixed format
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (at: " + at + ")";

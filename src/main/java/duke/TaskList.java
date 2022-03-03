@@ -20,7 +20,8 @@ public class TaskList {
         countTask = 0;
     }
 
-    /* Get the task of the given index.
+    /* Gets the task of the given index.
+     *
      * @param index The index of the task to be returned.
      * @return The task of the index requested.
      */
@@ -28,7 +29,8 @@ public class TaskList {
         return taskList.get(index);
     }
 
-    /* Add the given task into the task list.
+    /* Adds the given task into the task list.
+     *
      * @param request The input request given by user.
      */
     public void addTask(String request) throws GeneralException,
@@ -73,7 +75,8 @@ public class TaskList {
         taskList.add(new Event(description, at));
     }
 
-    /* Mark the given task as done
+    /* Marks the given task as done
+     *
      * @param toMark The index of the task to be marked as done.
      */
     public void markTask(int toMark) {
@@ -83,7 +86,8 @@ public class TaskList {
         System.out.print(boundary);
     }
 
-    /* Mark the given task as not done yet.
+    /* Marks the given task as not done yet.
+     *
      * @param toUnmark The index of the task to be unmarked.
      */
     public void unmarkTask(int toUnmark) {
@@ -102,7 +106,8 @@ public class TaskList {
         System.out.print("Now you have " + countTask + " tasks in the list."+ System.lineSeparator() + boundary);
     }
 
-    /* Find tasks with the given keyword and print them out.
+    /* Finds the tasks with the given keyword and print them out.
+     *
      * @param keyword The keyword to search for in existing tasks.
      */
     public void findTask(String keyword) {
@@ -115,7 +120,8 @@ public class TaskList {
         System.out.print(boundary);
     }
 
-    /* Delete the given task from task list.
+    /* Deletes the given task from task list.
+     *
      * @param index The index of the task to be deleted.
      */
     public void deleteTask(int index) {
