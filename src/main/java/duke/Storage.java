@@ -15,20 +15,20 @@ public class Storage {
     public  void readTaskFile() {
         try {
             File directory = new File("data");
-            if(!directory.exists()) {
+            if (!directory.exists()) {
                 directory.mkdir();
             }
             File dukeFile = new File("data/duke.txt");
-            if(dukeFile.createNewFile()) {
+            if (dukeFile.createNewFile()) {
                 System.out.println("    I have created \"duke.txt\" to store your tasks: "+dukeFile.getName());
             } else {
                 System.out.println("    I have restored your tasks from the last session!");
             }
             Scanner s = new Scanner(dukeFile);
             List<String> taskInfo;
-            while(s.hasNext()) {
+            while (s.hasNext()) {
                 taskInfo = Arrays.asList(s.nextLine().split(" \\| "));
-                switch(taskInfo.get(0)) {
+                switch (taskInfo.get(0)) {
                 case "T":
                     tasks.taskList.add(new Todo(taskInfo.get(2)));
                     tasks.taskList.get(tasks.taskList.size()-1).isDone = taskInfo.get(1).equals("1");
@@ -55,16 +55,14 @@ public class Storage {
             File dukeFile = new File("data/duke.txt");
             FileWriter fw = new FileWriter(dukeFile.getAbsolutePath());
             String taskType="";
-            for(Task t: tasks.taskList) {
+            for (Task t: tasks.taskList) {
                 if (t==null) {
                     break;
-                }
-                if(t instanceof Todo) {
+                } if (t instanceof Todo) {
                     taskType = "T";
                     fw.write(taskType+" | "+(t.isDone()?1:0)+" | "+ t.getTitle());
                     fw.write(System.lineSeparator());
-                }
-                else if(t instanceof Deadline) {
+                } else if (t instanceof Deadline) {
                     taskType = "D";
                     //if deadline date is a string format
                     if(((Deadline) t).getBy() !=null) {
@@ -73,8 +71,7 @@ public class Storage {
                         fw.write(taskType+" | "+(t.isDone()?1:0)+" | "+ t.getTitle()+" | "+((Deadline) t).formatByDate());
                     }
                     fw.write(System.lineSeparator());
-                }
-                else if (t instanceof Event) {
+                } else if (t instanceof Event) {
                     taskType = "E";
                     fw.write(taskType+" | "+(t.isDone()?1:0)+" | "+ t.getTitle()+" | "+ ((Event) t).getEventTime());
                     fw.write(System.lineSeparator());

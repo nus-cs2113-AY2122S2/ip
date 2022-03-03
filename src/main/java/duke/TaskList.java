@@ -1,5 +1,7 @@
 package duke;
 
+import exceptions.DukeException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -16,7 +18,7 @@ public class TaskList {
     public void listTasks() {
         System.out.println("    Here are the tasks in your list:");
         int i=1;
-        for(Task t: taskList) {
+        for (Task t: taskList) {
             System.out.println("    "+(i++ )+": "+t);
         }
     }
@@ -101,6 +103,9 @@ public class TaskList {
             int index = task.indexOf(' ');
             String taskType = task.substring(0, index);
             task = task.substring(index + 1);
+            if (task.equals("")) {
+                throw new DukeException();
+            }
             switch (taskType) {
             case "todo":
                 addAsTodo(task);
@@ -113,46 +118,68 @@ public class TaskList {
                 break;
             default:
                 System.out.println("    Sorry I do not know what that means");
-                return;
+                break;
             }
-            System.out.println("    Got it. I've added this task:");
-            System.out.println("        " + taskList.get(taskList.size()-1));
-            System.out.println("    Now you have " + (taskList.size()) + " tasks in the list.");
-            storage.writeTaskFile();
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("    OOPS!!! The description of a "+task+" cannot be empty");
+        } catch (IndexOutOfBoundsException | DukeException e) {
+            if(task.equals("")) {
+                System.out.println("    OOPS!!! The description of a task cannot be empty");
+            }
+            else {
+                System.out.println("    OOPS!!! The description of a " + task + " cannot be empty");
+            }
         }
+        storage.writeTaskFile();
     }
 
     private void addAsTodo(String task) {
         taskList.add(new Todo(task));
+        showAddedTask();
     }
-    private void addAsEvent(String task) {
-        int index;
-        index = task.indexOf("/");
-        String eventTime = task.substring(index+1);
-        task = task.substring(0,index-1);
 
-        index = eventTime.indexOf(' ');
-        eventTime = eventTime.substring(index+1);
-        taskList.add(new Event(task,eventTime));
+    private void addAsEvent(String task) {
+        try {
+            int index;
+            index = task.indexOf("/");
+            String eventTime = task.substring(index+1);
+            task = task.substring(0,index-1);
+
+            index = eventTime.indexOf(' ');
+            eventTime = eventTime.substring(index+1);
+            if (eventTime.equals("")) {
+                throw new DukeException();
+            } else {
+                taskList.add(new Event(task,eventTime));
+                showAddedTask();
+            }
+        } catch (DukeException e) {
+            System.out.println("    Please enter a time for your event");
+        }
+
     }
 
     private void addAsDeadline(String task) {
-        int index;
-        index = task.indexOf("/");
-        String by = task.substring(index+1);
-        task = task.substring(0,index-1);
+        try {
+            int index;
+            index = task.indexOf("/");
+            String by = task.substring(index + 1);
+            task = task.substring(0, index - 1);
 
-        index = by.indexOf(' ');
-        by = by.substring(index+1);
-        LocalDateTime byDate = extractDeadlineDate(by);
+            index = by.indexOf(' ');
+            by = by.substring(index + 1);
+            LocalDateTime byDate = extractDeadlineDate(by);
 
-        //if we get a valid date store as a valid date, else store as a string
-        if(byDate != null) {
-            taskList.add(new Deadline(task,byDate));
-        } else {
-            taskList.add(new Deadline(task, by));
+            //if we get a valid date store as a valid date, else store as a string
+            if (byDate != null) {
+                taskList.add(new Deadline(task, byDate));
+                showAddedTask();
+            } else if (by.equals("")) {
+                throw new DukeException();
+            } else {
+                taskList.add(new Deadline(task, by));
+                showAddedTask();
+            }
+        } catch (DukeException | IndexOutOfBoundsException e) {
+            System.out.println("    Please enter a date for your deadline");
         }
     }
 
@@ -165,17 +192,23 @@ public class TaskList {
                     .toFormatter();
             LocalDateTime d1 = LocalDateTime.parse(by,formatter);
             return d1;
-        } catch(DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             return null;
         }
 
+    }
+
+    private void showAddedTask() {
+        System.out.println("    Got it. I've added this task:");
+        System.out.println("        " + taskList.get(taskList.size()-1));
+        System.out.println("    Now you have " + (taskList.size()) + " tasks in the list.");
     }
 
     public void findTasks(String taskKeyword) {
         taskKeyword = taskKeyword.replace("find ","");
         ArrayList<Task> matches = new ArrayList<>();
         for(Task t: taskList) {
-            if(t.title.contains(taskKeyword)) {
+            if (t.title.contains(taskKeyword)) {
                 matches.add(t);
             }
         }
