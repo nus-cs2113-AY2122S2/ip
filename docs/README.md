@@ -9,7 +9,7 @@
 
 Prerequisites: Make sure you have JDK 11 (Java) installed.
 
-1. Get Dook from [to update link]()
+1. Get Dook from [here](https://github.com/IncompetentDev/ip/releases/tag/A-Release)
 2. Run in the terminal, the jar file with `java -jar ip.jar`. Make sure the jar file is in the same directory.
 3. Dook is now running. You can view commands with `help`, and exit with `bye`. Any task changes are automatically saved.
 
