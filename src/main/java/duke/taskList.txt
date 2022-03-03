@@ -1,5 +1,5 @@
 [T][X]eat
 [D][ ]read a book (by:  1pm Tuesday)
 [T][ ]eat
-[E][ ]Gardens (at:  Monday 3om)
-[T][X]finish project
+[E][X]Gardens (at:  Monday 3om)
+[T][ ]finish project
