@@ -229,3 +229,34 @@ Exit the programme
 	───────────────────────────────────────────────────────────────────────
 ```
 
+## Error message
+> Ah...The task you choose doesn't exist on your list.
+
+_This message appears when the task you try to choose does not exist._
+
+**Possible fix:** add that task to the list or try to find that task manually by using `List`.
+
+> Sorry but you haven't input a task here.
+
+_This message appears when you try to add a task without the content ~~of the task~~._
+
+**Possible fix:** try to add the task again but with the content.
+
+> Sorry but you haven't input a date here.
+
+_This message appears when you try to add a deadline task or an event task without the deadline or time period._
+
+**Possible fix:** try to add the task as using `Todo` or input a task with a deadline or a time period.
+
+> Sorry but I cannot understand your command.
+
+_This message appears when your command is not recognized._
+
+**Possible fix:** try the command again following the syntax given in this guide.
+
+> Oh no! File IO error just occurred.
+
+_This message appears when there is a problem with saving and loading the data file._
+
+**Possible fix:** try to manually create a data folder in the same folder the jar file is in and add a data.txt file in the data folder.
+
