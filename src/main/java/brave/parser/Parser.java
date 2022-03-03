@@ -1,12 +1,13 @@
 package brave.parser;
 
 import brave.IllegalArgumentException;
-import brave.data.Deadline;
-import brave.data.Event;
-import brave.data.TaskManager;
-import brave.data.Todo;
+import brave.data.*;
 import brave.storage.Storage;
 import brave.ui.Ui;
+
+import java.util.ArrayList;
+
+import static java.util.stream.Collectors.toList;
 
 public class Parser {
 
@@ -67,7 +68,6 @@ public class Parser {
             }
             break;
         case "deadline":
-            // To-do validate arguments~
             String[] arguments = splitInputs[1].split(" /by ", 2);
             description = arguments[0];
             String by = arguments[1];
@@ -86,6 +86,18 @@ public class Parser {
                 System.out.println("Please put in integer value");
             } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
                 System.out.println("Please put in valid number of task");
+            }
+            break;
+        case "find":
+            try {
+                String params = splitInputs[1];
+                ArrayList<Task> filteredTask = (ArrayList<Task>) tasks.getTasks().stream().
+                        filter(task -> task.getDescription().toLowerCase().
+                                contains(params.toLowerCase())).collect(toList());
+
+                ui.printTaskList(filteredTask);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Brave need something to search for!!");
             }
             break;
         default:
