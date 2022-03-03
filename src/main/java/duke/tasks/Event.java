@@ -27,12 +27,12 @@ public class Event extends Task {
         this.isDone = false;
         this.atDateTimeStart = atDateTimeStart;
         this.atDateTimeEnd = atDateTimeEnd;
-        this.tag = 'E';
+        this.type = TaskType.EVENT;
     }
 
     @Override
     public String toString() {
-        return String.format(EVENT_TOSTRING_FORMAT_STRING, this.getTag(), this.getIsDone(), this.getDescription(), this.getAtDateTimeAsString());
+        return String.format(EVENT_TOSTRING_FORMAT_STRING, this.getType().getTag(), this.getIsDone(), this.getDescription(), this.getAtDateTimeAsString());
     }
 
     /**

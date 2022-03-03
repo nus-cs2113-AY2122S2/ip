@@ -130,8 +130,13 @@ public class Parser {
      */
     private static Command createCommand(String inputCommand, String inputArguments) throws InvalidCommandException {
         HashMap<String, String> parsedArguments;
-        CommandType commandType = CommandType.fromString(inputCommand);
-        switch(commandType) {
+        CommandType commandType;
+        try {
+            commandType = CommandType.fromString(inputCommand);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidCommandException(inputCommand);
+        }
+        switch (commandType) {
         case BYE:
             return new ByeCommand();
         case LIST:

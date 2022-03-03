@@ -16,7 +16,8 @@ public class HelpCommand extends Command {
             + "\nfind <description>"
             + "\ndelete <task number>"
             + "\nhelp"
-            + "\nbye";
+            + "\nbye"
+            + "\nMore information at https://incompetentdev.github.io/ip/"  ;
 
     public HelpCommand() {
         this.commandType = CommandType.HELP;

@@ -10,6 +10,6 @@ public class Todo extends Task {
     public Todo(String description) {
         this.description = description;
         this.isDone = false;
-        this.tag = 'T';
+        this.type = TaskType.TODO;
     }
 }

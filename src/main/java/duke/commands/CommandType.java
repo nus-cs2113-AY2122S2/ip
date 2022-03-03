@@ -1,5 +1,7 @@
 package duke.commands;
 
+import duke.exceptions.InvalidCommandException;
+
 public enum CommandType {
     TODO("todo"),
     DEADLINE("deadline"),
@@ -30,7 +32,7 @@ public enum CommandType {
     /**
      * Returns the proper Enum for the given name
      *
-     * @param text single char String, the tag of TaskType
+     * @param text the command name
      * @return the Enum representing the full name of the type of task
      */
     public static CommandType fromString(String text) {

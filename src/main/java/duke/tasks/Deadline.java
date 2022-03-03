@@ -21,7 +21,7 @@ public class Deadline extends Task {
         this.description = description;
         this.isDone = false;
         this.byDateTime = byDateTime;
-        this.tag = 'D';
+        this.type = TaskType.DEADLINE;
     }
 
     /**
@@ -35,7 +35,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return String.format(DEADLINE_TOSTRING_FORMAT_STRING, this.getTag(), this.getIsDone(), this.getDescription(), this.getByDateTimeAsString());
+        return String.format(DEADLINE_TOSTRING_FORMAT_STRING, this.getType().getTag(), this.getIsDone(), this.getDescription(), this.getByDateTimeAsString());
     }
 
     /**

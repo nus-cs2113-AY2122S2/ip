@@ -1,22 +1,22 @@
 package duke.tasks;
 
 public enum TaskType {
-    TODO("T"),
-    DEADLINE("D"),
-    EVENT("E");
+    TODO('T'),
+    DEADLINE('D'),
+    EVENT('E');
 
-    private String tag;
+    private char tag;
 
     /**
      * Give each TaskType enum an associated tag
      *
      * @param tag single char String, representing tag of TaskType
      */
-    TaskType(String tag) {
+    TaskType(char tag) {
         this.tag = tag;
     }
 
-    public String getTag() {
+    public char getTag() {
         return tag;
     }
 
@@ -28,7 +28,8 @@ public enum TaskType {
      */
     public static TaskType fromString(String text) {
         for (TaskType taskType : TaskType.values()) {
-            if (taskType.getTag().equals(text)) {
+            String tagString = String.valueOf(taskType.getTag());
+            if (tagString.equals(text)) {
                 return taskType;
             }
         }

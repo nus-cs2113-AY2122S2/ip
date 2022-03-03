@@ -5,7 +5,7 @@ import java.util.Queue;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
-    protected char tag;
+    protected TaskType type;
 
     protected static final String TOSTRING_FORMAT_STRING = "[%c][%c] %s";
 
@@ -41,13 +41,13 @@ public abstract class Task {
      *
      * @return tag character of task type
      */
-    public char getTag() {
-        return this.tag;
+    public TaskType getType() {
+        return this.type;
     }
 
     @Override
     public String toString() {
-        return String.format(Task.TOSTRING_FORMAT_STRING, this.getTag(), this.getIsDone(), this.getDescription());
+        return String.format(Task.TOSTRING_FORMAT_STRING, this.getType().getTag(), this.getIsDone(), this.getDescription());
     }
 
     /**
@@ -56,7 +56,7 @@ public abstract class Task {
      * @param infoToWrite the FIFO Queue which will be written to the data file.
      */
     public void toDataFile(Queue<String> infoToWrite) {
-        infoToWrite.add(String.valueOf(this.getTag()));
+        infoToWrite.add(String.valueOf(this.getType().getTag()));
         infoToWrite.add(this.isDone ? "1" : "0");
         infoToWrite.add(this.getDescription());
     }
