@@ -9,6 +9,10 @@ public class ListCommand extends Command {
     private static final String LIST_PRE_MESSAGE_FORMAT = "Here are the tasks in your list";
     private static final String LIST_MESSAGE_FORMAT =  "%d. %s";
 
+    public ListCommand() {
+        this.commandType = CommandType.LIST;
+    }
+
     /**
      * Lists out all tasks and their corresponding information.
      *

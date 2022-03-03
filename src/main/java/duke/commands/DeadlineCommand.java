@@ -16,7 +16,6 @@ import java.util.HashMap;
 
 public class DeadlineCommand extends Command {
     private static final String TASK_ADDED_MESSAGE_FORMAT = "added: %s";
-    private static final String COMMAND_NAME = "deadline";
     private static final String EMPTY_ARGUMENTS = "Deadline must have a description!";
     private static final String EMPTY_BYDATE = "Deadline must have a date for /by!";
     private static final String INCORRECT_BYDATE = "The deadline entered for /by must be a valid date time!";
@@ -30,6 +29,7 @@ public class DeadlineCommand extends Command {
      */
     public DeadlineCommand(HashMap<String, String> parsedArguments) {
         this.arguments = parsedArguments;
+        commandType = CommandType.DEADLINE;
     }
 
     /**
@@ -44,7 +44,7 @@ public class DeadlineCommand extends Command {
         String description = arguments.get("");
         String byDate = arguments.get("/by");
         boolean isDescriptionEmpty = (description==null || description.equals(""));
-        boolean isDateEmpty = (description==null || description.equals(""));
+        boolean isDateEmpty = (byDate==null || byDate.equals(""));
         if (isDescriptionEmpty) {
             errorMsg += EMPTY_ARGUMENTS+"\n";
         }
@@ -52,7 +52,7 @@ public class DeadlineCommand extends Command {
             errorMsg += EMPTY_BYDATE+"\n";
         }
         if (!errorMsg.equals("")) {
-            throw new InvalidArgumentException(COMMAND_NAME,errorMsg.trim());
+            throw new InvalidArgumentException(commandType.getName(), errorMsg.trim());
         }
     }
 
@@ -78,7 +78,7 @@ public class DeadlineCommand extends Command {
             storage.write(taskList);
         } catch (DateTimeParseException e) {
             // User specified DateTime cannot be parsed.
-            InvalidArgumentException exception = new InvalidArgumentException(COMMAND_NAME, INCORRECT_BYDATE);
+            InvalidArgumentException exception = new InvalidArgumentException(commandType.getName(), INCORRECT_BYDATE);
             throw exception;
         }
     }

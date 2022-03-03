@@ -12,7 +12,6 @@ import java.util.HashMap;
 
 public class TodoCommand extends Command {
     private static final String TASK_ADDED_MESSAGE_FORMAT = "added: %s";
-    private static final String COMMAND_NAME = "todo";
     private static final String EMPTY_ARGUMENTS = "Todo must have a description!";
 
     private HashMap<String, String> arguments;
@@ -22,6 +21,7 @@ public class TodoCommand extends Command {
      */
     public TodoCommand(HashMap<String, String> parsedArguments) {
         this.arguments = parsedArguments;
+        this.commandType = CommandType.TODO;
     }
 
     /**
@@ -33,7 +33,7 @@ public class TodoCommand extends Command {
     @Override
     protected void checkArguments() throws InvalidArgumentException {
         if (arguments.get("").equals("")) {
-            throw new InvalidArgumentException(COMMAND_NAME, EMPTY_ARGUMENTS);
+            throw new InvalidArgumentException(commandType.getName(), EMPTY_ARGUMENTS);
         }
     }
 

@@ -11,7 +11,7 @@ import duke.exceptions.InvalidArgumentException;
  * Commands may also implement their own private behaviours to ease readability.
  */
 public abstract class Command {
-    protected boolean isExit;
+    protected CommandType commandType;
 
     /**
      * Classes should override and implement this as needed, namely those that requires additional user arguments
@@ -34,6 +34,6 @@ public abstract class Command {
     public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
 
     public boolean isExit() {
-        return this.isExit;
+        return commandType == CommandType.BYE;
     }
 }

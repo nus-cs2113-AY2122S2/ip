@@ -14,7 +14,6 @@ import duke.Ui;
 public class FindCommand extends Command {
     private static final String FIND_PRE_MESSAGE_FORMAT = "Here are the tasks that were found:";
     private static final String FIND_MESSAGE_FORMAT =  "%d. %s";
-    private static final String COMMAND_NAME = "find";
     private static final String INVALID_INPUT = "Find must have description!";
 
     private HashMap<String, String> arguments;
@@ -26,6 +25,7 @@ public class FindCommand extends Command {
      */
     public FindCommand(HashMap<String, String> parsedArguments) {
         this.arguments = parsedArguments;
+        this.commandType = CommandType.FIND;
     }
 
     /**
@@ -39,7 +39,7 @@ public class FindCommand extends Command {
         String searchDescription = arguments.get("");
         boolean isDescriptionEmpty = (searchDescription == null || searchDescription.equals(""));
         if (isDescriptionEmpty) {
-            throw new InvalidArgumentException(COMMAND_NAME, INVALID_INPUT);
+            throw new InvalidArgumentException(commandType.getName(), INVALID_INPUT);
         }
     }
 

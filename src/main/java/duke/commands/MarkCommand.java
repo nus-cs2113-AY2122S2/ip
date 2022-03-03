@@ -13,7 +13,6 @@ public class MarkCommand extends Command {
     private static final String TASK_MARKED_MESSAGE_FORMAT =
             "Nice! I've marked this task as done:"
             + "\n%s";
-    private static final String COMMAND_NAME = "mark";
     private static final String INVALID_INPUT = "The argument received is not a valid integer.";
     public static final String INVALID_TASK = "The task number given does not exist";
 
@@ -27,6 +26,7 @@ public class MarkCommand extends Command {
      */
     public MarkCommand(HashMap<String, String> parsedArguments) {
         this.arguments = parsedArguments;
+        this.commandType = CommandType.MARK;
     }
 
     /**
@@ -40,7 +40,7 @@ public class MarkCommand extends Command {
         try {
             this.index = Integer.parseInt(arguments.get(""))-1;
         } catch (NumberFormatException e) {
-            throw new InvalidArgumentException(COMMAND_NAME, INVALID_INPUT);
+            throw new InvalidArgumentException(commandType.getName(), INVALID_INPUT);
         }
     }
 
@@ -62,7 +62,7 @@ public class MarkCommand extends Command {
             storage.write(taskList);
         } catch (IndexOutOfBoundsException e) {
             // User specified task number does not correspond to any task.
-            InvalidArgumentException exception = new InvalidArgumentException(COMMAND_NAME, INVALID_TASK);
+            InvalidArgumentException exception = new InvalidArgumentException(commandType.getName(), INVALID_TASK);
             throw exception;
         }
     }
