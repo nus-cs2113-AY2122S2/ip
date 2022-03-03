@@ -1,29 +1,31 @@
-# User Guide
+````
+______  ___________  ___   ______  _____ _____ 
+| ___ \|  _  | ___ \/ _ \  | ___ \|  _  |_   _|
+| |_/ /| | | | |_/ / /_\ \ | |_/ /| | | | | |  
+| ___ \| | | | ___ \  _  | | ___ \| | | | | |  
+| |_/ /\ \_/ / |_/ / | | | | |_/ /\ \_/ / | |  
+\____/  \___/\____/\_| |_/ \____/  \___/  \_/
+````
 
-## Features 
+# Welcome to Boba
 
-### Feature-ABC
+This is a virtual chat-bot that manages your list of tasks.
+You can add, remove, and mark tasks. These tasks are separate
+Todos, Deadlines, and Event.
 
-Description of the feature.
+## How to use
 
-### Feature-XYZ
+With an intuitive UI, simply type in any valid command into the chat
+and Boba will respond appropriately.
 
-Description of the feature.
+Typing "help" will list out all the valid commands Boba responds to
+``
+help
+``
 
-## Usage
-
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
+To add an item to list of tasks, simply type one of the following
 ```
-expected output
+todo <description>
+deadline <description> /by <time>
+event <description> /at <time>
 ```
