@@ -47,7 +47,7 @@ public class Storage extends Duke {
             for (String lines : fileContentLines) {
                 isFileContentValid(lines);
                 String userInput = null;
-                String[] contentsInALine = lines.split(",", -1);
+                String[] contentsInALine = lines.split("\\|", -1);
                 if (contentsInALine.length < 1) {
                     throw new InvalidUserInputException(INVALID_INPUT);
                 }
@@ -223,7 +223,7 @@ public class Storage extends Duke {
      * @throws StorageException If command in the file is invalid.
      */
     public static void isFileContentValid(String fileCommand) throws StorageException {
-        String[] fileCommandArray = fileCommand.split(",");
+        String[] fileCommandArray = fileCommand.split("\\|");
         switch (fileCommandArray[0]) {
         case "T":
             if (fileCommandArray.length < 3) {

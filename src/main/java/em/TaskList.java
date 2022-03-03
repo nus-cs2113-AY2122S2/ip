@@ -272,7 +272,7 @@ public class TaskList {
             fileContentLines = Files.readAllLines(Storage.databasePath);
             int taskNumber = 1;
             for (String lines : fileContentLines) {
-                String[] contentsInALine = lines.split(",", -1);
+                String[] contentsInALine = lines.split("\\|", -1);
                 if (contentsInALine.length < 1) {
                     throw new InvalidUserInputException(NO_DESCRIPTION);
                 }

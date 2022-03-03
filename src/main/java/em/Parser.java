@@ -18,13 +18,13 @@ public class Parser {
         String databaseInput = null;
         switch (taskDescription[0]) {
         case "todo":
-            databaseInput = "T," + "0," + taskDescription[1];
+            databaseInput = "T|" + "0|" + taskDescription[1];
             break;
         case "deadline":
-            databaseInput = "D," + "0," + taskDescription[1] + "," + taskDescription[2];
+            databaseInput = "D|" + "0|" + taskDescription[1] + "|" + taskDescription[2];
             break;
         case "event":
-            databaseInput = "E," + "0," + taskDescription[1] + "," + taskDescription[2];
+            databaseInput = "E|" + "0|" + taskDescription[1] + "|" + taskDescription[2];
             break;
         }
         return databaseInput;
