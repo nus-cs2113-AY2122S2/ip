@@ -9,25 +9,42 @@ import duke.taskList.TaskList;
 import duke.ui.Ui;
 
 
+
 public class Parser {
     private final String input;
     private final Ui ui = new Ui();
 
+    /**
+     * @param input
+     */
     public Parser(String input) {
         this.input = input;
     }
 
+    /**
+     * @param input
+     * @return
+     */
     public static String getCommandFromUserInput(String input) {
         if (input == "bye" ||input == "list") return input;
         return input.split(" ")[0];
     }
 
+    /**
+     * @param input
+     * @return
+     */
     public static int getTaskIndex(String input) {
         int indexOfSpace = input.indexOf(" ");
         int indexOfTask = Integer.parseInt(input.substring(indexOfSpace + 1));
         return indexOfTask;
     }
 
+    /**
+     * @param input
+     * @param command
+     * @param taskList
+     */
     public static void runCommand(String input, String command, TaskList taskList) {
         try {
             switch (command) {
@@ -74,6 +91,9 @@ public class Parser {
     }
 
 
+    /**
+     * @return
+     */
     public Task getTaskFromLocalFile() {
 
         try {
@@ -99,12 +119,20 @@ public class Parser {
     }
 
 
+    /**
+     * @param input
+     * @return
+     */
     //1.[T][ ] borrow book
     public Todo generateTodo(String input) {
         String description = input.substring(7);
         return new Todo(description);
     }
 
+    /**
+     * @param input
+     * @return
+     */
     //1.[D][ ] return book (by: June 6th)
     public Deadline generateDeadline(String input) {
         String description = input.substring(7, input.indexOf("("));
@@ -112,6 +140,10 @@ public class Parser {
         return new Deadline(description, by);
     }
 
+    /**
+     * @param input
+     * @return
+     */
     //3.[E][ ] project meeting (at: Aug 6th 2-4pm)
     public Event generateEvent(String input) {
         String description = input.substring(7, input.indexOf("("));

@@ -23,6 +23,9 @@ public class Ui {
         this.out = out;
     }
 
+    /**
+     * @return
+     */
     public String getCommand() {
         String input = in.nextLine();
         return input.strip();
@@ -52,6 +55,7 @@ public class Ui {
         out.println(Messages.MESSAGE_UNMARKED);
     }
 
+
     public static void printLine() {
         out.println(Messages.MESSAGE_BLANK_LINE);
     }
@@ -72,6 +76,11 @@ public class Ui {
         out.println(Messages.MESSAGE_MARKED);
     }
 
+    /**
+     * @param filePath
+     * @param filePath
+     * @throws IOException
+     */
     public static void printFileContents(String filePath) throws IOException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);

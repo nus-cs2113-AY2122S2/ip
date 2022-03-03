@@ -13,7 +13,11 @@ public class Duke {
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * @param filePath
+     */
     public Duke(String filePath) {
+
         ui = new Ui();
         storage = new Storage(filePath);
 
@@ -24,6 +28,7 @@ public class Duke {
             taskList = new TaskList();
         }
     }
+
 
     public void run() {
         String command;
@@ -41,6 +46,9 @@ public class Duke {
         storage.writeToFile(taskList);
     }
 
+    /**
+     * @param args 
+     */
     public static void main(String[] args) {
         new Duke(Messages.MESSAGE_FILEPATH).run();
     }

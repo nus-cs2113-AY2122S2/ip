@@ -9,10 +9,14 @@ import duke.ui.Ui;
 import java.util.ArrayList;
 
 
+
 public class TaskList {
     private final ArrayList<Task> taskList;
 
 
+    /**
+     * @param taskList
+     */
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
@@ -39,6 +43,9 @@ public class TaskList {
         return taskList.get(index);
     }
 
+    /**
+     * @param index
+     */
     public void deleteTask(int index) {
         try {
             Task task = taskList.get(index - 1);
@@ -50,6 +57,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * @param input
+     */
     public void addTodo(String input) {
         String todo = input.substring(input.indexOf(" ") + 1);
         System.out.println(todo);
@@ -59,6 +69,9 @@ public class TaskList {
     }
 
 
+    /**
+     * @param input
+     */
     public void addEvent(String input) {
         String event = input.substring(input.indexOf("/") + 4);
         String description = input.substring(input.indexOf(" "), input.indexOf("/"));
@@ -68,6 +81,9 @@ public class TaskList {
     }
 
 
+    /**
+     * @param input
+     */
     public void addDeadline(String input) {
         String deadline = input.substring(input.indexOf("/") + 4);
         String description = input.substring(input.indexOf(" ") + 1, input.indexOf("/") - 1);
@@ -77,6 +93,10 @@ public class TaskList {
         Ui.printLine();
     }
 
+    /**
+     * @param indexOfTask
+     * @param command
+     */
     public void unmarkTask(int indexOfTask, String command) {
         taskList.get(indexOfTask - 1).unmark();
         Ui.printUnmarked();
@@ -85,6 +105,10 @@ public class TaskList {
         Ui.printLine();
     }
 
+    /**
+     * @param indexOfTask
+     * @param command
+     */
     public void markTask(int indexOfTask, String command) {
         taskList.get(indexOfTask - 1).mark();
         Ui.printMarked();
