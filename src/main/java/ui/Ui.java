@@ -1,9 +1,5 @@
 package ui;
 
-import exceptions.UnknownCommandException;
-
-import java.util.Scanner;
-
 public class Ui {
 
     public void startProgram() {
