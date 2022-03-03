@@ -8,12 +8,12 @@ Jarvis is a Command-Line application for managing tasks, built for CS2113T Indiv
 3. Move the downloaded file to a folder of your choice
 4. Navigate a command-line application to the folder you have chosen
 5. Type `java -jar Jarvis.jar` to run the program. If successful, you should see the following message:
-![Welcome Message](./images/welcomeMessage.PNG)
+![Welcome Message](./images/welcome.PNG)
 6. Enter commands on the command-line for the program to start managing your tasks!
 7. Refer to `Features` below for more information on each command
 
 ## Commands Summary <br>
-| Command  | Format, examples                                                                            |
+| Command  | Format, examples                                                                            |<br>
 |----------|---------------------------------------------------------------------------------------------|
 | todo     | `todo <description`<br/> e.g todo submit assignment                                         |
 | event    | `event <description> /at DD/MM/YYYY HHMM`<br/>e.g event attend lecture /at 04/03/2022 1600  |
