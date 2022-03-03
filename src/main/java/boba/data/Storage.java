@@ -1,10 +1,7 @@
 package boba.data;
 
 import boba.response.BobaResponse;
-import boba.task.Deadline;
-import boba.task.Event;
-import boba.task.Task;
-import boba.task.Todo;
+import boba.task.*;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -19,7 +16,7 @@ import java.util.ArrayList;
  * for Boba. Main functionality is reading and writing
  * to the save file
  */
-public class FileManager {
+public class Storage {
 
     /** Magic Constants to better detail why constants are used */
     private static final String TODO = "T";
@@ -37,7 +34,7 @@ public class FileManager {
      * Constructor that instantiates filePath
      * @param path The path to the save file
      */
-    public FileManager(String path) {
+    public Storage(String path) {
         filePath = path;
     }
 
@@ -46,7 +43,7 @@ public class FileManager {
      * stored to recreate the saved list
      * @return The list of tasks that were saved
      */
-    public ArrayList<Task> readFile() {
+    public ArrayList<Task> load() {
         ArrayList<Task> taskList = new ArrayList<>();
         try {
             BufferedReader input = new BufferedReader(new FileReader(filePath));
@@ -107,7 +104,7 @@ public class FileManager {
      * Save the current list into the save file.
      * @param taskList The list of tasks
      */
-    public void writeFile(ArrayList<Task> taskList) {
+    public void save(TaskList taskList) {
         try {
             BufferedWriter output = new BufferedWriter(new FileWriter(filePath));
             for (Task task : taskList) {
