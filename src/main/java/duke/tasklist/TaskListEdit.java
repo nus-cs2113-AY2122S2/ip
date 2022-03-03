@@ -5,6 +5,9 @@ import duke.parser.TaskString;
 import duke.tasklist.task.Task;
 import duke.ui.CommandLineOutputUtil;
 
+/**
+ * Methods for making edits to the task list.
+ */
 public class TaskListEdit {
     private static Task getTask(String line) {
         Task curr;
@@ -24,6 +27,12 @@ public class TaskListEdit {
         return curr;
     }
 
+    /**
+     * Marks a task as "done" or "not done".
+     *
+     * @param shouldMark Boolean for whether a task should be marked as "done".
+     * @param line String of user input.
+     */
     public static void markStatus(Boolean shouldMark, String line) {
         Task curr = getTask(line);
         if (curr == null) return;

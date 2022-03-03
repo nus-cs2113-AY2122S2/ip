@@ -8,6 +8,9 @@ import static duke.ui.CommandLineInputHandler.runDuke;
  */
 public class Duke {
 
+    /**
+     * Calls the runDuke() method to start the application.
+     */
     public static void main(String[] args) {
         runDuke();
     }

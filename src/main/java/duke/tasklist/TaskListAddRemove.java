@@ -5,8 +5,15 @@ import duke.ui.CommandLineOutputUtil;
 import duke.DukeException;
 import duke.tasklist.task.Task;
 
-
+/**
+ * Methods for adding and removing from task list.
+ */
 public class TaskListAddRemove {
+    /**
+     * Removes a task from the task list.
+     *
+     * @param line String of user input to parse.
+     */
     public static void removeTask(String line) {
         Task curr;
         try {
@@ -27,6 +34,11 @@ public class TaskListAddRemove {
                 String.format("\nNow you have %d tasks in the list.", TaskListUtil.list.size()));
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param line String of user input to parse.
+     */
     public static void addTask(String line) {
         try {
             String[] commands = line.split(" ", 2);

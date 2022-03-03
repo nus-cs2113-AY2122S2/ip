@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
+/**
+ * Methods that write the task list to the data file of the current home directory.
+ */
 public class WriteTaskList {
 
     private static String encodeStatus(Boolean isDone) {
@@ -54,6 +57,11 @@ public class WriteTaskList {
         fw.close();
     }
 
+    /**
+     * Writes the task list to the data file.
+     *
+     * @param list The task list.
+     */
     public static void writeList(ArrayList<Task> list) {
         try {
             Path tasksPath = ReadWriteUtil.findFile();

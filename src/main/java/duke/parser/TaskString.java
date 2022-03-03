@@ -6,8 +6,17 @@ import duke.tasklist.task.Event;
 import duke.tasklist.task.Task;
 import duke.tasklist.task.Todo;
 
+/**
+ * Parses tasks provided by user input or the data file.
+ */
 public class TaskString {
 
+    /**
+     * Returns index of task in the task list using number given by user.
+     *
+     * @param line String of original user input.
+     * @return taskInd Index of task.
+     */
     public static int parseTaskNum(String line) {
         String stringOfTaskNum = line.split(" ", 0)[1];
         int taskInd = Integer.parseInt(stringOfTaskNum) - 1;
@@ -58,26 +67,34 @@ public class TaskString {
         }
     }
 
+    /**
+     * Returns Task object after parsing user input.
+     *
+     * @param type String indicating type of task from original user input.
+     * @param description String containing task description and potential time information.
+     * @return task Task parsed from user input.
+     * @throws DukeException If user input contains invalid task type.
+     */
     public static Task parseTask(String type, String description) throws DukeException {
-        Task t;
+        Task task;
         switch (type) {
         case "todo":
             missingDescriptionCheck(description);
-            t = new Todo(description);
+            task = new Todo(description);
             break;
         case "deadline":
             missingDescriptionCheck(description);
-            t = parseDeadlineOrEvent(TaskType.DEADLINE, description);
+            task = parseDeadlineOrEvent(TaskType.DEADLINE, description);
             break;
         case "event":
             missingDescriptionCheck(description);
-            t = parseDeadlineOrEvent(TaskType.EVENT, description);
+            task = parseDeadlineOrEvent(TaskType.EVENT, description);
             break;
         default:
             throw new DukeException("I don't understand what you want to do, big sad :(");
         }
 
-        return t;
+        return task;
     }
 
     private static Boolean decodeStatus(Integer taskStatusNum) throws DukeException {
@@ -116,6 +133,13 @@ public class TaskString {
         return t;
     }
 
+    /**
+     * Decodes a task stored in the data file.
+     *
+     * @param line String of original file input.
+     * @return task Task decoded from file input.
+     * @throws DukeException If not enough fields are provided in the data file.
+     */
     public static Task decodeTask(String line) throws DukeException {
         String[] taskDetails = line.split(" \\| ");
 
@@ -123,7 +147,8 @@ public class TaskString {
             Integer taskStatusNum = Integer.parseInt(taskDetails[1]);
             Boolean taskStatus = decodeStatus(taskStatusNum);
             String taskDescription = taskDetails[2];
-            return decodeTaskParsing(taskDetails, taskDescription, taskStatus);
+            Task task = decodeTaskParsing(taskDetails, taskDescription, taskStatus);
+            return task;
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Missing task information in data file :(");
         }
