@@ -4,15 +4,17 @@ import brave.data.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ *  Handles the UI of the application
+ *  Handles interaction with the user
+ */
 public class Ui {
     String input;
     private final Scanner in;
-    public static final String LINE_SPLIT = "____________________________________________________________";
-    boolean isExit;
+    public static final String LINE_SPLIT = "_______________________________________________________";
 
     public Ui() {
         in = new Scanner(System.in);
-        isExit = false;
     }
 
     public String getUserCommand() {
@@ -48,5 +50,31 @@ public class Ui {
             System.out.println(String.format("%d ", tasks.indexOf((task)) + 1) + task);
         }
         System.out.println(LINE_SPLIT);
+    }
+
+    public void showAddTaskMessage(Task task, int size) {
+        System.out.println(LINE_SPLIT);
+        System.out.println("GOTT IT!!, I have added task below!");
+        System.out.println(task);
+        System.out.println("You currently have " + size + " task in the list");
+        System.out.println(LINE_SPLIT);
+    }
+
+    public void showDeleteTaskMessage(Task task, int size) {
+        System.out.println(LINE_SPLIT);
+        System.out.println("I managed to delete task below!");
+        System.out.println(task);
+        System.out.println("You now have " + (size-1) + " task remaining");
+        System.out.println(LINE_SPLIT);
+    }
+
+    public void showMarkTaskMessage(Task task) {
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(task);
+    }
+
+    public void showUnmarkTaskMessage(Task task) {
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(task);
     }
 }

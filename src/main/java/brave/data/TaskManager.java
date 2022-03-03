@@ -1,19 +1,25 @@
 package brave.data;
 
-import brave.storage.Storage;
 import brave.ui.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * This class is used to manage the entire list of task
+ */
 public class TaskManager {
-    public static final String LINE_SPLIT = "____________________________________________________________";
     private final ArrayList<Task> tasks;
-    private Ui ui;
+    private Ui ui = new Ui();
 
+    /**
+     * Class Constructor, initialise an empty array list if no file found
+     */
     public TaskManager() {
         tasks = new ArrayList<>();
     }
-
+    /**
+     * Class Constructor, initialise an array of list from the file
+     */
     public TaskManager(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
@@ -22,36 +28,46 @@ public class TaskManager {
         return tasks;
     }
 
+    /**
+     * Add a new task to the task list.
+     *
+     * @param task the new task
+     */
     public void addTask(Task task) {
         tasks.add(task);
-        System.out.println(LINE_SPLIT);
-        System.out.println("Yepp, I have added task below!");
-        System.out.println(task.description);
-        System.out.println("You currenly have " + tasks.size() + " task in the list");
-        System.out.println(LINE_SPLIT);
+        ui.showAddTaskMessage(task, tasks.size());
     }
 
+    /**
+     * Mark the task as finished
+     *
+     * @param taskIndex index of the task
+     */
     public void markTask(int taskIndex) {
         Task selected_task = tasks.get(taskIndex);
         selected_task.markAsDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(selected_task.getStatusIcon() + " " + selected_task.getDescription());
+        ui.showMarkTaskMessage(selected_task);
     }
 
+    /**
+     * Mark the task as unfinished
+     *
+     * @param taskIndex index of the task
+     */
     public void unmarkTask(int taskIndex) {
         Task selected_task = tasks.get(taskIndex);
         selected_task.unmarkAsDone();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(selected_task.getStatusIcon() + " " + selected_task.getDescription());
+        ui.showUnmarkTaskMessage(selected_task);
     }
 
-    public void deleteTask(int taskIndex) {
+    /**
+     * Delete the task with a specific index.
+     *
+     * @param taskIndex the index of the task to be deleted
+     */
+    public void deleteTask(int taskIndex)  {
         Task selected_task = tasks.get(taskIndex);
-        System.out.println(LINE_SPLIT);
-        System.out.println("Successfully deleted task below");
-        System.out.printf("%d.%s %s%n", taskIndex + 1, selected_task.getStatusIcon(),
-                selected_task.getDescription());
+        ui.showDeleteTaskMessage(selected_task, tasks.size());
         tasks.remove(taskIndex);
-        System.out.println("You now have " + tasks.size() + " task remaining");
     }
 }

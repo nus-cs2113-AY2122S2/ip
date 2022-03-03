@@ -8,16 +8,28 @@ import brave.data.Todo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This class is used to manage all things related to File Management
+ * Loading and saving the file, decoding and encoding the file format
+ */
+
 public class Storage {
-    private final String filePath;
+    private String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * When the program start, load the file from the storage
+     *
+     * @return the list of task read from file
+     * @throws IOException If an output exception occurs
+     */
     public ArrayList<Task> load() throws IOException {
         File f = new File(filePath); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
@@ -26,7 +38,13 @@ public class Storage {
         return tasks;
     }
 
-    public static void decode(Scanner s, ArrayList<Task> tasks) {
+    /**
+     * Decodes the strings loaded from storage file into a list of tasks.
+     *
+     * @param s     scanner use to read the file
+     * @param tasks the data loaded from storage file as a list of strings
+     */
+    private static void decode(Scanner s, ArrayList<Task> tasks) {
         int taskIndex = -1;
         while (s.hasNext()) {
             taskIndex++;
@@ -58,11 +76,22 @@ public class Storage {
         }
     }
 
-    public void save(ArrayList<Task> tasks) throws IOException {
+    /**
+     * Save the list by writing on filepath that we provide
+     *
+     * @param tasks list of task that will be written to the file
+     */
+    public void save(ArrayList<Task> tasks) {
         encode(tasks, filePath);
     }
 
-    public static void encode(ArrayList<Task> tasks, String filePath) {
+    /**
+     * Encodes the list of tasks into a list of strings to be stored in storage file.
+     *
+     * @param tasks    the list of tasks to be stored
+     * @param filePath filepath destination
+     */
+    private void encode(ArrayList<Task> tasks, String filePath) {
         try {
             FileWriter fw = new FileWriter(filePath);
             StringBuilder toFile = new StringBuilder();
@@ -72,7 +101,7 @@ public class Storage {
             fw.write(toFile.toString());
             fw.close();
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 }
