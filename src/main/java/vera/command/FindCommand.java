@@ -3,7 +3,7 @@ package vera.command;
 import vera.Storage;
 import vera.TaskList;
 import vera.Ui;
-import vera.exception.InputEmptyException;
+import vera.exception.InvalidInputException;
 
 import static vera.constant.Messages.ERROR_SYSTEM_FAULT_MESSAGE;
 
@@ -22,12 +22,12 @@ public class FindCommand extends Command {
      *
      * @param taskDescription Task Description to search.
      * @param taskDate Task Date to search
-     * @throws InputEmptyException If task description is empty.
+     * @throws InvalidInputException If task description is empty.
      */
-    public FindCommand(String taskDescription, String taskDate) throws InputEmptyException {
+    public FindCommand(String taskDescription, String taskDate) throws InvalidInputException {
         if (taskDate == null) {
             if (taskDescription.isBlank()) {
-                throw new InputEmptyException();
+                throw new InvalidInputException();
             }
             findTaskByDescription = taskDescription;
         }

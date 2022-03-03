@@ -3,7 +3,7 @@ package vera.command;
 import vera.Storage;
 import vera.TaskList;
 import vera.Ui;
-import vera.exception.InputEmptyException;
+import vera.exception.InvalidInputException;
 import vera.exception.InputRepeatedException;
 
 import static vera.constant.Indexes.TASK_DESCRIPTION_INDEX_TODO;
@@ -22,13 +22,13 @@ public class TodoCommand extends Command {
      *
      * @param toAdd Task Description to add.
      * @param taskList Task array.
-     * @throws InputEmptyException If task description is empty.
+     * @throws InvalidInputException If task description is empty.
      * @throws InputRepeatedException If task has been added before.
      */
     public TodoCommand(String[] toAdd, TaskList taskList)
-            throws InputEmptyException, InputRepeatedException {
+            throws InvalidInputException, InputRepeatedException {
         if (toAdd[TASK_DESCRIPTION_INDEX_TODO].isBlank()) {
-            throw new InputEmptyException();
+            throw new InvalidInputException();
         }
         if (taskList.isTaskAlreadyAdded(toAdd[TASK_DESCRIPTION_INDEX_TODO].trim())) {
             throw new InputRepeatedException();

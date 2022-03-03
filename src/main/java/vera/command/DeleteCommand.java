@@ -3,7 +3,7 @@ package vera.command;
 import vera.Storage;
 import vera.TaskList;
 import vera.Ui;
-import vera.exception.InputEmptyException;
+import vera.exception.InvalidInputException;
 
 import static vera.constant.Indexes.DELETE_INDEX;
 
@@ -23,11 +23,11 @@ public class DeleteCommand extends Command {
      *
      * @param parsedInput Contains task description to search for
      * @param taskList Task array.
-     * @throws InputEmptyException If input task description is empty.
+     * @throws InvalidInputException If input task description is empty.
      */
-    public DeleteCommand(String[] parsedInput, TaskList taskList) throws InputEmptyException {
+    public DeleteCommand(String[] parsedInput, TaskList taskList) throws InvalidInputException {
         if (parsedInput[DELETE_INDEX].isBlank()) {
-            throw new InputEmptyException();
+            throw new InvalidInputException();
         }
         if (taskList.isTaskExist(Integer.parseInt(parsedInput[DELETE_INDEX]) - 1)) {
             deleteIndex = Integer.parseInt(parsedInput[DELETE_INDEX]) - 1;

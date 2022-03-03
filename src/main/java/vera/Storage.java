@@ -1,6 +1,6 @@
 package vera;
 
-import vera.exception.InputEmptyException;
+import vera.exception.InvalidInputException;
 import vera.exception.InputRepeatedException;
 import vera.task.Task;
 
@@ -101,7 +101,7 @@ public class Storage {
     }
 
     private ArrayList<Task> readSavedData() throws
-            FileNotFoundException, ArrayIndexOutOfBoundsException, InputEmptyException {
+            FileNotFoundException, ArrayIndexOutOfBoundsException, InvalidInputException {
         ArrayList<Task> decodedTasks = new ArrayList<>();
         File f = new File(saveFilePath);
         Scanner s = new Scanner(f);
@@ -147,7 +147,7 @@ public class Storage {
         } catch (FileNotFoundException e) {
             System.out.println(ERROR_FILE_NOT_FOUND_MESSAGE);
             System.exit(1);
-        } catch (ArrayIndexOutOfBoundsException | InputEmptyException | InputRepeatedException e) {
+        } catch (ArrayIndexOutOfBoundsException | InvalidInputException | InputRepeatedException e) {
             System.out.println(ERROR_CORRUPT_SAVED_FILE_MESSAGE);
             wipeSavedData();
         }

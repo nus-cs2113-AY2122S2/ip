@@ -14,7 +14,7 @@ import vera.command.ExitCommand;
 import vera.command.FindCommand;
 import vera.command.ClearCommand;
 
-import vera.exception.InputEmptyException;
+import vera.exception.InvalidInputException;
 import vera.exception.InputRepeatedException;
 import vera.task.Deadline;
 import vera.task.Event;
@@ -79,13 +79,13 @@ public class Parser {
      *
      * @param rawData Array of strings containing saved data of task.
      * @return Task containing the saved data for adding into program's task array.
-     * @throws InputEmptyException If saved data is missing content, i.e.
+     * @throws InvalidInputException If saved data is missing content, i.e.
      * task description or date.
      */
-    public static Task parseSavedData(String[] rawData) throws InputEmptyException {
+    public static Task parseSavedData(String[] rawData) throws InvalidInputException {
         Task parsedData;
         if (!rawData[SAVE_TASK_MARK_STATUS].equals("0") && !rawData[SAVE_TASK_MARK_STATUS].equals("1")) {
-            throw new InputEmptyException();
+            throw new InvalidInputException();
         }
         String parsedDate = null;
         if (!rawData[SAVE_TASK_TYPE_INDEX].isBlank()) {
@@ -104,10 +104,10 @@ public class Parser {
                     parsedDate);
             break;
         default:
-            throw new InputEmptyException();
+            throw new InvalidInputException();
         }
         if (isReadTaskEmpty(parsedData)) {
-            throw new InputEmptyException();
+            throw new InvalidInputException();
         }
         if (rawData[SAVE_TASK_MARK_STATUS].equals("1")) {
             parsedData.markAsDone();
@@ -137,7 +137,7 @@ public class Parser {
     private static Command prepareAddTodo(String[] parsedInput, TaskList taskList) {
         try {
             return new TodoCommand(parsedInput, taskList);
-        } catch (ArrayIndexOutOfBoundsException | InputEmptyException e) {
+        } catch (ArrayIndexOutOfBoundsException | InvalidInputException e) {
             printMissingInputMessage("description", "todo");
         } catch (InputRepeatedException e) {
             System.out.println(ERROR_TODO_REPEATED_INPUT_MESSAGE);
@@ -154,7 +154,7 @@ public class Parser {
     }
 
 
-    private static String confirmInvalidDateFormat() throws InputEmptyException {
+    private static String confirmInvalidDateFormat() throws InvalidInputException {
         Ui anotherUi = new Ui();
         anotherUi.showToUser("It seems that the date and time\nyou gave is not in the correct format.\n"
                 + "Would you like to re-enter a valid date and time? (Y/N)\n"
@@ -183,7 +183,7 @@ public class Parser {
     }
 
     private static String checkCorrectDateFormat(String rawTaskDate, boolean isParseSaveFile)
-            throws InputEmptyException {
+            throws InvalidInputException {
         try {
             if (isParseSaveFile) {
                 return LocalDate.parse(rawTaskDate, savedTaskNoTimeFormat)
@@ -193,16 +193,16 @@ public class Parser {
                     .format(DateTimeFormatter.ofPattern(DATE_FORMAT_WITHOUT_TIME));
         } catch (DateTimeParseException e) {
             if (isParseSaveFile) {
-                throw new InputEmptyException();
+                throw new InvalidInputException();
             }
             return confirmInvalidDateFormat();
         }
     }
 
     private static String prepareTaskDate(String rawTaskDate, boolean isParseSaveFile)
-            throws InputEmptyException {
+            throws InvalidInputException {
         if (rawTaskDate.isBlank()) {
-            throw new InputEmptyException();
+            throw new InvalidInputException();
         }
         try {
             if (isParseSaveFile) {
@@ -234,7 +234,7 @@ public class Parser {
                 return new EventCommand(filteredTaskContent[TASK_DESCRIPTION_INDEX].trim(), taskList, dueDate);
             }
             return new DeadlineCommand(filteredTaskContent[TASK_DESCRIPTION_INDEX].trim(), taskList, dueDate);
-        } catch (ArrayIndexOutOfBoundsException | InputEmptyException e) {
+        } catch (ArrayIndexOutOfBoundsException | InvalidInputException e) {
             printMissingInputMessage("description and/or date\n", taskType);
         } catch (InputRepeatedException e) {
             return new UpdateCommand(filteredTaskContent[TASK_DESCRIPTION_INDEX].trim(), dueDate);
@@ -245,7 +245,7 @@ public class Parser {
     private static Command prepareDelete(String[] parsedInput, TaskList taskList) {
         try {
             return new DeleteCommand(parsedInput, taskList);
-        } catch (IndexOutOfBoundsException | InputEmptyException | NumberFormatException e) {
+        } catch (IndexOutOfBoundsException | InvalidInputException | NumberFormatException e) {
             System.out.println(ERROR_INVALID_DELETE_INDEX_MESSAGE + HELP_MESSAGE_SPECIFIC_COMMAND);
         }
         return null;
@@ -274,7 +274,7 @@ public class Parser {
                         taskDateToSearch);
             }
             return new FindCommand(userInput[FIND_BY_TASK_DESCRIPTION_NO_DATE_INDEX].trim(), null);
-        } catch (IndexOutOfBoundsException | InputEmptyException e) {
+        } catch (IndexOutOfBoundsException | InvalidInputException e) {
             System.out.println("Your search input seems to be missing.\n"
                     + "Please enter your input again." + HELP_MESSAGE_SPECIFIC_COMMAND);
         }

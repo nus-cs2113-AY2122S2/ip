@@ -3,7 +3,7 @@ package vera.command;
 import vera.Storage;
 import vera.TaskList;
 import vera.Ui;
-import vera.exception.InputEmptyException;
+import vera.exception.InvalidInputException;
 import vera.exception.InputRepeatedException;
 
 public class DeadlineCommand extends Command {
@@ -25,13 +25,13 @@ public class DeadlineCommand extends Command {
      * @param taskDescription Task description.
      * @param tasklist Task array.
      * @param dateInput Task Date.
-     * @throws InputEmptyException If Task content is empty.
+     * @throws InvalidInputException If Task content is empty.
      * @throws InputRepeatedException If task has already been added.
      */
     public DeadlineCommand(String taskDescription, TaskList tasklist, String dateInput)
-            throws InputEmptyException, InputRepeatedException {
+            throws InvalidInputException, InputRepeatedException {
         if (taskDescription.isBlank()) {
-            throw new InputEmptyException();
+            throw new InvalidInputException();
         }
         if (tasklist.isTaskAlreadyAdded(taskDescription)) {
             throw new InputRepeatedException();
