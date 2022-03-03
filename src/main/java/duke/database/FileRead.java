@@ -23,6 +23,7 @@ public class FileRead {
             while (sc.hasNextLine()) {
                 entryList.add(sc.nextLine());
             }
+            System.out.println("Your data has been loaded successfully");
         } catch (FileNotFoundException e) {
             System.out.println("File not found, no data was loaded. However, what can I do for you?");
         }
