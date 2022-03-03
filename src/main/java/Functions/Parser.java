@@ -7,12 +7,24 @@ import Exceptions.NoDateTimeException;
 import Exceptions.NoKeywordException;
 import Exceptions.NoTaskDescriptionException;
 
-import static Constants.TaskManagerConstants.EVENT_LENGTH;
-import static Constants.TaskManagerConstants.DEADLINE_LENGTH;
-import static Constants.TaskManagerConstants.TODO_LENGTH;
-import static Constants.TaskManagerConstants.DATETIME_DELIMITER_LENGTH;
+import static Constants.TaskManagerConstants.LENGTH_EVENT;
+import static Constants.TaskManagerConstants.LENGTH_DEADLINE;
+import static Constants.TaskManagerConstants.LENGTH_TODO;
+import static Constants.TaskManagerConstants.LENGTH_DATETIME_DELIMITER;
 
+/**
+ * User input processor.
+ */
 public class Parser {
+    /**
+     * Creates corresponding <code>Command</code> object based on keyword input.
+     *
+     * @param command Input containing command keyword and required information for command execution.
+     * @return <code>Command</code> object.
+     * @throws NoTaskDescriptionException no description about the task is given when adding any task.
+     * @throws NoDateTimeException no date and time is given when adding deadline or event.
+     * @throws BadDateTimeFormatException format to input date and time is not followed.
+     */
     public static Command commandParse(String command) throws NoTaskDescriptionException, NoDateTimeException,
             BadDateTimeFormatException, NoKeywordException {
         String commandWord = command.trim().toLowerCase().split(" ")[0];
@@ -29,7 +41,7 @@ public class Parser {
                 return new UnmarkCommand(unmarkIndex);
             case "todo":
                 String todoDescription;
-                todoDescription = command.substring(TODO_LENGTH).trim();
+                todoDescription = command.substring(LENGTH_TODO).trim();
 
                 if (todoDescription.isBlank()) {
                     throw new NoTaskDescriptionException("Task description cannot be blank.");
@@ -58,7 +70,15 @@ public class Parser {
         }
     }
 
-    // String parser for Deadline and Event
+    /**
+     * Decomposes user commands for adding deadlines or events. Separates description from date and time.
+     *
+     * @param msg User command to parse.
+     * @return Array of Strings. String at index 0 is task/event description. String at index 1 is date and time.
+     * @throws NoTaskDescriptionException no description about the task is given when adding any task.
+     * @throws NoDateTimeException no date and time is given when adding deadline or event.
+     * @throws BadDateTimeFormatException format to input date and time is not followed.
+     */
     public static String[] deadlineEventParse(String msg) throws BadDateTimeFormatException,
             NoTaskDescriptionException, NoDateTimeException {
         int dateTimeDelimiterIndex, descDelimiterIndex;
@@ -69,10 +89,10 @@ public class Parser {
             // Get delimiters
             if (isDeadline) {
                 dateTimeDelimiterIndex = msg.indexOf("/by");
-                descDelimiterIndex = DEADLINE_LENGTH;
+                descDelimiterIndex = LENGTH_DEADLINE;
             } else {
                 dateTimeDelimiterIndex = msg.indexOf("/at");
-                descDelimiterIndex = EVENT_LENGTH;
+                descDelimiterIndex = LENGTH_EVENT;
             }
 
             if (dateTimeDelimiterIndex == -1) {
@@ -81,7 +101,7 @@ public class Parser {
 
             // Parse message (0 - Description, 1 - DateTime)
             strings[0] = msg.substring(descDelimiterIndex, dateTimeDelimiterIndex).trim(); // Task description
-            strings[1] = msg.substring(dateTimeDelimiterIndex + DATETIME_DELIMITER_LENGTH).trim(); // DateTime
+            strings[1] = msg.substring(dateTimeDelimiterIndex + LENGTH_DATETIME_DELIMITER).trim(); // DateTime
 
             if (strings[0].isBlank()) {
                 throw new NoTaskDescriptionException("Task description cannot be blank.");
@@ -97,7 +117,13 @@ public class Parser {
         }
     }
 
-    // Return the index of task to mark/unmark
+    /**
+     * Decomposes user commands for marking, unmarking, and deleting. Separates command keyword from index of target.
+     *
+     * @param msg User command to parse.
+     * @return Index of target task in task list.
+     * @throws NumberFormatException an integer is not given after the command keyword.
+     */
     public static int getIndex(String msg) throws NumberFormatException {
         try {
             // Extract Task number as String and parse into int

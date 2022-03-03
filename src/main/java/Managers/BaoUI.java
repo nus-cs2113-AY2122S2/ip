@@ -11,7 +11,6 @@ import Exceptions.BadDateTimeFormatException;
 import Exceptions.NoDateTimeException;
 import Exceptions.NoKeywordException;
 import Exceptions.NoTaskDescriptionException;
-import Exceptions.BadIndexException;
 import Exceptions.MaxTaskException;
 
 import static Constants.BaoConstants.LOGO;
@@ -22,14 +21,27 @@ import Interfaces.UI;
 
 import static Functions.MessageDisp.printWithLine;
 
+/**
+ * User interface of Bao.
+ */
 public class BaoUI implements UI {
     private Scanner in = new Scanner(System.in);
     private TaskManager taskManager;
 
+    /**
+     * Creates a <code>BAOUI</code> object using the specified task list text data file.
+     *
+     * @param dirPath Path of directory containing data file.
+     * @param filePath Path of data file.
+     * @see TaskManager TaskManager
+     */
     public BaoUI(String dirPath, String filePath) {
         taskManager = new TaskManager(new Storage(dirPath,filePath));
     }
 
+    /**
+     * Displays greeting message.
+     */
     private void greet() {
         printWithLine("You have" + System.lineSeparator()
                         + LOGO + System.lineSeparator()
@@ -38,8 +50,13 @@ public class BaoUI implements UI {
                         + "How can I help?");
     }
 
-    private void serveUser(){
+    /**
+     * Continuously accept and execute user commands until user quits app.
+     */
+    public void serveUser() {
         Command command = new UnknownCommand();
+
+        greet();
 
         do {
             try {
@@ -54,34 +71,24 @@ public class BaoUI implements UI {
                 printWithLine("Enter date and time in dd/mm/yyyy hhmm format!");
             }  catch (NumberFormatException e) {
                 printWithLine("So close! You just need to provide me the task number.");
-            } catch (BadIndexException e) {
+            } catch (IndexOutOfBoundsException e) {
                 printWithLine("I've checked and double checked. There is no such task.");
             }  catch (MaxTaskException e) {
                 printWithLine("Hey! Calm down, Charlie Brown. You've too many on your plate right now.");
-            } catch (Exception e) {
-                printWithLine("AHH. Sorry, I glitched. Can you try that again?");
             } catch (NoKeywordException e) {
                 printWithLine("What are you looking for mate?");
+            }catch (Exception e) {
+                printWithLine("AHH. Sorry, I glitched. Can you try that again?");
             }
         } while (!command.isExit());
+
+        farewell();
     }
 
+    /**
+     * Displays exit message.
+     */
     private void farewell() {
         printWithLine("Alright, goodbye. See you later alligator!");
-    }
-
-    private void loadTasks() {
-        try {
-            taskManager.loadTasklist();
-        } catch (IOException e) {
-            System.out.println("Loading failed. Let's start on a clean slate.");
-        }
-    }
-
-    public void initiateBao() {
-        loadTasks();
-        greet();
-        serveUser();
-        farewell();
     }
 }
