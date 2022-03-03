@@ -7,8 +7,6 @@ import Components.Task;
 import Exceptions.BadIndexException;
 import Exceptions.MaxTaskException;
 
-
-
 import java.io.IOException;
 
 import static Constants.TaskManagerConstants.MAX_TASKS;
@@ -40,6 +38,10 @@ public class TaskManager {
 
     public Task deleteTask(int index) throws BadIndexException, NumberFormatException {
         try {
+            if (index >= numTasks) {
+                throw new BadIndexException("No task number " + index);
+            }
+
             Task deletedTask = tasks.remove(index);
             numTasks--;
             saveTasklist();
@@ -52,7 +54,7 @@ public class TaskManager {
     public String markTask(int index) throws NumberFormatException, BadIndexException {
         try {
 
-            if (index > numTasks){
+            if (index >= numTasks){
                 throw new BadIndexException("No task number " + index);
             }
 
@@ -66,7 +68,7 @@ public class TaskManager {
 
     public String unmarkTask(int index) throws NumberFormatException, BadIndexException {
         try {
-            if (index > numTasks){
+            if (index >= numTasks){
                 throw new BadIndexException("No task number " + index);
             }
 
