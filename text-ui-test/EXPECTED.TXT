@@ -84,5 +84,17 @@ Noted. I've removed this task:
 Now you have 0 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
+☹ OOPS!!! I'm sorry, but I don't know what 'invalidcommand' means :-(
+List of commands for Duke: 
+list
+bye
+mark <task number>
+unmark <task number>
+todo <description>
+deadline <description> /by <date>
+event <description> /at <date>
+delete <task number>
+____________________________________________________________
+____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________

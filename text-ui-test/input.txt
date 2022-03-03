@@ -16,4 +16,6 @@ unmark 1
 list
 delete 1
 delete 1
+invalidcommand
+help
 bye
