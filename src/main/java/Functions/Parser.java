@@ -1,18 +1,10 @@
 package Functions;
 
-import Commands.Command;
-import Commands.DeleteTaskCommand;
-import Commands.ExitCommand;
-import Commands.ListCommand;
-import Commands.NewEventCommand;
-import Commands.NewTodoCommand;
-import Commands.NewDeadlineCommand;
-import Commands.MarkCommand;
-import Commands.UnmarkCommand;
-import Commands.UnknownCommand;
+import Commands.*;
 
 import Exceptions.BadDateTimeFormatException;
 import Exceptions.NoDateTimeException;
+import Exceptions.NoKeywordException;
 import Exceptions.NoTaskDescriptionException;
 
 import static Constants.TaskManagerConstants.LENGTH_EVENT;
@@ -34,7 +26,7 @@ public class Parser {
      * @throws BadDateTimeFormatException format to input date and time is not followed.
      */
     public static Command commandParse(String command) throws NoTaskDescriptionException, NoDateTimeException,
-            BadDateTimeFormatException {
+            BadDateTimeFormatException, NoKeywordException {
         String commandWord = command.trim().toLowerCase().split(" ")[0];
 
         try {
@@ -65,6 +57,9 @@ public class Parser {
             case "delete":
                 int deleteIndex = getIndex(command);
                 return new DeleteTaskCommand(deleteIndex);
+            case "find":
+                String keyword = getKeyword(command);
+                return new FindCommand(keyword);
             case "bye":
                 return new ExitCommand();
             default:
@@ -134,6 +129,19 @@ public class Parser {
             // Extract Task number as String and parse into int
             int ind = Integer.parseInt( msg.substring(msg.indexOf(' ') + 1) );
             return --ind;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    // Return the keyword to find in tasks
+    public static String getKeyword(String msg) throws NoKeywordException {
+        try {
+            if (msg.indexOf(' ') == -1 || msg.indexOf(' ') + 1 >= msg.length()) {
+                throw new NoKeywordException("No keyword is given");
+            }
+            String keyword = msg.substring(msg.indexOf(' ') + 1);
+            return keyword;
         } catch (Exception e) {
             throw e;
         }

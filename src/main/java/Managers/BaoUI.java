@@ -7,7 +7,12 @@ import java.util.Scanner;
 import Commands.Command;
 import Commands.UnknownCommand;
 
-import Exceptions.*;
+import Exceptions.BadDateTimeFormatException;
+import Exceptions.NoDateTimeException;
+import Exceptions.NoKeywordException;
+import Exceptions.NoTaskDescriptionException;
+import Exceptions.BadIndexException;
+import Exceptions.MaxTaskException;
 
 import static Constants.BaoConstants.LOGO;
 
@@ -73,6 +78,8 @@ public class BaoUI implements UI {
                 printWithLine("Hey! Calm down, Charlie Brown. You've too many on your plate right now.");
             } catch (Exception e) {
                 printWithLine("AHH. Sorry, I glitched. Can you try that again?");
+            } catch (NoKeywordException e) {
+                printWithLine("What are you looking for mate?");
             }
         } while (!command.isExit());
 

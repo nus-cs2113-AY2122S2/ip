@@ -116,6 +116,10 @@ public class TaskManager {
         }
     }
 
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
     /**
      * @return Number of tasks in task list.
      */
