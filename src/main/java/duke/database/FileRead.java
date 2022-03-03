@@ -5,8 +5,16 @@ import java.util.Scanner;
 import java.io.File;
 import java.util.ArrayList;
 
-
+/**
+ * Read in files from the database
+ */
 public class FileRead {
+    /**
+     * Returns all rows entries in the raw file.
+     *
+     * @param filePath file path of text file to be read
+     * @return entryList List of all file contents
+     */
     public static ArrayList<String> readFileContentByLine(String filePath) {
         ArrayList<String> entryList = new ArrayList<>();
         try {

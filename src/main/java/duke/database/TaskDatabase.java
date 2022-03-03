@@ -10,19 +10,32 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-
+/**
+ * A database to read and write tasks to external files.
+ */
 public class TaskDatabase implements Database {
 
     private static final String SEPARATOR = "|";
     private static TaskDatabase instance = null;
 
+    /**
+     * Singleton pattern to get instance of database if there is no instance.
+     *
+     * @return instance of database
+     */
     public static TaskDatabase getInstance() {
         if (instance == null) {
             instance = new TaskDatabase();
         }
         return instance;
     }
-
+    /**
+     * Returns tasklist of all loaded in tasks
+     * Returns empty list if no data was loaded.
+     *
+     * @param filePath Text file path to read from
+     * @return taskList of all tasks.
+     */
     @Override
     public ArrayList<Task> read(String filePath) {
 
@@ -58,10 +71,17 @@ public class TaskDatabase implements Database {
                 System.out.println("Your data has been loaded successfully");
             }
         } catch (NoSuchElementException e) {
-            System.out.println("Your text file is in the appropriate format, hence no data was loaded.");
+            System.out.println("Your text file is an inappropriate format, hence no data was loaded.");
         }
         return taskList;
     }
+    /**
+     * Stores all tasks from program to output file.
+     *
+     * @param filepath path of file to be stored to
+     * @param tasks list of all tasks to store
+     * @throws IOException If file path does not exist.
+     */
     @Override
     public void save(String filepath, ArrayList tasks) throws IOException  {
         ArrayList<String> taskInStrings = new ArrayList<>();
@@ -117,7 +137,12 @@ public class TaskDatabase implements Database {
         }
         FileWrite.writeToFile(filepath, taskInStrings);
     }
-
+    /**
+     * Returns array of strings input by user.
+     *
+     * @param userInput string of raw user input
+     * @return array of strings split by delimiter.
+     */
     private static String[] stringToToken(String userInput) {
         return userInput.split("\\.");
     }
