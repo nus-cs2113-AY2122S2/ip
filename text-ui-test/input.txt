@@ -1,24 +1,19 @@
-todo asdasd
-deadline asdasd /by test
-event asdasdasd /at test
 list
-mark 3
+todo asdads
+deadline asdsad /by 02/12/2019 2359
+event asdsad /at 02/12/2019 0000-1459
+deadline asdasd /by incorrect-date
+event asdsad /at 02/12/2019 2359-1240
+deadline asdasd /by 02/12/2019
+event asdasd /at 02/12/2019 1234
+event asdasd /by 02/12/2019 2359-1245
+deadline asdasd /at 02/12/2019 2359
 list
-unmark 3
+mark 1
+delete 2
 list
-mark 3
+unmark 1
 list
-mark 2
-list
-mark 4
-mark
-invalidcommand
-todo
-todo /by asd
-deadline asdasd
-deadline asdasd /at test
-deadline /by test
-event asdads
-event asdasd /by test
-event /at test
+delete 1
+delete 1
 bye
