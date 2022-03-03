@@ -1,6 +1,9 @@
 package duke;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,22 +13,12 @@ import static java.util.stream.Collectors.toList;
  * Task Manager that manage all the task given by the user command
  * and retrieves task stored in the given text file.
  */
-public class TaskManager implements Serializable {
-    private static final String LIST = "list";
-    private static final String TODO = "todo";
-    private static final String MARK = "mark";
-    private static final String UNMARK = "unmark";
-    private static final String EVENT = "event";
-    private static final String DEADLINE = "deadline";
-    private static final String DELETE = "delete";
-    private static final String FIND = "find";
-    private static final String BYE = "bye";
-    private static final String END_OF_SECTION = "___________________________________________________";
-
+public class TaskManager {
     private static ArrayList<Task> allTasks = new ArrayList<>();
-    private static boolean isContinueInput = true;
 
     private static File duke;
+    private Parser decodeFile;
+    private Parser decodeUserInput;
 
     /**
      * A TaskManager constructor that retrieves all the task stored in the given file
@@ -33,54 +26,16 @@ public class TaskManager implements Serializable {
      * @param file the given file.
      */
     public TaskManager(File file) {
-        if (this.duke.length() != 0) {
-            readFileContent(file);
+        duke = file;
+        decodeFile = new Parser(file);
+        if (duke.length() != 0) {
+            decodeFile.readFileContent();
         }
-        readUserInputUntilExit();
+        decodeUserInput = new Parser(new Scanner(System.in));
+        decodeUserInput.readUntilEndOfInput();
     }
 
-    /**
-     * A method call to interpret the user command
-     * @param command the representation of the command type
-     * @param commandArg the command description
-     * @throws DukeException if the user input the command line incorrectly.
-     */
-    private void taskDecoder(String command, String commandArg) throws DukeException {
-        switch(command) {
-        case LIST:
-            printAllTasks();
-            break;
-        case TODO:
-            addToDo(commandArg);
-            break;
-        case EVENT:
-            addEvent(commandArg);
-            break;
-        case DEADLINE:
-            addDeadline(commandArg);
-            break;
-        case MARK:
-            markTask(commandArg);
-            break;
-        case UNMARK:
-            unmarkTask(commandArg);
-            break;
-        case BYE:
-            isContinueInput = false;
-            saveData();
-            break;
-        case DELETE:
-            deleteTask(commandArg);
-            break;
-        case FIND:
-            findTask(commandArg);
-            break;
-        default:
-            throw new DukeException();
-        }
-    }
-
-    private void printAllTasks() {
+    public static void printAllTasks() {
         if (allTasks.isEmpty()) {
             System.out.println("You have no task currently");
         } else {
@@ -88,83 +43,94 @@ public class TaskManager implements Serializable {
                 System.out.println(String.format("%d.%s", i + 1, allTasks.get(i)));
             }
         }
-        printEndLine();
+        Ui.setEndOfSection();
     }
 
-    private void addToDo(String commandArg) {
+    public static void addToDo(String commandArg) {
         if (commandArg.isEmpty()) {
             System.out.println("OOPS!! The description of a todo cannot be empty");
-            printEndLine();
+            Ui.setEndOfSection();
         } else {
             allTasks.add(new ToDo(commandArg));
             printTask();
-            printEndLine();
+            Ui.setEndOfSection();
         }
     }
 
-    private void addEvent(String commandArg) {
+    public static void addToDo(String toDoDescription, String placeHolder) {
+        allTasks.add(new ToDo(toDoDescription));
+    }
+    public static void addEvent(String commandArg) {
         String[] eventDescription = commandArg.split("/at");
         try {
             allTasks.add(new Event(eventDescription[0], eventDescription[1]));
             printTask();
-            printEndLine();
+            Ui.setEndOfSection();
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Wrong input format. Please follow the following format:");
             System.out.println("deadline [description] /at [date]");
-            printEndLine();
+            Ui.setEndOfSection();
         }
     }
 
-    private void addDeadline(String commandArg) {
+    public static void addEvent(String eventDescription, String eventTime) {
+        allTasks.add(new Event(eventDescription, eventTime));
+    }
+
+    public static void addDeadline(String commandArg) {
         String[] deadlineDescription = commandArg.split("/by");
         try {
             allTasks.add(new Deadline(deadlineDescription[0], deadlineDescription[1]));
             printTask();
-            printEndLine();
+            Ui.setEndOfSection();
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Wrong input format. Please follow the following format:");
             System.out.println("deadline [description] /by [date]");
-            printEndLine();
+            Ui.setEndOfSection();
         }
     }
 
-    private void markTask(String commandArg) {
+    public static void addDeadline(String deadlineDescription, String deadlineTime) {
+        allTasks.add(new Deadline(deadlineDescription, deadlineTime));
+    }
+
+    public static void markTask(String commandArg) {
         try {
             allTasks.get(Integer.parseInt(commandArg) - 1).markAsDone();
             System.out.println(String.format("Nice! I've marked this task as done:%n  %s",
                     getTask(commandArg)));
-            printEndLine();
+            Ui.setEndOfSection();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Please input the correct index to mark it as done");
-            printEndLine();
+            Ui.setEndOfSection();
         }
     }
 
-    private void unmarkTask(String commandArg) {
+    public static void unmarkTask(String commandArg) {
         try {
             allTasks.get(Integer.parseInt(commandArg) - 1).markAsNotDone();
             System.out.println(String.format("Ok, I've marked this task as not done yet:%n  %s",
                     getTask(commandArg)));
-            printEndLine();
+            Ui.setEndOfSection();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Please input the correct index to mark it as done");
-            printEndLine();
+            Ui.setEndOfSection();
         }
     }
 
-    private void deleteTask(String commandArg) {
+    public static void deleteTask(String commandArg) {
         try {
             System.out.println(String.format("Noted. I've removed this task:%n  %s", getTask(commandArg)));
             allTasks.remove(Integer.parseInt(commandArg) - 1);
             printTaskRemaining();
-            printEndLine();
+            Ui.setEndOfSection();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Please input the correct index");
-            printEndLine();
+            Ui.setEndOfSection();
         }
     }
 
-    private static ArrayList<Task> findTask(String commandArg) {
+    public static ArrayList<Task> findTask(String commandArg) {
         ArrayList<Task> filteredList = (ArrayList<Task>) allTasks.stream()
                 .filter((t) -> t.getDescription().contains(commandArg))
                 .collect(toList());
@@ -172,7 +138,7 @@ public class TaskManager implements Serializable {
         for (int i = 0; i < filteredList.size(); ++i) {
             System.out.println(String.format("%d.%s", i + 1, filteredList.get(i).toString()));
         }
-        System.out.println(END_OF_SECTION);
+        Ui.setEndOfSection();
         return filteredList;
     }
 
@@ -181,86 +147,21 @@ public class TaskManager implements Serializable {
      * @param commandArg the index of the Task object in the stored ArrayList.
      * @return the task object
      */
-    private Task getTask(String commandArg) {
+    public static Task getTask(String commandArg) {
         return allTasks.get(Integer.parseInt(commandArg) - 1);
     }
 
-    private void printTaskRemaining() {
+    public static void printTaskRemaining() {
         System.out.println(String.format("Now you have %d tasks in the list.", allTasks.size()));
     }
 
-    private void printTask() {
+    public static void printTask() {
         System.out.println(String.format("Got it. I've added this task:%n  %s",
                 allTasks.get(allTasks.size() - 1)));
         printTaskRemaining();
     }
 
-    private void printEndLine() {
-        System.out.println(END_OF_SECTION);
-    }
-
-    private void printInvalidCommand() {
-        System.out.println("OOPS!!! I'm sorry, but I don't know what that means");
-        printEndLine();
-    }
-
-    private void readFileContent(File file) {
-        try {
-            file = duke;
-            String line;
-            Scanner readFile = new Scanner(duke);
-            for (int i = 0; readFile.hasNextLine(); ++i) {
-                line = readFile.nextLine();
-                String[] input = line.split(" ", 2);
-                if (input[0].charAt(1) == 'T') {
-                    String todoDescription = input[1].replaceAll("\\W", " ").strip();
-                    allTasks.add(new ToDo(todoDescription));
-                } else if (input[0].charAt(1) == 'D') {
-                    String deadline = input[1].replaceAll("\\W", " ").strip();
-                    String[] deadlineDescription = deadline.split("by", 2);
-                    allTasks.add(new Deadline(deadlineDescription[0].strip(), deadlineDescription[1].strip()));
-                } else if (input[0].charAt(1) == 'E') {
-                    String event = input[1].replaceAll("\\W", " ").strip();
-                    String[] eventDescription = event.split("at", 2);
-                    allTasks.add(new Event(eventDescription[0].strip(), eventDescription[1].strip()));
-                }
-                if (input[0].length() > 4) {
-                    allTasks.get(i).markAsDone();
-                }
-            }
-            printTaskRemaining();
-            printEndLine();
-            readFile.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        } catch (IOException e) {
-            System.out.println("File corrupted");
-        }
-    }
-
-    private void readUserInputUntilExit() {
-        Scanner in = new Scanner(System.in);
-        String line;
-
-        while (isContinueInput && in.hasNextLine()) {
-            line = in.nextLine();
-            String[] input = line.split(" ", 2);
-            String command = input[0].toLowerCase();
-            String commandArg;
-            if (input.length > 1) {
-                commandArg = input[1];
-            } else {
-                commandArg = "";
-            }
-            try {
-                taskDecoder(command, commandArg);
-            } catch (DukeException e) {
-                printInvalidCommand();
-            }
-        }
-    }
-
-    private void saveData() {
+    public static void saveData() {
         try {
             FileWriter writeFile = new FileWriter(duke);
             System.out.println("\nSaving data");
