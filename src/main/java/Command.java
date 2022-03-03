@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.util.ArrayList;
+
+import static java.util.stream.Collectors.toList;
 
 public class Command {
     private final String input;
@@ -37,6 +40,9 @@ public class Command {
                break;
            case "delete":
                deleteCommand();
+               break;
+           case "find":
+               findCommand();
                break;
            default:
                throw new WrongCommandException();
@@ -142,6 +148,17 @@ public class Command {
         System.out.println(LINE_SEPARATOR);
         saveFile();
     }
+
+    public void findCommand(){
+        try {
+            String filter = p.parseTask(input);
+            ArrayList<Task> filteredTasks = (ArrayList<Task>) TaskList.tasks.stream().filter(task -> task.getDesc().toLowerCase().contains(filter.toLowerCase())).collect(toList());
+            printFilteredTasks(filteredTasks);
+            System.out.println(LINE_SEPARATOR);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("please give filter input");
+        }
+    }
     public static void addTask(String desc, boolean isDone, char type, String time) {
         TaskList.tasks.add(new Task(desc, isDone, type, time));
     }
@@ -158,5 +175,11 @@ public class Command {
 
     public String getCommand(){
         return this.command;
+    }
+
+    public void printFilteredTasks(ArrayList<Task> filteredTasks){
+        for (int i = 0; i < filteredTasks.size(); i++) {
+            System.out.println("    " + (i + 1) + " " + filteredTasks.get(i));
+        }
     }
 }
