@@ -1,5 +1,9 @@
 package boba.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Represent a task with a deadline.
  * Inherits from the Task class.
@@ -8,6 +12,7 @@ public class Deadline extends Task {
 
     /** The deadline in which the task needs to be finish by*/
     protected String by;
+    private LocalDate date;
 
     /**
      * Creates a new deadline item
@@ -17,6 +22,11 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
+        try {
+            date = LocalDate.parse(by);
+        } catch (DateTimeParseException e) {
+            date = LocalDate.parse("0000-01-01");
+        }
     }
 
     /**
@@ -32,6 +42,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        String formatted = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return "[D]" + super.toString() + " (by: " + formatted + ")";
     }
 }
