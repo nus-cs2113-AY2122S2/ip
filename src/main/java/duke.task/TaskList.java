@@ -137,11 +137,10 @@ public class TaskList {
      */
     public void showResults(String keyword){
         System.out.println("The matching tasks are as follows:");
-        int returnNum = 1;
-        for (Task task: taskList){
+        for (int i = 0; i < taskList.size(); i++){
+            Task task = taskList.get(i);
             if (task.getTaskInfo().contains(keyword)) {
-                System.out.println(returnNum+". "+task);
-                returnNum++;
+                System.out.println(i+". "+task);
             }
         }
     }
