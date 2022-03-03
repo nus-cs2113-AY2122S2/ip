@@ -11,29 +11,29 @@
 
 I am capable of managing tasks that you need to keep track of. 
 
-##Features
+## Features
 
-###1. Create a New Task 
+### 1. Create a New Task 
 Create a new task that can be a to-do, a deadline or an event. The 
 new task will be added to my task list.
 
-###2. List Tasks 
+### 2. List Tasks 
 List the tasks that I currently have in my tasklist.
 
-###3. Mark Task
+### 3. Mark Task
 Once you have finished a task I can mark it as completed.
 
-###4. Unmark Task
+### 4. Unmark Task
 If you want to unmark a previously completed task, it can be updated.
 
-###5. Delete Task
+### 5. Delete Task
 Delete an existing task from the task list.
 
-###6. Find task 
+### 6. Find task 
 Find an existing task from the task list using a search keyword. 
 All suitable matches will be listed.
 
-###7. Data File Read and Write
+### 7. Data File Read and Write
 Automatically updates the data file to store changes made to a task list. 
 All tasks can be restored at the start of a new session.
 
@@ -43,21 +43,21 @@ All tasks can be restored at the start of a new session.
 3. From terminal navigate to the new folder.
 4. Start up Duke with ```java -jar Duke.jar ```
 
-##User Manual
+## User Manual
 
-##```todo``` - Create a new todo task
+## ```todo``` - Create a new todo task
 Creates a new task that is a todo. 
 
-####Syntax 
+#### Syntax 
 ```todo <description>```
 
 | Parameter | Description |
 | ----------- | ----------- |
 | ```<description> ```| Description of the todo task |
 
-####Example
+#### Example
     todo make a reservation
-####Expected Outcome
+#### Expected Outcome
     ____________________________________
     Got it. I've added this task:
         [T][ ] make a reservation
@@ -65,10 +65,10 @@ Creates a new task that is a todo.
     ____________________________________
 A new todo has been added to Duke's task list.
 
-##```deadline``` - Create a new deadline task
+## ```deadline``` - Create a new deadline task
 Creates a new task that is a deadline.
 
-####Syntax
+#### Syntax
 ```deadline <description> /<by>```
 
 | Parameter | Description |
@@ -76,9 +76,9 @@ Creates a new task that is a deadline.
 | ```<description> ```| Description of the deadline task|
 | ```<by> ```| Due date of the deadline|
 
-####Example
+#### Example
     deadline submission /23/02/2022
-####Expected Outcome
+#### Expected Outcome
     ____________________________________
     Got it. I've added this task:
         [D][ ] submission (by: 23/02/2022 00:00)
@@ -87,10 +87,10 @@ Creates a new task that is a deadline.
 A new deadline has been added to Duke's task list, with a due date of 23/02/2022
 at 00:00 hours.
 
-##```event``` - Create a new event task
+## ```event``` - Create a new event task
 Creates a new task that is an event.
 
-####Syntax
+#### Syntax
 ```event <description> /<eventTime>```
 
 | Parameter | Description |
@@ -98,9 +98,9 @@ Creates a new task that is an event.
 | ```<description> ```| Description of the event task|
 | ```<eventTime> ```| Time that the event is scheduled for|
 
-####Example
+#### Example
     event meeting /4pm to 6pm
-####Expected Outcome
+#### Expected Outcome
     ____________________________________
     Got it. I've added this task:
         [E][ ] meeting (at: 4pm to 6pm)
@@ -108,15 +108,15 @@ Creates a new task that is an event.
     ____________________________________
 A new event has been added to Duke's task list, with the specified event time.
 
-##```list``` - List tasks
+## ```list``` - List tasks
 Lists all the tasks in the task list.
 
-####Syntax
+#### Syntax
 ```list```
 
-####Example
+#### Example
     list
-####Expected Outcome
+#### Expected Outcome
     ____________________________________
     Here are the tasks in your list:
     1: [T][ ] make a reservation
@@ -124,87 +124,87 @@ Lists all the tasks in the task list.
     3: [E][ ] meeting (at: 4pm to 6pm)
     ____________________________________
 
-##```mark``` - Mark Task as Completed
+## ```mark``` - Mark Task as Completed
 Mark a task as completed.
 
-####Syntax
+#### Syntax
 ```mark <task index>```
 
 | Parameter | Description |
 | ----------- | ----------- |
 | ```<task index> ```| The numerical index of the task to be marked|
 
-####Example
+#### Example
     mark 1
-####Expected Outcome
+#### Expected Outcome
     ____________________________________
     Nice! I've marked this task as done:
     [T][X] make a reservation
     ____________________________________
 
-##```unmark``` - Unmark Task as Completed
+## ```unmark``` - Unmark Task as Completed
 Unmarks a task that was previously marked as completed.
 
-####Syntax
+#### Syntax
 ```unmark <task index>```
 
 | Parameter | Description |
 | ----------- | ----------- |
 | ```<task index> ```| The numerical index of the task to be unmarked|
 
-####Example
+#### Example
     unmark 1
-####Expected Outcome
+#### Expected Outcome
     ____________________________________
     OK, I've marked this task as not done yet:
     [T][ ] make a reservation
     ____________________________________
 
-##```delete``` - Delete a Task
+## ```delete``` - Delete a Task
 Deletes a task from the task list.
 
-####Syntax
+#### Syntax
 ```delete <task index>```
 
 | Parameter | Description |
 | ----------- | ----------- |
 | ```<task index> ```| The numerical index of the task to be deleted|
 
-####Example
+#### Example
     delete 1
-####Expected Outcome
+#### Expected Outcome
     ____________________________________
     Noted. I've removed this task:
     [T][ ] make a reservation
     Now you have 2 tasks in the list
     ____________________________________
 
-##```find``` - Find a Task
+## ```find``` - Find a Task
 Searches for task(s) that match the search from the task list.
 
-####Syntax
+#### Syntax
 ```find <search query>```
 
 | Parameter | Description |
 | ----------- | ----------- |
 | ```<search query> ```| The keyword used to search for matching task(s)|
 
-####Example
+#### Example
     find m
-####Expected Outcome
+#### Expected Outcome
     ____________________________________
     Here are the matching tasks in your list:
     1: [D][ ] submission (by: 23/02/2022 00:00)
     2: [E][ ] meeting (at: 4pm to 6pm)
     ____________________________________
 
-##```bye``` - Exit Duke
+## ```bye``` - Exit Duke
 Stops the Duke application and saves the tasks for a future session.
 
-####Syntax
+#### Syntax
 ```bye```
 
-####Expected Outcome
+#### Expected Outcome
     ____________________________________
     Bye. Hope to see you again soon!
     ____________________________________
