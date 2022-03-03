@@ -3,10 +3,9 @@ import DukeTask.Event;
 import DukeTask.Task;
 import DukeTask.ToDo;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Storage {
     /**
@@ -39,6 +38,12 @@ public class Storage {
      * @throws IOException if the file/ file path does not exist.
     */
     public void readData() throws IOException {
+        try{
+            BufferedReader in = new BufferedReader(new FileReader(".\\src\\DataSrc\\taskList.txt"));
+        } catch(IOException e){
+            System.out.println("Welcome new user!");
+            createFile("./src/DataSrc");
+        }
         BufferedReader in = new BufferedReader(new FileReader(".\\src\\DataSrc\\taskList.txt"));
         String taskLine;
         while ((taskLine = in.readLine()) != null) {
@@ -63,4 +68,16 @@ public class Storage {
         in.close();
     }
 
+    private void createFile(String path){
+        try {
+            File f = new File(path);
+            if(!f.exists()){
+                f.mkdirs();
+            }
+            Files.createFile(Paths.get("./src/DataSrc/taskList.txt"));
+            System.out.println("File created successfully!");
+        }catch(IOException e){
+            System.out.println("File created unsuccessfully!");
+        }
+    }
 }
