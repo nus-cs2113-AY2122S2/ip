@@ -185,15 +185,20 @@ public class TaskList {
      */
     public static String processTime(String timeInput) {
         String time = timeInput;
+        boolean isAM = false;
 
         if (!isTimeProcessed(timeInput)) {
             int hourOfDay = Integer.parseInt(timeInput) / 100;
+            if (hourOfDay == 0) {
+                hourOfDay = 12;
+                isAM = true;
+            }
             int minute = Integer.parseInt(timeInput) % 100;
             if (minute > 59) {
                 return time = null;
             }
             time = ((hourOfDay > 12) ? hourOfDay % 12 : hourOfDay)
-                    + ":" + (minute < 10 ? ("0" + minute) : minute) + ((hourOfDay >= 12) ? "PM" : "AM");
+                    + ":" + (minute < 10 ? ("0" + minute) : minute) + ((hourOfDay >= 12 && !isAM) ? "PM" : "AM");
         }
         return time;
     }

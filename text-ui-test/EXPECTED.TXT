@@ -109,7 +109,7 @@ ____________________________________________________________
  Please ensure that the date format is in YYYY-MM-DD and the time format is in HHmm (24 hour) (e.g. /at 2021-02-19 1330)
 > ☹ OOPS!!! The command is invalid. Please ensure command is entered as: 
  deadline [TASK DESCRIPTION] /by [DEADLINE TIMING] 
- event [TASK DESCRIPTION] /by [EVENT TIMING]
+ event [TASK DESCRIPTION] /at [EVENT TIMING]
 > ____________________________________________________________
 OK, I've marked this task as done:
 [D][X] assignment 3  (by: Jan-1-2011 12:30PM)

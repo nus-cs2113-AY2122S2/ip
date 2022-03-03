@@ -1,6 +1,0 @@
-T|0|buy book
-E|1|meeting with kelly |Jan-1-2022 5:30PM
-D|0|return book |Feb-3-2022 11:20AM
-D|0|return kelly water bottle |Mar-11-2022 1:30PM
-E|1|meet ben |Oct-11-2022 2:15PM
-D|0|assignment 3 |Jan-1-2011 12:30PM
