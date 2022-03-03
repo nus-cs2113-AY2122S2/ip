@@ -22,7 +22,7 @@ Examples of usage:
 - `todo Homework`
 - `todo Geography assignment`
 
-Example expected outcome of adding an event:
+Example expected outcome of adding a todo:
 ```
 Noted. I've added:
 [T][ ] Homework
