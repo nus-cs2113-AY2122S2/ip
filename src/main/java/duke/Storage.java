@@ -18,7 +18,7 @@ public class Storage {
     private Ui ui = new Ui();
 
     public void createDirectory() {
-        String directory = "\\data";
+        String directory = "/data";
         String directoryPath = Duke.PROJECT_PATH + directory;
         File dir = new File(directoryPath);
         boolean isMade = dir.mkdir();
@@ -41,7 +41,7 @@ public class Storage {
         while (!dir.exists()) {
             createDirectory();
         }
-        File f = new File(Duke.PROJECT_PATH + "\\" + Duke.DATAFILE_RELATIVE_PATH);
+        File f = new File(Duke.PROJECT_PATH + "/" + Duke.DATAFILE_RELATIVE_PATH);
 
         try {
             f.createNewFile();

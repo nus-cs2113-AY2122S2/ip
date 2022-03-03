@@ -11,7 +11,7 @@ public class Duke {
     public static final int MINIMUM_LENGTH_OF_FIND_STATEMENT = 4;
     public static final int MINIMUM_LENGTH_OF_UNMARK_STATEMENT = 6;
     public static final int MINIMUM_LENGTH_OF_DELETE_STATEMENT = 6;
-    public static final String DATAFILE_RELATIVE_PATH = "data\\duke.txt";
+    public static final String DATAFILE_RELATIVE_PATH = "data/duke.txt";
     public static final String PROJECT_PATH = System.getProperty("user.dir");
     public static final int INVALID_TASKNUMBER = -1;
 
