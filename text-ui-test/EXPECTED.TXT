@@ -7,7 +7,7 @@ You haven't added any tasks to your list yet!
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [T] [ ] finish iP
+  [T] [ ] finish tP
 Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
@@ -17,7 +17,7 @@ Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
- 1. [T] [ ] finish iP
+ 1. [T] [ ] finish tP
  2. [D] [ ] code quality (by: midnight before tutorial)
 
 ____________________________________________________________
@@ -45,10 +45,19 @@ Nice! I've marked this task as done:
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
- 1. [T] [ ] finish iP
+ 1. [T] [ ] finish tP
  2. [D] [X] code quality (by: midnight before tutorial)
  3. [E] [X] tP meeting (at: 7-8pm)
 
+____________________________________________________________
+____________________________________________________________
+Here are the matching tasks in your list:
+ 1. [T] [ ] finish tP
+ 2. [E] [X] tP meeting (at: 7-8pm)
+
+____________________________________________________________
+____________________________________________________________
+Please only enter one keyword!
 ____________________________________________________________
 ____________________________________________________________
 I don't understand what you want to do, big sad :(
@@ -74,7 +83,7 @@ You need to provide a time for your deadline or event
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
- 1. [T] [ ] finish iP
+ 1. [T] [ ] finish tP
  2. [D] [ ] code quality (by: midnight before tutorial)
  3. [E] [X] tP meeting (at: 7-8pm)
 
@@ -95,7 +104,7 @@ Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
- 1. [T] [ ] finish iP
+ 1. [T] [ ] finish tP
  2. [E] [X] tP meeting (at: 7-8pm)
 
 ____________________________________________________________
@@ -107,7 +116,7 @@ You need to provide a time for your deadline or event
 ____________________________________________________________
 ____________________________________________________________
 Noted. I've removed this task:
-  [T] [ ] finish iP
+  [T] [ ] finish tP
 Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________

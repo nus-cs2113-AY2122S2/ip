@@ -23,6 +23,8 @@ public class CommandLineInputHandler {
             TaskListUtil.list();
         } else if (line.startsWith("delete")) {
             TaskListAddRemove.removeTask(line);
+        } else if (line.startsWith("find")) {
+            TaskListUtil.find(line);
         } else if (line.startsWith("mark")) {
             TaskListEdit.markStatus(true, line);
         } else if (line.startsWith("unmark")) {
