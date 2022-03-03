@@ -22,6 +22,9 @@ public class Duke {
             Storage.load();
         } catch (IOException e) {
             System.out.println("ERROR IN LOADING FILE");
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+            return;
         }
         Ui.printIntro();
         String input = "";
