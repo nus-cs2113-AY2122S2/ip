@@ -1,14 +1,13 @@
 package Managers;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import Commands.Command;
 import Commands.UnknownCommand;
 
-import Exceptions.BadDateTimeFormatException;
-import Exceptions.NoDateTimeException;
-import Exceptions.NoTaskDescriptionException;
+import Exceptions.*;
 
 import static Constants.BaoConstants.LOGO;
 
@@ -44,10 +43,18 @@ public class BaoUI implements UI {
                 command.execute(taskManager, this);
             } catch (NoTaskDescriptionException e) {
                 printWithLine("What do you have to do?");
-            } catch (NoDateTimeException e) {
+            } catch (NoDateTimeException | BadDateTimeFormatException e) {
                 printWithLine("When is this again?");
-            } catch (BadDateTimeFormatException e) {
-                printWithLine("");
+            } catch (DateTimeParseException e) {
+                printWithLine("Enter date and time in dd/mm/yyyy hhmm format!");
+            }  catch (NumberFormatException e) {
+                printWithLine("So close! You just need to provide me the task number.");
+            } catch (BadIndexException e) {
+                printWithLine("I've checked and double checked. There is no such task.");
+            }  catch (MaxTaskException e) {
+                printWithLine("Hey! Calm down, Charlie Brown. You've too many on your plate right now.");
+            } catch (Exception e) {
+                printWithLine("AHH. Sorry, I glitched. Can you try that again?");
             }
         } while (!command.isExit());
     }

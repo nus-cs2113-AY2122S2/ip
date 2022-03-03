@@ -17,7 +17,7 @@ public class NewEventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskManager taskManager, UI ui) {
+    public void execute(TaskManager taskManager, UI ui) throws MaxTaskException {
         try{
             Event event = new Event(description, dateTime);
             taskManager.addTask(event);
@@ -25,8 +25,8 @@ public class NewEventCommand extends Command {
                     + event.toString() + "," + System.lineSeparator()
                     + "annnd there we go, it's been added!" + System.lineSeparator()
                     + "You have " + taskManager.getNumTasks() + " tasks in the list.");
-        } catch (MaxTaskException e) {
-            printWithLine("Hey! Calm down, Charlie Brown. You've too many on your plate right now.");
+        } catch (Exception e) {
+            throw e;
         }
     }
 }

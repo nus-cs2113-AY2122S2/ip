@@ -15,7 +15,7 @@ public class NewTodoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskManager taskManager, UI ui) {
+    public void execute(TaskManager taskManager, UI ui) throws MaxTaskException {
         try {
             Todo todo = new Todo(description);
             taskManager.addTask(todo);
@@ -23,8 +23,8 @@ public class NewTodoCommand extends Command {
                     + todo.toString() + "," + System.lineSeparator()
                     + "annnd there we go, it's been added!" + System.lineSeparator()
                     + "You have " + taskManager.getNumTasks() + " tasks in the list.");
-        } catch (MaxTaskException e) {
-            printWithLine("Hey! Calm down, Charlie Brown. You've too many on your plate right now.");
+        } catch (Exception e) {
+            throw e;
         }
     }
 }

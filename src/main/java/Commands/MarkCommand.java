@@ -14,14 +14,12 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskManager taskManager, UI ui) {
+    public void execute(TaskManager taskManager, UI ui) throws BadIndexException, NumberFormatException {
         try {
             printWithLine(taskManager.markTask(index),
                     "Boom! Another task done already???");
-        } catch (NumberFormatException e) {
-            printWithLine("So close! You just need to provide me the task number to mark.");
-        } catch (BadIndexException e) {
-            printWithLine("I've checked and double checked. There is no such task.");
+        } catch (Exception e) {
+            throw e;
         }
     }
 }
