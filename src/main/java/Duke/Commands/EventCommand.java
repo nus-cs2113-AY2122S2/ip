@@ -6,7 +6,7 @@ import Duke.Tasks.Event;
 import Duke.Ui.Ui;
 
 /**
- * Represents the command to add and event task.
+ * Represents the command to add an event task.
  */
 public class EventCommand extends Command {
     private Event event;
@@ -31,6 +31,7 @@ public class EventCommand extends Command {
      * @param ui    User interface of Duke.
      * @param storage   Storage of Duke.
      */
+    @Override
     public void executeCommand(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(event);
         System.out.println(Ui.DISPLAY_LINE + System.lineSeparator() + "Okay! I've added this task:");

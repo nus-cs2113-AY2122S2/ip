@@ -8,6 +8,8 @@ unmark 1
 mark 5
 deadline work by
 list
+find book
+find
 todo
 delete 2
 list

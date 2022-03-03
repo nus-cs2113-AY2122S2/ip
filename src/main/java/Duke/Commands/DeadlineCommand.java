@@ -20,6 +20,7 @@ public class DeadlineCommand extends Command {
      *
      * @return Indication on whether the program should exit.
      */
+    @Override
     public boolean isExit() {
         return false;
     }
@@ -31,6 +32,7 @@ public class DeadlineCommand extends Command {
      * @param ui    User interface of Duke.
      * @param storage   Storage of Duke.
      */
+    @Override
     public void executeCommand(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(deadline);
         System.out.println(Ui.DISPLAY_LINE  + System.lineSeparator() + "Okay! I've added this task:");

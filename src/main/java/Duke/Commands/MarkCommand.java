@@ -19,6 +19,7 @@ public class MarkCommand extends Command {
      *
      * @return Indication on whether the program should exit.
      */
+    @Override
     public boolean isExit() {
         return false;
     }
@@ -30,6 +31,7 @@ public class MarkCommand extends Command {
      * @param ui    User interface of Duke.
      * @param storage   Storage of Duke.
      */
+    @Override
     public void executeCommand(TaskList tasks, Ui ui, Storage storage) {
         tasks.markItem(index);
         System.out.println(Ui.DISPLAY_LINE + System.lineSeparator() + "Nice! I've marked this as done:");

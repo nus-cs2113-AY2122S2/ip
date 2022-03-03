@@ -14,6 +14,7 @@ public class ByeCommand extends Command {
      *
      * @return Indication on whether the program should exit.
      */
+    @Override
     public boolean isExit() {
         return true;
     }
@@ -21,10 +22,11 @@ public class ByeCommand extends Command {
     /**
      * Executes the command.
      *
-     * @param tasks Tasklist containing of  the tasks.
+     * @param tasks Tasklist containing of the tasks.
      * @param ui    User interface of Duke.
      * @param storage   Storage of Duke.
      */
+    @Override
     public void executeCommand(TaskList tasks, Ui ui, Storage storage) {
         Ui.exit(storage,tasks);
     }

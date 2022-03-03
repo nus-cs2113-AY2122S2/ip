@@ -15,6 +15,7 @@ public class ListItemCommand  extends Command {
      *
      * @return Indication on whether the program should exit.
      */
+    @Override
     public boolean isExit() {
         return false;
     }
@@ -26,6 +27,7 @@ public class ListItemCommand  extends Command {
      * @param ui    User interface of Duke.
      * @param storage   Storage of Duke.
      */
+    @Override
     public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Ui.listItems(tasks);
     }

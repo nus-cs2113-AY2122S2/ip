@@ -2,6 +2,8 @@ package Duke.Tasks;
 
 import java.util.ArrayList;
 
+import static java.util.stream.Collectors.toList;
+
 /**
  * Represents the list of tasks.
  */
@@ -76,5 +78,13 @@ public class TaskList {
      */
     public boolean isEmpty() {
         return tasks.isEmpty();
+    }
+
+    public TaskList findItem (String description) {
+        ArrayList<Task> filteredTask = (ArrayList<Task>) tasks.stream()
+                .filter((t) -> t.getDescription().contains(description))
+                .collect(toList());
+        TaskList newTaskList = new TaskList(filteredTask);
+        return newTaskList;
     }
 }

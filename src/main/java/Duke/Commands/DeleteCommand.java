@@ -20,6 +20,7 @@ public class DeleteCommand extends Command {
      *
      * @return Indication on whether the program should exit.
      */
+    @Override
     public boolean isExit() {
         return false;
     }
@@ -31,6 +32,7 @@ public class DeleteCommand extends Command {
      * @param ui    User interface of Duke.
      * @param storage   Storage of Duke.
      */
+    @Override
     public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         System.out.println(Ui.DISPLAY_LINE + System.lineSeparator()
                     + "Okay! I have removed this task from the list!");

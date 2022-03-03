@@ -38,7 +38,9 @@ public class Parser {
             } else if (message.contains("deadline")) {
                 return ParserUtil.parseDeadlineCommand(message, isDone);
             } else if (message.contains("event")) {
-                return ParserUtil.parseEventCommand(message,isDone);
+                return ParserUtil.parseEventCommand(message, isDone);
+            } else if (message.contains("find")) {
+                return ParserUtil.parseFindCommand(message,taskList);
             } else {
                 throw new DukeException(Ui.displayInvalidInputMessage());
             }
