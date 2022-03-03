@@ -12,6 +12,9 @@ import static duke.storage.ReadTaskList.readFile;
 import static duke.storage.WriteTaskList.writeList;
 import static duke.ui.CommandLineOutputUtil.greet;
 
+/**
+ * Methods for obtaining and parsing user input.
+ */
 public class CommandLineInputHandler {
     private static Boolean willExit = false;
 
@@ -34,6 +37,10 @@ public class CommandLineInputHandler {
         }
     }
 
+    /**
+     * Runs the Duke chat-bot.
+     * Reads data file, receives user input and calls parsing method, and writes to data file.
+     */
     public static void runDuke() {
         greet();
         String line;

@@ -67,5 +67,5 @@ Format: `bye`
 | Add event    | `event TASK_DESCRIPTION /at TASK_TIME`<br/> e.g. `event SE tutorial /at 10AM`       |
 | List         | `list`                                                                              |
 | Delete       | `delete TASK_NUMBER`<br/> e.g. `delete 2`                                           |
-| Find         | `find TASK_KEYWORD` <br/> e.g. `find iP`                                             |
+| Find         | `find TASK_KEYWORD` <br/> e.g. `find iP`                                            |
 | Exit         | `bye`                                                                               |

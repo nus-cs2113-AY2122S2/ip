@@ -8,6 +8,11 @@ public abstract class Task {
     private String description;
     private boolean isDone;
 
+    /**
+     * Initializes a new Task object.
+     *
+     * @param description Task description.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
