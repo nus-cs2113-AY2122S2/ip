@@ -30,7 +30,7 @@ public class DeleteTaskCommand extends Command {
      * @param ui The interface that provides interaction with the user.
      */
     @Override
-    public void execute(TaskManager taskManager, UI ui) throws BadIndexException, NumberFormatException {
+    public void execute(TaskManager taskManager, UI ui) throws IndexOutOfBoundsException, NumberFormatException {
         try {
             Task deletedTask = taskManager.deleteTask(index);
             printWithLine("You wanna see a magic trick? Now you see this: " + System.lineSeparator()

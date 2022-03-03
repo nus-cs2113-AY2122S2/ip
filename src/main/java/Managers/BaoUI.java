@@ -67,7 +67,7 @@ public class BaoUI implements UI {
                 printWithLine("Enter date and time in dd/mm/yyyy hhmm format!");
             }  catch (NumberFormatException e) {
                 printWithLine("So close! You just need to provide me the task number.");
-            } catch (BadIndexException e) {
+            } catch (IndexOutOfBoundsException e) {
                 printWithLine("I've checked and double checked. There is no such task.");
             }  catch (MaxTaskException e) {
                 printWithLine("Hey! Calm down, Charlie Brown. You've too many on your plate right now.");
