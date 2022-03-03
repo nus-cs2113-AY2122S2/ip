@@ -99,4 +99,24 @@ public class TaskList {
     public static void addTask (Task task) {
         listFromFile.add(task);
     }
+
+    public static void findTask(String line, TaskList tasks) {
+        String[] namesForTask = line.split(" ", 2);
+        ArrayList<String> outputArr = new ArrayList<>();
+        for (int i = 0; i < tasks.getSize(); i++) {
+            if (tasks.getTask(i).getDescription().contains(namesForTask[1])) {
+                String output = i+1 + ".[" + tasks.getTask(i).getTaskType() + "]" + "[" + tasks.getTask(i).getStatusIcon()
+                        + "] " + tasks.getTask(i).getDescription().replace("|","");
+                outputArr.add(output);
+            }
+        }
+        if (!outputArr.isEmpty()) {
+            System.out.println("Here are the matching tasks in your list: ");
+            for (int i = 0; i < outputArr.size(); i++) {
+                System.out.println(outputArr.get(i));
+            }
+        } else {
+            System.out.println("There are no matching tasks in your list: ");
+        }
+    }
 }
