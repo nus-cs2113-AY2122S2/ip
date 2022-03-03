@@ -19,6 +19,7 @@ public class Parser {
     }
 
     public static String getCommandFromUserInput(String input) {
+        if (input == "bye" ||input == "list") return input;
         return input.split(" ")[0];
     }
 
@@ -35,31 +36,39 @@ public class Parser {
             case "unmark": {
                 int taskIndex = getTaskIndex(input);
                 taskList.toggleStatus(taskIndex, command);
+                break;
             }
             case "list":
                 taskList.printAllTasks();
+                break;
             case "deadline":
                 taskList.addDeadline(input);
+                break;
             case "todo":
                 taskList.addTodo(input);
+                break;
             case "event":
                 taskList.addEvent(input);
+                break;
+            case "bye":
+                break;
             case "delete":
                 taskList.deleteTask(getTaskIndex(input));
             default:
-                throw new DukeException("Error", "Wrong input");
+                throw new DukeException(" ", " ");
             }
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-( ");
             System.out.println("----------------------------------------------------------------");
-        } catch (NullPointerException e) {
-            System.out.println("☹ OOPS!!! I'm sorry, but seems like there is no such task :-( ");
+        }
+        catch (NullPointerException e) {
+            System.out.println("OOPS!!! I'm sorry, but seems like there is no such task :-( ");
             System.out.println("----------------------------------------------------------------");
         } catch (ChangeStatusException e) {
-            System.out.println("☹ OOPS!!! I'm sorry, but seems like this task is already marked/unmarked");
+            System.out.println("OOPS!!! I'm sorry, but seems like this task is already marked/unmarked");
             System.out.println("----------------------------------------------------------------");
         } catch (DukeException e) {
-            System.out.print("☹ OOPS!!! The description of a ");
+            System.out.print("OOPS!!! The description of a ");
             System.out.print(e);
             System.out.println(" cannot be empty");
             System.out.println("----------------------------------------------------------------");
