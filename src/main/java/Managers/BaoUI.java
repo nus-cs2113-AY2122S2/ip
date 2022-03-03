@@ -11,7 +11,6 @@ import Exceptions.BadDateTimeFormatException;
 import Exceptions.NoDateTimeException;
 import Exceptions.NoKeywordException;
 import Exceptions.NoTaskDescriptionException;
-import Exceptions.BadIndexException;
 import Exceptions.MaxTaskException;
 
 import static Constants.BaoConstants.LOGO;
@@ -76,10 +75,10 @@ public class BaoUI implements UI {
                 printWithLine("I've checked and double checked. There is no such task.");
             }  catch (MaxTaskException e) {
                 printWithLine("Hey! Calm down, Charlie Brown. You've too many on your plate right now.");
-            } catch (Exception e) {
-                printWithLine("AHH. Sorry, I glitched. Can you try that again?");
             } catch (NoKeywordException e) {
                 printWithLine("What are you looking for mate?");
+            }catch (Exception e) {
+                printWithLine("AHH. Sorry, I glitched. Can you try that again?");
             }
         } while (!command.isExit());
 
