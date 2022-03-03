@@ -12,10 +12,12 @@ public class DeleteCommand extends Command {
         this.index = index;
     }
 
+    @Override
     public boolean isExit() {
         return false;
     }
 
+    @Override
     public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         System.out.println(Ui.DISPLAY_LINE + System.lineSeparator()
                     + "Okay! I have removed this task from the list!");

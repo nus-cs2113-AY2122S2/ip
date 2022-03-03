@@ -12,10 +12,12 @@ public class DeadlineCommand extends Command {
         deadline = new Deadline(description, isDone, date);
     }
 
+    @Override
     public boolean isExit() {
         return false;
     }
 
+    @Override
     public void executeCommand(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(deadline);
         System.out.println(Ui.DISPLAY_LINE  + System.lineSeparator() + "Okay! I've added this task:");

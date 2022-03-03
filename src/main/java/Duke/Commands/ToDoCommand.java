@@ -12,10 +12,12 @@ public class ToDoCommand extends Command {
         toDo = new Todo(description, isDone);
     }
 
+    @Override
     public boolean isExit() {
         return false;
     }
 
+    @Override
     public void executeCommand(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(toDo);
         System.out.println(Ui.DISPLAY_LINE + System.lineSeparator() + "Okay! I've added this task:");

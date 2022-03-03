@@ -11,10 +11,12 @@ public class MarkCommand extends Command {
         this.index = index;
     }
 
+    @Override
     public boolean isExit() {
         return false;
     }
 
+    @Override
     public void executeCommand(TaskList tasks, Ui ui, Storage storage) {
         tasks.markItem(index);
         System.out.println(Ui.DISPLAY_LINE + System.lineSeparator() + "Nice! I've marked this as done:");

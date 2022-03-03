@@ -16,6 +16,7 @@ public class EventCommand extends Command {
         return false;
     }
 
+    @Override
     public void executeCommand(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(event);
         System.out.println(Ui.DISPLAY_LINE + System.lineSeparator() + "Okay! I've added this task:");
