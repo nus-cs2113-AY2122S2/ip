@@ -15,6 +15,11 @@ import java.util.Scanner;
 public class Storage {
     private String filePath;
 
+    /**
+     * Creates a storage to read and write file from filepath
+     *
+     * @param filePath path of input/output file
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }

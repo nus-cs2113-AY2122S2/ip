@@ -22,6 +22,10 @@ public class DatedTask extends Task {
 
     }
 
+    /**
+     * Get date and time in string
+     * @return date and time
+     */
     public String getDateTimeString(){
         String DateTimeString = this.DateTimeString;
 
@@ -32,7 +36,4 @@ public class DatedTask extends Task {
         return DateTimeString;
     }
 
-    public LocalDate getDate() {
-        return this.RealDateTime.toLocalDate();
-    }
 }

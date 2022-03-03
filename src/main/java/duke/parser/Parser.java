@@ -43,6 +43,11 @@ public class Parser {
         return nextWord;
     }
 
+    /**
+     * Checks input command for any error
+     * @param input input command to be checked
+     * @throws DukeException if there is an error
+     */
     private static void errorCheck(String input) throws DukeException {
         String[] words = input.split(" ");
         String command = words[0];
@@ -101,6 +106,13 @@ public class Parser {
         return;
     }
 
+    /**
+     * Parses the input command and return the corresponding command. It first calls errorCheck(fullCommand)
+     * to check for error, if there is no error, it returns the correct command.
+     * @param fullCommand input command
+     * @return Command object corresponding to the input command
+     * @throws DukeException if there is an error
+     */
     public static Command parse(String fullCommand) throws DukeException {
 
         try {
@@ -138,6 +150,11 @@ public class Parser {
             }
         }
 
+    /**
+     * Parses string into task. Used by Storage to parse input file into task list.
+     * @param input String to be parsed
+     * @return task object correspond to the String
+     */
     public static Task parseToTask(String input) {
         int indexOfSpace = input.indexOf(" ");
         String taskType = input.substring(indexOfSpace + 2, indexOfSpace+3);

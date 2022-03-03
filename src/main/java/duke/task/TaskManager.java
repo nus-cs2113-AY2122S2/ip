@@ -9,6 +9,9 @@ public class TaskManager {
     private ArrayList<Task> tasks = new ArrayList<>();
     private int numOfTasks = 0;
 
+    /**
+     * Class to manage the tasks
+     */
     public TaskManager(){
     }
 
@@ -86,7 +89,7 @@ public class TaskManager {
     }
 
     /**
-     * Mark task as complete.
+     * Marks task as complete.
      *
      * @param taskNumber Task number of the task to be deleted (as seen from list)
      * @throws DukeException Throws exception if task number invalid
@@ -103,7 +106,7 @@ public class TaskManager {
     }
 
     /**
-     * Mark task as incomplete.
+     * Marks task as incomplete.
      *
      * @param taskNumber Task number of the task to be deleted (as seen from list)
      * @throws DukeException Throws exception if task number invalid
