@@ -2,13 +2,17 @@
 
 ## Features 
 
-### Feature-ABC
+### Add, Remove and Mark Tasks
 
-Description of the feature.
+Duke allows for one to keep track of tasks by allowing one to add, remove and mark tasks as done. For each task, one can also set it to be a simple To-Do task, an Event task with an associated date and/or time as well as a Deadline task that can store an associated date and/or time. Once a task is added, it can then be set as completed with an option to set it as pending afterwards. Additionally, should tasks be addded by mistake, the task can be deleted entirely.
 
-### Feature-XYZ
+### Local Storage
 
-Description of the feature.
+Duke also allows for the local storage of the associated tasks. Every update to the existing task list will be backed up locally such that one need not keep Duke running in the background. Along with storage, Duke can also recall past tasks saved from a previous session. As the files are stored in exactly the same format as what is displayed to the user, modification of the task backup file is easy.
+
+### Search Task
+
+Duke allows for one to query if a specific string is found within the task information (excludes event/deadline information). Duke returns a view of the subset returned. To perform operations on this, access the index as given by Duke.
 
 ## Usage
 
