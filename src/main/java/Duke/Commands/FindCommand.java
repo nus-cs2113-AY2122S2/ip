@@ -1,11 +1,17 @@
 package Duke.Commands;
 
-import Duke.*;
+import Duke.DukeException;
 import Duke.Storage.Storage;
 import Duke.Tasks.TaskList;
 import Duke.Ui.Ui;
 
-public class ListItemCommand  extends Command {
+public class FindCommand extends Command {
+    private String description;
+
+    public FindCommand(String description) {
+        this.description = description;
+    }
+
     @Override
     public boolean isExit() {
         return false;
@@ -13,6 +19,6 @@ public class ListItemCommand  extends Command {
 
     @Override
     public void executeCommand(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        Ui.listItems(tasks);
+        Ui.listItems(tasks.findItem(description));
     }
 }
