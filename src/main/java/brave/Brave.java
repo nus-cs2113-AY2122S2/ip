@@ -11,7 +11,7 @@ import java.nio.file.Path;
 
 
 /**
- * Entry point for Brave-Bot Task Helper
+ * Represent the entry point for Brave-Bot Task Helper
  * Initialize the UI, TaskManager, and Storage component.
  */
 public class Brave {
@@ -38,7 +38,7 @@ public class Brave {
 
     /**
      * Read the user input command,
-     * and keep iterating until stop condition is reached
+     * Keep iterating until stop condition is reached
      */
     public void run() {
         ui.showWelcomeMessage();

@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class TaskManager {
     private final ArrayList<Task> tasks;
-    private Ui ui = new Ui();
+    private final Ui ui = new Ui();
 
     /**
      * Class Constructor, initialise an empty array list if no file found

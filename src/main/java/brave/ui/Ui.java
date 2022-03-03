@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Ui {
     String input;
     private final Scanner in;
-    public static final String LINE_SPLIT = "_______________________________________________________";
+    public static final String LINE_SPLIT = "----------------------------------------------";
 
     public Ui() {
         in = new Scanner(System.in);
@@ -29,7 +29,12 @@ public class Ui {
 
     public void showWelcomeMessage() {
         System.out.println(LINE_SPLIT);
-        System.out.println("Hello I'm Brave");
+        System.out.println("Greetings from");
+        System.out.println("  ____                        _ \n" +
+                " | __ ) _ __ __ ___   _____  | |\n" +
+                " |  _ \\| '__/ _` \\ \\ / / _ \\ | |\n" +
+                " | |_) | | | (_| |\\ V /  __/ |_|\n" +
+                " |____/|_|  \\__,_| \\_/ \\___| (_)\n");
         System.out.println("What can I do for you?");
         System.out.println(LINE_SPLIT);
     }
@@ -54,7 +59,7 @@ public class Ui {
 
     public void showAddTaskMessage(Task task, int size) {
         System.out.println(LINE_SPLIT);
-        System.out.println("GOTT IT!!, I have added task below!");
+        System.out.println("GOTT IT!! I have added task below!");
         System.out.println(task);
         System.out.println("You currently have " + size + " task in the list");
         System.out.println(LINE_SPLIT);
