@@ -6,8 +6,6 @@ import Interfaces.UI;
 
 import Managers.TaskManager;
 
-import static Functions.MessageDisp.printWithLine;
-
 /**
  * Command for Bao to remove a task from the task list.
  */
@@ -33,10 +31,7 @@ public class DeleteTaskCommand extends Command {
     public void execute(TaskManager taskManager, UI ui) throws IndexOutOfBoundsException, NumberFormatException {
         try {
             Task deletedTask = taskManager.deleteTask(index);
-            printWithLine("You wanna see a magic trick? Now you see this: " + System.lineSeparator()
-                    + deletedTask.toString() + "," + System.lineSeparator()
-                    + "AND NOW, you don't!" + System.lineSeparator()
-                    + "Check behind your ear, for you still have " + taskManager.getNumTasks() + " tasks in the list.");
+            ui.deleteTaskMessage(deletedTask);
         } catch (Exception e) {
             throw e;
         }

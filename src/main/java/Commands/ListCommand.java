@@ -10,16 +10,13 @@ import static Constants.BaoConstants.LINE_BREAK;
  */
 public class ListCommand extends Command {
     /**
-     * Calls <code>TaskManager</code> method to display all tasks.
+     * Calls <code>TaskManager</code> method to display all tasks. Argument taskManager is not used directly.
      *
-     * @param taskManager TaskManager to execute command on.
+     * @param taskManager Not used directly. May be <code>null</code>.
      * @param ui The interface that provides interaction with the user.
      */
     @Override
     public void execute(TaskManager taskManager, UI ui) {
-        System.out.print(LINE_BREAK);
-        System.out.println("Here are your tasks:");
-        taskManager.listTasks();
-        System.out.print(LINE_BREAK);
+        ui.listTasksMessage();
     }
 }

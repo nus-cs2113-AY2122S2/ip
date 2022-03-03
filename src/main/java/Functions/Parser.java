@@ -134,7 +134,13 @@ public class Parser {
         }
     }
 
-    // Return the keyword to find in tasks
+    /**
+     * Decomposes user command for finding. Separates command keyword from target keyword.
+     *
+     * @param msg User command to parse.
+     * @return Keyword to find.
+     * @throws NoKeywordException no keyword was given after the command keyword.
+     */
     public static String getKeyword(String msg) throws NoKeywordException {
         try {
             if (msg.indexOf(' ') == -1 || msg.indexOf(' ') + 1 >= msg.length()) {

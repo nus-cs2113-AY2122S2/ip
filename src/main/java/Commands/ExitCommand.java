@@ -22,6 +22,6 @@ public class ExitCommand extends Command {
      */
     @Override
     public void execute(TaskManager taskManager, UI ui) {
-
+        ui.farewell();
     }
 }

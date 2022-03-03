@@ -36,10 +36,7 @@ public class NewDeadlineCommand extends Command {
         try{
             Deadline deadline = new Deadline(description, dateTime);
             taskManager.addTask(deadline);
-            printWithLine("Yup yup yup, " + System.lineSeparator()
-                    + deadline.toString() + "," + System.lineSeparator()
-                    + "annnd there we go, it's been added!" + System.lineSeparator()
-                    + "You have " + taskManager.getNumTasks() + " tasks in the list.");
+            ui.newTaskMessage(deadline);
         } catch (Exception e) {
             throw e;
         }

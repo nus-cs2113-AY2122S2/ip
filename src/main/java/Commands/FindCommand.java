@@ -6,29 +6,41 @@ import Managers.TaskManager;
 
 import java.util.ArrayList;
 
-import static Constants.BaoConstants.LINE_BREAK;
-
+/**
+ * Command for Bao to display tasks from the task list that have the given keyword in its description.
+ */
 public class FindCommand extends Command {
     private String keyword;
 
+    /**
+     * Creates find command for specified keyword.
+     *
+     * @param keyword Word to be searched for in task description.
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
 
+    /**
+     * Searches task descriptions for the given keyword. Tasks with the keyword in the description are displayed.
+     *
+     * @param taskManager TaskManager to execute command on.
+     * @param ui The interface that provides interaction with the user.
+     */
     @Override
     public void execute(TaskManager taskManager, UI ui) {
         ArrayList<Task> tasks = taskManager.getTasks();
+        ArrayList<String> taskStrings = new ArrayList<>();
         String taskString;
         int numMatched = 0;
 
-        System.out.println(LINE_BREAK);
-        System.out.println("Here are the tasks you asked for: ");
         for (Task task : tasks) {
             taskString = task.toString();
-            if(taskString.contains(keyword)) {
-                System.out.println(++numMatched + ". " +taskString);
+            if (taskString.contains(keyword)) {
+                taskStrings.add(numMatched + taskString);
             }
         }
-        System.out.println(LINE_BREAK);
+
+        ui.findTasksMessage(taskStrings);
     }
 }

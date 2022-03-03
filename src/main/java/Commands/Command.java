@@ -12,8 +12,7 @@ public abstract class Command {
 
     /**
      * Performs all actions required of the command.
-     *
-     * @param taskManager TaskManager to execute command on.
+     *  @param taskManager TaskManager to execute command on.
      * @param ui The interface that provides interaction with the user.
      */
     public abstract void execute(TaskManager taskManager, UI ui) throws IndexOutOfBoundsException, NumberFormatException,

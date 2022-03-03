@@ -36,10 +36,7 @@ public class NewEventCommand extends Command {
         try{
             Event event = new Event(description, dateTime);
             taskManager.addTask(event);
-            printWithLine("Yup yup yup, " + System.lineSeparator()
-                    + event.toString() + "," + System.lineSeparator()
-                    + "annnd there we go, it's been added!" + System.lineSeparator()
-                    + "You have " + taskManager.getNumTasks() + " tasks in the list.");
+            ui.newTaskMessage(event);
         } catch (Exception e) {
             throw e;
         }

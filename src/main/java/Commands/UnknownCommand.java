@@ -17,6 +17,6 @@ public class UnknownCommand extends Command {
      */
     @Override
     public void execute(TaskManager taskManager, UI ui) {
-        printWithLine("I do not understand that yet!");
+        ui.unknownCommandMessage();
     }
 }

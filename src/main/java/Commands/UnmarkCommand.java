@@ -30,8 +30,7 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskManager taskManager, UI ui) throws IndexOutOfBoundsException, NumberFormatException {
         try {
-            printWithLine(taskManager.unmarkTask(index),
-                    "Oh oops, overlooked that one did we?");
+            ui.unmarkMessage(taskManager.unmarkTask(index));
         } catch (Exception e) {
             throw e;
         }

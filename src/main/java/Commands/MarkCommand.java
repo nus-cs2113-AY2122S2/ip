@@ -30,8 +30,7 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskManager taskManager, UI ui) throws IndexOutOfBoundsException, NumberFormatException {
         try {
-            printWithLine(taskManager.markTask(index),
-                    "Boom! Another task done already???");
+            ui.markMessage(taskManager.markTask(index));
         } catch (Exception e) {
             throw e;
         }

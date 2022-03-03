@@ -33,10 +33,7 @@ public class NewTodoCommand extends Command {
         try {
             Todo todo = new Todo(description);
             taskManager.addTask(todo);
-            printWithLine("Yup yup yup, " + System.lineSeparator()
-                    + todo.toString() + "," + System.lineSeparator()
-                    + "annnd there we go, it's been added!" + System.lineSeparator()
-                    + "You have " + taskManager.getNumTasks() + " tasks in the list.");
+            ui.newTaskMessage(todo);
         } catch (Exception e) {
             throw e;
         }
