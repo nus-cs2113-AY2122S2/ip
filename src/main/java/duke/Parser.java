@@ -199,7 +199,7 @@ public class Parser {
      * @param userInput String containing user input.
      * @return A pair of strings representing the deadline description and corresponding due date.
      */
-    public StringPair getDeadlineDescriptionAndTime(String userInput){
+    public StringPair getDeadlineDescriptionAndTime(String userInput) {
         int dueDateIdx = userInput.indexOf("/");
         String description = getDeadlineFromUserInput(userInput, dueDateIdx);
         String dueDate = getDueDateFromUserInput(userInput, dueDateIdx);

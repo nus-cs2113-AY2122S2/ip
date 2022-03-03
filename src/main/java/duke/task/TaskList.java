@@ -26,12 +26,12 @@ public class TaskList {
         this.taskCount=taskCount;
     }
 
-    public void add(Task task){
+    public void add(Task task) {
         taskList.add(task);
         taskCount++;
     }
 
-    public void remove(int index){
+    public void remove(int index) {
         taskList.remove(index);
         taskCount--;
     }

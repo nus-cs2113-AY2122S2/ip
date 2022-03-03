@@ -29,7 +29,6 @@ public class Duke {
      */
     public static void addTodoToList(String todoDescription) {
         Todo newTodo = new Todo(todoDescription);
-        //add the new object to taskList.
         taskList.add(newTodo);
         ui.printAddedTask(taskList);
     }
@@ -44,7 +43,6 @@ public class Duke {
      */
     public static void addTodoToList(String todoDescription, boolean isUserMode) {
         Todo newTodo = new Todo(todoDescription);
-        //add the new object to taskList.
         taskList.add(newTodo);
     }
 
@@ -57,7 +55,6 @@ public class Duke {
      */
     public static void addEventToList(String eventDescription, String eventTime) {
         Event newEvent = new Event(eventDescription, eventTime);
-        // add the new object to taskList.
         taskList.add(newEvent);
         ui.printAddedTask(taskList);
     }
@@ -74,7 +71,6 @@ public class Duke {
      */
     public static void addEventToList(String eventDescription, String eventTime, boolean isUserMode) {
         Event newEvent = new Event(eventDescription, eventTime);
-        // add the new object to taskList.
         taskList.add(newEvent);
     }
 
@@ -87,7 +83,6 @@ public class Duke {
      */
     public static void addDeadlineToList(String deadlineDescription, String dueDate) {
         Deadline newDeadline = new Deadline(deadlineDescription, dueDate);
-        // add the new object to taskList.
         taskList.add(newDeadline);
         ui.printAddedTask(taskList);
     }
@@ -103,7 +98,6 @@ public class Duke {
      */
     public static void addDeadlineToList(String deadlineDescription, String dueDate, boolean isUserMode) {
         Deadline newDeadline = new Deadline(deadlineDescription, dueDate);
-        // add the new object to taskList.
         taskList.add(newDeadline);
     }
 
@@ -120,7 +114,6 @@ public class Duke {
                 ui.printInvalidTodo();
                 return;
             }
-
             String todoDescription = parser.getTodoDescription(userInput);
             addTodoToList(todoDescription);
 
@@ -129,7 +122,6 @@ public class Duke {
                 ui.printInvalidEvent();
                 return;
             }
-
             StringPair pair = parser.getEventDescriptionAndTime(userInput);
             String eventDescription = pair.getFirst();
             String eventTime = pair.getSecond();
@@ -140,13 +132,11 @@ public class Duke {
                 ui.printInvalidDeadline();
                 return;
             }
-
             StringPair pair = parser.getDeadlineDescriptionAndTime(userInput);
             String deadlineDescription = pair.getFirst();
             String dueDate = pair.getSecond();
             addDeadlineToList(deadlineDescription, dueDate);
         }
-
         // If not a recognizable command, inform user
         else {
             ui.printInvalidCommand();
@@ -211,16 +201,16 @@ public class Duke {
         storage.loadData(taskList);
     }
 
-    public static void saveData(){
+    public static void saveData() {
         storage.saveData(taskList);
     }
 
-    public static void printList(){
+    public static void printList() {
         ui.printList(taskList);
     }
 
-    public static void printTasksThatMatchWith(String keyword){
-        if (keyword.length() == 0){
+    public static void printTasksThatMatchWith(String keyword) {
+        if (keyword.length() == 0) {
             ui.printKeywordError();
             return;
         }
@@ -275,7 +265,7 @@ public class Duke {
      *
      * @return Nothing.
      */
-    public static void greeting(){
+    public static void greeting() {
         ui.greeting();
     }
 
@@ -284,7 +274,7 @@ public class Duke {
      *
      * @return Nothing.
      */
-    public static void goodbye(){
+    public static void goodbye() {
         ui.goodbye();
     }
 

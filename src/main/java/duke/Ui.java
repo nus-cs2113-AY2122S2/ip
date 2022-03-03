@@ -41,7 +41,7 @@ public class Ui {
     }
 
 
-    public void printKeywordError(){
+    public void printKeywordError() {
         System.out.println("Keyword is missing. Enter valid keyword.");
         displayLine();
     }
