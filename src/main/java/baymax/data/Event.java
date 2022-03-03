@@ -1,3 +1,5 @@
+package baymax.data;
+
 public class Event extends Task {
 
     private String time;
@@ -21,5 +23,10 @@ public class Event extends Task {
     public String saveInfo(){
         String sep =" / ";
         return "E" + super.saveInfo() + sep + this.time;
+    }
+
+    @Override
+    public String toString(){
+        return "[E]" + super.toString();
     }
 }

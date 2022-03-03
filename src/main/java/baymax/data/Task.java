@@ -1,3 +1,5 @@
+package baymax.data;
+
 public class Task {
 
     protected String description;
@@ -27,5 +29,10 @@ public class Task {
         String sep = " / ";
         String printT = sep + (isDone ? "1" : "0") + sep + this.description;
         return printT;
+    }
+
+    public String toString(){
+        return getStatusIcon() + " " + getDescription();
+
     }
 }

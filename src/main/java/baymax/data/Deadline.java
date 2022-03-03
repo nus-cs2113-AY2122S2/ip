@@ -1,3 +1,5 @@
+package baymax.data;
+
 public class Deadline extends Task {
 
     private String ddl;
@@ -21,5 +23,10 @@ public class Deadline extends Task {
     public String saveInfo(){
         String sep = " / ";
         return "D" + super.saveInfo() + sep + this.ddl;
+    }
+
+    @Override
+    public String toString(){
+        return "[D]" + super.toString();
     }
 }
