@@ -6,47 +6,38 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import exceptions.UnknownCommandException;
+import ui.Ui;
 
 public class Duke {
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static TaskFileManager taskFileManager = new TaskFileManager();
 
+    //////////////////////////////
+    private Ui ui;
+
+    public Duke(String filePath) {
+        ui = new Ui();
+//        storage = new Storage(filePath);
+//        try {
+//            tasks = new TaskList(storage.load());
+//        } catch (DukeException e) {
+//            ui.showLoadingError();
+//            tasks = new TaskList();
+//        }
+    }
+
+    public void run() {
+        //...
+        loadTaskFile();
+        ui.startProgram();
+        converse();
+        ui.exit();
+    }
 
     public static void main(String[] args) {
-        loadTaskFile();
-        showWelcomeMessage();
-        greet();
-        converse();
-        exit();
+        new Duke("data/tasks.txt").run();
     }
-
-    public static void printLine() {
-        System.out.println("____________________________________________________________");
-    }
-
-    public static void showWelcomeMessage() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-
-        System.out.println("Hello from\n" + logo);
-    }
-
-    public static void greet() {
-        printLine();
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
-        printLine();
-    }
-
-    public static void exit() {
-        printLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        printLine();
-    }
-
+    ////////////////////////
 
     public static void converse() {
         Scanner sc = new Scanner(System.in);
@@ -66,6 +57,14 @@ public class Duke {
             isNotBye = !response.equals("bye");
         }
     }
+
+
+
+
+
+
+
+
 
     //@@author quitejasper-reused
     //Reused from https://github.com/FaliciaOng/ip/blob/master/src/main/java/Duke.java
@@ -131,25 +130,25 @@ public class Duke {
     }
 
     public static void listTasks() {
-        printLine();
+        //printLine();
 
         for (int i = 0; i < tasks.size(); i++) {
             System.out.print(i + 1);
             System.out.println("." + tasks.get(i));
         }
 
-        printLine();
+        //printLine();
     }
 
     public static void addTask(Task task) {
-        printLine();
+        //printLine();
 
         tasks.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
         System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
 
-        printLine();
+        //printLine();
     }
 
     public static void addDeadline(String detail) {
@@ -178,7 +177,7 @@ public class Duke {
 
 
     public static boolean markTask(String response) {
-        printLine();
+        //printLine();
 
         try {
             String[] words = response.split(" ");
@@ -187,7 +186,7 @@ public class Duke {
 
             if (isNotIndex) {
                 System.out.println("Sorry, seems like there's no such task with that index.");
-                printLine();
+                //printLine();
                 return false;
             } else {
                 Task t = tasks.get(taskIndex - 1); //list indexing to the user starts from 1 but list indexing in fact starts from 0 internally
@@ -205,12 +204,12 @@ public class Duke {
             System.out.println("☹ OOPS!!! You forgot to indicate an index!");
         }
 
-        printLine();
+        //printLine();
         return true;
     }
 
     public static boolean unmarkTask(String response) {
-        printLine();
+        //printLine();
 
         try {
             String[] words = response.split(" ");
@@ -219,7 +218,7 @@ public class Duke {
 
             if (isNotIndex) {
                 System.out.println("Sorry, seems like there's no such task with that index.");
-                printLine();
+                //printLine();
                 return false;
             } else {
                 Task t = tasks.get(taskIndex - 1); //list indexing to the user starts from 1 but list indexing in fact starts from 0 internally
@@ -237,12 +236,12 @@ public class Duke {
             System.out.println("☹ OOPS!!! You forgot to indicate an index!");
         }
 
-        printLine();
+        //printLine();
         return true;
     }
 
     private static void deleteTask(String response) {
-        printLine();
+        //printLine();
 
         try{
             String[] words = response.split(" ");
@@ -251,7 +250,7 @@ public class Duke {
 
             if (isNotIndex) {
                 System.out.println("Sorry, seems like there's no such task with that index.");
-                printLine();
+                //printLine();
                 return;
             } else {
                 Task t = tasks.get(taskIndex - 1);
@@ -264,6 +263,6 @@ public class Duke {
             System.out.println("☹ OOPS!!! You forgot to indicate an index!");
         }
 
-        printLine();
+        //printLine();
     }
 }
