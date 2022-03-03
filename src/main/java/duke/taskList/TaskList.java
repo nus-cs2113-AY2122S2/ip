@@ -63,7 +63,7 @@ public class TaskList {
 
     public void addDeadline(String input) {
         String deadline = input.substring(input.indexOf("/") + 4);
-        String description = input.substring(input.indexOf(" "), input.indexOf("/"));
+        String description = input.substring(input.indexOf(" ") + 1, input.indexOf("/") - 1);
         taskList.add(new Deadline(description, deadline));
 
         System.out.println("Got it. I've added this task:  ");
