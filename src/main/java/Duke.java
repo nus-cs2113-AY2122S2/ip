@@ -10,7 +10,7 @@ import duke.messages.Messages;
 public class Duke {
 
     private Storage storage;
-    private TaskList tasks;
+    private TaskList taskList;
     private Ui ui;
 
     public Duke(String filePath) {
@@ -18,10 +18,10 @@ public class Duke {
         storage = new Storage(filePath);
 
         try {
-            tasks = new TaskList(storage.load());
+            taskList = new TaskList(storage.load());
         } catch (IOException e) {
             ui.showLoadingError();
-            tasks = new TaskList();
+            taskList = new TaskList();
         }
     }
 
@@ -33,10 +33,12 @@ public class Duke {
         do {
             String input = ui.getCommand();
             command = Parser.getCommandFromUserInput(input);
-            Parser.runCommand(input, command, tasks);
+            Parser.runCommand(input, command, taskList);
         } while (!command.equals("bye"));
 
         ui.printBye();
+
+        storage.writeToFile(taskList);
     }
 
     public static void main(String[] args) {
