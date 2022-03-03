@@ -7,6 +7,7 @@ public class Duke {
      * @param args arguments passed to the program
      */
     public static void main(String[] args) {
+
         Storage.checkFile();
         greet();
         TaskList.executeCommands();
