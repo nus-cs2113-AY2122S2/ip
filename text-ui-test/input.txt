@@ -1,5 +1,5 @@
 list
-todo finish iP
+todo finish tP
 deadline code quality /by midnight before tutorial
 list
 event tP meeting /at 7-8pm
@@ -9,6 +9,8 @@ deadline
 event
 mark 2
 list
+find tP
+find more than one keyword
 blah
 unmark 2
 mark 0
