@@ -13,7 +13,8 @@ Jarvis is a Command-Line application for managing tasks, built for CS2113T Indiv
 7. Refer to `Features` below for more information on each command
 
 ## Commands Summary <br>
-| Command  | Format, examples                                                                            |<br>
+| Command  | Format, examples                                                                            |
+
 |----------|---------------------------------------------------------------------------------------------|
 | todo     | `todo <description`<br/> e.g todo submit assignment                                         |
 | event    | `event <description> /at DD/MM/YYYY HHMM`<br/>e.g event attend lecture /at 04/03/2022 1600  |
