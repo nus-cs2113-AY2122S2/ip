@@ -19,6 +19,7 @@ public class Parser {
     private static final String COMMAND_ADD_DEADLINE_TAG = "--by";
     private static final String COMMAND_ADD_EVENT_TAG = "--at";
     private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_FIND = "find";
 
     public static Command parse(String inputCommand) throws MaritesException {
         String[] commandSplit = splitCommandTypeAndCommand(inputCommand);
@@ -39,6 +40,8 @@ public class Parser {
             return parseAddTask(commandType, command);
         case COMMAND_DELETE:
             return new DeleteCommand(parseTaskIndex(command));
+        case COMMAND_FIND:
+            return new FindCommand(command);
         default:
             throw new UnknownTaskTypeException(commandType);
         }

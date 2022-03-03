@@ -6,6 +6,7 @@ import marites.task.Task;
 
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -21,9 +22,11 @@ public class Ui {
             "Alright, task added:%n  %s%nYour list currently has %d tasks.\n";
     private static final String MARK_DONE_MESSAGE = "Good job on getting this done!  ";
     private static final String MARK_UNDONE_MESSAGE = "Okay, I've marked this as not yet done:";
-    private static final String DELETE_TASK_MESSAGE =
+    private static final String DELETE_FORMAT_STRING =
             "Alright, task deleted:%n  %s%nYour list currently has %d tasks.\n";
     private static final String SET_TASK_STATUS_FORMAT_STRING = "%s%n  %s\n";
+    private static final String FIND_MESSAGE = "Here are the matching tasks in your list:";
+    private static final String FIND_NO_TASKS_MESSAGE = "No matching tasks were in your list.";
 
     private Scanner scanner;
     public static final String READ_TASK_LIST_ERROR_MESSAGE = "WARNING: Error when reading saved task list; initializing with empty list";
@@ -78,7 +81,7 @@ public class Ui {
     }
 
     public void showDeleteTaskMessage(Task task, int listLength) {
-        out.printf(DELETE_TASK_MESSAGE, task, listLength);
+        out.printf(DELETE_FORMAT_STRING, task, listLength);
     }
 
     public void showSetTaskStatusMessage(Task task, boolean isSet) {
@@ -96,4 +99,14 @@ public class Ui {
         }
     }
 
+    public void showFindResultMessage(TaskList taskList, ArrayList<Task> matchingTasks) {
+        if (matchingTasks.isEmpty()) {
+            out.println(FIND_NO_TASKS_MESSAGE);
+        } else {
+            out.println(FIND_MESSAGE);
+            for (Task task : matchingTasks) {
+                out.printf(LIST_TASK_ITEM_FORMAT_STRING, taskList.getTaskIndex(task) + 1, task);
+            }
+        }
+    }
 }

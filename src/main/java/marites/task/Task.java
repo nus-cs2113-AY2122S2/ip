@@ -20,6 +20,10 @@ public abstract class Task implements java.io.Serializable {
         isDone = done;
     }
 
+    public boolean isMatch(String query) {
+        return description.contains(query);
+    }
+
     @Override
     public String toString() {
         String doneIndicator = (isDone ? "[X]" : "[ ]");
