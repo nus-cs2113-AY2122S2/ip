@@ -8,6 +8,7 @@ import brave.data.Todo;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -30,7 +31,14 @@ public class Storage {
      * @throws IOException If an output exception occurs
      */
     public ArrayList<Task> load() throws IOException {
+        File dir = new File(String.valueOf(Path.of(System.getProperty("user.dir"), "data")));
+        if (!dir.exists()) dir.mkdir();
+
         File f = new File(filePath); // create a File for the given file path
+        if (!f.exists()) {
+            System.out.println("file not exist, creating a new file!");
+            f.createNewFile();
+        }
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         ArrayList<Task> tasks = new ArrayList<>();
         decode(s, tasks);
