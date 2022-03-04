@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private final String filePath;
+    private String filePath;
 
     /**
      * Creates a storage to read and write file from filepath
@@ -58,7 +58,7 @@ public class Storage {
             output.close();
         }
         catch (IOException e) {
-            String message = "File writing issue"
+            String message = "File writing issue";
             throw new DukeException(message);
         }
 

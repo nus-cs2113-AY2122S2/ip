@@ -8,7 +8,7 @@ public class Task {
      * Creates a task
      * @param name name of task
      */
-    public Task(String name) {
+    public Task(String name)  {
         this.name = name;
         this.isCompleted = false;
     }
@@ -21,9 +21,6 @@ public class Task {
         return this.name;
     }
 
-    public boolean isCompleted() {
-        return this.isCompleted;
-    }
 
     /**
      * Mark task as complete/incomplete

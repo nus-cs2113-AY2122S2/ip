@@ -57,18 +57,18 @@ public class Parser {
         case "event":
         case "deadline":
             String taskName = getNextWord(input, command);
-            if (taskName.equals("")) {
-                String errorMsg = String.format("%s requires a name\n", command);
+            // taskname has to contain at least one alphabet and no signs (slash or etc)
+            if (!taskName.matches("[A-Za-z0-9]+$")) {
+                String errorMsg = String.format("%s requires a alphanumeric name\n", command);
                 throw new DukeException(errorMsg);
-            } else {
-                if (command.equals("event") || command.equals("deadline")) {
-                    int indexOfSlash = input.indexOf("/");
-                    String date = indexOfSlash == -1 ? "" : input.substring(indexOfSlash);
-                    if (date.length() <= 1) {
-                        String errorMsg = String.format("%s requires a valid date in the format taskName /date" +
-                                "date could be a string or in /dd-MM-yyyy hh:mm format\n", command);
-                        throw new DukeException(errorMsg);
-                    }
+            }
+            if (command.equals("event") || command.equals("deadline")) {
+                int indexOfSlash = input.indexOf("/");
+                String date = indexOfSlash == -1 ? "" : input.substring(indexOfSlash);
+                if (date.length() <= 1) {
+                    String errorMsg = String.format("%s requires a valid date in the format taskName /date" +
+                            "date could be a string or in /dd-MM-yyyy hh:mm format\n", command);
+                    throw new DukeException(errorMsg);
                 }
             }
             break;
@@ -119,7 +119,7 @@ public class Parser {
             errorCheck(fullCommand);
             ArrayList<String> words = splitToTwo(fullCommand, " ");
             String command = words.get(0);
-            String description = words.size() >= 2 ? words.get(1) : null;
+            String description = words.size() >= 2 ? words.get(1) : "";
 
             switch (command) {
             case "mark":
@@ -129,11 +129,12 @@ public class Parser {
             case "list":
                 return new ListCommand();
             case "todo":
+                return new AddCommand(command, description, "");
             case "deadline":
             case "event":
                 ArrayList<String> description_split = Parser.splitToTwo(description, "/");
                 String taskName = description_split.get(0);
-                String addInfo = description_split.size() >= 2 ? description_split.get(1) : null;
+                String addInfo = description_split.size() >= 2 ? description_split.get(1) : "";
                 return new AddCommand(command, taskName, addInfo);
             case "delete":
                 return new DeleteCommand(Integer.parseInt(description));
