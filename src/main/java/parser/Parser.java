@@ -1,6 +1,11 @@
 package parser;
 
 import commands.*;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import ui.Ui;
+
 public class Parser {
 
     public static Command parse(String userInput) {
@@ -40,6 +45,17 @@ public class Parser {
             break;
         }
         return command;
+    }
+
+    public static LocalDateTime parseDateTime(String dateTimeString) {
+        LocalDateTime dateTime = null; 
+        try {
+            DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+            dateTime = LocalDateTime.from(f.parse(dateTimeString));
+        } catch (DateTimeException e) {
+            System.out.println(Ui.INVALID_DATE_TIME_MESSAGE);
+        }
+        return dateTime; 
     }
 
 }

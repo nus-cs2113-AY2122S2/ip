@@ -7,21 +7,23 @@ import ui.Ui;
 import tasks.Deadline;
 import tasks.Task;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import parser.Parser;
 
 public class DeadlineCommand extends Command {
 
     protected String taskDescription = "";
-    protected String deadline = "";
+    protected LocalDateTime dateTime = null;
     public static final String COMMAND_WORD = "deadline";
 
-    private static String extractDeadline(String s) throws DukeException {
+    private static LocalDateTime extractDateTime(String s) throws DukeException {
         if (s.contains("/by")) {
             int startIndex = s.indexOf("/by");
             int endIndex = s.length() - 1;
             if (endIndex - startIndex <= 2) {
                 throw new DukeException();
             }
-            return s.substring(startIndex+4);
+            return Parser.parseDateTime(s.substring(startIndex+4).trim());
         } else {
             throw new DukeException();
         }
@@ -35,7 +37,7 @@ public class DeadlineCommand extends Command {
             Ui.showLine();
         }
         try {
-            deadline = extractDeadline(userInput);
+            dateTime = extractDateTime(userInput);
         } catch (DukeException e) {
             System.out.println(Ui.EMPTY_DEADLINE_MESSAGE);
             Ui.showLine();
@@ -44,10 +46,10 @@ public class DeadlineCommand extends Command {
 
     @Override
     public void execute(TaskManager taskManager, FileEditor fileEditor) {
-        if (taskDescription.equals("")||deadline.equals("")) {
+        if (taskDescription.equals("")||dateTime == null) {
             return;
         }
-        Task t = new Deadline(taskDescription, deadline);
+        Task t = new Deadline(taskDescription, dateTime);
         taskManager.addTask(t);
         System.out.println(Ui.ADDED_TASK_MESSAGE);
         System.out.println(t);
