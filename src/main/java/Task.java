@@ -30,13 +30,6 @@ public class Task {
         return taskName;
     }
 
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
-    }
-
-    public boolean getCompleted() {
-        return this.isCompleted;
-    }
 
     public void setCompletedNoUpdateRequired(boolean isDone) {
         this.isCompleted = isDone;

@@ -19,7 +19,7 @@ abstract public class Command {
      *
      * @param fileName    name of file.
      * @param taskList    contains list of task.
-     * @param fileManager fot updating to file.
+     * @param fileManager for updating to file.
      */
     protected void updateToFile(String fileName, ArrayList<Task> taskList, TaskFileManager fileManager) {
         try {
@@ -30,11 +30,11 @@ abstract public class Command {
     }
 
     /**
-     * Method to load the content of the file.
+     * Method to load the content to the file.
      *
      * @param fileName    name of file.
      * @param taskList    contains list of task.
-     * @param fileManager fot updating to file.
+     * @param fileManager for updating to file.
      */
     protected void loadTaskFile(String fileName, ArrayList<Task> taskList, TaskFileManager fileManager) {
         try {

@@ -1,8 +1,8 @@
 /**
  * <h1>Duke</h1>
- * The Duke program implements an WishList application that
- * simply adds different type of wishes into the wish list.
- * It is also capable of finding all your different wishes!
+ * The Duke program is a iWish ChatBot that implements an WishList application that
+ * simply adds different type of wish task into the wish tasklist.
+ * It is also capable of finding all your different wish task type!
  * <p>
  *
  * @author  Ong Siying Falicia

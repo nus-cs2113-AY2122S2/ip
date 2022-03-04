@@ -6,26 +6,32 @@ import java.util.Scanner;
 
 /**
  * Manages the data or format stored in the file when saving,
- * loading and creating.
+ * loading and creating wish task.
  */
 public class TaskFileManager {
+    private static final String COMPLETED_TASK = "1";
+    private static final String SEPARATOR = "\\|";
+
     public void loadTaskList(String fileName, ArrayList<Task> taskList) throws IOException {
         File file = getFile(fileName);
         Scanner scan = new Scanner(file);
         while (scan.hasNext()) {
             String line = scan.nextLine();
-            String[] splitData = line.split("\\|");
-            boolean isCompleted = splitData[1].trim().equals("1");
+            String[] splitData = line.split(SEPARATOR);
+            String description = splitData[2].trim();
+            boolean isCompleted = splitData[1].trim().equals(COMPLETED_TASK);
             Task task = null;
             switch (splitData[0].trim()) {
             case "T":
-                task = new Todo(splitData[2].trim());
+                task = new Todo(description);
                 break;
             case "E":
-                task = new Event(splitData[2].trim(), splitData[3].trim());
+                String eventAt = splitData[3].trim();
+                task = new Event(description, eventAt);
                 break;
             case "D":
-                task = new Deadline(splitData[2].trim(), splitData[3].trim());
+                String deadlineBy = splitData[3].trim();
+                task = new Deadline(description, deadlineBy);
                 break;
             }
             if (task != null) {

@@ -26,8 +26,9 @@ public class DeleteCommand extends Command {
             uiManager.printMessage("oh no, this task has been deleted: " + System.lineSeparator() + taskList.get(taskIndex));
             taskList.remove(taskIndex);
             uiManager.printNumberOfWish(taskList.size());
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException error) {
             throw new DukeWrongCommandException("Invalid task number to be removed!");
         }
+        updateToFile("wishlist.txt", taskList, fileManager);
     }
 }

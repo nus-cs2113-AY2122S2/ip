@@ -1,6 +1,6 @@
 /**
  * Identifies the type of command passed and based on the
- * command passed, decide what type of command to return.
+ * command input and decide what type of command to return.
  */
 public class CommandParser {
     static final public String BYE = "bye";
@@ -16,11 +16,11 @@ public class CommandParser {
     private final char INDICATE_EVENT = '@';
 
     /**
-     * Identify and return what user expects.
+     * Identify and return type of task user inputs.
      *
      * @param commandString input entered by user.
      * @return action specify by user.
-     * @throws DukeWrongCommandException If wish is invalid.
+     * @throws DukeWrongCommandException if wish is invalid.
      */
     public Command parse(String commandString) throws DukeWrongCommandException {
         if (commandString.equals(BYE)) {
@@ -55,7 +55,7 @@ public class CommandParser {
      * @param commandString input entered by user.
      * @param wishType      to derive delete, tick, un-tick word length for filtering.
      * @return choice number.
-     * @throws DukeWrongCommandException If choice is invalid.
+     * @throws DukeWrongCommandException if choice is invalid.
      */
     private int getChoiceNumber(String commandString, String wishType) throws DukeWrongCommandException {
         String choice = commandString.substring(wishType.length()).trim();
@@ -72,7 +72,7 @@ public class CommandParser {
      * @param input   input entered by user.
      * @param command type of wish command.
      * @return description relevant for processing.
-     * @throws DukeEmptyStringException If description was not entered/empty.
+     * @throws DukeEmptyStringException if description was not entered/empty.
      */
     public String deriveDescription(String input, String command) throws DukeEmptyStringException {
         String description = input.substring(input.indexOf(command) + command.length());
@@ -92,7 +92,8 @@ public class CommandParser {
      * @return date/time found.
      */
     public String deriveTimeDate(String input, char indication) {
-        String storeTimeDate = input.substring(input.indexOf(indication) + 1);
+        int getTimeDateIndex = input.indexOf(indication) + 1;
+        String storeTimeDate = input.substring(getTimeDateIndex);
         storeTimeDate = storeTimeDate.trim();
         return storeTimeDate;
     }
@@ -102,13 +103,13 @@ public class CommandParser {
      *
      * @param userInput input entered by user.
      * @return FindCommand to execute finding wish task.
-     * @throws DukeWrongCommandException when description entered by user is empty
+     * @throws DukeWrongCommandException when description entered by user is empty.
      */
     private FindCommand findTask(String userInput) throws DukeWrongCommandException {
         String description = "";
         try {
             description = deriveDescription(userInput, FIND).toLowerCase();
-        } catch (DukeEmptyStringException e) {
+        } catch (DukeEmptyStringException error) {
             throw new DukeWrongCommandException("The search input for wish: cannot be empty");
         }
         return new FindCommand(description);
@@ -125,13 +126,13 @@ public class CommandParser {
         String description = "";
         try {
             description = deriveDescription(userInput, EVENT);
-        } catch (DukeEmptyStringException e) {
+        } catch (DukeEmptyStringException error) {
             throw new DukeWrongCommandException("The description for event: cannot be empty");
         }
         String eventAt = deriveTimeDate(description, INDICATE_EVENT).trim();
         try {
             description = description.substring(0, description.indexOf(INDICATE_EVENT)).trim();
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (StringIndexOutOfBoundsException error) {
             throw new DukeWrongCommandException("Incorrect event usage -> 'event: sing @ 3pm'");
         }
         return new CreateTaskCommand("E", description, eventAt);

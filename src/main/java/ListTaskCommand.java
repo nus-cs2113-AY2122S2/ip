@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 
 /**
- * User is able to get the full list of wish list task being stored.
+ * Represent the function in which user will be able to get the
+ * full list of wish list task being stored in tasklist.
  */
 public class ListTaskCommand extends Command {
 
