@@ -2,8 +2,8 @@ package duke;
 
 public class Parser {
     public static Command parse(String fullCommand) throws DukeException {
-        // Do Something
-        final String commandWord = fullCommand.split(" ", 2)[0];
+        String commandWord = fullCommand.split(" ", 2)[0];
+        String arguments;
 
         switch (commandWord) {
         case "list":
@@ -13,8 +13,11 @@ public class Parser {
         case "todo":
         case "deadline":
         case "event":
-            String arguments = fullCommand.split(" ", 2)[1];
+            arguments = fullCommand.split(" ", 2)[1];
             return new addCommand(commandWord, arguments);
+        case "mark":
+            arguments = fullCommand.split(" ", 2)[1];
+            return new markCommand(Integer.parseInt(arguments));
         default:
             // Throw exception if unknown command inputted
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
