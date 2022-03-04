@@ -1,12 +1,19 @@
 package baymax.data;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
 
-    private String ddl;
+    private LocalDate ddl;
 
     public Deadline(String description, String ddl) {
         super(description);
-        this.ddl = ddl;
+        try{
+            this.ddl = LocalDate.parse(ddl);
+        } catch(Exception e){
+            this.ddl = LocalDate.parse(ddl,DateTimeFormatter.ofPattern("MM dd yyyy"));
+        }
     }
 
     @Override
@@ -16,17 +23,18 @@ public class Deadline extends Task {
 
     @Override
     public String getDescription() {
-        return super.getDescription()+ "( by: "+ ddl + ")";
+        return super.getDescription()+
+                "( by: "+ ddl.format(DateTimeFormatter.ofPattern("MM dd yyyy")) + ")";
     }
 
     @Override
     public String saveInfo(){
         String sep = " / ";
-        return "D" + super.saveInfo() + sep + this.ddl;
+        return "D" + super.saveInfo() + sep + this.ddl.format(DateTimeFormatter.ofPattern("MM dd yyyy")) ;
     }
 
     @Override
     public String toString(){
-        return "[D]" + super.toString();
+        return super.toString();
     }
 }
