@@ -1,28 +1,55 @@
 package parser;
 
-import duke.Deadline;
-import duke.Event;
-import duke.Task;
-import duke.Todo;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
 import exceptions.UnknownCommandException;
 import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Parser {
     private Ui ui;
     private TaskList tasks;
     private Storage storage;
 
+    /**
+     * Creates an instance of Parser that is used to interpret commands.
+     *
+     * @param ui      the Ui object used for this particular instance.
+     * @param tasks   the TaskList object for this instance.
+     * @param storage the Storage object for this instance.
+     */
     public Parser(Ui ui, TaskList tasks, Storage storage) {
         this.ui = ui;
         this.tasks = tasks;
         this.storage = storage;
     }
 
+    /**
+     * This method is used to interpret every input given by the user as a command.
+     * Based on the input given by the user, another method will be called to carry out
+     * a specific task.
+     * <p>
+     * These tasks include:
+     * <ul>
+     * <li>listing out all tasks with their statuses and details</li>
+     * <li>adding of tasks (todo, event, deadline)</li>
+     * <li>deletion of tasks (todo, event, deadline)</li>
+     * <li>marking of tasks as completed</li>
+     * <li>marking of tasks as incomplete</li>
+     * <li>finding tasks based on a search term</li>
+     * </ul>
+     * </p>
+     *
+     * @param response input given by the user.
+     * @param tasks the latest TaskList.
+     * @param storage Storage object for this instance of Duke.
+     * @throws UnknownCommandException
+     */
     public void runCommand(String response, TaskList tasks, Storage storage) throws UnknownCommandException {
         String[] words = response.split(" ", 2);
         String command = words[0];
@@ -69,7 +96,11 @@ public class Parser {
         }
     }
 
-    public void listTasks(TaskList tasks) {
+    /**
+     * This method lists out the task in the TaskList.
+     * @param tasks latest TaskList.
+     */
+    private void listTasks(TaskList tasks) {
         ui.printLine();
 
         for (int i = 0; i < tasks.getSize(); i++) {
@@ -80,7 +111,11 @@ public class Parser {
         ui.printLine();
     }
 
-    public void addTask(Task task) {
+    /**
+     * This method adds a task to the TaskList, with interaction with the user.
+     * @param task task to be added.
+     */
+    private void addTask(Task task) {
         ui.printLine();
 
         tasks.addTaskToList(task);
@@ -91,7 +126,12 @@ public class Parser {
         ui.printLine();
     }
 
-    public void addDeadline(String detail) {
+    /**
+     * This method adds a deadline to the TaskList. with interaction with the
+     * user as well as error handling.
+     * @param detail details of the deadline.
+     */
+    private void addDeadline(String detail) {
         int byIndex = detail.indexOf("/by");
         boolean isByPresent = byIndex != -1;
         if (isByPresent) {
@@ -103,7 +143,12 @@ public class Parser {
         }
     }
 
-    public void addEvent(String detail) {
+    /**
+     * This method adds an event to the TaskList. with interaction with the
+     * user as well as error handling.
+     * @param detail details of the event.
+     */
+    private void addEvent(String detail) {
         int atIndex = detail.indexOf("/at");
         boolean isAtPresent = atIndex != -1;
         if (isAtPresent) {
@@ -115,8 +160,12 @@ public class Parser {
         }
     }
 
-
-    public boolean markTask(String response) {
+    /**
+     * This method marks a task as complete, with interaction with the user.
+     * @param response input by the user.
+     * @return a boolean variable indicating if there has been any update or not.
+     */
+    private boolean markTask(String response) {
         ui.printLine();
 
         try {
@@ -148,7 +197,12 @@ public class Parser {
         return true;
     }
 
-    public boolean unmarkTask(String response) {
+    /**
+     * Marks a task as incomplete with interaction with the user.
+     * @param response input by the user.
+     * @return boolean variable indicating if there has been any update.
+     */
+    private boolean unmarkTask(String response) {
         ui.printLine();
 
         try {
@@ -180,6 +234,10 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Deletes a task from TaskList with interaction with the user.
+     * @param response input by the user.
+     */
     private void deleteTask(String response) {
         ui.printLine();
 
@@ -206,6 +264,11 @@ public class Parser {
         ui.printLine();
     }
 
+    /**
+     * Finds tasks based on search term and prints out the tasks that match
+     * the search term.
+     * @param detail the search term.
+     */
     private void findTask(String detail) {
         ui.printLine();
 
