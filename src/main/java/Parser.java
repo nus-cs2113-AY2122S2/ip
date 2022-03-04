@@ -115,6 +115,7 @@ public class Parser {
      * Parses data saved in the local machine to get the task type for loading data.
      * If the task type in the data is empty, IndexOutOfBoundsException will be thrown.
      * It will print a corresponding error message to the exception caught.
+     * Program will be terminated.
      *
      * @param data data in a text file
      * @return type of task based on the data
@@ -128,6 +129,7 @@ public class Parser {
             }
         } catch (IndexOutOfBoundsException e) {
             System.out.println(Ui.LOAD_FAILED_MESSAGE);
+            System.exit(0);
         }
         return taskType;
     }
@@ -136,6 +138,7 @@ public class Parser {
      * Parses data saved in the local machine to get the description of a task for loading data.
      * If the description in the data is empty, DukeException will be thrown.
      * It will print a corresponding error message to the exception caught.
+     * Program will be terminated.
      *
      * @param data data in a text file
      * @param separator to split the task's description and due date. ("(by" for deadline and "(at" for event)
@@ -158,6 +161,7 @@ public class Parser {
             }
         } catch (DukeException e) {
             System.out.println(e.getMessage());
+            System.exit(0);
         }
         return description;
     }
@@ -166,6 +170,7 @@ public class Parser {
      * Parses data saved in the local machine to get the due date of a task for loading data.
      * If the due date in the data is empty, DukeException will be thrown.
      * It will print a corresponding error message to the exception caught.
+     * Program will be terminated.
      *
      * @param data data in a text file
      * @param separator to split the task's description and due date. ("(by" for deadline and "(at" for event)
@@ -180,6 +185,7 @@ public class Parser {
             }
         } catch (DukeException e) {
             System.out.println(e.getMessage());
+            System.exit(0);
         }
         return date;
     }
