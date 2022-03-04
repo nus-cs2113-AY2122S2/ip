@@ -1,6 +1,7 @@
 package duke;
 
 import duke.command.Command;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.ExitCommand;
 import duke.command.AddCommand;
@@ -22,6 +23,8 @@ public class Parser {
         case "deadline":
         case "event":
             return new AddCommand(commandWord, getArguments(fullCommand));
+        case "find":
+            return new FindCommand(getArguments(fullCommand));
         case "mark":
             taskIndex = Integer.parseInt(getArguments(fullCommand)) - 1;
             return new MarkCommand(taskIndex);
