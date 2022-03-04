@@ -1,0 +1,9 @@
+read book
+mark 1
+unmark 1
+todo go to gym
+deadline assignment 3 /by: Sunday
+event spiderman's birthday /15th December
+mark 3
+list
+bye
