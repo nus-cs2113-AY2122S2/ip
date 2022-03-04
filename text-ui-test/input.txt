@@ -1,0 +1,23 @@
+list
+todo get together with alice
+event alice wedding /at 2022-11-24
+deadline prevent alice wedding /by 23 nov
+deadline prevent alice wedding /by 2022-11-23
+todo steal alice phone
+mark 4
+mark 5
+list
+todo seek help from mallory
+unmark 4
+mark 1
+list
+unmark notanumber
+unmark -1
+event bob's birthday
+list
+find mallory
+delete 5
+find mallory
+list
+hello?
+bye
