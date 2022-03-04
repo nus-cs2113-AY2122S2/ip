@@ -66,6 +66,8 @@ public class Storage {
         } catch (FileNotFoundException e) {
         } catch (DukeException e) {
             System.out.println(e.getMessage());
+        } catch (RuntimeException e) {
+            Ui.showInitFailedMessage();
         }
     }
 }
