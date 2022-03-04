@@ -28,7 +28,7 @@ to manage your daily task, set deadlines and mark events, this is the app for yo
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-2. Download the latest `Shrek.jar` from [here](https://github.com/se-edu/addressbook-level3/releases).
+2. Download the latest `Shrek.jar` from [here](https://github.com/SeanHoWB/ip/releases/tag/A-Release).
 
 3. Copy the file to the folder you want to use as the _home folder_ for your Shrek.
 
