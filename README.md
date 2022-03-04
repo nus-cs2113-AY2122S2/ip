@@ -303,7 +303,7 @@ d/M/y H:m
 (y -> year, M -> month, d -> day, H -> hour, m -> minute)
 Year, Hour and Minute fields are optional
 ````
-There's no requirement for the number of digit but please ensure that the date and the time is valid.
+There's no requirement for the number of digit but please ensure that the date and the time are valid.
 
 **Q**: What if I accidentally delete a task that I want to keep?
 

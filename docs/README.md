@@ -46,7 +46,7 @@ Prerequisite: JDK 11
    OpenJDK 64-Bit Server VM Corretto-11.0.13.8.1 (build 11.0.13+8-LTS, mixed mode)
    ````
 2. Download the latest release. You can use command to download it or simply download it from the website:
-   ````
+   ````shell
    https://github.com/hlwang56/ip/releases
    ````
 3. Open a terminal in the folder when the jar file is placed and run following command
@@ -303,7 +303,7 @@ d/M/y H:m
 (y -> year, M -> month, d -> day, H -> hour, m -> minute)
 Year, Hour and Minute fields are optional
 ````
-There's no requirement for the number of digit but please ensure that the date and the time is valid.
+There's no requirement for the number of digit but please ensure that the date and the time are valid.
 
 **Q**: What if I accidentally delete a task that I want to keep?
 
