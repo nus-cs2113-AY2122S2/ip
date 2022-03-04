@@ -1,12 +1,19 @@
 package baymax.data;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
 
-    private String time;
+    private LocalDate time;
 
     public Event(String description, String time) {
         super(description);
-        this.time = time;
+        try{
+            this.time = LocalDate.parse(time);
+        } catch(Exception e){
+            this.time= LocalDate.parse(time,DateTimeFormatter.ofPattern("MM dd yyyy"));
+        }
     }
 
     @Override
@@ -16,17 +23,18 @@ public class Event extends Task {
 
     @Override
     public String getDescription() {
-        return super.getDescription()+ "( at: "+ time + ")";
+        return super.getDescription()+
+                "( at: "+ time.format(DateTimeFormatter.ofPattern("MM dd yyyy")) + ")";
     }
 
     @Override
     public String saveInfo(){
         String sep =" / ";
-        return "E" + super.saveInfo() + sep + this.time;
+        return "E" + super.saveInfo() + sep + this.time.format(DateTimeFormatter.ofPattern("MM dd yyyy")) ;
     }
 
     @Override
     public String toString(){
-        return "[E]" + super.toString();
+        return super.toString();
     }
 }
