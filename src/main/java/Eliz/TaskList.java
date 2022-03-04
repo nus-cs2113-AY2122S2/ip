@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/*Contains the task list e.g has operations to add/delete tasks in the list*/
+/** Contains the task list e.g has operations to add/delete tasks in the list */
 public class TaskList {
 
     private static ArrayList<Task> listFromFile;
@@ -31,11 +31,25 @@ public class TaskList {
         listFromFile.remove(index);
     }
 
+    /**
+     * Creates a Todo task.
+     *
+     * @param taskType The type of task keyed in by the user.
+     * @param line The entire command given by the user
+     * @return The new todo task to be included into the task list.
+     */
     public static Task createTodo(String taskType, String line) {
         Todo newTodo = new Todo(line);
         return newTodo;
     }
 
+    /**
+     * Creates a deadline task.
+     *
+     * @param taskType The type of task keyed in by the user.
+     * @param line The entire command given by the user
+     * @return The new deadline task to be included into the task list.
+     */
     public static Task createDeadline(String taskType, String line) {
         String newDescription = line;
         if (line.contains("/")) {
@@ -46,6 +60,13 @@ public class TaskList {
         return newDeadline;
     }
 
+    /**
+     * Creates an event task.
+     *
+     * @param taskType The type of task keyed in by the user.
+     * @param line The entire command given by the user.
+     * @return The new event task to be included into the task list.
+     */
     public static Task createEvent(String taskType, String line) {
         String newDescription = line;
         if (line.contains("/")) {
@@ -56,6 +77,13 @@ public class TaskList {
         return newEvent;
     }
 
+    /**
+     * Deletes the specified item with the corresponding index in the list.
+     *
+     * @param line The index of the task to be deleted in the list.
+     * @param tasks The list of tasks stored.
+     * @throws IOException If the input is not correctly read.
+     */
     public static void delete(String line, TaskList tasks) throws IOException {
         char taskNumChar = line.charAt(line.length() - 1);
         int taskNumInt = Character.getNumericValue(taskNumChar);
@@ -76,6 +104,12 @@ public class TaskList {
 
     }
 
+    /**
+     * Breaks down the commands from the user and calls the required methods.
+     *
+     * @param line Entire command as keyed in from the user.
+     * @return The task to be added to the task list.
+     */
     public static Task createTask(String line) {
         Task t;
         String[] splitTwoSections = line.split(" ", 2); //0: task type, 1: rest of the words
@@ -100,6 +134,13 @@ public class TaskList {
         listFromFile.add(task);
     }
 
+    /**
+     * When the find command is received, finds the tasks containing the input.
+     * Prints all tasks that contain the input.
+     *
+     * @param line The input by the user that contains find.
+     * @param tasks The task list stored.
+     */
     public static void findTask(String line, TaskList tasks) {
         String[] namesForTask = line.split(" ", 2);
         ArrayList<String> outputArr = new ArrayList<>();

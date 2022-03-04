@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/** Represents the start of the program. Displays whatever is needed to be seen at the start of the program*/
 public class Ui {
 
     public static void Ui() {};

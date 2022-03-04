@@ -1,5 +1,6 @@
 package Eliz;
 
+/** Represents the specific task type Deadline. Contains task descriptions and task type.*/
 public class Deadline extends Task{
     private String taskType;
 

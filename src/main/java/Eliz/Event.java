@@ -1,5 +1,8 @@
 package Eliz;
 
+import java.io.IOException;
+
+/** Represents the specific task type Event. Contains task descriptions and task type.*/
 public class Event extends Task{
     private String taskType;
 
@@ -8,6 +11,7 @@ public class Event extends Task{
         taskType = "E";
     }
 
+    /** Get the task type of the task. */
     @Override
     public String getTaskType() {
         return taskType;

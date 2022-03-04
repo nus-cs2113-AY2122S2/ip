@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/*Deals with the loading of tasks from file and saving tasks in file*/
+/** Deals with the loading of tasks from file and saving tasks in file */
 public class Storage {
 
     private static String filePath;
@@ -16,6 +16,12 @@ public class Storage {
         this.filePath = filePath;
     };
 
+    /**
+     * Deals with the ArrayList of tasks that are stored in the file.
+     *
+     * @return List of tasks that are stored
+     * @throws FileNotFoundException If file in the file path does not exist.
+     */
     public static ArrayList<Task> load() throws FileNotFoundException {
         try {
             File f = new File(filePath);
@@ -47,6 +53,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Deals with the appending of tasks into the file.
+     *
+     * @throws IOException If the input is not correctly read.
+     */
     /*To append to file whenever there is a change in tasks*/
     public static void appendToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath,true);
@@ -54,10 +65,14 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Deals with the writing of tasks into the file.
+     *
+     * @throws IOException If the input is not correctly read.
+     */
     public static void writeToFile(String filePath, String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(textToAdd);
         fw.close();
     }
-
 }
