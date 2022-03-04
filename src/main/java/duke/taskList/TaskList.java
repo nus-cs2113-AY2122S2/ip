@@ -65,7 +65,6 @@ public class TaskList {
      */
     public void addTodo(String input) {
         String todo = input.substring(input.indexOf(" ") + 1);
-        System.out.println(todo);
         taskList.add(new Todo(todo));
         Ui.printTaskAdd();
         System.out.println(taskList.get(taskList.size()-1));

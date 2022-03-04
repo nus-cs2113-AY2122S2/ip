@@ -98,3 +98,6 @@ Close the Duke program
 - Format: `bye`
 
 ![](BYE.png)
+
+## Manually editing the date file
+You could manually edit the `duke.txt` as well, the program will be able to capture the changes the next time it runs.
