@@ -131,11 +131,11 @@ Bye
 
 ### Tutorial: Add Event
 Type following command in the console by replacing <Task name> and <Event time> with your own task information:
-````shell
+````text
 Event <Task Name> /at <Task Time>
 ````
 You will get following message if the action is success.
-````shell
+````text
 ψ(._. )> Got it. I've added this task:
 [E][ ]<Task Name>(at: <Task Time>)
 Now you have <numbers of task after adding> tasks in your list.
@@ -145,11 +145,11 @@ Now you have <numbers of task after adding> tasks in your list.
 
 ### Tutorial: Add Deadline
 Type following command in the console by replacing <Task name> and <Event time> with your own task information:
-````shell
+````text
 Deadline <Task Name> /by <Task Time>
 ````
 You will get following message if the action is success.
-````shell
+````text
 ψ(._. )> Got it. I've added this task:
 [D][ ]<Task Name>(by: <Task Time>)
 Now you have <numbers of task after adding> tasks in your list.
@@ -163,7 +163,7 @@ Type following command in the console by replacing <Task name> and <Event time> 
 Todo <Task Name>
 ````
 You will get following message if the action is success.
-````shell
+````text
 ψ(._. )> Got it. I've added this task:
 [T][ ]<Task Name>
 Now you have <numbers of task after adding> tasks in your list.
@@ -185,7 +185,7 @@ There's no requirement for the number of digit but please ensure that the date a
 
 ### Tutorial: List Task
 Use following command to list all the task:
-````shell
+````text
 list
 ````
 You should see following message if there's any task in the list:
@@ -228,16 +228,16 @@ To mark a task in the list, type following command by replacing <Index of Task> 
 mark <Index of Task>
 ````
 You will get following message if the action is success.
-````shell
+````text
 ψ(._. )> Okay! I've deleted this task:
 [Type of Task][X]<Task Name>(<Task Time if any>)
 ````
 Use following command to unmark a task in the list:
-````shell
+````text
 unmark <Index of Task>
 ````
 You will get following message if the action is success.
-````shell
+````text
 ψ(._. )> Okay! I've deleted this task:
 [Type of Task][ ]<Task Name>(<Task Time if any>)
 ````
@@ -249,7 +249,7 @@ For the index of the task, please refer to the index when listing all the tasks.
 
 ### Tutorial: Find Task
 Use following command to find a task that match the keyword from the list:
-````shell
+````text
 find <keyword>
 ````
 Duke will list all the tasks that match the keyword (if there's any!)
