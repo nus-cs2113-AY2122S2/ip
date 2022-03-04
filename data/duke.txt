@@ -1,0 +1,5 @@
+T | 0 | borrow book
+E | 0 | project meeting | mon 2-4pm
+T | 0 | work
+E | 0 | attend class | monday 6pm
+D | 0 | project | tuesday
