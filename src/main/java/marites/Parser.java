@@ -1,11 +1,22 @@
 package marites;
 
-import marites.command.*;
+import marites.command.AddTaskCommand;
+import marites.command.Command;
+import marites.command.DeleteCommand;
+import marites.command.ExitCommand;
+import marites.command.FindCommand;
+import marites.command.ListCommand;
+import marites.command.SetTaskStatusCommand;
 import marites.exception.*;
 import marites.task.Deadline;
 import marites.task.Event;
 import marites.task.Task;
 import marites.task.Todo;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 public class Parser {
 
@@ -20,6 +31,8 @@ public class Parser {
     private static final String COMMAND_ADD_EVENT_TAG = "--at";
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_FIND = "find";
+
+    private static final SimpleDateFormat DATE_TIME_PARSER = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     public static Command parse(String inputCommand) throws MaritesException {
         String[] commandSplit = splitCommandTypeAndCommand(inputCommand);
@@ -75,23 +88,26 @@ public class Parser {
      * @return A marites.Command object representing the command.
      */
     private static Command parseAddTask(String taskType, String command)
-            throws EmptyTaskDescriptionException, MissingParameterException, UnknownTaskTypeException {
+            throws MaritesException {
         String[] parametersSplit;
         if (command.length() == 0) {
             throw new EmptyTaskDescriptionException();
         }
         Task newTask;
+        LocalDateTime dateTime;
         switch (taskType) {
         case COMMAND_ADD_TODO:
             newTask = new Todo(command);
             break;
         case COMMAND_ADD_DEADLINE:
             parametersSplit = getAddParameters(command, COMMAND_ADD_DEADLINE_TAG);
-            newTask = new Deadline(parametersSplit[0].strip(), parametersSplit[1].strip());
+            dateTime = parseDateTime(parametersSplit[1].strip());
+            newTask = new Deadline(parametersSplit[0].strip(), dateTime);
             break;
         case COMMAND_ADD_EVENT:
             parametersSplit = getAddParameters(command, COMMAND_ADD_EVENT_TAG);
-            newTask = new Event(parametersSplit[0].strip(), parametersSplit[1].strip());
+            dateTime = parseDateTime(parametersSplit[1].strip());
+            newTask = new Event(parametersSplit[0].strip(), dateTime);
             break;
         default:
             throw new UnknownTaskTypeException(taskType);
@@ -106,5 +122,16 @@ public class Parser {
             throw new MissingParameterException(COMMAND_ADD_DEADLINE_TAG);
         }
         return parametersSplit;
+    }
+
+    private static LocalDateTime parseDateTime(String dateTime) throws InvalidDateTimeException {
+        try {
+            return DATE_TIME_PARSER.parse(dateTime)
+                    .toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDateTime();
+        } catch (ParseException e) {
+            throw new InvalidDateTimeException(dateTime);
+        }
     }
 }
