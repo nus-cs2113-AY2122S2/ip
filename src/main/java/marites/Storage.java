@@ -11,6 +11,9 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.io.File;
 
+/**
+ * Class for managing the saved tasklist.
+ */
 public class Storage {
 
     private final String filePath;
@@ -19,6 +22,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the TaskList saved in filePath.
+     * @return The saved TaskList, or a new, empty TaskList, if the
+     * stored one does not exist, or an error occurs while loading it.
+     */
     public TaskList load() {
         File saveFile = new File(filePath);
         if (!saveFile.exists()) {
@@ -33,6 +41,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the given TaskList. If an error occurs while saving,
+     * print a warning message.
+     * @param list The TaskList to save.
+     */
     public void save(TaskList list) {
         try {
             File saveFile = new File(filePath);

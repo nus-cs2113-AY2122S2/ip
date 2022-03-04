@@ -3,6 +3,9 @@ package marites.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A sub-class of Task for events, which must be attended to at a specific time.
+ */
 public class Event extends Task {
 
     private static final String EVENT_FORMAT_STRING = "[E]%s (at: %s)";

@@ -9,6 +9,9 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class for managing UI interactions.
+ */
 public class Ui {
     /* STRING CONSTANTS */
 
@@ -40,7 +43,10 @@ public class Ui {
         this.out = printStream;
     }
 
-
+    /**
+     * Reads a command from the user.
+     * @return A String representing the command.
+     */
     public String readCommand() {
         return in.nextLine();
     }
@@ -76,19 +82,38 @@ public class Ui {
         System.out.println(error.getErrorMessage());
     }
 
+    /**
+     * Prints a message for adding a task.
+     * @param task Added task
+     * @param listLength New length of the task list
+     */
     public void showAddTaskMessage(Task task, int listLength) {
         out.printf(ADD_TASK_FORMAT_STRING, task, listLength);
     }
 
+    /**
+     * Prints a message for deleting a task.
+     * @param task Deleted task
+     * @param listLength New length of the task list
+     */
     public void showDeleteTaskMessage(Task task, int listLength) {
         out.printf(DELETE_FORMAT_STRING, task, listLength);
     }
 
+    /**
+     * Prints a message for setting the status of a task.
+     * @param task Task set
+     * @param isSet New status
+     */
     public void showSetTaskStatusMessage(Task task, boolean isSet) {
         out.printf(SET_TASK_STATUS_FORMAT_STRING,
                 isSet ? MARK_DONE_MESSAGE : MARK_UNDONE_MESSAGE, task);
     }
 
+    /**
+     * Prints a task list.
+     * @param taskList the TaskList to output.
+     */
     public void showTaskList(TaskList taskList) {
         for (int i = 1; i <= taskList.getTaskCount(); ++i) {
             try {
@@ -99,6 +124,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the result of a find command.
+     * @param taskList The task list.
+     * @param matchingTasks A list of matching tasks.
+     */
     public void showFindResultMessage(TaskList taskList, ArrayList<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
             out.println(FIND_NO_TASKS_MESSAGE);
