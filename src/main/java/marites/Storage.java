@@ -41,7 +41,7 @@ public class Storage {
             ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
             objOut.writeObject(list);
         } catch (IOException e) {
-
+            System.out.println("WARNING: Task list not saved to disk successfully");
         }
     }
 }
