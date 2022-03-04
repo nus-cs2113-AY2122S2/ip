@@ -1,11 +1,14 @@
-package duke;
+package duke.command;
 
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
 import duke.task.Task;
 
-public class unmarkCommand extends Command {
+public class UnmarkCommand extends Command {
     private final int taskIndex;
 
-    public unmarkCommand(int taskIndex) {
+    public UnmarkCommand(int taskIndex) {
         super();
         this.taskIndex = taskIndex;
     }

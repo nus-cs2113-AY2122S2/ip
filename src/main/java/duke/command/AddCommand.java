@@ -1,15 +1,19 @@
-package duke;
+package duke.command;
 
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
-public class addCommand extends Command {
+public class AddCommand extends Command {
     private final String commandWord;
     private final String arguments;
 
-    public addCommand(String commandWord, String arguments) {
+    public AddCommand(String commandWord, String arguments) {
         super();
         this.commandWord = commandWord;
         this.arguments = arguments;
@@ -23,13 +27,13 @@ public class addCommand extends Command {
 
         switch (this.commandWord) {
         case "deadline":
-            argumentList = splitArguments();
+            argumentList = splitArguments("/by");
             description = argumentList[0]; // eg. return book
             String by = argumentList[1]; // eg. Sunday
             newTask = new Deadline(description, by);
             break;
         case "event":
-            argumentList = splitArguments();
+            argumentList = splitArguments("/at");
             description = argumentList[0]; // eg. return book
             String eventTime = argumentList[1]; // eg. Sunday
             newTask = new Event(description, eventTime);
@@ -48,10 +52,10 @@ public class addCommand extends Command {
         System.out.println(String.format("Now you have %d tasks in the list.", tasks.getSize()));
     }
 
-    public String[] splitArguments() throws DukeException {
-        if (this.arguments.split(" /by ", 2).length < 2) {
+    public String[] splitArguments(String sep) throws DukeException {
+        if (this.arguments.split(sep, 2).length < 2) {
             throw new DukeException("OOPS!!! There are missing arguments. Please state the date/time.");
         }
-        return this.arguments.split(" /by ", 2);
+        return this.arguments.split(sep, 2);
     }
 }

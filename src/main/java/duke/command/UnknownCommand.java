@@ -1,6 +1,10 @@
-package duke;
+package duke.command;
 
-public class unknownCommand extends Command {
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+
+public class UnknownCommand extends Command {
 
     @Override
     public void execute(TaskList task, Ui ui, Storage storage) {

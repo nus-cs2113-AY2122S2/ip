@@ -1,11 +1,14 @@
-package duke;
+package duke.command;
 
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
 import duke.task.Task;
 
-public class deleteCommand extends Command {
+public class DeleteCommand extends Command {
     private final int taskIndex;
 
-    public deleteCommand(int taskIndex) {
+    public DeleteCommand(int taskIndex) {
         super();
         this.taskIndex = taskIndex;
     }
