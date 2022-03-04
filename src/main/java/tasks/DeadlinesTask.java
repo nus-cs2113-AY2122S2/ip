@@ -3,7 +3,6 @@ package tasks;
 import java.util.HashMap;
 
 import exceptions.DukeException;
-import exceptions.WrongTimeFormatDukeException;
 import times.DukeTime;
 
 
@@ -67,7 +66,7 @@ public class DeadlinesTask extends Task {
      */
     @Override
     public String getReport() {
-        return String.format("[%s][%s] %s (by: %s)", taskType, markedSign(), taskDescription, dateTime);
+        return String.format("[%s][%s] %s (by: %s)", taskType, markedSign(), taskDescription, dateTime.toString());
     }
 
     /**

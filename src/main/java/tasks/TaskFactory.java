@@ -9,6 +9,9 @@ public class TaskFactory {
     private static final String TODO_TASK = "T";
     private static final String DEADLINE_TASK = "D";
     private static final String EVENT_TASK = "E";
+    private static final String TODO_TASK_ORDER = "todo";
+    private static final String DEADLINE_TASK_ORDER  = "deadline";
+    private static final String EVENT_TASK_ORDER  = "event";
     private static final String TASK_TYPE = "taskType";
     private String taskDescription;
     private Boolean marked = false;
@@ -38,14 +41,14 @@ public class TaskFactory {
     public Task makeTask() throws DukeException {
         try {
             switch (taskType) {
-            case TODO_TASK:
+            case TODO_TASK_ORDER:
                 return new ToDoTask(taskDescription, TODO_TASK);
-            case DEADLINE_TASK:
+            case DEADLINE_TASK_ORDER:
                 String[] taskInfomation = taskDescription.split("/by");
                 taskDescription = taskInfomation[0].trim();
                 String dateTime = taskInfomation[1].trim();
                 return new DeadlinesTask(taskDescription, DEADLINE_TASK, dateTime);
-            case EVENT_TASK:
+            case EVENT_TASK_ORDER:
                 taskInfomation = taskDescription.split("/at");
                 taskDescription = taskInfomation[0].trim();
                 dateTime = taskInfomation[1].trim();

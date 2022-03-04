@@ -10,7 +10,7 @@ public class EventTask extends Task {
     private static final String START_TIME_FIELD = "startTime";
     private static final String END_TIME_FIELD = "endTime";
     private DukeTime startTime;
-    private DukeTime endTime;
+    private DukeTime endTime=null;
 
 
     public EventTask(String taskDescription, String taskType) {
@@ -27,7 +27,10 @@ public class EventTask extends Task {
         super(compressedObject);
         try {
             startTime = new DukeTime((String) compressedObject.get(START_TIME_FIELD));
-            endTime = new DukeTime((String) compressedObject.get(END_TIME_FIELD));
+            if (compressedObject.containsKey(END_TIME_FIELD))
+            {
+                endTime = new DukeTime((String) compressedObject.get(END_TIME_FIELD));
+            }
         } catch (DukeException e) {
             throw e;
         }
@@ -97,7 +100,9 @@ public class EventTask extends Task {
     public HashMap<String, Object> compress() {
         HashMap<String, Object> compressedObject = super.compress();
         compressedObject.put(START_TIME_FIELD, startTime.toString());
-        compressedObject.put(END_TIME_FIELD, endTime.toString());
+        if (endTime!=null) {
+            compressedObject.put(END_TIME_FIELD, endTime.toString());
+        }
         return compressedObject;
     }
 

@@ -55,6 +55,7 @@ public abstract class AddOperation extends Operation {
         if (newTask == null) {
             throw new MakeTaskDukeException();
         }
+
         try {
             TaskList.addTask(newTask);
             int numberOfTasks = TaskList.getSize();

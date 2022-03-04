@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 import java.time.Month;
 
 import exceptions.DukeException;
+import exceptions.UnknownOrderDukeException;
 import exceptions.WrongTimeFormatDukeException;
-
 
 
 public class DukeTime {
@@ -25,29 +25,28 @@ public class DukeTime {
      */
     public DukeTime(String timeString) throws DukeException {
         String[] sequence = timeString.split(" ");
-        try {
-            int[] dateIntElements;
-            switch (sequence.length) {
-            case CONTAIN_HM:
-                dateIntElements = parseDate(sequence[0]);
-                time = LocalDateTime.of(dateIntElements[2], Month.of(dateIntElements[1]),
-                        dateIntElements[0], DEFAULT_HOUR, DEFAULT_MIN);
-            case NOT_CONTAIN_HM:
-                dateIntElements = parseDate(sequence[0]);
-                int[] clockIntElements = parseClock(sequence[1]);
-                time = LocalDateTime.of(dateIntElements[2], Month.of(dateIntElements[1]),
-                        dateIntElements[0], clockIntElements[0], clockIntElements[1]);
-            default:
-                throw new WrongTimeFormatDukeException();
-            }
-
-        } catch (Exception e) {
+        int[] dateIntElements;
+        int sequenceLength = sequence.length;
+        switch (sequenceLength) {
+        case CONTAIN_HM:
+            dateIntElements = parseDate(sequence[0]);
+            time = LocalDateTime.of(dateIntElements[2], Month.of(dateIntElements[1]),
+                    dateIntElements[0], DEFAULT_HOUR, DEFAULT_MIN);
+            break;
+        case NOT_CONTAIN_HM:
+            dateIntElements = parseDate(sequence[0]);
+            int[] clockIntElements = parseClock(sequence[1]);
+            time = LocalDateTime.of(dateIntElements[2], Month.of(dateIntElements[1]),
+                    dateIntElements[0], clockIntElements[0], clockIntElements[1]);
+            break;
+        default:
             throw new WrongTimeFormatDukeException();
         }
 
+
     }
 
-    private int[] parseDate(String dateString) throws WrongTimeFormatDukeException {
+    private int[] parseDate(String dateString) throws DukeException {
         try {
             String[] dateStringElements = new String[3];
             if (dateString.contains("/")) {
@@ -73,7 +72,7 @@ public class DukeTime {
         }
     }
 
-    private int[] parseClock(String clockString) throws WrongTimeFormatDukeException {
+    private int[] parseClock(String clockString) throws DukeException {
         int[] clockIntElements = new int[2];
         try {
             if (clockString.contains(":")) {
@@ -93,7 +92,8 @@ public class DukeTime {
 
         if (minute < 10) {
             return "0" + String.valueOf(minute);
-        } else {
+        }
+        else {
             return String.valueOf(minute);
         }
 
