@@ -1,7 +1,7 @@
 package duke;
 
 public class Event extends Task {
-    private String date;
+    private final String date;
     private static final String ICON = "E";
 
     public Event(String description, String date) {

@@ -104,8 +104,7 @@ public class Storage {
     }
 
     private String[] splitStringBySlash(String line) {
-        String[] splitLine = line.split("/");
-        return splitLine;
+        return line.split("/");
     }
 
     private boolean isTaskDone(int isDone) {

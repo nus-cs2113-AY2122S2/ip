@@ -100,7 +100,7 @@ public class Ui {
         if (taskList.isEmpty()) {
             return "There is no task in your list.";
         }
-        return "Here are the tasks in your list:\n" + taskList.toString();
+        return "Here are the tasks in your list:\n" + taskList;
     }
 
     /**
@@ -126,14 +126,14 @@ public class Ui {
      * Returns error message of empty input error.
      */
     public static  String emptyInputError() {
-        return String.format("Input cannot be empty!");
+        return "Input cannot be empty!";
     }
 
     /**
      * Returns error message of invalid command error.
      */
     public static  String invalidCommandError() {
-        return String.format("Invalid command!");
+        return "Invalid command!";
     }
 
     /**
@@ -148,14 +148,14 @@ public class Ui {
      * Returns error message of missing date/time error.
      */
     public static String missingDateError() {
-        return String.format("The date/time is missing!");
+        return "The date/time is missing!";
     }
 
     /**
      * Returns error message of wrong input format error.
      */
     public static String wrongInputFormatError() {
-        return String.format("Wrong input format!");
+        return "Wrong input format!";
     }
 
     /**
@@ -170,7 +170,7 @@ public class Ui {
      * Returns error message showing the task ID is not a number.
      */
     public static String wrongTaskIdFormatError() {
-        return String.format("The task ID has to be a number!");
+        return "The task ID has to be a number!";
     }
 
     /**
