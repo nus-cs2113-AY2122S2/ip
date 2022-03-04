@@ -1,4 +1,4 @@
-# User Guide for Duke,
+# User Guide for Duke
 Duke is a software designed to help user keep track of their task using Command Line Interface.
 
 
@@ -9,35 +9,68 @@ Duke is a software designed to help user keep track of their task using Command 
 4. Run it in Terminal using command `java -jar ip.jar`
 
 
-## Load exiting data
+## Storage
 The Duke application will automatically load the existing data from a 
-file called `duke.txt`, if the file does not exist, the program will create one for you in your home directory
+file called `duke.txt`, if the file does not exist, the program will create one for you in your home directory.
+
 
 
 ## Features
 
 ### Feature-Adding a new task
-1. Add Todo
+There are three types of tasks that can be added in Duke, `Todo`, `Event`, and `Deadline`, each of them has its own format as shown below
+#### Add Todo 
 
-2. Add Event
+- Format: `todo DESCRIPTION`
 
-3. Add Deadline
+- Example: todo return book
+
+
+
+#### Add Event
+- Format: `event DESCRIPTION /at EVENT_DATE`
+
+- Example: event project meeting /at Mon 2-4pm
+
+#### Add Deadline
+- Format: `deadline DESCRIPTION /by DEADLINE_DATE`
+
+- Example: deadline return book /by Sunday
+
 
 ### Feature - Listing all the current task
-
+List all the tasks stored in Duke
+- Format: `list`
 
 ### Feature - Marking a Task as done
-
+Mark the selected task as done
+- Format: `mark TASK_INDEX`
+- Example: mark 1
 
 ### Feature - Marking a Task as not done
-
+Mark the selected task as not done
+- Format: `unmark TASK_INDEX`
+- Example: unmark 1
 
 ### Feature - Deleting a task
+Delete the selected task, note that the `TASK_INDEX` must not exceed the total number of tasks stored in Duke.
+- Format: `delete TASK_INDEX`
+- Example: delete 1
 
-### Feature - Finding a task
+
+### Feature - Finding a task 
+Finds all task from the list of task that matches the given keyword.
+
+*The KEYWORD refers to the search parameter. If the keyword is part of any task's description, it would return part as the result.
+The keyword is case sensitive*
+- Format: `find KEYWORD`
+- Example: find book
+
+
 
 ### Feature - Closing the program
-
+Close the Duke program
+- Format: `bye`
 
 
 
