@@ -70,7 +70,7 @@ public class Ui {
         System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < Duke.tasks.size(); i++) {
             Task task = Duke.tasks.get(i);
-            if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                 foundTask = true;
                 System.out.println(String.valueOf(i + 1) + "." + task.toString());
             }
