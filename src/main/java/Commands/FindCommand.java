@@ -40,7 +40,7 @@ public class FindCommand extends Command {
         for (Task task : tasks) {
             taskString = task.toString();
             if (taskString.toLowerCase().contains(keyword.toLowerCase())) {
-                taskStrings.add(numMatched + taskString);
+                taskStrings.add(++numMatched + ". " + taskString);
             }
         }
 

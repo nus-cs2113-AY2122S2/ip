@@ -1,0 +1,30 @@
+help
+help event
+list
+event fly away
+event fly away /by 24/12/2022 2000
+event fly away /at tmr 2pm
+event fly away /at 24/12/2022 2000
+list
+todo read book
+list
+unmark 2
+list
+mark 2
+list
+deadline identify Unknown Flying Object /by 12/06/2022 1200
+list
+find fly
+mark 3
+list
+find fly
+good
+delete 1
+find fly
+list
+delete 3
+list
+delete 1
+list
+delete 1
+bye

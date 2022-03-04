@@ -7,6 +7,8 @@ import Exceptions.NoDateTimeException;
 import Exceptions.NoKeywordException;
 import Exceptions.NoTaskDescriptionException;
 
+import java.util.Locale;
+
 import static Constants.TaskManagerConstants.LENGTH_EVENT;
 import static Constants.TaskManagerConstants.LENGTH_DEADLINE;
 import static Constants.TaskManagerConstants.LENGTH_TODO;
@@ -86,7 +88,7 @@ public class Parser {
             NoTaskDescriptionException, NoDateTimeException {
         int dateTimeDelimiterIndex, descDelimiterIndex;
         String[] strings = new String[2];
-        boolean isDeadline = msg.indexOf("/by") > -1;
+        boolean isDeadline = msg.toLowerCase().indexOf("deadline") > -1;
 
         try {
             // Get appropriate delimiters
