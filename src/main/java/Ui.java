@@ -49,6 +49,11 @@ public class Ui {
 
     public static final String ILLEGAL_COMMAND_MESSAGE = " ☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
 
+    public static final String WRONG_INPUT_FORMAT_MESSAGE = " Please make sure the input follows the following format: \n"
+            + " todo [description] \n"
+            + " deadline [description] /by [date] \n"
+            + " event [description] /at [date]";
+
 
     public static void showWelcomeMessage() {
         System.out.println(WELCOME_MESSAGE);

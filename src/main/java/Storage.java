@@ -39,8 +39,8 @@ public class Storage {
                 String data = dataReader.nextLine();
                 String taskType = Parser.parseSavedTaskType(data);
                 char taskStatus = data.charAt(4);
-                String taskDescription = "";
-                String dueDate = "";
+                String taskDescription;
+                String dueDate;
                 switch (taskType) {
                 case "T":
                     taskDescription = Parser.parseSavedTaskDescription(data, null, taskType);
@@ -56,15 +56,16 @@ public class Storage {
                     dueDate = Parser.parseSavedTaskDate(data, SAVED_EVENT_SEPARATOR);
                     TaskManager.tasks.add(new Event(taskDescription, dueDate));
                     break;
+                default:
+                    throw new DukeException(Ui.LOAD_FAILED_MESSAGE);
                 }
                 loadDataStatus(TaskManager.tasksCount, taskStatus);
                 TaskManager.tasksCount++;
             }
             TaskManager.listTasks();
         } catch (FileNotFoundException e) {
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
         }
     }
-
-
-
 }

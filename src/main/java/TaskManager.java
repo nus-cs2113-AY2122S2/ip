@@ -30,7 +30,7 @@ public class TaskManager {
                 description = Parser.parseDescription(DEADLINE_SEPARATOR, userInput, taskType);
                 dueDate = Parser.parseDate(DEADLINE_SEPARATOR, userInput);
                 if (description.isEmpty()) {
-                    throw new DukeException(Ui.EMPTY_DESCRIPTION_MESSAGE);
+                    throw new DukeException(Ui.WRONG_INPUT_FORMAT_MESSAGE);
                 }
                 if (dueDate.isEmpty()) {
                     throw new DukeException(Ui.EMPTY_DATE_MESSAGE);
@@ -43,7 +43,7 @@ public class TaskManager {
                 description = Parser.parseDescription(EVENT_SEPARATOR, userInput, taskType);
                 dueDate = Parser.parseDate(EVENT_SEPARATOR, userInput);
                 if (description.isEmpty()) {
-                    throw new DukeException(Ui.EMPTY_DESCRIPTION_MESSAGE);
+                    throw new DukeException(Ui.WRONG_INPUT_FORMAT_MESSAGE);
                 }
                 if (dueDate.isEmpty()) {
                     throw new DukeException(Ui.EMPTY_DATE_MESSAGE);
