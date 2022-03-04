@@ -1,29 +1,35 @@
 # User Guide
-
+Smart XiaoAI is a task management app use via a Command Line Interface(CLI).
 ## Features 
 
-### Feature-ABC
+### Feature- list all task
 
-Description of the feature.
+'list'
+list all tasks
 
-### Feature-XYZ
+### Feature- Add a todo task
+'todo {description}'
 
-Description of the feature.
+### Feature- Add a deadline task
+'deadline {description} /by {time}'
 
-## Usage
+### Feature- Add a event task
+'event {description} /at {time}'
 
-### `Keyword` - Describe action
+### Feature- Mark a task as done
+'mark {index}'
 
-Describe the action and its outcome.
+### Feature- Unmark a task
+'unmark {index}'
 
-Example of usage: 
+### Feature- Unmark a task
+'unmark {index}'
 
-`keyword (optional arguments)`
+### Feature- remove a task
+'delete {index}'
 
-Expected outcome:
+### Feature- Find matching tasks
+'find {text}'
 
-Description of the outcome.
-
-```
-expected output
-```
+### Feature- Exit program
+'bye'
