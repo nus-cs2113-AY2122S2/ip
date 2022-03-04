@@ -38,8 +38,7 @@ public class Storage {
                 tasks.add(Parser.parseToTask(s.nextLine()));
             }
             return tasks;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             String message = "Issue at file creation!";
             throw new DukeException(message);
         }
@@ -56,8 +55,7 @@ public class Storage {
             FileWriter output = new FileWriter(this.filePath);
             output.write(textToAdd);
             output.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             String message = "File writing issue";
             throw new DukeException(message);
         }

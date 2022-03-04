@@ -1,9 +1,11 @@
 package duke.task;
 
+import java.util.ArrayList;
+
 import duke.exception.DukeException;
 import duke.ui.Ui;
 
-import java.util.ArrayList;
+
 
 public class TaskManager {
     private ArrayList<Task> tasks = new ArrayList<>();
@@ -16,7 +18,7 @@ public class TaskManager {
     }
 
     /**
-     *
+     * Returns number of tasks
      * @return Number of tasks
      */
     public int getNumOfTasks() {
@@ -59,7 +61,7 @@ public class TaskManager {
 
 
     /**
-     * Deletes a task from the task list.
+     * * Deletes a task from the task list.
      *
      * @param taskNumber Task number of the task to be deleted (as seen from list)
      * @throws DukeException Throws exception if task number invalid
@@ -79,7 +81,7 @@ public class TaskManager {
     }
 
     /**
-     * Replace existing task list with a new task list.
+     * Replaces existing task list with a new task list.
      *
      * @param tasks Replacing task list.
      */
@@ -146,13 +148,13 @@ public class TaskManager {
     @Override
     public String toString() {
         String output = "";
-        int number = 1 ;
+        int number = 1;
         for (Task item : this.tasks) {
             output += String.format("%d. %s", number, item.toString());
             if (number != numOfTasks) {
                 output += "\n";
             }
-            number ++;
+            number++;
         }
         return output;
     }

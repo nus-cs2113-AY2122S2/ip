@@ -8,7 +8,7 @@ public class Task {
      * Creates a task
      * @param name name of task
      */
-    public Task(String name)  {
+    public Task(String name) {
         this.name = name;
         this.isCompleted = false;
     }
@@ -35,7 +35,7 @@ public class Task {
      * @return task in the format "[x] task name" (x for completed, " " for incomplete)
      */
     public String toString() {
-        return String.format("[%s] %s", (this.isCompleted? "X" : " "), this.name);
+        return String.format("[%s] %s", (this.isCompleted ? "X" : " "), this.name);
     }
 
 }

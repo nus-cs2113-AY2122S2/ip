@@ -1,14 +1,12 @@
+import java.io.IOException;
+
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.parser.Parser;
-import duke.ui.Ui;
-import duke.task.TaskManager;
 import duke.storage.Storage;
+import duke.task.TaskManager;
 import duke.ui.Ui;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 public class Duke {
 
     //fields
@@ -28,29 +26,26 @@ public class Duke {
         try {
             taskManager = new TaskManager();
             taskManager.setTasks(storage.readFile());
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             ui.showError(e);
         }
     }
 
     /**
      * Runs the main function
-     * @throws IOException
      */
-    public void run() throws IOException {
+    public void run() {
         ui.hello();
         boolean isExit = false;
-        while(!isExit) {
+        while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
-                if (c != null){
+                if (c != null) {
                     c.execute(taskManager, ui, storage);
                     isExit = c.isExit();
                 }
-            }
-            catch(DukeException e) {
+            } catch (DukeException e) {
                 ui.showError(e);
             }
         }
