@@ -4,17 +4,17 @@ Eliz (a friend of Duke) is a desktop application for managing tasks (todos, dead
 a Command Line Interface (CLI), for users who are task orientated and need to keep track of their tasks.
 
 * [Features] (#Features)
-  * [1. Adding todos, deadlines, and events]  (#1-adding-todos-deadlines-and-events)
-    * [1.1 Add a todo] (#1-1-add-a-todo-todo)
-    * [1.2 Add a deadline] (#1-2-add-a-deadline-deadline)
-    * [1.3 Add an event] (#1-3-add-an-event-event)
-  * [2. Deleting tasks] (#2-delete-a-task-delete)
-  * [3. Listing current tasks] (#3-listing-tasks-list)
-  * [4. Marking tasks as done] (#4-marking-tasks-as-done)
-    * [4.1 Mark a task] (#4-1-mark-as-done-mark)
-    * [4.2 Unmark a task] (#4-2-unmark-as-not-done-unmark)
-  * [5. Finding task with keywords] (#5-find-tasks-find)
-  * [6. Exiting the program and saving the data] (#6-exit-bye)
+  * [1. Adding todos, deadlines, and events](#1-adding-todos-deadlines-and-events)
+    * [1.1 Add a todo](#1-1-add-a-todo-todo)
+    * [1.2 Add a deadline](#1-2-add-a-deadline-deadline)
+    * [1.3 Add an event](#1-3-add-an-event-event)
+  * [2. Deleting tasks](#2-delete-a-task-delete)
+  * [3. Listing current tasks](#3-listing-tasks-list)
+  * [4. Marking tasks as done](#4-marking-tasks-as-done)
+    * [4.1 Mark a task](#4-1-mark-as-done-mark)
+    * [4.2 Unmark a task](#4-2-unmark-as-not-done-unmark)
+  * [5. Finding task with keywords](#5-find-tasks-find)
+  * [6. Exiting the program and saving the data](#6-exit-bye)
 * [FAQ]
 
 
