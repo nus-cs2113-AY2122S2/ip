@@ -1,9 +1,14 @@
 package duke.tasks;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Event extends ToDo {
+  
+    DateTimeFormatter formatter;
+    LocalDate localDate;
 
-    protected String eventTime;
 
     /**
      * Constructor for Event object
@@ -12,14 +17,30 @@ public class Event extends ToDo {
      * @param eventTime the time of the event
      * @returns The deadline object
      */
-    public Event(String description, String eventTime) {
+    public Event(String description, String dateTimeString) {
         super(description);
-        this.eventTime = eventTime;
+        try {
+            if (dateTimeString.matches(" \\d{2}/\\d{2}/\\d{4}")) {
+                dateTimeString = dateTimeString.replaceAll(" ", "");
+                formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+                localDate = LocalDate.parse(dateTimeString, formatter);
+
+                //super(description);
+                this.dateTimeString = " " + localDate.getDayOfWeek() + " " + localDate.getDayOfMonth()
+                        + " " + localDate.getMonth() + " " + localDate.getYear();
+                System.out.println("====== " + dateTimeString);
+            } else {
+
+                this.dateTimeString = dateTimeString;
+            }
+        } catch (DateTimeException e) {
+            this.dateTimeString = dateTimeString;
+        }
     }
 
     @Override
     public String getDescription() {
-        String completeDescription = description + "(at: " + eventTime + ")";
+        String completeDescription = description + "(at: " + dateTimeString + ")";
         return completeDescription;
     }
 

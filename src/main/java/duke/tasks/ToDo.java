@@ -2,6 +2,9 @@ package duke.tasks;
 import java.util.ArrayList;
 
 public class ToDo {
+
+    /** The date and/or time of the task's due/do date */
+    public String dateTimeString = "";
     /** Description of the user's task */
     protected String description;
     /** Whether or not the task is currently marked as done */
@@ -45,5 +48,14 @@ public class ToDo {
         String status = (isDone ? "X" : " ");
         String finalString = "[T][" + status + "]";
         return finalString;
+    }
+
+    /**
+     * Getting for date of deadline
+     *
+     * @returns the date of the deadline
+     */
+    public String getdateTimeString() {
+        return this.dateTimeString;
     }
 }
