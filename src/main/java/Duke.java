@@ -102,53 +102,66 @@ public class Duke {
     //Add a task
     public void addTask(String line, ArrayList<Task> taskList) {
 
-        String ogString = line;
-        while (!ogString.toUpperCase().equals("BYE")) {
-            String[] words = ogString.split(" ");
+        String originalString = line;
+        while (!originalString.toUpperCase().equals("BYE")) {
+            String[] words = originalString.split(" ");
             String eventType = words[0];
             System.out.println(eventType);
             if (!isValidTask(eventType)) {
-                System.out.println("Please specify (eg: done, todo, deadline, list, event)");
+                System.out.println("Please specify the task to be done clearly (eg: todo, deadline, list, event)");
             }
             else {
-                if (doneCheck(ogString, taskList)){
-                    System.out.println("___________________________________________________________________________\n");
-                } else if (ogString.toUpperCase().equals("LIST")) {
-                    System.out.println("___________________________________________________________________________\n");
-                    this.printTaskList(taskList);
-                    System.out.println("___________________________________________________________________________\n");
-                } else {
-                    System.out.println("___________________________________________________________________________\n");
-                    String todoOrDeadlineOrEvent = returnStringFormat(ogString, eventType);
-                    if (eventType.equals("event") || eventType.equals("deadline")) {
-                        if (eventType.equals("event")) {
-                            Event t = new Event(todoOrDeadlineOrEvent);
-                            taskList.add(t);
-                        } else {
-                            Deadline t = new Deadline(todoOrDeadlineOrEvent);
-                            taskList.add(t);
-                        }
-                    } else {
-                        Todo e = new Todo(todoOrDeadlineOrEvent);
-                        taskList.add(e);
-                    }
+                performTasks(taskList, originalString, eventType);
 
-                    Task t = taskList.get(taskList.size() - 1);
-                    String description = t.getDescription();
-                    String statusIcon = t.getStatusIcon();
-                    String typeIcon = t.getLetter();
-                    System.out.println("Got it. I have added this task: \n" + todoOrDeadlineOrEvent);
-                    System.out.println(typeIcon +  " [" +  statusIcon + "] " +  description + "\n");
-                    System.out.println("Now you have " + taskList.size() +  " items in the list \n");
-                    System.out.println("___________________________________________________________________________\n");
-                }
             }
 
             Scanner scanner = new Scanner(System.in);
-            ogString = scanner.nextLine();
+            originalString = scanner.nextLine();
         }
         System.out.println("Bye. Hope to see you again soon!\n");
         System.out.println("___________________________________________________________________________\n");
+    }
+
+    public void performTasks(ArrayList<Task> taskList, String originalString, String eventType) {
+        //method for performing the required tasks
+        if (doneCheck(originalString, taskList)) {
+            System.out.println("___________________________________________________________________________\n");
+        } else if (originalString.toUpperCase().equals("LIST")) {
+            System.out.println("___________________________________________________________________________\n");
+            this.printTaskList(taskList);
+            System.out.println("___________________________________________________________________________\n");
+        } else {
+            try{
+            System.out.println("___________________________________________________________________________\n");
+            String todoOrDeadlineOrEvent = returnStringFormat(originalString, eventType);
+            if (eventType.equals("event") || eventType.equals("deadline")) {
+                if (eventType.equals("event")) {
+                    Event t = new Event(todoOrDeadlineOrEvent);
+                    taskList.add(t);
+                } else {
+                    Deadline t = new Deadline(todoOrDeadlineOrEvent);
+                    taskList.add(t);
+                }
+            } else {
+                Todo e = new Todo(todoOrDeadlineOrEvent);
+                taskList.add(e);
+            }
+
+            Task t = taskList.get(taskList.size() - 1);
+            String description = t.getDescription();
+            String statusIcon = t.getStatusIcon();
+            String typeIcon = t.getLetter();
+            System.out.println("Got it. I have added this task: \n" + todoOrDeadlineOrEvent);
+            System.out.println(typeIcon + " [" + statusIcon + "] " + description + "\n");
+            System.out.println("Now you have " + taskList.size() + " items in the list \n");
+            System.out.println("___________________________________________________________________________\n");
+        }
+            catch(IndexOutOfBoundsException e) {
+                System.out.println("Your inputs can only be of the following forms: \n 1. todo {task description} \n 2. deadline {task description} \\by {dedline eg. 6 PM} \n 3. event {event description} at {event date\\time eg. 6 PM}\");");
+                System.out.println("Please try inputting the task again :(");
+                System.out.println("___________________________________________________________________________\n");
+            }
+            }
     }
 
     //Get things started
