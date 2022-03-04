@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Duke {
+public class Cheems {
 
     private static final String SEPARATOR = "-------------------------------------------";
     private static final String filePath = "./data/data.txt";

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private static final String TEXT_FILE_PATH = "src/main/java/data.txt";
+    private static final String TEXT_FILE_PATH = "./data.txt";
     private final TaskList taskList = new TaskList();
 
     /**
@@ -46,7 +46,7 @@ public class Storage {
             }
             line.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Error! File not found");
+            // Do nothing since it will write new file.
         }
         return taskList;
     }
