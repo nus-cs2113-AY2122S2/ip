@@ -1,10 +1,10 @@
 package duke;
 
 import duke.command.Command;
+
 import duke.exception.DukeException;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * Represents the "brain" of the Duke program and acts as a link between the other components of the program such as the
@@ -21,18 +21,15 @@ public class Duke {
         storage = new Storage(filePath, ui);
         try {
             tasks = new TaskList(storage.loadArrayListFromFile());
-        } catch (DukeException e) {
-            ui.showLoadingError(e);
+        } catch (DukeException de) {
+            ui.showLoadingError(de);
             tasks = new TaskList();
         }
     }
 
     private void run() {
         boolean shouldExitProgram = false;
-        ui.showHorizontalLine();
-        ChatBot bigBob;
-        bigBob = new ChatBot(ui, tasks);
-        ui.showHorizontalLine();
+        ChatBot bigBob = new ChatBot(ui, tasks);
         Command inputCommand;
         boolean writeListToFile;
         while (!shouldExitProgram) {
@@ -45,7 +42,7 @@ public class Duke {
                 ui.showHorizontalLine();
                 continue;
             }
-            if (inputCommand.getType() == Command.CommandType.EXITPROGRAM) {
+            if (inputCommand.getType() == Command.CommandType.ExitProgramCommand) {
                 shouldExitProgram = true;
                 ui.showFarewellGreeting();
                 ui.showHorizontalLine();
@@ -65,7 +62,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
         new Duke("data/duke.txt").run();
     }
 }

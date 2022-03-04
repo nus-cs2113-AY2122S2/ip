@@ -40,23 +40,11 @@ public class Parser {
             newCommand = new UpdateTaskStatusCommand(userInput, false);
         } else if (userInput.startsWith("deadline") || userInput.startsWith("event") ||
                 userInput.startsWith("todo")) {
-            try {
-                newCommand = new AddTaskCommand(userInput);
-            } catch (DukeException de) {
-                throw de;
-            }
+            newCommand = new AddTaskCommand(userInput);
         } else if (userInput.startsWith("delete ")) {
-            try {
-                newCommand = new DeleteTaskCommand(userInput);
-            } catch (DukeException de) {
-                throw de;
-            }
+            newCommand = new DeleteTaskCommand(userInput);
         } else if (userInput.startsWith("find ")) {
-            try {
-                newCommand = new FindTaskCommand(userInput);
-            } catch (DukeException de) {
-                throw de;
-            }
+            newCommand = new FindTaskCommand(userInput);
         } else {
             throw new DukeException(DukeExceptionCause.InvalidCommand);
         }

@@ -7,6 +7,7 @@ import duke.command.DeleteTaskCommand;
 import duke.command.Command;
 
 import duke.exception.DukeException;
+
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -20,14 +21,7 @@ import duke.task.Todo;
  */
 public class ChatBot {
     private TaskList listOfTasks;
-
     private Ui ui;
-
-    public ChatBot(Ui ui, TaskList listOfTasks) {
-        setUi(ui);
-        ui.showWelcomeMessage();
-        setListOfTasks(listOfTasks);
-    }
 
     private void setListOfTasks(TaskList listOfTasks) {
         this.listOfTasks = listOfTasks;
@@ -35,6 +29,14 @@ public class ChatBot {
 
     private void setUi(Ui ui) {
         this.ui = ui;
+    }
+
+    public ChatBot(Ui ui, TaskList listOfTasks) {
+        setUi(ui);
+        ui.showHorizontalLine();
+        ui.showWelcomeMessage();
+        ui.showHorizontalLine();
+        setListOfTasks(listOfTasks);
     }
 
     /**
@@ -46,29 +48,25 @@ public class ChatBot {
      * @return true if the task list has been updated, false if it hasn't been updated.
      */
     public boolean executeCommand(Command inputCommand) {
-        try {
-            if (inputCommand.getType() == Command.CommandType.ADDTASK) {
-                AddTaskCommand newAddCommand = (AddTaskCommand) inputCommand;
-                addTaskToList(newAddCommand);
-            } else if (inputCommand.getType() == Command.CommandType.UPDATETASKSTATUS) {
-                UpdateTaskStatusCommand newUpdateCommand = (UpdateTaskStatusCommand) inputCommand;
-                updateTaskStatusInList(newUpdateCommand);
-            } else if (inputCommand.getType() == Command.CommandType.PRINTLIST) {
-                boolean isFindCommand = false;
-                ui.printList(listOfTasks, isFindCommand);
-                return false;
-            } else if (inputCommand.getType() == Command.CommandType.DELETETASKS) {
-                DeleteTaskCommand newDeleteCommand = (DeleteTaskCommand) inputCommand;
-                deleteTask(newDeleteCommand.getTaskIndex());
-            } else if (inputCommand.getType() == Command.CommandType.FINDTASKS) {
-                FindTaskCommand newFindCommand = (FindTaskCommand) inputCommand;
-                TaskList matchingTaskList = findTaskInList(newFindCommand);
-                boolean isFindCommand = true;
-                ui.printList(matchingTaskList, isFindCommand);
-                return false;
-            }
-        } catch (DukeException de) {
-            ui.showIndexOutOfBoundError();
+        if (inputCommand.getType() == Command.CommandType.AddTaskCommand) {
+            AddTaskCommand newAddCommand = (AddTaskCommand) inputCommand;
+            addTaskToList(newAddCommand);
+        } else if (inputCommand.getType() == Command.CommandType.UpdateTaskStatusCommand) {
+            UpdateTaskStatusCommand newUpdateCommand = (UpdateTaskStatusCommand) inputCommand;
+            updateTaskStatusInList(newUpdateCommand);
+        } else if (inputCommand.getType() == Command.CommandType.PrintListCommand) {
+            boolean isFindCommand = false;
+            ui.printList(listOfTasks, isFindCommand);
+            return false;
+        } else if (inputCommand.getType() == Command.CommandType.DeleteTaskCommand) {
+            DeleteTaskCommand newDeleteCommand = (DeleteTaskCommand) inputCommand;
+            deleteTask(newDeleteCommand.getTaskIndex());
+        } else if (inputCommand.getType() == Command.CommandType.FindTaskCommand) {
+            boolean isFindCommand = true;
+            FindTaskCommand newFindCommand = (FindTaskCommand) inputCommand;
+            TaskList matchingTaskList = findTasksInList(newFindCommand);
+            ui.printList(matchingTaskList, isFindCommand);
+            return false;
         }
         return true;
     }
@@ -80,11 +78,14 @@ public class ChatBot {
      * informing the user of the task that was deleted and the number of tasks remaining in the task list
      *
      * @param taskIndex The index within the task list of the task to delete.
-     * @throws DukeException if the index of the task given is out of range.
      */
-    private void deleteTask(int taskIndex) throws DukeException {
+    private void deleteTask(int taskIndex) {
         String acknowledgementMessage = "\t Noted. I've removed this task:\n\t   ";
-        acknowledgementMessage = listOfTasks.removeTask(taskIndex - 1);
+        if (taskIndex >= listOfTasks.getListSize() || taskIndex < 0) {
+            ui.showIndexOutOfBoundError();
+            return;
+        }
+        acknowledgementMessage = listOfTasks.removeTask(taskIndex);
         acknowledgementMessage = acknowledgementMessage + String.format("\n\t Now you have %d tasks in the list.",
                 listOfTasks.getListSize());
         ui.showAcknowledgementMessage(acknowledgementMessage);
@@ -94,10 +95,10 @@ public class ChatBot {
         String acknowledgementMessage = "";
         String taskName = inputCommand.getTaskName();
         Task freshTask;
-        if (inputCommand.getTaskType() == TaskType.DEADLINE) {
+        if (inputCommand.getTaskType() == TaskType.Deadline) {
             String by = inputCommand.getTaskRequirement();
             freshTask = new Deadline(taskName, by);
-        } else if (inputCommand.getTaskType() == TaskType.EVENT) {
+        } else if (inputCommand.getTaskType() == TaskType.Event) {
             String time;
             time = inputCommand.getTaskRequirement();
             freshTask = new Event(taskName, time);
@@ -126,7 +127,6 @@ public class ChatBot {
         int taskIndex = newUpdateCommand.getTaskIndex();
         try {
             String acknowledgementMessage = listOfTasks.updateTask(taskIndex, isTaskDone);
-
             ui.showAcknowledgementMessage(acknowledgementMessage);
         } catch (DukeException de) {
             ui.showIndexOutOfBoundError();
@@ -142,11 +142,11 @@ public class ChatBot {
      *                           that the user wants to use to search for tasks within the task list.
      * @return A task list containing all the matching tasks.
      */
-    private TaskList findTaskInList(FindTaskCommand newFindTaskCommand) {
-        TaskList listOfMatchingTask;
+    private TaskList findTasksInList(FindTaskCommand newFindTaskCommand) {
+        TaskList listOfMatchingTasks;
         String keyWord = newFindTaskCommand.getKeyWord();
-        listOfMatchingTask = listOfTasks.findTasks(keyWord);
-        return listOfMatchingTask;
+        listOfMatchingTasks = listOfTasks.findTasks(keyWord);
+        return listOfMatchingTasks;
     }
 
 }

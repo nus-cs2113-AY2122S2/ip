@@ -3,7 +3,6 @@ package duke.command;
 import duke.exception.DukeException;
 import duke.exception.DukeExceptionCause;
 
-
 /**
  * Converts the users input into a DeleteTaskCommand object.
  * The DeleteTaskCommand object contains the index
@@ -15,22 +14,20 @@ public class DeleteTaskCommand extends Command {
     private int taskIndex;
 
     public DeleteTaskCommand(String userInput) throws DukeException {
-        super(CommandType.DELETETASKS);
-        try {
-            taskIndex = extractTaskIndex(userInput);
-        } catch (DukeException de) {
-            throw de;
-        }
+        super(CommandType.DeleteTaskCommand);
+        taskIndex = extractTaskIndex(userInput);
     }
 
     private int extractTaskIndex(String userInput) throws DukeException {
-        String taskIndexString = userInput.replace("delete", "").trim();
+        int taskIndex = 0;
+        final int ARRAY_INDEX_OFFSET = 1;
+        String taskIndexString = userInput.replace("delete", "");
+        taskIndexString = taskIndexString.trim();
         if (taskIndexString.isEmpty()) {
             throw new DukeException(DukeExceptionCause.EmptyTaskIndex);
         }
-        int taskIndex = 0;
         try {
-            taskIndex = Integer.parseInt(taskIndexString);
+            taskIndex = Integer.parseInt(taskIndexString) - ARRAY_INDEX_OFFSET;
         } catch (NumberFormatException ne) {
             throw new DukeException(DukeExceptionCause.InvalidTaskIndex);
         }

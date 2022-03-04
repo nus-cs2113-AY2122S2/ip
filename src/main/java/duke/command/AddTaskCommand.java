@@ -1,6 +1,8 @@
 package duke.command;
 
-import duke.exception.*;
+import duke.exception.DukeException;
+import duke.exception.DukeExceptionCause;
+
 import duke.task.TaskType;
 
 /**
@@ -13,16 +15,14 @@ public class AddTaskCommand extends Command {
     private String taskRequirement;
     private String taskName;
     private TaskType taskType;
+    private final String DEADLINE_TIMING_INDICATOR = "/by";
+    private final String EVENT_TIMING_INDICATOR = "/at";
 
     public AddTaskCommand(String userInput) throws DukeException {
-        super(CommandType.ADDTASK);
-        try {
-            taskType = extractTaskType(userInput);
-            taskName = extractTaskName(userInput, taskType);
-            taskRequirement = extractTaskRequirement(userInput, taskType);
-        } catch (DukeException de) {
-            throw de;
-        }
+        super(CommandType.AddTaskCommand);
+        taskType = extractTaskType(userInput);
+        taskName = extractTaskName(userInput, taskType);
+        taskRequirement = extractTaskRequirement(userInput, taskType);
     }
 
     /**
@@ -33,11 +33,11 @@ public class AddTaskCommand extends Command {
      */
     private TaskType extractTaskType(String userInput) {
         if (userInput.startsWith("deadline")) {
-            return TaskType.DEADLINE;
+            return TaskType.Deadline;
         } else if (userInput.startsWith("event")) {
-            return TaskType.EVENT;
+            return TaskType.Event;
         } else {
-            return TaskType.TODO;
+            return TaskType.Todo;
         }
     }
 
@@ -53,26 +53,29 @@ public class AddTaskCommand extends Command {
     private String extractTaskName(String userInput, TaskType type) throws DukeException {
         String taskName;
         int taskNameEndingPosition;
-        if (type == TaskType.EVENT) {
-            userInput = userInput.replace("event", "");
-            if (userInput.trim().isEmpty()) {
+        final int STRING_END_POSITION = -1;
+        if (type == TaskType.Event) {
+            taskName = userInput.replace("event", "");
+            taskName = taskName.trim();
+            if (taskName.isEmpty() || taskName.indexOf(EVENT_TIMING_INDICATOR) == 0) {
                 throw new DukeException(DukeExceptionCause.EventTaskNameEmpty);
             }
-            taskNameEndingPosition = userInput.indexOf("/at");
-            if (taskNameEndingPosition == -1) {
+            taskNameEndingPosition = taskName.indexOf(EVENT_TIMING_INDICATOR);
+            if (taskNameEndingPosition == STRING_END_POSITION) {
                 throw new DukeException(DukeExceptionCause.InvalidCommand);
             }
-            taskName = userInput.substring(0, taskNameEndingPosition);
-        } else if (type == TaskType.DEADLINE) {
-            userInput = userInput.replace("deadline", "");
-            if (userInput.trim().isEmpty()) {
+            taskName = taskName.substring(0, taskNameEndingPosition);
+        } else if (type == TaskType.Deadline) {
+            taskName = userInput.replace("deadline", "");
+            taskName = taskName.trim();
+            if (taskName.isEmpty() || taskName.indexOf(DEADLINE_TIMING_INDICATOR) == 0) {
                 throw new DukeException(DukeExceptionCause.DeadlineTaskNameEmpty);
             }
-            taskNameEndingPosition = userInput.indexOf("/by");
-            if (taskNameEndingPosition == -1) {
+            taskNameEndingPosition = taskName.indexOf(DEADLINE_TIMING_INDICATOR);
+            if (taskNameEndingPosition == STRING_END_POSITION) {
                 throw new DukeException(DukeExceptionCause.InvalidCommand);
             }
-            taskName = userInput.substring(0, taskNameEndingPosition);
+            taskName = taskName.substring(0, taskNameEndingPosition);
         } else {
             taskName = userInput.replace("todo", "");
             if (taskName.trim().isEmpty()) {
@@ -80,7 +83,7 @@ public class AddTaskCommand extends Command {
             }
         }
         taskName = taskName.trim();
-        return taskName.trim();
+        return taskName;
     }
 
     /**
@@ -97,16 +100,16 @@ public class AddTaskCommand extends Command {
         String trimmedUserInput = userInput.trim();
         int taskRequirementStartPosition;
         int userInputEndingPosition = trimmedUserInput.length();
-        if (type == TaskType.EVENT) {
+        if (type == TaskType.Event) {
             int LENGTH_OF_SLASH_AT = 3;
-            taskRequirementStartPosition = trimmedUserInput.indexOf("/at") + LENGTH_OF_SLASH_AT;
+            taskRequirementStartPosition = trimmedUserInput.indexOf(EVENT_TIMING_INDICATOR) + LENGTH_OF_SLASH_AT;
             if (taskRequirementStartPosition == userInputEndingPosition) {
                 throw new DukeException(DukeExceptionCause.InvalidCommand);
             }
             extractedRequirement = trimmedUserInput.substring(taskRequirementStartPosition, trimmedUserInput.length());
-        } else if (type == TaskType.DEADLINE) {
+        } else if (type == TaskType.Deadline) {
             int LENGTH_OF_SLASH_BY = 3;
-            taskRequirementStartPosition = trimmedUserInput.indexOf("/by") + LENGTH_OF_SLASH_BY;
+            taskRequirementStartPosition = trimmedUserInput.indexOf(DEADLINE_TIMING_INDICATOR) + LENGTH_OF_SLASH_BY;
             if (taskRequirementStartPosition == userInputEndingPosition) {
                 throw new DukeException(DukeExceptionCause.InvalidCommand);
             }

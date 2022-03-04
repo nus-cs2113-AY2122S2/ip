@@ -15,15 +15,15 @@ public class UpdateTaskStatusCommand extends Command {
     private boolean isTaskDone;
 
     public UpdateTaskStatusCommand(String userInput, boolean isTaskDone) throws DukeException {
-        super(CommandType.UPDATETASKSTATUS);
+        super(CommandType.UpdateTaskStatusCommand);
         this.taskIndex = extractTaskIndex(userInput, isTaskDone);
         this.isTaskDone = isTaskDone;
     }
 
     private int extractTaskIndex(String userInput, boolean isTaskDone) throws DukeException {
         String taskIndexStringVersion;
-        int taskIndexStartPosition = 0;
         int taskIndex = 0;
+        final int ARRAY_INDEX_OFFSET = 1;
         if (isTaskDone == true) {
             taskIndexStringVersion = userInput.replace("mark", "");
         } else {
@@ -34,7 +34,7 @@ public class UpdateTaskStatusCommand extends Command {
             throw new DukeException(DukeExceptionCause.EmptyTaskIndex);
         }
         try {
-            taskIndex = Integer.parseInt(taskIndexStringVersion) - 1;
+            taskIndex = Integer.parseInt(taskIndexStringVersion) - ARRAY_INDEX_OFFSET;
         } catch (NumberFormatException ne) {
             throw new DukeException(DukeExceptionCause.InvalidTaskIndex);
         }

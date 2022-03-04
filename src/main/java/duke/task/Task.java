@@ -1,9 +1,10 @@
 package duke.task;
 
-
 public abstract class Task {
     private boolean isDone;
     private String taskName;
+    private final String DONE_SYMBOL = "[X] ";
+    private final String NOT_DONE_SYMBOL = "[ ] ";
 
     public String getDoneSymbol() {
         return DONE_SYMBOL;
@@ -13,9 +14,6 @@ public abstract class Task {
         return NOT_DONE_SYMBOL;
     }
 
-    private final String DONE_SYMBOL = "[X] ";
-    private final String NOT_DONE_SYMBOL = "[ ] ";
-
     public Task(String taskName) {
         setDone(false);
         setTaskName(taskName);
@@ -23,7 +21,7 @@ public abstract class Task {
 
     public String getTaskInformation() {
         String taskNameAndStatus;
-        if (getDone()) {
+        if (isDone()) {
             taskNameAndStatus = getDoneSymbol();
         } else {
             taskNameAndStatus = getNotDoneSymbol();
@@ -42,7 +40,7 @@ public abstract class Task {
 
     public String getTaskUpdatedMessage() {
         String message;
-        if (isDone) {
+        if (isDone()) {
             message = "\t Nice! I've marked this task as done:\n";
         } else {
             message = "\t OK, I've marked this task as not done yet:\n";
@@ -60,7 +58,7 @@ public abstract class Task {
         return acknowledgementMessage;
     }
 
-    public boolean getDone() {
+    public boolean isDone() {
         return isDone;
     }
 

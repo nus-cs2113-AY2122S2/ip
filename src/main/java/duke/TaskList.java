@@ -2,6 +2,7 @@ package duke;
 
 import duke.exception.DukeException;
 import duke.exception.DukeExceptionCause;
+
 import duke.task.Task;
 
 import java.util.ArrayList;
@@ -48,8 +49,8 @@ public class TaskList {
      * @throws DukeException if the index of the task to be updated is out of range.
      */
     public String updateTask(int taskIndex, boolean isTaskDone) throws DukeException {
-        String updateTaskMessage;
-        if (taskIndex > getListSize()) {
+        String acknowledgementMessage;
+        if (taskIndex >= getListSize() || taskIndex < 0) {
             throw new DukeException(DukeExceptionCause.TaskIndexOutOfRange);
         }
         Task taskToUpdate = getListOfTasks().get(taskIndex);
@@ -58,8 +59,8 @@ public class TaskList {
         } else {
             taskToUpdate.setDone(false);
         }
-        updateTaskMessage = taskToUpdate.getTaskUpdatedMessage();
-        return updateTaskMessage;
+        acknowledgementMessage = taskToUpdate.getTaskUpdatedMessage();
+        return acknowledgementMessage;
     }
 
     public int getListSize() {
@@ -71,19 +72,23 @@ public class TaskList {
     }
 
     public String removeTask(int taskIndex) {
-        String AcknowledgementMessage = getListOfTasks().get(taskIndex).removeTaskMessage();
+        Task taskToRemove = getListOfTasks().get(taskIndex);
+        String acknowledgementMessage = taskToRemove.removeTaskMessage();
         getListOfTasks().remove(taskIndex);
-        return AcknowledgementMessage;
+        return acknowledgementMessage;
     }
 
     public TaskList findTasks(String keyWord) {
-        TaskList listOfMatchingTask = new TaskList();
+        TaskList listOfMatchingTasks = new TaskList();
+        String taskDescription;
+        Task currentTask;
         for (int i = 0; i < getListSize(); i++) {
-            String taskDescription = listOfTasks.get(i).getTaskDescription();
+            currentTask = listOfTasks.get(i);
+            taskDescription = currentTask.getTaskDescription();
             if (taskDescription.contains(keyWord)) {
-                listOfMatchingTask.addTask(listOfTasks.get(i));
+                listOfMatchingTasks.addTask(currentTask);
             }
         }
-        return listOfMatchingTask;
+        return listOfMatchingTasks;
     }
 }

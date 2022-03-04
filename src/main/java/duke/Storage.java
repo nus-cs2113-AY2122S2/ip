@@ -2,16 +2,20 @@ package duke;
 
 import duke.exception.DukeException;
 import duke.exception.DukeExceptionCause;
-import duke.task.*;
+
+import duke.task.Deadline;
+import duke.task.Task;
+import duke.task.Event;
+import duke.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
-
 
 /**
  * Represents the storage component of the program.
@@ -20,7 +24,8 @@ import java.util.StringTokenizer;
 public class Storage {
     private String filePath;
     private Ui ui;
-    private final String TASK_DONE = "1";
+    private final String TASK_DONE_SYMBOL = "1";
+    private final String TASK_NOT_DONE_SYMBOL = "0";
 
     public Storage(String filePath, Ui ui) {
         setFilePath(filePath);
@@ -36,8 +41,8 @@ public class Storage {
     }
 
     private void createFile(File f) throws DukeException {
-        File directory = f.getParentFile();
         boolean isDirectoryCreated;
+        File directory = f.getParentFile();
         if (!directory.exists()) {
             isDirectoryCreated = directory.mkdirs();
             if (!isDirectoryCreated) {
@@ -56,7 +61,7 @@ public class Storage {
         boolean isDone;
         String taskName;
         String time;
-        if (st.nextToken().equals(TASK_DONE)) {
+        if (st.nextToken().equals(TASK_DONE_SYMBOL)) {
             isDone = true;
         } else {
             isDone = false;
@@ -72,7 +77,7 @@ public class Storage {
         Todo newToDoTask;
         boolean isDone;
         String taskName;
-        if (st.nextToken().equals(TASK_DONE)) {
+        if (st.nextToken().equals(TASK_DONE_SYMBOL)) {
             isDone = true;
         } else {
             isDone = false;
@@ -88,7 +93,7 @@ public class Storage {
         boolean isDone;
         String taskName;
         String by;
-        if (st.nextToken().equals(TASK_DONE)) {
+        if (st.nextToken().equals(TASK_DONE_SYMBOL)) {
             isDone = true;
         } else {
             isDone = false;
@@ -134,11 +139,7 @@ public class Storage {
                 listOfTasks.add(newTask);
             }
         } catch (FileNotFoundException fe) {
-            try {
-                createFile(f);
-            } catch (DukeException DE) {
-                throw DE;
-            }
+            createFile(f);
         }
         return listOfTasks;
     }
@@ -157,22 +158,23 @@ public class Storage {
      */
     public void writeArrayListToFile(ArrayList<Task> listOfTasks, Ui ui) throws IOException {
         clearFileContents();
-        FileWriter fw;
-        fw = new FileWriter(filePath, true);
+        FileWriter fw = new FileWriter(filePath, true);
+        ;
         String taskDetails;
+        final int LAST_INDEX_OF_ARRAYLIST = listOfTasks.size() - 1;
+        String isDoneSymbol;
         for (int i = 0; i < listOfTasks.size(); i++) {
-            Character isDoneSymbol;
-            if (listOfTasks.get(i).getDone()) {
-                isDoneSymbol = '1';
+            if (listOfTasks.get(i).isDone()) {
+                isDoneSymbol = TASK_DONE_SYMBOL;
             } else {
-                isDoneSymbol = '0';
+                isDoneSymbol = TASK_NOT_DONE_SYMBOL;
             }
             if (listOfTasks.get(i) instanceof Event) {
-                Event event = (Event) listOfTasks.get(i);
-                taskDetails = "E|" + isDoneSymbol + "|" + event.getTaskName() + "|" + event.getTime();
+                Event eventTask = (Event) listOfTasks.get(i);
+                taskDetails = "E|" + isDoneSymbol + "|" + eventTask.getTaskName() + "|" + eventTask.getTime();
             } else if (listOfTasks.get(i) instanceof Deadline) {
-                Deadline deadline = (Deadline) listOfTasks.get(i);
-                taskDetails = "D|" + isDoneSymbol + "|" + deadline.getTaskName() + "|" + deadline.getBy();
+                Deadline deadlineTask = (Deadline) listOfTasks.get(i);
+                taskDetails = "D|" + isDoneSymbol + "|" + deadlineTask.getTaskName() + "|" + deadlineTask.getBy();
             } else if (listOfTasks.get(i) instanceof Todo) {
                 Todo todoTask = (Todo) listOfTasks.get(i);
                 taskDetails = "T|" + isDoneSymbol + "|" + todoTask.getTaskName();
@@ -180,7 +182,7 @@ public class Storage {
                 ui.showInvalidTaskTypeMessage();
                 continue;
             }
-            if (i != listOfTasks.size() - 1) {
+            if (i != LAST_INDEX_OF_ARRAYLIST) {
                 fw.write(taskDetails + System.lineSeparator());
             } else {
                 fw.write(taskDetails);
@@ -188,6 +190,4 @@ public class Storage {
         }
         fw.close();
     }
-
-
 }

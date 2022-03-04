@@ -2,6 +2,7 @@ package duke;
 
 import duke.exception.DukeException;
 import duke.exception.DukeExceptionCause;
+
 import duke.task.Task;
 
 import java.util.Scanner;
@@ -20,12 +21,12 @@ public class Ui {
     }
 
     public void showWelcomeMessage() {
-        System.out.println("\t Greetings Human! I'm " + BOT_NAME + ".");
-        System.out.println("\t How may i be of service to you?");
+        System.out.println("\t  Greetings Human! I'm " + BOT_NAME + ".");
+        System.out.println("\t  How may i be of service to you?");
     }
 
     public void showHorizontalLine() {
-        System.out.println("    --------------------------------------------------------------------------");
+        System.out.println("  ------------------------------------------------------------------------------");
     }
 
     public String readUserInput() {
@@ -33,35 +34,32 @@ public class Ui {
         return userInput;
     }
 
-    public void showLoadingError(DukeException DE) {
-        if (DE.getExceptionCause() == DukeExceptionCause.FolderCreationFail) {
-            System.out.println("File was not found and the parent folder of the file is unable to be created.");
-        } else if (DE.getExceptionCause() == DukeExceptionCause.FileCreationFail) {
-            System.out.println("File was not found and the file is unable to be created.");
+    public void showLoadingError(DukeException de) {
+        if (de.getExceptionCause() == DukeExceptionCause.FolderCreationFail) {
+            System.out.println("\t  Error Occurred!! File was not found and the parent folder cannot be created.");
         } else {
-            System.out.println("Failure to load data from file.");
+            System.out.println("\t  Error Occurred!! File was not found and the file cannot be created.");
         }
-        return;
     }
 
     public void showInvalidCommandMessage() {
-        System.out.println("\t OOPS!!! You have entered an invalid command.");
+        System.out.println("\t  Error Occurred!! You have entered an invalid command.");
     }
 
     public void showMissingTaskNameMessage(String typeOfTask) {
-        System.out.println("\t OOPS!!! The description of a " + typeOfTask + " cannot be empty.");
+        System.out.println("\t  Error Occurred!! The description of a " + typeOfTask + " cannot be empty.");
     }
 
     public void showMissingTaskIndexMessage() {
-        System.out.println("\t OOPS!!! The index of a task cannot be empty.");
+        System.out.println("\t  Error Occurred!! The index of a task cannot be empty.");
     }
 
     public void showInvalidTaskIndexMessage() {
-        System.out.println("\t  OOPS!!! You have entered an invalid index of a task.");
+        System.out.println("\t  Error Occurred!! You have entered an invalid index of a task.");
     }
 
     public void showTaskIndexOutOfRangeMessage() {
-        System.out.println("\t OOPS!!! You have entered a task index that is out of range.");
+        System.out.println("\t  Error Occurred!! You have entered a task index that is out of range.");
     }
 
     public void showParsingError(DukeException de) {
@@ -92,8 +90,13 @@ public class Ui {
             showInvalidTaskIndexMessage();
             break;
         default:
+            showUnknownErrorMessage();
             break;
         }
+    }
+
+    public void showUnknownErrorMessage() {
+        System.out.println("\t An Error Has Occurred!!");
     }
 
     public void showEmptyKeywordMessage() {
@@ -113,7 +116,7 @@ public class Ui {
     }
 
     public void showFarewellGreeting() {
-        System.out.println("    Good bye.See you soon :)");
+        System.out.println("\t Good bye.See you soon :)");
     }
 
     public void showInvalidTaskTypeMessage() {
@@ -121,7 +124,10 @@ public class Ui {
     }
 
     public void printList(TaskList listOfTasks, boolean isFindCommand) {
-        if (listOfTasks.getListSize() == 0 && isFindCommand) {
+        Task taskToPrint;
+        int taskNumber;
+        final int ARRAY_LIST_OFFSET = 1;
+        if (listOfTasks.getListSize() == 0 && isFindCommand == true) {
             System.out.println("\t There are no matching tasks found within the list.");
             return;
         }
@@ -129,15 +135,13 @@ public class Ui {
             System.out.println("\t There are no tasks within the list.");
             return;
         }
-        if (isFindCommand) {
+        if (isFindCommand == true) {
             System.out.println("\t Here are the matching tasks in your list:");
         } else {
             System.out.println("\t Here are the tasks in your list:");
         }
-        Task taskToPrint;
-        int taskNumber;
         for (int i = 0; i < listOfTasks.getListSize(); i++) {
-            taskNumber = i + 1;
+            taskNumber = i + ARRAY_LIST_OFFSET;
             taskToPrint = listOfTasks.getTask(i);
             System.out.println("\t " + taskNumber + "." + taskToPrint.getTaskInformation());
         }
