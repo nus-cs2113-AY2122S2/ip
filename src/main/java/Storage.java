@@ -9,6 +9,10 @@ public class Storage {
     private static final String TEXT_FILE_PATH = "src/main/java/data.txt";
     private final TaskList taskList = new TaskList();
 
+    /**
+     * Loads data from the txt file and puts the task in the taskList
+     * @return TaskList object with taskList containing the saved tasks
+     */
     public TaskList loadData() {
         try{
             File data = new File(TEXT_FILE_PATH);
@@ -47,7 +51,10 @@ public class Storage {
         return taskList;
     }
 
-
+    /**
+     * Write the tasks to the txt file
+     * @param taskList Array List of Tasks
+     */
     public void writeData(TaskList taskList) {
         try {
             FileWriter fileWriter = new FileWriter(TEXT_FILE_PATH);
@@ -59,7 +66,7 @@ public class Storage {
             }
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println("Something Happened");
+            System.out.println("Failed to write data");
         }
     }
 }

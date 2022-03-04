@@ -3,11 +3,20 @@ public class Parser {
     private final TaskList taskList;
     private final Storage storage;
 
+    /**
+     * Creates a Parser object with attributes taskList and storage to update them.
+     * @param taskList
+     * @param storage
+     */
     public Parser(TaskList taskList, Storage storage) {
         this.taskList = taskList;
         this.storage = storage;
     }
 
+    /**
+     * Parses the full user input and handles the cases accordingly.
+     * @param fullText
+     */
     public void parseCommand(String fullText) {
         String[] words = fullText.split(" ");
         String firstWord = words[0];

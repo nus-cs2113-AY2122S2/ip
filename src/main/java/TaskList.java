@@ -10,10 +10,17 @@ public class TaskList {
         tasks = new ArrayList<>();
     }
 
+    /**
+     * Get the list of tasks.
+     * @return Array List of Tasks.
+     */
     public ArrayList<Task> getTasks() {
         return this.tasks;
     }
 
+    /**
+     * Prints all the tasks in the List.
+     */
     public void printTasks() {
         String entryNumber;
         System.out.println("Hemre are the tamsks im youmr limst:");
@@ -25,6 +32,10 @@ public class TaskList {
         System.out.println(SEPARATOR);
     }
 
+    /**
+     * Marks the task with the specified index as done.
+     * @param command Full text of user input.
+     */
     public void handleMark(String command) {
         try{
             int taskPosition = Integer.parseInt(command.substring(5)) - 1;
@@ -43,6 +54,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Unmarks the task with the specified index as not done.
+     * @param command Full text of user input.
+     */
     public void handleUnmark(String command) {
         try{
             int taskPosition = Integer.parseInt(command.substring(7)) - 1;
@@ -57,6 +72,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Add a new Deadline object to the list of Tasks.
+     * @param command Full text of user input.
+     */
     public void addDeadline(String command) {
         try{
             int dueDateIndex = command.indexOf("/") + 1;
@@ -76,6 +95,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Add a new ToDo object to the list of Tasks.
+     * @param command Full text of user input.
+     */
     public void addToDo(String command) {
         try {
             String description = command.substring(5);
@@ -90,6 +113,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Add a new Event object to the list of Tasks.
+     * @param command Full text of user input.
+     */
     public void addEvent(String command) {
         try {
             int timingIndex = command.indexOf("/") + 1;
@@ -109,6 +136,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Delete the Task at the specified index from list of Tasks.
+     * @param command Full text of user input.
+     */
     public void deleteTask(String command) {
         int taskNumber = Integer.parseInt(command.substring(7));
         Task task = tasks.remove(taskNumber - 1);
@@ -117,14 +148,22 @@ public class TaskList {
         System.out.println(SEPARATOR);
     }
 
+    /**
+     * Push a Task to the list of Tasks.
+     * @param task Deadline or Event or ToDo.
+     */
     public void addTask(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Prints filtered list with Tasks that contains keyWord.
+     * @param fullText Full text of user input.
+     */
     public void findTask(String fullText) {
-        String keyWord = fullText.substring(5);
+        String keyWord = fullText.substring(5).toLowerCase();
         ArrayList<Task> filteredTask = (ArrayList<Task>) tasks.stream()
-                .filter(t -> t.getDescription().contains(keyWord))
+                .filter(t -> t.getDescription().toLowerCase().contains(keyWord))
                 .collect(Collectors.toList());
         System.out.println("Hemre are the matchimng tamsks in youmr limst: ");
         for (int i = 0; i < filteredTask.size(); i++) {

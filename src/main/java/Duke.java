@@ -13,6 +13,9 @@ public class Duke {
     private static Storage storage;
     private static Parser parser;
 
+    /**
+     * Keep asking user for input until it is bye.
+     */
     public static void askInput() {
         storage = new Storage();
         ui = new Ui();
