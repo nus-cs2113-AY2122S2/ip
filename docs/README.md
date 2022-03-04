@@ -1,7 +1,7 @@
 # User Guide
 Duke is a chat-bot that manages your tasks. It is accessed via a Command Line Interface (CLI).
 
-#Quick start
+##Quick start
 1. Ensure that you have **Java 11** installed on your system.
 2. Download the latest [ip.jar](https://github.com/cheshire-doge/ip)
 3. Open a **Command Line** and change your directory to the folder containing **ip.jar**
