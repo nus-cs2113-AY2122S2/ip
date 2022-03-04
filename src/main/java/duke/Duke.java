@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import exceptions.UnknownCommandException;
+import parser.Parser;
 import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
@@ -13,6 +14,7 @@ public class Duke {
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
+    private Parser parser;
 
     public Duke(String filePath) {
         ui = new Ui();
@@ -23,6 +25,7 @@ public class Duke {
             //ui.showLoadingError();
             tasks = new TaskList();
         }
+        parser = new Parser(ui, tasks, storage);
     }
 
     public void run() {
@@ -43,7 +46,7 @@ public class Duke {
 
         while (isNotBye) {
             try {
-                runCommand(response, tasks, storage);
+                parser.runCommand(response, tasks, storage);
             } catch (UnknownCommandException e) {
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             } catch (NullPointerException e) {
