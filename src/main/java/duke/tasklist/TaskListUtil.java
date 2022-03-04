@@ -1,9 +1,9 @@
 package duke.tasklist;
 
-import duke.ui.CommandLineOutputUtil;
 import duke.tasklist.task.Task;
-
 import java.util.ArrayList;
+
+import static duke.ui.CommandLineOutputUtil.printFormat;
 
 /**
  * Initializing the task list and other utility methods.
@@ -18,7 +18,7 @@ public class TaskListUtil {
      * @param taskInd Index of task in task list.
      */
     static boolean indInTaskList (int taskInd) {
-        if (taskInd >= TaskListUtil.list.size()) {
+        if (taskInd >= list.size()) {
             return false;
         } else {
             return true;
@@ -30,7 +30,7 @@ public class TaskListUtil {
      */
     public static void list() {
         if (list.size() == 0) {
-            CommandLineOutputUtil.printFormat("You haven't added any tasks to your list yet!");
+            printFormat("You haven't added any tasks to your list yet!");
             return;
         }
 
@@ -39,7 +39,7 @@ public class TaskListUtil {
             Task curr = list.get(i);
             listAsString = listAsString.concat(String.format(" %d. %s\n", i + 1, curr));
         }
-        CommandLineOutputUtil.printFormat("Here are the tasks in your list:\n" + listAsString);
+        printFormat("Here are the tasks in your list:\n" + listAsString);
     }
 
     /**
@@ -50,7 +50,7 @@ public class TaskListUtil {
     public static void find(String line) {
         String[] commands = line.split(" ");
         if (commands.length > 2) {
-            CommandLineOutputUtil.printFormat("Please only enter one keyword!");
+            printFormat("Please only enter one keyword!");
             return;
         }
         String keyword = commands[1];
@@ -65,6 +65,6 @@ public class TaskListUtil {
                 taskNum++;
             }
         }
-        CommandLineOutputUtil.printFormat("Here are the matching tasks in your list:\n" + listAsString);
+        printFormat("Here are the matching tasks in your list:\n" + listAsString);
     }
 }

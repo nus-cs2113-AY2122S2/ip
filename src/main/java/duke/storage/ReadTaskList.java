@@ -1,7 +1,6 @@
 package duke.storage;
 
 import duke.DukeException;
-import duke.parser.TaskString;
 import duke.tasklist.task.Task;
 
 import java.io.File;
@@ -10,6 +9,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static duke.parser.TaskString.decodeTask;
 import static duke.storage.ReadWriteUtil.findFile;
 
 /**
@@ -25,7 +25,7 @@ public class ReadTaskList {
         while (s.hasNext()) {
             String line = s.nextLine();
             try {
-                list.add(TaskString.decodeTask(line));
+                list.add(decodeTask(line));
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }

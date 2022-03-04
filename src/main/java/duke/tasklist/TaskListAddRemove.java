@@ -1,9 +1,12 @@
 package duke.tasklist;
 
-import duke.parser.TaskString;
-import duke.ui.CommandLineOutputUtil;
 import duke.DukeException;
 import duke.tasklist.task.Task;
+
+import static duke.parser.TaskString.parseTask;
+import static duke.parser.TaskString.parseTaskNum;
+import static duke.tasklist.TaskListUtil.indInTaskList;
+import static duke.ui.CommandLineOutputUtil.printFormat;
 
 /**
  * Methods for adding and removing from task list.
@@ -17,20 +20,20 @@ public class TaskListAddRemove {
     public static void removeTask(String line) {
         Task curr;
         try {
-            int taskInd = TaskString.parseTaskNum(line);
-            if (!TaskListUtil.indInTaskList(taskInd)) {
+            int taskInd = parseTaskNum(line);
+            if (!indInTaskList(taskInd)) {
                 throw new DukeException("Please delete a task number that's in the list :')");
             }
             curr = TaskListUtil.list.get(taskInd);
             TaskListUtil.list.remove(taskInd);
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            CommandLineOutputUtil.printFormat("You can only delete with a valid task number :')");
+            printFormat("You can only delete with a valid task number :')");
             return;
         } catch (DukeException e) {
-            CommandLineOutputUtil.printFormat(e.getMessage());
+            printFormat(e.getMessage());
             return;
         }
-        CommandLineOutputUtil.printFormat("Noted. I've removed this task:\n  " + curr +
+        printFormat("Noted. I've removed this task:\n  " + curr +
                 String.format("\nNow you have %d tasks in the list.", TaskListUtil.list.size()));
     }
 
@@ -48,12 +51,12 @@ public class TaskListAddRemove {
                 description = commands[1];
             }
 
-            Task task = TaskString.parseTask(type, description);
+            Task task = parseTask(type, description);
             TaskListUtil.list.add(task);
-            CommandLineOutputUtil.printFormat("Got it. I've added this task:\n  " + task +
+            printFormat("Got it. I've added this task:\n  " + task +
                     String.format("\nNow you have %d tasks in the list.", TaskListUtil.list.size()));
         } catch (DukeException e) {
-            CommandLineOutputUtil.printFormat(e.getMessage());
+            printFormat(e.getMessage());
         }
     }
 }

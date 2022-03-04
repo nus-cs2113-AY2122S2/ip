@@ -47,11 +47,12 @@ Example: `list` followed by `delete 1` deletes the first task in the task list
 
 ### Finding a task: `find`
 
-Finds a task with the relevant keyword in the task list.
+Finds and displays tasks with the relevant keyword in the task list.
 
 Format: `find TASK_KEYWORD`
 
-Example: 
+Example: `find book` finds all tasks containing the word `book`.
+* The `find` feature only supports one keyword at a time.
 
 ### Exiting the program: `bye`
 
@@ -60,12 +61,12 @@ Exits the program.
 Format: `bye`
 
 ## Command Summary
-Action       | Format, Examples
---------|:----
-Add todo     | `todo TASK_DESCRIPTION` <br/> e.g. `todo submit iP UG`                              
-Add deadline | `deadline TASK_DESCRIPTION /by TASK_TIME`<br/> e.g. `deadline ship iP /by 3/3/2022` 
-Add event    | `event TASK_DESCRIPTION /at TASK_TIME`<br/> e.g. `event SE tutorial /at 10AM`       
-List         | `list`                                                                              
-Delete       | `delete TASK_NUMBER`<br/> e.g. `delete 2`                                           
-Find         | `find TASK_KEYWORD` <br/> e.g. `find iP`                                            
-Exit         | `bye`                                                                               
+| Action       | Format                                    | Example (if any)                |
+|--------------|:------------------------------------------|:--------------------------------|
+| Add todo     | `todo TASK_DESCRIPTION`                   | `todo submit iP UG`             |
+| Add deadline | `deadline TASK_DESCRIPTION /by TASK_TIME` | `deadline ship iP /by 3/3/2022` |
+| Add event    | `event TASK_DESCRIPTION /at TASK_TIME`    | `event SE tutorial /at 10AM`    |
+| List         | `list`                                    |                                 |
+| Delete       | `delete TASK_NUMBER`                      | `delete 2`                      |
+| Find         | `find TASK_KEYWORD`                       | `find iP`                       |
+| Exit         | `bye`                                     |                                 |

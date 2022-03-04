@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
+import static duke.storage.ReadWriteUtil.findFile;
+
 /**
  * Methods that write the task list to the data file of the current home directory.
  */
@@ -64,7 +66,7 @@ public class WriteTaskList {
      */
     public static void writeList(ArrayList<Task> list) {
         try {
-            Path tasksPath = ReadWriteUtil.findFile();
+            Path tasksPath = findFile();
             String stringOfList = listToString(list);
             writeListToFile(tasksPath.toString(), stringOfList);
         } catch (FileNotFoundException e) {
