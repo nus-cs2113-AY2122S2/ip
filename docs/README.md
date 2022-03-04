@@ -48,7 +48,7 @@ Prerequisite: JDK 11
    ````
 2. Download the latest release. You can use command to download it or simply download it from the website:
    ````shell
-   https://github.com/hlwang56/ip/releases
+   https://github.com/hlwang56/ip/releases/download/v2.0/ip.jar
    ````
 3. Open a terminal in the folder when the jar file is placed and run following command
    ````shell
