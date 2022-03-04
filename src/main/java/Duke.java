@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package duke;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -5,11 +6,20 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+=======
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Arrays;
+>>>>>>> branch-Level-6
 
 public class Duke {
 
     //Class variables
+<<<<<<< HEAD
     private ArrayList <Task> taskList;
+=======
+    private ArrayList<Task> taskList;
+>>>>>>> branch-Level-6
 
 
     //Constructor
@@ -18,6 +28,7 @@ public class Duke {
 
     }
 
+<<<<<<< HEAD
     Scanner scanner = new Scanner(System.in);
 
     public static String filePath = "files/TaskList.txt";
@@ -108,6 +119,17 @@ public class Duke {
             String typeIcon = task.getTypeIcon();
             System.out.println(taskCounter + ". " + typeIcon + " [" + statusIcon + "] " + description);
             taskCounter += 1;
+=======
+    //Print all available tasks
+    public void printTaskList(ArrayList<Task> taskList){
+        int numberOfTasks = 1;
+        for (Task task : taskList){
+            String description = task.getDescription();
+            String statusIcon = task.getStatusIcon();
+            String typeIcon = task.getLetter();
+            System.out.println(numberOfTasks + ". "  + typeIcon +  " [" +  statusIcon + "] " +  description);
+            numberOfTasks += 1;
+>>>>>>> branch-Level-6
         }
     }
 
@@ -150,7 +172,11 @@ public class Duke {
         String LISTE = "list";
 
         if (type.equals(DONE) || type.equals(TODO) || type.equals(DEADLINE)
+<<<<<<< HEAD
                 || type.equals(EVENT) || type.equals(LISTE)){
+=======
+                || type.equals(EVENT) || type.equals(LISTE) ){
+>>>>>>> branch-Level-6
             return true;
         }
         return false;
@@ -247,6 +273,7 @@ public class Duke {
                 System.out.println("___________________________________________________________________________\n");
             }
             }
+<<<<<<< HEAD
     }
 
     //Get things started
@@ -269,6 +296,30 @@ public class Duke {
         addTask(line, taskList);
     }
 
+=======
+    }
+
+    //Get things started
+    public void startProgramme(){
+        String logo = "╮╭┻┻╮╭┻┻╮╭▕╮╲\n" +
+                "▕╯┃╭╮┃┃╭╮┃╰▕╯╭▏\n" +
+                "▕╭┻┻┻┛┗┻┻┛ ▕ ╰▏\n" +
+                "▕╰━━━┓┈┈┈╭╮▕╭╮▏\n" +
+                "▕╭╮╰┳┳┳┳╯╰╯▕╰╯▏\n" +
+                "▕╰╯┈┗┛┗┛┈╭╮▕╮┈▏" ;
+        System.out.println(logo);
+
+        Scanner scanner = new Scanner(System.in);
+        String line;
+        System.out.println("___________________________________________________________________________");
+        System.out.println("Hello! I'm Bob");
+        System.out.println("Lets get started on planning your tasks ahead mate! Things are looking good.\n");
+        System.out.println("___________________________________________________________________________");
+        line = scanner.nextLine();
+        addTask(line, taskList);
+    }
+
+>>>>>>> branch-Level-6
     public static void main(String[] args) {
         Duke bobTheFriendlyChatBot = new Duke();
         bobTheFriendlyChatBot.startProgramme();

@@ -1,24 +1,43 @@
 public class Task {
-    protected String command;
+
+    protected String description;
+
     protected boolean isDone;
 
-    public Task(String command) {
-        this.command = command;
-        this.isDone = false;
+
+    public String getDescription(){
+
+        return description;
+
     }
+
+
+    public Task(String description) {
+
+        this.description = description;
+
+        this.isDone = false;
+
+    }
+
+    public void markIt() {
+
+        this.isDone = true;
+
+    }
+
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+
+        return (isDone ? "X" : " "); //return  X symbols
     }
 
-    public void markAsDone(String command){
-        isDone = true;
-        System.out.println("Nice! I've marked this task as done: ");
-        System.out.println("[" + getStatusIcon() + "]" + command);
+        public String getLetter() {
+            return null;
+        }
+
+
     }
-    public void markAsNotDone(String command){
-        isDone = false;
-        System.out.println("OK, I've marked this task as not done yet: ");
-        System.out.println("[" + getStatusIcon() + "]" + command);
-    }
-}
+
+
+
