@@ -16,20 +16,20 @@ public class addCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         Task newTask;
         String[] argumentList;
         String description;
 
         switch (this.commandWord) {
         case "deadline":
-            argumentList = this.arguments.split(" /by ", 2);
+            argumentList = splitArguments();
             description = argumentList[0]; // eg. return book
             String by = argumentList[1]; // eg. Sunday
             newTask = new Deadline(description, by);
             break;
         case "event":
-            argumentList = this.arguments.split(" /at ", 2);
+            argumentList = splitArguments();
             description = argumentList[0]; // eg. return book
             String eventTime = argumentList[1]; // eg. Sunday
             newTask = new Event(description, eventTime);
@@ -46,5 +46,12 @@ public class addCommand extends Command {
         System.out.println("Got it. I've added this task:");
         System.out.println(String.format("  %s", newTask));
         System.out.println(String.format("Now you have %d tasks in the list.", tasks.getSize()));
+    }
+
+    public String[] splitArguments() throws DukeException {
+        if (this.arguments.split(" /by ", 2).length < 2) {
+            throw new DukeException("OOPS!!! There are missing arguments. Please state the date/time.");
+        }
+        return this.arguments.split(" /by ", 2);
     }
 }
