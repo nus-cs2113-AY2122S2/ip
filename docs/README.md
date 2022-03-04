@@ -25,7 +25,7 @@ There are three types of tasks that can be added in Duke, `Todo`, `Event`, and `
 
 - Example: todo return book
 
-
+![image](file:///Users/lelerer/Desktop/Screenshot%202022-03-04%20at%2020.48.39.png)
 
 #### Add Event
 - Format: `event DESCRIPTION /at EVENT_DATE`
