@@ -43,6 +43,13 @@ public class Duke {
         terminateDuke();
     }
 
+    /**
+     * Initiates Duke.
+     * Reads data from the local file.
+     * If the local file exists, creates a TaskManager
+     * with a non-empty TaskList with the local data,
+     * else creates a TaskManager with empty TaskList.
+     */
     private static void initDuke() {
         storage = new Storage(PATH, FILENAME);
         parser = new Parser();
@@ -53,6 +60,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Terminates Duke.
+     * Saves data to a local file.
+     */
     private static void terminateDuke() {
         storage.writeFile(taskManager.getList());
     }
@@ -81,6 +92,12 @@ public class Duke {
         parser.parseString(input);
     }
 
+    /**
+     * Executes user command.
+     *
+     * @return UI output message of the command executed.
+     * @throws DukeException if the user input is invalid or empty.
+     */
     private static String executeCommand() throws DukeException {
         String feedback;
         String command = parser.getCommand();

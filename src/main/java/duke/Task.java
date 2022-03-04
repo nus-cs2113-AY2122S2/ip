@@ -9,10 +9,20 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Sets the parameter isDone of the task.
+     * @param isDone Parameter representing whether the task is done.
+     */
     public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
 
+    /**
+     * Checks if the task contains the given words.
+     *
+     * @param word Words to be matched.
+     * @return Boolean representing whether the task contains the given words.
+     */
     public boolean containsWord(String word) {
         return description.contains(word);
     }
@@ -26,14 +36,10 @@ public abstract class Task {
         return description.equals(task.description);
     }
 
-    private String getDoneIcon() {
-        String icon = "[ ] ";
-        if (isDone) {
-            icon = "[X] ";
-        }
-        return icon;
-    }
-
+    /**
+     * Returns the task string in a specific format for data saving.
+     * @return String of the task.
+     */
     public String toStringInSaveFormat() {
         String formatted = "";
         if (isDone) {
@@ -48,5 +54,13 @@ public abstract class Task {
     @Override
     public String toString() {
         return getDoneIcon() + description;
+    }
+
+    private String getDoneIcon() {
+        String icon = "[ ] ";
+        if (isDone) {
+            icon = "[X] ";
+        }
+        return icon;
     }
 }

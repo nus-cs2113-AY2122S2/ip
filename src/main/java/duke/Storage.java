@@ -6,6 +6,10 @@ import java.io.FileWriter;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Represents a file reader to read the data from the local file and
+ * a file writer to save the data to the local file.
+ */
 public class Storage {
     private final String path;
     private final String filename;
@@ -21,6 +25,10 @@ public class Storage {
         this.file = new File(path + "/" + filename);
     }
 
+    /**
+     * Saves the data to a local file
+     * @param str Data to be saved.
+     */
     public void writeFile(String str) {
         try {
             File dir = new File(path);
@@ -35,10 +43,18 @@ public class Storage {
         }
     }
 
+    /**
+     * Checks if the file exists.
+     * @return Boolean representing whether the file exists.
+     */
     public boolean isFileExists() {
         return file.exists();
     }
 
+    /**
+     * Generates a list of tasks from the data read from a local file.
+     * @return List of tasks.
+     */
     public List<Task> readFile() {
         List<Task> tasks = new ArrayList<>();
         try {
@@ -55,6 +71,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Create a task from a single line of data.
+     *
+     * @param line A single line of data.
+     * @return Task created.
+     */
     private Task createTask(String line) throws DukeException {
         try {
             Task task;
