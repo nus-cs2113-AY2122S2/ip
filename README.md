@@ -64,6 +64,7 @@ Creates a new task that is a todo.
         [T][ ] make a reservation
     Now you have 4 tasks in the list.
     ____________________________________
+
 A new todo has been added to Duke's task list.
 
 ## ```deadline``` - Create a new deadline task
@@ -86,6 +87,7 @@ Creates a new task that is a deadline.
         [D][ ] submission (by: 23/02/2022 00:00)
     Now you have 5 tasks in the list.
     ____________________________________
+
 A new deadline has been added to Duke's task list, with a due date of 23/02/2022
 at 00:00 hours.
 
@@ -109,6 +111,7 @@ Creates a new task that is an event.
         [E][ ] meeting (at: 4pm to 6pm)
     Now you have 6 tasks in the list.
     ____________________________________
+
 A new event has been added to Duke's task list, with the specified event time.
 
 ## ```list``` - List tasks
