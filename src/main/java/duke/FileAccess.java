@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class FileAccess {
-    final static String FILE_NAME = "ip/data/duke.txt";
+    final static String FILE_NAME = "/Users/aimanimtiaz/software-engineering/ip/data/duke.txt";
 
     private static int boolToInt(boolean b) {
         return Boolean.compare(b, false);
@@ -24,7 +24,7 @@ public class FileAccess {
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         while (s.hasNext()) {
             Task task = lineToTask(s.nextLine());
-            Duke.taskList.add(task);
+            TaskList.taskList.add(task);
         }
     }
 
@@ -91,7 +91,7 @@ public class FileAccess {
     public static void saveToFile(){
         String line;
         try {
-            for (Task task: Duke.taskList){
+            for (Task task: TaskList.taskList){
                 line = taskToLine(task);
                 writeToFile(line + System.lineSeparator());
             }
