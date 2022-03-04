@@ -1,59 +1,24 @@
+# Duke project template
 
-# Welcome to Duke!
-Duke is a CLI-based todo application. 
-# Getting started
-After running the JAR file, an output file named "Duke.txt" will be created in the same directory of the JAR.  Outputs will be saved into the file before the program exits, and the file will be reread the next time Duke runs.
+This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
-# Commands
-## Add
-There are three types of tasks to be added. Namely, todo, deadline and event.  
-### Todo
-   
-   To add a todo,  command should be typed in the format "*todo taskname*"
-   Example of a valid input:
-	   
+## Setting up in Intellij
 
-     todo get groceries
+Prerequisites: JDK 11, update Intellij to the most recent version.
 
-### Event / Deadline
-   
-   To add an event or a deadline, command should be typed in the format "event taskname /dd-MM-yyyy HH:mm" or "event taskname /additional info"
-   
-   :white_check_mark: Example of a valid input:
-   
-
-    event Mark's birthday /14-02-2021 07:00 
-    event Mark's birthday /three days from now
-    deadline CS2113T submission /03-02-21 00:00
- :x: Example of a invalid input:
- 
-	deadline hello /
-	event / 
-
- ## Delete 
- To delete a task, type in "delete" followed by task number.
- 
-
-    delete 2
-
- ## List
- To list tasks, simply type "list"
- 
-
-    list
-
- ## Mark/Unmark 
- To mark the task as completed, type in "mark" followed by task number.
- 
-
-    mark 3
-
- ## Find
- To find task(s) containing a specific keyword, type in "find" followed by the keyword.
-
-    find birthday
-
- ## Bye
-To exit the program, simply type "bye". The program terminates and the current state of the tasks is saved into "Duke.txt".
-
-    bye
+1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
+1. Open the project into Intellij as follows:
+   1. Click `Open`.
+   1. Select the project directory, and click `OK`.
+   1. If there are any further prompts, accept the defaults.
+1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
+   In the same dialog, set the **Project language level** field to the `SDK default` option.
+3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+   ```
+   Hello from
+    ____        _        
+   |  _ \ _   _| | _____ 
+   | | | | | | | |/ / _ \
+   | |_| | |_| |   <  __/
+   |____/ \__,_|_|\_\___|
+   ```
