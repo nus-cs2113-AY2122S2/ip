@@ -15,7 +15,7 @@ a Command Line Interface (CLI), for users who are task orientated and need to ke
     * [4.2 Unmark a task](#4-2-unmark-as-not-done-unmark)
   * [5. Finding task with keywords](#5-find-tasks-find)
   * [6. Exiting the program and saving the data](#6-exit-bye)
-* [FAQ]
+* [FAQ](#FAQ)
 
 
 ## Features
