@@ -76,7 +76,7 @@ Got it. I've added this task
 Now you have 1 tasks in the list.
 ```
 
-###2. Delete a task: `delete`
+### 2. Delete a task: `delete`
 Deleting a task from your task list.
 
 Format: `delete [INDEX_OF_TASK_IN_LIST ]`
@@ -98,7 +98,7 @@ Noted I have deleted this task
 You have 2 tasks left in the list.
 ````
 
-###3. Listing tasks: `list`
+### 3. Listing tasks: `list`
 Listing tasks from your task list.
 
 Format: `list`
@@ -113,10 +113,10 @@ Expected outcome:
 ````
 
 
-###4. Marking tasks as done: 
+### 4. Marking tasks as done: 
 Marking and unmarking tasks.
 
-###4.1. Mark as done: `mark`
+### 4.1. Mark as done: `mark`
 Marking a task as done.
 
 Format: `mark [INDEX_OF_TASK_IN_LIST]`
@@ -135,7 +135,7 @@ Nice! I've marked this task as done:
 [T][X] read book
 ````
 
-###4.2. Unmark as not done: `unmark`
+### 4.2. Unmark as not done: `unmark`
 Unmarking a task as not done.
 
 Format: `unmark [INDEX_OF_TASK_IN_LIST]`
@@ -154,7 +154,7 @@ OK, I've marked this task as not done yet:
 [T][ ] read book
 ````
 
-###5. Find tasks: `find`
+### 5. Find tasks: `find`
 Finding a task from your task list.
 
 Format: `find [KEYWORD]`
@@ -174,7 +174,7 @@ Here are the matching tasks in your list:
 1. [T][ ] read book
 ````
 
-###6. Exit: `bye`
+### 6. Exit: `bye`
 Exiting the task.
 
 Format: `bye`
