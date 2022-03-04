@@ -48,11 +48,13 @@ public class TaskList {
      */
     public void deleteTask(int index) {
         try {
+            Ui.printLine();
             Task task = taskList.get(index - 1);
             taskList.remove(index - 1);
             Ui.printTaskRemove();
             System.out.println(task);
             Ui.printTaskCount(this);
+            Ui.printLine();
         } catch (IndexOutOfBoundsException e) {
             Ui.printIndexOutOfBoundsException();
         }
@@ -77,7 +79,7 @@ public class TaskList {
      */
     public void addEvent(String input) {
         String event = input.substring(input.indexOf("/") + 4);
-        String description = input.substring(input.indexOf(" "), input.indexOf("/"));
+        String description = input.substring(input.indexOf(" ") + 1, input.indexOf("/"));
         taskList.add(new Event(description, event));
         Ui.printTaskAdd();
         System.out.println(taskList.get(taskList.size()-1));

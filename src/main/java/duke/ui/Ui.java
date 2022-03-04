@@ -58,7 +58,7 @@ public class Ui {
     }
 
     public static void printMarked() {
-        out.println(Messages.MESSAGE_UNMARKED);
+        out.println(Messages.MESSAGE_MARKED);
     }
 
 
@@ -79,7 +79,7 @@ public class Ui {
     }
 
     public static void printUnmarked() {
-        out.println(Messages.MESSAGE_MARKED);
+        out.println(Messages.MESSAGE_UNMARKED);
     }
 
     /**

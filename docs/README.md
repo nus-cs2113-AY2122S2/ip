@@ -25,32 +25,42 @@ There are three types of tasks that can be added in Duke, `Todo`, `Event`, and `
 
 - Example: todo return book
 
-![image](file:///Users/lelerer/Desktop/Screenshot%202022-03-04%20at%2020.48.39.png)
+![](TODO.png)
 
 #### Add Event
 - Format: `event DESCRIPTION /at EVENT_DATE`
 
 - Example: event project meeting /at Mon 2-4pm
 
+![](EVENT.png)
+
 #### Add Deadline
 - Format: `deadline DESCRIPTION /by DEADLINE_DATE`
 
 - Example: deadline return book /by Sunday
 
+![](DEADLINE.png)
 
 ### Feature - Listing all the current task
 List all the tasks stored in Duke
 - Format: `list`
+- Example: list
+
+![](LIST.png)
 
 ### Feature - Marking a Task as done
 Mark the selected task as done
 - Format: `mark TASK_INDEX`
 - Example: mark 1
 
+![](MARK.png)
+
 ### Feature - Marking a Task as not done
 Mark the selected task as not done
 - Format: `unmark TASK_INDEX`
 - Example: unmark 1
+
+![](UNMARK.png)
 
 ### Feature - Deleting a task
 Delete the selected task, note that the `TASK_INDEX` must not exceed the total number of tasks stored in Duke.
@@ -59,6 +69,7 @@ Delete the selected task, note that the `TASK_INDEX` must not exceed the total n
 - Format: `delete TASK_INDEX`
 - Example: delete 1
 
+![](DELETE.png)
 
 ### Feature - Finding a task 
 Finds all task from the list of task that matches the given keyword.
@@ -68,7 +79,10 @@ The keyword is case sensitive*
 - Format: `find KEYWORD`
 - Example: find book
 
+![](FIND.png)
+
 ### Feature - Closing the program
 Close the Duke program
 - Format: `bye`
 
+![](BYE.png)
