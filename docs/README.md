@@ -3,25 +3,25 @@
 Duke is a desktop app for managing tasks, optimized for use via Command Line Interface (CLI).
 It allows users to add different types of task and view them in a very easy to read manner.
 
-- [Quick Start]()
-- [Features]()
-  - [Todo]()
-  - [Deadline]()
-  - [Event]()
-  - [List]()
-  - [Mark]()
-  - [Unmark]()
-  - [Delete]()
-  - [Find]()
-  - [Bye]()
-- [Command Summary]()
+- [Quick Start](#quick-start)
+- [Features](#features)
+  - [Todo](#adding-a-todo-task-todo)
+  - [Deadline](#adding-a-deadline-task-deadline)
+  - [Event](#adding-an-event-task-event)
+  - [List](#list-all-your-tasks-list)
+  - [Mark](#mark-a-task-as-completed-mark)
+  - [Unmark](#mark-a-task-as-not-completed-unmark)
+  - [Delete](#remove-a-task-from-the-list-delete)
+  - [Find](#find-a-task-from-the-list-find)
+  - [Bye](#exiting-from-the-program-bye)
+- [Command Summary](#command-summary)
 
 ## Quick Start
 
 1. Download and install Java 11 in your Computer.
 
 
-2. Download the latest "Duke.jar" from [here]().
+2. Download the latest "Duke.jar" from [here](https://github.com/LDerpy/ip/releases/tag/A-Release).
 
 
 3. To use existing data file (optional):
@@ -42,7 +42,7 @@ It allows users to add different types of task and view them in a very easy to r
 ## Features 
 
 ### Important things to note
-- Words in full upper case (eg DESCRIPTION) refer to required parameters in the command.
+- Words in full upper case (e.g. DESCRIPTION) refer to required parameters in the command.
 - Missing these parameters may cause unintended function.
 - Examples will show the example command followed by its output on the CLI.
 
@@ -119,7 +119,7 @@ Added to thing for ya at some place and time!
 __________________________________________________
 ```
 
-### List all you tasks: `list`
+### List all your tasks: `list`
 
 List out all your tasks onto the screen.
 
