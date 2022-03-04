@@ -4,6 +4,10 @@ import duke.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a container containing the different Tasks that
+ * have been added by the user.
+ */
 public class TaskList {
     ArrayList<Task> tasks;
 

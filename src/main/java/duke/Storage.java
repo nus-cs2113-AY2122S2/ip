@@ -21,6 +21,11 @@ public class Storage {
         this.fileName=  filePath.split("/")[1];
     }
 
+    /**
+     * Returns an ArrayList containing the list of Task that have been loaded from the filepath
+     *
+     * @return An ArrayList of Task
+     */
     public ArrayList<Task> load() throws DukeException {
         // Create new TaskList
         ArrayList<Task> tasks = new ArrayList<Task>();
@@ -58,21 +63,25 @@ public class Storage {
             try {
                 f.createNewFile();
             } catch (IOException err) {
-                System.out.println(err);
+                throw new DukeException("Error loading from the filepath.");
             }
         }
 
         return tasks;
     }
 
-    // Write tasks to file
+    /**
+     * Writes each Task found in tasks to the filepath specified earlier by the user
+     *
+     * @param tasks TaskList containing current list of Task
+     */
     public void writeTasksToStorage(TaskList tasks) {
         try {
             String output = "";
             for (int i = 0; i < tasks.getSize(); i++) {
                 output += tasks.getTask(i).saveString() + System.lineSeparator();
             }
-            FileWriter fw = new FileWriter("data/duke.txt");
+            FileWriter fw = new FileWriter(folderPath + "/" + fileName);
             fw.write(output);
             fw.close();
         } catch (IOException e) {

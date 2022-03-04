@@ -1,8 +1,12 @@
 package duke.task;
 
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a Deadline task (eg. deadline return book /by 2019-10-15)
+ */
 public class Deadline extends Task {
     private LocalDate deadlineDate;
 
@@ -16,6 +20,7 @@ public class Deadline extends Task {
         this.deadlineDate = LocalDate.parse(dateInput); // yyyy-mm-dd
     }
 
+    // Representation of Deadline in the saved file
     @Override
     public String saveString() {
         return "D" + super.saveString() + String.format(" | %s", this.deadlineDate);

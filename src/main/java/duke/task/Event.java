@@ -3,6 +3,9 @@ package duke.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an Event task (eg. event project meeting /at 2019-10-15)
+ */
 public class Event extends Task {
     private LocalDate eventDate;
 
@@ -16,6 +19,7 @@ public class Event extends Task {
         this.eventDate = LocalDate.parse(dateInput); // yyyy-mm-dd
     }
 
+    // Representation of Event in the saved file
     @Override
     public String saveString() {
         return "E" + super.saveString() + String.format(" | %s", this.eventDate);

@@ -6,10 +6,19 @@ import duke.command.ListCommand;
 import duke.command.ExitCommand;
 import duke.command.AddCommand;
 import duke.command.MarkCommand;
+import duke.command.UnknownCommand;
 import duke.command.UnmarkCommand;
 import duke.command.DeleteCommand;
 
 public class Parser {
+    /**
+     * Returns a Command that can be executed later on. There are different
+     * types of Command that can be created, based on the user input.
+     *
+     * @param fullCommand A single line argument that the user keys in
+     * @return The Command containing its arguments, if any
+     * @throws DukeException If there is an unknown command
+     */
     public static Command parse(String fullCommand) throws DukeException {
         String commandWord = fullCommand.split(" ", 2)[0];
         int taskIndex;
@@ -35,8 +44,8 @@ public class Parser {
             taskIndex = Integer.parseInt(getArguments(fullCommand)) - 1;
             return new DeleteCommand(taskIndex);
         default:
-            // Throw exception if unknown command inputted
-            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            return new UnknownCommand();
+
         }
     }
 

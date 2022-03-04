@@ -9,6 +9,10 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+/**
+ * Represents a Command to add a Task to the TaskList.
+ * Different types of Task can be added based on the user input.
+ */
 public class AddCommand extends Command {
     private final String commandWord;
     private final String arguments;
@@ -47,7 +51,6 @@ public class AddCommand extends Command {
         tasks.addTask(newTask);
         storage.writeTasksToStorage(tasks);
 
-        // Print the newTask
         System.out.println("Got it. I've added this task:");
         System.out.println(String.format("  %s", newTask));
         System.out.println(String.format("Now you have %d tasks in the list.", tasks.getSize()));

@@ -29,11 +29,6 @@ public class Ui {
         System.out.println(e);
     }
 
-    public void showLoadingError() {
-        System.out.println("Error loading data!");
-        System.out.println("New database created.");
-    }
-
     public String readCommand() {
         String fullCommand = this.in.nextLine();
         return fullCommand;
