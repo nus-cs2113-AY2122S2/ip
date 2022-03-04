@@ -1,5 +1,8 @@
 package marites.exception;
 
+/**
+ * Exception raised when an input command is missing a parameter.
+ */
 public class MissingParameterException extends MaritesException {
     private final String missingParameterTag;
     private static final String ERROR_MESSAGE =
@@ -10,6 +13,11 @@ public class MissingParameterException extends MaritesException {
         this.missingParameterTag = missingParameterTag;
     }
 
+    /**
+     * Returns an error message for user consumption.
+     * @return Error message
+     */
+    @Override
     public String getErrorMessage() {
         return String.format(ERROR_MESSAGE, missingParameterTag);
     }

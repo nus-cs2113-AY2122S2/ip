@@ -3,6 +3,9 @@ package marites.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A sub-class of Task for deadlines, which is for tasks that must be attended to before a given time.
+ */
 public class Deadline extends Task {
 
     private static final String DEADLINE_FORMAT_STRING = "[D]%s (by: %s)";

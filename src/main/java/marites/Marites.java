@@ -9,6 +9,9 @@ import marites.task.Task;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * The main class.
+ */
 public class Marites {
 
     private static final String SAVE_FILENAME = "tasklist.ser";
@@ -25,6 +28,9 @@ public class Marites {
         ui = new Ui(System.in, System.out);
     }
 
+    /**
+     * Runs the main loop of the chatbot.
+     */
     public void run() {
         TaskList tasks = storage.load();
         ui.showIntroduction();

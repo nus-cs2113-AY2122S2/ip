@@ -18,6 +18,9 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+/**
+ * Class for parsing commands.
+ */
 public class Parser {
 
     private static final String COMMAND_EXIT = "bye";
@@ -34,6 +37,12 @@ public class Parser {
 
     private static final SimpleDateFormat DATE_TIME_PARSER = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
+    /**
+     * Parses an input command.
+     * @param inputCommand The user's input.
+     * @return A Command object representing the command.
+     * @throws marites.exception.MaritesException if an error occurs while parsing.
+     */
     public static Command parse(String inputCommand) throws MaritesException {
         String[] commandSplit = splitCommandTypeAndCommand(inputCommand);
         String commandType = commandSplit[0], command = commandSplit[1];
@@ -60,6 +69,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses an index into the TaskList.
+     * @param index Task index
+     * @return An int index into the TaskList.
+     * @throws marites.exception.MaritesException if the index is not an integer.
+     */
     public static int parseTaskIndex(String index) throws MaritesException {
         try {
             return Integer.parseInt(index);
@@ -86,6 +101,7 @@ public class Parser {
      * @param taskType The task's type.
      * @param command The user's command.
      * @return A marites.Command object representing the command.
+     * @throws marites.exception.MaritesException if an error occurs.
      */
     private static Command parseAddTask(String taskType, String command)
             throws MaritesException {
@@ -115,6 +131,13 @@ public class Parser {
         return new AddTaskCommand(newTask);
     }
 
+    /**
+     * Extracts the description of a task to add, and the date parameter.
+     * @param command The user's input.
+     * @param separator The separator between the description and the date.
+     * @return A String[] with 2 elements: the description, and the date.
+     * @throws marites.exception.MissingParameterException if the separator is missing.
+     */
     private static String[] getAddParameters(String command, String separator) throws MissingParameterException {
         String[] parametersSplit;
         parametersSplit = command.split(COMMAND_ADD_DEADLINE_TAG);
@@ -124,6 +147,12 @@ public class Parser {
         return parametersSplit;
     }
 
+    /**
+     * Parses a date string using the set format.
+     * @param dateTime A string representing a user-inputted date and time.
+     * @return A LocalDateTime representing the date and time.
+     * @throws InvalidDateTimeException if the input is invalid.
+     */
     private static LocalDateTime parseDateTime(String dateTime) throws InvalidDateTimeException {
         try {
             return DATE_TIME_PARSER.parse(dateTime)
