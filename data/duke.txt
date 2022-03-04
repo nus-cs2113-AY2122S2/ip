@@ -1,4 +1,4 @@
-T | 0 | something else
-E | 1 | newee | 5pm
-E | 0 | aws  |  5pm
-D | 0 | project  |  3pm
+T | 0 | something
+D | 0 | project | 2019-10-15
+D | 0 | project2 | 2019-10-16
+E | 0 | aws | 2019-10-20
