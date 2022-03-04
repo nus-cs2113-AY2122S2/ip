@@ -17,10 +17,13 @@ public class Parser {
             return new addCommand(commandWord, arguments);
         case "mark":
             arguments = fullCommand.split(" ", 2)[1];
-            return new markCommand(Integer.parseInt(arguments));
+            return new markCommand(Integer.parseInt(arguments) - 1);
         case "unmark":
             arguments = fullCommand.split(" ", 2)[1];
-            return new unmarkCommand(Integer.parseInt(arguments));
+            return new unmarkCommand(Integer.parseInt(arguments) - 1);
+        case "delete":
+            arguments = fullCommand.split(" ", 2)[1];
+            return new deleteCommand(Integer.parseInt(arguments) - 1);
         default:
             // Throw exception if unknown command inputted
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
