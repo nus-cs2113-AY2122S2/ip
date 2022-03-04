@@ -6,9 +6,12 @@ public class Duke {
     private static Scanner SCANNER = new Scanner(System.in);
     private static Parser parser;
     private static TaskManager taskManager;
+    private static Storage storage;
     private static String input;
     private static String output;
 
+    private static final String PATH = "./data/";
+    private static final String FILENAME = "duke.txt";
     private static final String LIST_COMMAND = "list";
     private static final String MARK_COMMAND = "mark";
     private static final String UNMARK_COMMAND = "unmark";
@@ -41,17 +44,17 @@ public class Duke {
     }
 
     private static void initDuke() {
-        Reader reader = new Reader();
-        taskManager = new TaskManager();
-        if (reader.isFileExists()) {
-            taskManager = reader.readFile(taskManager);
-        }
+        storage = new Storage(PATH, FILENAME);
         parser = new Parser();
+        if (storage.isFileExists()) {
+            taskManager = new TaskManager(storage.readFile());
+        } else {
+            taskManager = new TaskManager();
+        }
     }
 
     private static void terminateDuke() {
-        Writer writer = new Writer();
-        writer.writeFile(taskManager.getList());
+        storage.writeFile(taskManager.getList());
     }
 
     private static void showOutput(String string) {
@@ -104,10 +107,10 @@ public class Duke {
             feedback = delEvent();
             break;
         case FIND_COMMAND:
-            feedback = findEvent();
+            feedback = findTask();
             break;
         default:
-            throw new DukeException(Ui.invalidCommand());
+            throw new DukeException(Ui.invalidCommandError());
         }
         return feedback;
     }
@@ -136,7 +139,7 @@ public class Duke {
         return taskManager.delTask(parser.getTaskId());
     }
 
-    private static String findEvent() throws DukeException {
+    private static String findTask() throws DukeException {
         return taskManager.findTask(parser.getDescription());
     }
 }

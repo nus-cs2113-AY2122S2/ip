@@ -1,5 +1,7 @@
 package duke;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class TaskManager {
@@ -7,6 +9,13 @@ public class TaskManager {
 
     public TaskManager() {
         taskList = new TaskList();
+    }
+
+    public TaskManager(List<Task> tasks) {
+        taskList = new TaskList();
+        for (Task task : tasks) {
+            taskList.addTask(task);
+        }
     }
 
     public String addTask(Task task) {
@@ -28,10 +37,10 @@ public class TaskManager {
 
     public String createDeadline(String[] taskDescription) throws DukeException {
         if (!taskDescription[1].equals("/by")) {
-            throw new DukeException(Ui.wrongInputFormat());
+            throw new DukeException(Ui.wrongInputFormatError());
         }
         if (taskDescription[2].isEmpty()) {
-            throw new DukeException(Ui.missingDate());
+            throw new DukeException(Ui.missingDateError());
         }
         Deadline deadline = new Deadline(taskDescription[0], taskDescription[2]);
         if (isDuplicate(deadline).isPresent()) {
@@ -42,10 +51,10 @@ public class TaskManager {
 
     public String createEvent(String[] taskDescription) throws DukeException {
         if (!taskDescription[1].equals("/at")) {
-            throw new DukeException(Ui.wrongInputFormat());
+            throw new DukeException(Ui.wrongInputFormatError());
         }
         if (taskDescription[2].isEmpty()) {
-            throw new DukeException(Ui.missingDate());
+            throw new DukeException(Ui.missingDateError());
         }
         Event event = new Event(taskDescription[0], taskDescription[2]);
         if (isDuplicate(event).isPresent()) {
@@ -60,7 +69,7 @@ public class TaskManager {
             taskList.getTask(index).setDone(isDone);
             return Ui.markTaskMsg(taskList.getTask(index), isDone);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(Ui.taskIdOutOfBound(id));
+            throw new DukeException(Ui.taskIdOutOfBoundError(id));
         }
     }
 
@@ -82,7 +91,7 @@ public class TaskManager {
             taskList.delTask(index);
             return Ui.delTaskMsg(task, taskList.getSize());
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(Ui.taskIdOutOfBound(id));
+            throw new DukeException(Ui.taskIdOutOfBoundError(id));
         }
     }
 

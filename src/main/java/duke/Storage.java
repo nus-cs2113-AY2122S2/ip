@@ -2,46 +2,57 @@ package duke;
 
 import java.io.File;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.util.List;
+import java.util.ArrayList;
 
-public class Reader {
-    private static final String PATH = "./data/";
-    private static final String FILE = "duke.txt";
+public class Storage {
+    private final String path;
+    private final String filename;
+    private File file;
+
     public static final String EVENT = "E";
     public static final String DEADLINE = "D";
     public static final String TODO = "T";
-    private File file;
-    private boolean isFileExists;
 
-    public Reader() {
-        file = new File(PATH + "/" + FILE);
-        isFileExists = file.exists();
+    public Storage(String path, String filename) {
+        this.path = path;
+        this.filename = filename;
+        this.file = new File(path + "/" + filename);
+    }
+
+    public void writeFile(String str) {
+        try {
+            File dir = new File(path);
+            dir.mkdir();
+            file.createNewFile();
+            FileWriter fileWriter = new FileWriter(path + "/" + filename, false);
+            fileWriter.write(str);
+            fileWriter.close();
+        } catch (Exception e) {
+            DukeException exception = new DukeException(Ui.writingFileError(e));
+            Ui.printError(exception);
+        }
     }
 
     public boolean isFileExists() {
-        return isFileExists;
+        return file.exists();
     }
 
-    public TaskManager readFile(TaskManager taskManager) {
+    public List<Task> readFile() {
+        List<Task> tasks = new ArrayList<>();
         try {
             Scanner scanner = new Scanner(file);
-            taskManager = readByLine(taskManager, scanner);
-        } catch (Exception e) { //Future task: exception
-            Ui.printError(e);
-        }
-        return taskManager;
-    }
-
-    private TaskManager readByLine(TaskManager taskManager, Scanner sc) {
-        String line;
-        while (sc.hasNext()) {
-            try {
-                line = sc.nextLine();
-                taskManager.addTask(createTask(line));
-            } catch (Exception e) { //Future task: exception
-                Ui.printError(e);
+            while (scanner.hasNext()) {
+                String line = scanner.nextLine();
+                Task newTask = createTask(line);
+                tasks.add(newTask);
             }
+        } catch (Exception e) {
+            DukeException exception = new DukeException(Ui.readingFileError(e));
+            Ui.printError(exception);
         }
-        return taskManager;
+        return tasks;
     }
 
     private Task createTask(String line) throws DukeException {
@@ -59,14 +70,14 @@ public class Reader {
                 task = new Todo(getTaskDescription(splitLine));
                 break;
             default:
-                throw new DukeException(Ui.wrongFileFormat(line));
+                throw new DukeException(Ui.wrongFileFormatError(line));
             }
             if (isTaskDone(getTaskDone(splitLine))) {
                 task.setDone(true);
             }
             return task;
         } catch (Exception e) {
-            throw new DukeException(Ui.wrongFileFormat(line));
+            throw new DukeException(Ui.wrongFileFormatError(line));
         }
     }
 

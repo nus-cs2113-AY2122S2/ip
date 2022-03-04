@@ -71,31 +71,43 @@ public class Ui {
         return ANSI_RED + message + ANSI_REST;
     }
 
-    public static  String invalidCommand() {
+    public static  String emptyInputError() {
+        return String.format("Input cannot be empty!");
+    }
+
+    public static  String invalidCommandError() {
         return String.format("Invalid command!");
     }
 
-    public static String missingDescription(String command) {
+    public static String missingDescriptionError(String command) {
         return String.format("The description of %s cannot be empty!", command);
     }
 
-    public static String wrongInputFormat() {
-        return String.format("Wrong input format!");
-    }
-
-    public static String missingDate() {
+    public static String missingDateError() {
         return String.format("The date/time is missing!");
     }
 
-    public static String taskIdOutOfBound(int taskId) {
+    public static String wrongInputFormatError() {
+        return String.format("Wrong input format!");
+    }
+
+    public static String taskIdOutOfBoundError(int taskId) {
         return String.format("Task %d does not exist!", taskId);
     }
 
-    public static String wrongTaskIdFormat() {
+    public static String wrongTaskIdFormatError() {
         return String.format("The task ID has to be a number!");
     }
 
-    public static String wrongFileFormat(String line) {
-        return String.format("Invalid input from local file! \n%s", line);
+    public static String wrongFileFormatError(String line) {
+        return String.format("Invalid input from local file: \t%s", line);
+    }
+
+    public static String readingFileError(Exception e) {
+        return String.format("Error reading file! \n%s", e.getMessage());
+    }
+
+    public static String writingFileError(Exception e) {
+        return String.format("Error writing to file! \n%s", e.getMessage());
     }
 }
