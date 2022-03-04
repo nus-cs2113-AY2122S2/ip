@@ -49,7 +49,7 @@ Format: `list`
 ### Find task by description keyword: `find`
 Shows a list of all tasks in the task list that contains the keyword in their description.
 
-Format: `find` KEYWORD
+Format: `find KEYWORD`
 - Only the description of tasks will be searched for the keyword.
 - It is considered a match if the keyword is part of a word in the description. E.g. `lock` will match `lockdown` and `clock`.
 
