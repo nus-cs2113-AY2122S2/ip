@@ -16,6 +16,10 @@ Description of the feature.
 
 Describe the action and its outcome.
 
+todo
+deadline
+event
+
 Example of usage: 
 
 `keyword (optional arguments)`
