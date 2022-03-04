@@ -52,7 +52,7 @@ Now you have 1 tasks in list.
 ### Adding a Deadline task: `deadline`
 Adds a Deadline task to the list of tasks.
 <br>
-Format: `deadline <task> /by <date/time>`
+Format: `deadline <task> /by <datetime>`
 <br>
 Example: `deadline homework /by 3 March`
 <br>
@@ -67,7 +67,7 @@ Now you have 2 tasks in list.
 ### Adding an Event task: `event`
 Adds an Event task to the list of tasks.
 <br>
-Format: `event <task> /at <date/time>`
+Format: `event <task> /at <datetime>`
 <br>
 Example: `event exam /at this Sunday`
 <br>
@@ -143,11 +143,25 @@ Exits the application. The current list of tasks will be saved.
 Format: `bye`
 <br>
 
-### Caution
-#### Duke will not add duplicate task to the list.
+## Caution
+### Duke will not add duplicate task to the list.
 Expected output:
 ```
 This task already exists:
 [T][X] return book
 Now you have 5 tasks in list.
 ```
+
+## Command summary
+
+Action | Format
+------------ | ------------
+List | `list`
+Todo | `todo <task_description>`
+Deadline | `deadline <task_description> /by <datetime>`
+Event | `event <task_description> /at <datetime>`
+Delete | `delete <task_index>`
+Mark | `mark <task_index>`
+Unmark | `unmark <task_index>`
+Find | `find <keyword>`
+Exit | `bye`
