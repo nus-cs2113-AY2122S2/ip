@@ -8,12 +8,22 @@ import tasks.Event;
 import tasks.Task;
 import java.io.IOException;
 
+/**
+ * Represents the user's command to create a new event task
+ */
 public class EventCommand extends Command {
 
     protected String taskDescription = "";
     protected String duration = "";
     public static final String COMMAND_WORD = "event";
 
+    /**
+     * Extracts duration of the user's event task
+     *
+     * @param s User's input string
+     * @return Substring representing the duration of the user's event task
+     * @throws DukeException If no duration is detected
+     */
     private static String extractDuration(String s) throws DukeException {
         if (s.contains("/at")) {
             int startIndex = s.indexOf("/at");
@@ -27,6 +37,11 @@ public class EventCommand extends Command {
         }
     }
 
+    /**
+     * Prepares the event task for creation by extracting the task description and duration
+     *
+     * @param userInput User's input string
+     */
     public EventCommand(String userInput) {
         try {
             taskDescription = extractDescription(userInput);
@@ -42,6 +57,13 @@ public class EventCommand extends Command {
         }
     }
 
+    /**
+     * Adds an event task to TaskManager.tasks
+     * Writes the new event task to the user's task list file in the user's hard disk
+     *
+     * @param taskManager Manages the user's task list
+     * @param fileEditor Reads and writes from and to the user's task list file in the user's hard disk
+     */
     @Override
     public void execute(TaskManager taskManager, FileEditor fileEditor) {
         if (taskDescription.equals("") || duration.equals("")) {
