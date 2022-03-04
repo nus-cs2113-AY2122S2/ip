@@ -23,6 +23,8 @@ public class DeleteCommand {
             TaskList.lists.remove(Integer.parseInt(indexOfList) + Indexes.LIST_INDEX_CORRECTION);
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommandException("You cannot delete whats not there!", ErrorCount.errorCount);
+        } catch (NumberFormatException e) {
+            throw new InvalidCommandException("Input an index from the list to delete", ErrorCount.errorCount);
         }
         System.out.println("This task is gone, reduced to ashes:");
         System.out.println(taskToBeRemoved);
