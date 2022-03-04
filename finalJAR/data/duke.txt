@@ -1,3 +1,0 @@
-[T][ ] b
-[T][ ] buy food
-[D][ ] finish hw (by: 10:00)

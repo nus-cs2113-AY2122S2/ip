@@ -189,7 +189,7 @@ public class TaskList {
                     for (Task task : relevantTasks) {
                         System.out.println(task.toString());
                     }
-                } else if (keyWord.equals("deadline") || keyWord.equals("event") || keyWord.equals("todo")){
+                } else { // We can have a catch-all else condition because addTask handles invalid tasks
                     addTask(line);
                     storage.saveTasksToFile(formatTaskListToString());
                 }

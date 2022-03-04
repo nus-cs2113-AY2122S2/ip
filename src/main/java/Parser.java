@@ -93,11 +93,13 @@ public class Parser {
             throw new DukeException("OOPS!!! The description of a " + type + " cannot be empty.");
         }
 
-        // Check if the user formatted the date correctly
-        try {
-            dateString = checkDateStringFormat(dateString);
-        } catch (DukeException e) {
-            throw new DukeException(e.getMessage());
+        // Check if the user formatted the date correctly (if task is a Deadline or Event)
+        if (type.equals("deadline") || type.equals("event")) {
+            try {
+                dateString = checkDateStringFormat(dateString);
+            } catch (DukeException e) {
+                throw new DukeException(e.getMessage());
+            }
         }
 
         return new String[] { type.trim(), description.trim(), dateString.trim() };
