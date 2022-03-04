@@ -38,7 +38,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public ExecutedCommandResults executeCommand(TaskList tasks) throws InvalidIndexException {
-        if (taskIndex < 0 || taskIndex >= tasks.size()) {
+        if (taskIndex <= 0 || taskIndex > tasks.size()) {
             throw new InvalidIndexException();
         }
         Task task = tasks.get(taskIndex - 1);
