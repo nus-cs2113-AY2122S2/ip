@@ -10,6 +10,50 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
+
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
+        }
+    }
+
+    public void run() {
+        // Start chat session
+        ChatSession currChat = new ChatSession();
+        currChat.startSession();
+
+        // Get user input
+        Scanner sc = new Scanner(System.in);
+        String userInput;
+
+        while (true) {
+            userInput = sc.nextLine();
+
+            // Terminate chat session
+            if (userInput.startsWith("bye")) {
+                currChat.endSession();
+                break;
+            }
+
+            // Try to execute commands. If unrecognised commands, print error.
+            try {
+
+                executeCommands(currChat, userInput);
+            } catch (DukeException e) {
+                currChat.printInvalidTask(e);
+            }
+        }
+    }
+
     // Takes in a string. Executed commands will print related statements.
     public static void executeCommands (ChatSession currChat, String userInput) throws DukeException {
         String[] userInputArr;
@@ -41,7 +85,7 @@ public class Duke {
         case "deadline":
             // eg. return book /by Sunday
             userArguments = userInputArr[1].split(" /by ", 2);
-            description = userArguments[0]; //eg. return book
+            description = userArguments[0]; // eg. return book
             String by = userArguments[1]; // eg. Sunday
             currChat.addTask(new Deadline(description, by));
             break;
@@ -60,73 +104,7 @@ public class Duke {
         }
     }
 
-    // Read previous data
-    public static void readData(ChatSession currChat, String folderPath, String fileName) {
-        try {
-            File f = new File(folderPath + "/" + fileName);
-            Scanner s = new Scanner(f);
-            while (s.hasNext()) {
-                String userInput = s.nextLine();
-                String[] userInputArr = userInput.split(" \\| ");
-                String taskType = userInputArr[0];
-                boolean isDone = userInputArr[1].equals("1");
-
-                switch (taskType) {
-                case "T":
-                    currChat.addInitialTask(new Todo(isDone, userInputArr[2]));
-                    break;
-                case "D":
-                    currChat.addInitialTask(new Deadline(isDone, userInputArr[2], userInputArr[3]));
-                    break;
-                case "E":
-                    currChat.addInitialTask(new Event(isDone, userInputArr[2], userInputArr[3]));
-                    break;
-                }
-            }
-        } catch (FileNotFoundException e) {
-            File directory = new File(folderPath);
-            // Create directory if not found
-            if (!directory.exists()) {
-                directory.mkdir();
-            }
-
-            File f = new File(folderPath + "/" + fileName);
-            // Create file if not found. If IOError, print error message
-            try {
-                f.createNewFile();
-            } catch (IOException err) {
-                System.out.println(err);
-            }
-        }
-    }
-
     public static void main(String[] args) {
-        // Start chat session
-        ChatSession currChat = new ChatSession();
-        currChat.startSession();
-
-        // Read previous data
-        readData(currChat, "data", "duke.txt");
-
-        // Get user input
-        Scanner sc = new Scanner(System.in);
-        String userInput;
-
-        while (true) {
-            userInput = sc.nextLine();
-
-            // Terminate chat session
-            if (userInput.startsWith("bye")) {
-                currChat.endSession();
-                break;
-            }
-
-            // Try to execute commands. If unrecognised commands, print error.
-            try {
-                executeCommands(currChat, userInput);
-            } catch (DukeException e) {
-                currChat.printInvalidTask(e);
-            }
-        }
+        new Duke("data/duke.txt").run();
     }
 }
