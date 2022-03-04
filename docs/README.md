@@ -36,7 +36,6 @@ Each command shows a detailed description about its usage.
 help [command] / [quick start]
 ```
 | Parameter       | Description                                                                                                                           |
-
 |-----------------|---------------------------------------------------------------------------------------------------------------------------------------|
 | `[command]`     | Adding the optional `[command]` displays information specific to that command. Otherwise, information for all commands will be shown. |
 | `[quick start]` | Adding the optional`[quick start]` displays a brief summary of all command syntax.                                                    |
@@ -223,7 +222,6 @@ mark <task_index>
 ```
 
 | Parameter      | Description                                                                                   |
-	
 |----------------|-----------------------------------------------------------------------------------------------|
 | `<task_index>` | The index of the task (when referencing to its number placement in the list) to mark as done. |
 
@@ -255,7 +253,6 @@ mark <task_index>
 ```
 
 | Parameter      | Description                                                                                     |
-	
 |----------------|-------------------------------------------------------------------------------------------------|
 | `<task_index>` | The index of the task (when referencing to its number placement in the list) to mark as undone. |
 
@@ -289,7 +286,6 @@ todo <task_description>
 ```
 
 | Parameter            | Description                       |
-	
 |----------------------|-----------------------------------|
 | `<task_description>` | Information about the *todo* task |
 
@@ -329,7 +325,6 @@ deadline <task_description> /by <task_date> [task_time]
 ```
 
 | Parameter            | Description                                                                                                                  |
-	
 |----------------------|------------------------------------------------------------------------------------------------------------------------------|
 | `<task_description>` | Information about the *deadline* task.                                                                                       |
 | `<task_date>`        | Information about the due date of the task. Format is in `yyy/MM/dd `, where year is in 4-digits, month and day in 2-digits. |
@@ -362,7 +357,6 @@ event <task_description> /at <task_date> [task_time]
 ```
 
 | Parameter            | Description                                                                                                                |
-	
 |----------------------|----------------------------------------------------------------------------------------------------------------------------|
 | `<task_description>` | Information about the *event* task.                                                                                        |
 | `<task_date>`        | Information about of the *event* occurs. Format is in `yyyy/MM/dd `, where year is in 4-digits, month and day in 2-digits. |
@@ -395,7 +389,6 @@ delete <task_index>
 ```
 
 | Parameter      | Description                                                                            |
-	
 |----------------|----------------------------------------------------------------------------------------|
 | `<task_index>` | The index of the task (when referencing to its number placement in the list) to delete |
 
@@ -462,7 +455,6 @@ find [task_description] /date [task_date]
 Note: At least one search keyword must be present in the command input, i.e. either `[task_description]` or `[task_date]`
 
 | Parameter            | Description                                                                                                                                                                    |
-	
 |----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `[task_description]` | Information about the task.                                                                                                                                                    |
 | `[task_date]`        | Information about the date of the task. Format is in `yyyy/MM/dd [HHmm]`, where year is in 4-digits, month and day in 2-digits and `HHmm` is the time given in 24-hour format. |
