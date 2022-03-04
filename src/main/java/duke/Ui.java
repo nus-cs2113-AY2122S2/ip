@@ -25,7 +25,7 @@ public class Ui {
     }
 
     public void showHorizontalLine() {
-        System.out.println("    -----------------------------------------------------------------");
+        System.out.println("    --------------------------------------------------------------------------");
     }
 
     public String readUserInput() {
@@ -34,9 +34,9 @@ public class Ui {
     }
 
     public void showLoadingError(DukeException DE) {
-        if (DE.getExceptionCause() == DukeExceptionCause.FOLDERCREATIONFAIL) {
+        if (DE.getExceptionCause() == DukeExceptionCause.FolderCreationFail) {
             System.out.println("File was not found and the parent folder of the file is unable to be created.");
-        } else if (DE.getExceptionCause() == DukeExceptionCause.FILECREATIONFAIL) {
+        } else if (DE.getExceptionCause() == DukeExceptionCause.FileCreationFail) {
             System.out.println("File was not found and the file is unable to be created.");
         } else {
             System.out.println("Failure to load data from file.");
@@ -67,28 +67,28 @@ public class Ui {
     public void showParsingError(DukeException de) {
         DukeExceptionCause causeOfException = de.getExceptionCause();
         switch (causeOfException) {
-        case INVALIDCOMMAND:
+        case InvalidCommand:
             showInvalidCommandMessage();
             break;
-        case TODOTASKNAMEEMPTY:
+        case ToDoTaskNameEmpty:
             showMissingTaskNameMessage("todo");
             break;
-        case EVENTTASKNAMEEMPTY:
+        case EventTaskNameEmpty:
             showMissingTaskNameMessage("event");
             break;
-        case DEADLINETASKNAMEEMPTY:
+        case DeadlineTaskNameEmpty:
             showMissingTaskNameMessage("deadline");
             break;
-        case EMPTYTASKINDEX:
+        case EmptyTaskIndex:
             showMissingTaskIndexMessage();
             break;
-        case TASKINDEXOUTOFRANGE:
+        case TaskIndexOutOfRange:
             showTaskIndexOutOfRangeMessage();
             break;
-        case EMPTYKEYWORD:
+        case EmptyKeyword:
             showEmptyKeywordMessage();
             break;
-        case INVALIDTASKINDEX:
+        case InvalidTaskIndex:
             showInvalidTaskIndexMessage();
             break;
         default:
@@ -112,10 +112,6 @@ public class Ui {
         System.out.println("\t Error Occurred!! Index provided is invalid. Kindly provide a valid one.");
     }
 
-    public void printTaskAndIndex(int taskNumber, String taskDescription) {
-        System.out.println("\t " + taskNumber + "." + taskDescription);
-    }
-
     public void showFarewellGreeting() {
         System.out.println("    Good bye.See you soon :)");
     }
@@ -124,17 +120,26 @@ public class Ui {
         System.out.println("\t Error Occurred!! Invalid Task Type found in file. Skipping that particular task.");
     }
 
-    public void printList(TaskList listOfTasks, boolean isMatching) {
-        if (isMatching) {
+    public void printList(TaskList listOfTasks, boolean isFindCommand) {
+        if (listOfTasks.getListSize() == 0 && isFindCommand) {
+            System.out.println("\t There are no matching tasks found within the list.");
+            return;
+        }
+        if (listOfTasks.getListSize() == 0 && isFindCommand == false) {
+            System.out.println("\t There are no tasks within the list.");
+            return;
+        }
+        if (isFindCommand) {
             System.out.println("\t Here are the matching tasks in your list:");
         } else {
             System.out.println("\t Here are the tasks in your list:");
         }
         Task taskToPrint;
+        int taskNumber;
         for (int i = 0; i < listOfTasks.getListSize(); i++) {
-            int taskNumber = i + 1;
+            taskNumber = i + 1;
             taskToPrint = listOfTasks.getTask(i);
-            printTaskAndIndex(taskNumber, taskToPrint.getTaskInformation());
+            System.out.println("\t " + taskNumber + "." + taskToPrint.getTaskInformation());
         }
     }
 }

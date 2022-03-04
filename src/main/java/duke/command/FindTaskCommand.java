@@ -33,7 +33,7 @@ public class FindTaskCommand extends Command {
         userInput = userInput.replace("find", "");
         keyWord = trimInput(userInput);
         if (keyWord.isEmpty()) {
-            throw new DukeException(DukeExceptionCause.EMPTYKEYWORD);
+            throw new DukeException(DukeExceptionCause.EmptyKeyword);
         }
         return keyWord;
     }

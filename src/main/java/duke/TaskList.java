@@ -50,7 +50,7 @@ public class TaskList {
     public String updateTask(int taskIndex, boolean isTaskDone) throws DukeException {
         String updateTaskMessage;
         if (taskIndex > getListSize()) {
-            throw new DukeException(DukeExceptionCause.TASKINDEXOUTOFRANGE);
+            throw new DukeException(DukeExceptionCause.TaskIndexOutOfRange);
         }
         Task taskToUpdate = getListOfTasks().get(taskIndex);
         if (isTaskDone) {

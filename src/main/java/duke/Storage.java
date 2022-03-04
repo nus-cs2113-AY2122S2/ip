@@ -1,11 +1,8 @@
 package duke;
 
-import duke.exception.DukeExceptionCause;
-import duke.task.Deadlines;
-import duke.task.Events;
-import duke.task.Task;
-import duke.task.ToDo;
 import duke.exception.DukeException;
+import duke.exception.DukeExceptionCause;
+import duke.task.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,6 +20,7 @@ import java.util.StringTokenizer;
 public class Storage {
     private String filePath;
     private Ui ui;
+    private final String TASK_DONE = "1";
 
     public Storage(String filePath, Ui ui) {
         setFilePath(filePath);
@@ -43,62 +41,61 @@ public class Storage {
         if (!directory.exists()) {
             isDirectoryCreated = directory.mkdirs();
             if (!isDirectoryCreated) {
-                throw new DukeException(DukeExceptionCause.FOLDERCREATIONFAIL);
+                throw new DukeException(DukeExceptionCause.FolderCreationFail);
             }
         }
         try {
             f.createNewFile();
         } catch (IOException io) {
-            throw new DukeException(DukeExceptionCause.FILECREATIONFAIL);
+            throw new DukeException(DukeExceptionCause.FileCreationFail);
         }
     }
 
-    private Events extractEventFromFile(StringTokenizer st) {
-        Events newEventTask;
+    private Event extractEventFromFile(StringTokenizer st) {
+        Event newEventTask;
         boolean isDone;
         String taskName;
         String time;
-        //0 means unmarked, 1 means marked.
-        if (st.nextToken().equals("1")) {
+        if (st.nextToken().equals(TASK_DONE)) {
             isDone = true;
         } else {
             isDone = false;
         }
         taskName = st.nextToken();
         time = st.nextToken();
-        newEventTask = new Events(taskName, time);
+        newEventTask = new Event(taskName, time);
         newEventTask.setDone(isDone);
         return newEventTask;
     }
 
-    private ToDo extractToDoFromFile(StringTokenizer st) {
-        ToDo newToDoTask;
+    private Todo extractToDoFromFile(StringTokenizer st) {
+        Todo newToDoTask;
         boolean isDone;
         String taskName;
-        if (st.nextToken().equals("1")) {
+        if (st.nextToken().equals(TASK_DONE)) {
             isDone = true;
         } else {
             isDone = false;
         }
         taskName = st.nextToken();
-        newToDoTask = new ToDo(taskName);
+        newToDoTask = new Todo(taskName);
         newToDoTask.setDone(isDone);
         return newToDoTask;
     }
 
-    private Deadlines extractDeadlineFromFile(StringTokenizer st) {
-        Deadlines newDeadlineTask;
+    private Deadline extractDeadlineFromFile(StringTokenizer st) {
+        Deadline newDeadlineTask;
         boolean isDone;
         String taskName;
         String by;
-        if (st.nextToken().equals("1")) {
+        if (st.nextToken().equals(TASK_DONE)) {
             isDone = true;
         } else {
             isDone = false;
         }
         taskName = st.nextToken();
         by = st.nextToken();
-        newDeadlineTask = new Deadlines(taskName, by);
+        newDeadlineTask = new Deadline(taskName, by);
         newDeadlineTask.setDone(isDone);
         return newDeadlineTask;
     }
@@ -170,14 +167,14 @@ public class Storage {
             } else {
                 isDoneSymbol = '0';
             }
-            if (listOfTasks.get(i) instanceof Events) {
-                Events event = (Events) listOfTasks.get(i);
+            if (listOfTasks.get(i) instanceof Event) {
+                Event event = (Event) listOfTasks.get(i);
                 taskDetails = "E|" + isDoneSymbol + "|" + event.getTaskName() + "|" + event.getTime();
-            } else if (listOfTasks.get(i) instanceof Deadlines) {
-                Deadlines deadline = (Deadlines) listOfTasks.get(i);
+            } else if (listOfTasks.get(i) instanceof Deadline) {
+                Deadline deadline = (Deadline) listOfTasks.get(i);
                 taskDetails = "D|" + isDoneSymbol + "|" + deadline.getTaskName() + "|" + deadline.getBy();
-            } else if (listOfTasks.get(i) instanceof ToDo) {
-                ToDo todoTask = (ToDo) listOfTasks.get(i);
+            } else if (listOfTasks.get(i) instanceof Todo) {
+                Todo todoTask = (Todo) listOfTasks.get(i);
                 taskDetails = "T|" + isDoneSymbol + "|" + todoTask.getTaskName();
             } else {
                 ui.showInvalidTaskTypeMessage();

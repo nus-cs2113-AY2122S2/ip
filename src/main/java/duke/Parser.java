@@ -58,7 +58,7 @@ public class Parser {
                 throw de;
             }
         } else {
-            throw new DukeException(DukeExceptionCause.INVALIDCOMMAND);
+            throw new DukeException(DukeExceptionCause.InvalidCommand);
         }
         return newCommand;
     }

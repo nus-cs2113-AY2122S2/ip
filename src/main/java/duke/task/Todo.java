@@ -1,32 +1,25 @@
 package duke.task;
 
-/**
- * Represents a task that needs to be done before a specific date/time
- * A Deadlines object corresponds to a specific task with a deadline, it contains the name of the task, the task's
- * symbol as well as the task's deadline.
- */
-public class Deadlines extends Task {
-    private final String DEAD_LINE_SYMBOL = "[D]";
-    private String by;
 
-    public Deadlines(String taskName, String by) {
+/**
+ * Represents a task that needs to be done but does not have any date/time attached to it.
+ * A ToDo object corresponds to a ToDo task and contains the task name and the task's symbol.
+ */
+public class Todo extends Task {
+    private final String TODO_SYMBOL = "[T]";
+
+    public Todo(String taskName) {
         super(taskName);
-        setBy(by);
     }
 
     public String getTaskInformation() {
-        return DEAD_LINE_SYMBOL + super.getTaskInformation() + " (by: " + getBy() + ")";
-    }
-
-    public String getTaskDescription() {
-        return super.getTaskDescription() + " (by: " + getBy() + ")";
+        return TODO_SYMBOL + super.getTaskInformation();
     }
 
     /**
      * Returns an acknowledgement message which informs the user that the task was successfully added.
      *
-     * @return An acknowledgement message containing the name, status, type as well as deadline of the task that was
-     * added.
+     * @return An acknowledgement message containing the name, type and status of the task that was added.
      */
     public String addTaskMessage() {
         String message;
@@ -49,21 +42,11 @@ public class Deadlines extends Task {
     /**
      * Returns an acknowledgement message which informs the user that the task was successfully removed.
      *
-     * @return An acknowledgement message containing the name, status, type as well as deadline of the task that was
-     * removed.
+     * @return An acknowledgement message containing the name, type and status of the task that was removed.
      */
     public String removeTaskMessage() {
         String acknowledgementMessage = super.removeTaskMessage() + "\t   " + getTaskInformation();
         return acknowledgementMessage;
-    }
-
-
-    public String getBy() {
-        return by;
-    }
-
-    public void setBy(String by) {
-        this.by = by;
     }
 
 }

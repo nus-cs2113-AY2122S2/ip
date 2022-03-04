@@ -7,12 +7,11 @@ import duke.command.DeleteTaskCommand;
 import duke.command.Command;
 
 import duke.exception.DukeException;
-import duke.exception.DukeExceptionCause;
-import duke.task.Deadlines;
-import duke.task.Events;
+import duke.task.Deadline;
+import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskType;
-import duke.task.ToDo;
+import duke.task.Todo;
 
 /**
  * Represents an instance of the bot which communicates with the user.
@@ -55,7 +54,8 @@ public class ChatBot {
                 UpdateTaskStatusCommand newUpdateCommand = (UpdateTaskStatusCommand) inputCommand;
                 updateTaskStatusInList(newUpdateCommand);
             } else if (inputCommand.getType() == Command.CommandType.PRINTLIST) {
-                ui.printList(listOfTasks, false);
+                boolean isFindCommand = false;
+                ui.printList(listOfTasks, isFindCommand);
                 return false;
             } else if (inputCommand.getType() == Command.CommandType.DELETETASKS) {
                 DeleteTaskCommand newDeleteCommand = (DeleteTaskCommand) inputCommand;
@@ -63,7 +63,8 @@ public class ChatBot {
             } else if (inputCommand.getType() == Command.CommandType.FINDTASKS) {
                 FindTaskCommand newFindCommand = (FindTaskCommand) inputCommand;
                 TaskList matchingTaskList = findTaskInList(newFindCommand);
-                ui.printList(matchingTaskList, true);
+                boolean isFindCommand = true;
+                ui.printList(matchingTaskList, isFindCommand);
                 return false;
             }
         } catch (DukeException de) {
@@ -83,25 +84,11 @@ public class ChatBot {
      */
     private void deleteTask(int taskIndex) throws DukeException {
         String acknowledgementMessage = "\t Noted. I've removed this task:\n\t   ";
-        Task taskToDelete;
-        try {
-            taskToDelete = listOfTasks.getTask(taskIndex - 1);
-        } catch (IndexOutOfBoundsException IE) {
-            throw new DukeException(DukeExceptionCause.TASKINDEXOUTOFRANGE);
-        }
-        if (taskToDelete instanceof Events) {
-            Events eventToDelete = (Events) taskToDelete;
-        } else if (taskToDelete instanceof Deadlines) {
-            Deadlines deadlinesToDelete = (Deadlines) taskToDelete;
-        } else if (taskToDelete instanceof ToDo) {
-            ToDo toDoToDelete = (ToDo) taskToDelete;
-        }
         acknowledgementMessage = listOfTasks.removeTask(taskIndex - 1);
         acknowledgementMessage = acknowledgementMessage + String.format("\n\t Now you have %d tasks in the list.",
                 listOfTasks.getListSize());
         ui.showAcknowledgementMessage(acknowledgementMessage);
     }
-
 
     private void addTaskToList(AddTaskCommand inputCommand) {
         String acknowledgementMessage = "";
@@ -109,13 +96,13 @@ public class ChatBot {
         Task freshTask;
         if (inputCommand.getTaskType() == TaskType.DEADLINE) {
             String by = inputCommand.getTaskRequirement();
-            freshTask = new Deadlines(taskName, by);
+            freshTask = new Deadline(taskName, by);
         } else if (inputCommand.getTaskType() == TaskType.EVENT) {
             String time;
             time = inputCommand.getTaskRequirement();
-            freshTask = new Events(taskName, time);
+            freshTask = new Event(taskName, time);
         } else {
-            freshTask = new ToDo(taskName);
+            freshTask = new Todo(taskName);
         }
         listOfTasks.addTask(freshTask);
         acknowledgementMessage = freshTask.addTaskMessage();

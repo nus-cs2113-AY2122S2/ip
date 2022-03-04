@@ -56,27 +56,27 @@ public class AddTaskCommand extends Command {
         if (type == TaskType.EVENT) {
             userInput = userInput.replace("event", "");
             if (userInput.trim().isEmpty()) {
-                throw new DukeException(DukeExceptionCause.EVENTTASKNAMEEMPTY);
+                throw new DukeException(DukeExceptionCause.EventTaskNameEmpty);
             }
             taskNameEndingPosition = userInput.indexOf("/at");
             if (taskNameEndingPosition == -1) {
-                throw new DukeException(DukeExceptionCause.INVALIDCOMMAND);
+                throw new DukeException(DukeExceptionCause.InvalidCommand);
             }
             taskName = userInput.substring(0, taskNameEndingPosition);
         } else if (type == TaskType.DEADLINE) {
             userInput = userInput.replace("deadline", "");
             if (userInput.trim().isEmpty()) {
-                throw new DukeException(DukeExceptionCause.DEADLINETASKNAMEEMPTY);
+                throw new DukeException(DukeExceptionCause.DeadlineTaskNameEmpty);
             }
             taskNameEndingPosition = userInput.indexOf("/by");
             if (taskNameEndingPosition == -1) {
-                throw new DukeException(DukeExceptionCause.INVALIDCOMMAND);
+                throw new DukeException(DukeExceptionCause.InvalidCommand);
             }
             taskName = userInput.substring(0, taskNameEndingPosition);
         } else {
             taskName = userInput.replace("todo", "");
             if (taskName.trim().isEmpty()) {
-                throw new DukeException(DukeExceptionCause.TODOTASKNAMEEMPTY);
+                throw new DukeException(DukeExceptionCause.ToDoTaskNameEmpty);
             }
         }
         taskName = taskName.trim();
@@ -98,15 +98,17 @@ public class AddTaskCommand extends Command {
         int taskRequirementStartPosition;
         int userInputEndingPosition = trimmedUserInput.length();
         if (type == TaskType.EVENT) {
-            taskRequirementStartPosition = trimmedUserInput.indexOf("/at") + 3;
+            int LENGTH_OF_SLASH_AT = 3;
+            taskRequirementStartPosition = trimmedUserInput.indexOf("/at") + LENGTH_OF_SLASH_AT;
             if (taskRequirementStartPosition == userInputEndingPosition) {
-                throw new DukeException(DukeExceptionCause.INVALIDCOMMAND);
+                throw new DukeException(DukeExceptionCause.InvalidCommand);
             }
             extractedRequirement = trimmedUserInput.substring(taskRequirementStartPosition, trimmedUserInput.length());
         } else if (type == TaskType.DEADLINE) {
-            taskRequirementStartPosition = trimmedUserInput.indexOf("/by") + 3;
+            int LENGTH_OF_SLASH_BY = 3;
+            taskRequirementStartPosition = trimmedUserInput.indexOf("/by") + LENGTH_OF_SLASH_BY;
             if (taskRequirementStartPosition == userInputEndingPosition) {
-                throw new DukeException(DukeExceptionCause.INVALIDCOMMAND);
+                throw new DukeException(DukeExceptionCause.InvalidCommand);
             }
             extractedRequirement = trimmedUserInput.substring(taskRequirementStartPosition, trimmedUserInput.length());
         }

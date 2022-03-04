@@ -26,13 +26,13 @@ public class DeleteTaskCommand extends Command {
     private int extractTaskIndex(String userInput) throws DukeException {
         String taskIndexString = userInput.replace("delete", "").trim();
         if (taskIndexString.isEmpty()) {
-            throw new DukeException(DukeExceptionCause.EMPTYTASKINDEX);
+            throw new DukeException(DukeExceptionCause.EmptyTaskIndex);
         }
         int taskIndex = 0;
         try {
             taskIndex = Integer.parseInt(taskIndexString);
         } catch (NumberFormatException ne) {
-            throw new DukeException(DukeExceptionCause.INVALIDTASKINDEX);
+            throw new DukeException(DukeExceptionCause.InvalidTaskIndex);
         }
         return taskIndex;
     }

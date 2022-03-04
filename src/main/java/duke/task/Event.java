@@ -1,25 +1,31 @@
 package duke.task;
 
-
 /**
- * Represents a task that needs to be done but does not have any date/time attached to it.
- * A ToDo object corresponds to a ToDo task and contains the task name and the task's symbol.
+ * Represents a task that starts at a specific time and ends at a specific time.
+ * An event object corresponds to a specific event task that has a task name, the task's symbol and a time range.
  */
-public class ToDo extends Task {
-    private final String TO_DO_SYMBOL = "[T]";
+public class Event extends Task {
+    private final String EVENT_SYMBOL = "[E]";
+    private String time;
 
-    public ToDo(String taskName) {
+    public Event(String taskName, String time) {
         super(taskName);
+        setTime(time);
     }
 
     public String getTaskInformation() {
-        return TO_DO_SYMBOL + super.getTaskInformation();
+        return EVENT_SYMBOL + super.getTaskInformation() + String.format(" (at: %s)", getTime());
+    }
+
+    public String getTaskDescription() {
+        return super.getTaskDescription() + String.format(" (at: %s)", getTime());
     }
 
     /**
      * Returns an acknowledgement message which informs the user that the task was successfully added.
      *
-     * @return An acknowledgement message containing the name, type and status of the task that was added.
+     * @return An acknowledgement message containing the name, status, type as well as date and time of the task that
+     * was added.
      */
     public String addTaskMessage() {
         String message;
@@ -42,11 +48,20 @@ public class ToDo extends Task {
     /**
      * Returns an acknowledgement message which informs the user that the task was successfully removed.
      *
-     * @return An acknowledgement message containing the name, type and status of the task that was removed.
+     * @return An acknowledgement message containing the name, status, type as well as date and time of the task
+     * that was removed.
      */
     public String removeTaskMessage() {
         String acknowledgementMessage = super.removeTaskMessage() + "\t   " + getTaskInformation();
         return acknowledgementMessage;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
 }

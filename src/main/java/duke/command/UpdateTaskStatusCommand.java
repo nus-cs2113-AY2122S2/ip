@@ -31,12 +31,12 @@ public class UpdateTaskStatusCommand extends Command {
         }
         taskIndexStringVersion = taskIndexStringVersion.trim();
         if (taskIndexStringVersion.isEmpty()) {
-            throw new DukeException(DukeExceptionCause.EMPTYTASKINDEX);
+            throw new DukeException(DukeExceptionCause.EmptyTaskIndex);
         }
         try {
             taskIndex = Integer.parseInt(taskIndexStringVersion) - 1;
         } catch (NumberFormatException ne) {
-            throw new DukeException(DukeExceptionCause.INVALIDTASKINDEX);
+            throw new DukeException(DukeExceptionCause.InvalidTaskIndex);
         }
 
         return taskIndex;
