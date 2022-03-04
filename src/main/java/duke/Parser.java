@@ -18,6 +18,9 @@ public class Parser {
         case "mark":
             arguments = fullCommand.split(" ", 2)[1];
             return new markCommand(Integer.parseInt(arguments));
+        case "unmark":
+            arguments = fullCommand.split(" ", 2)[1];
+            return new unmarkCommand(Integer.parseInt(arguments));
         default:
             // Throw exception if unknown command inputted
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
