@@ -9,6 +9,7 @@ import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Parser {
@@ -55,6 +56,9 @@ public class Parser {
         case "delete":
             deleteTask(response);
             hasUpdate = true;
+            break;
+        case "find":
+            findTask(detail);
             break;
         default:
             throw new UnknownCommandException();
@@ -197,6 +201,20 @@ public class Parser {
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("☹ OOPS!!! You forgot to indicate an index!");
+        }
+
+        ui.printLine();
+    }
+
+    private void findTask(String detail) {
+        ui.printLine();
+
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+
+        filteredTasks = tasks.findFromList(detail);
+        for (int i = 0; i < filteredTasks.size(); i++) {
+            System.out.print(i + 1);
+            System.out.println("." + filteredTasks.get(i));
         }
 
         ui.printLine();
