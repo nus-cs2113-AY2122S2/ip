@@ -277,17 +277,41 @@ Duke only supports to find matching task according to the keyword and task name.
 ---
 
 ## Command Summary
-| **Command Type** | Command Format                         | 
-|:-----------------|:---------------------------------------|
-| **add todo**     | `todo <Task Name>`                     |    
-| **add event**    | `event <Task Name> /at <Task Time>`    |     
-| **add deadline** | `deadline <Task Name> /by <Task Time>` |     
-| **mark**         | `mark <Task Index>`                    |      
-| **unmark**       | `unmark <Task Index>`                  |      
-| **find**         | `find <Keywords>`                      |
-| **delete**       | `delete <Task Index>`                  |
-| **list**         | `list`                                 | 
-| **exit**         | `bye`                                  |
+**add todo**
+
+`todo <Task Name>`
+
+**add event**
+
+`event <Task Name> /at <Task Time>`
+
+**add deadline**
+
+`deadline <Task Name> /by <Task Time>`
+
+**mark**
+
+`mark <Task Index>`
+
+**unmark**
+
+`unmark <Task Index>`
+
+**find**
+
+`find <Keywords>`
+
+**delete**       
+
+`delete <Task Index>`
+
+**list**       
+
+`list`
+
+**exit** 
+
+`bye`
 
 ---
 
@@ -319,7 +343,7 @@ There's no requirement for the number of digit but please ensure that the date a
 **TIPS**: Always list all the task before deleting and marking/unmarking.
 
 ---
-##Demo
+## Demo
 ````text
 Hello! I'm Duke :P
 What can I do for you?
