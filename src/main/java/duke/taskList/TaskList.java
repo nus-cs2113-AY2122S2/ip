@@ -7,7 +7,7 @@ import duke.task.Todo;
 import duke.ui.Ui;
 
 import java.util.ArrayList;
-
+import static java.util.stream.Collectors.toList;
 
 
 public class TaskList {
@@ -52,6 +52,7 @@ public class TaskList {
             taskList.remove(index - 1);
             Ui.printTaskRemove();
             System.out.println(task);
+            Ui.printTaskCount(this);
         } catch (IndexOutOfBoundsException e) {
             Ui.printIndexOutOfBoundsException();
         }
@@ -66,6 +67,8 @@ public class TaskList {
         taskList.add(new Todo(todo));
         Ui.printTaskAdd();
         System.out.println(taskList.get(taskList.size()-1));
+        Ui.printTaskCount(this);
+        Ui.printLine();
     }
 
 
@@ -78,6 +81,8 @@ public class TaskList {
         taskList.add(new Event(description, event));
         Ui.printTaskAdd();
         System.out.println(taskList.get(taskList.size()-1));
+        Ui.printTaskCount(this);
+        Ui.printLine();
     }
 
 
@@ -90,7 +95,9 @@ public class TaskList {
         taskList.add(new Deadline(description, deadline));
         Ui.printTaskAdd();
         System.out.println(taskList.get(taskList.size()-1));
+        Ui.printTaskCount(this);
         Ui.printLine();
+
     }
 
     /**
@@ -116,6 +123,22 @@ public class TaskList {
         System.out.println("." + taskList.get(indexOfTask - 1));
         Ui.printLine();
     }
+
+
+    public void findTask(String input) {
+        System.out.println("Here are the matching tasks in your list:");
+        Ui.printLine();
+        String keyword = input.substring(input.indexOf(" ") + 1);
+        ArrayList<Task> matchedTasks = (ArrayList<Task>) taskList.stream()
+            .filter((t) -> t.getDescription().contains(keyword))
+            .collect(toList());
+        if (matchedTasks.size() == 0) {
+            System.out.println("OOPS, I don't think there is any task, try again using different key word");
+        } else {
+            Ui.printTaskList(matchedTasks);
+        }
+    }
+
 
 
 }

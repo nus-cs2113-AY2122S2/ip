@@ -6,9 +6,14 @@ import java.time.temporal.ChronoUnit;
 
 
 public class Task {
+
+
     private String description;
     public boolean isDone;
 
+    public String getDescription() {
+        return description;
+    }
 
     /**
      * @param description
