@@ -18,12 +18,12 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
-    public void showWelcomeMessage() {
+    public void showWelcome() {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
     }
 
-    public void showGoodbyeMessage() {
+    public void showGoodbye() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
