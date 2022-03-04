@@ -1,0 +1,4 @@
+D / 0 / xinyi submit cs2113 ip  / 03 02 2022
+E / 1 / xinyi learns lecture  / 03 29 2022
+T / 0 / xinyi practice coding / 
+T / 0 / Mark release a jar file / 
