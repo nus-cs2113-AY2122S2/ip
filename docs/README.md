@@ -5,7 +5,7 @@ and event in daily life. This application allows users to manage their tasks via
 
 ## Quick Start
 1. Ensure you have Java 11 or above installed in your computer.
-2. Download the latest `duke.jar` from [here](https://github.com/yanjie1017/ip/releases/tag/A-Jar-v0.2)
+2. Download the latest `duke.jar` from [here](https://github.com/yanjie1017/ip/releases/tag/A-Release)
 3. Copy the file to the folder you want to use as _home folder_ for Duke
 4. Run `java -jar duke.jar` at the _home folder_ at terminal.
 5. Type the command in the terminal and press Enter to execute it.
