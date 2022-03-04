@@ -54,6 +54,8 @@ Mark the selected task as not done
 
 ### Feature - Deleting a task
 Delete the selected task, note that the `TASK_INDEX` must not exceed the total number of tasks stored in Duke.
+
+*The `TASK_INDEX` must be a positive integer*
 - Format: `delete TASK_INDEX`
 - Example: delete 1
 
@@ -66,32 +68,7 @@ The keyword is case sensitive*
 - Format: `find KEYWORD`
 - Example: find book
 
-
-
 ### Feature - Closing the program
 Close the Duke program
 - Format: `bye`
 
-
-
-## Save data
-
-
-
-## Usage
-
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
-```
