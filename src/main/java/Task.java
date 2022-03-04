@@ -16,15 +16,6 @@ public class Task {
         this.isDone = false;
     }
 
-//    public String parseDateString() {
-//        return "";
-//    }
-//
-//    public String processDate() {
-//        return "";
-//    }
-
-
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }

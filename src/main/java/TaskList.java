@@ -31,8 +31,8 @@ public class TaskList {
 
 
     /**
-     * Helper for processTasks
-     * Prints string representation of Task objects in TaskList
+     * Helper for processTasks.
+     * Prints string representation of Task objects in TaskList.
      */
     public void printTaskObjects() {
         System.out.println("Here are the tasks in your list: ");
@@ -44,9 +44,9 @@ public class TaskList {
     }
 
     /**
-     * Helper for saveTasksToFile
-     * Formats taskList into a string to be written into a file
-     * @return the string representation of the list of tasks
+     * Helper for saveTasksToFile.
+     * Formats taskList into a string to be written into a file.
+     * @return The string representation of the list of tasks.
      */
     public String formatTaskListToString() {
         String taskListString = "";
@@ -59,9 +59,10 @@ public class TaskList {
 
 
     /**
-     * Helper for processTasks
-     * Marks a task as done or unmarks a task when user types "mark" or "unmark" commands, respectively
-     * @param line the line of user input
+     * Helper for processTasks.
+     * Marks a task as done or unmarks a task when user types "mark" or "unmark" commands, respectively.
+     * @param line The line of user input.
+     * @throws DukeException If the user asks to mark/unmark a Task at an out-of-bounds index in the TaskList.
      */
     public void markTask(String line) throws DukeException {
         try {
@@ -93,10 +94,10 @@ public class TaskList {
     }
 
     /**
-     * Helper for processTasks
-     * Converts line of user input into relevant Task object
-     * Adds Task object to global taskList
-     * @param line line of user input
+     * Helper for processTasks.
+     * Converts line of user input into relevant Task object (Todo, Deadline, or Event).
+     * Adds Task object to global taskList.
+     * @param line Line of user input.
      */
     public void addTask(String line) {
         String[] taskInfo = {"", "", ""};
@@ -124,10 +125,10 @@ public class TaskList {
     }
 
     /**
-     * Helper for processTasks
-     * Filters relevant tasks with the specified keyword
-     * @param keywords the relevant keywords that the user wants to search the TaskList for
-     * @returns ArrayList of tasks representing taskList filtered by the specified keywords
+     * Helper for processTasks.
+     * Filters relevant tasks with the specified keyword.
+     * @param keywords The relevant keywords that the user wants to search the taskList for.
+     * @returns ArrayList of tasks representing taskList filtered by the specified keywords.
      */
     public ArrayList<Task> findTasks(String keywords) {
         List<Task> filteredTasksList = taskList
@@ -140,9 +141,10 @@ public class TaskList {
     }
 
     /**
-     * Helper for processTasks
-     * Deletes user-specified task
-     * @param line line of user input
+     * Helper for processTasks.
+     * Deletes user-specified task from the taskList.
+     * @param line Line of user input.
+     * @throws DukeException If the user asks to delete a Task at an out-of-bounds index in the taskList.
      */
     public void deleteTask(String line) throws DukeException {
         String[] lineWords = line.split("\\s");
@@ -162,10 +164,9 @@ public class TaskList {
     }
 
     /**
-     * Processes user input (addition of tasks to the global taskList) until user types "bye"
+     * Processes user input (addition of tasks to the global taskList) until user types "bye".
      */
     public void processTasks() {
-        //loadTasksFromDisk();
         String line;
         Scanner in = new Scanner(System.in);
         line = in.nextLine();

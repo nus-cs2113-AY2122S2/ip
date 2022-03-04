@@ -9,8 +9,12 @@ import java.time.format.DateTimeFormatter;
 
 public class Parser {
     /**
-     * Helper for addTask
-     * Extracts date information and converts
+     * Helper for addTask.
+     * Converts specified line of user input representing date into LocalDateTime object and
+     * reformats it into a user-readable string.
+     * @param dateString The substring of user input representing the date of a deadline or event
+     * @return Reformatted string representation of date
+     * @throws DukeException If the date provided by user is in an invalid format.
      */
     public String checkDateStringFormat(String dateString) throws DukeException {
         LocalDateTime dateTime;
@@ -18,19 +22,24 @@ public class Parser {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         try {
             dateTime = LocalDateTime.parse(dateString, formatter);
-            newDateString = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(dateTime);
-            System.out.println(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(dateTime));
+            String rawHour = "0" + Integer.toString(dateTime.getHour());
+            String hour = rawHour.substring(rawHour.length() - 2);
+            String rawMinute = "0" + Integer.toString(dateTime.getMinute());
+            String minute = rawMinute.substring(rawMinute.length() - 2);
+            newDateString = dateTime.getMonth() + " " + dateTime.getDayOfMonth() + " " + dateTime.getYear() + " "
+                    + hour + ":" + minute;
         } catch (DateTimeParseException e) {
             throw new DukeException("Date is not formatted correctly! Should be in format yyyy-MM-dd HHmm.");
         }
         return newDateString;
     }
     /**
-     * Helper for addTask
-     * Extracts information about Task object from line of user input
-     * Reports information in array of Strings
-     * @param inputLine line of user input
-     * @return array of Strings (task type, description, additional info)
+     * Helper for addTask.
+     * Extracts information (type, description, date) about Task object from line of user input.
+     * Reports information in array of Strings.
+     * @param inputLine Line of user input.
+     * @return Array of Strings (task type, description, additional info)
+     * @throws DukeException If the user did not follow the correct format for specifying a Task.
      */
     public String[] extractTaskInfo(String inputLine) throws DukeException {
         String type;
@@ -53,12 +62,6 @@ public class Parser {
                 throw new DukeException("OOPS!!! Task of type deadline must have a deadline specified.");
             }
             dateString = inputLine.substring(inputLine.indexOf("/by") + 4);
-            // Check if the user formatted the date correctly
-//            try {
-//                dateString = checkDateStringFormat(dateString);
-//            } catch (DukeException e) {
-//                throw new DukeException(e.getMessage());
-//            }
             // If the task has an empty deadline, throw a DukeException
             if (dateString.trim().isEmpty()) {
                 throw new DukeException("OOPS!!! Type of task deadline must not have an empty deadline.");

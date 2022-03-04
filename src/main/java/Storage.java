@@ -19,11 +19,11 @@ public class Storage {
     }
 
     /**
-     * Helper for convertTaskStringToTask
-     * "Cleans" a string representation of a task (gets rid of extraneous characters like brackets and parens)
-     * Converts clean string representation into an ArrayList
-     * @param taskString the string representation of the task
-     * @return ArrayList containing the information of the taskString
+     * Helper for convertTaskStringToTask.
+     * "Cleans" a string representation of a task (gets rid of extraneous characters like brackets and parens).
+     * Converts clean string representation into an ArrayList.
+     * @param taskString The string representation of the task.
+     * @return ArrayList containing the information of the taskString.
      */
     public static ArrayList<String> cleanTaskListString(String taskString) {
         taskString = taskString.replace("[", "").replace("]", "").replace("(", "").replace(")", "");
@@ -38,13 +38,13 @@ public class Storage {
     }
 
     /**
-     * Helper for convertTaskStringToTask
+     * Helper for convertTaskStringToTask.
      * Given an ArrayList of strings, a starting index, and an ending index, concatenates the strings in the
-     * ArrayList within the boundaries of the indices into a single string
-     * @param list the given ArrayList
-     * @param startIndex the index to start concatenating from
-     * @param endIndex the index to stop concatenating at (not inclusive)
-     * @return the concatenated string
+     * ArrayList within the boundaries of the indices into a single string.
+     * @param list The given ArrayList.
+     * @param startIndex The index to start concatenating from.
+     * @param endIndex The index to stop concatenating at (not inclusive).
+     * @return The concatenated string.
      */
     public static String concatenateStringsInArrayList(ArrayList<String> list, int startIndex, int endIndex) {
         String string = "";
@@ -57,10 +57,10 @@ public class Storage {
 
 
     /**
-     * Helper for loadTasksFromDisk
-     * Converts a string representation of a Task to a Task object
-     * @param taskString the string representation of the task
-     * @return the Task object
+     * Helper for loadTasksFromDisk.
+     * Converts a string representation of a Task to a Task object.
+     * @param taskString the string representation of the task.
+     * @return the Task object.
      */
     public static Task convertTaskStringToTask(String taskString) {
         Task task = new Task("");
@@ -88,9 +88,10 @@ public class Storage {
     }
 
     /**
-     * Helper for processTasks
-     * Loads tasks from duke.txt (file of saved tasks)
-     * Returns ArrayList of Task objects
+     * Helper for processTasks.
+     * Loads tasks from storage (file of saved tasks).
+     * @return ArrayList of Task objects loaded from storage.
+     * @throws DukeException If the specified file to load the Task objects from is not found.
      */
     public ArrayList<Task> loadTasksFromDisk() throws DukeException {
         ArrayList<Task> taskList = new ArrayList<>();
@@ -112,10 +113,11 @@ public class Storage {
     }
 
     /**
-     * Helper for saveTasksToFile
-     * Separates this.filePath into directory and file name)
-     * Assumption: this.filePath is in format "directory/fileName"
-     * @returns array of Strings (directory, file name)
+     * Helper for saveTasksToFile.
+     * Separates this.filePath into directory and file name).
+     * Assumption: this.filePath is in format "directory/fileName."
+     * @return array of Strings (directory, file name)
+     * @throws DukeException if the filepath is not in the correct "directory/fileName" format.
      */
     public String[] separateFilePath() throws DukeException {
         int slashIndex = filePath.indexOf("/");
@@ -132,9 +134,10 @@ public class Storage {
 
 
     /**
-     * Helper for processTasks
-     * Saves the list of tasks to the filepath of the Storage object
-     * @param taskListString string representation of list of tasks to write to file
+     * Helper for processTasks.
+     * Saves the list of tasks to the filepath of the Storage object.
+     * @param taskListString string representation of list of tasks to write to file.
+     * @throws IOException If there is an error saving the list of tasks to the file.
      */
     public void saveTasksToFile(String taskListString) throws IOException {
         try {
@@ -143,7 +146,6 @@ public class Storage {
             String fileName = separatedFilePath[1];
             // If data directory doesn't exist, write to it
             File dataDirectory = new File(directory);
-            //System.out.println("DOES DIRECTORY EXIST? " + dataDirectory.exists());
             if (!dataDirectory.exists()) {
                 dataDirectory.mkdir();
             }
