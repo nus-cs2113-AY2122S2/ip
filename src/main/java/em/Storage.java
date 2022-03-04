@@ -21,6 +21,11 @@ public class Storage extends Duke {
     private static TaskList tasks;
     public static Path databasePath;
 
+    /**
+     * Constructs a Storage instance with the specified data path.
+     *
+     * @param databasePath The data path of the file.
+     */
     public Storage(Path databasePath) {
         Storage.databasePath = databasePath;
     }

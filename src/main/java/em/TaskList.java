@@ -23,6 +23,11 @@ public class TaskList {
     private static Parser parser;
     public static ArrayList<Task> taskList = new ArrayList<>();
 
+    /**
+     * Constructs a TaskList task with the specified tasklist.
+     *
+     * @param tasklist The tasklist to store all tasks.
+     */
     public TaskList(ArrayList taskList) {
         this.taskList = taskList;
     }
