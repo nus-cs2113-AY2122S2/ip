@@ -15,8 +15,11 @@ public class Ui {
 
     String greeting;
     String underscoreLine;
-    
-    public Ui() {
+
+    TaskList toDos;
+
+
+    public Ui(TaskList toDos) {
         greeting = "____________________________________________________________\n"
                 + " Hello! I'm Duke\n"
                 + " What can I do for you?\n"
@@ -28,7 +31,7 @@ public class Ui {
         System.out.println(greeting);
     }
     
-    public void parseLine(TaskList toDos, int taskCounter) {
+    public void parseLine(TaskList toDos) {
         Scanner sc = new Scanner(System.in);
         String line = sc.nextLine();
         String[] commands = line.split(" ");
@@ -53,7 +56,7 @@ public class Ui {
                     throw new InputLengthException();
                 }
                 commandNumber = Integer.parseInt(commands[1]);
-                if (commandNumber >= 0 && commandNumber <= taskCounter) {
+                if (commandNumber >= 0 && commandNumber <= toDos.taskCounter) {
                     System.out.println(underscoreLine);
                     System.out.println("   I don't actually believe you completed a task, but I'll mark it anyway.");
                     System.out.println("     [X] " + toDos.get(commandNumber - 1).getDescription());
@@ -78,7 +81,7 @@ public class Ui {
                     throw new InputLengthException();
                 }
                 commandNumber = Integer.parseInt(commands[1]);
-                if (commandNumber >= 0 && commandNumber <= taskCounter) {
+                if (commandNumber >= 0 && commandNumber <= toDos.taskCounter) {
                     System.out.println(underscoreLine);
                     System.out.println("   Unmarking a task; sharp as a marble, aren't we?");
                     System.out.println("     [] " + toDos.get(commandNumber - 1).getDescription());
@@ -108,9 +111,9 @@ public class Ui {
                 System.out.println(underscoreLine);
                 System.out.println(" Do these tasks distract you from a glaring lack of meaning\n in your life?" +
                         "\n Anyway, I added" + " it to the list.");
-                System.out.printf("   %s %s%n", toDos.get(taskCounter).getStatusIcon(), line);
-                taskCounter++;
-                System.out.println(" There are now " + taskCounter + " tasks in the list.");
+                System.out.printf("   %s %s%n", toDos.get(toDos.taskCounter - 1).getStatusIcon(), line);
+                //taskCounter++;
+                System.out.println(" There are now " + toDos.taskCounter + " tasks in the list.");
                 System.out.println(underscoreLine);
             } catch (InputLengthException e) {
                 System.out.println(underscoreLine);
@@ -133,9 +136,9 @@ public class Ui {
             toDos.add(new Deadline(description, doBy));
             System.out.println(underscoreLine);
             System.out.println(" Great, something else for you to procrastinate:");
-            System.out.printf("   %s %s(by:%s)%n", toDos.get(taskCounter).getStatusIcon(), description, doBy);
-            taskCounter++;
-            System.out.printf(" There are now %d tasks in the list.%n", taskCounter);
+            System.out.printf("   %s %s(by:%s)%n", toDos.get(toDos.taskCounter - 1).getStatusIcon(), description, doBy);
+            //taskCounter++;
+            System.out.printf(" There are now %d tasks in the list.%n", toDos.taskCounter);
             System.out.println(underscoreLine);
             break;
         case "event": //add an event to the task list
@@ -152,9 +155,9 @@ public class Ui {
             toDos.add(new Event(description, doAt));
             System.out.println(underscoreLine);
             System.out.println(" An event! Perhaps it can distract you from your self-inflicted prison:");
-            System.out.printf("   %s %s(at:%s)%n", toDos.get(taskCounter).getStatusIcon(), description, doAt);
-            taskCounter++;
-            System.out.printf(" There are now %d tasks in the list.%n", taskCounter);
+            System.out.printf("   %s %s(at:%s)%n", toDos.get(toDos.taskCounter - 1).getStatusIcon(), description, doAt);
+            //taskCounter++;
+            System.out.printf(" There are now %d tasks in the list.%n", toDos.taskCounter);
             System.out.println(underscoreLine);
             break;
         case "delete":
@@ -163,13 +166,13 @@ public class Ui {
                     throw new InputLengthException();
                 }
                 commandNumber = Integer.parseInt(commands[1]);
-                if (commandNumber >= 0 && commandNumber <= taskCounter) {
+                if (commandNumber >= 0 && commandNumber <= toDos.taskCounter) {
                     System.out.println(underscoreLine);
                     System.out.println(" Forgoing further responsibilties, I see.");
                     System.out.printf(" Removed:   %s %s%n", toDos.get(commandNumber - 1).getStatusIcon(),
                             toDos.get(commandNumber - 1).getDescription());
-                    taskCounter--;
-                    System.out.println(" There are now " + taskCounter + " tasks in the list.");
+                    //taskCounter--;
+                    System.out.println(" There are now " + toDos.taskCounter + " tasks in the list.");
                     System.out.println(underscoreLine);
                     toDos.remove(commandNumber - 1);
                 } else {

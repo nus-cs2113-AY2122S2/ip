@@ -13,8 +13,8 @@ public class Duke {
 
     public Duke() {
         storage = new Storage();
-        ui = new Ui();
         toDos = new TaskList();
+        ui = new Ui(toDos);
     }
 
     public void run(String filePath) {
@@ -25,7 +25,7 @@ public class Duke {
         while (true) {
             storage.fileWrite(filePath, toDos);
 
-            ui.parseLine(toDos, taskCounter);
+            ui.parseLine(toDos);
         }
     }
 
