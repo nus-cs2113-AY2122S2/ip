@@ -26,9 +26,13 @@ public class TaskList {
         return tasks.size();
     }
 
+    public boolean isEmpty() {
+        return tasks.size() == 0;
+    }
+
     @Override
     public String toString() {
-        String taskListString = "Here are the tasks in your list:\n";
+        String taskListString = "";
         for (int i = 1; i <= tasks.size(); i++) {
             taskListString += String.format("%d. %s", i, tasks.get(i - 1));
             if (i != tasks.size()) {

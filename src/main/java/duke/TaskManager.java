@@ -1,5 +1,7 @@
 package duke;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class TaskManager {
@@ -9,13 +11,10 @@ public class TaskManager {
         taskList = new TaskList();
     }
 
-    public String markTask(int id, boolean isDone) throws DukeException {
-        try {
-            int index = id - 1;
-            taskList.getTask(index).setDone(isDone);
-            return Ui.markTaskMsg(taskList.getTask(index), isDone);
-        } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(Ui.taskIdOutOfBound(id));
+    public TaskManager(List<Task> tasks) {
+        taskList = new TaskList();
+        for (Task task : tasks) {
+            taskList.addTask(task);
         }
     }
 
@@ -38,10 +37,10 @@ public class TaskManager {
 
     public String createDeadline(String[] taskDescription) throws DukeException {
         if (!taskDescription[1].equals("/by")) {
-            throw new DukeException(Ui.wrongInputFormat());
+            throw new DukeException(Ui.wrongInputFormatError());
         }
         if (taskDescription[2].isEmpty()) {
-            throw new DukeException(Ui.missingDate());
+            throw new DukeException(Ui.missingDateError());
         }
         Deadline deadline = new Deadline(taskDescription[0], taskDescription[2]);
         if (isDuplicate(deadline).isPresent()) {
@@ -52,16 +51,37 @@ public class TaskManager {
 
     public String createEvent(String[] taskDescription) throws DukeException {
         if (!taskDescription[1].equals("/at")) {
-            throw new DukeException(Ui.wrongInputFormat());
+            throw new DukeException(Ui.wrongInputFormatError());
         }
         if (taskDescription[2].isEmpty()) {
-            throw new DukeException(Ui.missingDate());
+            throw new DukeException(Ui.missingDateError());
         }
         Event event = new Event(taskDescription[0], taskDescription[2]);
         if (isDuplicate(event).isPresent()) {
             return notAddDuplicate(isDuplicate(event).get());
         }
         return addTask(event);
+    }
+
+    public String markTask(int id, boolean isDone) throws DukeException {
+        try {
+            int index = id - 1;
+            taskList.getTask(index).setDone(isDone);
+            return Ui.markTaskMsg(taskList.getTask(index), isDone);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException(Ui.taskIdOutOfBoundError(id));
+        }
+    }
+
+    public String findTask(String matchWord) throws DukeException {
+        TaskList matchedTaskList = new TaskList();
+        for (int i = 0; i < taskList.getSize(); i++) {
+            Task task = taskList.getTask(i);
+            if (task.containsWord(matchWord)) {
+                matchedTaskList.addTask(task);
+            }
+        }
+        return Ui.listMatchedTaskMsg(matchedTaskList);
     }
 
     public String delTask(int id) throws DukeException {
@@ -71,12 +91,12 @@ public class TaskManager {
             taskList.delTask(index);
             return Ui.delTaskMsg(task, taskList.getSize());
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(Ui.taskIdOutOfBound(id));
+            throw new DukeException(Ui.taskIdOutOfBoundError(id));
         }
     }
 
     public String listTask() {
-        return taskList.toString();
+        return Ui.listTaskMsg(taskList);
     }
 
     public String getList() {

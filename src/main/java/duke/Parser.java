@@ -30,26 +30,36 @@ public class Parser {
         return isExiting;
     }
 
-    public String getCommand() {
+    public String getCommand() throws DukeException {
+        if (command.isBlank()) {
+            throw new DukeException(Ui.emptyInputError());
+        }
         return command;
+    }
+
+    public String getDescription() throws DukeException {
+        if (description.isEmpty()) {
+            throw new DukeException(Ui.missingDescriptionError(command));
+        }
+        return description;
     }
 
     public String[] getTaskDescription() throws DukeException {
         String[] splitDescription = splitString(description);
         if (splitDescription[0].isEmpty()) {
-            throw new DukeException(Ui.missingDescription(command));
+            throw new DukeException(Ui.missingDescriptionError(command));
         }
         return splitDescription;
     }
 
     public int getTaskId() throws DukeException {
         if (description.isEmpty()) {
-            throw new DukeException(Ui.missingDescription(command));
+            throw new DukeException(Ui.missingDescriptionError(command));
         }
         try {
             return Integer.parseInt(description);
         } catch (NumberFormatException e) {
-            throw new DukeException(Ui.wrongTaskIdFormat());
+            throw new DukeException(Ui.wrongTaskIdFormatError());
         }
     }
 
