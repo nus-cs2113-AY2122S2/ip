@@ -199,7 +199,7 @@ ____________________________________________________________
 
 ### `bye` - Terminating Duke
 
-No more tasks to add, terminate the program.
+Terminate the program.
 
 **Sample Input**:
 
