@@ -1,4 +1,4 @@
-# Bao User Guide
+# Bao
 
 Bao is a **desktop app for managing your tasks. It is optimized for use via a Command Line Interface** (CLI). If you can
 type fast, Bao can manage your tasks faster than traditional GUI apps.
