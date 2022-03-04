@@ -14,6 +14,18 @@ The Duke application will automatically load the existing data from a
 file called `duke.txt`, if the file does not exist, the program will create one for you in your home directory.
 
 
+## Features List
+- Adding a new task
+  - Add Todo: `todo`
+  - Add Event: `event`
+  - Add Deadline: `deadline`
+- Listing all the current task: `list`
+- Marking a Task as done: `mark`
+- Marking a Task as not done: `unmark`
+- Deleting a task: `delete`
+- Finding a task: `find` 
+- Closing the program: `bye`
+
 
 ## Features
 
