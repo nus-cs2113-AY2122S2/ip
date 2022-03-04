@@ -1,8 +1,13 @@
 package duke.tasks;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class Deadline extends ToDo {
-    protected String doBy;
+    DateTimeFormatter formatter;
+    LocalDate localDate;
 
     /**
      * Constructor for Deadline object
@@ -13,7 +18,24 @@ public class Deadline extends ToDo {
      */
     public Deadline(String description, String doBy) {
         super(description);
-        this.doBy = doBy;
+        try {
+            if (doBy.matches(" \\d{2}/\\d{2}/\\d{4}")) {
+                doBy = doBy.replaceAll(" ", "");
+                formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+                localDate = LocalDate.parse(doBy, formatter);
+
+                //super(description);
+                this.doBy = " " + localDate.getDayOfWeek() + " " + localDate.getDayOfMonth()
+                        + " " + localDate.getMonth() + " " + localDate.getYear();
+                System.out.println("====== " + doBy);
+            } else {
+
+                this.doBy = doBy;
+            }
+        } catch (DateTimeException e) {
+            //System.out.println("Hey, user; you did it again. You messed up your date format this time.");
+            this.doBy = doBy;
+        }
     }
 
     @Override
