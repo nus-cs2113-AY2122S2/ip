@@ -162,6 +162,7 @@ public class Command {
         try {
             String filter = p.parseTask(input);
             ArrayList<Task> filteredTasks = (ArrayList<Task>) TaskList.tasks.stream().filter(task -> task.getDesc().toLowerCase().contains(filter.toLowerCase())).collect(toList());
+            System.out.println(LINE_SEPARATOR);
             printFilteredTasks(filteredTasks);
             System.out.println(LINE_SEPARATOR);
         } catch (IndexOutOfBoundsException e) {
