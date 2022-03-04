@@ -12,7 +12,7 @@ public class TaskManager {
     private UiManager uiManager = new UiManager(BOT_NAME);
     private CommandParser commandParser = new CommandParser();
 
-    public void startUp() {
+    public void start() {
         String userInput = "";
         LoadCommand load = new LoadCommand("wishlist.txt");
         load.execute(taskList, uiManager, taskFileManager);

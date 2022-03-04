@@ -4,11 +4,11 @@
  * specific time.
  */
 public class Event extends Task {
-    protected String at;
+    protected String eventAt;
 
-    public Event(String description, String at) {
+    public Event(String description, String eventAt) {
         super(description);
-        this.at = at;
+        this.eventAt = eventAt;
     }
 
     /**
@@ -16,7 +16,7 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "E " + super.toFileString() + " | " + at;
+        return "E " + super.toFileString() + " | " + eventAt;
     }
 
     /**
@@ -24,6 +24,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
+        return "[E]" + super.toString() + " (at: " + eventAt + ")";
     }
 }
