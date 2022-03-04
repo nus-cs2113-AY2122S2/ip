@@ -3,10 +3,19 @@ package baymax.data;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Inherit from Task class,
+ * with additioanl attribute: ddl storing the date of deadline
+ */
 public class Deadline extends Task {
 
     private LocalDate ddl;
 
+    /**
+     * class constructor
+     * @param description description of the deadline task
+     * @param ddl deadline of the task in format: MM dd yyyy
+     */
     public Deadline(String description, String ddl) {
         super(description);
         try{

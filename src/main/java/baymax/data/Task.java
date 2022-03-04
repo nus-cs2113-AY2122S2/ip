@@ -1,5 +1,9 @@
 package baymax.data;
 
+/**
+ * abstract class Task
+ * the parent of Todo, Deadline, and Event
+ */
 public class Task {
 
     protected String description;

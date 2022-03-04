@@ -3,10 +3,19 @@ package baymax.data;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Inherit from Task class,
+ * with additioanl attribute: time storing the date of event
+ */
 public class Event extends Task {
 
     private LocalDate time;
 
+    /**
+     * class constructor
+     * @param description description of the deadline task
+     * @param time time of the task in format: MM dd yyyy
+     */
     public Event(String description, String time) {
         super(description);
         try{
