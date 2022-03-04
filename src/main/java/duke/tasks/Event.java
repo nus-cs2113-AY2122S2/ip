@@ -32,7 +32,6 @@ public class Event extends ToDo {
                 this.dateTimeString = dateTimeString;
             }
         } catch (DateTimeException e) {
-            //System.out.println("Hey, user; you did it again. You messed up your date format this time.");
             this.dateTimeString = dateTimeString;
         }
     }
