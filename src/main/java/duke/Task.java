@@ -18,13 +18,13 @@ public abstract class Task {
     }
 
     /**
-     * Checks if the task contains the given words.
+     * Checks if the task contains the specific keywords.
      *
-     * @param word Words to be matched.
-     * @return Boolean representing whether the task contains the given words.
+     * @param keyword Words to be matched.
+     * @return Boolean representing whether the task contains the specific keywords.
      */
-    public boolean containsWord(String word) {
-        return description.contains(word);
+    public boolean containsWord(String keyword) {
+        return description.contains(keyword);
     }
 
     @Override

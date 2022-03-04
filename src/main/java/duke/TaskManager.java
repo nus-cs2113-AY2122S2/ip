@@ -126,16 +126,16 @@ public class TaskManager {
     }
 
     /**
-     * Finds all the tasks that contain the given words.
+     * Generates a list of tasks that contain the specific keywords in description.
      *
-     * @param matchWord Words to be matched.
+     * @param keyword Words to be matched.
      * @return UI output message of the list of matching tasks.
      */
-    public String findTask(String matchWord) {
+    public String findTask(String keyword) {
         TaskList matchedTaskList = new TaskList();
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTask(i);
-            if (task.containsWord(matchWord)) {
+            if (task.containsWord(keyword)) {
                 matchedTaskList.addTask(task);
             }
         }
