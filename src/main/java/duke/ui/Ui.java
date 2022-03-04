@@ -1,7 +1,8 @@
 package main.java.duke.ui;
 
 /**
- * The Ui class handles all print statements
+ * The Ui class handles all print statements. It contains all methods for printing 
+ * the result of various commands.
  */
 
 import java.util.ArrayList;
@@ -16,6 +17,13 @@ public class Ui {
     private final static String HORIZONTAL_LINE = "____________________________________" +
             "________________________";
 
+    /**
+     * This method is the main method used format outputs such that they appear within 2
+     * horizontal lines.
+     * 
+     * @param args A vararg that takes in Strings that are to be printed on a new horizontal line
+     *             between the 2 horizontal lines.
+     */
     public static void printFormat(String... args) {
         System.out.println(HORIZONTAL_LINE);
         for (String arg : args) {
@@ -24,6 +32,9 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Prints out the DUKE ASCII art, and welcomes the user.
+     */
     public static void printIntro() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -36,6 +47,9 @@ public class Ui {
                 "type 'commands' for the list of commands");
     }
 
+    /**
+     * Prints out all tasks description (and date) and numbers them.
+     */
     public static void printList() {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Here are the tasks in your list:");
@@ -45,6 +59,11 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Searches for task description based on a keyword, and prints out the list of those tasks.
+     * 
+     * @param keyword A String that is used to search in the description of the tasks.
+     */
     public static void printFind(String keyword) {
         Boolean foundTask = false;
         System.out.println(HORIZONTAL_LINE);
@@ -62,27 +81,54 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Prints a sentence that lets the user know that the task has been unmarked.
+     * 
+     * @param markInt Integer number of the task in the list.
+     * @param task The task that has been unmarked.
+     */
     public static void printUnmark(int markInt, Task task) {
         printFormat("OK, I've marked this task as not done yet:", 
                 task.toString());
     }
 
+    /**
+     * Prints a sentence that lets the user know that the task has been marked.
+     * 
+     * @param markInt Integer number of the task in the list.
+     * @param task The task that has been marked.
+     */
     public static void printMark(int markInt, Task task) {
         printFormat("Nice! I've marked this task as done:",
                 task.toString());
     }
-
+    
+    /**
+     * Prints a sentence that lets the user know the task has been deleted, and lets the 
+     * user know how many tasks are left in the task list.
+     * 
+     * @param task Task that has been removed from the list.
+     */
     public static void printDelete(Task task) {
         printFormat("Noted. I've removed this task:", task.toString(), 
                 "Now you have " + String.valueOf(Duke.taskCounter) + " tasks in the list.");
     }
 
+    /**
+     * Method used to let the user know that the task has been added onto the list. It also shows
+     * the total number of tasks in the list.
+     * 
+     * @param task Task that had been added into the list.
+     */
     public static void printTask(Task task) {
         printFormat("Got it. I've added this task:", 
                 "  " + task.toString(),
                 "Now you have " + String.valueOf(Duke.taskCounter) + " tasks in the list.");
     }
 
+    /**
+     * Prints out possible commands the user can use.
+     */
     public static void printCommand() {
         printFormat("List of valid commands:",
                 "'list' - lists out all tasks and its details",
@@ -106,6 +152,11 @@ public class Ui {
                         "adds a task with a time range");
     }
 
+    /**
+     * Prints out tasks that are due or happening on a specific date.
+     * 
+     * @param localDate The date which the user wants to know if there is anything happening.
+     */
     public static void printCheckDate(LocalDate localDate) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Here are the tasks on " + 
@@ -119,6 +170,13 @@ public class Ui {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Method used to check if a task is due or happening on a specific date.
+     * 
+     * @param task The task that is being checked.
+     * @param localDate The date that the task is being checked on.
+     * @return A boolean value whether the task is happening on the date.
+     */
     private static boolean isOnDate(Task task, LocalDate localDate) {
         if (task.getType().equals("D")) {
             if (localDate.equals(task.getStartDate())) {
@@ -133,15 +191,27 @@ public class Ui {
         return false;
     }
 
+    /**
+     * Prints out a goodbye before shutting the bot down.
+     */
     public static void printBye() {
         printFormat("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Prints out a message to let the user know his command was invalid, and suggests the user
+     * to use the 'command' command if the user is unsure of commands availiable.
+     */
     public static void printInvalid() {
         printFormat("OOPS!!! I'm sorry, but I don't know what that means :-(",
                 "Please type in 'commands' if you are not sure of the commands");
     }
 
+    /**
+     * Method used to print messages from Exceptions. Usually indicates what the user did wrong.
+     * 
+     * @param e A DukeException that was thrown during processing of user input.
+     */
     public static void printError(DukeException e) {
         System.out.println(e.getMessage());
     }

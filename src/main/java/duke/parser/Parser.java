@@ -12,11 +12,15 @@ import main.java.duke.command.ToDoCommand;
 import main.java.duke.command.DeadlineCommand;
 import main.java.duke.command.EventCommand;
 import main.java.duke.command.InvalidCommand;
-import main.java.duke.command.commandsCommand;
+import main.java.duke.command.CommandsCommand;
 import main.java.duke.command.CheckDateCommand;
 import main.java.duke.command.ByeCommand;
 import main.java.duke.command.FindCommand;
 
+/**
+ * Class for the Parser object. It is the class used to parse user inputs and calls Commands
+ * from the input.
+ */
 public class Parser {
 
     private final String LIST = "list";
@@ -31,6 +35,13 @@ public class Parser {
     private final String BYE = "bye";
     private final String FIND = "find";
     
+    /**
+     * Main method that takes in the initial user input and decides how to deal with it.
+     * 
+     * @param input The user input.
+     * @return Calls another method to handle the input.
+     * @throws DukeException If the user input is invalid.
+     */
     public Command parse(String input) throws DukeException {
         String lowerCaseInput = input.toLowerCase();
         if (lowerCaseInput.startsWith(LIST)) {
@@ -80,6 +91,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Method to check if a String is a number
+     * 
+     * @param string String that is being checked.
+     * @return Boolean value whether it is a number.
+     */
     private boolean isNum(String string) {
         try {
             Integer.parseInt(string);
@@ -89,10 +106,21 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Method to parse user input asking for the task list.
+     * @return ListCommand which will be executed.
+     */
     private Command parseList() {
         return new ListCommand();
     }
 
+    /**
+     * Method to parse user input asking to unmark a specific task.
+     * 
+     * @param input User input.
+     * @return UnmarkCommand to be executed.
+     * @throws DukeException If input is invalid.
+     */
     private Command parseUnmark(String input) throws DukeException {
         String[] splitString = input.split(" ", 2);
         if (splitString.length < 2) {
@@ -117,6 +145,13 @@ public class Parser {
         } 
     }
 
+    /**
+     * Method to parse user input asking to mark a specific task.
+     * 
+     * @param input User input.
+     * @return MarkCommand to be executed.
+     * @throws DukeException If input is invalid.
+     */
     private Command parseMark(String input) throws DukeException {
         String[] splitString = input.split(" ", 2);
         if (splitString.length < 2) {
@@ -141,6 +176,13 @@ public class Parser {
         } 
     }
 
+    /**
+     * Method to parse user input asking to delete a specific task.
+     * 
+     * @param input User input.
+     * @return DeleteCommand to be executed.
+     * @throws DukeException If input is invalid.
+     */
     private Command parseDelete(String input) throws DukeException {
         String[] splitString = input.split(" ", 2);
         if (splitString.length < 2) {
@@ -161,6 +203,13 @@ public class Parser {
         } 
     }
 
+    /**
+     * Method to parse user input requesting to create a new ToDo.
+     * 
+     * @param input User input.
+     * @return ToDoCommand to be executed.
+     * @throws DukeException If input is invalid.
+     */
     private Command parseToDo(String input) throws DukeException {
         String[] splitString = input.split(" ", 2);
         if (splitString.length < 2) {
@@ -172,6 +221,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Method to parse user input requesting to create a new Deadline.
+     * 
+     * @param input User input.
+     * @return DeadlineCommand to be executed.
+     * @throws DukeException If input is invalid.
+     */
     private Command parseDeadline(String input) throws DukeException {
         String[] splitString = input.split(" ", 2);
         if (splitString.length < 2) {
@@ -183,6 +239,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Method to parse user input requesting to create a new Event.
+     * 
+     * @param input User input.
+     * @return EventCommand to be executed.
+     * @throws DukeException If input is invalid.
+     */
     private Command parseEvent(String input) throws DukeException {
         String[] splitString = input.split(" ", 2);
         if (splitString.length < 2) {
@@ -194,6 +257,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Method to parse user input requesting to check if a specific date has any task.
+     * 
+     * @param input User input.
+     * @return CheckDateCommand to be executed.
+     * @throws DukeException If input is invalid.
+     */
     private Command parseCheckDate(String input) throws DukeException {
         String[] splitString = input.split(" ", 3);
         if (splitString.length < 3) {
@@ -205,8 +275,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Method to parse user input requesting to see the command list.
+     * 
+     * @return commandsCommand to be executed.
+     */
     private Command parseCommands() {
-        return new commandsCommand();
+        return new CommandsCommand();
     }
 
 }

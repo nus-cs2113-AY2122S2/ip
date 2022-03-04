@@ -7,14 +7,32 @@ import main.java.duke.exception.DukeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class for EventCommand. It is created when the user wants to create a new Event.
+ */
+
 public class EventCommand extends Command {
     
     private String input;
 
+    /**
+     * Constructor for EventCommand.
+     * 
+     * @param input User input.
+     */
     public EventCommand(String input) {
         this.input = input;
     }
 
+    /**
+     * Method to check if user input dates are valid.
+     * 
+     * @param startDate The start date in YYYY-MM-DD.
+     * @param startTime The start time in 24-hour format.
+     * @param endDate The end date in YYYY-MM-DD.
+     * @param endTime The end time in 24-hour format.
+     * @return Boolean value whether the input dates are valid.
+     */
     private boolean isValidDates(String startDate, String startTime, 
             String endDate, String endTime) {
         LocalDate startLocalDate = LocalDate.parse(startDate);
@@ -32,6 +50,12 @@ public class EventCommand extends Command {
         }
     }
 
+    /**
+     * Method to carry out the command. It checks if user input is valid at various points. If
+     * valid, it creates an Event and adds it onto the task list.
+     * 
+     * @throws DukeException If user input is invalid.
+     */
     public void execute() throws DukeException {
         String[] splitString = input.split(" /at ", 2);
         if (splitString.length < 2) {
