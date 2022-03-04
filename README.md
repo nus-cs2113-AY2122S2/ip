@@ -4,6 +4,17 @@ Bao is a **desktop app for managing your tasks. It is optimized for use via a Co
 type fast, Bao can manage your tasks faster than traditional GUI apps.
 
 - [Set Up](#setting-up)
+- [Features](#features)
+  - [View help: `help`](#viewing-help-help)
+  - [List all tasks: `list`](#list-all-tasks-list)
+  - [Find Task by description keyword: `find`](#find-task-by-description-keyword-find)
+  - [Add a ToDo: `todo`](#add-a-todo-todo)
+  - [Add a Deadline: `deadline`](#add-a-deadline-deadline)
+  - [Add an Event: `event`](#add-an-event-event)
+  - [Delete a task: `delete`](#delete-a-task-delete)
+  - [Mark task as done: `mark`](#mark-task-as-done-mark)
+  - [Mark task as undone: `unmark`](#mark-task-as-undone-unmark)
+  - [Exit Bao app: `bye`](#exit-bao-app-bye)
 
 ## Setting up
 
@@ -25,7 +36,7 @@ Prerequisites: Java 11.
 - Words in `UPPER_CASE` are the parameters to be supplied by the user.
   e.g. in `find KEYWORD`, `KEYWORD` is a parameter which can be used as `find run`.
 
-### Viewing help: `help`
+### View help: `help`
 Shows a list of command formats available.
 
 Format: `help`
