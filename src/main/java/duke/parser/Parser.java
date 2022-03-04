@@ -56,7 +56,7 @@ public class Parser {
         case "event":
         case "deadline":
             String taskName = getNextWord(input, command);
-            // taskname cannot have "/" and must be at least size of 1
+            // taskName cannot have "/" and must be at least size of 1
             if (taskName.contains("/") || taskName == "") {
                 String errorMsg = String.format("%s requires valid name (no `/` allowed) \n", command);
                 throw new DukeException(errorMsg);
