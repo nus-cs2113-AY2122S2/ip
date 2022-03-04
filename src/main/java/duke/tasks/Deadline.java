@@ -2,8 +2,6 @@ package duke.tasks;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 
 public class Deadline extends ToDo {
 
@@ -17,7 +15,7 @@ public class Deadline extends ToDo {
      *
      * @param description Description of the deadline
      * @param dateTimeString the due date of the deadline
-     * @returns the deadline object
+     * @return the deadline object
      */
     public Deadline(String description, String dateTimeString) {
         super(description);

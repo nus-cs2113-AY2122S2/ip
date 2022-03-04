@@ -1,11 +1,5 @@
 package duke.tasks;
 
-import duke.exceptions.InputLengthException;
-import duke.exceptions.UnreachableTaskException;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.ToDo;
-
 import java.util.ArrayList;
 
 public class TaskList {
@@ -17,7 +11,7 @@ public class TaskList {
     /**
      * Constructor of the TaskList class
      *
-     * @return An instance of TaskList
+     * @return new instance of TaskList
      */
     public TaskList() {
         toDos = new ArrayList<ToDo>();
@@ -59,7 +53,7 @@ public class TaskList {
      * Returns a specified ToDo object in the list
      *
      * @param index The index of TaskList to return the ToDo object from
-     * @returns A ToDo object specified by user
+     * @return A ToDo object specified by user
      */
     public ToDo get(int index) {
         return toDos.get(index);

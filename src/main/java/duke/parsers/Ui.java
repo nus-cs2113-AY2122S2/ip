@@ -1,4 +1,4 @@
-package duke;
+package duke.parsers;
 
 import duke.exceptions.InputLengthException;
 import duke.exceptions.UnreachableTaskException;
@@ -6,12 +6,8 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.TaskList;
 import duke.tasks.ToDo;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 import java.util.LinkedList;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Ui {
@@ -75,7 +71,7 @@ public class Ui {
                 throw new InputLengthException();
             }
             commandNumber = Integer.parseInt(commands[1]);
-            if (commandNumber >= 0 && commandNumber <= toDos.taskCounter) {
+            if (commandNumber > 0 && commandNumber <= toDos.taskCounter) {
                 System.out.println(underscoreLine);
                 System.out.println("   I don't actually believe you completed a task, but I'll mark it anyway.");
                 System.out.println("     [X] " + toDos.get(commandNumber - 1).getDescription());
@@ -101,7 +97,7 @@ public class Ui {
                 throw new InputLengthException();
             }
             commandNumber = Integer.parseInt(commands[1]);
-            if (commandNumber >= 0 && commandNumber <= toDos.taskCounter) {
+            if (commandNumber > 0 && commandNumber <= toDos.taskCounter) {
                 System.out.println(underscoreLine);
                 System.out.println("   Unmarking a task; sharp as a marble, aren't we?");
                 System.out.println("     [] " + toDos.get(commandNumber - 1).getDescription());
@@ -198,7 +194,7 @@ public class Ui {
                 throw new InputLengthException();
             }
             commandNumber = Integer.parseInt(commands[1]);
-            if (commandNumber >= 0 && commandNumber <= toDos.taskCounter) {
+            if (commandNumber > 0 && commandNumber <= toDos.taskCounter) {
                 System.out.println(underscoreLine);
                 System.out.println(" Forgoing further responsibilties, I see.");
                 System.out.printf(" Removed:   %s %s%n", toDos.get(commandNumber - 1).getStatusIcon(),

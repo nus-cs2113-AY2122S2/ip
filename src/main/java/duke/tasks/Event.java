@@ -2,7 +2,6 @@ package duke.tasks;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 public class Event extends ToDo {
   
@@ -14,8 +13,7 @@ public class Event extends ToDo {
      * Constructor for Event object
      *
      * @param description Description of the event
-     * @param eventTime the time of the event
-     * @returns The deadline object
+     * @return The deadline object
      */
     public Event(String description, String dateTimeString) {
         super(description);
