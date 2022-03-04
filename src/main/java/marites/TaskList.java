@@ -1,6 +1,7 @@
 package marites;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import marites.exception.TaskListOutOfBoundsException;
 import marites.task.Task;
@@ -43,5 +44,15 @@ public class TaskList implements java.io.Serializable {
         } catch (IndexOutOfBoundsException e) {
             throw new TaskListOutOfBoundsException();
         }
+    }
+
+    public ArrayList<Task> findTasks(String query) {
+        return taskList.stream()
+                .filter(task -> task.isMatch(query))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public int getTaskIndex(Task task) {
+        return taskList.indexOf(task);
     }
 }
