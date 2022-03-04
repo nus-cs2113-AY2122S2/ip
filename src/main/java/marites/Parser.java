@@ -77,7 +77,7 @@ public class Parser {
      */
     public static int parseTaskIndex(String index) throws MaritesException {
         try {
-            return Integer.parseInt(index);
+            return Integer.parseInt(index) - 1;
         } catch (NumberFormatException e) {
             throw new InvalidTaskIndexException(index);
         }
