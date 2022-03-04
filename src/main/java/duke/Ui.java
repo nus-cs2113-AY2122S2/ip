@@ -20,15 +20,15 @@ public class Ui {
     String greeting;
     /** Buffer line used extensively when printing to user */
     String underscoreLine;
-
+    /** List of all tasks in Duke's list */
     TaskList toDos;
-
+    /** A scanner to take in user input */
     Scanner sc;
-
+    /** A string to represent the user's input line, changed every time the user enters a new command */
     String line;
-
+    /** An array of the user's commands split by spaces. Changes every time the user enters a new command */
     String[] commands;
-
+    /** The number of commands in the string array commands */
     int commandNumber;
 
     /**
