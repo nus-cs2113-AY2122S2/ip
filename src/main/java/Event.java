@@ -1,3 +1,8 @@
+/**
+ * subclass of Task
+ * To add a new Event:
+ * > event [description] /at [date]
+ */
 public class Event extends Task {
     protected String at;
 

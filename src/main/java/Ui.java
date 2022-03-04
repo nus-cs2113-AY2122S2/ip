@@ -1,3 +1,7 @@
+/**
+ * container for user visible messages.
+ */
+
 public class Ui {
 
     public static final String DIVIDER = "____________________________________________________________";

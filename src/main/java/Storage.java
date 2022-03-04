@@ -7,6 +7,12 @@ public class Storage {
     public static final String SAVED_DEADLINE_SEPARATOR = "(by";
     public static final String SAVED_EVENT_SEPARATOR = "(at";
 
+    /**
+     * Saves the list of task in a readable format as .txt
+     *
+     * If IOException is caught, the save process has failed.
+     * It will print a corresponding error message to the exception caught.
+     */
     public static void saveData() {
         System.out.println(Ui.DIVIDER);
         try {
@@ -25,12 +31,26 @@ public class Storage {
         }
     }
 
+    /**
+     * Load the task status stored to the task list.
+     *
+     * @param taskIndex the index of a task
+     * @param status the status of a task such as done or not done
+     */
     public static void loadDataStatus(int taskIndex, char status) {
         if (status == 'X') {
             TaskManager.tasks.get(taskIndex).markAsDone();
         }
     }
 
+    /**
+     * Load task data into the task list.
+     *
+     * If the format of the data is wrong, DukeException will be thrown.
+     * If RuntimeException is caught, InitFailedMessage will be shown.
+     * It will print a corresponding error message to the exception caught.
+     * FileNotFoundException will be ignored.
+     */
     public static void loadData() {
         try {
             File dataFile = new File(DATA_FILE_PATH);

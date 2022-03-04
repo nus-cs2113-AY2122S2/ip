@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 
+/**
+ * Manages the list of tasks.
+ */
+
 public class TaskManager {
     public static final String TODO_COMMAND = "todo";
     public static final String DEADLINE_COMMAND = "deadline";
@@ -7,10 +11,18 @@ public class TaskManager {
     public static final String DEADLINE_SEPARATOR = "/by";
     public static final String EVENT_SEPARATOR = "/at";
 
-
+    /** The list of task stored */
     public static ArrayList<Task> tasks = new ArrayList<>();
     public static int tasksCount = 0;
 
+    /**
+     * Adds a task into the list based on the user input
+     * If the command in the user input is unknown or empty, DukeException will be thrown.
+     * It will print a corresponding error message to the exception caught.
+     *
+     * @param taskType type of a task such as todo, deadline or event
+     * @param userInput full user input string
+     */
     public static void addTask(String taskType, String userInput) {
 
         String description;
@@ -62,6 +74,13 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Marks a selected task as done.
+     * If the index is out of bound, IndexOutOfBoundsException will be thrown.
+     * It will print a corresponding error message to the exception caught.
+     *
+     * @param taskIndex the index of a task
+     */
     public static void markAsDone(int taskIndex) {
         System.out.println(Ui.DIVIDER);
         try {
@@ -80,6 +99,13 @@ public class TaskManager {
         System.out.println(Ui.DIVIDER);
     }
 
+    /**
+     * Marks a selected task as not done.
+     * If the index is out of bound, IndexOutOfBoundsException will be thrown.
+     * It will print a corresponding error message to the exception caught.
+     *
+     * @param taskIndex the index of a task
+     */
     public static void markAsNotDone(int taskIndex) {
         System.out.println(Ui.DIVIDER);
         try {
@@ -99,6 +125,9 @@ public class TaskManager {
         System.out.println(Ui.DIVIDER);
     }
 
+    /**
+     * Prints the list of tasks
+     */
     public static void listTasks() {
         int taskIndex = 0;
         System.out.println(Ui.DIVIDER);
@@ -110,6 +139,13 @@ public class TaskManager {
         System.out.println(Ui.DIVIDER);
     }
 
+    /**
+     * Deletes a selected task from the task lists.
+     * If the index is out of bound, IndexOutOfBoundsException will be thrown.
+     * It will print a corresponding error message to the exception caught.
+     *
+     * @param taskIndex the index of a task
+     */
     public static void deleteTask(int taskIndex) {
         System.out.println(Ui.DIVIDER);
         try {
@@ -125,6 +161,11 @@ public class TaskManager {
         System.out.println(Ui.DIVIDER);
     }
 
+    /**
+     * Search tasks based on the keyword given and prints the search result.
+     *
+     * @param keyword the keyword a user wish to search
+     */
     public static void findTask(String keyword) {
         int taskIndex = 0;
         boolean flag = false;

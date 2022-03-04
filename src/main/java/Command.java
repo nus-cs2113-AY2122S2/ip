@@ -1,5 +1,9 @@
 import java.util.Scanner;
 
+/**
+ * Represents an executable command.
+ */
+
 public class Command {
     public static final String EXIT_COMMAND = "bye";
     public static final String LIST_COMMAND = "list";
@@ -8,6 +12,12 @@ public class Command {
     public static final String DELETE_COMMAND = "delete";
     public static final String FIND_COMMAND = "find";
 
+    /**
+     * Executes the command until termination or the exit command is called.
+     *
+     * @param userInput full user input
+     * @param in next user input
+     */
     public static void executeCommand(String userInput, Scanner in) {
         while (!userInput.equalsIgnoreCase(EXIT_COMMAND)) {
 

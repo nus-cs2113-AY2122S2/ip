@@ -1,3 +1,8 @@
+/**
+ * Represents a task
+ * It keeps track of description and status of a task
+ * Task is the parent class of ToDo, Deadline, Event
+ */
 public class Task {
 
     private String description;

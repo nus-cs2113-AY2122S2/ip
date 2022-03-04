@@ -1,3 +1,8 @@
+/**
+ * subclass of Task
+ * To add a new Deadline:
+ * > deadline [description] /by [date]
+ */
 public class Deadline extends Task {
 
     protected String by;
