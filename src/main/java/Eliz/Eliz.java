@@ -14,22 +14,14 @@ import java.nio.file.Paths;
  */
 public class Eliz {
 
-    private Storage storage;
+    public static Storage storage;
     private static TaskList tasks;
-    private Ui ui;
+    public static Ui ui;
     private static Parser parserHere;
     public static String filePath;
 
     public Eliz(String filePath) {
         this.filePath = filePath;
-        ui = new Ui();
-        ui.botIntroduction();
-        storage = new Storage(filePath);
-        try {
-            tasks = new TaskList(storage.load());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -39,6 +31,15 @@ public class Eliz {
      * @throws IOException If the input is not correctly read.
      */
     public static void run() throws ElizException, IOException {
+        ui = new Ui();
+        ui.botIntroduction();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
         while (!line.equalsIgnoreCase("bye")) {
@@ -58,16 +59,14 @@ public class Eliz {
      * @throws IOException If the input is not correctly read.
      */
     public static void main(String[] args) throws ElizException, IOException {
-        String filePath = "src/main/java/listOfTasks.txt";
+        filePath = "listOfTasks.txt";
         File newFile = new File(filePath);
-        try{
-            if (newFile.exists()) {
-                new Eliz(filePath).run();
-            }
-        } catch (FileNotFoundException e) {
+        if (!newFile.exists()) {
             newFile.createNewFile();
             System.out.println("File is not created, please try again!");
         }
+        run();
+
     }
 }
 

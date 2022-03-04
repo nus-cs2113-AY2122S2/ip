@@ -93,15 +93,18 @@ public class TaskList {
         System.out.println("Noted I have deleted this task");
         System.out.println("[" + deletedTask + "]" + "[ ] " + deletedTaskDescription);
         System.out.println("You have " + tasks.getSize() + " tasks left in the list.");
-        Storage.writeToFile("src/main/java/listOfTasks.txt", tasks.getTask(0).getTaskType() + "|"
-                + tasks.getTask(0).getStatusIcon() + "|"
-                + tasks.getTask(0).getDescription().replace("|","") + System.lineSeparator());
-        for (int i = 1; i < tasks.getSize(); i++) {
-            Storage.appendToFile("src/main/java/listOfTasks.txt", tasks.getTask(i).getTaskType() + "|"
-                    + tasks.getTask(i).getStatusIcon() + "|"
-                    + tasks.getTask(i).getDescription().replace("|","") + System.lineSeparator());
+        if (tasks.getSize() == 0) {
+            Storage.writeToFile("listOfTasks.txt", "");
+        } else {
+            Storage.writeToFile("listOfTasks.txt", tasks.getTask(0).getTaskType() + "|"
+                    + tasks.getTask(0).getStatusIcon() + "|"
+                    + tasks.getTask(0).getDescription().replace("|","") + System.lineSeparator());
+            for (int i = 1; i < tasks.getSize(); i++) {
+                Storage.appendToFile("listOfTasks.txt", tasks.getTask(i).getTaskType() + "|"
+                        + tasks.getTask(i).getStatusIcon() + "|"
+                        + tasks.getTask(i).getDescription().replace("|","") + System.lineSeparator());
+            }
         }
-
     }
 
     /**
