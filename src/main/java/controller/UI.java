@@ -78,5 +78,13 @@ public class UI {
         System.out.println(INDENT + "Bye. Hope to see you again soon!");
         printLine();
     }
+
+    public void showFound() {
+        System.out.println(INDENT + "Here are the matching tasks in your list:");
+    }
+
+    public void showNotFound() {
+        System.out.println(INDENT + "Opps, no matching tasks found in your list :(");
+    }
 }
 

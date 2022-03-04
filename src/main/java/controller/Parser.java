@@ -33,6 +33,8 @@ public class Parser {
             //deleteTask(Integer.parseInt(input.split(SPACE)[1])-1);
         case "bye":
             return new ExitCommand();
+        case "find":
+            return new FindCommand(fullCommand);
         default:
             throw new DukeException();
         }
@@ -43,8 +45,4 @@ public class Parser {
         return action;
     }
 
-    private static String getDescription(String input) {
-        int desIdx = input.indexOf(" ")+1;
-        return input.substring(desIdx);
-    }
 }
