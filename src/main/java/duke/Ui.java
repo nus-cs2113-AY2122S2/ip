@@ -19,8 +19,10 @@ public class Ui {
     }
 
     public void showWelcome() {
+        this.showLine();
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
+        this.showLine();
     }
 
     public void showGoodbye() {

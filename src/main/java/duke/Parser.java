@@ -11,6 +11,8 @@ public class Parser {
         case "bye":
             return new exitCommand();
         case "todo":
+        case "deadline":
+        case "event":
             String arguments = fullCommand.split(" ", 2)[1];
             return new addCommand(commandWord, arguments);
         default:
