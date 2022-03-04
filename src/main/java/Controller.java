@@ -1,9 +1,9 @@
+import ui.ChatBox;
 import exceptions.DukeException;
 import operations.Operation;
-
 import java.util.Scanner;
 
-import ui.ChatBox;
+
 
 /**
  * Controller serves for orders
@@ -14,7 +14,7 @@ public class Controller {
     private static final String EXIT_COMMAND = "bye";
     private static final String YES_FLAG = "y";
     private static final String SAVE_ORDER = "save";
-    ChatBox chatBox;
+    private ChatBox chatBox;
 
     /**
      *   Initialize an controller
@@ -62,7 +62,8 @@ public class Controller {
                 ChatBox.printChatBox(operation.getResult());
 
             } catch (DukeException e) {
-                ChatBox.printChatBox(String.format("%s\n\n  %s", e.toString(), "Try to enter \"help\" to check the syntax ^-^"));
+                ChatBox.printChatBox(String.format("%s\n\n  %s", e.toString(),
+                        "Try to enter \"help\" to check the syntax ^-^"));
             }
 
         }

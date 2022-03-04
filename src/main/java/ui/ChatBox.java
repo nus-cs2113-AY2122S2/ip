@@ -5,17 +5,10 @@ package ui;
  */
 public class ChatBox {
 
+    private static final String UPPER_LINE = "____________________________________________________________";
     private String contends = "";
-    private static String UPPER_LINE = "____________________________________________________________";
 
-    /**
-     * Intitializes a ui.ChatBox with Defined contends
-     *
-     * @param contends The contends in one ui.ChatBox
-     */
-    public ChatBox(String contends) {
-        setContends(contends);
-    }
+
 
     public ChatBox() {
     }
@@ -25,10 +18,6 @@ public class ChatBox {
         this.contends = contends;
     }
 
-    public String getChatBox() {
-        String returnString = UPPER_LINE + "\n" + contends + "\n" + UPPER_LINE + "\n";
-        return returnString;
-    }
 
     /**
      * Print the layout of the ui.ChatBox
@@ -48,12 +37,6 @@ public class ChatBox {
         System.out.println(printString);
     }
 
-    /**
-     * Print the end layout of the ui.ChatBox
-     */
-    public void endChatBox() {
-        System.out.println(UPPER_LINE);
-    }
 
 
 }

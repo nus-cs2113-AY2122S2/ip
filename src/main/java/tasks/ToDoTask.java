@@ -1,8 +1,9 @@
 package tasks;
 
+import java.util.HashMap;
+
 import exceptions.TodoDukeException;
 
-import java.util.HashMap;
 
 public class ToDoTask extends Task {
 

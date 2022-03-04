@@ -4,10 +4,8 @@ import exceptions.DukeException;
 import exceptions.UnknownOrderDukeException;
 import operations.*;
 
+
 public class OperationParserFactory {
-
-    private String order;
-
     private static final String BYE_COMMAND = "bye";
     private static final String LIST_COMMAND = "list";
     private static final String MARK_COMMAND = "mark";
@@ -21,14 +19,20 @@ public class OperationParserFactory {
     private static final String HELP_COMMAND = "help";
     private static final String NULL_PARAMETER = "";
     private static final String NULL_ORDER = "";
-    private static final String[] OPERATION_NAME_LIST = {BYE_COMMAND, LIST_COMMAND, MARK_COMMAND, UNMARK_COMMAND, TODO_COMMAND, DEADLINE_COMMAND, EVENT_COMMAND, DELETE_COMMAND, SAVE_COMMAND, FIND_COMMAND, HELP_COMMAND};
+    private static final String[] OPERATION_NAME_LIST = {BYE_COMMAND, LIST_COMMAND, MARK_COMMAND,
+        UNMARK_COMMAND, TODO_COMMAND, DEADLINE_COMMAND, EVENT_COMMAND, DELETE_COMMAND,
+        SAVE_COMMAND, FIND_COMMAND, HELP_COMMAND};
     private HashMap<String, Operation> operationCache;
     private String[] helpMessages;
+    private String order;
 
-    public OperationParserFactory(String orderLocal) {
+    public OperationParserFactory (String orderLocal) {
         order = orderLocal;
     }
 
+    /**
+     * Constructor of OperationParserFactory
+     */
     public OperationParserFactory() {
         helpMessages = new String[OPERATION_NAME_LIST.length];
         operationCache = new HashMap<>();
@@ -52,8 +56,7 @@ public class OperationParserFactory {
                 operationCache.get(orderName).setOrder(order);
                 operationCache.get(orderName).executeOperation();
                 return operationCache.get(orderName);
-            }
-            else {
+            } else {
                 operationCache.put(orderName, makeOperation(orderName, order));
                 return operationCache.get(orderName);
             }

@@ -3,12 +3,13 @@ package tasks;
 import java.util.HashMap;
 
 public class Task {
-    protected String taskDescription;
-    protected Boolean marked = false;
-    protected String taskType = " ";
     private static final String TASK_DESCRIPTION_FIELD = "taskDescription";
     private static final String MARKED_FIELD = "marked";
     private static final String TASK_TYPE = "taskType";
+    protected String taskDescription;
+    protected Boolean marked = false;
+    protected String taskType = " ";
+
 
     /**
      * Initializes task with task description.
@@ -60,8 +61,7 @@ public class Task {
     protected String markedSign() {
         if (marked != true) {
             return " ";
-        }
-        else {
+        } else {
             return "X";
         }
     }

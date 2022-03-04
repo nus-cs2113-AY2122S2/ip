@@ -1,17 +1,19 @@
 package storage;
 
-import exceptions.DAOReadStreamBrokenDukeException;
-import exceptions.DAOWriteStreamBrokenDukeException;
-import exceptions.DukeException;
-import tasks.Task;
-import tasks.TaskFactory;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import exceptions.DaoReadStreamBrokenDukeException;
+import exceptions.DaoWriteStreamBrokenDukeException;
+import exceptions.DukeException;
+import tasks.Task;
+import tasks.TaskFactory;
+
+
 
 /**
  * Dao for task
@@ -45,7 +47,7 @@ public class TaskFileStorage extends FileStorage {
                 writeStream.writeObject(taskList.get(i).compress());
             }
         } catch (Exception e) {
-            throw new DAOWriteStreamBrokenDukeException();
+            throw new DaoWriteStreamBrokenDukeException();
         }
     }
 
@@ -69,7 +71,7 @@ public class TaskFileStorage extends FileStorage {
             }
             readStream.close();
         } catch (Exception e) {
-            throw new DAOReadStreamBrokenDukeException();
+            throw new DaoReadStreamBrokenDukeException();
         }
         return newTaskList;
     }

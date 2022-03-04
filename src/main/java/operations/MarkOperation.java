@@ -13,7 +13,8 @@ public class MarkOperation extends Operation {
      */
     public MarkOperation(String operationNameLocal, String order) throws DukeException {
         super(operationNameLocal, order);
-        helpMessage = "     mark <i>                                           --set the ith task as completed (1-based)\n";
+        helpMessage = "     mark <i>                                           "
+                + "--set the ith task as completed (1-based)\n";
     }
 
     @Override
@@ -23,8 +24,7 @@ public class MarkOperation extends Operation {
         int listSizeLocal = TaskList.getSize();
         if (indexLocal >= listSizeLocal) {
             return "Woops! fail to mark this task: \n   tasks.Task index out of range";
-        }
-        else {
+        } else {
             TaskList.getElement(indexLocal).setMark(true);
             return "Nice! I've marked this task as done: \n " + TaskList.getElement(indexLocal).getReport();
         }

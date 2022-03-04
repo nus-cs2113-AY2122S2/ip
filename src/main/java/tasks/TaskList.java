@@ -1,22 +1,28 @@
 package tasks;
 
+import java.util.ArrayList;
+
 import exceptions.DukeException;
 import exceptions.TaskListDukeException;
-
 import storage.TaskFileStorage;
 
-import java.util.ArrayList;
+
 
 /**
  * In charge of the global task list.
  */
 public class TaskList {
-    private static ArrayList<Task> taskArrayList;
     private static final String TASK_DAO_BASE_PATH = "data";
     private static final String TASK_DAO_FILE_NAME = "tasks.txt";
+    private static ArrayList<Task> taskArrayList;
     private static TaskFileStorage taskFileDao;
 
 
+    /**
+     * Constructor of TaskList
+     *
+     * @throws DukeException Duke Exception
+     */
     public TaskList() throws DukeException {
         try {
             taskFileDao = new TaskFileStorage(TASK_DAO_BASE_PATH, TASK_DAO_FILE_NAME);
@@ -30,9 +36,9 @@ public class TaskList {
      * Adds tasks.
      *
      * @param newTaskLocal The new task to be appended
-     * @return The indication of the result of the addTask operation
+     * @throws DukeException Duke Exception
      */
-    public static void addTask(Task newTaskLocal) throws DukeException{
+    public static void addTask(Task newTaskLocal) throws DukeException {
         try {
             TaskList.taskArrayList.add(newTaskLocal);
         } catch (Exception e) {

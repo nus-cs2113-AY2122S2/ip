@@ -1,18 +1,19 @@
 package tasks;
 
-import exceptions.*;
-
 import java.util.HashMap;
 
-public class TaskFactory {
-    private String taskDescription;
-    private Boolean marked = false;
-    private String taskType = "";
+import exceptions.DukeException;
+import exceptions.TaskDecompressionDukeException;
 
+public class TaskFactory {
     private static final String TODO_TASK = "T";
     private static final String DEADLINE_TASK = "D";
     private static final String EVENT_TASK = "E";
     private static final String TASK_TYPE = "taskType";
+    private String taskDescription;
+    private Boolean marked = false;
+    private String taskType = "";
+
 
 
     /**
@@ -57,6 +58,13 @@ public class TaskFactory {
         }
     }
 
+    /**
+     * Depresses a task
+     *
+     * @param compressedTask the task to be depressed
+     * @return Depressed task
+     * @throws DukeException Duke Exception
+     */
     public Task decompressTask(HashMap<String, Object> compressedTask) throws DukeException {
         try {
             String taskType = (String) compressedTask.get(TASK_TYPE);
@@ -75,21 +83,5 @@ public class TaskFactory {
         }
     }
 
-    /**
-     * Sets the taskDescription of TaskFactory.
-     *
-     * @param taskDescription
-     */
-    public void setTaskDescription(String taskDescription) {
-        this.taskDescription = taskDescription;
-    }
 
-    /**
-     * Sets the taskType of TaskFactory.
-     *
-     * @param taskType The task type
-     */
-    public void setTaskType(String taskType) {
-        this.taskType = taskType;
-    }
 }

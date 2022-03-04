@@ -1,21 +1,24 @@
 package storage;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+
 import exceptions.DukeException;
 import exceptions.FileCreateDukeException;
 import exceptions.FileNotFoundDukeException;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
+
 
 /**
  * File data access object handle the storage and load of data, abstract the storage and memory
  */
 public abstract class FileStorage {
-    private String basePath;
-    private String fileName;
     protected File targetFile;
     protected static final char START_INDICATOR = '$';
+    private String basePath;
+    private String fileName;
+
 
     /**
      * Initializes a file data access object

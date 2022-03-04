@@ -1,14 +1,17 @@
 package tasks;
 
+import java.util.HashMap;
+
 import exceptions.DukeException;
 import exceptions.WrongTimeFormatDukeException;
 import times.DukeTime;
 
-import java.util.HashMap;
+
 
 public class DeadlinesTask extends Task {
-    private DukeTime dateTime;
     private static final String DATE_TIME_FIELD = "dateTime";
+    private DukeTime dateTime;
+
 
     /**
      * Initializes deadline task with task description and task type and dateTime
@@ -32,7 +35,7 @@ public class DeadlinesTask extends Task {
      *
      * @param compressedObject Compressed object that contains all model information for initialize that task
      */
-    public DeadlinesTask(HashMap<String, Object> compressedObject) throws WrongTimeFormatDukeException {
+    public DeadlinesTask(HashMap<String, Object> compressedObject) throws DukeException {
         super(compressedObject);
         try {
             this.dateTime = new DukeTime((String) compressedObject.get(DATE_TIME_FIELD));

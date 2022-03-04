@@ -16,7 +16,9 @@ public class DeadlinesAddOperation extends AddOperation {
      */
     public DeadlinesAddOperation(String operationNameLocal, String order) throws DukeException {
         super(operationNameLocal, order);
-        helpMessage = "     deadline <task description> /by <YYYY-MM-DD> <hh:mm>  --add a deadline type task (hh:mm is optional, or simply HHMM is also accepted; <YYYY-MM-DD> can also be in <DD/MM/YYYY> format) \n";
+        helpMessage = "     deadline <task description> /by <YYYY-MM-DD> <hh:mm>  --add a deadline type task "
+                + "(hh:mm is optional, or simply HHMM is also accepted; <YYYY-MM-DD> can also be in <DD/MM/YYYY> "
+                + "format) \n";
     }
 
     /**

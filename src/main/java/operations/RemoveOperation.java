@@ -36,7 +36,8 @@ public class RemoveOperation extends Operation {
         } catch (DukeException e) {
             throw e;
         }
-        return String.format("Noted. I've removed this task: \n%s\nNow you have %d tasks in the list.", targetTask.getReport(), newSize);
+        return String.format("Noted. I've removed this task: \n%s\nNow you have %d tasks in the list.",
+                targetTask.getReport(), newSize);
     }
 
 }

@@ -6,6 +6,12 @@ import tasks.TaskList;
  */
 public class Duke {
 
+
+    /**
+     * The main function of Duke
+     *
+     * @param args The commandline argument
+     */
     public static void main(String[] args) {
         try {
             TaskList dukeTaskList = new TaskList();

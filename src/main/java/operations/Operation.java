@@ -8,12 +8,13 @@ import ui.ChatBox;
  */
 public abstract class Operation {
 
+    private static final String NULL_ORDER = "";
+    private static final String NULL_RESULT = "not executed yet";
     protected String operationName = "";
     protected String order = "";
     protected String result = "";
     protected String helpMessage = "Duke operation\n";
-    private static final String NULL_ORDER = "";
-    private static final String NULL_RESULT = "not executed yet";
+
 
 
     /**
@@ -24,12 +25,12 @@ public abstract class Operation {
      */
     public Operation(String operationNameLocal, String order) throws DukeException {
         this.operationName = operationNameLocal;
-        this.helpMessage = "     " + operationNameLocal + "                                             --help message not defined\n";
-        if (order == "") {
+        this.helpMessage = "     " + operationNameLocal + "                                             "
+                + "--help message not defined\n";
+        if (order.equals("")) {
 
             this.result = operationNameLocal + " " + NULL_RESULT;
-        }
-        else {
+        } else {
             try {
                 this.order = order;
                 this.result = operate();
@@ -111,6 +112,11 @@ public abstract class Operation {
         return helpMessage;
     }
 
+    /**
+     * Execute operation
+     * @return Return the result
+     * @throws DukeException The exception of duke
+     */
     public String operate() throws DukeException {
         try {
             return operationName;

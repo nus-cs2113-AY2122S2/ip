@@ -1,6 +1,6 @@
 package exceptions;
 
-public class DAOReadStreamBrokenDukeException extends DukeException {
+public class DaoReadStreamBrokenDukeException extends DukeException {
     private static final String FILE_CREATE_EXCEPTION_WORDS = " ☹ OOPS!!! The read stream brokes";
 
     @Override
