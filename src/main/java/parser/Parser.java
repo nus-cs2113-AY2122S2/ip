@@ -103,6 +103,12 @@ public class Parser {
     private void listTasks(TaskList tasks) {
         ui.printLine();
 
+        if (tasks.getSize() == 0){
+            System.out.println("There are currently no tasks in your list!");
+            ui.printLine();
+            return;
+        }
+
         for (int i = 0; i < tasks.getSize(); i++) {
             System.out.print(i + 1);
             System.out.println("." + tasks.getTaskViaIndex(i));
@@ -275,6 +281,13 @@ public class Parser {
         ArrayList<Task> filteredTasks = new ArrayList<>();
 
         filteredTasks = tasks.findFromList(detail);
+
+        if (filteredTasks.size() == 0){
+            System.out.println("There were no tasks found...");
+            ui.printLine();
+            return;
+        }
+
         for (int i = 0; i < filteredTasks.size(); i++) {
             System.out.print(i + 1);
             System.out.println("." + filteredTasks.get(i));
