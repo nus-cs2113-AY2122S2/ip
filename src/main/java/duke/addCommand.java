@@ -5,6 +5,9 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class addCommand extends Command {
     private final String commandWord;
     private final String arguments;
@@ -40,6 +43,9 @@ public class addCommand extends Command {
         }
 
         tasks.addTask(newTask);
+        tasks.writeTasksToFile();
+
+        // Print the newTask
         System.out.println("Got it. I've added this task:");
         System.out.println(String.format("  %s", newTask));
         System.out.println(String.format("Now you have %d tasks in the list.", tasks.getSize()));

@@ -1,5 +1,7 @@
 package duke;
 
+import duke.task.Task;
+
 public class unmarkCommand extends Command {
     private final int taskIndex;
 
@@ -10,8 +12,10 @@ public class unmarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        String output = tasks.getTask(this.taskIndex).unmarkTask();
+        Task task = tasks.getTask(this.taskIndex).unmarkTask();
+        tasks.writeTasksToFile();
+
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(output);
+        System.out.println(task);
     }
 }

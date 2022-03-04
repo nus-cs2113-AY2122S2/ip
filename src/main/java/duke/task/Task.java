@@ -20,15 +20,15 @@ public class Task {
     }
 
     // Marks task as done. Returns the task string too
-    public String markTask() {
+    public Task markTask() {
         this.isDone = true;
-        return this.toString();
+        return this;
     }
 
     // Unmark the task. Returns the task string too
-    public String unmarkTask() {
+    public Task unmarkTask() {
         this.isDone = false;
-        return this.toString();
+        return this;
     }
 
     // Output string when saved

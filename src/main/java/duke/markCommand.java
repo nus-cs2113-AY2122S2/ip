@@ -1,5 +1,7 @@
 package duke;
 
+import duke.task.Task;
+
 public class markCommand extends Command {
     private final int taskIndex;
 
@@ -10,8 +12,10 @@ public class markCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        String output = tasks.getTask(this.taskIndex).markTask();
+        Task task = tasks.getTask(this.taskIndex).markTask();
+        tasks.writeTasksToFile();
+
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(output);
+        System.out.println(task);
     }
 }

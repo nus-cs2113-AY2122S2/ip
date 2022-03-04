@@ -1,5 +1,8 @@
 package duke;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 public abstract class Command {
 
     public Command() {
@@ -11,4 +14,5 @@ public abstract class Command {
     public boolean isExit() {
         return false;
     }
+
 }
