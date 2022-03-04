@@ -1,3 +1,12 @@
+package Duke;
+
+import Duke.Exception.EmptyDescriptionException;
+import Duke.Exception.WrongCommandException;
+import Duke.Parser.Parser;
+import Duke.Storage.Storage;
+import Duke.Task.Task;
+import Duke.Task.TaskList;
+
 import java.io.IOException;
 import java.util.ArrayList;
 

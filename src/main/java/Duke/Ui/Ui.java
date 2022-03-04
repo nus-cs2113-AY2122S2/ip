@@ -1,3 +1,5 @@
+package Duke.Ui;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -10,7 +12,7 @@ public class Ui {
 
     public void printWelcomeMessage(){
         System.out.println(LINE_SEPARATOR);
-        System.out.println("    Hello I'm Duke\n    What can I help you with?");
+        System.out.println("    Hello I'm Duke.Duke\n    What can I help you with?");
         System.out.println(LINE_SEPARATOR);
     }
     public String readInput(){

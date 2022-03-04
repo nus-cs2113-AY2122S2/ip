@@ -1,3 +1,5 @@
+package Duke.Parser;
+
 public class Parser {
     private final String inputCommand;
     public Parser(String inputCommand){
