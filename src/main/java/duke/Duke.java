@@ -5,6 +5,10 @@ import duke.parsers.Ui;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class Duke {
 
     /** Number of tasks held by Duke */
@@ -16,6 +20,7 @@ public class Duke {
     /** Instance of TaskList class to hold all tasks */
     private static TaskList toDos;
 
+
     /**
      * Returns an instance for the Duke class
      *
@@ -25,6 +30,7 @@ public class Duke {
         storage = new Storage();
         toDos = new TaskList();
         ui = new Ui(toDos);
+
     }
 
     /**
@@ -52,8 +58,11 @@ public class Duke {
      * @throws IllegalArgumentException  If zone is <= 0.
      */
     public static void main(String[] args) {
+        Path path = Paths.get("taskList.txt");
+        System.out.println(path.toString());
+
         Duke duke = new Duke();
-        duke.run("./src/main/java/Duke/taskList.txt");
+        duke.run(path.toString());
 
     }
 }
