@@ -14,7 +14,7 @@ public class InvalidUserInputException extends Exception {
             "(e.g. /at 2021-02-19 1330)";
     public static final String IO_EXCEPTION = "☹ OOPS!!! Something wrong with the input-output operation.";
     public static final String INVALID_MATCH = "☹ OOPS!!! The command is invalid. Please ensure command is entered as: \n" +
-            " deadline [TASK DESCRIPTION] /by [DEADLINE TIMING] \n" + " event [TASK DESCRIPTION] /at [EVENT TIMING]" ;
+            " deadline <TASK DESCRIPTION> /by <DEADLINE TIMING> \n" + " event <TASK DESCRIPTION> /at <EVENT TIMING>" ;
 
     /**
      * Constructs an InvalidUserInputException with a specified error message.
