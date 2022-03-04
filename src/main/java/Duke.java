@@ -29,8 +29,8 @@ public class Duke {
             taskManager = new TaskManager();
             taskManager.setTasks(storage.readFile());
         }
-        catch (IOException e) {
-
+        catch (DukeException e) {
+            ui.showError(e);
         }
     }
 
@@ -52,12 +52,12 @@ public class Duke {
                 ui.showError(e);
             }
         }
-        storage.writeFile(taskManager.toString());
+
         Ui.printWithDivider("Bye. Hope to see you again soon!");
 
     }
 
     public static void main(String[] args) throws IOException {
-      new Duke ("./IOfile.txt").run();
+      new Duke ("./Duke.txt").run();
     }
 }
