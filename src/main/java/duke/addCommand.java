@@ -1,5 +1,6 @@
 package duke;
 
+import duke.task.Deadline;
 import duke.task.Task;
 import duke.task.Todo;
 
@@ -18,8 +19,11 @@ public class addCommand extends Command {
         Task newTask;
 
         switch (this.commandWord) {
-        case "todo":
-            newTask = new Todo(this.arguments);
+        case "deadline":
+            String[] userArguments = this.arguments.split(" /by ", 2);
+            String description = userArguments[0]; // eg. return book
+            String by = userArguments[1]; // eg. Sunday
+            newTask = new Deadline(description, by);
             break;
         default:
             newTask = new Todo(this.arguments);
