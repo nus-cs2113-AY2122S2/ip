@@ -34,7 +34,9 @@ public class Ui {
     public static final String EMPTY_INPUT_MESSAGE = "☹ OOPS!!! You didn't enter anything. Please key in something!";
     public static final String EMPTY_SEARCH_DESCRIPTION_MESSAGE = "☹ OOPS!!! You didn't enter any search phrases. Please key in something!";
     public static final String SEARCH_RESULTS_MESSAGE = "Here are your search results:";
-
+    public static final String INVALID_DATE_TIME_MESSAGE = "☹ OOPS!!! I can't recognise the date and time you've keyed in." +
+        " Please key in a valid date and time and ensure that it is in this format: dd/mm/yyyy hhmm.";
+    public static final String CORRUPT_FILE_MESSAGE = "☹ OOPS!!! Your task file is corrupted! Let me erase it for you.";
 
     public static void showLine() {
         System.out.println(LINE);
