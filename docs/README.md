@@ -118,13 +118,13 @@ This command helps you create a todo task!
 > todo CS2113T quiz
 ```
 ##### Expected Output:
-```sh
+````text
 ____________________________________________________________
 Got it. I've added this task:
  [T][ ] CS2113T quiz
 Now you have 1 tasks in the list.
 ____________________________________________________________
-```
+````
 ---
 ### `event` - add a event task
 
