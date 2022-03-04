@@ -45,19 +45,6 @@ public class DeadlinesTask extends Task {
 
     }
 
-    /**
-     * Sets the dateTime.
-     *
-     * @param dateTime
-     */
-    public void setDateTime(String dateTime) throws DukeException {
-        try {
-            this.dateTime = new DukeTime(dateTime.toString());
-        } catch (DukeException e) {
-            throw e;
-        }
-
-    }
 
     /**
      * Gets the report of the deadline task.

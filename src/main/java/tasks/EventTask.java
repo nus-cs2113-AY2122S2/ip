@@ -13,11 +13,6 @@ public class EventTask extends Task {
     private DukeTime endTime=null;
 
 
-    public EventTask(String taskDescription, String taskType) {
-        super(taskDescription, taskType);
-    }
-
-
     /**
      * Initializes task with compressed object
      *
@@ -54,21 +49,6 @@ public class EventTask extends Task {
                 this.endTime = null;
             }
 
-        } catch (DukeException e) {
-            throw e;
-        }
-
-    }
-
-
-    /**
-     * Sets dateTime.
-     *
-     * @param dateTime The time of the task
-     */
-    public void setDateTime(String dateTime) throws DukeException {
-        try {
-            this.startTime = new DukeTime(dateTime);
         } catch (DukeException e) {
             throw e;
         }

@@ -16,8 +16,6 @@ import exceptions.FileNotFoundDukeException;
 public abstract class FileStorage {
     protected File targetFile;
     protected static final char START_INDICATOR = '$';
-    private String basePath;
-    private String fileName;
 
 
     /**

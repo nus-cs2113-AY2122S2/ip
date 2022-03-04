@@ -8,7 +8,6 @@ import ui.ChatBox;
  */
 public abstract class Operation {
 
-    private static final String NULL_ORDER = "";
     private static final String NULL_RESULT = "not executed yet";
     protected String operationName = "";
     protected String order = "";
