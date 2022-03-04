@@ -25,7 +25,7 @@ public class Duke {
         while (true) {
             storage.fileWrite(filePath, toDos);
 
-            ui.parseLine(toDos, taskCounter);
+            ui.parseLine(toDos);
         }
     }
 

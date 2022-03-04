@@ -6,6 +6,9 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.TaskList;
 import duke.tasks.ToDo;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 import java.util.Scanner;
 
@@ -26,7 +29,7 @@ public class Ui {
         System.out.println(greeting);
     }
     
-    public void parseLine(TaskList toDos, int taskCounter) {
+    public void parseLine(TaskList toDos) {
         Scanner sc = new Scanner(System.in);
         String line = sc.nextLine();
         String[] commands = line.split(" ");
@@ -51,7 +54,7 @@ public class Ui {
                     throw new InputLengthException();
                 }
                 commandNumber = Integer.parseInt(commands[1]);
-                if (commandNumber >= 0 && commandNumber <= taskCounter) {
+                if (commandNumber >= 0 && commandNumber <= toDos.taskCounter) {
                     System.out.println(underscoreLine);
                     System.out.println("   I don't actually believe you completed a task, but I'll mark it anyway.");
                     System.out.println("     [X] " + toDos.get(commandNumber - 1).getDescription());
@@ -76,7 +79,7 @@ public class Ui {
                     throw new InputLengthException();
                 }
                 commandNumber = Integer.parseInt(commands[1]);
-                if (commandNumber >= 0 && commandNumber <= taskCounter) {
+                if (commandNumber >= 0 && commandNumber <= toDos.taskCounter) {
                     System.out.println(underscoreLine);
                     System.out.println("   Unmarking a task; sharp as a marble, aren't we?");
                     System.out.println("     [] " + toDos.get(commandNumber - 1).getDescription());
@@ -101,14 +104,13 @@ public class Ui {
                     throw new InputLengthException();
                 }
                 line = line.substring(5); //removing the first part of the command from the description
-                //toDos.get(taskCounter) = new ToDo(line);
+                //toDos.get(toDos.taskCounter) = new ToDo(line);
                 toDos.add(new ToDo(line));
                 System.out.println(underscoreLine);
                 System.out.println(" Do these tasks distract you from a glaring lack of meaning\n in your life?" +
                         "\n Anyway, I added" + " it to the list.");
-                System.out.printf("   %s %s%n", toDos.get(taskCounter).getStatusIcon(), line);
-                taskCounter++;
-                System.out.println(" There are now " + taskCounter + " tasks in the list.");
+                System.out.printf("   %s %s%n", toDos.get(toDos.taskCounter - 1).getStatusIcon(), line);
+                System.out.println(" There are now " + toDos.taskCounter + " tasks in the list.");
                 System.out.println(underscoreLine);
             } catch (InputLengthException e) {
                 System.out.println(underscoreLine);
@@ -127,13 +129,15 @@ public class Ui {
             }
             String description = line.substring(9, separationLocation); //first half of command
             String doBy = line.substring((separationLocation + 3));
-            //toDos.get(taskCounter) = new Deadline(description, doBy);
+            //toDos.get(toDos.taskCounter) = new Deadline(description, doBy);
             toDos.add(new Deadline(description, doBy));
+            if (toDos.get(toDos.taskCounter - 1) instanceof Deadline) {
+                doBy = (toDos.get(toDos.taskCounter - 1)).getdateTimeString();
+            }
             System.out.println(underscoreLine);
             System.out.println(" Great, something else for you to procrastinate:");
-            System.out.printf("   %s %s(by:%s)%n", toDos.get(taskCounter).getStatusIcon(), description, doBy);
-            taskCounter++;
-            System.out.printf(" There are now %d tasks in the list.%n", taskCounter);
+            System.out.printf("   %s %s(by:%s)%n", toDos.get(toDos.taskCounter - 1).getStatusIcon(), description, doBy);
+            System.out.printf(" There are now %d tasks in the list.%n", toDos.taskCounter);
             System.out.println(underscoreLine);
             break;
         case "event": //add an event to the task list
@@ -146,13 +150,15 @@ public class Ui {
             }
             description = line.substring(6, separationLocation);
             String doAt = line.substring((separationLocation + 3));
-            //toDos.get(taskCounter) = new Event(description, doAt);
+            //toDos.get(toDos.taskCounter) = new Event(description, doAt);
             toDos.add(new Event(description, doAt));
+            if (toDos.get(toDos.taskCounter - 1) instanceof Event) {
+                doAt = (toDos.get(toDos.taskCounter - 1)).getdateTimeString();
+            }
             System.out.println(underscoreLine);
             System.out.println(" An event! Perhaps it can distract you from your self-inflicted prison:");
-            System.out.printf("   %s %s(at:%s)%n", toDos.get(taskCounter).getStatusIcon(), description, doAt);
-            taskCounter++;
-            System.out.printf(" There are now %d tasks in the list.%n", taskCounter);
+            System.out.printf("   %s %s(at:%s)%n", toDos.get(toDos.taskCounter - 1).getStatusIcon(), description, doAt);
+            System.out.printf(" There are now %d tasks in the list.%n", toDos.taskCounter);
             System.out.println(underscoreLine);
             break;
         case "delete":
@@ -161,13 +167,12 @@ public class Ui {
                     throw new InputLengthException();
                 }
                 commandNumber = Integer.parseInt(commands[1]);
-                if (commandNumber >= 0 && commandNumber <= taskCounter) {
+                if (commandNumber >= 0 && commandNumber <= toDos.taskCounter) {
                     System.out.println(underscoreLine);
                     System.out.println(" Forgoing further responsibilties, I see.");
                     System.out.printf(" Removed:   %s %s%n", toDos.get(commandNumber - 1).getStatusIcon(),
                             toDos.get(commandNumber - 1).getDescription());
-                    taskCounter--;
-                    System.out.println(" There are now " + taskCounter + " tasks in the list.");
+                    System.out.println(" There are now " + toDos.taskCounter + " tasks in the list.");
                     System.out.println(underscoreLine);
                     toDos.remove(commandNumber - 1);
                 } else {
