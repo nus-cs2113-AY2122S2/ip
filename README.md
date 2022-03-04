@@ -401,6 +401,7 @@ delete 4
 [D][ ]CS2106 midterm (by: Apr. 30 2019 02:03)
 Now you have 3 tasks in your list.
 -------------------------------------
+bye
 Bye. Hope to see you again soon! ;)
 -------------------------------------
 ````
