@@ -12,6 +12,15 @@ public class UpdateCommand extends Command{
         this.type = type;
         this.idx = idx;
     }
+
+    /**
+     * Update the status of the task according to the input
+     * Show the task being modified
+     * Save the task list data into file
+     * @param tasks task list
+     * @param ui user interface
+     * @param storage storage.
+     */
     public void execute(TaskList tasks, UI ui, Storage storage){
         String t;
         if(type.equals("mark")){

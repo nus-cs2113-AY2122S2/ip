@@ -16,6 +16,15 @@ public class AddCommand extends Command {
         this.action =action;
     }
 
+    /**
+     * Add specific task into task list according to the input
+     * Show task count
+     * Save the task list data into file
+     * @param tasks task list
+     * @param ui user interface
+     * @param storage storage.
+     */
+
     public void execute(TaskList tasks, UI ui, Storage storage){
         String t = tasks.addTask(action,input);
         if(t == null){
