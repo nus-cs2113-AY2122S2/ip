@@ -80,7 +80,7 @@ public class Storage {
     private Task createTask(String line) throws DukeException {
         try {
             Task task;
-            String[] splitLine = splitStringBySlash(line);
+            String[] splitLine = splitStringByBar(line);
             switch (getTaskType(splitLine)) {
             case EVENT:
                 task = new Event(getTaskDescription(splitLine), getTaskDate(splitLine));
@@ -103,8 +103,8 @@ public class Storage {
         }
     }
 
-    private String[] splitStringBySlash(String line) {
-        return line.split("/");
+    private String[] splitStringByBar(String line) {
+        return line.split("\\|");
     }
 
     private boolean isTaskDone(int isDone) {

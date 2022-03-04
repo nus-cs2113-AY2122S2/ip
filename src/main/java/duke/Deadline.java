@@ -19,7 +19,7 @@ public class Deadline extends Task {
 
     @Override
     public String toStringInSaveFormat() {
-        return ICON + " / " + super.toStringInSaveFormat() + " / " + date;
+        return ICON + " | " + super.toStringInSaveFormat() + " | " + date;
     }
 
     @Override
