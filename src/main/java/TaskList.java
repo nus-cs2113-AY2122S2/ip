@@ -188,8 +188,7 @@ public class TaskList {
                     for (Task task : relevantTasks) {
                         System.out.println(task.toString());
                     }
-                }
-                else {
+                } else if (keyWord.equals("deadline") || keyWord.equals("event") || keyWord.equals("todo")){
                     addTask(line);
                     storage.saveTasksToFile(formatTaskListToString());
                 }

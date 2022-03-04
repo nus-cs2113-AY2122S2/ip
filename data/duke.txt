@@ -4,3 +4,4 @@
 [T][ ] visit zoo
 [T][X] visit gardens
 [T][ ] attend meeting
+[D][ ] finish duke (by: 12:00AM)
