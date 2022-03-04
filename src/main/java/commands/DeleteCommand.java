@@ -10,7 +10,7 @@ import java.util.InputMismatchException;
 
 public class DeleteCommand extends Command {
 
-    protected int taskNumber;
+    protected int taskNumber = -1;
     public static final String COMMAND_WORD = "delete";
 
     public DeleteCommand(String userInput) {
@@ -19,7 +19,7 @@ public class DeleteCommand extends Command {
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(Ui.MISSING_TASK_NUMBER_MESSAGE);
             Ui.showLine();
-        } catch (InputMismatchException e) {
+        } catch (NumberFormatException e) {
             System.out.println(Ui.INVALID_TASK_NUMBER_MESSAGE);
             Ui.showLine();
         }
@@ -30,14 +30,6 @@ public class DeleteCommand extends Command {
         return Integer.parseInt(splitUserInput[1]);
     }
 
-    private static boolean checkTaskListSize() {
-        if (TaskManager.getTaskCount() == 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     @Override
     public void execute(TaskManager taskManager, FileEditor fileEditor) {
         boolean isEmptyTaskList = checkTaskListSize();
@@ -46,12 +38,16 @@ public class DeleteCommand extends Command {
             Ui.showLine();
             return;
         }
+        if (taskNumber == -1) {
+            return;
+        }
         Task taskToDelete = null;
         try {
             taskToDelete = taskManager.getTasks().get(taskNumber - 1);
         } catch (IndexOutOfBoundsException e) {
             System.out.println(Ui.TASK_NUMBER_OUT_OF_RANGE_MESSAGE);
             Ui.showLine();
+            return;
         }
         System.out.println(Ui.DELETED_TASK_MESSAGE);
         System.out.println(taskToDelete);

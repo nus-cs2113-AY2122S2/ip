@@ -43,4 +43,12 @@ public class Command {
         return description;
     }
 
+    protected static boolean checkTaskListSize() {
+        if (TaskManager.getTaskCount() == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

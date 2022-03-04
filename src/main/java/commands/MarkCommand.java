@@ -29,14 +29,6 @@ public class MarkCommand extends Command {
         return Integer.parseInt(splitUserInput[1]);
     }
 
-    private static boolean checkTaskListSize() {
-        if (TaskManager.getTaskCount() == 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     @Override
     public void execute(TaskManager taskManager, FileEditor fileEditor) {
         boolean isEmptyTaskList = checkTaskListSize();
