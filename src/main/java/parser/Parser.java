@@ -18,7 +18,6 @@ public class Parser {
 
     /**
      * Creates an instance of Parser that is used to interpret commands.
-     *
      * @param ui      the Ui object used for this particular instance.
      * @param tasks   the TaskList object for this instance.
      * @param storage the Storage object for this instance.
