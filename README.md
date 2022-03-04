@@ -28,12 +28,12 @@
 
 ---
 
-##Introduction
+## Introduction
 Duke is a flexible command line based task manager that helps you to manage your todo task, event task and deadline task. You can follow this guide to explore more features about duke.
 
 ---
 
-##Setup Guide
+## Setup Guide
 Prerequisite: JDK 11
 1. Please ensure that JDK 11 is installed before running Duke. You can check it in terminal by typing
    ````shell
@@ -56,21 +56,21 @@ Prerequisite: JDK 11
    
 ---
 
-##Features
+## Features
 
-###Task Type
+### Task Type
 There are three types of task that are acceptable by duke:
-* ####Event
+* #### Event
   *Event* is a task type that contains task name and event time. It has marked with *E* when displaying on the interface.
    ````text
    [E][ ]<Event Name>(at: <Event Time>)
    ````
-* ####Deadline
+* #### Deadline
   *Deadline* is also a task type that contains task name and deadline time. It has marked with *D* when displaying on the interface
     ````text
     [D][ ]<Deadline Name>(by: <Deadline Time>)
     ````
-* ####Todo
+* #### Todo
   *Todo* is another task type that only contains task name. It has marked with *T* when displaying on the interface.
     ````text
     [T][ ]<Todo Name>
@@ -78,7 +78,7 @@ There are three types of task that are acceptable by duke:
   
 ---
 
-###Features: Add
+### Features: Add
 You can add any todo task, event task and deadline task without limit in numbers. All the tasks are marked as undone initially like following:
 ````text
 [Task Type][Task Status]<Task Name><Task Time(if available)>
@@ -87,14 +87,14 @@ Check [Tutorial](#tutorial) or [Command Summary](#command-summary) for adding co
 
 ---
 
-###Features: Delete
+### Features: Delete
 You can delete any task from the list by giving the index of the task you want to delete.
 
 Check [Tutorial](#tutorial-delete-task) or [Command Summary](#command-summary) for delete command usage.
 
 ---
 
-###Features: Mark/Unmark
+### Features: Mark/Unmark
 You can mark any task in the list as done or undone by giving the index of the task you want to mark/unmark. The marked task will display *X* on the second column when displaying on the interface, like following example:
 
 ````text
@@ -104,24 +104,24 @@ Check [Tutorial](#tutorial-markunmark-task) or [Command Summary](#command-summar
 
 ---
 
-###Features: Search
+### Features: Search
 You can use keywords to find all the task that have relevant task name to the given keyword.
 
 Check [Tutorial](#tutorial-find-task) or [Command Summary](#command-summary) for searching command usage.
 
 ---
 
-###Features: List
+### Features: List
 You can list all the task that duke has stored. Check [Tutorial](#tutorial-list-task) or [Command Summary](#command-summary) for searching command usage.
 
 ---
 
-###Features: Save
+### Features: Save
 All the tasks that duke has will be saved to an external file. Don't worry if you exit the program without saving file! Duke will save it after every operation. Next time when you start the program again, you could see the tasks from the last use.
 
 ---
-##Tutorial
-####Tutorial: Exit
+## Tutorial
+#### Tutorial: Exit
 Use following command to exit the program:
 ````text
 Bye
@@ -129,7 +129,7 @@ Bye
 
 ---
 
-###Tutorial: Add Event
+### Tutorial: Add Event
 Type following command in the console by replacing <Task name> and <Event time> with your own task information:
 ````shell
 Event <Task Name> /at <Task Time>
@@ -143,7 +143,7 @@ Now you have <numbers of task after adding> tasks in your list.
 
 ---
 
-###Tutorial: Add Deadline
+### Tutorial: Add Deadline
 Type following command in the console by replacing <Task name> and <Event time> with your own task information:
 ````shell
 Deadline <Task Name> /by <Task Time>
@@ -157,7 +157,7 @@ Now you have <numbers of task after adding> tasks in your list.
 
 ---
 
-###Tutorial: Add Todo
+### Tutorial: Add Todo
 Type following command in the console by replacing <Task name> and <Event time> with your own task information:
 ````shell
 Todo <Task Name>
@@ -183,7 +183,7 @@ There's no requirement for the number of digit but please ensure that the date a
 
 ---
 
-###Tutorial: List Task
+### Tutorial: List Task
 Use following command to list all the task:
 ````shell
 list
@@ -205,7 +205,7 @@ Please use the index from listing task for deleting and marking/unmarking task!
 
 ---
 
-###Tutorial: Delete Task
+### Tutorial: Delete Task
 Type following command by replacing <Index of Task> to the index of the task that you would like to delete:
 ````text
 delete <Index of Task>
@@ -222,7 +222,7 @@ For the index of the task, please refer to the index when listing all the tasks.
 
 ---
 
-###Tutorial: Mark/Unmark Task
+### Tutorial: Mark/Unmark Task
 To mark a task in the list, type following command by replacing <Index of Task> to the index of the task that you would like to delete:
 ````text
 mark <Index of Task>
@@ -247,7 +247,7 @@ For the index of the task, please refer to the index when listing all the tasks.
 
 ---
 
-###Tutorial: Find Task
+### Tutorial: Find Task
 Use following command to find a task that match the keyword from the list:
 ````shell
 find <keyword>
@@ -272,7 +272,7 @@ Duke only supports to find matching task according to the keyword and task name.
 
 ---
 
-##Command Summary
+## Command Summary
 | **Command Type** | Command Format                         | 
 |:-----------------|:---------------------------------------|
 | **add todo**     | `todo <Task Name>`                     |    
@@ -287,7 +287,7 @@ Duke only supports to find matching task according to the keyword and task name.
 
 ---
 
-##Trouble Shooting
+## Trouble Shooting
 **Q**: What should I do if the program reports loading error?
 
 **A**: The external file for saving and loading is broken. In this case you need to reinstall the programme.
