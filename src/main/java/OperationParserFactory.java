@@ -47,7 +47,7 @@ public class OperationParserFactory {
      */
     public Operation getOperation() throws DukeException {
         try {
-            String orderName = order.split(" ", 2)[0];
+            String orderName = order.split(" ", 2)[0].trim();
             if (operationCache.containsKey(orderName) == true) {
                 operationCache.get(orderName).setOrder(order);
                 operationCache.get(orderName).executeOperation();

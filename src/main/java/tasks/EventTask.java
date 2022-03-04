@@ -1,6 +1,7 @@
 package tasks;
 
 import exceptions.DukeException;
+import exceptions.WrongTimeFormatDukeException;
 import times.DukeTime;
 
 import java.util.HashMap;
@@ -21,10 +22,14 @@ public class EventTask extends Task {
      * Initializes task with compressed object
      * @param compressedObject Compressed object that contains all model information for initialize that task
      */
-    public EventTask(HashMap<String, Object> compressedObject) {
+    public EventTask(HashMap<String, Object> compressedObject) throws WrongTimeFormatDukeException {
         super(compressedObject);
-        startTime = (DukeTime) compressedObject.get(START_TIME_FIELD);
-        endTime = (DukeTime) compressedObject.get(END_TIME_FIELD);
+        try {
+            startTime = new DukeTime((String) compressedObject.get(START_TIME_FIELD));
+            endTime = new DukeTime((String) compressedObject.get(END_TIME_FIELD));
+        } catch (DukeException e) {
+            throw e;
+        }
     }
 
     /**
@@ -90,8 +95,8 @@ public class EventTask extends Task {
     @Override
     public HashMap<String, Object> compress() {
         HashMap<String, Object> compressedObject = super.compress();
-        compressedObject.put(START_TIME_FIELD, startTime);
-        compressedObject.put(END_TIME_FIELD, endTime);
+        compressedObject.put(START_TIME_FIELD, startTime.toString());
+        compressedObject.put(END_TIME_FIELD, endTime.toString());
         return compressedObject;
     }
 

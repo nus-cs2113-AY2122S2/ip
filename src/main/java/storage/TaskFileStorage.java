@@ -4,6 +4,7 @@ import exceptions.DAOReadStreamBrokenDukeException;
 import exceptions.DAOWriteStreamBrokenDukeException;
 import exceptions.DukeException;
 import tasks.Task;
+import tasks.TaskFactory;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -58,13 +59,13 @@ public class TaskFileStorage extends FileStorage {
             ObjectInputStream readStream = new ObjectInputStream(readData);
             int size = readStream.readInt();
             readStream.readChar();
+            TaskFactory taskFactory = new TaskFactory();
             for (int i = 0; i < size; i++) {
-                Task currentTask = new Task((HashMap<String, Object>) readStream.readObject());
+                Task currentTask = taskFactory.decompressTask((HashMap<String, Object>) readStream.readObject());
                 newTaskList.add(currentTask);
             }
             readStream.close();
         } catch (Exception e) {
-            System.out.println(e);
             throw new DAOReadStreamBrokenDukeException();
         }
         return newTaskList;
