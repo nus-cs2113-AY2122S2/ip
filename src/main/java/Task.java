@@ -20,7 +20,6 @@ public class Task {
 
     }
 
-
     public void markIt() {
 
         this.isDone = true;
@@ -28,27 +27,17 @@ public class Task {
     }
 
 
-
-
-
-
-
     public String getStatusIcon() {
 
-        return (isDone ? "X" : " "); //return tick or X symbols
+        return (isDone ? "X" : " "); //return  X symbols
+    }
+
+        public String getLetter() {
+            return null;
+        }
+
 
     }
 
 
 
-
-
-
-
-
-
-
-
-
-
-}
