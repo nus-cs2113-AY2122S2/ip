@@ -58,7 +58,7 @@ Got it. I've added this task
 
 Now you have 1 tasks in the list.
 ```
-### 1.3 Add an event: `event`;
+### 1.3 Add an event: `event`
 Adding an event task into your task list.
 
 Format: `event [TASK_NAME]`
