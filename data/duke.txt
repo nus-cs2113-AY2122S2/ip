@@ -1,3 +1,4 @@
 T | 0 | something else
-E | 0 | newee | 5pm
-T | 1 | more
+E | 1 | newee | 5pm
+E | 0 | aws  |  5pm
+D | 0 | project  |  3pm
