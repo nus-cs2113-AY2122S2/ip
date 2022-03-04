@@ -16,21 +16,21 @@ public class Duke {
 
     //Print all available tasks
     public void printTaskList(ArrayList<Task> taskList){
-        int j = 1;
+        int numberOfTasks = 1;
         for (Task task : taskList){
             String description = task.getDescription();
             String statusIcon = task.getStatusIcon();
             String typeIcon = task.getLetter();
-            System.out.println(j + ". "  + typeIcon +  " [" +  statusIcon + "] " +  description);
-            j += 1;
+            System.out.println(numberOfTasks + ". "  + typeIcon +  " [" +  statusIcon + "] " +  description);
+            numberOfTasks += 1;
         }
     }
 
     //Mark as done
     public Boolean doneCheck(String line, ArrayList<Task> taskList) {
         String[] words = line.split(" ");
-        int length = words.length;
-        if (length == 1){
+        int length_list = words.length;
+        if (length_list == 1){
             if (words[0].toUpperCase().equals("MARK")) {
                 System.out.println("Please specify (eg: done 2) or just add a new one");
                 return true;
@@ -172,7 +172,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        Duke level3 = new Duke();
-        level3.startProgramme();
+        Duke bobTheFriendlyChatBot = new Duke();
+        bobTheFriendlyChatBot.startProgramme();
     }
 }
