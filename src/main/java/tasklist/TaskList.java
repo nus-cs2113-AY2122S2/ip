@@ -30,4 +30,14 @@ public class TaskList {
     public void removeTaskFromList(Task task) {
         taskArrayList.remove((task));
     }
+
+    public ArrayList<Task> findFromList(String detail) {
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+        for (Task task:taskArrayList) {
+            if (task.getDescription().contains(detail)) {
+                filteredTasks.add(task);
+            }
+        }
+        return filteredTasks;
+    }
 }
