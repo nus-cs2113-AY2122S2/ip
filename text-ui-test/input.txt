@@ -1,0 +1,19 @@
+todo buy groceries
+event attend Jadon's ball /at 30 January 5pm-10pm
+deadline submit cs5222 assignment /by 30 January 5pm
+todo go for a haircut
+event attend Seth's homecoming /at 1 Feb 12-4pm
+deadline submit CS5222 FGPA Project /by 18 February 5pm
+todo travel to san francisco
+todo visit paris
+mark 7
+mark 8
+mark 6
+mark 1
+unmark 6
+list
+mark 3
+mark 2
+unmark 3
+list
+bye

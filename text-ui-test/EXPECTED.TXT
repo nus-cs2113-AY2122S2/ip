@@ -1,7 +1,93 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+  ___                             __
+|  _  |  |   |  \        / |     /  \
+| | | |  |   |   \      /  |    / _  \
+| | | |  |   |    \    /   |   / /_\  \
+| |_| |  |   |     \  /    |  /   _    \
+| ___ |  |__ |      \/     | /___/ \____\
 
+-----------------------------
+Greetings! I'm Olivia, your lovely personal assistant.
+What can Olivia do for you my love?
+-----------------------------
+-----------------------------
+Got it, Olivia has added this task:
+[T][ ] buy groceries
+Now you have 1 tasks in the list.
+-----------------------------
+Got it, Olivia has added this task:
+[E][ ] attend Jadon's ball (at: 30 January 5pm-10pm)
+Now you have 2 tasks in the list.
+-----------------------------
+Got it, Olivia has added this task:
+[D][ ] submit cs5222 assignment (by: 30 January 5pm)
+Now you have 3 tasks in the list.
+-----------------------------
+Got it, Olivia has added this task:
+[T][ ] go for a haircut
+Now you have 4 tasks in the list.
+-----------------------------
+Got it, Olivia has added this task:
+[E][ ] attend Seth's homecoming (at: 1 Feb 12-4pm)
+Now you have 5 tasks in the list.
+-----------------------------
+Got it, Olivia has added this task:
+[D][ ] submit CS5222 FGPA Project (by: 18 February 5pm)
+Now you have 6 tasks in the list.
+-----------------------------
+Got it, Olivia has added this task:
+[T][ ] travel to san francisco
+Now you have 7 tasks in the list.
+-----------------------------
+Got it, Olivia has added this task:
+[T][ ] visit paris
+Now you have 8 tasks in the list.
+-----------------------------
+Olivia thanks you for completing the task! :)
+[T][X] travel to san francisco
+-----------------------------
+Olivia thanks you for completing the task! :)
+[T][X] visit paris
+-----------------------------
+Olivia thanks you for completing the task! :)
+[D][X] submit CS5222 FGPA Project (by: 18 February 5pm)
+-----------------------------
+Olivia thanks you for completing the task! :)
+[T][X] buy groceries
+-----------------------------
+Hey!!! Please get the task done.
+[D][ ] submit CS5222 FGPA Project (by: 18 February 5pm)
+-----------------------------
+Olivia presents you a list of tasks for you to do:
+1.[T][X] buy groceries
+2.[E][ ] attend Jadon's ball (at: 30 January 5pm-10pm)
+3.[D][ ] submit cs5222 assignment (by: 30 January 5pm)
+4.[T][ ] go for a haircut
+5.[E][ ] attend Seth's homecoming (at: 1 Feb 12-4pm)
+6.[D][ ] submit CS5222 FGPA Project (by: 18 February 5pm)
+7.[T][X] travel to san francisco
+8.[T][X] visit paris
+-----------------------------
+-----------------------------
+Olivia thanks you for completing the task! :)
+[D][X] submit cs5222 assignment (by: 30 January 5pm)
+-----------------------------
+Olivia thanks you for completing the task! :)
+[E][X] attend Jadon's ball (at: 30 January 5pm-10pm)
+-----------------------------
+Hey!!! Please get the task done.
+[D][ ] submit cs5222 assignment (by: 30 January 5pm)
+-----------------------------
+Olivia presents you a list of tasks for you to do:
+1.[T][X] buy groceries
+2.[E][X] attend Jadon's ball (at: 30 January 5pm-10pm)
+3.[D][ ] submit cs5222 assignment (by: 30 January 5pm)
+4.[T][ ] go for a haircut
+5.[E][ ] attend Seth's homecoming (at: 1 Feb 12-4pm)
+6.[D][ ] submit CS5222 FGPA Project (by: 18 February 5pm)
+7.[T][X] travel to san francisco
+8.[T][X] visit paris
+-----------------------------
+-----------------------------
+Bye. Hope to see you again soon! With Love, Olivia
+-----------------------------
