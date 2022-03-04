@@ -60,12 +60,12 @@ Exits the program.
 Format: `bye`
 
 ## Command Summary
-|--------------|-------------------------------------------------------------------------------------|
-| Action       | Format, Examples                                                                    |
-| Add todo     | `todo TASK_DESCRIPTION` <br/> e.g. `todo submit iP UG`                              |
-| Add deadline | `deadline TASK_DESCRIPTION /by TASK_TIME`<br/> e.g. `deadline ship iP /by 3/3/2022` |
-| Add event    | `event TASK_DESCRIPTION /at TASK_TIME`<br/> e.g. `event SE tutorial /at 10AM`       |
-| List         | `list`                                                                              |
-| Delete       | `delete TASK_NUMBER`<br/> e.g. `delete 2`                                           |
-| Find         | `find TASK_KEYWORD` <br/> e.g. `find iP`                                            |
-| Exit         | `bye`                                                                               |
+Action       | Format, Examples
+--------|:----
+Add todo     | `todo TASK_DESCRIPTION` <br/> e.g. `todo submit iP UG`                              
+Add deadline | `deadline TASK_DESCRIPTION /by TASK_TIME`<br/> e.g. `deadline ship iP /by 3/3/2022` 
+Add event    | `event TASK_DESCRIPTION /at TASK_TIME`<br/> e.g. `event SE tutorial /at 10AM`       
+List         | `list`                                                                              
+Delete       | `delete TASK_NUMBER`<br/> e.g. `delete 2`                                           
+Find         | `find TASK_KEYWORD` <br/> e.g. `find iP`                                            
+Exit         | `bye`                                                                               
