@@ -6,6 +6,7 @@ import duke.task.Task;
 import duke.task.Todo;
 import duke.ui.Ui;
 
+import java.awt.desktop.SystemEventListener;
 import java.util.ArrayList;
 import static java.util.stream.Collectors.toList;
 
@@ -64,26 +65,36 @@ public class TaskList {
      * @param input
      */
     public void addTodo(String input) {
-        String todo = input.substring(input.indexOf(" ") + 1);
-        taskList.add(new Todo(todo));
-        Ui.printTaskAdd();
-        System.out.println(taskList.get(taskList.size()-1));
-        Ui.printTaskCount(this);
-        Ui.printLine();
+        try {
+            if (input.equals("todo")) {
+                throw new IndexOutOfBoundsException();
+            }
+            String todo = input.substring(input.indexOf(" ") + 1);
+            taskList.add(new Todo(todo));
+            Ui.printTaskAdd();
+            System.out.println(taskList.get(taskList.size() - 1));
+            Ui.printTaskCount(this);
+            Ui.printLine();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("OOPS!!! I'm sorry, but I cannot understand you, please type in the correct format of todo");
+        }
     }
-
 
     /**
      * @param input
      */
     public void addEvent(String input) {
-        String event = input.substring(input.indexOf("/") + 4);
-        String description = input.substring(input.indexOf(" ") + 1, input.indexOf("/"));
-        taskList.add(new Event(description, event));
-        Ui.printTaskAdd();
-        System.out.println(taskList.get(taskList.size()-1));
-        Ui.printTaskCount(this);
-        Ui.printLine();
+        try {
+            String event = input.substring(input.indexOf("/") + 4);
+            String description = input.substring(input.indexOf(" ") + 1, input.indexOf("/"));
+            taskList.add(new Event(description, event));
+            Ui.printTaskAdd();
+            System.out.println(taskList.get(taskList.size() - 1));
+            Ui.printTaskCount(this);
+            Ui.printLine();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("OOPS!!! I'm sorry, but I cannot understand you, please type in the correct format of event");
+        }
     }
 
 
@@ -91,14 +102,17 @@ public class TaskList {
      * @param input
      */
     public void addDeadline(String input) {
-        String deadline = input.substring(input.indexOf("/") + 4);
-        String description = input.substring(input.indexOf(" ") + 1, input.indexOf("/") - 1);
-        taskList.add(new Deadline(description, deadline));
-        Ui.printTaskAdd();
-        System.out.println(taskList.get(taskList.size()-1));
-        Ui.printTaskCount(this);
-        Ui.printLine();
-
+        try {
+            String deadline = input.substring(input.indexOf("/") + 4);
+            String description = input.substring(input.indexOf(" ") + 1, input.indexOf("/") - 1);
+            taskList.add(new Deadline(description, deadline));
+            Ui.printTaskAdd();
+            System.out.println(taskList.get(taskList.size() - 1));
+            Ui.printTaskCount(this);
+            Ui.printLine();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("OOPS!!! I'm sorry, but I cannot understand you, please type in the correct format of deadline");
+        }
     }
 
     /**

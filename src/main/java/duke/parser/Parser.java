@@ -46,6 +46,7 @@ public class Parser {
      */
     public static void runCommand(String input, String command, TaskList taskList) {
         try {
+
             switch (command) {
             case "mark": {
                 int taskIndex = getTaskIndex(input);
@@ -84,9 +85,6 @@ public class Parser {
             System.out.println("OOPS!!! I'm sorry, but seems like there is no such task :-( ");
             Ui.printLine();
         } catch (DukeException e) {
-            System.out.println("OOPS!!! I'm sorry, but I cannot understand you, please type in the correct format");
-            Ui.printLine();
-        } catch (StringIndexOutOfBoundsException e) {
             System.out.println("OOPS!!! I'm sorry, but I cannot understand you, please type in the correct format");
             Ui.printLine();
         }
