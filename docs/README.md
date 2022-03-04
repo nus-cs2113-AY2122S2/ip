@@ -66,7 +66,7 @@ Now you have 1 tasks tasks in the list.
     * Expected oucome:
 ```
 Got it. I've added this task:
-[D][ ] Submit lab report /by 03 04 2022`
+[D][ ] Submit lab report (by: 03 04 2022)
 Now you have 2 tasks tasks in the list.
 ```
 3. Adding a event task
@@ -77,7 +77,7 @@ Now you have 2 tasks tasks in the list.
     * Expected oucome:
 ```
 Got it. I've added this task:
-[E][ ] Submit lab report /by 03 04 2022`
+[E][ ] Submit lab report (by: 03 04 2022)
 Now you have 3 tasks tasks in the list.
 ```
 
@@ -88,9 +88,9 @@ Now you have 3 tasks tasks in the list.
 
 ```
 Here are the tasks in your list:
-1.[T][ ] Read textbook
-2.[D][ ] Submit lab report /by 03 04 2022
-3.[E][ ] Submit lab report /by 03 04 2022`
+1 [T][ ] Read textbook
+2 [D][ ] Submit lab report (by: 03 04 2022)
+3 [E][ ] Submit lab report (at: 03 04 2022)
 ```
 5. Finding all tasks containing a keyword in their description: `find`
     * Find all the tasks whose description contains the specified keyword.

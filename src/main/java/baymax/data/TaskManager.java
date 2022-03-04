@@ -42,8 +42,7 @@ public class TaskManager {
     public void addTask(Task newT) {
         tasks.add(newT);
         System.out.println(horiLine);
-        System.out.println(" Got it. I've added this task: \n"+ newT.getStatusIcon()+
-                            newT.getDescription()+"\n" +
+        System.out.println(" Got it. I've added this task: \n"+ newT.toString()+"\n"+
                             "Now you have " +  + tasks.size() + " tasks in the list.");
         System.out.println(horiLine);
     }

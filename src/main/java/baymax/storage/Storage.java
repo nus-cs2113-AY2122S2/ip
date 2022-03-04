@@ -25,9 +25,16 @@ public class Storage {
 
     public ArrayList<Task> load() throws IOException {
 
-        File file = new File(filePath);
+        System.out.println("Record accessing......");
+        File dir = new File("data");
+        if(!dir.exists()){
+            dir.mkdir();
+            System.out.println("create a new directory \"data\"...... ");
+        }
+        File file = new File("data/Baymax.txt");
         if(!file.exists()) {
             file.createNewFile();
+            System.out.println("create a new file \"Baymax.txt\"...... ");
         }
         Scanner s = new Scanner(file);
         ArrayList<Task> tasks = new ArrayList<>();

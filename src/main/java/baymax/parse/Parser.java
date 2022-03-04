@@ -20,7 +20,7 @@ import static java.util.stream.Collectors.toList;
 public class Parser {
 
     private static boolean isBye;
-    private static final String horiLine = "____________________________________________________________\n";
+    private static final String horiLine = "____________________________________________________________";
     private Ui ui;
 
     public Parser(Ui ui) {
@@ -64,11 +64,11 @@ public class Parser {
                         String ddl = taskWord[1];
                         tManager.addTask(new Deadline(taskDescrip, ddl));
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println(" ☹ OOPS!!! The description of a deadline cannot be empty.");
+                        ui.DescripEmptyExceptionMessage();
                     } catch (BaymaxException b){
                         System.out.println( b.getMessage() +" ☹ OOPS!!! Let's do it again.");
                     } catch (DateTimeParseException d){
-                        System.out.println( " ☹ OOPS!!! Please re-enter the date in format: MM dd yyyy");
+                        ui.DateExceptionMessage();
                     }
                     break;
                 case "event":
@@ -78,11 +78,11 @@ public class Parser {
                         String eventTime = taskWord[1];
                         tManager.addTask(new Event(taskDescrip, eventTime));
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println(" ☹ OOPS!!! The description of an event cannot be empty.");
+                        ui.DescripEmptyExceptionMessage();
                     } catch (BaymaxException b){
                         System.out.println( b.getMessage() +" ☹ OOPS!!! Let's do it again.");
                     }catch (DateTimeParseException d){
-                        System.out.println( " ☹ OOPS!!! Please re-enter the date in format: MM dd yyyy");
+                        ui.DateExceptionMessage();
                     }
                     break;
                 case "list":
@@ -92,42 +92,48 @@ public class Parser {
                     try {
                         tManager.markTask(Integer.parseInt(word_split[1]) - 1);
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("Please input an integer for task index.");
+                        ui.ArrayIndexOutOfBoundsExceptionMessage();
                     } catch (NumberFormatException e) {
-                        System.out.println("Please put in integer value");
+                        ui.NumberFormatExceptionMessage();
                     } catch (BaymaxException b){
                         System.out.println( b.getMessage() +" ☹ OOPS!!! Let's do it again.");
+                    } catch (IndexOutOfBoundsException e) {
+                        ui.IndexOutOfBoundsExceptionMessage();
                     }
                     break;
                 case "unmark":
                     try {
                         tManager.unmarkTask(Integer.parseInt(word_split[1]) - 1);
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("Please input an integer for task index.");
+                        ui.ArrayIndexOutOfBoundsExceptionMessage();
                     } catch (NumberFormatException e) {
-                        System.out.println("Please put in integer value");
+                        ui.NumberFormatExceptionMessage();
                     }catch (BaymaxException b){
                         System.out.println( b.getMessage() +" ☹ OOPS!!! Let's do it again.");
+                    }catch (IndexOutOfBoundsException e) {
+                        ui.IndexOutOfBoundsExceptionMessage();
                     }
                     break;
                 case "delete":
                     try {
                         tManager.deleteTask(Integer.parseInt(word_split[1]) - 1);
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("Please input an integer for task index.");
+                        ui.ArrayIndexOutOfBoundsExceptionMessage();
                     } catch (BaymaxException b){
                         System.out.println( b.getMessage() +" ☹ OOPS!!! Let's do it again.");
+                    }catch (IndexOutOfBoundsException e) {
+                        ui.IndexOutOfBoundsExceptionMessage();
                     }
-                    //check branch merge
                     break;
                 case "find":
                     try {
                         String search = word_split[1];
                         ArrayList<Task> filteredTask = (ArrayList<Task>) tManager.getTasks().stream().
-                                filter(task -> task.getDescription().toLowerCase().contains(search.toLowerCase())).collect(toList());
+                                filter(task -> task.getDescription().toLowerCase().contains(search.toLowerCase())).
+                                collect(toList());
                         ui.printTaskList(filteredTask);
                     } catch (IndexOutOfBoundsException e) {
-                        System.out.println("Please enter something for Baymax to search for!!");
+                        ui.IndexOutOfBoundsExceptionMessage();
                     }
                     break;
 
