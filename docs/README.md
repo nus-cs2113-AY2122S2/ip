@@ -2,19 +2,20 @@
 
 Duke is a Personal Assistant Chatbot in the form of a CLI programme that helps users keep track of various types of tasks. Duke is useful for fast typists who can manage their tasks quickly using Duke as compared to traditional Graphical User Interface (GUI) apps.
 
-- [Quick Start]
-- [Features]
-  - [Listing all tasks: `list`]
-  - [Adding a Task]
-    - [Adding a Todo: `todo`]
-    - [Adding an Event: `event`]
-    - [Adding a Deadline: `deadline`]
-  - [Delete a task: `delete`]
-  - [Mark task as complete: `mark`]
-  - [Mark task as incomplete: `unmark`]
-  - [Search for tasks: `find`]
-  - [Quit: `bye`]
-- [Command Summary]
+- [Quick Start](https://github.com/quitejasper/ip/tree/master/docs#quick-start)
+- [Features](https://github.com/quitejasper/ip/tree/master/docs#features)
+  - [Listing all tasks: `list`](https://github.com/quitejasper/ip/tree/master/docs#listing-all-tasks-list)
+  - Adding a Task
+    - [Adding a Todo: `todo`](https://github.com/quitejasper/ip/tree/master/docs#adding-a-todo-todo)
+    - [Adding an Event: `event`](https://github.com/quitejasper/ip/tree/master/docs#adding-an-event-event)
+    - [Adding a Deadline: `deadline`](https://github.com/quitejasper/ip/tree/master/docs#adding-a-deadline-deadline)
+  - [Delete a task: `delete`](https://github.com/quitejasper/ip/tree/master/docs#delete-a-task-delete)
+  - [Mark task as complete: `mark`](https://github.com/quitejasper/ip/tree/master/docs#mark-task-as-complete-mark)
+  - [Mark task as incomplete: `unmark`](https://github.com/quitejasper/ip/tree/master/docs#mark-task-as-incomplete-unmark)
+  - [Search for tasks: `find`](https://github.com/quitejasper/ip/tree/master/docs#search-for-tasks-find)
+  - [Quit: `bye`](https://github.com/quitejasper/ip/tree/master/docs#quit-bye)
+  - [Saving the data](https://github.com/quitejasper/ip/tree/master/docs#saving-the-data)
+- [Command Summary](https://github.com/quitejasper/ip/tree/master/docs#command-summary)
 
 ## Quick Start
 
