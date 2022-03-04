@@ -2,7 +2,7 @@ package duke.tasks;
 import java.util.ArrayList;
 
 public class ToDo {
-    public String doBy = "";
+    public String dateTimeString = "";
     protected String description;
     protected boolean isDone;
 
@@ -48,7 +48,7 @@ public class ToDo {
      *
      * @returns the date of the deadline
      */
-    public String getDoBy() {
-        return this.doBy;
+    public String getdateTimeString() {
+        return this.dateTimeString;
     }
 }

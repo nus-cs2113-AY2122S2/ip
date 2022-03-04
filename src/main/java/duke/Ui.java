@@ -132,8 +132,7 @@ public class Ui {
             //toDos.get(toDos.taskCounter) = new Deadline(description, doBy);
             toDos.add(new Deadline(description, doBy));
             if (toDos.get(toDos.taskCounter - 1) instanceof Deadline) {
-                doBy = (toDos.get(toDos.taskCounter - 1)).getDoBy();
-                System.out.println("------- " + doBy);
+                doBy = (toDos.get(toDos.taskCounter - 1)).getdateTimeString();
             }
             System.out.println(underscoreLine);
             System.out.println(" Great, something else for you to procrastinate:");
@@ -153,6 +152,9 @@ public class Ui {
             String doAt = line.substring((separationLocation + 3));
             //toDos.get(toDos.taskCounter) = new Event(description, doAt);
             toDos.add(new Event(description, doAt));
+            if (toDos.get(toDos.taskCounter - 1) instanceof Event) {
+                doAt = (toDos.get(toDos.taskCounter - 1)).getdateTimeString();
+            }
             System.out.println(underscoreLine);
             System.out.println(" An event! Perhaps it can distract you from your self-inflicted prison:");
             System.out.printf("   %s %s(at:%s)%n", toDos.get(toDos.taskCounter - 1).getStatusIcon(), description, doAt);

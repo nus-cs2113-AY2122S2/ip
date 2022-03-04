@@ -13,34 +13,34 @@ public class Deadline extends ToDo {
      * Constructor for Deadline object
      *
      * @param description Description of the deadline
-     * @param doBy the due date of the deadline
+     * @param dateTimeString the due date of the deadline
      * @returns the deadline object
      */
-    public Deadline(String description, String doBy) {
+    public Deadline(String description, String dateTimeString) {
         super(description);
         try {
-            if (doBy.matches(" \\d{2}/\\d{2}/\\d{4}")) {
-                doBy = doBy.replaceAll(" ", "");
+            if (dateTimeString.matches(" \\d{2}/\\d{2}/\\d{4}")) {
+                dateTimeString = dateTimeString.replaceAll(" ", "");
                 formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-                localDate = LocalDate.parse(doBy, formatter);
+                localDate = LocalDate.parse(dateTimeString, formatter);
 
                 //super(description);
-                this.doBy = " " + localDate.getDayOfWeek() + " " + localDate.getDayOfMonth()
+                this.dateTimeString = " " + localDate.getDayOfWeek() + " " + localDate.getDayOfMonth()
                         + " " + localDate.getMonth() + " " + localDate.getYear();
-                System.out.println("====== " + doBy);
+                System.out.println("====== " + dateTimeString);
             } else {
 
-                this.doBy = doBy;
+                this.dateTimeString = dateTimeString;
             }
         } catch (DateTimeException e) {
             //System.out.println("Hey, user; you did it again. You messed up your date format this time.");
-            this.doBy = doBy;
+            this.dateTimeString = dateTimeString;
         }
     }
 
     @Override
     public String getDescription() {
-        String completeDescription = description + "(by: " + doBy + ")";
+        String completeDescription = description + "(by: " + dateTimeString + ")";
         return completeDescription;
     }
 
