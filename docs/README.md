@@ -32,7 +32,7 @@ Here are the tasks in your list:
 4. [T][X] return book
 5. [E][ ] birthday party (at: 1 April)
 ```
-<br>
+
 
 ### Adding a Todo task: `todo`
 Adds a Todo task to the list of tasks.
@@ -47,7 +47,7 @@ Got it. I've added this task:
 [T][ ] read book
 Now you have 1 tasks in list.
 ```
-<br>
+
 
 ### Adding a Deadline task: `deadline`
 Adds a Deadline task to the list of tasks.
@@ -62,7 +62,7 @@ Got it. I've added this task:
 [D][ ] homework (by: 3 March)
 Now you have 2 tasks in list.
 ```
-<br>
+
 
 ### Adding an Event task: `event`
 Adds an Event task to the list of tasks.
@@ -77,7 +77,7 @@ Got it. I've added this task:
 [E][ ] exam (at: this Sunday)
 Now you have 3 tasks in list.
 ```
-<br>
+
 
 ### Deleting a task: `delete`
 Deletes a task with task ID (task number shown in the list).
@@ -92,7 +92,7 @@ Got it. I've added this task:
 [T][ ] read book
 Now you have 1 tasks in list.
 ```
-<br>
+
 
 ### Marking a task as done: `mark`
 Marks a task with the task ID (task number shown in the list) as done.
@@ -106,7 +106,7 @@ Expected output:
 Nice! I've marked this task as done:
 [T][X] read book
 ```
-<br>
+
 
 ### Marking a task as not done: `unmark`
 Marks a task with the task ID (task number shown in the list) as not done.
@@ -120,7 +120,7 @@ Expected output:
 OK, I've marked this task as not done yet:
 [E][ ] exam (at: this Sunday)
 ```
-<br>
+
 
 ### Finding a task: `find`
 Shows a list of tasks which contains the specific keyword in description.
@@ -135,7 +135,7 @@ Here are the matching tasks in your list:
 1. [T][X] read book
 2. [T][X] return book
 ```
-<br>
+
 
 ### Exiting the application: `bye`
 Exits the application. The current list of tasks will be saved.
@@ -149,7 +149,7 @@ Format: `bye`
 <dt>Definition of duplicate task</dt>
 <dd>same task type and same task description</dd>
 </dl>
-<br>
+
 Expected output:
 ```
 This task already exists:
@@ -159,14 +159,14 @@ Now you have 5 tasks in list.
 
 ## Command summary
 
-Action | Format
------------- | ------------
-List | `list`
-Todo | `todo <task_description>`
-Deadline | `deadline <task_description> /by <datetime>`
-Event | `event <task_description> /at <datetime>`
-Delete | `delete <task_index>`
-Mark | `mark <task_index>`
-Unmark | `unmark <task_index>`
-Find | `find <keyword>`
-Exit | `bye`
+| Action   | Format                                       |
+|----------|----------------------------------------------|
+| List     | `list`                                       |
+| Todo     | `todo <task_description>`                    |
+| Deadline | `deadline <task_description> /by <datetime>` |
+| Event    | `event <task_description> /at <datetime>`    |
+| Delete   | `delete <task_index>`                        |
+| Mark     | `mark <task_index>`                          |
+| Unmark   | `unmark <task_index>`                        |
+|  Find    | `find <keyword>`                             |
+| Exit     | `bye`                                        |
