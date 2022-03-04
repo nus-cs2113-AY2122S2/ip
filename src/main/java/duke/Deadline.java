@@ -1,7 +1,7 @@
 package duke;
 
 public class Deadline extends Task {
-    private String date;
+    private final String date;
     private static final String ICON = "D";
 
     public Deadline(String description, String date) {
