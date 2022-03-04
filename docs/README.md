@@ -225,6 +225,7 @@ Tip: Ensure that there isnt a space behind the bye command.
 - todo: tasks without any date/time attached to it e.g., visit new theme park
 
 ## Command Summary
+
 | Name     | Format, Example |
 | ---      | ---       |
 | todo | ``todo NAME OF TASK`` Eg, ``todo Borrow books from the library`` |
