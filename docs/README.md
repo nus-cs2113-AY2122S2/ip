@@ -156,6 +156,7 @@ No more wishes to be added or updated. Exits program.
 Format: ```bye ```
 
 ## Command Summary
+
 | Command | Format, Example |
 | --- | --- |
 | todo | ```todo: description```<br/>eg. ```todo: Get a car```|
