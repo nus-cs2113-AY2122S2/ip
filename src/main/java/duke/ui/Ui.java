@@ -70,7 +70,7 @@ public class Ui {
         System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < Duke.tasks.size(); i++) {
             Task task = Duke.tasks.get(i);
-            if (task.toString().contains(keyword)) {
+            if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
                 foundTask = true;
                 System.out.println(String.valueOf(i + 1) + "." + task.toString());
             }
@@ -132,24 +132,28 @@ public class Ui {
     public static void printCommand() {
         printFormat("List of valid commands:",
                 "'list' - lists out all tasks and its details",
-                "'mark X' - marks item X on the list as done",
-                "   (X is a number) e.g. 'mark 3' marks item 3 on the list",
-                "'unmark X' - unmarks item X on the list as done",
-                "   (X is a number) e.g. 'unmark 3' unmarks item 3 on the list",
-                "'delete X' - deletes item X on the list",
-                "   (X is a number) e.g. 'delete 3' deletes item 3 on the list",
-                "'find X - lists items in the list that contain the keyword X",
-                "   (X is a string) e.g. 'find book' lists items in the list that contain 'book'",
-                "'todo X' - ToDos are tasks without specific deadlines",
-                "   (X is a string) e.g. 'todo buy shampoo' adds the task 'buy shampoo' to the list",
-                "'deadline X /by DD/MM/YYYY TIME' - Deadlines are tasks that need to" +
-                " be done before a specific date and time in 24-hour format",
+                "'mark NUMBER' - marks item NUMBER on the list as done",
+                "   e.g. 'mark 3' marks item 3 on the list",
+                "'unmark NUMBER' - unmarks item NUMBER on the list as done",
+                "   e.g. 'unmark 3' unmarks item 3 on the list",
+                "'delete NUMBER' - deletes item NUMBER on the list",
+                "   e.g. 'delete 3' deletes item 3 on the list",
+                "'find KEYWORD' - lists items in the list that contain KEYWORD",
+                "   e.g. 'find book' lists items in the list that contain 'book'",
+                "'todo DESC' - ToDos are tasks without specific deadlines",
+                "   e.g. 'todo buy shampoo' adds the task 'buy shampoo' to the list",
+                "'deadline DESC /by DD/MM/YYYY TIME' - Deadlines are tasks that need to" +
+                        "be done before a specific date and time in 24-hour format",
                 "   e.g. 'deadline math homework /by 2/3/2022 1400' adds a " +
                         "task with deadline Mar 2 2022 1400 to the list",
-                "'event X /at DD/MM/YYYY TIME /to DD/MM/YYYY TIME' - Events are tasks that start" + 
-                        " at a specific date and time and ends at a specific date and time",
+                "'event DESC /at DD/MM/YYYY TIME /to DD/MM/YYYY TIME' - Events are tasks that" +
+                        "start at a specific date and time and ends at a specific date and time",
                 "   e.g. 'event project meeting /at 3/3/2022 0900' /to 4/3/2022 1800 " +
-                        "adds a task with a time range");
+                        "adds a task with a time range",
+                "'check date DD/MM/YYYY' - checks if there are tasks due or occuring" +
+                        " on that date",
+                "   e.g. 'check date 04/03/2022' - checks if anything is on 04/03/2022",
+                "'bye' - saves changes and closes Duke");
     }
 
     /**
