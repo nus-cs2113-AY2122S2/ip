@@ -8,11 +8,19 @@ import tasks.Task;
 import java.io.IOException;
 import java.util.InputMismatchException;
 
+/**
+ * Represents the user's command to delete a task
+ */
 public class DeleteCommand extends Command {
 
     protected int taskNumber = -1;
     public static final String COMMAND_WORD = "delete";
 
+    /**
+     * Prepares the DeleteCommand task for execution by extracting the task number to be deleted
+     *
+     * @param userInput User's input string
+     */
     public DeleteCommand(String userInput) {
         try {
             taskNumber = extractTaskNumber(userInput);
@@ -30,6 +38,13 @@ public class DeleteCommand extends Command {
         return Integer.parseInt(splitUserInput[1]);
     }
 
+    /**
+     * Deletes a task from TaskManager.tasks
+     * Writes the shortened list of tasks to the user's task list in the user's hard disk
+     *
+     * @param taskManager Manages the user's task list
+     * @param fileEditor Reads and writes from and to the user's task list file in the user's hard disk
+     */
     @Override
     public void execute(TaskManager taskManager, FileEditor fileEditor) {
         boolean isEmptyTaskList = checkTaskListSize();

@@ -6,8 +6,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import ui.Ui;
 
+/**
+ * Represents a parser that processes the user's input string to identify commands and task attributes
+ */
 public class Parser {
 
+    /**
+     * Parses the user's input string and identifies the command issued by the user
+     *
+     * @param userInput User's input string
+     * @return User's command
+     * */
     public static Command parse(String userInput) {
         String[] splitUserInput = userInput.split(" ");
         String commandWord = splitUserInput[0];

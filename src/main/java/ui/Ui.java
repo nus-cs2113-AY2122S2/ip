@@ -42,27 +42,48 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    /**
+     * Displays the number of tasks that matched the user's search keyword
+     *
+     * @param count Number of tasks that matched the user's search keyword
+     * */
     public static void showSearchResultsCount(int count) {
         System.out.println("There were " + count + " tasks that matched your search.");
     }
 
+    /**
+     * Displays the greeting message to the user
+     * */
     public void showGreetingMessage() {
         showLine();
         System.out.println(GREETING_MESSAGE);
         showLine();
     }
 
+    /**
+     * Displays the exit message to the user
+     * */
     public static void showExitMessage() {
         System.out.println(EXIT_MESSAGE);
         showLine();
     }
 
+    /**
+     * Reads in the user's input, then trims it and converts it to lower case
+     *
+     * @return User's input
+     * */
     public String readCommand() {
         Scanner sc = new Scanner(System.in);
         String userInput = sc.nextLine().trim().toLowerCase();
         return userInput;
     }
 
+    /**
+     * Displays the number of tasks in the user's task list
+     *
+     * @param taskManager represents a task manager that contains the user's task list
+     * */
     public static void showTaskCount(TaskManager taskManager) {
         System.out.println("Now you have " + taskManager.getTaskCount() + " task(s) in the list.");
     }

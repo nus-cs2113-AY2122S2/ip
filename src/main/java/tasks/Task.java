@@ -1,5 +1,8 @@
 package tasks;
 
+/**
+ * Represents a task
+ * */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -37,6 +40,12 @@ public abstract class Task {
         this.setDone(false);
     }
 
+    /**
+     * Returns the task in the form of a formatted string
+     * The string is used to display tasks to users
+     *
+     * @return String form of a task for display
+     * */
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
