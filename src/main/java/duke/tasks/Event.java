@@ -5,15 +5,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Event extends ToDo {
+  
     DateTimeFormatter formatter;
     LocalDate localDate;
+
 
     /**
      * Constructor for Event object
      *
      * @param description Description of the event
      * @param eventTime the time of the event
-     * @returns the deadline object
+     * @returns The deadline object
      */
     public Event(String description, String dateTimeString) {
         super(description);

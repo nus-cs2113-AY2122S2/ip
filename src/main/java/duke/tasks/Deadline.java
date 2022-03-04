@@ -6,8 +6,11 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class Deadline extends ToDo {
+
+
     DateTimeFormatter formatter;
     LocalDate localDate;
+
 
     /**
      * Constructor for Deadline object
