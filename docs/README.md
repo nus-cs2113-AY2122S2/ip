@@ -1,14 +1,47 @@
-# User Guide
+# User Guide for Duke,
+Duke is a software designed to help user keep track of their task using Command Line Interface.
 
-## Features 
 
-### Feature-ABC
+##Quick Start
 
-Description of the feature.
 
-### Feature-XYZ
+## Load exiting data
 
-Description of the feature.
+
+
+## Features
+
+### Feature-Adding a new task
+####1. Add Todo
+
+
+####2. Add Event
+
+
+
+####3. Add Deadline
+
+
+###Feature - Listing all the current task
+
+###Feature - Marking a Task as done
+
+
+###Feature - Marking a Task as not done
+
+
+###Feature - Deleting a task
+
+###Feature - Finding a task
+
+###Feature - Closing the program
+
+
+
+
+## Save data
+
+
 
 ## Usage
 
