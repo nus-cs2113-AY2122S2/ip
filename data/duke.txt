@@ -1,3 +1,0 @@
-E | 1 | Jasper attend CS2113 lecture | Friday 18 Feb 2022 from 4 to 6pm
-T | 0 | eat
-D | 0 | finish iP | tmr
