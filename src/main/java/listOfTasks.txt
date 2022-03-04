@@ -1,3 +1,2 @@
-T| |run
 E| |bday
 T| |bday
