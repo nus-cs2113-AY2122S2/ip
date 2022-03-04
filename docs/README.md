@@ -17,9 +17,9 @@ Todo - Event - Deadline
 
 ## Quick Start
 1. Prerequisites: JDK 11, update Intellij to the most recent version.
-2. Download the latest copy of `Brave.jar` from the [Releases](https://github.com/johnsuharjono/ip/releases) page.
+2. Download the latest copy of `ip.jar` from the [Releases](https://github.com/johnsuharjono/ip/releases) page.
 3. Open your Command Prompt (Windows) or Terminal (Mac/Linux), and navigate to the folder you created.
-4. Run the command `java -jar Brave.jar`, this will be shown in your terminal if successfull
+4. Run the command `java -jar ip.jar`, this will be shown in your terminal if successfull
     ```
     -*|Brave|*------------------------------------
     Greetings from
