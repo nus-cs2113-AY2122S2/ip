@@ -10,6 +10,11 @@ import main.java.duke.task.Task;
 import main.java.duke.exception.DukeException;
 import main.java.duke.storage.Storage;
 
+/**
+ * Main class for Duke that runs the bot. The bot takes in user inputs, and has various commands
+ * that would perform various tasks
+ */
+
 public class Duke {
 
     private static Scanner sc = new Scanner(System.in);
@@ -17,6 +22,11 @@ public class Duke {
     public static int taskCounter = 0;
     private final Parser parser = new Parser();
 
+    /**
+     * Main method used to run the bot. It calls the load() method from the Storage class to 
+     * load data saved from previous uses, will ask for user inputs, will call the writeToFile()
+     * method from Storage to update the latest information.
+     */
     private void run() {
         try {
             Storage.load();
@@ -37,13 +47,14 @@ public class Duke {
                 Ui.printError(e);
             }
         }
-        try {
-            Storage.writeToFile();
-        } catch (IOException e) {
-            System.out.println("ERROR IN WRITING FILE");
-        }
+        
     }
 
+    /**
+     * Main method for Duke.
+     * 
+     * @param args NIL.
+     */
     public static void main(String[] args) {
         new Duke().run();
     }
