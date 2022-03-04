@@ -1,9 +1,8 @@
 package Commands;
 
 import Interfaces.UI;
-import Managers.TaskManager;
 
-import static Functions.MessageDisp.printWithLine;
+import Managers.TaskManager;
 
 /**
  * For all commands that are not implemented in Bao.

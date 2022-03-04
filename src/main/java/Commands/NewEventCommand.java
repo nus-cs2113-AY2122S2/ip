@@ -1,11 +1,12 @@
 package Commands;
 
 import Components.Event;
-import Exceptions.MaxTaskException;
-import Interfaces.UI;
-import Managers.TaskManager;
 
-import static Functions.MessageDisp.printWithLine;
+import Exceptions.MaxTaskException;
+
+import Interfaces.UI;
+
+import Managers.TaskManager;
 
 /**
  * Command for Bao to create a new event to add to task list.

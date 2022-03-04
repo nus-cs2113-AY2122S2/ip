@@ -5,6 +5,7 @@ import Components.Task;
 import java.util.ArrayList;
 
 public interface UI {
+    public abstract void helpMessage(String command);
     public abstract void newTaskMessage(Task task);
     public abstract void deleteTaskMessage(Task deletedTask);
     public abstract void findTasksMessage(ArrayList<String> taskStrings);

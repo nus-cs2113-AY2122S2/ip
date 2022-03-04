@@ -4,8 +4,6 @@ import Interfaces.UI;
 
 import Managers.TaskManager;
 
-import static Functions.MessageDisp.printWithLine;
-
 /**
  * Command for Bao to mark a task in the task list as not done.
  */

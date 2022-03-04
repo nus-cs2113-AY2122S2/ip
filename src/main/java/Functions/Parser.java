@@ -27,7 +27,7 @@ public class Parser {
      */
     public static Command commandParse(String command) throws NoTaskDescriptionException, NoDateTimeException,
             BadDateTimeFormatException, NoKeywordException {
-        String commandWord = command.trim().toLowerCase().split(" ")[0];
+        String commandWord = command.trim().split(" ")[0].toLowerCase();
 
         try {
             switch (commandWord) {
@@ -58,8 +58,11 @@ public class Parser {
                 int deleteIndex = getIndex(command);
                 return new DeleteTaskCommand(deleteIndex);
             case "find":
-                String keyword = getKeyword(command);
-                return new FindCommand(keyword);
+                String findKeyword = getKeyword(command);
+                return new FindCommand(findKeyword);
+            case "help":
+                String helpKeyword = (command.indexOf(" ") == -1) ? "" : getKeyword(command);
+                return new HelpCommand(helpKeyword);
             case "bye":
                 return new ExitCommand();
             default:
@@ -86,7 +89,7 @@ public class Parser {
         boolean isDeadline = msg.indexOf("/by") > -1;
 
         try {
-            // Get delimiters
+            // Get appropriate delimiters
             if (isDeadline) {
                 dateTimeDelimiterIndex = msg.indexOf("/by");
                 descDelimiterIndex = LENGTH_DEADLINE;
@@ -99,7 +102,7 @@ public class Parser {
                 throw new BadDateTimeFormatException("No delimiter.");
             }
 
-            // Parse message (0 - Description, 1 - DateTime)
+            // Parse message into String array (index 0 - Description, index 1 - DateTime)
             strings[0] = msg.substring(descDelimiterIndex, dateTimeDelimiterIndex).trim(); // Task description
             strings[1] = msg.substring(dateTimeDelimiterIndex + LENGTH_DATETIME_DELIMITER).trim(); // DateTime
 
@@ -135,7 +138,7 @@ public class Parser {
     }
 
     /**
-     * Decomposes user command for finding. Separates command keyword from target keyword.
+     * Decomposes user commands for finding and help. Separates command keyword from target keyword.
      *
      * @param msg User command to parse.
      * @return Keyword to find.

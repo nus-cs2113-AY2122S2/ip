@@ -3,8 +3,6 @@ package Commands;
 import Interfaces.UI;
 import Managers.TaskManager;
 
-import static Constants.BaoConstants.LINE_BREAK;
-
 /**
  * Command for Bao to display all tasks in the task list.
  */

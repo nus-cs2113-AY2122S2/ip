@@ -1,10 +1,13 @@
 package Commands;
 
 import Components.Task;
+
 import Interfaces.UI;
+
 import Managers.TaskManager;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Command for Bao to display tasks from the task list that have the given keyword in its description.
@@ -36,7 +39,7 @@ public class FindCommand extends Command {
 
         for (Task task : tasks) {
             taskString = task.toString();
-            if (taskString.contains(keyword)) {
+            if (taskString.toLowerCase().contains(keyword.toLowerCase())) {
                 taskStrings.add(numMatched + taskString);
             }
         }

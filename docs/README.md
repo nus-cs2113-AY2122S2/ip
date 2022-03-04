@@ -35,11 +35,12 @@ Prerequisites: Java 11.
 :memo: Notes about the command format:
 - Words in `UPPER_CASE` are the parameters to be supplied by the user.
   e.g. in `find KEYWORD`, `KEYWORD` is a parameter which can be used as `find run`.
+- `KEYWORD`s are not case-sensitive.
 
 ### View help: `help`
-Shows a list of command formats available.
+Shows information for a specific command or a list of commands available.
 
-Format: `help`
+Format: `help [COMMAND_KEYWORD]`
 
 ### List all tasks: `list`
 Shows a list of all tasks in the task list.

@@ -1,11 +1,12 @@
 package Commands;
 
 import Components.Deadline;
-import Exceptions.MaxTaskException;
-import Interfaces.UI;
-import Managers.TaskManager;
 
-import static Functions.MessageDisp.printWithLine;
+import Exceptions.MaxTaskException;
+
+import Interfaces.UI;
+
+import Managers.TaskManager;
 
 /**
  * Command for Bao to create a task with deadline to add to task list.

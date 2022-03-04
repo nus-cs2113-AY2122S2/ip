@@ -1,7 +1,7 @@
 package Managers;
 
-import java.io.IOException;
 import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,6 +9,7 @@ import Commands.Command;
 import Commands.UnknownCommand;
 
 import Components.Task;
+
 import Exceptions.BadDateTimeFormatException;
 import Exceptions.NoDateTimeException;
 import Exceptions.NoKeywordException;
@@ -53,6 +54,54 @@ public class BaoUI implements UI {
                         + "How can I help?");
     }
 
+    /**
+     * Displays the corresponding help message.
+     *
+     * @param command Keyword of command to seek information on. Optional.
+     */
+    public void helpMessage(String command) {
+        switch (command.toLowerCase()) {
+        case "help":
+            printWithLine("Displays a list of commands available.", "Usage: help", " ",
+                    "Shows information for a specific command", "Usage: help COMMAND_KEYWORD");
+            break;
+        case "list":
+            printWithLine("Shows a list of all tasks in the task list.", "Usage: list");
+            break;
+        case "find":
+            printWithLine("Shows a list of all tasks in the task list that contains the keyword in their description.",
+                    "Usage: find KEYWORD");
+            break;
+        case "todo":
+            printWithLine("Adds a ToDo task to the task list.", "Usage: todo DESCRIPTION");
+            break;
+        case "deadline":
+            printWithLine("Adds a task with a deadline to the task list.", "Usage: deadline DESCRIPTION /by DATETIME");
+            break;
+        case "event":
+            printWithLine("Adds an event to the task list.", "Usage: event DESCRIPTION /at DATETIME");
+            break;
+        case "delete":
+            printWithLine("Removes a task from the task list.", "Usage delete TASK_NUMBER");
+            break;
+        case "mark":
+            printWithLine("Marks a task in the task list as completed.", "Usage: mark TASK_NUMBER");
+            break;
+        case "unmark":
+            printWithLine("Marks a task in the task list as incomplete.", "Usage: unmark TASK_NUMBER");
+            break;
+        case "bye":
+            printWithLine("Closes Bao app.", "Usage: bye");
+            break;
+        case "":
+            printWithLine("Not sure what to do next? Try one of these keywords:", "list", "find", "todo", "deadline",
+                    "event", "delete", "mark", "unmark", "bye");
+            break;
+        default:
+            printWithLine("There is no such command, try one of these keywords instead:", "list", "find", "todo",
+                    "deadline", "event", "delete", "mark", "unmark", "bye");
+        }
+    }
     /**
      * Continuously accept and execute user commands until user quits app.
      */
