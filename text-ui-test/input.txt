@@ -7,4 +7,5 @@ event project meeting /at Monday 2-4pm
 mark 1
 unmark 1
 list
+find book
 bye
