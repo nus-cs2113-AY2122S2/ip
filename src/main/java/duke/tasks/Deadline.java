@@ -1,24 +1,45 @@
 package duke.tasks;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class Deadline extends ToDo {
-    protected String doBy;
+    DateTimeFormatter formatter;
+    LocalDate localDate;
 
     /**
      * Constructor for Deadline object
      *
      * @param description Description of the deadline
-     * @param doBy the due date of the deadline
+     * @param dateTimeString the due date of the deadline
      * @returns the deadline object
      */
-    public Deadline(String description, String doBy) {
+    public Deadline(String description, String dateTimeString) {
         super(description);
-        this.doBy = doBy;
+        try {
+            if (dateTimeString.matches(" \\d{2}/\\d{2}/\\d{4}")) {
+                dateTimeString = dateTimeString.replaceAll(" ", "");
+                formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+                localDate = LocalDate.parse(dateTimeString, formatter);
+
+                //super(description);
+                this.dateTimeString = " " + localDate.getDayOfWeek() + " " + localDate.getDayOfMonth()
+                        + " " + localDate.getMonth() + " " + localDate.getYear();
+                System.out.println("====== " + dateTimeString);
+            } else {
+
+                this.dateTimeString = dateTimeString;
+            }
+        } catch (DateTimeException e) {
+            this.dateTimeString = dateTimeString;
+        }
     }
 
     @Override
     public String getDescription() {
-        String completeDescription = description + "(by: " + doBy + ")";
+        String completeDescription = description + "(by: " + dateTimeString + ")";
         return completeDescription;
     }
 

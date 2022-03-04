@@ -1,10 +1,8 @@
 [T][X]eat
 [D][ ]read a book (by:  1pm Tuesday)
 [T][ ]eat
-[E][X]Gardens (at:  Monday 3om)
-[D][ ]return books (by:  3pm March 3rd)
-[D][X]return more books (by:  4pm May 4th)
-[D][ ]further work (by:  tuesday 12/12/1212)
-[T][X]something
-[E][ ]learn to swim (at:  03/04/2022)
-[E][ ]learn to swim (at:  3/4/2022)
+[T][ ]eat again
+[D][ ]eat (by: SUNDAY 9 SEPTEMBER 2029)
+[D][ ]perish (by:  thursday next week)
+[D][ ]perish further (by:  FRIDAY 12 JANUARY 2029)
+[E][X]march of the damned (at:  MONDAY 12 FEBRUARY 2029)
