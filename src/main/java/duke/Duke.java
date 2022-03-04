@@ -23,7 +23,7 @@ public class Duke {
     public Duke() {
         storage = new Storage();
         toDos = new TaskList();
-        ui = new Ui(toDos);
+        ui = new Ui();
     }
 
     /**
