@@ -35,6 +35,21 @@ public class Ui {
                 "  Your personal task managing companion. \n" +
                 "  What can I do for you? ";
         System.out.println(greeting);
+        this.helpMessage();
+    }
+
+    public void helpMessage(){
+        System.out.println(horiLine);
+        String help = "  Add three types of tasks: event, deadline, task \n"+
+                "  \tin the form of <task_type> <description> \n" +
+                "  \tto add deadline time: append \"'/by MM dd yyyy\" \n" +
+                "  \tto add event time: append \"'/at MM dd yyyy\" \n" +
+                "  Use list method to see all the tasks \n" +
+                "  Use mark and unmark methods with task index to set or unset the tasks as done \n" +
+                "  Use find method with description to search specific tasks \n" +
+                "  Use delete method with task index to delete certain task \n" +
+                "  Let's start!!! ";
+        System.out.println(help);
         System.out.println(horiLine);
     }
 

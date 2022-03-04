@@ -136,7 +136,9 @@ public class Parser {
                         ui.IndexOutOfBoundsExceptionMessage();
                     }
                     break;
-
+                case "help":
+                    ui.helpMessage();
+                    break;
                 default:
                     ui.displayErrorMessage();
                     break;
