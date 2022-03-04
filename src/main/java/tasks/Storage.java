@@ -20,6 +20,7 @@ public class Storage {
     protected static final String DEADLINE = "D";
     private static final ArrayList<Task> Tasks = new ArrayList<>();
     private Time timeChecker;
+    private TaskManager manager;
 
     public int getSize() {
         return Tasks.size();
@@ -85,7 +86,7 @@ public class Storage {
      */
     public void mark(Task task, String status) {
         if (status.equals(DONE)) {
-            task.isDone = true;
+            task.mark();
         }
     }
 
@@ -144,8 +145,8 @@ public class Storage {
         timeChecker.check();
         newTimeString = timeChecker.getDateString();
         Deadline newDeadline = new Deadline(keyInfo[2], newTimeString);
-        mark(newDeadline, keyInfo[2]);
         Tasks.add(newDeadline);
+        mark(newDeadline, keyInfo[1]);
     }
 
     /**
@@ -161,8 +162,8 @@ public class Storage {
         timeChecker.check();
         newTimeString = timeChecker.getDateString();
         Event newEvent = new Event(keyInfo[2], newTimeString);
-        mark(newEvent, keyInfo[2]);
         Tasks.add(newEvent);
+        mark(newEvent, keyInfo[1]);
     }
 
     /**
@@ -171,8 +172,8 @@ public class Storage {
      */
     private void importTodoTask(String[] keyInfo) {
         ToDo newToDo = new ToDo(keyInfo[2]);
-        mark(newToDo, keyInfo[2]);
         Tasks.add(newToDo);
+        mark(newToDo, keyInfo[1]);
     }
 
     /**
