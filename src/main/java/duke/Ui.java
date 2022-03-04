@@ -25,10 +25,6 @@ public class Ui {
         this.showLine();
     }
 
-    public void showGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
-    }
-
     public void showError(String e) {
         System.out.println(e);
     }
