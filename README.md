@@ -34,12 +34,13 @@ able to add, delete, and search for tasks at will.
 #How to Use Duke
 
 ##Necessary files to provide:
-'taskList.txt' - Please provide a text file named taskList.txt in the *same directory as Duke*
-This file will store all 
+'taskList.txt' - Please provide a text file named taskList.txt in the *same directory as the .jar file*
+This file will store all tasks provided, and can be empty upon creation.
 
-taskList.txt should have the following file path:  /src/main/java/Duke/taskList.txt
+If taskList.txt is *not* provided, Duke will create it upon ending its first run. However, during this first
+run it will start with the message "file not found".
 
-Duke should have the following:                    /src/main/java/Duke/Duke.java
+After the file is provided, Duke will write and read tasks to it in the proper format.
 
 ##Running Duke
 
