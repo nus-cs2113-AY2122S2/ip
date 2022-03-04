@@ -44,7 +44,7 @@ public class Parser {
         int taskNumInt = Character.getNumericValue(taskNumChar);
         tasks.getTask(taskNumInt - 1).setAsDone();
         System.out.println("[" + tasks.getTask(taskNumInt - 1).getTaskType() + "]" + "[X] "
-                + tasks.getTask(taskNumInt - 1).description.replace("|","");
+                + tasks.getTask(taskNumInt - 1).description.replace("|",""));
     }
 
     /**
@@ -59,7 +59,7 @@ public class Parser {
         int taskNumInt = Character.getNumericValue(taskNumChar);
         tasks.getTask(taskNumInt - 1).setAsNotDone();
         System.out.println("[" + tasks.getTask(taskNumInt - 1).getTaskType() + "]" + "[ ] "
-                + tasks.getTask(taskNumInt - 1).description.replace("|","");
+                + tasks.getTask(taskNumInt - 1).description.replace("|",""));
     }
 
     /**
