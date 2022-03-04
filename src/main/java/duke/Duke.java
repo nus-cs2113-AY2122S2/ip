@@ -13,8 +13,8 @@ public class Duke {
 
     public Duke() {
         storage = new Storage();
-        ui = new Ui();
         toDos = new TaskList();
+        ui = new Ui(toDos);
     }
 
     public void run(String filePath) {
