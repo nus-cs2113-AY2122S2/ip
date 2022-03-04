@@ -43,30 +43,6 @@ public class Duke {
                 ui.showLine();
             }
         }
-//        // Start chat session
-//        ChatSession currChat = new ChatSession();
-//        currChat.startSession();
-//
-//        // Get user input
-//        Scanner sc = new Scanner(System.in);
-//        String userInput;
-//
-//        while (true) {
-//            userInput = sc.nextLine();
-//
-//            // Terminate chat session
-//            if (userInput.startsWith("bye")) {
-//                currChat.endSession();
-//                break;
-//            }
-//
-//            // Try to execute commands. If unrecognised commands, print error.
-//            try {
-//                executeCommands(tasks, ui, storage);
-//            } catch (DukeException e) {
-//                currChat.printInvalidTask(e);
-//            }
-//        }
     }
 
     public static void main(String[] args) {
