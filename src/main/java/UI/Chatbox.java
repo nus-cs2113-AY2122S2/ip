@@ -1,5 +1,8 @@
 package UI;
 
+/**
+ * Create a chatbox for each message
+ */
 public class Chatbox {
     //border of the chatbox
     protected static final String HORIZON_LINE = "-------------------------------------";

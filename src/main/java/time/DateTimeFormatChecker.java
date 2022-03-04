@@ -5,6 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Check the format of the input date and time and convert to standart format date string
+ */
 public class DateTimeFormatChecker extends Time {
     private static final List<String> formatStrings =
             Arrays.asList("M/d/y H:m", "M/d/y H", "M-d-y H:m", "y-M-d H:m", "y/M/d H:m", "MMM dd yyyy H:m",

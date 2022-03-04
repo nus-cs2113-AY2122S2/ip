@@ -5,7 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
-
+/**
+ * Check the format of the input date and convert to standart format date string
+ */
 public class DateFormatChecker extends Time {
     //Standard format for printing task information
     private static final SimpleDateFormat stdFormatter = new SimpleDateFormat("MMM dd yyyy");
