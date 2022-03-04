@@ -2,7 +2,7 @@
 Duke is a software designed to help user keep track of their task using Command Line Interface.
 
 
-##Quick Start
+## Quick Start
 
 
 ## Load exiting data
@@ -12,29 +12,25 @@ Duke is a software designed to help user keep track of their task using Command 
 ## Features
 
 ### Feature-Adding a new task
-####1. Add Todo
+1. Add Todo
+
+2. Add Event
+
+3. Add Deadline
+
+### Feature - Listing all the current task
+
+### Feature - Marking a Task as done
 
 
-####2. Add Event
+### Feature - Marking a Task as not done
 
 
+### Feature - Deleting a task
 
-####3. Add Deadline
+### Feature - Finding a task
 
-
-###Feature - Listing all the current task
-
-###Feature - Marking a Task as done
-
-
-###Feature - Marking a Task as not done
-
-
-###Feature - Deleting a task
-
-###Feature - Finding a task
-
-###Feature - Closing the program
+### Feature - Closing the program
 
 
 
