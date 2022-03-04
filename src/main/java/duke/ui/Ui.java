@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.security.PublicKey;
+import java.util.ArrayList;
 import java.util.Scanner;
 import duke.messages.Messages;
-
+import duke.task.Task;
+import duke.taskList.TaskList;
 
 
 public class Ui {
@@ -86,6 +88,25 @@ public class Ui {
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
             System.out.println(s.nextLine());
+        }
+    }
+
+    /**
+     * @param taskList
+     */
+    public static void printTaskCount(TaskList taskList) {
+        System.out.print("Now you have ");
+        System.out.print(taskList.getSize());
+        System.out.println(" tasks in the list");
+    }
+
+
+    /**
+     * @param taskList
+     */
+    public static void printTaskList(ArrayList<Task> taskList) {
+        for (Task task: taskList) {
+            System.out.println(task);
         }
     }
 

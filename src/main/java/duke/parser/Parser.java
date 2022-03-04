@@ -75,6 +75,9 @@ public class Parser {
             case "delete":
                 taskList.deleteTask(getTaskIndex(input));
                 break;
+            case "find":
+                taskList.findTask(input);
+                break;
             default:
                 throw new DukeException("OOPS!!! I'm sorry, but I cannot understand you, please type in the correct format");
             }

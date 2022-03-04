@@ -47,7 +47,7 @@ public class Duke {
     }
 
     /**
-     * @param args 
+     * @param args
      */
     public static void main(String[] args) {
         new Duke(Messages.MESSAGE_FILEPATH).run();
