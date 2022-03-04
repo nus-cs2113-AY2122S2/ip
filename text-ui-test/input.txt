@@ -1,0 +1,61 @@
+list
+read book
+todo read book
+list
+deadline return book /by Sunday
+deadline return book /by 27/2/2022 2100
+deadline return book /by 27/02/2022 2100
+list
+mark 1
+list
+event project meeting /at Mon 2-4pm
+event project meeting /at 19/9/2022 1400
+event project meeting /at 19/09/2022 1400
+list
+mark 3
+mark 2
+list
+unmark 2
+list
+unmark 1
+list
+bloop bloop
+todo
+event
+event test
+event test /at
+event test /at
+event test /at now
+event test /at now /at
+event test /at now /by
+event test /at /by now
+event test /at/at/at now
+event test /at/at/at/by/at now
+deadline
+deadline test
+deadline test /by
+deadline test /by
+deadline test / by
+deadline test /by now
+deadline test /by now /by
+deadline test /by now /at
+deadline test /at now
+deadline test /by /at now
+deadline test /by/by/by now
+deadline test /by/by/by/at/by now
+list
+todo test|test
+deadline project submission /by 12/04/2022 2359
+event trip to Japan /at 10/10/2019 0800
+list
+find
+find pancakes
+find read
+find project
+find return book
+find 10 Oct
+find E
+mark huh
+delete 3
+list
+bye
