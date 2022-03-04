@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.nio.file.Paths;
 
+/** Executes the main program Eliz. Contains the main function to be run and calls different methods from the
+ *  stored data into the current program.
+ */
 public class Eliz {
 
     private Storage storage;
@@ -29,6 +32,12 @@ public class Eliz {
         }
     }
 
+    /**
+     * Reads in inputs from user and does the necessary actions.
+     *
+     * @throws ElizException If incorrect inputs are given by the user.
+     * @throws IOException If the input is not correctly read.
+     */
     public static void run() throws ElizException, IOException {
         Scanner in = new Scanner(System.in);
         String line = in.nextLine();
@@ -40,6 +49,14 @@ public class Eliz {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Calls the main function to run after checking if a file for storage exists.
+     * If file does not exist, create a new file
+     *
+     * @param args An array of string that stores arguments passed by the command line while starting a program
+     * @throws ElizException If incorrect inputs are given by the user.
+     * @throws IOException If the input is not correctly read.
+     */
     public static void main(String[] args) throws ElizException, IOException {
         String filePath = "src/main/java/listOfTasks.txt";
         File newFile = new File(filePath);

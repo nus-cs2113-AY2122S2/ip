@@ -6,6 +6,7 @@ import java.lang.reflect.Array;
 import java.nio.file.FileSystemNotFoundException;
 import java.util.ArrayList;
 
+/** Represents the handling of commands from the user */
 public class Parser {
 
     public static String line;
@@ -18,6 +19,11 @@ public class Parser {
         this.filePath = filePath;
     }
 
+    /**
+     * Prints tasks in the current task list.
+     *
+     * @param tasks The list of tasks stored.
+     */
     public static void printTasks(TaskList tasks) {
         for (int i = 0; i < tasks.getSize(); i++) {
             int numToPrint = i + 1;
@@ -26,6 +32,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Marks a task as done.
+     * Prints out the task as marked to the user.
+     *
+     * @param line The index number of the task in the task list.
+     * @param tasks The list of tasks stored.
+     */
     public static void markATask(String line, TaskList tasks) {
         char taskNumChar = line.charAt(line.length() - 1);
         int taskNumInt = Character.getNumericValue(taskNumChar);
@@ -34,6 +47,13 @@ public class Parser {
                 + tasks.getTask(taskNumInt - 1).description);
     }
 
+    /**
+     * Marks a task as not done.
+     * Prints out the task as not marked to the user
+     *
+     * @param line The index number of the task in the task list,
+     * @param tasks The list of tasks stored.
+     */
     public static void unmarkATask(String line, TaskList  tasks) {
         char taskNumChar = line.charAt(line.length() - 1);
         int taskNumInt = Character.getNumericValue(taskNumChar);
@@ -42,6 +62,13 @@ public class Parser {
                 + tasks.getTask(taskNumInt - 1).description);
     }
 
+    /**
+     * Recognises if command is mark or unmark.
+     * Makes the relevant method calls.
+     *
+     * @param line The first word in the command that is either mark or unmark.
+     * @param tasks The list of tasks stored.
+     */
     public static void markOrUnmark(String line, TaskList tasks) {
         if (line.contains("unmark")) {
             System.out.println("OK, I've marked this task as not done yet:");
@@ -51,6 +78,11 @@ public class Parser {
             markATask(line, tasks);
         }
     }
+
+    /**
+     * Has the command list for users to follow upon keying in /help.
+     * Prints out each command and their usage.
+     */
     public static void displayCommands() {
         System.out.println("Commands to add tasks: ");
         System.out.println("todo [TASK_NAME]");
@@ -71,6 +103,14 @@ public class Parser {
         System.out.println("Bye");
     }
 
+    /**
+     * Calls the necessary methods according to the given user input.
+     * Deals with certain exceptions and wrong inputs.
+     *
+     * @throws ElizException If incorrect inputs are given by the user.
+     * @throws FileSystemNotFoundException If the file to be written to is not found
+     * @throws IOException If the input is not correctly read.
+     */
     public static void getInput() throws ElizException, FileSystemNotFoundException, IOException {
         String[] breakTaskNames = line.split(" ", 2);
         if ((breakTaskNames.length < 2)){
