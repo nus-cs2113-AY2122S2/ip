@@ -13,7 +13,7 @@ public class unmarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.getTask(this.taskIndex).unmarkTask();
-        tasks.writeTasksToFile();
+        storage.writeTasksToStorage(tasks);
 
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(task);

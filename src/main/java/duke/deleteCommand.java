@@ -13,7 +13,7 @@ public class deleteCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.removeTask(this.taskIndex);
-        tasks.writeTasksToFile();
+        storage.writeTasksToStorage(tasks);
 
         System.out.println("Noted. I've removed this task");
         System.out.println(task);

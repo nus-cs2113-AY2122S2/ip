@@ -33,18 +33,4 @@ public class TaskList {
         return this.tasks.remove(taskIndex);
     }
 
-    public void writeTasksToFile() {
-        // Write tasks to file
-        try {
-            String output = "";
-            for (int i = 0; i < this.tasks.size(); i++) {
-                output += tasks.get(i).saveString() + System.lineSeparator();
-            }
-            FileWriter fw = new FileWriter("data/duke.txt");
-            fw.write(output);
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Error writing to file.");
-        }
-    }
 }

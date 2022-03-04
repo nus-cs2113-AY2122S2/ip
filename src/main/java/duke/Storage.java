@@ -7,6 +7,7 @@ import duke.task.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -62,5 +63,20 @@ public class Storage {
         }
 
         return tasks;
+    }
+
+    // Write tasks to file
+    public void writeTasksToStorage(TaskList tasks) {
+        try {
+            String output = "";
+            for (int i = 0; i < tasks.getSize(); i++) {
+                output += tasks.getTask(i).saveString() + System.lineSeparator();
+            }
+            FileWriter fw = new FileWriter("data/duke.txt");
+            fw.write(output);
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Error writing to file.");
+        }
     }
 }

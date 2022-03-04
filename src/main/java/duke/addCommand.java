@@ -43,7 +43,7 @@ public class addCommand extends Command {
         }
 
         tasks.addTask(newTask);
-        tasks.writeTasksToFile();
+        storage.writeTasksToStorage(tasks);
 
         // Print the newTask
         System.out.println("Got it. I've added this task:");
