@@ -1,7 +1,6 @@
 [T][ ] visit Marina Bay
-[E][ ] networking (at: 9:00)
-[D][X] finish assignment (by: March 4)
 [T][ ] visit zoo
 [T][X] visit gardens
 [T][ ] attend meeting
-[D][ ] finish duke (by: 12:00AM)
+[D][ ] finish duke (by: 2022-03-04 10:00)
+[E][ ] eat meal (at: 2022-03-04 09:00)

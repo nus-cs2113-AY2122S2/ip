@@ -16,13 +16,13 @@ public class Task {
         this.isDone = false;
     }
 
-    public String parseDateString() {
-        return "";
-    }
-
-    public String processDate() {
-        return "";
-    }
+//    public String parseDateString() {
+//        return "";
+//    }
+//
+//    public String processDate() {
+//        return "";
+//    }
 
 
     public String getStatusIcon() {
@@ -30,6 +30,7 @@ public class Task {
     }
 
     public String toString() {
+
         return "[" + this.getStatusIcon() + "] " + description;
     }
 
