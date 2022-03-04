@@ -37,6 +37,8 @@ public class Duke {
      * */
     public void run() {
         ui.showGreetingMessage();
+        System.out.println(ui.COMMAND_MENU);
+        ui.showLine();
         boolean isExit = false;
         while (!isExit) {
             String fullCommand = ui.readCommand();

@@ -12,7 +12,18 @@ public class Ui {
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
-    public static final String GREETING_MESSAGE = LOGO + "Hello, I'm Duke!\nWhat can I do for you?";
+    public static final String GREETING_MESSAGE = LOGO + "Hello, I'm Duke!\nWhat can I do for you?" ;
+    public static final String TODO_COMMAND = "- Add new todo task (Command: todo <taskDescription>)\n";
+    public static final String EVENT_COMMAND = "- Add new event task (Command: event <taskDescription> /at <duration>)\n";
+    public static final String DEADLINE_COMMAND = "- Add new deadline task (Command: deadline <taskDescription> /by <dd/MM/yyyy HH:mm>)\n";
+    public static final String DELETE_COMMAND = "- Delete task (Command: delete <taskNumber>)\n";
+    public static final String FIND_COMMAND = "- Find tasks (Command: find <keyword>)\n";
+    public static final String LIST_COMMAND = "- List all tasks (Command: list)\n";
+    public static final String MARK_COMMAND = "- Mark task as done (Command: mark <taskNumber>)\n";
+    public static final String UNMARK_COMMAND = "- Mark task as not done yet (Command: unmark <taskNumber>)\n";
+    public static final String BYE_COMMAND = "- Exit Duke (Command: bye)\n";
+    public static final String COMMAND_MENU = "Here is the command menu:\n" + TODO_COMMAND + EVENT_COMMAND + DEADLINE_COMMAND +
+            DELETE_COMMAND + FIND_COMMAND + LIST_COMMAND + MARK_COMMAND + UNMARK_COMMAND + BYE_COMMAND;
     public static final String EXIT_MESSAGE = "Bye. Hope to see you again soon!";
     public static final String ADDED_TASK_MESSAGE = "Got it. I've added this task:";
     public static final String DELETED_TASK_MESSAGE = "Noted. I've removed this task:";
@@ -29,7 +40,7 @@ public class Ui {
     public static final String MISSING_TASK_NUMBER_MESSAGE = "☹ OOPS!!! You haven't entered a task number. Please enter a task number!";
     public static final String INVALID_TASK_NUMBER_MESSAGE = "☹ OOPS!!! You haven't entered a valid task number. Please enter a valid task number!";
     public static final String MARK_TASK_MESSAGE = "Nice! I've marked this task as done:";
-    public static final String UNMARK_TASK_MESSAGE = "Nice! I've marked this task as done:";
+    public static final String UNMARK_TASK_MESSAGE = "I've marked this task as not done yet:";
     public static final String WRONG_INPUT_MESSAGE = "☹ OOPS!!! I'm sorry, but I don't know what that means :-( Please enter something else!";
     public static final String EMPTY_INPUT_MESSAGE = "☹ OOPS!!! You didn't enter anything. Please key in something!";
     public static final String EMPTY_SEARCH_DESCRIPTION_MESSAGE = "☹ OOPS!!! You didn't enter any search phrases. Please key in something!";
