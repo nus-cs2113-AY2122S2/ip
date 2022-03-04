@@ -86,8 +86,8 @@ Delete the selected task, note that the `TASK_INDEX` must not exceed the total n
 ### Feature - Finding a task 
 Finds all task from the list of task that matches the given keyword.
 
-*The KEYWORD refers to the search parameter. If the keyword is part of any task's description, it would return part as the result.
-The keyword is case sensitive*
+*The KEYWORD refers to the search parameter. If the keyword is part of any task's description, it would return the task.
+Note that the keyword is case sensitive*
 - Format: `find KEYWORD`
 - Example: find book
 
