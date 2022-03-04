@@ -8,6 +8,12 @@ import controller.UI;
 public class ListCommand extends Command {
     private static final String INDENT = "    ";
 
+    /**
+     * Print out all task in the task list.
+     * @param taskList task list.
+     * @param ui user interface.
+     * @param storage storage.
+     */
     public void execute(TaskList taskList, UI ui, Storage storage){
         ui.showList();
         for(int i = 0; i<taskList.getCount(); i++){
