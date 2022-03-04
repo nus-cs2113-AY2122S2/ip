@@ -24,19 +24,20 @@ public class AddCommand extends Command {
         Task newTask;
         String[] argumentList;
         String description;
+        String dateInput;
 
         switch (this.commandWord) {
         case "deadline":
             argumentList = splitArguments("/by");
-            description = argumentList[0]; // eg. return book
-            String by = argumentList[1]; // eg. Sunday
-            newTask = new Deadline(description, by);
+            description = argumentList[0].trim(); // eg. return book
+            dateInput = argumentList[1].trim(); // yyyy-mm-dd
+            newTask = new Deadline(description, dateInput);
             break;
         case "event":
             argumentList = splitArguments("/at");
-            description = argumentList[0]; // eg. return book
-            String eventTime = argumentList[1]; // eg. Sunday
-            newTask = new Event(description, eventTime);
+            description = argumentList[0].trim(); // eg. social event
+            dateInput = argumentList[1].trim(); // yyyy-mm-dd
+            newTask = new Event(description, dateInput);
             break;
         default:
             // default is todo
