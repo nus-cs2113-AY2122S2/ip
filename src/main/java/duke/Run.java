@@ -1,9 +1,10 @@
 package duke;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Run {
-    public static void run(){
+    public static void run() throws IOException {
         String line;
         Scanner in = new Scanner(System.in);
 
@@ -28,7 +29,7 @@ public class Run {
 
             line = in.nextLine();
         }
-        System.out.print(UI.bye);
         FileAccess.saveToFile();
+        System.out.print(UI.bye);
     }
 }

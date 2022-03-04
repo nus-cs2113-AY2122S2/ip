@@ -1,12 +1,16 @@
 package duke;
 
-public class Deadline extends Todo {
-    public String taskKind = "[D]";
-    protected String by;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String description, String by) {
+public class Deadline extends Todo {
+    protected LocalDate by;
+    public String taskKind;
+
+    public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
+        this.taskKind = "[D]";
     }
 
     @Override
@@ -16,14 +20,14 @@ public class Deadline extends Todo {
             indicator = "[X]";
         } else indicator = "[ ]";
         String message = "[D]" + indicator + description
-                + " (by: " + by + ")";
+                + " (by: " + getBy() + ")";
         return message;
     }
     public void setBy(String by) {
-        this.by = by;
+        this.by = LocalDate.parse(by);
     }
 
     public String getBy() {
-        return by;
+        return by.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 }

@@ -1,11 +1,12 @@
 package duke;
 
 public class Todo extends Task {
-    public String taskKind = "[T]";
+    public String taskKind;
     protected boolean isDone = false;
     public Todo(String description) {
         super(description);
         isDone = false;
+        this.taskKind = "[T]";
     }
 
     @Override
