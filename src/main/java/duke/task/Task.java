@@ -31,6 +31,10 @@ public class Task {
         return this;
     }
 
+    public boolean contains(String keyword) {
+        return this.description.contains(keyword);
+    }
+
     // Output string when saved
     public String saveString() {
         int isDoneStr = isDone ? 1 : 0;
