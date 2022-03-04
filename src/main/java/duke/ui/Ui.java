@@ -20,6 +20,10 @@ public class Ui {
         this(System.in, System.out);
     }
 
+    /**
+     * @param in
+     * @param out
+     */
     public Ui(InputStream in, PrintStream out) {
         this.in = new Scanner(in);
         this.out = out;

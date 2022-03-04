@@ -9,7 +9,6 @@ import duke.taskList.TaskList;
 import duke.ui.Ui;
 
 
-
 public class Parser {
     private final String input;
     private final Ui ui = new Ui();
