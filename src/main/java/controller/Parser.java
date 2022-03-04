@@ -11,6 +11,16 @@ public class Parser {
     private static final int MAX_TASK_COUNT = 100;
     private static final String DIR = "data/task-file";
     private static final String FILE_SEPARATOR = " | ";
+
+    /**
+     * Scan the input.
+     * Specify the action.
+     * Return the corresponding Command.
+     *
+     * @param fullCommand command taken from user.
+     * @throws DukeException if the input is invalid.
+     * @return specific command.
+     */
     public static Command parse(String fullCommand) throws DukeException {
         String action = getAction(fullCommand);
         switch(action){

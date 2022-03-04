@@ -44,23 +44,47 @@ public class TaskList {
     public TaskList() {
             taskList = new ArrayList<>();
         }
-
+    /**
+     * Return total task count in the task list
+     * @return total task count
+     */
     public int getCount () {
         return taskList.size();
     }
 
+    /**
+     * Return task of corresponding index.
+     * @param i  the index of the target task.
+     * @return task of corresponding index.
+     */
     public Task getTaskByIdx ( int i){
         return taskList.get(i);
     }
 
+    /**
+     * Remove corresponding task by index
+     * @param i the index of target task.
+     * @return total task count
+     */
     public void removeTaskByIdx ( int i){
         taskList.remove(i);
     }
 
+    /**
+     * Return all tasks in the list
+     * @return arraylist of tasks
+     */
     public ArrayList<Task> getTaskList () {
         return taskList;
     }
 
+    /**
+     * Classify task type.
+     * Add corresponding task into list according to input
+     * @param input user input
+     * @param type task type
+     * @return task details
+     */
     public String addTask (String type, String input){
         String[] inputWord = input.split(SPACE);
         if (inputWord.length == 1) {
