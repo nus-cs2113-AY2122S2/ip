@@ -4,6 +4,10 @@ import baymax.data.Task;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * class for mange UI (output of baymax)
+ * give response and guide to the user
+ */
 public class Ui {
     String input;
     private final Scanner in;
@@ -37,6 +41,13 @@ public class Ui {
     public void showByeMessage() {
         System.out.println(horiLine);
         System.out.println("Bye, Hope to see you again soon!");
+        System.out.println(horiLine);
+    }
+
+    public void displayErrorMessage() {
+        System.out.println(horiLine);
+        System.out.println("Error occur: cannot find this command.\n"+
+                "Please re-enter your command.");
         System.out.println(horiLine);
     }
 

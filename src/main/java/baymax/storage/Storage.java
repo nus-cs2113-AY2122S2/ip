@@ -12,10 +12,12 @@ import baymax.data.Task;
 import baymax.data.Todo;
 
 
-
+/**
+ * class for file management
+ * loading data into baymax, saving data after execution
+ */
 public class Storage {
-
-    private final String filePath;
+    private String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -70,11 +72,11 @@ public class Storage {
 
     }
 
-    public void save(ArrayList<Task> tasks) throws IOException {
-        encode(tasks, filePath);
+    public static void save(ArrayList<Task> tasks) throws IOException {
+        encode(tasks);
     }
 
-    public static void encode(ArrayList<Task> tasks, String filePath) throws IOException {
+    public static void encode(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter("data/Baymax.txt");
         for(int i = 0; i < tasks.size(); i++){
             fw.write(tasks.get(i).saveInfo() + "\n");

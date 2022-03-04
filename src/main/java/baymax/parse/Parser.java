@@ -10,14 +10,17 @@ import baymax.exception.BaymaxException;
 import baymax.data.Task;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import static java.util.stream.Collectors.toList;
 
+/**
+ * Parse user input and execute
+ */
 public class Parser {
+
     private static boolean isBye;
-
     private static final String horiLine = "____________________________________________________________\n";
-
     private Ui ui;
 
     public Parser(Ui ui) {
@@ -31,13 +34,20 @@ public class Parser {
         return isBye;
     }
 
+    /**
+     * Parse user input
+     * interpret user input with initial command word and execute
+     * @param fullCommand the whole content of user input
+     * @param tManager task manager object storing all the tasks
+     * @throws IOException
+     */
     public void parse(String fullCommand, TaskManager tManager) throws IOException {
         String[] word_split;
         word_split = fullCommand.split(" ", 2);
         String command = word_split[0];
 
         if (command.equals("bye")) {
-            Storage.encode(tManager.getTasks(), "data/Baymax.txt");
+            Storage.save(tManager.getTasks());
             setExit(true);
             return;
         }
@@ -57,6 +67,8 @@ public class Parser {
                         System.out.println(" ☹ OOPS!!! The description of a deadline cannot be empty.");
                     } catch (BaymaxException b){
                         System.out.println( b.getMessage() +" ☹ OOPS!!! Let's do it again.");
+                    } catch (DateTimeParseException d){
+                        System.out.println( " ☹ OOPS!!! Please re-enter the date in format: MM dd yyyy");
                     }
                     break;
                 case "event":
@@ -69,6 +81,8 @@ public class Parser {
                         System.out.println(" ☹ OOPS!!! The description of an event cannot be empty.");
                     } catch (BaymaxException b){
                         System.out.println( b.getMessage() +" ☹ OOPS!!! Let's do it again.");
+                    }catch (DateTimeParseException d){
+                        System.out.println( " ☹ OOPS!!! Please re-enter the date in format: MM dd yyyy");
                     }
                     break;
                 case "list":
@@ -118,7 +132,7 @@ public class Parser {
                     break;
 
                 default:
-                    System.out.println("Error. Please retry");
+                    ui.displayErrorMessage();
                     break;
         }
     }

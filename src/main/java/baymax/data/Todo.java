@@ -2,6 +2,9 @@ package baymax.data;
 
 import baymax.data.Task;
 
+/**
+ * Inherit from Task class
+ */
 public class Todo extends Task {
     public Todo(String description) {
         super(description);

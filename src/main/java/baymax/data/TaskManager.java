@@ -5,16 +5,28 @@ import java.util.ArrayList;
 import baymax.storage.Storage;
 import baymax.ui.Ui;
 
+/**
+ * taskmanager class is used for manage the arrarylist of tasks
+ */
 public class TaskManager {
 
     String horiLine = "____________________________________________________________\n";
     private final ArrayList<Task> tasks;
     private Ui ui;
 
+    /**
+     * class constructor,
+     * no parameter passed,create a new arrarylist
+     */
     public TaskManager() {
         tasks = new ArrayList<>();
     }
 
+    /**
+     * class constructor
+     * initialise with user input of tasks
+     * @param tasks
+     */
     public TaskManager(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
@@ -23,6 +35,10 @@ public class TaskManager {
         return tasks;
     }
 
+    /**
+     * add new task into arrylist of tasks
+     * @param newT the new task
+     */
     public void addTask(Task newT) {
         tasks.add(newT);
         System.out.println(horiLine);
@@ -32,7 +48,10 @@ public class TaskManager {
         System.out.println(horiLine);
     }
 
-
+    /**
+     * mark the certain task as done
+     * @param taskIndex
+     */
     public void markTask (int taskIndex) {
         System.out.println(horiLine);
         Task temp = tasks.get(taskIndex);
@@ -43,6 +62,10 @@ public class TaskManager {
         System.out.println(horiLine);
     }
 
+    /**
+     * unmark the certain task as not done yet
+     * @param taskIndex
+     */
     public void unmarkTask (int taskIndex) {
         System.out.println(horiLine);
         Task temp = tasks.get(taskIndex);
@@ -53,6 +76,10 @@ public class TaskManager {
         System.out.println(horiLine);
     }
 
+    /**
+     * delete the task
+     * @param taskIndex index of the task to be deleted
+     */
     public void deleteTask (int taskIndex) {
         System.out.println(horiLine);
         Task deleted = tasks.get(taskIndex);
@@ -64,67 +91,5 @@ public class TaskManager {
         System.out.println(horiLine);
     }
 
-//    public void initialiseNewFile() throws IOException {
-//        System.out.println(horiLine);
-//        System.out.println("Record accessing......");
-//        File dir = new File("data");
-//        if(!dir.exists()){
-//            dir.mkdir();
-//            System.out.println("create a new directory \"data\"...... ");
-//        }
-//        File file = new File("data/Baymax.txt");
-//        if(!file.exists()) {
-//            file.createNewFile();
-//            System.out.println("create a new file \"Baymax.txt\"...... ");
-//            System.out.println(horiLine);
-//            return;
-//        }
-//        Scanner initTask = new Scanner(file);
-//        int taskIndex = -1;
-//        while(initTask.hasNext()){
-//            taskIndex++;
-//            Task temp;
-//            String[] word_split = initTask.nextLine().split(" / ");
-//            //System.out.println(word_split[0]+" sdf " + word_split[1] + " df "+ word_split[2]+ " df "+ word_split[3]);
-//            switch(word_split[0]){
-//                case "T":
-//                    tasks.add(new Todo(word_split[2]));
-//                    if (word_split[1].equals("1")) {
-//                        temp = tasks.get(taskIndex);
-//                        temp.markTaskDone();
-//                    }
-//                    break;
-//                case "D":
-//                    tasks.add(new Deadline(word_split[2],word_split[3]));
-//                    if (word_split[1].equals("1")) {
-//                        temp = tasks.get(taskIndex);
-//                        temp.markTaskDone();
-//                    }
-//                    break;
-//                case "E":
-//                    tasks.add(new Event(word_split[2],word_split[3]));
-//                    if (word_split[1].equals("1")) {
-//                        temp = tasks.get(taskIndex);
-//                        temp.markTaskDone();
-//                    }
-//                    break;
-//                default:
-//                    System.out.println(horiLine);
-//                    System.out.println("Error accur, please check.");
-//                    System.out.println(horiLine);
-//                    break;
-//            }
-//        }
-//        System.out.println(horiLine);
-//    }
-//
-//    public void saveTask() throws IOException {
-//
-//        FileWriter fw = new FileWriter("data/Baymax.txt");
-//        for(int i = 0; i < tasks.size(); i++){
-//            fw.write(tasks.get(i).saveInfo() + "\n");
-//        }
-//        fw.close();
-//    }
 }
 
