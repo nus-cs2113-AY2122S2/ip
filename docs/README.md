@@ -145,6 +145,11 @@ Format: `bye`
 
 ## Caution
 ### Duke will not add duplicate task to the list.
+<dl>
+<dt>Definition of duplicate task</dt>
+<dd>same task type and same task description</dd>
+</dl>
+<br>
 Expected output:
 ```
 This task already exists:
