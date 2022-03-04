@@ -27,11 +27,11 @@
 
 ## Quick Start
 
-1. Ensure Java 11 is installed and applied. 
+1. Ensure Java 11 is installed and applied.
 
-   A quick check in CMD is as follows: 
+   A quick check in CMD is as follows:
 
-   ```sh
+   ```
    java -v
 2. Download the latest `ip.jar` from [Duke](https://github.com/Ch40gRv1-Mu/ip/releases/tag/A-Jar). A command line is as follows:
 
@@ -45,7 +45,7 @@
    java -jar ip.jar
    ```
 
-## Features 
+## Features
 
 ### Feature: Add task
 
@@ -59,9 +59,9 @@ There are three possible task types that can be added:
 
 Each task may have the following two states:
 
-- `[X]`: A task is completed 
+- `[X]`: A task is completed
 - `[ ]`: A task is uncompleted
-Check [Usage-todo](#todo---add-a-todo-task),  [Usage-event](#event---add-a-event-task),  [Usage-deadline](#deadline---add-a-deadline-task), for further usage guide of adding tasks.
+  Check [Usage-todo](#todo---add-a-todo-task),  [Usage-event](#event---add-a-event-task),  [Usage-deadline](#deadline---add-a-deadline-task), for further usage guide of adding tasks.
 
 ---
 
@@ -146,37 +146,37 @@ event <task_description> /at <start_time> [/to <end_time>]
 > event CS2113T tutorial /at 2022-03-03 1000
 ```
 ##### Expected Output 1:
-```sh
+````text
 ____________________________________________________________
 Got it. I've added this task:
  [E][ ] CS2113T tutorial (at: 2022-03-03 10:00)
 Now you have 2 tasks in the list.
 ____________________________________________________________
-```
+````
 ##### Example 2:
 ```sh
 > event CS2113T tutorial /at 03/10/2022 10:00
 ```
 ##### Expected Output 2:
-```sh
+````text
 ____________________________________________________________
 Got it. I've added this task:
  [E][ ] CS2113T tutorial (at: 2022-10-03 10:00)
 Now you have 3 tasks in the list.
 ____________________________________________________________
-```
+````
 ##### Example 3:
 ```sh
 > event CS2113T lecture /at 2022-03-04 16:00 /to 2022-03-04 18:00
 ```
 ##### Expected Output 3:
-```sh
+````text
 ____________________________________________________________
 Got it. I've added this task:
  [E][ ] CS2113T lecture (from: 2022-03-04 16:00 to 2022-03-04 18:00)
 Now you have 4 tasks in the list.
 ____________________________________________________________
-```
+````
 ---
 
 ### `deadline` - add a deadline task
@@ -199,13 +199,13 @@ This should create a new deadline in your task list.
 > deadline CS2113T Exercise /by 2022-03-03 1000
 ```
 ##### Expected Output:
-```sh
+````text
 ____________________________________________________________
 Got it. I've added this task:
  [D][ ] CS2113T Exercise (by: 2022-03-03 10:00)
 Now you have 5 tasks in the list.
 ____________________________________________________________
-```
+````
 
 ---
 
@@ -247,12 +247,12 @@ This should mark the task with the specified task id as done, if the id exists. 
 > mark 1
 ```
 ##### Expected Output:
-```sh
+````text
 ____________________________________________________________
 Nice! I've marked this task as done: 
  [T][X] CS2113T quiz
 ____________________________________________________________
-```
+````
 
 ---
 
@@ -270,12 +270,12 @@ This should mark the task with the specified task id as uncompleted, if the id e
 > unmark 1
 ```
 ##### Expected Output:
-```sh
+````text
 ____________________________________________________________
 OK, I've marked this task as not done yet: 
  [T][ ] CS2113T quiz
 ____________________________________________________________
-```
+````
 
 ---
 
@@ -293,12 +293,12 @@ A list of tasks will be displayed that contain the provided keyword.
 > find quiz
 ```
 ##### Expected Output:
-```sh
+````text
 ____________________________________________________________
 Here are the matching tasks in your list:
 1. [T][ ] CS2113T quiz
 ____________________________________________________________
-```
+````
 ---
 ### `delete` - delete a task from the list
 
@@ -313,13 +313,13 @@ This should mark the task with the specified task id as uncompleted, if the id e
 > delete 1
 ```
 ##### Expected Output:
-```sh
+````text
 ____________________________________________________________
 Noted. I've removed this task: 
 [T][ ] CS2113T quiz
 Now you have 4 tasks in the list.
 ____________________________________________________________
-```
+````
 ---
 
 ### `save` - save the task records
@@ -334,11 +334,11 @@ save
 > save
 ```
 ##### Expected Output:
-```sh
+````text
 ____________________________________________________________
 Received! Already saved the records for you! ^-^
 ____________________________________________________________
-```
+````
 ---
 
 
@@ -381,7 +381,7 @@ help
 > help
 ```
 ##### Expected Output:
-```sh
+````text
 ____________________________________________________________
 Usage: 
 
@@ -400,20 +400,4 @@ Usage:
      help                                               --list guide for all operations
      
 ____________________________________________________________
-```
-
-## Command Summary
-| **Command**   | **Format **                                                          | 
-|:--------------|:---------------------------------------------------------------------------------|
-| **list**      | `list`      |                                                                    
-| **todo**      | `todo <task_description>`                               |    
-| **event**     | `event <task_description> /at <start_time> [/to <end_time>]`    |     
-| **deadline**  | `deadline <task_description> /by <time>` |     
-| **mark**      | `mark <task_index>`                                |      
-| **unmark**    | `unmark <task_index>`                                   |      
-| **find**      | `find <string>`                                      |     
-| **help**      | `help`                                                                           |     
-| **delete**    | `delete <task_index>`                           |   
-| **save**    | `save`                                                                       |      
-| **bye**       | `bye`                                                                            | 
-
+````
