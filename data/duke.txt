@@ -1,6 +1,8 @@
 [T][ ] visit Marina Bay
-[E][ ] networking (at: 9:00)
-[D][X] finish assignment (by: March 4)
 [T][ ] visit zoo
 [T][X] visit gardens
 [T][ ] attend meeting
+[D][ ] finish hw (by: MARCH 4 2022 09:09)
+[E][ ] swim practice (at: MARCH 5 2022 10:00)
+[D][ ] write essay (by: APRIL 3 2022 23:59)
+[E][ ] eat with friends (at: MARCH 7 2022 22:00)
