@@ -30,8 +30,7 @@ What can I do for you?
     <li><a href="#find">7. Find Tasks with Keyword <code>find</code></a></li>
     <li><a href="#exit">8. Exit Duke <code>bye</code></a></li>
 </ul>
-
-</ul><br>
+<br>
 
 <h3 id="load">1. Load Your Own Task List File </h3>
 If you would like to load your own task list file, store it in this file path: ./data/task.txt<br>
