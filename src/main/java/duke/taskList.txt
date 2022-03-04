@@ -1,7 +1,7 @@
 [D][ ]read a book (by:  1pm Tuesday)
 [T][ ]eat
 [T][ ]eat again
-[E][ ]march of the damned (at:  MONDAY 12 FEBRUARY 2029)
 [E][X]something (at:  WEDNESDAY 12 DECEMBER 1212)
-[D][ ]Something IMPORTANT (probably) (by:  FRIDAY 11 APRIL 2098)
-[E][ ]testEvent (at: 90/90/9083)
+[D][X]Something IMPORTANT (by: ably) (by:  FRIDAY 11 APRIL 2098)
+[D][ ]temp (by:  22)
+[D][ ]temp (by:  12)
