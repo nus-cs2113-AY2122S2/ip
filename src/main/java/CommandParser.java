@@ -130,6 +130,9 @@ public class CommandParser {
             throw new DukeWrongCommandException("The description for event: cannot be empty");
         }
         String eventAt = deriveTimeDate(description, INDICATE_EVENT).trim();
+        if (userInput.replace(EVENT, "").trim().indexOf(INDICATE_EVENT) == 0) {
+            throw new DukeWrongCommandException("Incorrect event usage -> 'event: sing @ 3pm'");
+        }
         try {
             description = description.substring(0, description.indexOf(INDICATE_EVENT)).trim();
         } catch (StringIndexOutOfBoundsException error) {
@@ -153,6 +156,9 @@ public class CommandParser {
             throw new DukeWrongCommandException("The description for deadline: cannot be empty");
         }
         String deadlineBy = deriveTimeDate(description, INDICATE_DEADLINE).trim();
+        if (userInput.replace(DEADLINE, "").trim().indexOf(INDICATE_DEADLINE) == 0) {
+            throw new DukeWrongCommandException("Incorrect deadline usage -> 'deadline: homework ~ 3pm'");
+        }
         try {
             description = description.substring(0, description.indexOf(INDICATE_DEADLINE)).trim();
         } catch (StringIndexOutOfBoundsException error) {
