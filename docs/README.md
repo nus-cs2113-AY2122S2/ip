@@ -16,7 +16,7 @@ Duke is a command line application that helps users manage their tasks.
 Hello, I'm Duke!
 What can I do for you?
 ---------------------------------------------------------------</code></pre>
-4. Enjoy using Duke to manage your tasks! 
+Enjoy using Duke to manage your tasks! 
 
 ## Features 
 
