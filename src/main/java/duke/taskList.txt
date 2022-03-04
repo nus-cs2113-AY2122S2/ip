@@ -5,3 +5,4 @@
 [T][ ]finish project
 [D][ ]return books (by:  3pm March 3rd)
 [D][X]return more books (by:  4pm May 4th)
+[D][ ]further work (by:  tuesday 12/12/1212)

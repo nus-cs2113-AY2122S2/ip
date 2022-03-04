@@ -7,6 +7,8 @@ import duke.tasks.Event;
 import duke.tasks.TaskList;
 import duke.tasks.ToDo;
 
+import java.util.LinkedList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Ui {
@@ -182,6 +184,47 @@ public class Ui {
                 System.out.println("You never wrote down such a task. But of course you want to delete it.");
                 System.out.println(underscoreLine);
             }
+            break;
+        case "find":
+            try {
+                String toBeFound = "";
+                LinkedList<String> tasksFound = new LinkedList<String>();
+                if (commands.length < 2) {
+                    throw new InputLengthException();
+                }
+
+                for (int i = 1; i < commands.length; i++) {
+                    toBeFound = commands[i].toLowerCase();
+
+                    for (int x = 0; x < toDos.taskCounter; x++) {
+                        if (toDos.get(x).getDescription().toLowerCase().contains(toBeFound) &&
+                                !tasksFound.contains(toDos.get(x).getDescription())) {
+                            tasksFound.add(toDos.get(x).getDescription());
+                        }
+                    }
+                }
+
+
+                if (tasksFound.size() == 0) {
+                    System.out.println(underscoreLine);
+                    System.out.println("Not a single task matching that search. What a shock.");
+                    System.out.println(underscoreLine);
+                } else {
+                    System.out.println(underscoreLine);
+                    System.out.println("Here's everything that matches item(s) in your search.");
+                    System.out.println("You won't hear me say it much, but good job\n" +
+                            "taking the initiative here.\n");
+                    for (String string : tasksFound) {
+                        System.out.println(string);
+                    }
+                    System.out.println(underscoreLine);
+                }
+            } catch (InputLengthException e) {
+                System.out.println(underscoreLine);
+                System.out.println("You forgot the whole other half of the command... why am I not surprised?");
+                System.out.println(underscoreLine);
+            }
+
             break;
         default: //user formatted a command incorrectly
             System.out.println(underscoreLine);
