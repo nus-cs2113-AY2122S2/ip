@@ -15,7 +15,8 @@ A personal assistant chatbot to help you keep track of your tasks
 
 ## Usage
 
-### Todo: `todo [description]`
+### Todo
+`todo [description]`
 
 Add a Todo task.
 
