@@ -1,7 +1,5 @@
 package duke;
 
-import duke.task.Task;
-
 public class unknownCommand extends Command {
 
     @Override

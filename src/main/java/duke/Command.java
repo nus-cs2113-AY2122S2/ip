@@ -1,8 +1,5 @@
 package duke;
 
-import java.io.FileWriter;
-import java.io.IOException;
-
 public abstract class Command {
 
     public Command() {

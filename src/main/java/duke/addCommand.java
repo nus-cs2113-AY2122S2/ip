@@ -5,9 +5,6 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
-import java.io.FileWriter;
-import java.io.IOException;
-
 public class addCommand extends Command {
     private final String commandWord;
     private final String arguments;
