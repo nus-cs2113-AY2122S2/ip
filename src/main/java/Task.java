@@ -5,15 +5,11 @@ public class Task {
     protected boolean isDone;
 
 
-
-
     public String getDescription(){
 
         return description;
 
     }
-
-
 
 
     public Task(String description) {
@@ -23,8 +19,6 @@ public class Task {
         this.isDone = false;
 
     }
-
-
 
 
     public void markIt() {

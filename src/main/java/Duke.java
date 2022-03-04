@@ -1,8 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
-
-
 public class Duke {
 
     //Class variables
@@ -15,7 +13,6 @@ public class Duke {
 
     }
 
-
     //Print all available tasks
     public void printTaskList(ArrayList<Task> taskList){
         int j = 1;
@@ -27,7 +24,6 @@ public class Duke {
         }
     }
 
-
     //Mark as done
     public Boolean doneCheck(String line, ArrayList<Task> taskList) {
         String[] words = line.split(" ");
@@ -38,11 +34,11 @@ public class Duke {
                 return true;
             }
         }
-        Boolean isDone= false;
+        Boolean isMarked= false;
         if (words[0].toUpperCase().equals("MARK")) {
             int intIndex = Integer.parseInt(words[1]) - 1;
             if (words[1] == null){
-                return isDone;
+                return isMarked;
             }
             if ( intIndex < 0 || intIndex > taskList.size()){
                 System.out.println("Index is out of bounds");
@@ -53,9 +49,9 @@ public class Duke {
             String description = taskList.get(Integer.parseInt(words[1]) - 1).getDescription();
             System.out.println((Integer.parseInt(words[1])) + ". "+ "[" + statusIcon + "]" + " " + description);
             System.out.println("Done! We have marked task " + words[1] + "!");
-            isDone = true;
+            isMarked = true;
         }
-        return isDone;
+        return isMarked;
     }
 
 
@@ -72,7 +68,6 @@ public class Duke {
                 System.out.println("___________________________________________________________________________");
                 this.printTaskList(taskList);
             }
-
             else {
                 System.out.println("___________________________________________________________________________");
                 Task t = new Task(originalString);
@@ -83,13 +78,11 @@ public class Duke {
             originalString = scanner.nextLine();
             convertInput= originalString.toUpperCase();
 
-
         }
         System.out.println("Bye. Hope to see you again soon!\n");
         System.out.println("___________________________________________________________________________");
 
     }
-
 
     //Get things started
     public void startProgramme(){
@@ -111,11 +104,8 @@ public class Duke {
         addTask(line, taskList);
     }
 
-
     public static void main(String[] args) {
         Duke level3 = new Duke();
         level3.startProgramme();
-
     }
-
 }
