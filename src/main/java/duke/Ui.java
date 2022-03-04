@@ -46,7 +46,6 @@ public class Ui {
      * If the command cannot be parsed, parseLine handles the error
      *
      * @param toDos A TaskList holding the tasks to read from and adjust
-     * @param taskCounter Number of tasks currently in list; will be altered
      */
     public void parseLine(TaskList toDos) {
 
@@ -197,7 +196,7 @@ public class Ui {
                     System.out.printf(" Removed:   %s %s%n", toDos.get(commandNumber - 1).getStatusIcon(),
                             toDos.get(commandNumber - 1).getDescription());
                   
-                    System.out.println(" There are now " + toDos.taskCounter + " tasks in the list.");
+                    System.out.println(" There are now " + (toDos.taskCounter - 1) + " tasks in the list.");
                     System.out.println(underscoreLine);
                     toDos.remove(commandNumber - 1);
                 } else {
