@@ -23,7 +23,7 @@ public class Duke {
     public Duke() {
         storage = new Storage();
         toDos = new TaskList();
-        ui = new Ui();
+        ui = new Ui(toDos);
     }
 
     /**
@@ -39,7 +39,7 @@ public class Duke {
         while (true) {
             storage.fileWrite(filePath, toDos);
 
-            ui.parseLine(toDos);
+            ui.parseLine();
         }
     }
 

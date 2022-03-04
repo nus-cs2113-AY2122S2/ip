@@ -21,17 +21,20 @@ public class Ui {
     /** Buffer line used extensively when printing to user */
     String underscoreLine;
 
+    TaskList toDos;
+
     /**
      * Constructor of the Ui class
      *
      * @return An instance of Ui
      */
-    public Ui() {
+    public Ui(TaskList toDos) {
         greeting = "____________________________________________________________\n"
                 + " Hello! I'm Duke\n"
                 + " What can I do for you?\n"
                 + "____________________________________________________________\n";
         underscoreLine = "____________________________________________________________";
+        this.toDos = toDos;
     }
 
     /**
@@ -47,7 +50,7 @@ public class Ui {
      *
      * @param toDos A TaskList holding the tasks to read from and adjust
      */
-    public void parseLine(TaskList toDos) {
+    public void parseLine() {
 
         Scanner sc = new Scanner(System.in);
         String line = sc.nextLine();
