@@ -17,7 +17,7 @@ public class Storage {
     protected static final String DONE = "X";
     protected static final String TODO = "T";
     protected static final String EVENT = "E";
-    protected static final String DEADLINE = "d";
+    protected static final String DEADLINE = "D";
     private static final ArrayList<Task> Tasks = new ArrayList<>();
     private Time timeChecker;
 
@@ -104,6 +104,7 @@ public class Storage {
                 importTask(keyInfo);
             }
         } catch (Exception e) {
+            e.printStackTrace();
             throw new IllegalReadingAction();
         }
 

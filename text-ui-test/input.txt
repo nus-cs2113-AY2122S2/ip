@@ -1,6 +1,6 @@
 list
-deadline CS2113 Quiz /by Friday 4pm
-event MA2101 Quiz /at Feb 15th
+deadline CS2113 Quiz /by 2019/06/20 23:59
+event MA2101 Quiz /at 2019-6-30
 todo Homework
 list
 mark 1
@@ -8,4 +8,9 @@ mark 2
 list
 unmark 2
 list
+find Quiz
+deadline CS2106 midterm /at 2019-4-31
+deadline CS2106 midterm /by 2019-4-31
+deadline CS2106 midterm /by 2019-4-30 25:61
+deadline CS2106 midterm /by 2019-4-30 2:3
 bye

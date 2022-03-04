@@ -13,6 +13,9 @@ public class Command {
     protected static final String ADD_TODO = "todo";
     protected static final String UPDATE = "update";
     protected static final String SEARCH = "find";
+    protected static final String EVENT = "event ";
+    protected static final String TODO = "todo ";
+    protected static final String DEADLINE = "deadline ";
     protected String taskName;
     protected String dateString;
     protected String rawInput;
@@ -37,13 +40,13 @@ public class Command {
     public void decomposeInstruction(String instruction) throws DukeExceptions {
         switch (instruction) {
         case ADD_EVENT:
-            decomposeAddWithTime("/at ");
+            decomposeAddWithTime("/at ", EVENT);
             break;
         case ADD_DEADLINE:
-            decomposeAddWithTime("/by ");
+            decomposeAddWithTime("/by ", DEADLINE);
             break;
         case ADD_TODO:
-            decomposeAddWithoutTime();
+            decomposeAddWithoutTime(TODO);
             break;
         case SEARCH:
             decomposeSearchByDescription();
@@ -62,14 +65,15 @@ public class Command {
      * @param regex the keyword for decomposition. For adding event,
      *              the regex is "/at ", and for adding deadline, the
      *              regex is "/by"
+     * @param taskType the type of task that need to be added
      * @throws DukeExceptions if the task name is loss, wrong instruction
      * formatting or wrong time formatting
      */
-    public void decomposeAddWithTime(String regex) throws DukeExceptions {
+    public void decomposeAddWithTime(String regex, String taskType) throws DukeExceptions {
         String[] parsedInputByTime;
         parsedInputByTime = rawInput.split(regex);
         try {
-            this.taskName = this.parsedInput[1];
+            this.taskName = parsedInputByTime[0].replace(taskType, "");
         } catch (Exception e) {
             throw new TaskNameLossException();
         }
@@ -101,11 +105,12 @@ public class Command {
 
     /**
      * Decomposes decompose the instruction of adding task without time
+     * @param taskType the type of task that is going to be added
      * @throws DukeExceptions if the task name is loss
      */
-    public void decomposeAddWithoutTime() throws DukeExceptions {
+    public void decomposeAddWithoutTime(String taskType) throws DukeExceptions {
         try {
-            this.taskName = this.parsedInput[1];
+            this.taskName = this.rawInput.replace(taskType, "");
         } catch (Exception e) {
             throw new TaskNameLossException();
         }

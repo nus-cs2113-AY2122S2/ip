@@ -1,43 +1,67 @@
 Hello! I'm Duke :P
 What can I do for you?
 -------------------------------------
-Sorry, there's no task in the list :(
+The list is empty currently (￣3￣)a
 -------------------------------------
-Got it. I've added this task:
-[D][ ]CS2113 Quiz (by: Friday 4pm)
+ψ(._. )> Got it. I've added this task:
+[D][ ]CS2113 Quiz (by: Jun. 20 2019 23:59)
 Now you have 1 tasks in your list.
 -------------------------------------
-Got it. I've added this task:
-[E][ ]MA2101 Quiz (at: Feb 15th)
+ψ(._. )> Got it. I've added this task:
+[E][ ]MA2101 Quiz (at: Jun. 30 2019)
 Now you have 2 tasks in your list.
 -------------------------------------
-Got it. I've added this task:
+ψ(._. )> Got it. I've added this task:
 [T][ ]Homework
 Now you have 3 tasks in your list.
 -------------------------------------
-Here are the tasks in your list:
-1. [D][ ]CS2113 Quiz (by: Friday 4pm)
-2. [E][ ]MA2101 Quiz (at: Feb 15th)
+o(≧v≦)o Here are the tasks in your list:
+1. [D][ ]CS2113 Quiz (by: Jun. 20 2019 23:59)
+2. [E][ ]MA2101 Quiz (at: Jun. 30 2019)
 3. [T][ ]Homework
 -------------------------------------
-Nice! I've marked this task as done:
-[D][X]CS2113 Quiz (by: Friday 4pm)
+ψ(._. )> Nice! I've marked this task as done:
+[D][X]CS2113 Quiz (by: Jun. 20 2019 23:59)
 -------------------------------------
-Nice! I've marked this task as done:
-[E][X]MA2101 Quiz (at: Feb 15th)
+ψ(._. )> Nice! I've marked this task as done:
+[E][X]MA2101 Quiz (at: Jun. 30 2019)
 -------------------------------------
-Here are the tasks in your list:
-1. [D][X]CS2113 Quiz (by: Friday 4pm)
-2. [E][X]MA2101 Quiz (at: Feb 15th)
+o(≧v≦)o Here are the tasks in your list:
+1. [D][X]CS2113 Quiz (by: Jun. 20 2019 23:59)
+2. [E][X]MA2101 Quiz (at: Jun. 30 2019)
 3. [T][ ]Homework
 -------------------------------------
-OK, I've marked this task as not done yet:
-[E][ ]MA2101 Quiz (at: Feb 15th)
+ψ(._. )> OK, I've marked this task as not done yet:
+[E][ ]MA2101 Quiz (at: Jun. 30 2019)
 -------------------------------------
-Here are the tasks in your list:
-1. [D][ ]CS2113 Quiz (by: Friday 4pm)
-2. [E][ ]MA2101 Quiz (at: Feb 15th)
+o(≧v≦)o Here are the tasks in your list:
+1. [D][X]CS2113 Quiz (by: Jun. 20 2019 23:59)
+2. [E][ ]MA2101 Quiz (at: Jun. 30 2019)
 3. [T][ ]Homework
+-------------------------------------
+o(≧v≦)o Here are the matching tasks in your list:
+1. [D][X]CS2113 Quiz (by: Jun. 20 2019 23:59)
+2. [E][ ]MA2101 Quiz (at: Jun. 30 2019)
+-------------------------------------
+The format is incorrect! Can you please check your input again? ●ω●
+-------------------------------------
+The time format is incorrect! Can you please check your input again? (￣～￣；) You can check the manual to find out acceptable time format!
+-------------------------------------
+The time format is incorrect! Can you please check your input again? (￣～￣；) You can check the manual to find out acceptable time format!
+-------------------------------------
+ψ(._. )> Got it. I've added this task:
+[D][ ]CS2106 midterm (by: Apr. 30 2019 02:03)
+Now you have 4 tasks in your list.
+-------------------------------------
+o(≧v≦)o Here are the tasks in your list:
+1. [D][ ]CS2113 Quiz (by: Jun. 20 2019 23:59)
+2. [E][ ]MA2101 Quiz (at: Jun. 30 2019)
+3. [T][ ]Homework
+4. [D][ ]CS2106 midterm (by: Apr. 30 2019 02:03)
+-------------------------------------
+ψ(._. )> Okay! I've deleted this task:
+[D][ ]CS2106 midterm (by: Apr. 30 2019 02:03)
+Now you have 3 tasks in your list.
 -------------------------------------
 Bye. Hope to see you again soon! ;)
 -------------------------------------

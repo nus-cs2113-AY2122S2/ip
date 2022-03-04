@@ -25,6 +25,7 @@
     * [List Task](#tutorial-list-task)
 * [Command Summary](#command-summary)
 * [Trouble Shooting](#trouble-shooting)
+* [Demo](#demo)
 
 ---
 
@@ -176,8 +177,11 @@ y-M-d H:m
 y/M/d H:m
 d-M-y H:m
 d/M/y H:m
+y-M-d
+y/M/d
+d-M-y
+d/M/y
 (y -> year, M -> month, d -> day, H -> hour, m -> minute)
-Year, Hour and Minute fields are optional
 There's no requirement for the number of digit but please ensure that the date and the time is valid.
 ````
 
@@ -300,8 +304,11 @@ y-M-d H:m
 y/M/d H:m
 d-M-y H:m
 d/M/y H:m
+y-M-d
+y/M/d
+d-M-y
+d/M/y
 (y -> year, M -> month, d -> day, H -> hour, m -> minute)
-Year, Hour and Minute fields are optional
 ````
 There's no requirement for the number of digit but please ensure that the date and the time are valid.
 
@@ -311,3 +318,91 @@ There's no requirement for the number of digit but please ensure that the date a
 
 **TIPS**: Always list all the task before deleting and marking/unmarking.
 
+---
+##Demo
+````text
+Hello! I'm Duke :P
+What can I do for you?
+-------------------------------------
+list
+The list is empty currently (￣3￣)a
+-------------------------------------
+deadline CS2113 Quiz /by 2019/06/20 23:59
+ψ(._. )> Got it. I've added this task:
+[D][ ]CS2113 Quiz (by: Jun. 20 2019 23:59)
+Now you have 1 tasks in your list.
+-------------------------------------
+event MA2101 Quiz /at 2019-6-30
+ψ(._. )> Got it. I've added this task:
+[E][ ]MA2101 Quiz (at: Jun. 30 2019)
+Now you have 2 tasks in your list.
+-------------------------------------
+todo Homework
+ψ(._. )> Got it. I've added this task:
+[T][ ]Homework
+Now you have 3 tasks in your list.
+-------------------------------------
+list
+o(≧v≦)o Here are the tasks in your list:
+1. [D][ ]CS2113 Quiz (by: Jun. 20 2019 23:59)
+2. [E][ ]MA2101 Quiz (at: Jun. 30 2019)
+3. [T][ ]Homework
+-------------------------------------
+mark 1
+ψ(._. )> Nice! I've marked this task as done:
+[D][X]CS2113 Quiz (by: Jun. 20 2019 23:59)
+-------------------------------------
+mark 2
+ψ(._. )> Nice! I've marked this task as done:
+[E][X]MA2101 Quiz (at: Jun. 30 2019)
+-------------------------------------
+list
+o(≧v≦)o Here are the tasks in your list:
+1. [D][X]CS2113 Quiz (by: Jun. 20 2019 23:59)
+2. [E][X]MA2101 Quiz (at: Jun. 30 2019)
+3. [T][ ]Homework
+-------------------------------------
+unmark 2
+ψ(._. )> OK, I've marked this task as not done yet:
+[E][ ]MA2101 Quiz (at: Jun. 30 2019)
+-------------------------------------
+list
+o(≧v≦)o Here are the tasks in your list:
+1. [D][X]CS2113 Quiz (by: Jun. 20 2019 23:59)
+2. [E][ ]MA2101 Quiz (at: Jun. 30 2019)
+3. [T][ ]Homework
+-------------------------------------
+find Quiz
+o(≧v≦)o Here are the matching tasks in your list:
+1. [D][X]CS2113 Quiz (by: Jun. 20 2019 23:59)
+2. [E][ ]MA2101 Quiz (at: Jun. 30 2019)
+-------------------------------------
+deadline CS2106 midterm /at 2019-4-31
+The format is incorrect! Can you please check your input again? ●ω●
+-------------------------------------
+deadline CS2106 midterm /by 2019-4-31
+The time format is incorrect! Can you please check your input again? (￣～￣；) You can check the manual to find out acceptable time format!
+-------------------------------------
+deadline CS2106 midterm /by 2019-4-30 25:61
+The time format is incorrect! Can you please check your input again? (￣～￣；) You can check the manual to find out acceptable time format!
+-------------------------------------
+deadline CS2106 midterm /by 2019-4-30 2:3
+ψ(._. )> Got it. I've added this task:
+[D][ ]CS2106 midterm (by: Apr. 30 2019 02:03)
+Now you have 4 tasks in your list.
+-------------------------------------
+list
+o(≧v≦)o Here are the tasks in your list:
+1. [D][ ]CS2113 Quiz (by: Jun. 20 2019 23:59)
+2. [E][ ]MA2101 Quiz (at: Jun. 30 2019)
+3. [T][ ]Homework
+4. [D][ ]CS2106 midterm (by: Apr. 30 2019 02:03)
+-------------------------------------
+delete 4
+ψ(._. )> Okay! I've deleted this task:
+[D][ ]CS2106 midterm (by: Apr. 30 2019 02:03)
+Now you have 3 tasks in your list.
+-------------------------------------
+Bye. Hope to see you again soon! ;)
+-------------------------------------
+````
