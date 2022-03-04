@@ -59,14 +59,3 @@ Example: `find book` finds all tasks containing the word `book`.
 Exits the program.
 
 Format: `bye`
-
-## Command Summary
-| Action       | Format                                    | Example (if any)                |
-|--------------|:------------------------------------------|:--------------------------------|
-| Add todo     | `todo TASK_DESCRIPTION`                   | `todo submit iP UG`             |
-| Add deadline | `deadline TASK_DESCRIPTION /by TASK_TIME` | `deadline ship iP /by 3/3/2022` |
-| Add event    | `event TASK_DESCRIPTION /at TASK_TIME`    | `event SE tutorial /at 10AM`    |
-| List         | `list`                                    |                                 |
-| Delete       | `delete TASK_NUMBER`                      | `delete 2`                      |
-| Find         | `find TASK_KEYWORD`                       | `find iP`                       |
-| Exit         | `bye`                                     |                                 |
