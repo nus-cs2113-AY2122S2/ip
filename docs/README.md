@@ -19,7 +19,19 @@ Todo - Event - Deadline
 1. Prerequisites: JDK 11, update Intellij to the most recent version.
 2. Download the latest copy of `Brave.jar` from the [Releases](https://github.com/johnsuharjono/ip/releases) page.
 3. Open your Command Prompt (Windows) or Terminal (Mac/Linux), and navigate to the folder you created.
-4. Run the command `java -jar Brave.jar` 
+4. Run the command `java -jar Brave.jar`, this will be shown in your terminal if successfull
+    ```
+    -*|Brave|*------------------------------------
+    Greetings from
+      ____                        _ 
+     | __ ) _ __ __ ___   _____  | |
+     |  _ \| '__/ _` \ \ / / _ \ | |
+     | |_) | | | (_| |\ V /  __/ |_|
+     |____/|_|  \__,_| \_/ \___| (_)
+    
+    What can I do for you?
+    ----------------------------------------------
+    ```
 
 ## Features 
 
@@ -36,10 +48,10 @@ todo learn web development
 
 **Example Output:**
 ```
-----------------------------------------------
-GOTT IT!! I have added task below!
+-*|Brave|*------------------------------------
+Okay! I have added task below!
 [T][ ] learn web development
-You currently have (n) task in the list
+You currently have 6 task in the list
 ----------------------------------------------
 ```
 
@@ -56,10 +68,10 @@ deadline finish math homework /by Thursday Morning
 
 **Example Output:**
 ```
-----------------------------------------------
-GOTT IT!! I have added task below!
+-*|Brave|*------------------------------------
+Okay! I have added task below!
 [D][ ] finish math homework (by: Thursday Morning)
-You currently have (n) task in the list
+You currently have 8 task in the list
 ----------------------------------------------
 ```
 
@@ -76,10 +88,10 @@ event Brave's birthday /at 4 March 2022
 
 **Example Output:**
 ```
-----------------------------------------------
-GOTT IT!! I have added task below!
+-*|Brave|*------------------------------------
+Okay! I have added task below!
 [E][ ] Brave's birthday (at: 4 March 2022)
-You currently have (n) task in the list
+You currently have 7 task in the list
 ----------------------------------------------
 ```
 
@@ -91,12 +103,15 @@ Shows all currently stored task by Brave
 
 **Example Output:**
 ```
-----------------------------------------------
+-*|Brave|*------------------------------------
 1 [T][X] read book
 2 [D][X] return book (by: June 6th)
 3 [E][ ] project meeting (at: Aug 6th 2-4pm)
 4 [T][X] join sports club
 5 [T][ ] cs2113 lecture
+6 [T][ ] learn web development
+7 [E][ ] Brave's birthday (at: 4 March 2022)
+8 [D][ ] finish math homework (by: Thursday Morning)
 ----------------------------------------------
 ```
 
@@ -116,8 +131,10 @@ mark 3
 
 **Example Output:**
 ```
+-*|Brave|*------------------------------------
 Nice! I've marked this task as done:
 [E][X] project meeting (at: Aug 6th 2-4pm)
+----------------------------------------------
 ```
 
 ### Marking a task as incomplete: `unmark`
@@ -136,8 +153,10 @@ unmark 3
 
 **Example Output:**
 ```
+-*|Brave|*------------------------------------
 OK, I've marked this task as not done yet:
 [E][ ] project meeting (at: Aug 6th 2-4pm)
+----------------------------------------------
 ```
 
 ### Deleting a task: `delete`
@@ -156,10 +175,10 @@ delete 6
 
 **Example Output:**
 ```
-----------------------------------------------
+-*|Brave|*------------------------------------
 I managed to delete task below!
 [T][ ] learn web development
-You now have (n) task remaining
+You now have 7 task remaining
 ----------------------------------------------
 ```
 
@@ -176,7 +195,8 @@ find book
 
 **Example Output:**
 ```
-----------------------------------------------
+find book
+-*|Brave|*------------------------------------
 1 [T][X] read book
 2 [D][X] return book (by: June 6th)
 ----------------------------------------------
@@ -190,7 +210,7 @@ Quits the program.
 
 **Output:**
 ```
-----------------------------------------------
+-*|Brave|*------------------------------------
 Bye, Hope to see you again soon!
 ----------------------------------------------
 ```
