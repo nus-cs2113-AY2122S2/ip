@@ -71,8 +71,9 @@ year) and is a valid date, Duke will refactor this and post the day of the week,
 7) 'delete [task Number]' - If a valid task number is provided, Duke will remove it from your task list
 
 8) 'find [item to search for]' - Duke will search your tasks for the item provided. Duke will return every task that has a matching
-item for *any* word provided in your search, including dates and times.
+item for *any* word provided in your search, including dates and times. This includes partial matching. For example,
+the search 'wed' will return a task with the date 'WEDNESDAY'
 
-9) 'bye' - Exits the Duke program
+10) 'bye' - Exits the Duke program
 
 
