@@ -2,14 +2,15 @@ package duke.tasks;
 import java.util.ArrayList;
 
 public class Deadline extends ToDo {
+
     protected String doBy;
 
     /**
      * Constructor for Deadline object
      *
      * @param description Description of the deadline
-     * @param doBy the due date of the deadline
-     * @returns the deadline object
+     * @param doBy The due date of the deadline
+     * @returns The deadline object
      */
     public Deadline(String description, String doBy) {
         super(description);

@@ -11,10 +11,26 @@ import java.io.IOException;
 
 public class Storage {
 
+    /**
+     * Constructor of the Storage class
+     *
+     * @return an instance of Storage
+     */
     public Storage() {
 
     }
 
+    /**
+     * Creates a list from an input file, and adds all items in the list
+     * to a given TaskList object
+     *
+     * @param fileString The file path to the file to be read from
+     * @param toDos The TaskList to add all tasks to
+     * @param taskCounter The current number of tasks in the list
+     * @return The number of tasks at the end of creation
+     * @throws IOException If file is not found
+     * @throws StringIndexOutOfBoundsException If the method attempts to access an index out of bounds of the TaskList
+     */
     public static int listCreate(String fileString, TaskList toDos, int taskCounter) {
 
         try {
@@ -53,6 +69,12 @@ public class Storage {
         return taskCounter;
     }
 
+    /**
+     * Writes all tasks in a TaskList to a file
+     *
+     * @param fileString The path to the file to write tasks to
+     * @param toDos The TaskList where files are read from to write to the file
+     */
     public static void fileWrite(String fileString, TaskList toDos) {
         try {
             new FileWriter(fileString, false).close();

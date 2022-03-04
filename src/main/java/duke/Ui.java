@@ -11,9 +11,16 @@ import java.util.Scanner;
 
 public class Ui {
 
+    /** Greeting to display to user */
     String greeting;
+    /** Buffer line used extensively when printing to user */
     String underscoreLine;
-    
+
+    /**
+     * Constructor of the Ui class
+     *
+     * @return An instance of Ui
+     */
     public Ui() {
         greeting = "____________________________________________________________\n"
                 + " Hello! I'm Duke\n"
@@ -22,10 +29,20 @@ public class Ui {
         underscoreLine = "____________________________________________________________";
     }
 
+    /**
+     * Prints a greeting to the user
+     */
     public void printGreeting() {
         System.out.println(greeting);
     }
-    
+
+    /**
+     * Parses a line from the user and runs the command desired
+     * If the command cannot be parsed, parseLine handles the error
+     *
+     * @param toDos A TaskList holding the tasks to read from and adjust
+     * @param taskCounter Number of tasks currently in list; will be altered
+     */
     public void parseLine(TaskList toDos, int taskCounter) {
         Scanner sc = new Scanner(System.in);
         String line = sc.nextLine();
