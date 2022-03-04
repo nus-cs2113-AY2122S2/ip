@@ -5,7 +5,7 @@ import duke.storage.Storage;
 import duke.task.TaskManager;
 import duke.ui.Ui;
 
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
 
     private int taskNumber;
     public DeleteCommand(int taskNumber) {
@@ -15,5 +15,7 @@ public class DeleteCommand extends Command{
     @Override
     public void execute(TaskManager taskManager, Ui ui, Storage storage) throws DukeException {
         taskManager.deleteTask(this.taskNumber);
+        storage.writeFile(taskManager.toString());
+
     }
 }

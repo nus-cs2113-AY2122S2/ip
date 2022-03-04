@@ -1,25 +1,37 @@
 package duke.task;
 
+import java.util.ArrayList;
+
 import duke.exception.DukeException;
 import duke.ui.Ui;
 
-import java.util.ArrayList;
+
 
 public class TaskManager {
     private ArrayList<Task> tasks = new ArrayList<>();
     private int numOfTasks = 0;
 
+    /**
+     * Class to manage the tasks
+     */
     public TaskManager(){
     }
 
+    /**
+     * Returns number of tasks
+     * @return Number of tasks
+     */
     public int getNumOfTasks() {
         return this.numOfTasks;
     }
 
-    public ArrayList<Task> getTasks() {
-        return this.tasks;
-    }
-
+    /**
+     * Adds a task into the task list.
+     *
+     * @param type Type of command (todo, event or deadline)
+     * @param taskName Task name
+     * @param addInfo Any additional info (date or time)
+     */
     public void addTask(String type, String taskName, String addInfo) {
         Task toBeAdded;
 
@@ -48,6 +60,12 @@ public class TaskManager {
     }
 
 
+    /**
+     * * Deletes a task from the task list.
+     *
+     * @param taskNumber Task number of the task to be deleted (as seen from list)
+     * @throws DukeException Throws exception if task number invalid
+     */
     public void deleteTask(int taskNumber) throws DukeException {
         try {
             Task task = tasks.get(taskNumber - 1);
@@ -62,11 +80,22 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Replaces existing task list with a new task list.
+     *
+     * @param tasks Replacing task list.
+     */
     public void setTasks(ArrayList<Task> tasks) {
         this.tasks = tasks;
         this.numOfTasks = tasks.size();
     }
 
+    /**
+     * Marks task as complete.
+     *
+     * @param taskNumber Task number of the task to be deleted (as seen from list)
+     * @throws DukeException Throws exception if task number invalid
+     */
     public void markCompleted  (int taskNumber) throws DukeException {
         try {
             Task task = tasks.get(taskNumber - 1);
@@ -78,6 +107,12 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Marks task as incomplete.
+     *
+     * @param taskNumber Task number of the task to be deleted (as seen from list)
+     * @throws DukeException Throws exception if task number invalid
+     */
     public void unmarkCompleted (int taskNumber) throws DukeException {
         try {
             Task task = tasks.get(taskNumber - 1);
@@ -89,6 +124,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Find tasks containing keyword in its name
+     * @param keyword Keyword in task name
+     * @return TaskManager containing all the related tasks
+     */
     public TaskManager findTask (String keyword) {
         TaskManager relatedTaskManager = new TaskManager();
         ArrayList<Task> relatedTasks = new ArrayList<>();
@@ -101,16 +141,20 @@ public class TaskManager {
         return relatedTaskManager;
     }
 
+    /**
+     * Return the task list (number listed)
+     * @return Task list
+     */
     @Override
     public String toString() {
         String output = "";
-        int number = 1 ;
+        int number = 1;
         for (Task item : this.tasks) {
             output += String.format("%d. %s", number, item.toString());
             if (number != numOfTasks) {
                 output += "\n";
             }
-            number ++;
+            number++;
         }
         return output;
     }

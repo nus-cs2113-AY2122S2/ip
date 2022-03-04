@@ -15,5 +15,6 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskManager taskManager, Ui ui, Storage storage) throws DukeException {
         taskManager.unmarkCompleted(this.taskNumber);
+        storage.writeFile(taskManager.toString());
     }
 }

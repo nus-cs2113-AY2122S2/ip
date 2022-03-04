@@ -1,7 +1,4 @@
 package duke.task;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 public class Deadline extends DatedTask {
 
@@ -12,6 +9,6 @@ public class Deadline extends DatedTask {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + String.format("(by: %s)", this.getDateTimeString()) ;
+        return "[D]" + super.toString() + String.format("(by: %s)", this.getDateTimeString());
     }
 }

@@ -4,7 +4,7 @@ import duke.storage.Storage;
 import duke.task.TaskManager;
 import duke.ui.Ui;
 
-public class FindCommand extends Command{
+public class FindCommand extends Command {
 
     private String keyword;
 
@@ -20,8 +20,8 @@ public class FindCommand extends Command{
              Ui.printWithDivider("Sorry, task(s) containing the word " + this.keyword +" not found.");
         }
         else {
-            Ui.printWithDivider( "Here are the matching tasks in your list: \n"+
-                    relatedTaskManager);
+            Ui.printWithDivider( "Here are the matching tasks in your list: \n"
+                    + relatedTaskManager);
         }
 
     }
