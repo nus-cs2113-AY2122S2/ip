@@ -20,6 +20,7 @@ public class EventTask extends Task {
 
     /**
      * Initializes task with compressed object
+     *
      * @param compressedObject Compressed object that contains all model information for initialize that task
      */
     public EventTask(HashMap<String, Object> compressedObject) throws WrongTimeFormatDukeException {
@@ -90,6 +91,7 @@ public class EventTask extends Task {
 
     /**
      * Compresses the task objects into a map objects
+     *
      * @return A compressed object that can initialize the model task again
      */
     @Override

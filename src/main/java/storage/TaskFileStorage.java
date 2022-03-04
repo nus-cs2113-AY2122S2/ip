@@ -20,6 +20,7 @@ public class TaskFileStorage extends FileStorage {
 
     /**
      * Initializes a file data access object
+     *
      * @param basePath The base path for the file
      * @param fileName The name of the file
      * @throws DukeException Exception in creating taskFileDAO
@@ -30,6 +31,7 @@ public class TaskFileStorage extends FileStorage {
 
     /**
      * Writes the tasks in taskList into a local file
+     *
      * @param taskList List of tasks
      * @throws DukeException Write stream broken exception
      */
@@ -49,6 +51,7 @@ public class TaskFileStorage extends FileStorage {
 
     /**
      * Reads all the tasks stored in the task dao file
+     *
      * @return List of tasks
      * @throws DukeException Read stream broken exception
      */

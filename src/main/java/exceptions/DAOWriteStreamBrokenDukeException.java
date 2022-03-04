@@ -1,7 +1,7 @@
 package exceptions;
 
 public class DAOWriteStreamBrokenDukeException extends DukeException {
-    static final private String FILE_CREATE_EXCEPTION_WORDS = " ☹ OOPS!!! The write stream brokes";
+    private static final String FILE_CREATE_EXCEPTION_WORDS = " ☹ OOPS!!! The write stream brokes";
 
     @Override
     public String toString() {

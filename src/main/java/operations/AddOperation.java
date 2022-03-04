@@ -1,6 +1,7 @@
 package operations;
 
 import exceptions.DukeException;
+import exceptions.MakeTaskDukeException;
 import tasks.Task;
 import tasks.TaskFactory;
 import tasks.TaskList;
@@ -9,7 +10,7 @@ import tasks.TaskList;
 /**
  * AddOperation handle adding command into tasklist
  */
-public  abstract class AddOperation extends Operation {
+public abstract class AddOperation extends Operation {
 
     /**
      * Initializes operation with operationName
@@ -23,6 +24,7 @@ public  abstract class AddOperation extends Operation {
 
     /**
      * Makes a new Task for add operation
+     *
      * @param taskDescription
      * @return The new task
      */
@@ -51,15 +53,15 @@ public  abstract class AddOperation extends Operation {
             throw e;
         }
         if (newTask == null) {
-            return "failed to add";
+            throw new MakeTaskDukeException();
         }
         try {
             TaskList.addTask(newTask);
             int numberOfTasks = TaskList.getSize();
             return String.format("Got it. I've added this task:\n %s\nNow you have %d tasks in the list.",
                     newTask.getReport(), numberOfTasks);
-        } catch (Exception e) {
-            return "failed to add: " + newTask.getTaskDescription();
+        } catch (DukeException e) {
+            throw e;
         }
     }
 

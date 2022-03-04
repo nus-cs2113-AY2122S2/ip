@@ -28,7 +28,7 @@ public class Controller {
      *  Say hi when the controller is created
      */
     public void sayHello() {
-        chatBox.contendsSetter(HELLO_WORDS);
+        chatBox.setContends(HELLO_WORDS);
         chatBox.printChatBox();
     }
 
@@ -53,7 +53,7 @@ public class Controller {
                     if (order.contains(YES_FLAG)) {
                         order = SAVE_ORDER;
                         operationParserFactory.setOrder(order);
-                        Operation saveOperation=operationParserFactory.getOperation();
+                        Operation saveOperation = operationParserFactory.getOperation();
                         ChatBox.printChatBox(saveOperation.getResult());
                     }
                     ChatBox.printChatBox(operation.getResult());

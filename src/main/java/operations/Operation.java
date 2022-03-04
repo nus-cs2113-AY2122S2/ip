@@ -18,6 +18,7 @@ public abstract class Operation {
 
     /**
      * Initializes operation with operationName
+     *
      * @param operationNameLocal Name of the operations.Operation
      * @param order Order given by User
      */
@@ -40,6 +41,7 @@ public abstract class Operation {
 
     /**
      * A lazy constructor that will creates
+     *
      * @param operationNameLocal
      */
     public Operation(String operationNameLocal) {
@@ -67,6 +69,7 @@ public abstract class Operation {
 
     /**
      * Sets the order of the operation
+     *
      * @param newOrder the new order
      */
     public void setOrder(String newOrder) {
@@ -83,6 +86,7 @@ public abstract class Operation {
 
     /**
      * Sets the result to certain value
+     *
      * @param result
      */
     public void setResult(String result) {
@@ -91,7 +95,7 @@ public abstract class Operation {
 
 
     /**
-     *  Prints the result of the operation, for the operations.Operation abstract class, just print the operation name
+     * Prints the result of the operation, for the operations.Operation abstract class, just print the operation name
      */
     public void displayResult() {
         ChatBox.printChatBox(operationName);
@@ -99,7 +103,8 @@ public abstract class Operation {
 
 
     /**
-     *  Gets the help message of the operation
+     * Gets the help message of the operation
+     *
      * @return help message of the operation
      */
     public String getHelpMessage() {

@@ -10,6 +10,7 @@ import tasks.TaskFactory;
 public class DeadlinesAddOperation extends AddOperation {
     /**
      * Initializes operation with operationName
+     *
      *  @param operationNameLocal Name of the Operation
      * @param order Order given by User
      */
@@ -19,7 +20,7 @@ public class DeadlinesAddOperation extends AddOperation {
     }
 
     /**
-     *  Makes a new deadline objectg.
+     * Makes a new deadline objectg.
      *
      * @param taskDescription
      * @return A new DeadlineTask

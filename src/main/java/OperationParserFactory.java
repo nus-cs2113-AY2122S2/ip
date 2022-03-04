@@ -71,8 +71,7 @@ public class OperationParserFactory {
             for (String operationName : OPERATION_NAME_LIST) {
                 if (operationCache.containsKey(operationName) == true) {
                     helpOperation.appendHelpMessage(operationCache.get(operationName).getHelpMessage());
-                }
-                else {
+                } else {
                     operationCache.put(operationName, makeOperation(operationName, NULL_ORDER));
                     helpOperation.appendHelpMessage(operationCache.get(operationName).getHelpMessage());
                 }

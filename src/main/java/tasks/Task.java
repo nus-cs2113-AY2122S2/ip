@@ -32,6 +32,7 @@ public class Task {
 
     /**
      * Constructs a task objects with compressedObject
+     *
      * @param compressedObject Compressed object that contains all model information for initialize that task
      */
     public Task(HashMap<String, Object> compressedObject) {
@@ -52,7 +53,7 @@ public class Task {
 
 
     /**
-     * Return the marked sign based on the boolean "marked".
+     * Returns the marked sign based on the boolean "marked".
      *
      * @return markedSign
      */
@@ -78,6 +79,7 @@ public class Task {
 
     /**
      * Sets the mark of a task.
+     *
      * @param isMark Boolean that is to be set
      */
     public void setMark(Boolean isMark) {
@@ -86,6 +88,7 @@ public class Task {
 
     /**
      * Compresses the task objects into a map objects
+     *
      * @return A compressed object that can initialize the model task again
      */
     public HashMap<String, Object> compress() {

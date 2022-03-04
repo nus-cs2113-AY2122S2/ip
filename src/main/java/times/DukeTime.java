@@ -13,16 +13,18 @@ public class DukeTime {
     private static final int DEFAULT_DAY = 1;
     private static final int DEFAULT_HOUR = 23;
     private static final int DEFAULT_MIN = 59;
+    private static final int CONTAIN_HM = 1;
+    private static final int NOT_CONTAIN_HM = 2;
 
     public DukeTime(String timeString) throws WrongTimeFormatDukeException {
         String[] sequence = timeString.split(" ");
         try {
             int[] dateIntElements;
             switch (sequence.length) {
-            case 1:
+            case CONTAIN_HM:
                 dateIntElements = parseDate(sequence[0]);
                 time = LocalDateTime.of(dateIntElements[2], Month.of(dateIntElements[1]), dateIntElements[0], DEFAULT_HOUR, DEFAULT_MIN);
-            case 2:
+            case NOT_CONTAIN_HM:
                 dateIntElements = parseDate(sequence[0]);
                 int[] clockIntElements = parseClock(sequence[1]);
                 time = LocalDateTime.of(dateIntElements[2], Month.of(dateIntElements[1]), dateIntElements[0], clockIntElements[0], clockIntElements[1]);
@@ -92,8 +94,6 @@ public class DukeTime {
         return String.format("%s-%s-%s %s:%s", time.getYear(), formatTime(time.getMonthValue()), formatTime(time.getDayOfMonth()), formatTime(time.getHour()), formatTime(time.getMinute()));
 
     }
-
-
 
 
 }

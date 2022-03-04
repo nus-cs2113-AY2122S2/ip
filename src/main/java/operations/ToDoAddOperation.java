@@ -10,7 +10,7 @@ public class ToDoAddOperation extends AddOperation {
     /**
      * Initializes operation with operationName.
      *
-     *  @param operationNameLocal Name of the Operation
+     * @param operationNameLocal Name of the Operation
      * @param order Order given by User
      */
     public ToDoAddOperation(String operationNameLocal, String order) throws DukeException {
@@ -19,14 +19,13 @@ public class ToDoAddOperation extends AddOperation {
     }
 
     /**
-     *  Makes a new ToDoTask object.
+     * Makes a new ToDoTask object.
      *
      * @param taskDescription The description of the task
      * @return A new ToDoTask object
      */
     @Override
     protected Task makeTask(String taskDescription) throws DukeException {
-        // the "todo" is not included
         String taskType;
         try {
             taskType = taskDescription.split(" ", 2)[0];

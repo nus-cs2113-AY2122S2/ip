@@ -29,11 +29,13 @@ public class DeadlinesTask extends Task {
 
     /**
      * Initializes deadline task with compressed object
+     *
      * @param compressedObject Compressed object that contains all model information for initialize that task
      */
     public DeadlinesTask(HashMap<String, Object> compressedObject) throws WrongTimeFormatDukeException {
         super(compressedObject);
-        try{ this.dateTime = new DukeTime((String) compressedObject.get(DATE_TIME_FIELD));
+        try {
+            this.dateTime = new DukeTime((String) compressedObject.get(DATE_TIME_FIELD));
         } catch (DukeException e) {
             throw e;
         }
@@ -67,6 +69,7 @@ public class DeadlinesTask extends Task {
 
     /**
      * Compresses the task objects into a map objects
+     *
      * @return A compressed object that can initialize the model task again
      */
     @Override

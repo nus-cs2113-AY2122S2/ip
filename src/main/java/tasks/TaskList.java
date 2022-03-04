@@ -16,6 +16,7 @@ public class TaskList {
     private static final String TASK_DAO_FILE_NAME = "tasks.txt";
     private static TaskFileStorage taskFileDao;
 
+
     public TaskList() throws DukeException {
         try {
             taskFileDao = new TaskFileStorage(TASK_DAO_BASE_PATH, TASK_DAO_FILE_NAME);
@@ -31,11 +32,11 @@ public class TaskList {
      * @param newTaskLocal The new task to be appended
      * @return The indication of the result of the addTask operation
      */
-    public static void addTask(Task newTaskLocal) {
+    public static void addTask(Task newTaskLocal) throws DukeException{
         try {
             TaskList.taskArrayList.add(newTaskLocal);
         } catch (Exception e) {
-            System.out.println(e);
+            throw new TaskListDukeException();
         }
     }
 
@@ -63,6 +64,7 @@ public class TaskList {
 
     /**
      * Remove indexLocal'th element of the tasklist.
+     *
      * @param indexLocal The index of task to be removed
      * @throws DukeException Indicate the out of range exception
      */

@@ -11,7 +11,8 @@ public class EventAddOperation extends AddOperation {
 
     /**
      * Initializes operation with operationName
-     *  @param operationNameLocal Name of the Operation
+     *
+     * @param operationNameLocal Name of the Operation
      * @param order Order given by User
      */
     public EventAddOperation(String operationNameLocal, String order) throws DukeException {

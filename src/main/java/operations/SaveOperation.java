@@ -9,6 +9,7 @@ public class SaveOperation extends Operation {
 
     /**
      * Initializes operation with operationName
+     *
      * @param operationNameLocal Name of the operations.Operation
      * @param order Order given by User
      */
@@ -19,6 +20,7 @@ public class SaveOperation extends Operation {
 
     /**
      * Save all tasks in list
+     *
      * @return Execution results
      * @throws DukeException Save Exception
      */

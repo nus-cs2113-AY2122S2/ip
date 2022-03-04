@@ -19,6 +19,7 @@ public abstract class FileStorage {
 
     /**
      * Initializes a file data access object
+     *
      * @param basePath The base path for the file
      * @param fileName The name of the file
      * @throws DukeException
