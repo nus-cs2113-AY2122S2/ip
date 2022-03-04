@@ -1,1 +1,4 @@
-T |   | read
+T | X | task
+T | 0 | task
+E | X | project | today
+T | 0 | new
