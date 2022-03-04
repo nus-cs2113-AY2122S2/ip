@@ -56,9 +56,9 @@ public class Parser {
         case "event":
         case "deadline":
             String taskName = getNextWord(input, command);
-            // taskname has to contain at least one alphabet and no signs (slash or etc)
-            if (!taskName.matches("[A-Za-z0-9]+$")) {
-                String errorMsg = String.format("%s requires a alphanumeric name\n", command);
+            // taskname cannot have "/" and must be at least size of 1
+            if (taskName.contains("/") || taskName == "") {
+                String errorMsg = String.format("%s requires valid name (no `/` allowed) \n", command);
                 throw new DukeException(errorMsg);
             }
             if (command.equals("event") || command.equals("deadline")) {
