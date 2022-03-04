@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * Represents a Deadline task (eg. deadline return book /by 2019-10-15)
+ */
 public class Deadline extends Task {
     private String by;
 
@@ -13,6 +16,7 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    // Representation of Deadline in the saved file
     @Override
     public String saveString() {
         return "D" + super.saveString() + String.format(" | %s", this.by);

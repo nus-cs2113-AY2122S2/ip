@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * Represents an Event task (eg. event project meeting /at 2019-10-15)
+ */
 public class Event extends Task {
     private String eventTime;
 
@@ -13,6 +16,7 @@ public class Event extends Task {
         this.eventTime = eventTime;
     }
 
+    // Representation of Event in the saved file
     @Override
     public String saveString() {
         return "E" + super.saveString() + String.format(" | %s", this.eventTime);

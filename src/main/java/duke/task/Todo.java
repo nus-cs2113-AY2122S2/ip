@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * Represents a Todo task (eg. todo borrow book)
+ */
 public class Todo extends Task {
     public Todo(String description) {
         super(description);
@@ -9,6 +12,7 @@ public class Todo extends Task {
         super(isDone, description);
     }
 
+    // Representation of Todo in the saved file
     @Override
     public String saveString() {
         return "T" + super.saveString();
