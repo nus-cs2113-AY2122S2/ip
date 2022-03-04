@@ -21,7 +21,6 @@ public class Duke {
         do {
             parser.parseCommand(command);
             command = ui.getCommand();
-            System.out.println(SEPARATOR);
         } while (!command.equals("bye"));
     }
 

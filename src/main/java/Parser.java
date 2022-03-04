@@ -1,4 +1,5 @@
 public class Parser {
+    private final String SEPARATOR = "-------------------------------------------";
     private final TaskList taskList;
     private final Storage storage;
 
@@ -42,10 +43,14 @@ public class Parser {
             taskList.deleteTask(fullText);
             break;
 
+        case "find":
+            taskList.findTask(fullText);
+            break;
+
         default:
             System.out.println("What mean");
+            System.out.println(SEPARATOR);
         }
-        System.out.println("abc");
         storage.writeData(taskList);
     }
 }

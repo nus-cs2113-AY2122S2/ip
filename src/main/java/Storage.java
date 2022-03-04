@@ -24,14 +24,16 @@ public class Storage {
                     taskList.addTask(toDo);
                 } else if (task.startsWith("[D]")) {
                     int separation = description.indexOf("(");
-                    String dueDate = description.substring(separation + 1);
+                    int dueDateEnd = description.indexOf(")");
+                    String dueDate = description.substring(separation + 1, dueDateEnd);
                     description = description.substring(0, separation - 6);
                     Deadline deadline = new Deadline(description, dueDate);
                     deadline.setDone(isDone.equals("X"));
                     taskList.addTask(deadline);
                 } else if (task.startsWith("[E]")) {
                     int separation = description.indexOf("(");
-                    String timing = description.substring(separation + 1);
+                    int timingEnd = description.indexOf(")");
+                    String timing = description.substring(separation + 1, timingEnd);
                     description = description.substring(0, separation - 5);
                     Event event = new Event(description, timing);
                     event.setDone(isDone.equals("X"));

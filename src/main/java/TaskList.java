@@ -1,6 +1,9 @@
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class TaskList {
+    private final String SEPARATOR = "-------------------------------------------";
     private final ArrayList<Task> tasks;
 
     public TaskList() {
@@ -19,6 +22,7 @@ public class TaskList {
             System.out.print(entryNumber);
             System.out.println(tasks.get(i));
         }
+        System.out.println(SEPARATOR);
     }
 
     public void handleMark(String command) {
@@ -34,6 +38,8 @@ public class TaskList {
             System.out.println("Error! Please enter a valid task number");
         } catch (NumberFormatException e) {
             System.out.println("Error! Please input a number");
+        } finally {
+            System.out.println(SEPARATOR);
         }
     }
 
@@ -46,6 +52,8 @@ public class TaskList {
             System.out.println(task);
         } catch (NullPointerException | NumberFormatException | IndexOutOfBoundsException e) {
             System.out.println("Error! Please enter a valid task number");
+        } finally {
+            System.out.println(SEPARATOR);
         }
     }
 
@@ -63,6 +71,8 @@ public class TaskList {
             System.out.println(newDeadline);
         } catch (CheemsException e) {
             System.out.println("Error! Please follow the format given");
+        } finally {
+            System.out.println(SEPARATOR);
         }
     }
 
@@ -75,6 +85,8 @@ public class TaskList {
             System.out.println(newToDo);
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("Error! Tomdo cannomt be empty");
+        } finally {
+            System.out.println(SEPARATOR);
         }
     }
 
@@ -92,6 +104,8 @@ public class TaskList {
             System.out.println(newEvent);
         } catch (CheemsException e) {
             System.out.println("Error! Please follow the format given");
+        } finally {
+            System.out.println(SEPARATOR);
         }
     }
 
@@ -100,9 +114,23 @@ public class TaskList {
         Task task = tasks.remove(taskNumber - 1);
         System.out.println("Succesfully removed: ");
         System.out.println(taskNumber + ". " + task);
+        System.out.println(SEPARATOR);
     }
 
     public void addTask(Task task) {
         tasks.add(task);
+    }
+
+    public void findTask(String fullText) {
+        String keyWord = fullText.substring(5);
+        ArrayList<Task> filteredTask = (ArrayList<Task>) tasks.stream()
+                .filter(t -> t.getDescription().contains(keyWord))
+                .collect(Collectors.toList());
+        System.out.println("Hemre are the matchimng tamsks in youmr limst: ");
+        for (int i = 0; i < filteredTask.size(); i++) {
+            System.out.print((i + 1) + ". ");
+            System.out.println(filteredTask.get(i));
+        }
+        System.out.println(SEPARATOR);
     }
 }
