@@ -4,11 +4,6 @@ Hello from
 | | | | | | | |/ / _ \
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
-
-Hello! I'm Duke
-What can I do for you?
-type 'commands' for the list of commands
-____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
   [T][ ] read book
@@ -16,17 +11,19 @@ Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [D][ ] return book  (by: June 6th)
+  [D][ ] return book (by: Jun 6 2022 1700)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-OOPS!!! I'm sorry, but I don't know what that means :-(
-Please type in 'commands' if you are not sure of the commands
+Got it. I've added this task:
+  [E][ ] project meeting (at: Mar 12 2021 0600 to Mar 13 2022 0700)
+Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1.[T][ ] read book
-2.[D][ ] return book  (by: June 6th)
+2.[D][ ] return book (by: Jun 6 2022 1700)
+3.[E][ ] project meeting (at: Mar 12 2021 0600 to Mar 13 2022 0700)
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
@@ -34,39 +31,87 @@ Nice! I've marked this task as done:
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
-[D][X] return book  (by: June 6th)
+[D][X] return book (by: Jun 6 2022 1700)
 ____________________________________________________________
 ____________________________________________________________
 OK, I've marked this task as not done yet:
 [T][ ] read book
 ____________________________________________________________
-____________________________________________________________
-Got it. I've added this task:
-  [D][ ] return book  (by: Sunday)
-Now you have 3 tasks in the list.
-____________________________________________________________
-____________________________________________________________
-Got it. I've added this task:
-  [E][ ] project meeting  (at: Mon 2-4pm)
-Now you have 4 tasks in the list.
-____________________________________________________________
+Oh no! The time you entered is invalid!
+The format for time is in 24-hour format! e.g. 1800
+Oh no! You have typed an invalid date!
+The format for date is DD/MM/YYYY !, e.g. 15/02/2022
 ____________________________________________________________
 Here are the tasks in your list:
 1.[T][ ] read book
-2.[D][X] return book  (by: June 6th)
-3.[D][ ] return book  (by: Sunday)
-4.[E][ ] project meeting  (at: Mon 2-4pm)
+2.[D][X] return book (by: Jun 6 2022 1700)
+3.[E][ ] project meeting (at: Mar 12 2021 0600 to Mar 13 2022 0700)
+____________________________________________________________
+Oh no! You need to enter the description of the task!
+____________________________________________________________
+OOPS!!! I'm sorry, but I don't know what that means :-(
+Please type in 'commands' if you are not sure of the commands
+____________________________________________________________
+Oh no! The task you have selected is already been marked
+____________________________________________________________
+Here are the matching tasks in your list:
+1.[T][ ] read book
+2.[D][X] return book (by: Jun 6 2022 1700)
 ____________________________________________________________
 ____________________________________________________________
-Oh no! You have to include the details of the task 'todo'
+Noted. I've removed this task:
+[E][ ] project meeting (at: Mar 12 2021 0600 to Mar 13 2022 0700)
+Now you have 2 tasks in the list.
 ____________________________________________________________
+Oh no! The number you have chosen is not valid!
+____________________________________________________________
+Here are the tasks on Jun 6 2022:
+2.[D][X] return book (by: Jun 6 2022 1700)
+____________________________________________________________
+____________________________________________________________
+Here are the tasks on Jun 7 2022:
+____________________________________________________________
+Oh no! You need to choose a number!
+____________________________________________________________
+OOPS!!! I'm sorry, but I don't know what that means :-(
+Please type in 'commands' if you are not sure of the commands
+____________________________________________________________
+Oh no! You need to choose a number!
 ____________________________________________________________
 OOPS!!! I'm sorry, but I don't know what that means :-(
 Please type in 'commands' if you are not sure of the commands
 ____________________________________________________________
 ____________________________________________________________
-Oh no! The item is already marked!
+Here are the tasks in your list:
+1.[T][ ] read book
+2.[D][X] return book (by: Jun 6 2022 1700)
 ____________________________________________________________
+____________________________________________________________
+List of valid commands:
+'list' - lists out all tasks and its details
+'mark NUMBER' - marks item NUMBER on the list as done
+   e.g. 'mark 3' marks item 3 on the list
+'unmark NUMBER' - unmarks item NUMBER on the list as done
+   e.g. 'unmark 3' unmarks item 3 on the list
+'delete NUMBER' - deletes item NUMBER on the list
+   e.g. 'delete 3' deletes item 3 on the list
+'find KEYWORD' - lists items in the list that contain KEYWORD
+   e.g. 'find book' lists items in the list that contain 'book'
+'todo DESC' - ToDos are tasks without specific deadlines
+   e.g. 'todo buy shampoo' adds the task 'buy shampoo' to the list
+'deadline DESC /by DD/MM/YYYY TIME' - Deadlines are tasks that need tobe done before a specific date and time in 24-hour format
+   e.g. 'deadline math homework /by 2/3/2022 1400' adds a task with deadline Mar 2 2022 1400 to the list
+'event DESC /at DD/MM/YYYY TIME /to DD/MM/YYYY TIME' - Events are tasks thatstart at a specific date and time and ends at a specific date and time
+   e.g. 'event project meeting /at 3/3/2022 0900' /to 4/3/2022 1800 adds a task with a time range
+'check date DD/MM/YYYY' - checks if there are tasks due or occuring on that date
+   e.g. 'check date 04/03/2022' - checks if anything is on 04/03/2022
+'bye' - saves changes and closes Duke
+____________________________________________________________
+Oh no! You need to include a date after '/by'!
+Oh no! The time you entered is invalid!
+The format for time is in 24-hour format! e.g. 1800
 ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________
+
+Process finished with exit code 0

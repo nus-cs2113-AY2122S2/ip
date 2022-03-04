@@ -1,14 +1,28 @@
 todo read book
-deadline return book /by June 6th
-Event project meeting /at Aug 6th 2-4pm
+deadline return book /by 06/06/2022 1700
+Event project meeting /at 12/03/2021 0600 /to 13/03/2022 0700
 list
 mark 1
 mark 2
 unmark 1
-deadline return book /by Sunday
-event project meeting /at Mon 2-4pm
+deadline return book /by 03/04/2023 2401
+event project meeting /at 04/13/0000 1234 /to 01/12/3214
 list
 todo
 test invalid command
 mark 2
+find book
+delete 3
+delete 6
+check date 06/06/2022
+check date 07/06/2022
+mark test
+test
+delete test
+desfasda
+list2131
+commands
+deadline /by 04/06/22 1543
+event testttt /at 06/08/23 1567 /to 06/04/24 1322
+bye
 
