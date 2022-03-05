@@ -50,8 +50,8 @@ help [command] / [quick start]
 #### **Expected Outcome #1**
 
 
-<details><summary>click here for full output</summary>
-<p>
+<details>
+  <summary>click here for full output</summary>
 
 
 ```
@@ -143,8 +143,7 @@ ____________________________________________________________
 
 ```
 	
-	
-</p>
+
 </details>
 
 
@@ -320,14 +319,12 @@ ____________________________________________________________
 
 
 	
-<details><summary>Note:</summary>
-<p>
+<details>
+  <summary>Note:</summary>
 
 The number of tasks in the expected outcome depends on the number of tasks the user has previously added to the task list.
 
-</p>
 </details>
-
 
 
 ### 5.ii. `deadline`
