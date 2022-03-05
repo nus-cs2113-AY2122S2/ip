@@ -53,7 +53,6 @@ help [command] / [quick start]
 <details>
   <summary>click here for full output</summary>
 
-
 ```
 ____________________________________________________________
 Here is a list of commands available:
@@ -142,11 +141,7 @@ enter 'help quick start'.
 ____________________________________________________________
 
 ```
-	
-
 </details>
-
-
 
 	
 #### **Example #2**
@@ -319,12 +314,8 @@ ____________________________________________________________
 
 
 	
-<details>
-  <summary>Note:</summary>
 
-The number of tasks in the expected outcome depends on the number of tasks the user has previously added to the task list.
-
-</details>
+Note: The number of tasks in the expected outcome depends on the number of tasks the user has previously added to the task list.
 
 
 ### 5.ii. `deadline`
