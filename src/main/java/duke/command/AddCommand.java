@@ -14,52 +14,50 @@ import duke.task.Todo;
  * Different types of Task can be added based on the user input.
  */
 public class AddCommand extends Command {
-    private final String commandWord;
-    private final String arguments;
+    private final Task task;
 
-    public AddCommand(String commandWord, String arguments) {
+    public AddCommand(Task task) {
         super();
-        this.commandWord = commandWord;
-        this.arguments = arguments;
+        this.task = task;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        Task newTask;
-        String[] argumentList;
-        String description;
-        String dateInput;
+//        Task newTask;
+//        String[] argumentList;
+//        String description;
+//        String dateInput;
+//
+//        switch (this.commandWord) {
+//        case "deadline":
+//            argumentList = splitArguments("/by");
+//            description = argumentList[0].trim(); // eg. return book
+//            dateInput = argumentList[1].trim(); // yyyy-mm-dd
+//            newTask = new Deadline(description, dateInput);
+//            break;
+//        case "event":
+//            argumentList = splitArguments("/at");
+//            description = argumentList[0].trim(); // eg. social event
+//            dateInput = argumentList[1].trim(); // yyyy-mm-dd
+//            newTask = new Event(description, dateInput);
+//            break;
+//        default:
+//            // default is todo
+//            newTask = new Todo(this.arguments);
+//        }
 
-        switch (this.commandWord) {
-        case "deadline":
-            argumentList = splitArguments("/by");
-            description = argumentList[0].trim(); // eg. return book
-            dateInput = argumentList[1].trim(); // yyyy-mm-dd
-            newTask = new Deadline(description, dateInput);
-            break;
-        case "event":
-            argumentList = splitArguments("/at");
-            description = argumentList[0].trim(); // eg. social event
-            dateInput = argumentList[1].trim(); // yyyy-mm-dd
-            newTask = new Event(description, dateInput);
-            break;
-        default:
-            // default is todo
-            newTask = new Todo(this.arguments);
-        }
-
-        tasks.addTask(newTask);
+        tasks.addTask(this.task);
         storage.writeTasksToStorage(tasks);
 
         System.out.println("Got it. I've added this task:");
-        System.out.println(String.format("  %s", newTask));
+        System.out.println(String.format("  %s", this.task));
         System.out.println(String.format("Now you have %d tasks in the list.", tasks.getSize()));
     }
 
-    public String[] splitArguments(String sep) throws DukeException {
-        if (this.arguments.split(sep, 2).length < 2) {
-            throw new DukeException("OOPS!!! There are missing arguments. Please state the date/time.");
-        }
-        return this.arguments.split(sep, 2);
-    }
+//    public String[] splitArguments(String sep) throws DukeException {
+//        if (this.arguments.split(sep, 2).length < 2) {
+//            throw new DukeException("OOPS!!! There are missing arguments. Please state the date/time.");
+//        }
+//        return this.arguments.split(sep, 2);
+//    }
 }

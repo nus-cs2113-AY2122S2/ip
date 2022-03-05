@@ -12,7 +12,7 @@ public class Duke {
      * Initialize a Duke object that reads data from a file specified by the filepath.
      * A new file to store the list of Tasks will be created if the file is not found.
      *
-     * @param filePath
+     * @param filePath File path of where the saved file can be found or will be stored in
      */
     public Duke(String filePath) {
         ui = new Ui();

@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -39,15 +40,19 @@ public class Storage {
                 String taskType = userInputArr[0];
                 boolean isDone = userInputArr[1].equals("1");
 
+                LocalDate dateInput;
+
                 switch (taskType) {
                 case "T":
                     tasks.add(new Todo(isDone, userInputArr[2]));
                     break;
                 case "D":
-                    tasks.add(new Deadline(isDone, userInputArr[2], userInputArr[3]));
+                    dateInput = LocalDate.parse(userInputArr[3]);
+                    tasks.add(new Deadline(isDone, userInputArr[2], dateInput));
                     break;
                 case "E":
-                    tasks.add(new Event(isDone, userInputArr[2], userInputArr[3]));
+                    dateInput = LocalDate.parse(userInputArr[3]);
+                    tasks.add(new Event(isDone, userInputArr[2], dateInput));
                     break;
                 }
             }

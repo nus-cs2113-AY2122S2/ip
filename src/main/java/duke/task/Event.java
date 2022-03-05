@@ -7,16 +7,15 @@ import java.time.format.DateTimeFormatter;
  * Represents an Event task (eg. event project meeting /at 2019-10-15)
  */
 public class Event extends Task {
-    private LocalDate eventDate;
+    private LocalDate eventDate; // yyyy-mm-dd
 
-    public Event(String description, String dateInput) {
-        super(description);
-        this.eventDate = LocalDate.parse(dateInput); // yyyy-mm-dd
+    public Event(String description, LocalDate dateInput) {
+        this(false, description, dateInput);
     }
 
-    public Event(boolean isDone, String description, String dateInput) {
+    public Event(boolean isDone, String description, LocalDate dateInput) {
         super(isDone, description);
-        this.eventDate = LocalDate.parse(dateInput); // yyyy-mm-dd
+        this.eventDate = dateInput;
     }
 
     // Representation of Event in the saved file
