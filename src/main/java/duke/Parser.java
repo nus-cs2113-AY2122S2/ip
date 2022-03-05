@@ -18,6 +18,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
+    // Command Constants
+    public static final String LIST = "list";
+    public static final String BYE = "bye";
+    public static final String TODO = "todo";
+    public static final String DEADLINE = "deadline";
+    public static final String EVENT = "event";
+    public static final String FIND = "find";
+    public static final String MARK = "mark";
+    public static final String UNMARK = "unmark";
+    public static final String DELETE = "delete";
+
     /**
      * Returns a Command that can be executed later on. There are different
      * types of Command that can be created, based on the user input.
@@ -36,15 +47,15 @@ public class Parser {
         LocalDate dateInput;
 
         switch (commandWord) {
-        case "list":
+        case LIST:
             return new ListCommand();
-        case "bye":
+        case BYE:
             return new ExitCommand();
-        case "todo":
+        case TODO:
             arguments = getArguments(fullCommand);
             newTask = new Todo(arguments);
             return new AddCommand(newTask);
-        case "deadline":
+        case DEADLINE:
             arguments = getArguments(fullCommand);
             try {
                 argumentList = arguments.split("/by", 2);
@@ -56,7 +67,7 @@ public class Parser {
                 throw new DukeException("Incorrect input format. Please enter " +
                         "in this format: deadline project /by 2022-12-31");
             }
-        case "event":
+        case EVENT:
             arguments = getArguments(fullCommand);
             try {
                 argumentList = arguments.split("/at", 2);
@@ -68,20 +79,19 @@ public class Parser {
                 throw new DukeException("Incorrect input format. Please enter " +
                         "in this format: event networking /at 2022-12-30");
             }
-        case "find":
+        case FIND:
             return new FindCommand(getArguments(fullCommand));
-        case "mark":
+        case MARK:
             taskIndex = Integer.parseInt(getArguments(fullCommand)) - 1;
             return new MarkCommand(taskIndex);
-        case "unmark":
+        case UNMARK:
             taskIndex = Integer.parseInt(getArguments(fullCommand)) - 1;
             return new UnmarkCommand(taskIndex);
-        case "delete":
+        case DELETE:
             taskIndex = Integer.parseInt(getArguments(fullCommand)) - 1;
             return new DeleteCommand(taskIndex);
         default:
             return new UnknownCommand();
-
         }
     }
 
