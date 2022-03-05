@@ -28,7 +28,7 @@ Parameters introduced will have two forms, either as `[optional parameter]` or `
 
 This command displays a list of commands supported by Vera.
 
-Each command shows a detailed description about its usage.
+Each command displayed shows a detailed description about its usage.
 
 #### **Syntax**
 
@@ -42,115 +42,14 @@ help [command] / [quick start]
 | `[quick start]` | Adding the optional`[quick start]` displays a brief summary of all command syntax.                                                    |
 
 
-#### **Example #1**
-
-```
-> help
-```
-#### **Expected Outcome #1**
-
-
-<details>
-  <summary>click here for full output</summary>
-
-```
-____________________________________________________________
-Here is a list of commands available:
-____________________________________________________________
-List: Displays a list of tasks added and shows 
-whether or not certain tasks are marked.
-____________________________________________________________
-Mark: Marks a task as done. 
-To mark a specific task, enter 'mark <list_index>'.
-
- Here, 'list_index' denotes the index of a task 
- based on the task list under the command 'list'.
-
-E.g., 'mark 1' marks the first task in the task list as done.
-
-Note: You can only mark one task per command input.
-____________________________________________________________
-Unmark: Marks a task as undone.
-To unmark a specific task, enter 'unmark <list_index>'.
-
- Here, 'list_index' denotes the index of a task 
- based on the task list under the command 'list'.
-
-E.g., 'unmark 3' unmarks the third task in the task list.
-
-Note: You can only unmark one task per command input.
-____________________________________________________________
-Todo: Adds a 'todo' task into the task list.
-A 'todo' contains only a task description. 
-
-To add other features to your task, such as date and time, 
-use either 'deadline' or 'event'.
-
-To execute the command, 
-enter 'todo <task_description>', e.g. todo read book.
-____________________________________________________________
-Deadline: Adds a 'deadline' task into the task list. 
-A 'deadline' contains both a task description 
-and a date to finish the task by.
-
-To execute the command,
-enter 'deadline <task_description> /by <task_date>'.
-E.g. deadline return book /by 2022/02/03.
-
-All deadline dates must be given in the format:
-		yyyy/MM/dd [HH:mm], where
-year is in 4 digits, month and day in two digits, and an
-optional time in 24 hour format.
-____________________________________________________________
-Event: Adds an 'event' task into the task list.
-An 'event' contains both a task description 
-and a date of when the event will happen. 
-
-To execute the command,
-enter 'event <task_description> /at <task_date>'.
-E.g. event project meeting /at 2022/08/06 1400.
-
-All event dates must be given in the format:
-		yyyy/MM/dd [HH:mm], where
-year is in 4 digits, month and day in two digits, and an 
-optional time in 24 hour format.
-____________________________________________________________
-Delete: Deletes a task in the task list.
-To delete a specific task, enter 'delete <list_index>'.
-
- Here, 'list_index' denotes the index of a task 
- based on the task list under the command 'list'.
-
-E.g., 'delete 2' deletes the second task in the task list.
-
-Note: You can only delete one task per command input.
-____________________________________________________________
-Find: Finds related task descriptions 
-based on the given input.
-
-To search for a task, 
-enter 'find <keyword>', e.g. 'find book'
-____________________________________________________________
-Clear: Deletes all tasks in the list.
-To execute the command, enter 'clear'.
-____________________________________________________________
-Bye: Exits the program.
-____________________________________________________________
-For a quick summary of what commands to execute, 
-enter 'help quick start'.
-____________________________________________________________
-
-```
-</details>
-
 	
-#### **Example #2**
+#### **Example #1**
 
 ```
 > help list
 ```
 
-#### **Expected Outcome #2**
+#### **Expected Outcome #1**
 
 ```
 ____________________________________________________________
@@ -159,13 +58,13 @@ whether or not certain tasks are marked.
 ____________________________________________________________
 ```
 
-#### **Example #3**
+#### **Example #2**
 
 ```
 > help quick start
 ```
 
-#### **Expected Outcome #3**
+#### **Expected Outcome #2**
 
 ```
 ____________________________________________________________
@@ -185,6 +84,7 @@ For more information on the command you wish to execute,
 enter 'help <command>' e.g. help todo
 ____________________________________________________________
 ```
+
 
 ### 2. `list`
 
