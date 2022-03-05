@@ -20,4 +20,4 @@ Below are the types of tasks which the user can create:
 
 ## For More Information
 
-To view all the detailed functions which Vera can perform, head over to the full [user guide](https://github.com/jltha/ip/blob/master/docs/README.md).
+To view all the detailed functions which Vera can perform, head over to the full [user guide](https://jltha.github.io/ip/).
