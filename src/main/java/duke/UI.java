@@ -1,5 +1,7 @@
 package duke;
 
+import java.time.LocalDate;
+
 public class UI {
 
     //    static int currentCount = 0;
@@ -76,8 +78,8 @@ public class UI {
             }
             int byIndex = line.indexOf("/by");
             String deadlineDescription = line.substring(8, byIndex - 1);
-            String by = line.substring(byIndex + 3);
-            Deadline task = new Deadline(deadlineDescription, by);
+            String by = line.substring(byIndex + 4);
+            Deadline task = new Deadline(deadlineDescription, LocalDate.parse(by));
             TaskList.taskList.add(task);
 //            currentCount += 1;
             printAddedItem(task);
@@ -87,7 +89,7 @@ public class UI {
             }
             int atIndex = line.indexOf("/at");
             String eventDescription = line.substring(5, atIndex - 1);
-            String at = line.substring(atIndex + 3);
+            String at = line.substring(atIndex + 4);
             Event task = new Event(eventDescription, at);
             TaskList.taskList.add(task);
 //            currentCount += 1;

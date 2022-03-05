@@ -1,12 +1,13 @@
 package duke;
 
 public class Event extends Todo {
-    public String taskKind = "[E]";
+    public String taskKind;
     protected String at;
 
     public Event(String description, String at) {
         super(description);
         this.at = at;
+        this.taskKind  = "[E]";
     }
 
     @Override
