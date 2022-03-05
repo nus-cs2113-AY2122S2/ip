@@ -35,10 +35,12 @@ Each command shows a detailed description about its usage.
 ```
 help [command] / [quick start]
 ```
+
 | Parameter       | Description                                                                                                                           |
 |-----------------|---------------------------------------------------------------------------------------------------------------------------------------|
 | `[command]`     | Adding the optional `[command]` displays information specific to that command. Otherwise, information for all commands will be shown. |
 | `[quick start]` | Adding the optional`[quick start]` displays a brief summary of all command syntax.                                                    |
+
 
 #### **Example #1**
 
@@ -47,8 +49,10 @@ help [command] / [quick start]
 ```
 #### **Expected Outcome #1**
 
+
 <details><summary>click here for full output</summary>
 <p>
+
 
 ```
 ____________________________________________________________
@@ -138,12 +142,13 @@ enter 'help quick start'.
 ____________________________________________________________
 
 ```
+	
+	
 </p>
 </details>
 
 
 
-	
 	
 #### **Example #2**
 
@@ -221,9 +226,11 @@ This command marks a task as done.
 mark <task_index>
 ```
 
+	
 | Parameter      | Description                                                                                   |
 |----------------|-----------------------------------------------------------------------------------------------|
 | `<task_index>` | The index of the task (when referencing to its number placement in the list) to mark as done. |
+
 
 #### **Example**
 
@@ -251,11 +258,14 @@ This command marks a task as undone.
 ```
 mark <task_index>
 ```
+	
+	
 
 | Parameter      | Description                                                                                     |
 |----------------|-------------------------------------------------------------------------------------------------|
 | `<task_index>` | The index of the task (when referencing to its number placement in the list) to mark as undone. |
 
+	
 #### **Example**
 
 Using the list of task from `list` feature as an example,
@@ -285,9 +295,12 @@ To save other forms of data such as task date and/or time, refer to the `deadlin
 todo <task_description>
 ```
 
+	
 | Parameter            | Description                       |
 |----------------------|-----------------------------------|
 | `<task_description>` | Information about the *todo* task |
+	
+
 
 ### **Example**
 
@@ -305,6 +318,8 @@ Now you have 3 task(s) in the list.
 ____________________________________________________________
 ```
 
+
+	
 <details><summary>Note:</summary>
 <p>
 
@@ -312,6 +327,7 @@ The number of tasks in the expected outcome depends on the number of tasks the u
 
 </p>
 </details>
+
 
 
 ### 5.ii. `deadline`
@@ -324,11 +340,14 @@ This command adds a *deadline* task to the list. A `deadline` accepts both a tas
 deadline <task_description> /by <task_date> [task_time]
 ```
 
+	
 | Parameter            | Description                                                                                                                  |
 |----------------------|------------------------------------------------------------------------------------------------------------------------------|
 | `<task_description>` | Information about the *deadline* task.                                                                                       |
 | `<task_date>`        | Information about the due date of the task. Format is in `yyy/MM/dd `, where year is in 4-digits, month and day in 2-digits. |
 | `[task_time]`        | Information on when to complete the task by. Format is in `[HHmm]`, where `HHmm` is the time given in 24-hour format.        |
+	
+
 
 ### **Example**
 
@@ -356,11 +375,14 @@ This command adds an *event* task to the list. An `event` accepts both a task de
 event <task_description> /at <task_date> [task_time]
 ```
 
+	
 | Parameter            | Description                                                                                                                |
 |----------------------|----------------------------------------------------------------------------------------------------------------------------|
 | `<task_description>` | Information about the *event* task.                                                                                        |
 | `<task_date>`        | Information about of the *event* occurs. Format is in `yyyy/MM/dd `, where year is in 4-digits, month and day in 2-digits. |
 | `[task_time]`        | Information on the time the *event* occurs. Format is in `[HHmm]`, where `HHmm` is the time given in 24-hour format.       |
+
+	
 
 ### **Example**
 
@@ -388,9 +410,11 @@ This command deletes a task in the list.
 delete <task_index>
 ```
 
+
 | Parameter      | Description                                                                            |
 |----------------|----------------------------------------------------------------------------------------|
 | `<task_index>` | The index of the task (when referencing to its number placement in the list) to delete |
+
 
 ### **Example**
 
@@ -454,12 +478,14 @@ find [task_description] /date [task_date]
 
 Note: At least one search keyword must be present in the command input, i.e. either `[task_description]` or `[task_date]`
 
+
 | Parameter            | Description                                                                                                                                                                    |
 |----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `[task_description]` | Information about the task.                                                                                                                                                    |
 | `[task_date]`        | Information about the date of the task. Format is in `yyyy/MM/dd [HHmm]`, where year is in 4-digits, month and day in 2-digits and `HHmm` is the time given in 24-hour format. |
 
 
+	
 ### **Example #1**
 
 Using the list of tasks from `list` feature as an example,
