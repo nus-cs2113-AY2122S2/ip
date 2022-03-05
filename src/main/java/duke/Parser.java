@@ -1,5 +1,7 @@
 package duke;
 
+import java.time.LocalDate;
+
 public class Parser {
 
     static Task lineToTask(String line){
@@ -11,7 +13,7 @@ public class Parser {
             int byIndex = line.indexOf("|", 8);
             String deadlineDescription = line.substring(8, byIndex - 1);
             String by = line.substring(byIndex + 2);
-            task = new Deadline(deadlineDescription, by);
+            task = new Deadline(deadlineDescription, LocalDate.parse(by));
             isDoneInt = Integer.parseInt(line.substring(4, 5));
             if (isDoneInt != 0) task.setDone(true);
             break;
@@ -41,7 +43,7 @@ public class Parser {
             line = "D" + " | " +
                     boolToInt(deadline.isDone()) +
                     " | " + deadline.description +
-                    " | " + deadline.getBy();
+                    " | " + deadline.by.toString();
         } else if (task instanceof Event) {
             Event event = (Event) task;
             line = "E" + " | " +
@@ -84,8 +86,8 @@ public class Parser {
             }
             int byIndex = line.indexOf("/by");
             String deadlineDescription = line.substring(8, byIndex - 1);
-            String by = line.substring(byIndex + 3);
-            Deadline task = new Deadline(deadlineDescription, by);
+            String by = line.substring(byIndex + 4);
+            Deadline task = new Deadline(deadlineDescription, LocalDate.parse(by));
             TaskList.taskList.add(task);
             UI.printAddedItem(task);
         } else if (line.startsWith("event")){
