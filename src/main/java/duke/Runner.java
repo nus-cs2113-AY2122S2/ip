@@ -1,9 +1,11 @@
 package duke;
 
+import java.io.IOException;
 import java.util.Scanner;
 
-public class Run {
-    public static void run(){
+public class Runner {
+
+    public static void run() throws IOException {
         String line;
         Scanner in = new Scanner(System.in);
 
@@ -17,13 +19,15 @@ public class Run {
 
         while (!line.contains("bye")){
             try{
-                UI.processLine(line);
+                Parser.processLine(line);
 
             } catch (DukeIllegalKeyword e){
                 UI.printIllegalKeyword();
 
             } catch (DukeIllegalDescription e){
                 UI.printIllegalDescription();
+            } catch (Exception e){
+                UI.printIllegalTerm();
             }
 
             line = in.nextLine();

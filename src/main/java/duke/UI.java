@@ -2,10 +2,9 @@ package duke;
 
 public class UI {
 
-    //    static int currentCount = 0;
-        final static String DASHED_LINE = "\t____________________________________________________________";
+    final static String DASHED_LINE = "\t____________________________________________________________";
 
-    private static void markTask(int index){
+    static void markTask(int index){
         TaskList.taskList.get(index - 1).setDone(true);
         String message = DASHED_LINE + "\n" +
                 "\t Nice! I've marked this task as done: \n" +
@@ -14,7 +13,7 @@ public class UI {
         System.out.println(message);
     }
 
-    private static void unMarkTask(int index){
+    static void unMarkTask(int index){
         TaskList.taskList.get(index - 1).setDone(false);
         String message = DASHED_LINE + "\n" +
                 "\tOK, I've marked this task as not done yet: \n" +
@@ -23,7 +22,7 @@ public class UI {
         System.out.println(message);
     }
 
-    private static void printAddedItem(Task task){
+    static void printAddedItem(Task task){
         String message = DASHED_LINE + "\n" +
                 "\t Got it. I've added this task:" + "\n" +
                 "\t \t" + task.toString() + "\n" +
@@ -33,7 +32,7 @@ public class UI {
         System.out.println(message);
     }
 
-    private static void printDeletedItem(Task task){
+    static void printDeletedItem(Task task){
         String message = DASHED_LINE + "\n" +
                 "\t Got it. I've removed this task:" + "\n" +
                 "\t \t" + task.toString() + "\n" +
@@ -43,64 +42,13 @@ public class UI {
         System.out.println(message);
     }
 
-    private static void printList(){
+    static void printList(){
         System.out.print(DASHED_LINE);
         for (int j = 0; j < TaskList.taskList.size(); j++){
             System.out.print("\n");
             System.out.print("\t" + (j+1) + "." + TaskList.taskList.get(j).toString());
         }
         System.out.println("\n" + DASHED_LINE);
-    }
-
-    static void processLine(String line) throws DukeIllegalKeyword, DukeIllegalDescription {
-        if (line.equals("list")){
-            printList();
-        } else if (line.startsWith("mark")){
-            int indexToMark = Integer.parseInt(line.substring(5));
-            markTask(indexToMark);
-        } else if(line.startsWith("unmark")){
-            int indexToUnmark = Integer.parseInt(line.substring(7));
-            unMarkTask(indexToUnmark);
-        } else if (line.startsWith("todo")){
-            if (line.length() < 5){
-                throw new DukeIllegalDescription();
-            }
-            String todoDescription = line.substring(4);
-            Todo task = new Todo(todoDescription);
-            TaskList.taskList.add(task);
-//            currentCount += 1;
-            printAddedItem(task);
-        } else if (line.startsWith("deadline")){
-            if (line.length() < 9 || !line.contains("/by")){
-                throw new DukeIllegalDescription();
-            }
-            int byIndex = line.indexOf("/by");
-            String deadlineDescription = line.substring(8, byIndex - 1);
-            String by = line.substring(byIndex + 3);
-            Deadline task = new Deadline(deadlineDescription, by);
-            TaskList.taskList.add(task);
-//            currentCount += 1;
-            printAddedItem(task);
-        } else if (line.startsWith("event")){
-            if (line.length() < 6 || !line.contains("/at")){
-                throw new DukeIllegalDescription();
-            }
-            int atIndex = line.indexOf("/at");
-            String eventDescription = line.substring(5, atIndex - 1);
-            String at = line.substring(atIndex + 3);
-            Event task = new Event(eventDescription, at);
-            TaskList.taskList.add(task);
-//            currentCount += 1;
-            printAddedItem(task);
-        } else if (line.startsWith("delete")) {
-            if (line.length() < 8) {
-                throw new DukeIllegalDescription();
-            }
-            int indexToDelete = Integer.parseInt(line.substring(7));
-            Task deletedTask = TaskList.taskList.get(indexToDelete);
-            TaskList.taskList.remove(indexToDelete);
-            printDeletedItem(deletedTask);
-        } else throw new DukeIllegalKeyword();
     }
 
     static void printIllegalKeyword(){
@@ -114,6 +62,14 @@ public class UI {
     static void printIllegalDescription(){
         String message = DASHED_LINE + "\n" +
                 "\t You did not add any description." + "\n" +
+                "\t I can't do much. Try again!" + "\n" +
+                DASHED_LINE;
+        System.out.println(message);
+    }
+
+    static void printIllegalTerm(){
+        String message = DASHED_LINE + "\n" +
+                "\t You did not make any sense" + "\n" +
                 "\t I can't do much. Try again!" + "\n" +
                 DASHED_LINE;
         System.out.println(message);
