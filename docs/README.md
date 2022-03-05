@@ -17,8 +17,7 @@ Too many tasks? No worry, use find to filter your tasks.
 - Your tasks are still there even you quit the program.
 - The tasks are stored in flat file (.txt), you can easily check and modify them.
 - The status of tasks (is done?) is also stored.
-
-### 
+ 
 ## Usage
 Note: String in quotes are recognized as a single token, but if there are no quotes, it will be multiple tokens. By default, we wish all strings are quoted.
 
