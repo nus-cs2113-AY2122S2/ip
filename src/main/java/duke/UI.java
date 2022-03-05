@@ -51,6 +51,8 @@ public class UI {
         System.out.println("\n" + DASHED_LINE);
     }
 
+
+
     static void printIllegalKeyword(){
         String message = DASHED_LINE + "\n" +
                 "\t You typed an illegal keyword." + "\n" +
