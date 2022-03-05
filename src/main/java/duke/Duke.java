@@ -59,7 +59,6 @@ public class Duke {
      */
     public static void main(String[] args) {
         Path path = Paths.get("taskList.txt");
-        System.out.println(path.toString());
 
         Duke duke = new Duke();
         duke.run(path.toString());
