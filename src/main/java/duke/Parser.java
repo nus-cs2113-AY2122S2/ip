@@ -4,6 +4,13 @@ import java.time.LocalDate;
 
 public class Parser {
 
+    /**
+     * Parses a string to a Task object by figuring out the kind of Task,
+     * and all other fields required for the relevant class.
+     *
+     * @param line the string that needs to be parsed as a Task
+     * @return Task the task object which can be added to the TaskList
+     */
     static Task lineToTask(String line){
         Task task = null;
         int isDoneInt;
@@ -35,6 +42,14 @@ public class Parser {
         return task;
     }
 
+    /**
+     * Appropriately converts a Task to a string object in a way that all
+     * information about the Task object is preserved. Every field of the
+     * object is converted to a string and the final line is constructed.
+     *
+     * @param task the Task object which needs to be converted to string
+     * @return the string that can be written to a text file as a single line
+     */
     static String taskToLine(Task task) {
         String line = "";
         // code block
@@ -59,10 +74,25 @@ public class Parser {
         return line;
     }
 
+    /**
+     * Converts boolean to integer.
+     *
+     * @param b the boolean value to be turned either to 0 or 1
+     * @return 0 or 1
+     */
     private static int boolToInt(boolean b) {
         return Boolean.compare(b, false);
     }
 
+
+    /**
+     * Each line that the user inputs is parsed and processed.
+     *
+     * @param line the line from the command line that needs to be parsed in order
+     *             for appropriate action to be taken
+     * @throws DukeIllegalKeyword throws exception if invalid keyword is typed
+     * @throws DukeIllegalDescription throws exception if no description is added
+     */
     static void processLine(String line) throws DukeIllegalKeyword, DukeIllegalDescription {
         if (line.equals("list")){
             UI.printList();
