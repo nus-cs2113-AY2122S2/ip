@@ -6,11 +6,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Provides methods for storing to and loading from the storage file.
+ */
 public class FileAccess {
-    final static String FILE_NAME = "/Users/aimanimtiaz/software-engineering/ip/data/duke.txt";
 
+    /**
+     * Reads all the existing tasks from a text file and adds them to the TaskList.
+     *
+     * @throws FileNotFoundException exception if the file does not exist
+     * @see Parser
+     * @see TaskList
+     */
     private static void readFromFile() throws FileNotFoundException {
-        File f = new File(FileAccess.FILE_NAME); // create a File for the given file path
+        File f = new File(Duke.FILE_NAME); // create a File for the given file path
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         while (s.hasNext()) {
             Task task = Parser.lineToTask(s.nextLine());
@@ -18,8 +27,15 @@ public class FileAccess {
         }
     }
 
+    /**
+     * Saves the entire TaskList to the given text file/
+     *
+     * @throws IOException exception if file cannot be written to
+     * @see Parser
+     * @see TaskList
+     */
     public static void saveToFile() throws IOException {
-        FileWriter fw = new FileWriter(FileAccess.FILE_NAME);
+        FileWriter fw = new FileWriter(Duke.FILE_NAME);
         String line;
         try {
             for (Task task: TaskList.taskList){
@@ -32,6 +48,9 @@ public class FileAccess {
         }
     }
 
+    /**
+     * Tries to read from file and prints a message if the file does not exist.
+     */
     public static void loadFromFile(){
         try {
             readFromFile();
