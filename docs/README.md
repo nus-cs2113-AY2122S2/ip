@@ -38,7 +38,7 @@ Duke is a flexible command line based task manager that helps you to manage your
 Prerequisite: JDK 11
 1. Please ensure that JDK 11 is installed before running Duke. You can check it in terminal by typing
    ````shell
-   java -v
+   java -version
    ````
    and you should see something similar as following:
    ````shell
@@ -50,7 +50,7 @@ Prerequisite: JDK 11
    ````shell
    https://github.com/hlwang56/ip/releases/download/v2.0/ip.jar
    ````
-3. Open a terminal in the folder when the jar file is placed and run following command
+3. Open a terminal in the folder where the jar file is placed and run following command
    ````shell
    java -jar ip.jar
    ````
