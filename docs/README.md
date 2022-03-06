@@ -10,7 +10,7 @@ Duke is a Command Line Interface application designed for desktop use.
 4. Run commands by typing them into the terminal and pressing enter.
 The directory Duke is run from is referred to as `$DUKE`.
 
-> ###Command format:
+### Command Format
 > `UPPERCASE` - represent user-supplied parameters.
 > 
 > `lowercase` - represent built-in commands.
@@ -128,8 +128,8 @@ _____________________________________
 
 ### Exit
 Exit Duke.
-
 - `bye`
+
 ### Saves tasks
 Duke saves tasks to `$DUKE/data/duke.txt`.
 
