@@ -8,7 +8,7 @@ import Duke.Ui.Ui;
 import java.io.IOException;
 
 /**
- *  Represents the entry-point of Duke.Duke Program.
+ * Represents the entry-point of Duke, task list manager bot
  */
 public class Duke {
 
@@ -17,7 +17,7 @@ public class Duke {
     private final Storage storage;
 
     /**
-     *
+     * initializes Duke interface and stored list
      */
     public Duke() {
         ui = new Ui();
@@ -25,15 +25,20 @@ public class Duke {
 
     }
 
-    public void run() throws IOException, EmptyDescriptionException {
+    /**
+     * 
+     * @throws IOException fpr failed or interrupted I/O operations.
+     * 
+     */
+    public void run() throws IOException {
         storage.loadTaskList();
         ui.printWelcomeMessage();
 
-        while (true){
+        while (true) {
             String input = ui.readInput();
             Command c = new Command(input);
             c.executeCommand();
-            if (c.getCommand().equals("bye")){
+            if (c.getCommand().equals("bye")) {
                 ui.printGoodByeMessage();
                 storage.storeFile();
                 break;
@@ -42,7 +47,7 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) throws IOException, EmptyDescriptionException {
+    public static void main(String[] args) throws IOException {
         new Duke().run();
 
     }

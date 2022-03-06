@@ -9,6 +9,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * gets and loads task list from known diretory
+ * saves task list to a specified directory
+ */
 public class Storage {
     public static final String FILE_PATH = "list.txt";
 
@@ -31,7 +35,8 @@ public class Storage {
     public void storeFile() throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
         for (int i = 0; i < TaskList.tasks.size(); i++) {
-            fw.write(TaskList.tasks.get(i).typeOfTask() + " " + TaskList.tasks.get(i).getIsDone() + " " + TaskList.tasks.get(i).getDesc() + "/"
+            fw.write(TaskList.tasks.get(i).typeOfTask() + " " + TaskList.tasks.get(i).getIsDone() + " "
+                    + TaskList.tasks.get(i).getDesc() + "/"
                     + TaskList.tasks.get(i).getTime() + System.lineSeparator());
         }
         fw.close();
