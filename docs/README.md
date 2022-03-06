@@ -108,10 +108,10 @@ Bids you goodbye and exits the program.
 
 | Action          | Format, Examples                                                                                                    |
 |-----------------|---------------------------------------------------------------------------------------------------------------------|
-| Create todo     | `todo <description>`<br/>e.g., `todo shower`                                                                        |
-| Create event    | `event <description> /at <date> <time>`<br/>e.g., `event housewarming /at 2022-03-01 10`                            |
-| Create deadline | `deadline <description> /by <date> <time>`<br/>e.g., `deadline coding project /by 2022-05-03 11`                    |
-| Delete task     | `delete <task number>`<br/>e.g., `delete 2`                                                                         |
-| Mark task       | Mark task: `mark <task number>`<br/>e.g., `mark 2`<br/><br/>Unmark task: `unmark <task number>`<br/>e.g., `unmark 2`|
+| Create todo     | `todo <description>`<br/>e.g. `todo shower`                                                                        |
+| Create event    | `event <description> /at <date> <time>`<br/>e.g. `event housewarming /at 2022-03-01 10`                            |
+| Create deadline | `deadline <description> /by <date> <time>`<br/>e.g. `deadline coding project /by 2022-05-03 11`                    |
+| Delete task     | `delete <task number>`<br/>e.g. `delete 2`                                                                         |
+| Mark task       | Mark task: `mark <task number>`<br/>e.g. `mark 2`<br/><br/>Unmark task: `unmark <task number>`<br/>e.g.  `unmark 2`|
 | List task       | `list`                                                                                                              |
 | Exit            | `bye`                                                                                                               |
