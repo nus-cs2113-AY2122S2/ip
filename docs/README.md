@@ -1,165 +1,136 @@
 # User Guide
 
 ## Overview
-Duke is a task management app.
+Duke is a Command Line Interface application designed for desktop use.
 
+## Quick Start
+1. Install Java, version 11 or above.
+2. Download the latest release as a JAR file from www.github.com/matheril/ip/releases.
+3. Navigate to the directory where you downloaded the .jar to and run it with the command `java -jar`.
+4. Run commands by typing them into the terminal and pressing enter.
+The directory Duke is run from is referred to as `$DUKE`.
+
+> ###Command format:
+> `UPPERCASE` - represent user-supplied parameters.
+> 
+> `lowercase` - represent built-in commands.
+> 
+> `/by` `/at` - separate task description from their timings.
+> 
+> For example:
+> 
+> `deadline finish assignment /by 2022-06-03` 
+> 
+> `deadline` is a built-in command and will be displayed in lowercase in this documentation.
+> 
+> `finish assignment` and `2022-06-03` are user-supplied parameters and will be displayed in UPPERCASE in this documentation.
+> 
 ## Features 
 
 ### Add task
-Tasks can be ToDos, Deadlines or Events.
+Adds a task.
+Tasks can be `todo`, `deadline` or `event`.
 
-### Delete task
-Tasks can be deleted.
-
-### Find task
-Tasks can be searched for.
-
-### Mark task
-Tasks can be marked as done.
-
-### Unmark task
-Tasks can be unmarked.
+- Todo
+  - `todo DESCRIPTION`
+```
+todo read book
+_____________________________________
+Got it. I've added this task:
+  [T][ ] read book
+Now you have 1 task in the list.
+_____________________________________
+```
+- Deadline
+  - `deadline DESCRIPTION /by DATE`
+    - `DATE` - YYYY-MM-DD format
+```
+deadline return book /by 2022-06-03
+_____________________________________
+Got it. I've added this task:
+  [D][ ] return book (by: Jun 3 2022)
+Now you have 1 task in the list.
+_____________________________________
+```
+- Event
+  - `event DESCRIPTION /at DATE`
+      - `DATE` - YYYY-MM-DD format
+```
+event company meeting /at 2022-06-03
+_____________________________________
+Got it. I've added this task:
+  [E][ ] company meeting (at: Jun 3 2022)
+Now you have 2 tasks in the list.
+_____________________________________
+```
 
 ### List tasks
-Tasks can be listed in a readable format.
-
-### Saves tasks
-Tasks are saved when exiting the program and will be loaded
-when the program is next launched.
-
-### Supports YYYY-MM-DD format
-Timings entered in YYYY-MM-DD format will be formatted to be
-more readable.
-
-Example:
-
-2022-03-15 becomes Mar 03 2022
-
-## Usage
-
-### `todo <DESCRIPTION>`
-
-Adds a ToDo task with `<DESCRIPTION>` as its description.
-
-Example of usage: 
-
-`todo read book`
-
-Expected outcome:
-
-Adds a ToDo task with `read book` as its description.
-
-### `deadline <DESCRIPTION> /by <TIMING>`
-
-Adds a Deadline task with `<DESCRIPTION>` as its description
-and `<TIMING>` as its timing.
-
-Example of usage:
-
-`deadline return book /by June 8th`
-
-Expected outcome:
-
-Adds a Deadline task with `return book` as its description and 
-`June 8th` as its timing.
-
-### `event <DESCRIPTION> /at <TIMING>`
-
-Adds an Event task with `<DESCRIPTION` as its description and 
-`<TIMING>` as its timing.
-
-Example of usage:
-
-`event company meeting /at 8pm`
-
-Expected outcome:
-
-Adds an Event task with `company meeting` as its description and 
-`8pm` as its timing.
-
-### YYYY-MM-DD format for timings
-
-Deadline and Event tasks will format YYYY-MM-DD timings to be more
-readable.
-
-Example of usage:
-
-`deadline return book /by 2022-08-13`
-
-`event company meeting /at 2022-07-01`
-
-Expected outcome:
-
-
-Adds a Deadline task with `return book` as its description and
-`Aug 13 2022` as its timing.
-
-Adds an Event task with `company meeting` as its description and 
-`2022-07-01` as its timing.
-
-### `list`
-
-Lists all currently stored tasks.
-
-The number beside each task represents their position in the list,
-and may be used with other commands.
-
-Example of usage:
-
-`todo read book`
-
-`deadline return book /by 2022-03-15`
-
-`event meeting /at office`
-
-`list`
-
-Expected outcome:
-
-```
+Lists tasks in a readable format.
+- `list`
+```list
 _____________________________________
 Here are the tasks in your list:
-1.[T][ ] read book
-2.[D][ ] return book (by: Mar 15 2022)
-3.[E][ ] meeting (at: office)
+1.[D][ ] return book (by: Jun 3 2022)
+2.[E][ ] company meeting (at: Jun 3 2022)
+3.[T][ ] read book
 _____________________________________
 ```
 
-### `mark <TASK_NUMBER>`
 
-Marks the task corresponding to <TASK_NUMBER> as done.
-`<TASK_NUMBER>` can be determined by the `list` command.
+### Mark task
+Marks tasks as done.
+- `mark TASKINDEX`
+  - `TASKINDEX` is the index of the task shown by `list`.
+```
+mark 1
+_____________________________________
+Nice! I've marked this task as done:
+[D][X] return book (by: Jun 3 2022)
+_____________________________________
+```
+### Unmark task
+Marks a task as undone.
+- `unmark TASKINDEX`
+  - `TASKINDEX` is the index of the task shown by `list`.
+```
+unmark 1
+_____________________________________
+OK, I've marked this task as not done yet:
+[D][ ] return book (by: Jun 3 2022)
+_____________________________________
+```
 
-Example of usage:
+### Find tasks
+Finds tasks with descriptions that match the supplied keyword.
+- `find KEYWORD`
+  - `KEYWORD` A keyword to search for. Tasks with `DESCRIPTION` containing `KEYWORD` are listed.
+```
+find book
+_____________________________________
+Here are the matching tasks in your list:
+1.[D][ ] return book (by: Jun 3 2022)
+2.[T][ ] read book
+_____________________________________
+```
 
-`mark 1`
+### Delete task
+Deletes a task.
+- `delete TASKINDEX`
+  - `TASKINDEX` is index of the task shown by `list`.
+```
+delete 1
+_____________________________________
+Noted. I've removed this task:
+[D][ ] return book (by: Jun 3 2022)
+Now you have 2 tasks in the list.
+_____________________________________
+```
 
-Expected outcome:
+### Exit
+Exit Duke.
 
-Marks the task as done.
+- `bye`
+### Saves tasks
+Duke saves tasks to `$DUKE/data/duke.txt`.
 
-### `unmark <TASK_NUMBER>`
-
-Marks the task corresponding to <TASK_NUMBER> as incomplete.
-<TASK_NUMBER> can be determined by the `list` command.
-
-Example of usage:
-
-`unmark 1`
-
-Expected outcome:
-
-Marks the task as incomplete.
-
-### `bye`
-
-Saves tasks to a save file on disk and exits the program.
-Tasks will not be saved unless this command is run.
-
-Example of usage:
-
-`bye`
-
-Expected outcome:
-
-Prints a goodbye message and exits. Task data is saved to the save file.
+Exiting the program without using `bye` will not save tasks to the save file.
