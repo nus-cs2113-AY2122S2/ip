@@ -1,10 +1,24 @@
+import exceptions.DukeException;
+import tasks.TaskList;
+
+/**
+ * Duke is a smart task manager.
+ */
 public class Duke {
+
+
+    /**
+     * The main function of Duke
+     *
+     * @param args The commandline argument
+     */
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        try {
+            TaskList dukeTaskList = new TaskList();
+        } catch (DukeException e) {
+            System.out.println(e);
+        }
+        Controller dukeController = new Controller();
+        dukeController.listen();
     }
 }
