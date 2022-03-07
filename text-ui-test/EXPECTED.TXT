@@ -1,7 +1,67 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello! I'm Duke :P
+What can I do for you?
+-------------------------------------
+The list is empty currently (￣3￣)a
+-------------------------------------
+ψ(._. )> Got it. I've added this task:
+[D][ ]CS2113 Quiz (by: Jun. 20 2019 23:59)
+Now you have 1 tasks in your list.
+-------------------------------------
+ψ(._. )> Got it. I've added this task:
+[E][ ]MA2101 Quiz (at: Jun. 30 2019)
+Now you have 2 tasks in your list.
+-------------------------------------
+ψ(._. )> Got it. I've added this task:
+[T][ ]Homework
+Now you have 3 tasks in your list.
+-------------------------------------
+o(≧v≦)o Here are the tasks in your list:
+1. [D][ ]CS2113 Quiz (by: Jun. 20 2019 23:59)
+2. [E][ ]MA2101 Quiz (at: Jun. 30 2019)
+3. [T][ ]Homework
+-------------------------------------
+ψ(._. )> Nice! I've marked this task as done:
+[D][X]CS2113 Quiz (by: Jun. 20 2019 23:59)
+-------------------------------------
+ψ(._. )> Nice! I've marked this task as done:
+[E][X]MA2101 Quiz (at: Jun. 30 2019)
+-------------------------------------
+o(≧v≦)o Here are the tasks in your list:
+1. [D][X]CS2113 Quiz (by: Jun. 20 2019 23:59)
+2. [E][X]MA2101 Quiz (at: Jun. 30 2019)
+3. [T][ ]Homework
+-------------------------------------
+ψ(._. )> OK, I've marked this task as not done yet:
+[E][ ]MA2101 Quiz (at: Jun. 30 2019)
+-------------------------------------
+o(≧v≦)o Here are the tasks in your list:
+1. [D][X]CS2113 Quiz (by: Jun. 20 2019 23:59)
+2. [E][ ]MA2101 Quiz (at: Jun. 30 2019)
+3. [T][ ]Homework
+-------------------------------------
+o(≧v≦)o Here are the matching tasks in your list:
+1. [D][X]CS2113 Quiz (by: Jun. 20 2019 23:59)
+2. [E][ ]MA2101 Quiz (at: Jun. 30 2019)
+-------------------------------------
+The format is incorrect! Can you please check your input again? ●ω●
+-------------------------------------
+The time format is incorrect! Can you please check your input again? (￣～￣；) You can check the manual to find out acceptable time format!
+-------------------------------------
+The time format is incorrect! Can you please check your input again? (￣～￣；) You can check the manual to find out acceptable time format!
+-------------------------------------
+ψ(._. )> Got it. I've added this task:
+[D][ ]CS2106 midterm (by: Apr. 30 2019 02:03)
+Now you have 4 tasks in your list.
+-------------------------------------
+o(≧v≦)o Here are the tasks in your list:
+1. [D][ ]CS2113 Quiz (by: Jun. 20 2019 23:59)
+2. [E][ ]MA2101 Quiz (at: Jun. 30 2019)
+3. [T][ ]Homework
+4. [D][ ]CS2106 midterm (by: Apr. 30 2019 02:03)
+-------------------------------------
+ψ(._. )> Okay! I've deleted this task:
+[D][ ]CS2106 midterm (by: Apr. 30 2019 02:03)
+Now you have 3 tasks in your list.
+-------------------------------------
+Bye. Hope to see you again soon! ;)
+-------------------------------------
