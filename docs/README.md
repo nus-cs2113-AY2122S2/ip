@@ -20,6 +20,7 @@ Welcome to User Guide for Domo the chat bot.
 3. Move the file to the appropriate folder location you want.
 4. Open the terminal/command line and run the file with `java -jar IP.jar`
 5. Refer to the available features below and enjoy the chat bot.
+
 ## Features 
 
 #### Notes about command format 
@@ -109,6 +110,6 @@ Exits the program by passing the command `bye`.
 
 Format: `bye`
 
-###Saving the data
+### Saving the data
 
 Changes to your tasks are saved automatically when you exit the program. There is no need for manual changes to the save file. 
