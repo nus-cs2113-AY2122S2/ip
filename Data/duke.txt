@@ -1,0 +1,6 @@
+T|1|make a breakfast
+E|0|make a breakfast|at 2am
+D|0|make a breakfast|by 10am
+E|0|dshjf |at 2pm
+E|0|eat lunch |at 2 pm
+E|0|eat lunch |at 2 pm
