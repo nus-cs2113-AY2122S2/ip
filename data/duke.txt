@@ -1,0 +1,4 @@
+D | 1 |  something | 2089-09-11
+T | 0 |  read 30 pages of Dune
+D | 0 |  submit ip | 2022-03-04
+E | 0 |  HI lecture |  12 pm
