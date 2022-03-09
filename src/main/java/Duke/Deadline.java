@@ -8,16 +8,12 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
     private LocalDate deadlineTime;
 
-    public Deadline(String content, String deadlineTime) {
+    public Deadline(String content, String deadlineTime) throws DateTimeParseException {
         super(content);
         try {
             this.deadlineTime = LocalDate.parse(deadlineTime);
         } catch (DateTimeParseException e) {
-            try {
-                this.deadlineTime = LocalDate.parse(deadlineTime, DateTimeFormatter.ofPattern("MMM dd yyyy"));
-            } catch (DateTimeParseException e1) {
-                this.deadlineTime = LocalDate.parse("1970-01-01");
-            }
+            this.deadlineTime = LocalDate.parse(deadlineTime, DateTimeFormatter.ofPattern("MMM dd yyyy"));
         }
     }
 

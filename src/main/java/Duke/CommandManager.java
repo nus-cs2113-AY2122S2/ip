@@ -1,6 +1,8 @@
 package Duke;
 
+import javax.xml.datatype.DatatypeConfigurationException;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 
@@ -81,8 +83,12 @@ public class CommandManager {
                 defaultCmd(command);
                 break;
             }
-        } catch (DukeException | IOException exception) {
-            throw new DukeException("when running command: \n" + exception.getMessage());
+        } catch (DukeException exception) {
+            throw new DukeException("When running command: \n" + exception.getMessage());
+        } catch (DateTimeParseException exception) {
+            throw new DukeException("Please make sure you input valid datetime (e.g. yyyy-MM-dd)");
+        } catch (IOException exception) {
+            throw new DukeException("IO problem! Please report the bug and exit! The program cannot guarantee to be correct");
         }
     }
 

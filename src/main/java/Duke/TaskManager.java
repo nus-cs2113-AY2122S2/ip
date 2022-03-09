@@ -1,5 +1,6 @@
 package Duke;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -180,7 +181,7 @@ public class TaskManager {
      *
      * @param args arguments
      */
-    public static void addDeadlines(String[] args, boolean isPrintingPrompt) throws DukeException {
+    public static void addDeadlines(String[] args, boolean isPrintingPrompt) throws DukeException, DateTimeParseException {
         throwIfArgsIsNotValid(args, "deadline");
         List<String> contents = new ArrayList<>();
         String deadlineTime;
@@ -205,7 +206,7 @@ public class TaskManager {
         }
     }
 
-    private static void addMultipleDeadlines(List<String> contents, String deadlineTime, boolean isPrintingPrompt) {
+    private static void addMultipleDeadlines(List<String> contents, String deadlineTime, boolean isPrintingPrompt) throws DateTimeParseException {
         for (String content : contents) {
             Deadline ddl = new Deadline(content, deadlineTime);
             tasks.add(ddl);
@@ -221,7 +222,7 @@ public class TaskManager {
      *
      * @param args arguments
      */
-    public static void addEvents(String[] args, boolean isPrintintPrompt) throws DukeException {
+    public static void addEvents(String[] args, boolean isPrintingPrompt) throws DukeException, DateTimeParseException {
         throwIfArgsIsNotValid(args, "event");
         List<String> contents = new ArrayList<>();
         String schedule;
@@ -237,7 +238,7 @@ public class TaskManager {
                 contents.add(args[i]);
             }
         }
-        if (!contents.isEmpty() && isPrintintPrompt) {
+        if (!contents.isEmpty() && isPrintingPrompt) {
             System.out.print("Event adding failed (no corresponding schedule time):\n");
             for (int i = 0; i < contents.size(); i++) {
                 System.out.print((i + 1) + ". " + contents.get(i) + "\t");
@@ -280,7 +281,7 @@ public class TaskManager {
         }
     }
 
-    private static void addMultipleEvents(List<String> contents, String deadlineTime) {
+    private static void addMultipleEvents(List<String> contents, String deadlineTime) throws DateTimeParseException {
         for (String content : contents) {
             Event ddl = new Event(content, deadlineTime);
             tasks.add(ddl);

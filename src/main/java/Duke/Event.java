@@ -7,16 +7,12 @@ import java.time.format.DateTimeParseException;
 public class Event extends Task {
     private LocalDate schedule;
 
-    public Event(String content, String schedule) {
+    public Event(String content, String schedule) throws DateTimeParseException {
         super(content);
         try {
             this.schedule = LocalDate.parse(schedule);
         } catch (DateTimeParseException e) {
-            try {
-                this.schedule = LocalDate.parse(schedule, DateTimeFormatter.ofPattern("MMM dd yyyy"));
-            } catch (DateTimeParseException e1) {
-                this.schedule = LocalDate.parse("1970-01-01");
-            }
+            this.schedule = LocalDate.parse(schedule, DateTimeFormatter.ofPattern("MMM dd yyyy"));
         }
     }
 

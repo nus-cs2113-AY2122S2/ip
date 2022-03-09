@@ -44,7 +44,7 @@ Description of the outcome.
 Since `good evening` is not quoted in command, it is recognized as two todos: `good` and `evening`.
 
 ### `deadline` Add multiple deadlines
-Usage: `deadline {ddl 1} {ddl 2} ... /by {ddl time for 1, 2, ...} {ddl a} {ddl b} ... /by {ddl time for a, b, ...} ...`
+Usage: `deadline {ddl 1} {ddl 2} ... /by {ddl time (in yyyy-MM-dd) for 1, 2, ...} {ddl a} {ddl b} ... /by {ddl time for a, b, ...} ...`
 
 Example of usage:
 `deadline eat_Jan_01_2022 "dance on Jan 01 2022" /by 2022-01-01 "sleep Mar 01 2022" /by 2020-03-01`
@@ -65,7 +65,7 @@ Description of the outcome.
 ### `event`
 Add multiple events
 
-Usage: `event {event 1} {event 2} ... /at {event time for 1, 2, ...} {event a} {event b} ... /by {event time for a, b, ...} ...`
+Usage: `event {event 1} {event 2} ... /at {event time (in yyyy-MM-dd) for 1, 2, ...} {event a} {event b} ... /by {event time for a, b, ...} ...`
 
 Example of usage:
 `event eat_Jan_01_2022 "dance on Jan 01 2022" /at 2022-01-01 "sleep Mar 01 2022" /at 2020-03-01`
@@ -186,7 +186,7 @@ Example of usage:
 
 `todo "key but no keyword" "keyword_1 here" "here keyword_2" "hahaha" "I don't have keyword"`
 
-`find keyword_1 keyword_2 keyword_3`
+`find {keyword_1} {keyword_2} {keyword_3}`
 
 Expected outcome:
 ```
