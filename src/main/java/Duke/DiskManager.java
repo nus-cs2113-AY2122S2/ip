@@ -3,6 +3,7 @@ package Duke;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 
@@ -28,19 +29,20 @@ public class DiskManager {
      * @throws IOException
      */
     public static void readDisk() throws IOException {
-        Scanner sc = new Scanner(TASKS_TXT);
-        while (sc.hasNext()) {
-            String line = sc.nextLine();
-            if (line.equals(System.lineSeparator())) {
-                continue;
-            }
-            String[] token = line.split("\\|");
-            String command_string = token[0].trim();
-            String isDone_string = token[1].trim();
-            String[] args = new Command(command_string).getCommandTokens();
-            String[] command_mark = new String[2];
-            command_mark[0] = "mark";
-            try {
+        try {
+            Scanner sc = new Scanner(TASKS_TXT);
+            while (sc.hasNext()) {
+                String line = sc.nextLine();
+                if (line.equals(System.lineSeparator())) {
+                    continue;
+                }
+                String[] token = line.split("\\|");
+                String command_string = token[0].trim();
+                String isDone_string = token[1].trim();
+                String[] args = new Command(command_string).getCommandTokens();
+                String[] command_mark = new String[2];
+                command_mark[0] = "mark";
+
                 switch (args[0]) {
                 case "event":
                     TaskManager.addEvents(args, false);
@@ -55,11 +57,12 @@ public class DiskManager {
                     markIfDone(isDone_string, command_mark);
                     break;
                 }
-            } catch (DukeException exception) {
-                throw new IOException("when reading from file" + exception.getMessage());
+
             }
+            sc.close();
+        } catch (Exception | DukeException exception) {
+            throw new IOException("File broken!");
         }
-        sc.close();
     }
 
     private static void markIfDone(String isDone_string, String[] command_mark) throws DukeException {
