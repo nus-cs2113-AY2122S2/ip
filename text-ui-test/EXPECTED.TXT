@@ -1,7 +1,193 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
 
+  .-')     _ (`-.                           .-. .-')               
+ ( OO ).  ( (OO  )                          \  ( OO )              
+(_)---\_)_.`     \ .-'),-----.  .-'),-----. ,--. ,--.   ,--.   ,--.
+/    _ |(__...--''( OO'  .-.  '( OO'  .-.  '|  .'   /    \  `.'  / 
+\  :` `. |  /  | |/   |  | |  |/   |  | |  ||      /,  .-')     /  
+ '..`''.)|  |_.' |\_) |  |\|  |\_) |  |\|  ||     ' _)(OO  \   /   
+.-._)   \|  .___.'  \ |  | |  |  \ |  | |  ||  .   \   |   /  /\_  
+\       /|  |        `'  '-'  '   `'  '-'  '|  |\   \  `-./  /.__) 
+ `-----' `--'          `-----'      `-----' `--' '--'    `--'      
+
+-----------------------------
+Hi there! I'm Spooky :D
+What can I do for you?
+-----------------------------
+Duke.txt doesn't exist so I'M GOING TO CREATE ONE FOR YOU LATER
+YAY!!! you do not have any tasks at the moment hehe
+-----------------------------
+Got it. I have added this task: 
+[T][] borrow book
+Now you have 1 tasks in the list.
+-----------------------------
+1. [T][] borrow book
+-----------------------------
+Got it. I have added this task: 
+[E][] read book (at: library on: Feb 20 2022)
+Now you have 2 tasks in the list.
+-----------------------------
+1. [T][] borrow book
+2. [E][] read book (at: library on: Feb 20 2022)
+-----------------------------
+Got it. I have added this task: 
+[D][] return book (by: Feb 20 2022)
+Now you have 3 tasks in the list.
+-----------------------------
+1. [T][] borrow book
+2. [E][] read book (at: library on: Feb 20 2022)
+3. [D][] return book (by: Feb 20 2022)
+-----------------------------
+Nice! I've marked this task as done:
+[T][X] borrow book
+-----------------------------
+1. [T][X] borrow book
+2. [E][] read book (at: library on: Feb 20 2022)
+3. [D][] return book (by: Feb 20 2022)
+-----------------------------
+Nice! I've marked this task as done:
+[E][X] read book (at: library on: Feb 20 2022)
+-----------------------------
+1. [T][X] borrow book
+2. [E][X] read book (at: library on: Feb 20 2022)
+3. [D][] return book (by: Feb 20 2022)
+-----------------------------
+Nice! I've marked this task as done:
+[D][X] return book (by: Feb 20 2022)
+-----------------------------
+1. [T][X] borrow book
+2. [E][X] read book (at: library on: Feb 20 2022)
+3. [D][X] return book (by: Feb 20 2022)
+-----------------------------
+Nice! I've marked this task as NOT done:
+[D][] return book (by: Feb 20 2022)
+-----------------------------
+1. [T][X] borrow book
+2. [E][X] read book (at: library on: Feb 20 2022)
+3. [D][] return book (by: Feb 20 2022)
+-----------------------------
+Nice! I've marked this task as NOT done:
+[E][] read book (at: library on: Feb 20 2022)
+-----------------------------
+1. [T][X] borrow book
+2. [E][] read book (at: library on: Feb 20 2022)
+3. [D][] return book (by: Feb 20 2022)
+-----------------------------
+Nice! I've marked this task as NOT done:
+[T][] borrow book
+-----------------------------
+1. [T][] borrow book
+2. [E][] read book (at: library on: Feb 20 2022)
+3. [D][] return book (by: Feb 20 2022)
+-----------------------------
+Noted. I've removed this task: 
+[T][] borrow book
+Now you have 2 tasks in the list.
+-----------------------------
+1. [E][] read book (at: library on: Feb 20 2022)
+2. [D][] return book (by: Feb 20 2022)
+-----------------------------
+1. [E][] read book (at: library on: Feb 20 2022)
+2. [D][] return book (by: Feb 20 2022)
+-----------------------------
+What are you going to do? LOL
+-----------------------------
+OOPS!!! I'm sorry, but I don't know what that means :-(
+-----------------------------
+You don't know basic grammar or what?
+-----------------------------
+What is your deadline for..?
+-----------------------------
+What is your deadline for..?
+-----------------------------
+You have a deadline but you don't have a deadline?
+-----------------------------
+Please input the date in the following format: yyyy-mm-dd
+-----------------------------
+Please input the date in the following format: yyyy-mm-dd
+-----------------------------
+OOPS!!! I'm sorry, but I don't know what that means :-(
+-----------------------------
+You don't know basic grammar or what?
+-----------------------------
+Yea... I know you don't have an event because you're a loner.
+-----------------------------
+Yea... I know you don't have an event because you're a loner.
+-----------------------------
+Yea... I know you don't have an event because you're a loner.
+-----------------------------
+The event has to be ON a certain date right?
+-----------------------------
+So your event is at nowhere-land?
+-----------------------------
+So your event is at nowhere-land?
+-----------------------------
+YAY! Your event is never going to happen :DDDD
+-----------------------------
+Please input the date in the following format: yyyy-mm-dd
+-----------------------------
+Please input the date in the following format: yyyy-mm-dd
+-----------------------------
+You don't know basic grammar or what?
+-----------------------------
+You don't know basic grammar or what?
+-----------------------------
+You don't know basic grammar or what?
+-----------------------------
+You don't know basic grammar or what?
+-----------------------------
+OOPS!!! I'm sorry, but I don't know what that means :-(
+-----------------------------
+Please input the index and only the index
+-----------------------------
+The index is out of range, please try again.
+-----------------------------
+The index should be an integer, please try again.
+-----------------------------
+Please input the index and only the index
+-----------------------------
+OOPS!!! I'm sorry, but I don't know what that means :-(
+-----------------------------
+Please input the index and only the index
+-----------------------------
+The index is out of range, please try again.
+-----------------------------
+The index should be an integer, please try again.
+-----------------------------
+Please input the index and only the index
+-----------------------------
+OOPS!!! I'm sorry, but I don't know what that means :-(
+-----------------------------
+Please input the index and only the index
+-----------------------------
+The index is out of range, please try again.
+-----------------------------
+The index should be an integer, please try again.
+-----------------------------
+Please input the index and only the index
+-----------------------------
+OOPS!!! I'm sorry, but I don't know what that means :-(
+-----------------------------
+Please input the date in the correct format and only the date
+-----------------------------
+Please input the date in the correct format and only the date
+-----------------------------
+Please input the date in the following format: yyyy-mm-dd
+-----------------------------
+OOPS!!! I'm sorry, but I don't know what that means :-(
+-----------------------------
+You want me to find nothing or everything...?
+-----------------------------
+I'm afraid that it is a 404 not found kinda scenario
+-----------------------------
+1. [E][] read book (at: library on: Feb 20 2022)
+2. [D][] return book (by: Feb 20 2022)
+-----------------------------
+1. [E][] read book (at: library on: Feb 20 2022)
+-----------------------------
+OOPS!!! I'm sorry, but I don't know what that means :-(
+-----------------------------
+OOPS!!! I'm sorry, but I don't know what that means :-(
+-----------------------------
+-----------------------------
+Bye! Hope to see you soon :D

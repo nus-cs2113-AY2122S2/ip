@@ -11,7 +11,12 @@ src/main/resources/docs/
 # MacOS custom attributes files created by Finder
 .DS_Store
 *.iml
-bin/
 
+# Text Ui Testing
 /text-ui-test/ACTUAL.txt
-text-ui-test/EXPECTED-UNIX.TXT
+/text-ui-test/runtest.sh
+/text-ui-test/EXPECTED-UNIX.txt
+/duke.txt
+
+# Bin files
+/bin/
