@@ -1,0 +1,10 @@
+Hello 
+util.task.Event career fair /at thursday 11-5pm
+Todo clean the room
+util.task.Task.Deadline homework1 /by sunday 11:59pm
+List
+Mark 3
+Unmark 2
+Unmark 3
+List
+bye
