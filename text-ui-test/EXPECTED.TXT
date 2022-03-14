@@ -5,3 +5,167 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+------------------------------
+Hello, I'm Duke
+What can I do for you? INPUT
+------------------------------
+INPUT > ------------------------------
+Sorry I don't understand this sentence:
+		Do you understand this?
+
+------------------------------
+INPUT > ------------------------------
+Added: [T][ ]    multiple todo1
+Added: [T][ ] multiple_todo2
+Added: [T][ ]     multiple todo3
+Added: [T][ ] multiple       todo4
+Now you have 4 task(s) in the list.
+------------------------------
+INPUT > ------------------------------
+[T][X]    multiple todo1
+[T][X] multiple       todo4
+Nice! I've marked those valid tasks as done
+------------------------------
+INPUT > ------------------------------
+There is no 5 task.
+Nice! I've marked those valid tasks as done
+------------------------------
+INPUT > ------------------------------
+1. [T][X]    multiple todo1
+2. [T][ ] multiple_todo2
+3. [T][ ]     multiple todo3
+4. [T][X] multiple       todo4
+------------------------------
+INPUT > ------------------------------
+Nice! I've marked these tasks as not done yet:
+	[T][ ] multiple       todo4
+------------------------------
+INPUT > ------------------------------
+1. [T][X]    multiple todo1
+2. [T][ ] multiple_todo2
+3. [T][ ]     multiple todo3
+4. [T][ ] multiple       todo4
+------------------------------
+INPUT > ------------------------------
+Added: [D][ ]   ddl  1  (by: Jan 01 2020)
+Added: [D][ ] d d l 2 (by: Jan 01 2020)
+Added: [D][ ] ddl3 (by: Jan 01 2020)
+Added: [D][ ] d d l 4 (by: Feb 02 2020)
+Added: [D][ ] ddl5 (by: Feb 02 2020)
+Added: [D][ ] ddl6 (by: Feb 02 2020)
+Now you have 10 task(s) in the list.
+------------------------------
+INPUT > ------------------------------
+1. [T][X]    multiple todo1
+2. [T][ ] multiple_todo2
+3. [T][ ]     multiple todo3
+4. [T][ ] multiple       todo4
+5. [D][ ]   ddl  1  (by: Jan 01 2020)
+6. [D][ ] d d l 2 (by: Jan 01 2020)
+7. [D][ ] ddl3 (by: Jan 01 2020)
+8. [D][ ] d d l 4 (by: Feb 02 2020)
+9. [D][ ] ddl5 (by: Feb 02 2020)
+10. [D][ ] ddl6 (by: Feb 02 2020)
+------------------------------
+INPUT > ------------------------------
+Added: [E][ ] event1 (at: Mar 02 2020)
+Added: [E][ ] event2 (at: Mar 02 2020)
+Added: [E][ ]   ev ent  3   (at: Mar 02 2020)
+Added: [E][ ] event4 (at: Apr 07 2020)
+Added: [E][ ] event5 (at: Apr 07 2020)
+Added: [E][ ] ddl6 (at: Apr 07 2020)
+Now you have 16 task(s) in the list.
+------------------------------
+INPUT > ------------------------------
+[T][X]    multiple todo1
+[T][X]     multiple todo3
+[D][X]   ddl  1  (by: Jan 01 2020)
+[D][X] ddl3 (by: Jan 01 2020)
+[D][X] ddl5 (by: Feb 02 2020)
+[E][X] event1 (at: Mar 02 2020)
+[E][X]   ev ent  3   (at: Mar 02 2020)
+[E][X] event5 (at: Apr 07 2020)
+There is no 17 task.
+There is no 19 task.
+There is no 21 task.
+There is no 23 task.
+There is no 25 task.
+There is no 27 task.
+There is no 29 task.
+Nice! I've marked those valid tasks as done
+------------------------------
+INPUT > ------------------------------
+1. [T][X]    multiple todo1
+2. [T][ ] multiple_todo2
+3. [T][X]     multiple todo3
+4. [T][ ] multiple       todo4
+5. [D][X]   ddl  1  (by: Jan 01 2020)
+6. [D][ ] d d l 2 (by: Jan 01 2020)
+7. [D][X] ddl3 (by: Jan 01 2020)
+8. [D][ ] d d l 4 (by: Feb 02 2020)
+9. [D][X] ddl5 (by: Feb 02 2020)
+10. [D][ ] ddl6 (by: Feb 02 2020)
+11. [E][X] event1 (at: Mar 02 2020)
+12. [E][ ] event2 (at: Mar 02 2020)
+13. [E][X]   ev ent  3   (at: Mar 02 2020)
+14. [E][ ] event4 (at: Apr 07 2020)
+15. [E][X] event5 (at: Apr 07 2020)
+16. [E][ ] ddl6 (at: Apr 07 2020)
+------------------------------
+INPUT > ------------------------------
+There is no task 21.
+There is no task 25.
+There is no task 27.
+There is no task 29.
+Nice! I've marked these tasks as not done yet:
+	[T][ ]     multiple todo3
+	[D][ ] d d l 4 (by: Feb 02 2020)
+	[D][ ] ddl5 (by: Feb 02 2020)
+	[D][ ] ddl6 (by: Feb 02 2020)
+------------------------------
+INPUT > ------------------------------
+1. [T][X]    multiple todo1
+2. [T][ ] multiple_todo2
+3. [T][ ]     multiple todo3
+4. [T][ ] multiple       todo4
+5. [D][X]   ddl  1  (by: Jan 01 2020)
+6. [D][ ] d d l 2 (by: Jan 01 2020)
+7. [D][X] ddl3 (by: Jan 01 2020)
+8. [D][ ] d d l 4 (by: Feb 02 2020)
+9. [D][ ] ddl5 (by: Feb 02 2020)
+10. [D][ ] ddl6 (by: Feb 02 2020)
+11. [E][X] event1 (at: Mar 02 2020)
+12. [E][ ] event2 (at: Mar 02 2020)
+13. [E][X]   ev ent  3   (at: Mar 02 2020)
+14. [E][ ] event4 (at: Apr 07 2020)
+15. [E][X] event5 (at: Apr 07 2020)
+16. [E][ ] ddl6 (at: Apr 07 2020)
+------------------------------
+INPUT > ------------------------------
+Noted. I've removed this task:
+	[D][X] ddl3 (by: Jan 01 2020)
+Noted. I've removed this task:
+	[D][X]   ddl  1  (by: Jan 01 2020)
+Noted. I've removed this task:
+	[E][X] event5 (at: Apr 07 2020)
+Noted. I've removed this task:
+	[T][X]    multiple todo1
+Noted. I've removed this task:
+	[E][X] event1 (at: Mar 02 2020)
+Noted. I've removed this task:
+	[E][X]   ev ent  3   (at: Mar 02 2020)
+------------------------------
+INPUT > ------------------------------
+1. [T][ ] multiple_todo2
+2. [T][ ]     multiple todo3
+3. [T][ ] multiple       todo4
+4. [D][ ] d d l 2 (by: Jan 01 2020)
+5. [D][ ] d d l 4 (by: Feb 02 2020)
+6. [D][ ] ddl5 (by: Feb 02 2020)
+7. [D][ ] ddl6 (by: Feb 02 2020)
+8. [E][ ] event2 (at: Mar 02 2020)
+9. [E][ ] event4 (at: Apr 07 2020)
+10. [E][ ] ddl6 (at: Apr 07 2020)
+------------------------------
+INPUT > ------------------------------
+Bye, INPUT. Hope to see you soon!
