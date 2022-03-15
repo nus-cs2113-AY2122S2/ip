@@ -1,0 +1,10 @@
+list
+todo task 1
+deadline task 2 /by tomorrow 12pm
+event task 3 /at 2-4pm
+list
+mark 1
+mark 2
+unmark 1
+find task
+bye
