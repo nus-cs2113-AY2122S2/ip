@@ -35,7 +35,7 @@ public class TaskRecorder {
         String isMarked = "1";
         ArrayList<Task> tasks = new ArrayList<>();
         for (String[] data : fileData) {
-            String Marker = data[0];
+            String marker = data[0];
             String input = data[1];
             String command = ui.getCommand(input);
             String description = ui.getDescription(input);
@@ -55,7 +55,7 @@ public class TaskRecorder {
                 tasks.add(newEvent);
                 break;
             }
-            if (Marker.equals(isMarked)) {
+            if (marker.equals(isMarked)) {
                 tasks.get(tasks.size() - 1).setIsMarked();
             }
             taskUniqueID++;

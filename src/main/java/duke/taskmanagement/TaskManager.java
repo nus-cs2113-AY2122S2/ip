@@ -27,6 +27,7 @@ public class TaskManager {
             ArrayList<String[]> fileData = taskRecorder.loadData();
             tasks = taskRecorder.createTasks(fileData);
             taskUniqueID = tasks.size() - 1;
+            ui.printSaveDataFileInitializedMessage();
         } catch (IOException e) {
             ui.printIOExceptionMessageRead();
         } catch (EmptyDescriptionException e) {
@@ -91,7 +92,7 @@ public class TaskManager {
         } catch (IOException e) {
             ui.printIOExceptionMessageWrite();
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            ui.printOutOfBoundsExceptionMessage();
+            ui.printOutOfBoundsExceptionMessage(tasks);
         } catch (NumberFormatException e) {
             ui.printNumberFormatExceptionMessage();
         }
@@ -106,7 +107,7 @@ public class TaskManager {
         } catch (IOException e) {
             ui.printIOExceptionMessageWrite();
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            ui.printOutOfBoundsExceptionMessage();
+            ui.printOutOfBoundsExceptionMessage(tasks);
         } catch (NumberFormatException e) {
             ui.printNumberFormatExceptionMessage();
         }

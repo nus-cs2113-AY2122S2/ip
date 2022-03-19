@@ -21,6 +21,7 @@ public class UserInterface {
 
     public void printGreeting() {
         System.out.println("Hello! I'm Duke.");
+        System.out.println("Type in 'help' to get started. I'll slowly guide you along the way :)");
         System.out.println("What can I do for you?");
     }
 
@@ -33,7 +34,6 @@ public class UserInterface {
     }
 
     public void printHelpMessage() {
-        System.out.println("Sorry I don't know what you mean.");
         System.out.println("There are currently nine keyword commands: ");
         System.out.println("1. list, 2. todo, 3. deadline, 4.event, 5. mark, 6. unmark, 7. delete, 8. find, 9. bye");
     }
@@ -59,8 +59,9 @@ public class UserInterface {
         System.out.println("Oops! Something went wrong with reading the data!");
     }
 
-    public void printOutOfBoundsExceptionMessage() {
-        System.out.println("Oops! The task number given is not in range. Try again!");
+    public void printOutOfBoundsExceptionMessage(ArrayList<Task> tasks) {
+        System.out.println("Oops! Please give a positive integer value up to " + tasks.size()
+                + " only. Try again!");
     }
 
     public void printNumberFormatExceptionMessage() {
@@ -91,8 +92,8 @@ public class UserInterface {
         System.out.println("NOTE: data file not found. Duke will create the file now.");
     }
 
-    public void printSaveDataFileFoundMessage() {
-        System.out.println("NOTE: The saved data has been loaded!");
+    public void printSaveDataFileInitializedMessage() {
+        System.out.println("NOTE: The saved data has been initialized!");
     }
 
     /**

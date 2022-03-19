@@ -13,7 +13,7 @@
 - Saving tasks to a local data file
 
 ## Quick Start Example
-- Add an event task: `event meeting /at 3pm`
+- Add an event task: `event meeting /at 2025-01-01 00:00`
 - List all tasks: `list`
 - Mark the first task: `mark 1`
 - unmark the first task: `unmark 1`
@@ -44,11 +44,11 @@ Adds an event task to Duke.
 
 Format: `event [description] /at [time]`
 
-Example: `event meetup /at 3pm`
+Example: `event meetup /at 2022-12-12 12:00`
 
 ```
 Got it. I've added this task:
-2.[E][ ] meetup (at: 3pm)
+2.[E][ ] meetup (at: 2022-12-12 12:00)
 Now you have 2 task(s) in the list.
 ```
 
@@ -58,11 +58,11 @@ Adds a deadline task to Duke.
 
 Format: `deadline [description] /by [time]`
 
-Example: `deadline project /by Thursday 5pm`
+Example: `deadline project /by 2022-12-13 12:00`
 
 ```
 Got it. I've added this task:
-3.[D][ ] project (by: Thursday 5pm)
+3.[D][ ] project (by: 2022-12-13 12:00)
 Now you have 3 task(s) in the list.
 ```
 
@@ -75,8 +75,8 @@ Format: `list`
 ```
 Here are the tasks in your list:
 1.[T][ ] read a book
-2.[E][ ] meetup (at: 3pm)
-3.[D][ ] project (by: Thursday 5pm)
+2.[E][ ] meetup (at: 2022-12-12 12:00)
+3.[D][ ] project (by: 2022-12-13 12:00)
 ```
 ### `find` - Find tasks based on matching keyword(s)
 
@@ -88,7 +88,7 @@ Example: `find project`
 
 ```
 Here are the matching tasks in your list:
-1.[D][ ] project (by: Thursday 5pm)
+1.[D][ ] project (by: 2022-12-13 12:00)
 ```
 
 ### `mark` - Mark the task as done
