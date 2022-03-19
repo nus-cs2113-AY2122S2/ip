@@ -60,8 +60,12 @@ public class UserInterface {
     }
 
     public void printOutOfBoundsExceptionMessage(ArrayList<Task> tasks) {
-        System.out.println("Oops! Please give a positive integer value up to " + tasks.size()
-                + " only. Try again!");
+        if (tasks.size() > 0){
+            System.out.println("Oops! Please give a positive integer value up to " + tasks.size()
+                    + " only. Try again!");
+        } else {
+            System.out.println("The list is currently empty. Try again!");
+        }
     }
 
     public void printNumberFormatExceptionMessage() {
