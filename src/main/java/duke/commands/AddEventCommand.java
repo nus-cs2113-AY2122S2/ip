@@ -25,7 +25,7 @@ public class AddEventCommand extends AddCommand {
             ui.printEmptyDescriptionMessage();
         } catch (EmptyTimingDetailsException e) {
             saveIsRequired = false;
-            ui.printEmptyDescriptionMessage();
+            ui.printEmptyTimingDetailsMessage();
         }
     }
 

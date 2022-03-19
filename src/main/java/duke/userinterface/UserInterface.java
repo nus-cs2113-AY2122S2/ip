@@ -6,6 +6,7 @@ import duke.task.Task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -42,7 +43,8 @@ public class UserInterface {
     }
 
     public void printEmptyTimingDetailsMessage() {
-        System.out.println("Oops! Please indicate the time for the deadline you want to add!");
+        System.out.println("Oops! Please indicate the time only in this format: YYYY-MM-DD HH:MM");
+        System.out.println("Also, the time cannot be before right now.");
     }
 
     public void printIOExceptionMessageLoad() {
@@ -165,12 +167,21 @@ public class UserInterface {
     public String getTimingDetails(String userInput) throws EmptyTimingDetailsException {
         int indexOfSlash = userInput.indexOf("/");
         int indexOfTimingDetails = indexOfSlash + 4;
+        String timingDetails;
+        LocalDateTime dateTime;
         if (indexOfSlash != -1 && indexOfTimingDetails <= userInput.length()) {
-            String timingDetails = userInput.substring(indexOfTimingDetails);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            LocalDateTime dateTime =  LocalDateTime.parse(timingDetails, formatter);
-            return timingDetails;
+            timingDetails = userInput.substring(indexOfTimingDetails);
         } else {
+            throw new EmptyTimingDetailsException();
+        }
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            dateTime =  LocalDateTime.parse(timingDetails, formatter);
+            if (dateTime.isBefore(LocalDateTime.now())) {
+                throw new EmptyTimingDetailsException();
+            }
+            return timingDetails;
+        } catch (DateTimeParseException e) {
             throw new EmptyTimingDetailsException();
         }
     }
