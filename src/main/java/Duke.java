@@ -1,10 +1,123 @@
+import helper.Parser;
+import helper.Ui;
+import taskitems.exceptions.IllegalInputException;
+import taskitems.TaskManager;
+
+
+import java.util.Scanner;
+
+/*
+Main Class of Duke Application
+Entry Point into Application
+*/
 public class Duke {
+
+    static Scanner reader = new Scanner(System.in);
+    static Ui ui = new Ui();
+    static Parser parser = new Parser();
+
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        TaskManager taskManager = new TaskManager();
+        ui.welcome();
+        taskLoop(taskManager);
+        ui.goodBye();
+    }
+//    Looping method that takes in commands given by user and calls relevant methods
+//    from the TaskManager class.
+//    @param (taskManager) (As method makes use of TaskManager class methods, instance of TaskManager required as param)
+    public static void taskLoop(TaskManager taskManager){
+        boolean isDone = false;
+        while (!isDone) {
+            ui.prompt();
+            String command = ui.readCommand();
+            String taskName = ui.readParameter();
+            switch (command) {
+            case "todo":
+                try {
+                    taskManager.addToTasks(parser.parseTodo(taskName));
+                } catch (IllegalInputException inputException) {
+                    ui.manageExceptions(inputException);
+                }
+                break;
+            case "deadline":
+                try {
+                    String[] parameters = parser.parseDeadline(taskName);
+                    taskManager.addToTasks("D",parameters[0],parameters[1]);
+                } catch (ArrayIndexOutOfBoundsException outOfBoundsException) {
+                    ui.manageExceptions(outOfBoundsException);
+                } catch (IllegalInputException inputException) {
+                    ui.manageExceptions(inputException);
+                }
+                break;
+            case "event":
+                try {
+                    String[] parameters = parser.parseEvent(taskName);
+                    taskManager.addToTasks("E",parameters[0],parameters[1]);;
+                } catch (ArrayIndexOutOfBoundsException outOfBoundsException) {
+                    ui.manageExceptions(outOfBoundsException);
+                } catch (IllegalInputException inputException) {
+                    ui.manageExceptions(inputException);
+                }
+                break;
+            case "list":
+                taskManager.printTasks();
+                break;
+            case "mark":
+                try {
+                    taskManager.markTask(parser.parseMark(taskName));
+                } catch (NumberFormatException numberFormatException) {
+                    ui.manageExceptions(numberFormatException);
+                }
+                break;
+            case "unmark":
+                try{
+                    taskManager.unmarkTask(parser.parseMark(taskName));
+                } catch (NumberFormatException numberFormatException) {
+                    ui.manageExceptions(numberFormatException);
+                }
+                break;
+            case "delete":
+                try{
+                    taskManager.deleteTask(parser.parseDelete(taskName));
+                } catch (NumberFormatException numberFormatException) {
+                    ui.manageExceptions(numberFormatException);
+                }
+                break;
+            case "retrieve":
+                try {
+                    taskManager.retrieveTask(parser.parseDelete(taskName));
+                } catch (NumberFormatException numberFormatException) {
+                    ui.manageExceptions(numberFormatException);
+                }
+                break;
+            case "bin":
+                taskManager.printDeletedTasks();
+                break;
+            case "bye":
+                isDone = true;
+                break;
+            case "help":
+                ui.printHelp();
+                break;
+            case "find":
+                taskManager.findTask(taskName);
+                break;
+            default:
+                ui.print("Invalid Command!");
+            }
+        }
+    }
+
+    public static void echo(){
+        boolean isDone = false;
+        while (!isDone) {
+            String toRepeat = reader.nextLine();
+            if (toRepeat.toLowerCase().equals("bye")) {
+                isDone = true;
+                break;
+            } else {
+                System.out.println(toRepeat);
+            }
+        }
     }
 }
