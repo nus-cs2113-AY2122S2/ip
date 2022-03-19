@@ -147,7 +147,7 @@ public class UserInterface {
     public String getTimingDetails(String userInput) throws EmptyTimingDetailsException {
         int indexOfSlash = userInput.indexOf("/");
         int indexOfTimingDetails = indexOfSlash + 4;
-        if (indexOfSlash != -1) {
+        if (indexOfSlash != -1 && indexOfTimingDetails <= userInput.length()) {
             return userInput.substring(indexOfTimingDetails);
         } else {
             throw new EmptyTimingDetailsException();
