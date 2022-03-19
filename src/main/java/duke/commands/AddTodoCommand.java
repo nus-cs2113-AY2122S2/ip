@@ -9,7 +9,8 @@ import java.util.ArrayList;
 /**
  * Adds a Todo object into the array list of tasks.
  */
-public class AddTodoCommand extends Command {
+public class AddTodoCommand extends AddCommand {
+    private boolean saveIsRequired = true;
     public void execute(ArrayList<Task> tasks, String userInput, int taskUniqueID) {
         try {
             String description = ui.getDescription(userInput);
@@ -18,7 +19,12 @@ public class AddTodoCommand extends Command {
             ui.printMessageForAdding(tasks, newTodo);
             taskUniqueID++;
         } catch (EmptyDescriptionException e) {
+            saveIsRequired = false;
             ui.printEmptyDescriptionMessage();
         }
+    }
+
+    public boolean isSaveRequired() {
+        return saveIsRequired;
     }
 }

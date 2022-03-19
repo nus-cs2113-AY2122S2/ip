@@ -10,7 +10,8 @@ import java.util.ArrayList;
 /**
  * Adds a deadline object into the array list of tasks.
  */
-public class AddDeadlineCommand extends Command {
+public class AddDeadlineCommand extends AddCommand {
+    private boolean saveIsRequired = true;
     public void execute(ArrayList<Task> tasks, String userInput, int taskUniqueID) {
         try {
             String description = ui.getDescription(userInput);
@@ -20,9 +21,15 @@ public class AddDeadlineCommand extends Command {
             ui.printMessageForAdding(tasks, newDeadline);
             taskUniqueID++;
         } catch (EmptyDescriptionException e) {
+            saveIsRequired = false;
             ui.printEmptyDescriptionMessage();
         } catch (EmptyTimingDetailsException e) {
+            saveIsRequired = false;
             ui.printEmptyTimingDetailsMessage();
         }
+    }
+
+    public boolean isSaveRequired() {
+        return saveIsRequired;
     }
 }

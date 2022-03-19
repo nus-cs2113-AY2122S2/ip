@@ -4,6 +4,8 @@ import duke.customexceptions.EmptyDescriptionException;
 import duke.customexceptions.EmptyTimingDetailsException;
 import duke.task.Task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -164,7 +166,10 @@ public class UserInterface {
         int indexOfSlash = userInput.indexOf("/");
         int indexOfTimingDetails = indexOfSlash + 4;
         if (indexOfSlash != -1 && indexOfTimingDetails <= userInput.length()) {
-            return userInput.substring(indexOfTimingDetails);
+            String timingDetails = userInput.substring(indexOfTimingDetails);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime dateTime =  LocalDateTime.parse(timingDetails, formatter);
+            return timingDetails;
         } else {
             throw new EmptyTimingDetailsException();
         }

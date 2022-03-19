@@ -48,9 +48,11 @@ public class TaskManager {
 
     public void addTodo(String userInput) {
         try {
-            Command addTodoCommand = new AddTodoCommand();
+            AddCommand addTodoCommand = new AddTodoCommand();
             addTodoCommand.execute(tasks, userInput,taskUniqueID);
-            taskRecorder.addData(userInput);
+            if (addTodoCommand.isSaveRequired()) {
+                taskRecorder.addData(userInput);
+            }
         } catch (IOException e) {
             ui.printIOExceptionMessageWrite();
         }
@@ -58,9 +60,11 @@ public class TaskManager {
 
     public void addDeadline(String userInput) {
         try {
-            Command addDeadlineCommand = new AddDeadlineCommand();
+            AddCommand addDeadlineCommand = new AddDeadlineCommand();
             addDeadlineCommand.execute(tasks, userInput, taskUniqueID);
-            taskRecorder.addData(userInput);
+            if (addDeadlineCommand.isSaveRequired()) {
+                taskRecorder.addData(userInput);
+            }
         } catch (IOException e) {
             ui.printIOExceptionMessageWrite();
         }
@@ -68,9 +72,11 @@ public class TaskManager {
 
     public void addEvent(String userInput) {
         try {
-            Command addEventCommand = new AddEventCommand();
+            AddCommand addEventCommand = new AddEventCommand();
             addEventCommand.execute(tasks, userInput,taskUniqueID);
-            taskRecorder.addData(userInput);
+            if (addEventCommand.isSaveRequired()) {
+                taskRecorder.addData(userInput);
+            }
         } catch (IOException e) {
             ui.printIOExceptionMessageWrite();
         }
