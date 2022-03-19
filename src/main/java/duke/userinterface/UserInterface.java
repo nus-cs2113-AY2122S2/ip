@@ -84,12 +84,12 @@ public class UserInterface {
     }
 
     public void printCreateSaveDataDirectoryMessage() {
-        System.out.println("NOTE: data directory not found. " +
+        System.out.println("NOTE: Data directory not found. " +
                 "Duke will create the folder in the current directory now.");
     }
 
     public void printCreateSaveDataFileMessage() {
-        System.out.println("NOTE: data file not found. Duke will create the file now.");
+        System.out.println("NOTE: Data file not found. Duke will create the file now.");
     }
 
     public void printSaveDataFileInitializedMessage() {
