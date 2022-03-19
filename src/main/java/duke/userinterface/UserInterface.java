@@ -26,6 +26,7 @@ public class UserInterface {
     }
 
     public void printByeMessage() {
+        System.out.println("Any tasks currently in the list have been saved.");
         System.out.println("Bye. Hope to see you again soon!");
     }
 
