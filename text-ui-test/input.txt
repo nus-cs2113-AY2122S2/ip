@@ -1,0 +1,21 @@
+todo read book
+deadline return book /by June 6th
+event project meeting /at Aug 6th 2-4pm
+todo join sports club
+todo borrow book
+mark 1
+mark 4
+list
+bye
+todo
+todo /by
+deadline
+deadline /by
+deadline test /by
+deadline /by test
+deadline test /by test
+event /at
+event test /at
+event /at test
+event test /at test
+
