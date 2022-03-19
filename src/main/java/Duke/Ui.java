@@ -5,6 +5,7 @@ import java.io.IOException;
 import static Duke.Parser.isBye;
 
 public class Ui {
+
     /**
      * Prints the welcome message when user first launch Duke
      */
@@ -35,5 +36,4 @@ public class Ui {
         if(isBye())
         System.out.println("Bye. Hope to see you again soon!");
     }
-
 }

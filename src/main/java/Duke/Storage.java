@@ -6,7 +6,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static Duke.UserInput.*;
+import static Duke.UserInput.filePath;
+import static Duke.UserInput.userInput;
+import static Duke.UserInput.inputCount;
+
 public class Storage {
     protected static File f = new File(filePath);
     protected static File folder = new File("data");
@@ -34,26 +37,37 @@ public class Storage {
         Scanner s = new Scanner(f);
         while (s.hasNextLine()) {
             var str = s.nextLine();
-            if (str.charAt(3) == 'T') {
-                UserInput.userInput.add(new Todo(str.substring(10)));
-                if (str.charAt(7) == 'X')
-                    UserInput.userInput.get(inputCount).markAsDone();
-            } else if (str.charAt(3) == 'D') {
-                UserInput.userInput.add(new Deadline(str.substring(10, str.indexOf("(by: ")),
-                        str.substring(str.indexOf("(by: ") + 5,str.indexOf(")") )));
-                if (str.charAt(7) == 'X')
-                    UserInput.userInput.get(inputCount).markAsDone();
-            } else if (str.charAt(3) == 'E') {
-                UserInput.userInput.add(new Event(str.substring(10, str.indexOf("(at: ")),
-                        str.substring(str.indexOf("(at: ") + 5,str.indexOf(")") )));
-                if (str.charAt(7) == 'X')
-                    UserInput.userInput.get(inputCount).markAsDone();
+            if (str.charAt(1) == '.' && str.charAt(2) == '[' && str.charAt(4) == ']' && str.charAt(5) == ' '
+                    && str.charAt(6) == '[' && str.charAt(8) == ']' && str.charAt(9) == ' '
+                    && (str.charAt(3) == 'T' || str.charAt(3) == 'D' || str.charAt(3) == 'E')
+                    && (str.charAt(7) == 'X' || str.charAt(7) == ' ')) {
+                if (str.charAt(3) == 'T') {
+                    UserInput.userInput.add(new Todo(str.substring(10)));
+                    if (str.charAt(7) == 'X')
+                        UserInput.userInput.get(inputCount).markAsDone();
+                } else if (str.charAt(3) == 'D') {
+                    UserInput.userInput.add(new Deadline(str.substring(10, str.indexOf("(by: ")),
+                            str.substring(str.indexOf("(by: ") + 5, str.indexOf(")"))));
+                    if (str.charAt(7) == 'X')
+                        UserInput.userInput.get(inputCount).markAsDone();
+                } else if (str.charAt(3) == 'E') {
+                    UserInput.userInput.add(new Event(str.substring(10, str.indexOf("(at: ")),
+                            str.substring(str.indexOf("(at: ") + 5, str.indexOf(")"))));
+                    if (str.charAt(7) == 'X')
+                        UserInput.userInput.get(inputCount).markAsDone();
+                } else {
+                    System.out.println("File loaded incorrectly, local file rebuilt.");
+                    f.delete();
+                    File tempFile = new File("data/data.txt");
+                    boolean a = tempFile.createNewFile();
+                    return;
+                }
             } else {
                 System.out.println("File loaded incorrectly, local file rebuilt.");
                 f.delete();
                 File tempFile = new File("data/data.txt");
                 boolean a = tempFile.createNewFile();
-                break;
+                return;
             }
             inputCount++;
         }
@@ -83,5 +97,4 @@ public class Storage {
             System.out.println("Something went wrong: " + e.getMessage());
         }
     }
-
 }

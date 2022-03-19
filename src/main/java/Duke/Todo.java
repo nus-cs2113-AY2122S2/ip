@@ -1,4 +1,5 @@
 package Duke;
+
 public class Todo extends Task {
     protected String icon;
 
@@ -10,5 +11,4 @@ public class Todo extends Task {
     public String getIcon() {
         return icon;
     }
-
 }

@@ -2,7 +2,6 @@ package Duke;
 
 import java.io.IOException;
 
-
 public class Duke {
     public static void run() throws IOException {
         Ui.printWelcomeMessage();
