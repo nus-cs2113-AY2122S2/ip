@@ -2,8 +2,19 @@ package Duke;
 
 import java.io.IOException;
 import java.util.Scanner;
-import static Duke.UserInput.*;
-import static Duke.TaskList.*;
+
+import static Duke.TaskList.findTask;
+import static Duke.TaskList.printList;
+import static Duke.TaskList.isMark;
+import static Duke.TaskList.isUnmark;
+import static Duke.TaskList.markAsDone;
+import static Duke.TaskList.markAsUndone;
+import static Duke.TaskList.addTodo;
+import static Duke.TaskList.addDeadline;
+import static Duke.TaskList.addEvent;
+import static Duke.TaskList.deleteTask;
+import static Duke.UserInput.inputCount;
+import static Duke.UserInput.line;
 
 public class Parser {
     /**
@@ -13,6 +24,7 @@ public class Parser {
     public static boolean isTodo() {
         return getFirstWord().equalsIgnoreCase("Todo");
     }
+
     /**
      * Returns the command type
      * @return the first word/ command type
@@ -58,7 +70,8 @@ public class Parser {
      * @return true if is valid
      */
     public static boolean checkValidity() throws NumberFormatException {
-        return Integer.parseInt(line.substring(line.indexOf(" ") + 1)) <= inputCount;
+        return 0 < Integer.parseInt(line.substring(line.indexOf(" ") + 1))
+                && Integer.parseInt(line.substring(line.indexOf(" ") + 1)) <= inputCount;
     }
 
     /**
@@ -70,7 +83,8 @@ public class Parser {
             return getFirstWord().equalsIgnoreCase("Find");
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("Please enter a valid command!");
-        }return false;
+        }
+        return false;
     }
 
     /**
@@ -88,7 +102,10 @@ public class Parser {
      */
     public static void checkCommandValidity(Scanner input) throws InvalidInputException {
         line = input.nextLine().trim();
-        if (line.equalsIgnoreCase("todo") || line.equalsIgnoreCase("find") || line.equalsIgnoreCase("deadline") || line.equalsIgnoreCase("event") || line.equalsIgnoreCase("delete") || line.equalsIgnoreCase("unmark") || line.equalsIgnoreCase("mark")) {
+        if (line.equalsIgnoreCase("todo") || line.equalsIgnoreCase("find")
+                || line.equalsIgnoreCase("deadline") || line.equalsIgnoreCase("event")
+                || line.equalsIgnoreCase("delete") || line.equalsIgnoreCase("unmark")
+                || line.equalsIgnoreCase("mark")) {
             line += ' ';
         } else if (!isList() && !isBye() && !line.contains(" ")) {
             throw new InvalidInputException();
@@ -107,19 +124,22 @@ public class Parser {
      * @return true if the first word is a valid command
      */
     public static boolean validFirstWord() {
-        return getFirstWord().equalsIgnoreCase("delete") || getFirstWord().equalsIgnoreCase("unmark") ||
-                getFirstWord().equalsIgnoreCase("list") || getFirstWord().equalsIgnoreCase("bye") ||
-                getFirstWord().equalsIgnoreCase("mark") || getFirstWord().equalsIgnoreCase("deadline") ||
-                getFirstWord().equalsIgnoreCase("event") || getFirstWord().equalsIgnoreCase("todo") ||
-                getFirstWord().equalsIgnoreCase("find");
+        return getFirstWord().equalsIgnoreCase("delete")
+                || getFirstWord().equalsIgnoreCase("unmark")
+                || getFirstWord().equalsIgnoreCase("list")
+                || getFirstWord().equalsIgnoreCase("bye")
+                || getFirstWord().equalsIgnoreCase("mark")
+                || getFirstWord().equalsIgnoreCase("deadline")
+                || getFirstWord().equalsIgnoreCase("event")
+                || getFirstWord().equalsIgnoreCase("todo")
+                || getFirstWord().equalsIgnoreCase("find");
     }
 
     /**
      * Handles the command
      * @throws IOException
-     * @throws InvalidInputException
      */
-    public static void handleCommand() throws IOException, InvalidInputException {
+    public static void handleCommand() throws IOException {
         while (true) {
             Scanner input = new Scanner(System.in);
             try {
@@ -141,63 +161,87 @@ public class Parser {
                 }
             } else if (line.contains(" ")) {
                 if (isMark()) {
-                    try {
-                        if (checkValidity()) {
-                            markAsDone();
-                        } else {
-                            System.out.println("Invalid Index!");
-                        }
-                    } catch (NumberFormatException e) {
-                        System.out.println("Please enter the index of task you want to mark!");
-                    }
+                    markCommand();
                 } else if (isUnmark()) {
-                    try {
-                        if (checkValidity()) {
-                            markAsUndone();
-                        } else {
-                            System.out.println("Invalid Index!");
-                        }
-                    } catch (NumberFormatException e) {
-                        System.out.println("Please enter the index of task you want to unmark!");
-                    }
+                    unmarkCommand();
                 } else if (isTodo()) {
-                    try {
-                        addTodo();
-                    } catch (InvalidInputException e) {
-                        System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
-                    }
+                    todoCommand();
                 } else if (isDeadline()) {
-                    try {
-                        addDeadline();
-                    } catch (InvalidInputException e) {
-                        System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
-                    } catch (NumberFormatException e) {
-                        System.out.println("☹ OOPS!!! Please set the deadline using 'deadline /by time' format!!!");
-                    }
+                    deadlineCommand();
                 } else if (isEvent()) {
-                    try {
-                        addEvent();
-                    } catch (InvalidInputException e) {
-                        System.out.println("☹ OOPS!!! The description of a event cannot be empty.");
-                    } catch (NumberFormatException e) {
-                        System.out.println("☹ OOPS!!! Please set the event time using 'event /at time'  format!!!");
-                    }
+                    eventCommand();
                 } else if (isDelete()) {
-                    try {
-                        try {
-                            if (!checkValidity())
-                                System.out.println("☹ OOPS!!! You do not have this task.");
-                            else
-                                deleteTask();
-                        } catch (NumberFormatException e) {
-                            System.out.println("☹ OOPS!!! What exactly do you want to delete?");
-                        }
-                    } catch (InvalidInputException e) {
-                        System.out.println("☹ OOPS!!! What exactly do you want to delete?");
-                    }
+                    deleteCommand();
                 }
             }
             Storage.writeToFile();
+        }
+    }
+
+    public static void markCommand() {
+        try {
+            if (checkValidity()) {
+                markAsDone();
+            } else {
+                System.out.println("Invalid Index!");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter the index of task you want to mark!");
+        }
+    }
+
+    public static void unmarkCommand() {
+        try {
+            if (checkValidity()) {
+                markAsUndone();
+            } else {
+                System.out.println("Invalid Index!");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter the index of task you want to unmark!");
+        }
+    }
+
+    public static void todoCommand() {
+        try {
+            addTodo();
+        } catch (InvalidInputException e) {
+            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+        }
+    }
+
+    public static void deadlineCommand() {
+        try {
+            addDeadline();
+        } catch (InvalidInputException e) {
+            System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+        } catch (NumberFormatException e) {
+            System.out.println("☹ OOPS!!! Please set the deadline using 'deadline /by time' format!!!");
+        }
+    }
+
+    public static void eventCommand() {
+        try {
+            addEvent();
+        } catch (InvalidInputException e) {
+            System.out.println("☹ OOPS!!! The description of a event cannot be empty.");
+        } catch (NumberFormatException e) {
+            System.out.println("☹ OOPS!!! Please set the event time using 'event /at time'  format!!!");
+        }
+    }
+
+    public static void deleteCommand() {
+        try {
+            try {
+                if (!checkValidity())
+                    System.out.println("Invalid Index!");
+                else
+                    deleteTask();
+            } catch (NumberFormatException e) {
+                System.out.println("☹ OOPS!!! What exactly do you want to delete?");
+            }
+        } catch (InvalidInputException e) {
+            System.out.println("☹ OOPS!!! What exactly do you want to delete?");
         }
     }
 }

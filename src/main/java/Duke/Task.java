@@ -13,20 +13,26 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    public void markAsDone(){
+    public void markAsDone() {
         this.isDone = true;
     }
 
-    public void markAsNotDone(){
+    public void markAsNotDone() {
         this.isDone = false;
     }
+
     public String getIcon() {
         return icon;
     }
-    public String getBy(){
+
+    public String getBy() {
         return "";
     }
-    public String showDate(){return "";}
+
+    public String showDate() {
+        return "";
+    }
+
     public String getAt() {
         return "";
     }

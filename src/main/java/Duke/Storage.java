@@ -16,7 +16,7 @@ public class Storage {
      * If local file does not exist, create one
      * @throws FileNotFoundException if file not exist
      */
-    public static void initializeData() throws FileNotFoundException {
+    public static void initializeData() throws IOException {
         userInput = new ArrayList<>();
         if (!folder.exists())
             folder.mkdir();
@@ -29,7 +29,7 @@ public class Storage {
      * @param filePath path of the local file
      * @throws FileNotFoundException if file not exist
      */
-    public static void fileReading(String filePath) throws FileNotFoundException {
+    public static void fileReading(String filePath) throws IOException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
         while (s.hasNextLine()) {
@@ -39,16 +39,25 @@ public class Storage {
                 if (str.charAt(7) == 'X')
                     UserInput.userInput.get(inputCount).markAsDone();
             } else if (str.charAt(3) == 'D') {
-                UserInput.userInput.add(new Deadline(str.substring(10, str.indexOf("(by: ")), str.substring(str.indexOf("(by: ") + 5,str.indexOf(")") )));
+                UserInput.userInput.add(new Deadline(str.substring(10, str.indexOf("(by: ")),
+                        str.substring(str.indexOf("(by: ") + 5,str.indexOf(")") )));
                 if (str.charAt(7) == 'X')
                     UserInput.userInput.get(inputCount).markAsDone();
             } else if (str.charAt(3) == 'E') {
-                UserInput.userInput.add(new Event(str.substring(10, str.indexOf("(at: ")), str.substring(str.indexOf("(at: ") + 5,str.indexOf(")") )));
+                UserInput.userInput.add(new Event(str.substring(10, str.indexOf("(at: ")),
+                        str.substring(str.indexOf("(at: ") + 5,str.indexOf(")") )));
                 if (str.charAt(7) == 'X')
                     UserInput.userInput.get(inputCount).markAsDone();
+            } else {
+                System.out.println("File loaded incorrectly, local file rebuilt.");
+                f.delete();
+                File tempFile = new File("data/data.txt");
+                boolean a = tempFile.createNewFile();
+                break;
             }
             inputCount++;
         }
+        System.out.println("Local data loaded successfully.");
     }
 
     /**
@@ -61,7 +70,12 @@ public class Storage {
         FileWriting fileWriting = new FileWriting();
         try {
             for (int i = 0; i < inputCount; i++) {
-                fileWriting.writeToFile("data/tempdata.txt", (i + 1) + ".[" + UserInput.userInput.get(i).getIcon() + "] " + "[" + UserInput.userInput.get(i).getStatusIcon() + "] " + UserInput.userInput.get(i).description + UserInput.userInput.get(i).showDate() + System.lineSeparator());
+                fileWriting.writeToFile("data/tempdata.txt", (i + 1)
+                        + ".[" + UserInput.userInput.get(i).getIcon() + "] " + "["
+                        + UserInput.userInput.get(i).getStatusIcon() + "] "
+                        + UserInput.userInput.get(i).description
+                        + UserInput.userInput.get(i).showDate()
+                        + System.lineSeparator());
             }
             f.delete();
             tempFile.renameTo(f);

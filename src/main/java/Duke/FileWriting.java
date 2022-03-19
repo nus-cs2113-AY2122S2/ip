@@ -8,5 +8,4 @@ public class FileWriting {
         fw.write(string);
         fw.close();
     }
-
 }

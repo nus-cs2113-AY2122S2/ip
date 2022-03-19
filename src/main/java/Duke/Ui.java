@@ -1,12 +1,14 @@
 package Duke;
 
 import java.io.IOException;
-import static Duke.Parser.*;
+
+import static Duke.Parser.isBye;
+
 public class Ui {
     /**
      * Prints the welcome message when user first launch Duke
      */
-    public static void printWelcomeMessage(){
+    public static void printWelcomeMessage() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -22,7 +24,7 @@ public class Ui {
      * @throws IOException
      * @throws InvalidInputException
      */
-    public static void checkCommand() throws IOException, InvalidInputException {
+    public static void checkCommand() throws IOException {
         Parser.handleCommand();
     }
 
