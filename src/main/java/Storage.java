@@ -15,6 +15,7 @@ public class Storage {
     }
 
     /**
+     * write the task list to local file
      *
      * @param allTasks
      * @throws IOException
@@ -28,6 +29,7 @@ public class Storage {
     }
 
     /**
+     * load file contents
      *
      * @return
      * @throws IOException
@@ -47,18 +49,18 @@ public class Storage {
             taskMarked = line.charAt(4);
             taskDetail = line.substring(6);
             switch (taskType){
-                case 'T':
-                    t = convertTodo(taskDetail);
-                    break;
-                case 'D':
-                    t = convertDeadline(taskDetail);
-                    break;
-                case 'E':
-                    t = convertEvent(taskDetail);
-                    break;
-                default:
-                    t = null;
-                    break;
+            case 'T':
+                t = convertTodo(taskDetail);
+                break;
+            case 'D':
+                t = convertDeadline(taskDetail);
+                break;
+            case 'E':
+                t = convertEvent(taskDetail);
+                break;
+            default:
+                t = null;
+                break;
             }
             if(taskMarked=='X'){
                 t.markAsDone();
@@ -75,6 +77,7 @@ public class Storage {
     }
 
     /**
+     * convert file string to Todo
      *
      * @param taskDetail
      * @return
@@ -85,6 +88,7 @@ public class Storage {
     }
 
     /**
+     * convert file string to Deadline
      *
      * @param taskDetail
      * @return
@@ -98,6 +102,7 @@ public class Storage {
     }
 
     /**
+     * convert file string to Event
      *
      * @param taskDetail
      * @return

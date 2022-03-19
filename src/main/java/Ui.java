@@ -1,15 +1,19 @@
-
-
 import tasks.Task;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
+    /**
+     * display a line separator
+     */
     public void printLine() {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * display greeting message
+     */
     public void greeting() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -24,12 +28,20 @@ public class Ui {
         System.out.println();
     }
 
+    /**
+     * read user input
+     *
+     * @return
+     */
     public String readCommand(){
         Scanner in = new Scanner(System.in);
         String command = in.nextLine();
         return command;
     }
 
+    /**
+     * display goodbye message
+     */
     public void sayGoobye() {
         this.printLine();
         System.out.println("Bye. Hope to see you again soon!");
@@ -37,6 +49,7 @@ public class Ui {
     }
 
     /**
+     * display added task
      *
      * @param t
      * @param taskCount
@@ -50,6 +63,7 @@ public class Ui {
     }
 
     /**
+     * display task list
      *
      * @param allTasks
      * @param taskCount
@@ -64,6 +78,7 @@ public class Ui {
     }
 
     /**
+     * display founded tasks
      *
      * @param foundTasks
      */
@@ -77,6 +92,7 @@ public class Ui {
     }
 
     /**
+     * display mark done result
      *
      * @param t
      */
@@ -89,6 +105,7 @@ public class Ui {
     }
 
     /**
+     * display mark undone result
      *
      * @param t
      */
@@ -101,6 +118,7 @@ public class Ui {
     }
 
     /**
+     * display delete task result
      *
      * @param t
      * @param taskCount
@@ -113,30 +131,54 @@ public class Ui {
         this.printLine();
     }
 
+    /**
+     * display error message
+     */
     public void raiseExceptionInDeadline(){
         this.printLine();
         System.out.println(" ☹ OOPS!!! The description or by of a deadline cannot be empty.");
         this.printLine();
     }
 
+    /**
+     * display error message
+     */
     public void raiseExceptionInEvent(){
         this.printLine();
         System.out.println(" ☹ OOPS!!! The description or at of an event cannot be empty.");
         this.printLine();
     }
 
+    /**
+     * display error message
+     */
     public void raiseExceptionInTodo(){
         this.printLine();
         System.out.println(" ☹ OOPS!!! The description of a todo cannot be empty.");
         this.printLine();
     }
 
+    /**
+     * display error message
+     */
     public void raiseExceptionInCommand(){
         this.printLine();
         System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-()");
         this.printLine();
     }
 
+    /**
+     * display error message
+     */
+    public void raiseExceptionInIndex(){
+        this.printLine();
+        System.out.println("☹ OOPS!!! Please use a valid index number.");
+        this.printLine();
+    }
+
+    /**
+     * display error message
+     */
     public void showLoadingError(){
         this.printLine();
         System.out.println("NO file found.");

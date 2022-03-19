@@ -1,15 +1,15 @@
 import tasks.*;
-import java.util.Scanner;
 import java.util.*;
 import java.io.*;
 
 public class Duke {
 
-    private Storage storage;
-    private ArrayList<Task> allTasks = new ArrayList<Task>();
-    private Ui ui;
+    private static Storage storage;
+    private static ArrayList<Task> allTasks = new ArrayList<Task>();
+    private static Ui ui;
 
     /**
+     * Read txt fild for the initialization of tasks
      *
      * @param filePath
      */
@@ -34,142 +34,254 @@ public class Duke {
         }
     }
 
+    /**
+     * quit the program
+     *
+     * @throws IOException
+     */
+    public static void quit() throws IOException {
+        ui.sayGoobye();
+        storage.writeToDukeFile(allTasks);
+    }
+
+    /**
+     * mark a task as done by index
+     *
+     * @param command
+     */
+    public static void mark(String command) {
+        try {
+            int index = Integer.parseInt(command.split(" ")[1].trim()) - 1;
+            if (index >= allTasks.size() || index < 0) {
+                throw new DukeException();
+            }
+            Task t = allTasks.get(index);
+            ui.markAndDisplayTask(t);
+        } catch (NumberFormatException e) {
+            ui.raiseExceptionInIndex();
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
+            ui.raiseExceptionInIndex();
+        }
+        catch (DukeException e) {
+            ui.raiseExceptionInIndex();
+        }
+    }
+
+    /**
+     * mark a task as undone by index
+     *
+     * @param command
+     */
+    public static void undoneMark(String command) {
+        try {
+            int index = Integer.parseInt(command.split(" ")[1].trim()) - 1;
+            if (index >= allTasks.size() || index < 0) {
+                throw new DukeException();
+            }
+            Task t = allTasks.get(index);
+            ui.unmarkAndDisplayTask(t);
+        } catch (NumberFormatException e) {
+            ui.raiseExceptionInIndex();
+        }
+        catch (DukeException e) {
+            ui.raiseExceptionInIndex();
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
+            ui.raiseExceptionInIndex();
+        }
+    }
+
+    /**
+     * find all tasks containing a specific string
+     *
+     * @param command
+     */
+    public static void find(String command) {
+        try{
+        ArrayList<Task> foundTasks = new ArrayList<Task>();
+        String keyword = command.split(" ")[1].trim();
+        for (int i = 0; i < allTasks.size(); i++){
+            Task task = allTasks.get(i);
+            if(task.description.contains(keyword)){
+                foundTasks.add(task);
+            }
+        }
+        ui.displayFoundTasks(foundTasks);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.raiseExceptionInIndex();
+        }
+    }
+
+    /**
+     * delete a task by index
+     *
+     * @param command
+     */
+    public static void delete(String command) {
+        try {
+            int index = Integer.parseInt(command.split(" ")[1].trim()) - 1;
+            if (index >= allTasks.size() || index < 0) {
+                throw new DukeException();
+            }
+            ui.deleteAndDisplayTask(allTasks.get(index), allTasks.size() - 1);
+            allTasks.remove(index);
+        } catch (NumberFormatException e) {
+            ui.raiseExceptionInIndex();
+        }
+        catch (DukeException e) {
+            ui.raiseExceptionInIndex();
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
+            ui.raiseExceptionInIndex();
+        }
+    }
+
+    /**
+     * add a Todo
+     *
+     * @param command
+     */
+    public static void addTodo(String command) {
+        String description;
+        try {
+            String[] str = command.split(" ");
+            if (str.length < 2) {
+                throw new DukeException();
+            }
+            description = command.replace("todo ", "");
+            Task t = new Todo(description);
+            allTasks.add(allTasks.size(), t);
+            ui.displayTask(t, allTasks.size());
+        } catch (DukeException e) {
+            ui.raiseExceptionInTodo();
+        }
+    }
+
+    /**
+     * add a Deadline
+     *
+     * @param command
+     */
+    public static void addDeadline(String command) {
+        String detail, description, by;
+        try {
+            String[] str = command.split(" ");
+            if (str.length < 2) {
+                throw new DukeException();
+            }
+            detail = command.replace("deadline ", "");
+            description = detail.split("/by")[0];
+            by = detail.split("/by")[1];
+            if (by.replace(" ", "") == "") {
+                throw new DukeException();
+            }
+            Task t = new Deadline(description, by);
+            allTasks.add(t);
+            ui.displayTask(t, allTasks.size());
+        } catch (DukeException e) {
+            ui.raiseExceptionInDeadline();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.raiseExceptionInDeadline();
+        }
+    }
+
+    /**
+     * add an Event
+     *
+     * @param command
+     */
+    public static void addEvent(String command) {
+        String detail, description, at;
+        try {
+            String[] str = command.split(" ");
+            if (str.length < 2) {
+                throw new DukeException();
+            }
+            detail = command.replace("event ", "");
+            description = detail.split("/at")[0];
+            at = detail.split("/at")[1];
+            if (at.replace(" ", "") == "") {
+                throw new DukeException();
+            }
+            Task t = new Event(description, at);
+            allTasks.add(t);
+            ui.displayTask(t, allTasks.size());
+        } catch (DukeException e) {
+            ui.raiseExceptionInEvent();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.raiseExceptionInEvent();
+        }
+    }
+
+    /**
+     * analyse user input
+     *
+     * @throws IOException
+     */
     public void run() throws IOException {
         boolean notQuit = true;
-        int index;
-        String description, detail, by, at;
-        Task t;
-
         ui.greeting();
 
         while (notQuit) {
             String command = ui.readCommand().replaceAll("( )+", " ");
             switch (command.split(" ")[0]) {
-                case "bye":
-                    ui.sayGoobye();
-                    storage.writeToDukeFile(allTasks);
-                    notQuit = false;
-                    break;
+            case "bye":
+                quit();
+                notQuit = false;
+                break;
 
-                case "mark":
-                    index = Integer.parseInt(command.split(" ")[1].trim()) - 1;
-                    t = allTasks.get(index);
-                    ui.markAndDisplayTask(t);
-                    break;
+            case "mark":
+                mark(command);
+                break;
 
-                case "unmark":
-                    index = Integer.parseInt(command.split(" ")[1].trim()) - 1;
-                    t = allTasks.get(index);
-                    ui.unmarkAndDisplayTask(t);
-                    break;
+            case "unmark":
+                undoneMark(command);
+                break;
 
-                case "list":
-                    ui.displayListWithStatus(allTasks, allTasks.size());
-                    break;
+            case "list":
+                ui.displayListWithStatus(allTasks, allTasks.size());
+                break;
 
-                case "find":
-                    ArrayList<Task> foundTasks = new ArrayList<Task>();
-                    String keyword = command.split(" ")[1].trim();
-                    for (int i = 0; i < allTasks.size(); i++){
-                        Task task = allTasks.get(i);
-                        if(task.description.contains(keyword)){
-                            foundTasks.add(task);
-                        }
-                    }
-                    ui.displayFoundTasks(foundTasks);
-                    break;
+            case "find":
+                find(command);
+                break;
 
-                case "delete":
-                    index = Integer.parseInt(command.split(" ")[1].trim()) - 1;
-                    ui.deleteAndDisplayTask(allTasks.get(index), allTasks.size() - 1);
-                    allTasks.remove(index);
-                    break;
+            case "delete":
+                delete(command);
+                break;
 
-                case "todo":
-                    try {
-                        String[] str = command.split(" ");
-                        if (str.length < 2) {
-                            throw new DukeException();
-                        }
-                        description = command.replace("todo ", "");
-                    } catch (DukeException e) {
-                        ui.raiseExceptionInTodo();
-                        break;
-                    }
+            case "todo":
+                addTodo(command);
+                break;
 
-                    t = new Todo(description);
-                    allTasks.add(allTasks.size(), t);
-                    ui.displayTask(t, allTasks.size());
-                    break;
+            case "deadline":
+                addDeadline(command);
+                break;
 
-                case "deadline":
-                    try {
-                        String[] str = command.split(" ");
-                        if (str.length < 2) {
-                            throw new DukeException();
-                        }
-                        detail = command.replace("deadline ", "");
-                        description = detail.split("/by")[0];
-                        by = detail.split("/by")[1];
-                        /**
-                         * To avoid content with only spacing.
-                         */
-                        if (by.replace(" ", "") == "") {
-                            throw new DukeException();
-                        }
-                    } catch (DukeException e) {
-                        ui.raiseExceptionInDeadline();
-                        break;
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        ui.raiseExceptionInDeadline();
-                        break;
-                    }
+            case "event":
+                addEvent(command);
+                break;
 
-                    t = new Deadline(description, by);
-                    allTasks.add(t);
-                    ui.displayTask(t, allTasks.size());
-                    break;
-
-                case "event":
-                    try {
-                        String[] str = command.split(" ");
-                        if (str.length < 2) {
-                            throw new DukeException();
-                        }
-                        detail = command.replace("event ", "");
-                        description = detail.split("/at")[0];
-                        at = detail.split("/at")[1];
-                        /**
-                         * To avoid content with only spacing.
-                         */
-                        if (at.replace(" ", "") == "") {
-                            throw new DukeException();
-                        }
-                    } catch (DukeException e) {
-                        ui.raiseExceptionInEvent();
-                        break;
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        ui.raiseExceptionInEvent();
-                        break;
-                    }
-
-                    t = new Event(description, at);
-                    allTasks.add(t);
-                    ui.displayTask(t, allTasks.size());
-                    break;
-
-                default:
-                    try {
-                        throw new DukeException();
-                    } catch (DukeException e) {
-                        ui.raiseExceptionInCommand();
-                    }
-                    break;
+            default:
+                try {
+                    throw new DukeException();
+                } catch (DukeException e) {
+                    ui.raiseExceptionInCommand();
+                }
+                break;
             }
 
         }
     }
 
+    /**
+     * main function of the project
+     *
+     * @param args
+     * @throws DukeException
+     * @throws IOException
+     */
     public static void main(String[] args) throws DukeException, IOException {
         new Duke("./data/duke.txt").run();
     }
