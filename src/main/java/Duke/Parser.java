@@ -31,6 +31,9 @@ public class Parser {
             if (deadlineBy > 0) {
                 //remove keyword deadline and deadline time from raw user input
                 description = combineToken(tokens, 1, deadlineBy);
+                if (description.isBlank()) {
+                    throw new DukeExceptionDescription();
+                }
                 time = combineToken(tokens, deadlineBy + 1);
             } else {
                 throw new DukeExceptionTiming();
@@ -44,6 +47,9 @@ public class Parser {
             if (eventAt > 0) {
                 //remove keyword deadline and deadline time from raw user input
                 description = combineToken(tokens, 1, eventAt);
+                if (description.isBlank()) {
+                    throw new DukeExceptionDescription();
+                }
                 time = combineToken(tokens, eventAt + 1);
             } else {
                 throw new DukeExceptionTiming();

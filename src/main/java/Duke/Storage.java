@@ -75,8 +75,8 @@ public class Storage {
                     String task = matcher.group("task");
                     switch (task) {
                     case "[T]":
-                        String regexTodo = "(?<task>\\[[TDE]])(?<mark>\\[[\\s|X]])"+
-                                "(?<description>\\D*)";
+                        String regexTodo = "(?<task>\\[[TDE]])(?<mark>\\[[\\s|X]])"
+                                + "(?<description>\\D*)";
                         Matcher matcherTodo =  regexMatching(regexTodo, listContent);
                         if (!matcherTodo.find()) {
                             continue;
@@ -89,9 +89,9 @@ public class Storage {
                         userLists.add(newTodo);
                         break;
                     case "[D]":
-                        String regexDeadline = "(?<task>\\[[TDE]])(?<mark>\\[[\\s|X]])"+
-                                "(?<description>\\D*)(?<time>\\(at\\S*)";
-                        Matcher matcherDeadline =  regexMatching(regexDeadline, listContent);
+                        String regexDeadline = "(?<task>\\[[TDE]])(?<mark>\\[[\\s|X]])"
+                                + "(?<description>.*)\\(by: (?<time>.*)\\)";
+                        Matcher matcherDeadline = regexMatching(regexDeadline, listContent);
                         if (!matcherDeadline.find()) {
                             continue;
                         }
@@ -104,10 +104,10 @@ public class Storage {
                         userLists.add(newDeadline);
                         break;
                     case "[E]":
-                        String regexEvent = "(?<task>\\[[TDE]])(?<mark>\\[[\\s|X]])"+
-                                "(?<description>\\D*)(?<time>\\(at\\S*)";
-                        Matcher matcherEvent =  regexMatching(regexEvent, listContent);
-                        if (matcherEvent.find()) {
+                        String regexEvent = "(?<task>\\[[TDE]])(?<mark>\\[[\\s|X]])"
+                                + "(?<description>.*)\\(at: (?<time>.*)\\)";
+                        Matcher matcherEvent = regexMatching(regexEvent, listContent);
+                        if (!matcherEvent.find()) {
                             continue;
                         }
                         description = matcherEvent.group("description").trim();

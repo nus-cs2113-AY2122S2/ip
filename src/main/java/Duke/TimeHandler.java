@@ -15,7 +15,7 @@ public class TimeHandler {
     private LocalTime localTime;
     private LocalDateTime localDateTime;
 
-    public TimeHandler(String input) throws  DukeExceptionTiming{
+    public TimeHandler(String input) throws  DukeExceptionTiming {
         this.localDate = convertDate(input.trim());
         this.localTime = convertTime(input.trim());
         this.localDateTime = joinDateTime(localDate, localTime);
@@ -32,9 +32,10 @@ public class TimeHandler {
      * @return LocalDate which contains the date of the task end
      * @throws DukeExceptionTiming
      */
-    private LocalDate convertDate(String input) throws DukeExceptionTiming  {
+    private LocalDate convertDate(String input) throws DukeExceptionTiming {
         LocalDate localDate = LocalDate.now();
-        String date = input.split(" ")[0];
+        String[] inputs = input.split(" ");
+        String date = inputs[0];
 
         try {
             if (input.contains("day")) {
@@ -43,6 +44,10 @@ public class TimeHandler {
             } else if (input.contains("/")) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
                         "yyyy/mm/dd");
+                localDate = LocalDate.parse(date, formatter);
+            } else if (input.split(" ").length > 2) {
+                date = inputs[0] + inputs[1] + inputs[2];
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMddyyyy");
                 localDate = LocalDate.parse(date, formatter);
             } else {
                 localDate = LocalDate.parse(date);
@@ -88,7 +93,7 @@ public class TimeHandler {
      * @param input User input string containing the due time
      * @return LocalTime for the due time
      */
-    private LocalTime convertTime(String input) {
+    private LocalTime convertTime(String input) throws DukeExceptionTiming {
         LocalTime localTime;
         int index = 0;
 
@@ -122,15 +127,18 @@ public class TimeHandler {
      * @param isPm check if the time is indicated as pm
      * @return LocalTime for the due time
      */
-    private LocalTime convertTime(String input, int index, boolean hasMinute, boolean isPm) {
+    private LocalTime convertTime(String input, int index, boolean hasMinute, boolean isPm) throws DukeExceptionTiming {
         int hourInt;
         int minInt = 0;
         if (hasMinute) {
-            String hourStr = input.substring(index - 2 ,index);
-            String minStr = input.substring(index + 1, index + 2);
-            hourInt = Integer.parseInt(hourStr.trim());
-            minInt = Integer.parseInt(minStr.trim());
-            return LocalTime.of(hourInt, minInt);
+                String hourStr = input.substring(index - 2 ,index);
+                String minStr = input.substring(index + 1, index + 3);
+                hourInt = Integer.parseInt(hourStr.trim());
+                minInt = Integer.parseInt(minStr.trim());
+                if (hourInt > 23 || minInt > 59) {
+                    throw new DukeExceptionTiming();
+                }
+                return LocalTime.of(hourInt, minInt);
         } else {
             String hourStr = input.substring(index - 2, index);
             hourInt = Integer.parseInt(hourStr.trim());
