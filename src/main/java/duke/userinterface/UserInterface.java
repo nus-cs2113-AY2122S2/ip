@@ -46,9 +46,11 @@ public class UserInterface {
     public void printIOExceptionMessageLoad() {
         System.out.println("Oops! Something went wrong with loading the data!");
     }
+
     public void printIOExceptionMessageWrite() {
         System.out.println("Oops! Something went wrong with writing the data!");
     }
+
     public void printIOExceptionMessageRead() {
         System.out.println("Oops! Something went wrong with reading the data!");
     }
@@ -56,6 +58,7 @@ public class UserInterface {
     public void printOutOfBoundsExceptionMessage() {
         System.out.println("Oops! The task number given is not in range. Try again!");
     }
+
     public void printNumberFormatExceptionMessage() {
         System.out.println("Oops! Please give an integer value. Try again!");
     }
@@ -73,6 +76,19 @@ public class UserInterface {
 
     public void printTask(ArrayList<Task> tasks, int number) {
         System.out.println("Noted. I've removed this task:\n" + tasks.get(number).toString());
+    }
+
+    public void printCreateSaveDataDirectoryMessage() {
+        System.out.println("NOTE: data directory not found. " +
+                "Duke will create the folder in the current directory now.");
+    }
+
+    public void printCreateSaveDataFileMessage() {
+        System.out.println("NOTE: data file not found. Duke will create the file now.");
+    }
+
+    public void printSaveDataFileFoundMessage() {
+        System.out.println("NOTE: The saved data has been loaded!");
     }
 
     /**

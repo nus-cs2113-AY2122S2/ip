@@ -128,14 +128,21 @@ public class TaskRecorder {
      * Creates the required folder and file to be referenced by Duke if not found
      */
     public void checkFileExists() {
+        boolean directoryExists = true;
+        boolean fileExists = true;
         try {
-            // create parent folder if it does not exist
             if (!Files.exists(PATH.getParent())) {
                 Files.createDirectory(PATH.getParent());
+                ui.printCreateSaveDataDirectoryMessage();
+                directoryExists = false;
             }
-            // create file if it does not exists
             if (!Files.exists(PATH)) {
                 Files.createFile(PATH);
+                ui.printCreateSaveDataFileMessage();
+                fileExists = false;
+            }
+            if (directoryExists == true && fileExists == true) {
+                ui.printSaveDataFileFoundMessage();
             }
         } catch (IOException e) {
             ui.printIOExceptionMessageLoad();
