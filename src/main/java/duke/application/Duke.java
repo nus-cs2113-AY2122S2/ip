@@ -16,10 +16,7 @@ import duke.entity.Task;
 import duke.entity.Todo;
 
 //exception classes imports
-import duke.exception.DukeException;
-import duke.exception.IllegalTodoException;
-import duke.exception.IllegalEventException;
-import duke.exception.IllegalDeadlineException;
+import duke.exception.*;
 
 
 public class Duke {
@@ -38,11 +35,21 @@ public class Duke {
                 } else if (userInput.equals("list")) {
                     displayList(taskArray);
                 } else if (userInput.contains("unmark")) {
-                    unmarkTask(taskArray, userInput);
-                    displayUnmarkedTask(taskArray, userInput);
+                    try{
+                        unmarkTask(taskArray, userInput);
+                        displayUnmarkedTask(taskArray, userInput);
+                    }
+                    catch (IllegalUnmarkException e){
+                        displayUnmarkErrorMessage();
+                    }
                 } else if (userInput.contains("mark")) {
-                    markTask(taskArray, userInput);
-                    displayMarkedTask(taskArray, userInput);
+                    try {
+                        markTask(taskArray, userInput);
+                        displayMarkedTask(taskArray, userInput);
+                    }
+                    catch (IllegalMarkException e){
+                        displayMarkErrorMessage();
+                    }
                 } else if (userInput.contains("deadline")) {
                     try {
                         addDeadline(taskArray, userInput);
@@ -68,9 +75,19 @@ public class Duke {
                         displayTodoErrorMessage();
                     }
                 } else if (userInput.contains("delete")){
-                    displayDeletedTask(taskArray, userInput);
+                    try {
+                        displayDeletedTask(taskArray, userInput);
+                    }
+                    catch (IllegalDeleteException e){
+                        displayDeleteErrorMessage();
+                    }
                 } else if (userInput.contains("find")){
-                    displayFoundTasks(taskArray, userInput);
+                    try {
+                        displayFoundTasks(taskArray, userInput);
+                    }
+                    catch (IllegalFindException e){
+                        displayFindErrorMessage();
+                    }
                 }
                 try {
                     saveFile(f, taskArray);
@@ -204,7 +221,10 @@ public class Duke {
         return num;
     }
 
-    public static String findTask(String userInput){
+    public static String findTask(String userInput) throws IllegalFindException{
+        if (userInput.length() <= 4){
+            throw new IllegalFindException();
+        }
         String temp = userInput.split(" ")[1];
         return temp;
     }
@@ -214,15 +234,19 @@ public class Duke {
      * @param taskArray array of tasks
      * @param userInput String input command with the find keyword
      */
-    public static void displayFoundTasks(ArrayList<Task> taskArray, String userInput){
+    public static void displayFoundTasks(ArrayList<Task> taskArray, String userInput) throws IllegalFindException{
         String temp = findTask(userInput);
         int count = 0;
         System.out.println("Here are the matching tasks found!");
         for (Task t : taskArray){
-            if (t.getDescription().contains(temp)){
+            if (t.getDescription().equals(temp)){
                 System.out.println(++count + "." + t.toString());
             }
         }
+    }
+
+    public static void displayFindErrorMessage(){
+        System.out.println("Hey! Please enter a valid find keyword");
     }
 
     //delete methods
@@ -233,18 +257,25 @@ public class Duke {
      * @param userInput String input command
      * @return returns the deleted task
      */
-    public static Task deleteTask(ArrayList<Task> taskArray, String userInput){
+    public static Task deleteTask(ArrayList<Task> taskArray, String userInput) throws IllegalDeleteException{
         int num = getTaskIndex(userInput);
+        if (num <= 0 || num > taskArray.size()){
+            throw new IllegalDeleteException();
+        }
         Task t = taskArray.get(num-1);
         taskArray.remove(num-1);
         return t;
     }
 
-    public static void displayDeletedTask(ArrayList<Task> taskArray, String userInput){
+    public static void displayDeletedTask(ArrayList<Task> taskArray, String userInput) throws IllegalDeleteException{
         System.out.println("=============================");
         System.out.println("Hey, I've removed this task for you. Focus on the others ahead!");
         System.out.println(deleteTask(taskArray, userInput).toString());
         System.out.println("There are still " + taskArray.size() + " tasks in the list.");
+    }
+
+    public static void displayDeleteErrorMessage(){
+        System.out.println("Hey! Please enter a valid index to delete");
     }
 
     //unmark methods
@@ -254,8 +285,11 @@ public class Duke {
      * @param taskArray array of tasks
      * @param userInput String input command
      */
-    public static void unmarkTask(ArrayList<Task> taskArray, String userInput){
+    public static void unmarkTask(ArrayList<Task> taskArray, String userInput) throws IllegalUnmarkException{
         int num = getTaskIndex(userInput);
+        if (num <= 0 || num > taskArray.size()){
+            throw new IllegalUnmarkException();
+        }
         taskArray.get(num-1).markAsUndone();
     }
 
@@ -265,6 +299,10 @@ public class Duke {
         System.out.println(taskArray.get(getTaskIndex(userInput)-1).toString());
     }
 
+    public static void displayUnmarkErrorMessage(){
+        System.out.println("Hey, please enter a valid index!");
+
+    }
     //mark methods
 
     /**
@@ -272,8 +310,11 @@ public class Duke {
      * @param taskArray array of tasks
      * @param userInput String input command
      */
-    public static void markTask(ArrayList<Task> taskArray, String userInput){
+    public static void markTask(ArrayList<Task> taskArray, String userInput) throws IllegalMarkException{
         int num = getTaskIndex(userInput);
+        if (num <= 0 || num > taskArray.size()){
+            throw new IllegalMarkException();
+        }
         taskArray.get(num-1).markAsDone();
     }
 
@@ -281,6 +322,11 @@ public class Duke {
         System.out.println("=============================");
         System.out.println("Go get it king, well done!");
         System.out.println(taskArray.get(getTaskIndex(userInput)-1).toString());
+    }
+
+    public static void displayMarkErrorMessage(){
+        System.out.println("Hey, please enter a valid index!");
+
     }
 
     //deadline methods
