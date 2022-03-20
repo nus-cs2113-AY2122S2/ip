@@ -59,6 +59,12 @@ public class Parser {
                 continue;
             }
             if (input.startsWith("find")) {
+                try {
+                    checkCommand(input);
+                } catch (InvalidCommandException | EmptyDescriptionException e) {
+                    input = in.nextLine();
+                    continue;
+                }
                 findTasks(input);
                 input = in.nextLine();
                 continue;
@@ -93,6 +99,9 @@ public class Parser {
         Set<String> validCommands = Set.of("todo", "deadline", "event", "find", "done", "delete");
         String[] splitLine = line.split(" ");
         String type = splitLine[0];
+        if (splitLine.length == 1) {
+            throw new EmptyDescriptionException();
+        }
         if (line.startsWith("event") && !line.contains("/at")) {
             throw new InvalidCommandException();
         }
@@ -101,9 +110,6 @@ public class Parser {
         }
         if (!validCommands.contains(type)) {
             throw new InvalidCommandException();
-        }
-        if (splitLine.length == 1) {
-            throw new EmptyDescriptionException();
         }
     }
 
