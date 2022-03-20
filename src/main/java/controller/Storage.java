@@ -53,9 +53,10 @@ public class Storage {
         fw.close();
     }
 
-    public String load() throws java.io.FileNotFoundException {
+    public String load() throws IOException {
         StringBuilder sb = new StringBuilder();
-        File f = new File(filePath); // create a File for the given file path
+        File f = new File(filePath);
+        f.createNewFile();  // if the file doesn't exist, it will create one
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
         while (s.hasNext()) {
             sb.append(s.nextLine());

@@ -20,6 +20,7 @@ public class UI {
     private  void greet(){
         printLine();
         System.out.println(INDENT + "Hi, I am XiaoAi TongXue ;D");
+        System.out.println(INDENT + "What can I do for you?");
         printLine();
     }
 
@@ -50,7 +51,7 @@ public class UI {
     }
 
     public void showList() {
-        System.out.println(INDENT+"Here are the tasks in your list:");
+        System.out.println(INDENT+"Here are the task(s) in your list:");
     }
 
     public void showDelete() {
@@ -58,7 +59,7 @@ public class UI {
     }
 
     public void showTaskCount(int taskCount){
-        System.out.println(INDENT + "Now you have " + taskCount + " tasks in the list.");
+        System.out.println(INDENT + "Now you have " + taskCount + " task(s) in the list.");
     }
 
     public void showAdd(){
@@ -85,6 +86,10 @@ public class UI {
 
     public void showNotFound() {
         System.out.println(INDENT + "Opps, no matching tasks found in your list :(");
+    }
+
+    public void showEmptyList() {
+        System.out.println(INDENT + "There are nothing in the task list now");
     }
 }
 

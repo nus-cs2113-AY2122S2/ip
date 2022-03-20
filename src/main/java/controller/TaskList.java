@@ -11,13 +11,12 @@ import java.util.StringTokenizer;
 public class TaskList {
     private static final String FILE_SEPARATOR = " | ";
     private static final String INDENT = "    ";
-    private static final String LINE = "-------------------------------------------";
     public static final String SPACE = " ";
     private static ArrayList<Task> taskList = new ArrayList<>();
 
     public TaskList(String data) {
+        if(data == null || data.isEmpty()) return;
         String[] taskStrList = data.split(System.lineSeparator());
-        System.out.println("string list length: " + taskStrList.length);
         for (int i = 0; i < taskStrList.length; i++) {
             String newLine = taskStrList[i];
             Task newTask;
@@ -66,8 +65,10 @@ public class TaskList {
      * @param i the index of target task.
      * @return total task count
      */
-    public void removeTaskByIdx ( int i){
+    public String removeTaskByIdx ( int i){
+        String task = taskList.get(i).toString();
         taskList.remove(i);
+        return task;
     }
 
     /**
@@ -76,48 +77,6 @@ public class TaskList {
      */
     public ArrayList<Task> getTaskList () {
         return taskList;
-    }
-
-    /**
-     * Classify task type.
-     * Add corresponding task into list according to input
-     * @param input user input
-     * @param type task type
-     * @return task details
-     */
-    public String addTask (String type, String input){
-        String[] inputWord = input.split(SPACE);
-        if (inputWord.length == 1) {
-            System.out.println(INDENT + "OOPS! The task doesn't have description :(");    // check description
-            return null;
-        }
-        int desIdx = input.indexOf(" ") + 1;
-        Task newTask = null;
-        switch (type) {
-        case "todo":
-            String description = input.substring(desIdx);
-            newTask = new Todo(description);
-            break;
-        case "deadline":
-        case "event":
-            if (!input.contains("/")) {
-                // check time
-                return null;
-            }
-
-            int timeIdx = input.indexOf("/") + 4;
-            int desEndIdx = input.indexOf("/") - 1;
-            description = input.substring(desIdx, desEndIdx);
-            String time = input.substring(timeIdx);
-            if (type.equals("deadline")) {
-                newTask = new Deadline(description, time);
-            } else {
-                newTask = new Event(description, time);
-            }
-            break;
-        }
-        taskList.add(newTask);
-        return newTask.toString();
     }
 
     public String markTaskByIdx(int i){
@@ -130,6 +89,21 @@ public class TaskList {
         return taskList.get(i).toString();
     }
 
+    public void addNewTodo(String description) {
+        taskList.add(new Todo(description));
+    }
+
+    public void addNewEvent(String description, String time) {
+        taskList.add(new Event(description,time));
+    }
+
+    public void addNewDeadline(String description, String time) {
+        taskList.add(new Deadline(description, time));
+    }
+
+    public String getNewAdd() {
+        return taskList.get(taskList.size()-1).toString();
+    }
 }
 
 

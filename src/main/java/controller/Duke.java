@@ -1,8 +1,10 @@
 package controller;
 
 import command.Command;
+import exception.DukeException;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Duke {
 
@@ -19,6 +21,8 @@ public class Duke {
         } catch (FileNotFoundException e) {
             ui.showLoadingError();
             tasks = new TaskList();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -34,7 +38,7 @@ public class Duke {
                     c.execute(tasks, ui, storage);
                     isExit = c.isExit();
                 } catch (DukeException e) {
-                    ui.showError(e.getMessage());
+                    ui.showError(e.getErrorMessage());
                 } finally {
                     ui.showLine();
                 }

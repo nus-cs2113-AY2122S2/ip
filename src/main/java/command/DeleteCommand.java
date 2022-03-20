@@ -1,14 +1,16 @@
 package command;
 
+import controller.Helper;
 import controller.Storage;
 import controller.TaskList;
 import controller.UI;
+import exception.DukeException;
 
 public class DeleteCommand extends Command{
-    int idx;
-    public DeleteCommand(int i) {
-        super();
-        idx = i;
+    private static final String INDENT = "    ";
+    String command;
+    public DeleteCommand(String command) {
+        this.command=command;
     }
 
     /**
@@ -20,10 +22,16 @@ public class DeleteCommand extends Command{
      * @param storage storage.
      */
 
-    public void execute(TaskList tasks, UI ui, Storage storage){
+    public void execute(TaskList tasks, UI ui, Storage storage) throws DukeException {
+        String idxInString = command.replace("delete","").trim();
+        Helper.checkIndex(idxInString,tasks);
+        int idx = Integer.parseInt(idxInString)-1;
         ui.showDelete();
-        tasks.removeTaskByIdx(idx);
+        ui.showTask(tasks.removeTaskByIdx(idx));
         ui.showList();
+        for(int i = 0; i<tasks.getCount(); i++){
+            System.out.println(INDENT+(i+1) + "." + tasks.getTaskByIdx(i));
+        }
         ui.showTaskCount(tasks.getCount());
         storage.save(tasks.getTaskList());
     }

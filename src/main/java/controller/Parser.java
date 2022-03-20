@@ -1,6 +1,8 @@
 package controller;
 
 import command.*;
+import exception.DukeException;
+import exception.InvalidCommandException;
 //import command.MarkCommand;
 
 
@@ -27,10 +29,10 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "mark":
-            return new UpdateCommand("mark",Integer.parseInt(fullCommand.split(SPACE)[1])-1);
+            return new UpdateCommand("mark",fullCommand);
             //updateTask(Integer.parseInt(input.split(SPACE)[1])-1,true);  //refractor get index
         case "unmark":
-            return new UpdateCommand("unmark",Integer.parseInt(fullCommand.split(SPACE)[1])-1);
+            return new UpdateCommand("unmark",fullCommand);
             //updateTask(Integer.parseInt(input.split(SPACE)[1])-1,false);
         case "todo":
 
@@ -39,14 +41,14 @@ public class Parser {
         case "event":
             return new AddCommand(action, fullCommand);
         case "delete":
-            return new DeleteCommand(Integer.parseInt(fullCommand.split(SPACE)[1])-1);
+            return new DeleteCommand(fullCommand);
             //deleteTask(Integer.parseInt(input.split(SPACE)[1])-1);
         case "bye":
             return new ExitCommand();
         case "find":
             return new FindCommand(fullCommand);
         default:
-            throw new DukeException();
+            throw new InvalidCommandException();
         }
     }
 

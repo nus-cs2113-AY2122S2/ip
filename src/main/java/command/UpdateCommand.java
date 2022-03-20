@@ -1,16 +1,18 @@
 package command;
 
-import controller.Storage;
-import controller.TaskList;
-import controller.UI;
+import controller.*;
+import exception.DukeException;
+import exception.InvalidIndexException;
+import exception.NoDescriptionException;
+import task.Task;
 
 public class UpdateCommand extends Command{
     private String type;
-    private int idx;
-    public UpdateCommand(String type, int idx){
+    private String command;
+    public UpdateCommand(String type, String fullCommand){
         super();
         this.type = type;
-        this.idx = idx;
+        command = fullCommand;
     }
 
     /**
@@ -21,14 +23,18 @@ public class UpdateCommand extends Command{
      * @param ui user interface
      * @param storage storage.
      */
-    public void execute(TaskList tasks, UI ui, Storage storage){
-        String t;
+    public void execute(TaskList tasks, UI ui, Storage storage) throws DukeException {
+        String idxInString = command.replace(type,"").trim();
+        Helper.checkIndex(idxInString,tasks);
+        int idx = Integer.parseInt(idxInString)-1;
+        String t = null;
         if(type.equals("mark")){
             t = tasks.markTaskByIdx(idx);
         }else{
             t = tasks.unmarkTaskByIdx(idx);
         }
         ui.showTask(t);
+        ui.showList();
         storage.save(tasks.getTaskList());
     }
     public boolean isExit(){
