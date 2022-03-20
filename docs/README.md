@@ -1,6 +1,13 @@
 # User Guide
 Smart XiaoAI is a task management app use via a Command Line Interface(CLI).
-## Features 
+
+----
+The file path: data/task-file
+
+----
+
+
+## Features
 
 ### Feature- list all task
 
