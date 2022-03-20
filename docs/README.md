@@ -1,6 +1,7 @@
 # Duke User Guide
 
 ## Features
+- Getting help: `help`
 - Adding tasks
     - Adding a todo: `todo`
     - Adding an event: `event`
@@ -23,6 +24,21 @@
 ## Features
 
 - Words in square brackets are parameters to be specified by user: `[example]`
+
+### `help` - Getting help from Duke
+
+Get Duke to show all commands available and examples for adding tasks.
+
+Format: `help`
+
+```
+There are currently nine keyword commands: 
+1. list, 2. todo, 3. deadline, 4.event, 5. mark, 6. unmark, 7. delete, 8. find, 9. bye
+Examples for adding tasks:
+todo homework
+event CCA /at 2024-01-01 00:00
+deadline exam /by 2025-01-01 23:59
+```
 
 ### `todo` - Add a todo task
 
@@ -80,7 +96,7 @@ Here are the tasks in your list:
 ```
 ### `find` - Find tasks based on matching keyword(s)
 
-Lists all tasks that Duke has with the matching keyword(s)
+Lists all tasks that Duke has with the matching keyword(s) in order.
 
 Format: `find [keyword(s)]`
 

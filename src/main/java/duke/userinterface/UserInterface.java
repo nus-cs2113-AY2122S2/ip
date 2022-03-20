@@ -31,12 +31,16 @@ public class UserInterface {
     }
 
     public void printNoCommandMessage() {
-        System.out.println("Well, I'll wait for a command..");
+        System.out.println("Well, I'll wait for a command.. ( Type in 'help' if you have to :) )");
     }
 
     public void printHelpMessage() {
         System.out.println("There are currently nine keyword commands: ");
         System.out.println("1. list, 2. todo, 3. deadline, 4.event, 5. mark, 6. unmark, 7. delete, 8. find, 9. bye");
+        System.out.println("Examples for adding tasks:");
+        System.out.println("todo homework");
+        System.out.println("event CCA /at 2024-01-01 00:00");
+        System.out.println("deadline exam /by 2025-01-01 23:59");
     }
 
     public void printEmptyDescriptionMessage() {
