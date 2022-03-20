@@ -10,10 +10,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-import static duke.Duke.tasks;
-import static duke.Duke.types;
-import static duke.Duke.dones;
-import static duke.Duke.dates;
+import static duke.Parser.tasks;
+import static duke.Parser.types;
+import static duke.Parser.dones;
+import static duke.Parser.dates;
 
 public class Storage {
     protected String filePath;
