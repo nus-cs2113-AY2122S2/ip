@@ -37,16 +37,29 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Creates a listTasksCommand instance to pass in the inputs for command execution.
+     * @param userInput is the string input by the user.
+     */
     public void listTasks(String userInput) {
         Command listTasksCommand = new ListTasksCommand();
         listTasksCommand.execute(tasks, userInput, taskUniqueID);
     }
 
+    /**
+     * Creates a findTasksCommand instance to pass in the inputs for command execution.
+     * @param userInput is the string input by the user.
+     */
     public void findTasks(String userInput) {
         Command findTasksCommand = new FindTasksCommand();
         findTasksCommand.execute(tasks, userInput, taskUniqueID);
     }
 
+    /**
+     * Creates a addTodoCommand instance to pass in the inputs for command execution.
+     * Checks if saving to data file is needed after command execution.
+     * @param userInput is the string input by the user.
+     */
     public void addTodo(String userInput) {
         try {
             AddCommand addTodoCommand = new AddTodoCommand();
@@ -59,6 +72,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Creates a addDeadlineCommand instance to pass in the inputs for command execution.
+     * Checks if saving to data file is needed after command execution.
+     * @param userInput is the string input by the user.
+     */
     public void addDeadline(String userInput) {
         try {
             AddCommand addDeadlineCommand = new AddDeadlineCommand();
@@ -71,6 +89,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Creates a addEventCommand instance to pass in the inputs for command execution.
+     * Checks if saving to data file is needed after command execution.
+     * @param userInput is the string input by the user.
+     */
     public void addEvent(String userInput) {
         try {
             AddCommand addEventCommand = new AddEventCommand();
@@ -83,6 +106,13 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Creates a markOrUnmarkTaskCommand instance to pass in the inputs for command execution.
+     * Saves to data file if no error is thrown.
+     * Calls ui methods to check for input formatting and prompts user for format errors if needed
+     * when exceptions are thrown.
+     * @param userInput is the string input by the user.
+     */
     public void markOrUnmarkTask(String userInput) {
         try {
             Command markOrUnmarkTaskCommand = new MarkOrUnmarkTaskCommand();
@@ -98,6 +128,13 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Creates a deleteCommand instance to pass in the inputs for command execution.
+     * Saves to data file if no error is thrown.
+     * Calls ui methods to check for input formatting and prompts user for format errors if needed
+     * when exceptions are thrown.
+     * @param userInput is the string input by the user.
+     */
     public void deleteTask(String userInput) {
         try {
             Command deleteTaskCommand = new DeleteTaskCommand();

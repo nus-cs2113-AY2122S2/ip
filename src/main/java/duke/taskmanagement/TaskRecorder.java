@@ -125,7 +125,8 @@ public class TaskRecorder {
     }
 
     /**
-     * Creates the required folder and file to be referenced by Duke if not found
+     * Creates the required folder and file to be referenced by Duke if not found.
+     * @throws IOException the folder or data file cannot be created.
      */
     public void checkFileExists() {
         try {

@@ -146,7 +146,7 @@ public class UserInterface {
     /**
      * Extracts out the description portion of the user input from the accepted input formats.
      * @param userInput
-     * @return
+     * @return description portion as a string
      * @throws EmptyDescriptionException
      */
     public String getDescription(String userInput) throws EmptyDescriptionException {
@@ -171,7 +171,7 @@ public class UserInterface {
     /**
      * Extracts out timing information from user input from the accepted input formats.
      * @param userInput
-     * @return
+     * @return timing information as a string
      * @throws EmptyTimingDetailsException
      */
     public String getTimingDetails(String userInput) throws EmptyTimingDetailsException {
@@ -196,6 +196,12 @@ public class UserInterface {
         }
     }
 
+    /**
+     * Extracts out task number. User is expected to give the number in 1-indexing.
+     * However the number returned internally will be converted to 0-indexing for proper arraylist access.
+     * @param userInput
+     * @return an integer in 0-indexing format
+     */
     public int getTaskNumber(String userInput) {
         String[] words = userInput.split(" ");
         String taskNumber = words[1];

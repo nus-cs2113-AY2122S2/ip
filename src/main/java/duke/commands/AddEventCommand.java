@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 /**
  * Adds an Event object into the array list of tasks.
+ * Calls ui methods to check for input formatting and prompts user for format errors if needed.
  */
 public class AddEventCommand extends AddCommand {
     private boolean saveIsRequired = true;
