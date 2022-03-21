@@ -27,23 +27,23 @@ public class Duke {
     }
 
 
-        public void run() {
-            ui.showWelcome();
-            boolean isExit = false;
-            while (!isExit) {
-                try {
-                    String fullCommand = ui.readCommand();
-                    ui.showLine(); // show the divider line ("_______")
-                    Command c = Parser.parse(fullCommand);  // make parse as static method !!!
-                    c.execute(tasks, ui, storage);
-                    isExit = c.isExit();
-                } catch (DukeException e) {
-                    ui.showError(e.getErrorMessage());
-                } finally {
-                    ui.showLine();
-                }
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.showLine(); // show the divider line ("_______")
+                Command c = Parser.parse(fullCommand);  // make parse as static method !!!
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (DukeException e) {
+                ui.showError(e.getErrorMessage());
+            } finally {
+                ui.showLine();
             }
-            return;
+        }
+        return;
         }
 
 
