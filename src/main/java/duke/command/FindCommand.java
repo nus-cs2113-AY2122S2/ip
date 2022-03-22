@@ -1,5 +1,7 @@
 package duke.command;
 
+import duke.Duke;
+import duke.DukeException;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
@@ -19,9 +21,9 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         ui.showToUser(
                 MESSAGE_SUCCESS,
-                tasks.getAllTasksUi());
+                tasks.getFindTasksUi(this.keyword));
     }
 }
