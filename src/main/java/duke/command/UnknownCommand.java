@@ -10,10 +10,11 @@ import duke.Ui;
  * and they should type a command that is recognized.
  */
 public class UnknownCommand extends Command {
+    public static final String ERROR_MESSAGE = "OOPS!!! I'm sorry, but I don't know what that means :-(";
 
     @Override
     public void execute(TaskList task, Ui ui, Storage storage) throws DukeException {
         // Throw exception if unknown command inputted
-        throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        throw new DukeException(ERROR_MESSAGE);
     }
 }
