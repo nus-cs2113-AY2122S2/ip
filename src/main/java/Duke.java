@@ -18,7 +18,7 @@ public class Duke {
     }
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         //start the programme
         DukeList dukeList = new DukeList();
         greetings();
@@ -66,11 +66,11 @@ public class Duke {
 
             } else {
                 // Add text to list
-                boolean isSuccess = dukeList.addText(userInput);
-                if(isSuccess){
+                boolean isSuccess = dukeList.addTask(userInput);
+                if (isSuccess) {
                     System.out.println("\t" + userInput);
                     System.out.println();
-                }else{
+                } else {
                     System.out.println("Oops sorry! Somehow I wasn't able to add your text to my list.");
                 }
 

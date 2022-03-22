@@ -72,7 +72,7 @@ public class DukeList {
         }
     }
 
-    public boolean addText(String text) {
+    public boolean addTask(String text) {
         Task newTask = new Task(text);
         boolean isSuccess = list.add(newTask);
 
