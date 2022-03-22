@@ -1,8 +1,11 @@
 import java.util.ArrayList;
 
 public class Task {
-    private String description;
-    private boolean isDone;
+    protected String description;
+    protected boolean isDone;
+    protected static final String empty_checkbox = "[ ]";
+    protected static final String marked_checkbox = "[X]";
+
 
     public Task(String description) {
         this.description = description;
@@ -23,5 +26,15 @@ public class Task {
 
     public void setDone(boolean done) {
         this.isDone = done;
+    }
+
+    protected String getCheckbox() {
+        return isDone() ? marked_checkbox : empty_checkbox;
+    }
+
+    public String toString() {
+        String checkbox = getCheckbox();
+
+        return String.format("%s %s", checkbox, getDescription());
     }
 }

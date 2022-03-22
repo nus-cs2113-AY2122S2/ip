@@ -1,89 +1,91 @@
-import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Duke {
-    public static void greetings() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        String fillerLine = "____________________________________________________________";
+    private boolean userWantsToExit = false;
+    TasksManager tasksManager;
+    DukeUI dukeUI = new DukeUI();
+    DukeReader dukeReader;
 
-        System.out.println("Hello! I'm Bob");
-        System.out.println("What can I do for you?");
-        System.out.println(fillerLine);
+    protected Duke() {
+        // Instantiate components
+        tasksManager = new TasksManager();
+        dukeReader = new DukeReader();
+        dukeUI.printGreetings();
+
+    }
+    protected boolean doesUserWantsToExit() {
+        return this.userWantsToExit;
+    }
+
+    protected void setUserWantsToExit() {
+        this.userWantsToExit = true;
 
     }
 
+    protected void startContinuousUserPrompt() {
+        boolean isFirstPrompt = true;
 
-    public static void main(String[] args) {
-        //start the programme
-        DukeList dukeList = new DukeList();
-        greetings();
+        while (!doesUserWantsToExit()) {
+            // Get user input
+            dukeUI.printPrompter(isFirstPrompt);
+            String userRawInput = dukeReader.getUserInput();
+            isFirstPrompt = false;
+            dukeUI.printLine();
 
-        //get the user input
-        Scanner in = new Scanner(System.in);
-        String userInput = "";
-        userInput = in.nextLine();
+            // Execute command
+            executeCommand(userRawInput);
+        }
 
-        String fillerLine = "____________________________________________________________";
+        // Bid farewell to user
+        dukeUI.printGoodbye();
+    }
 
-        while (!userInput.toLowerCase().equals("bye")) {
-
-            //get the list and print it
-            if (userInput.toLowerCase().equals("list")) {
-
-                dukeList.displayList();
-                System.out.println();
-
-            } else if (userInput.toLowerCase().startsWith("mark")) {
+        private void executeCommand(String userRawInput) {
+            if (userRawInput.equalsIgnoreCase(DukeUI.exit_command)) {
+                // Set userWantsToExit to true and return to calling method
+                setUserWantsToExit();
+            } else if (userRawInput.equalsIgnoreCase(DukeUI.list_command)) {
+                // Display the task list
+                DukeUI.displayTaskList(tasksManager);
+            } else if (userRawInput.toLowerCase().startsWith(DukeUI.mark_command)) {
                 // Obtain task number
-                int taskNum = Integer.parseInt(userInput.split(" ")[1]);
-                boolean markSuccess = dukeList.updateDoneStatus(taskNum, true);
+                int taskNum = Integer.parseInt(userRawInput.split(" ")[1]);
+                boolean markSuccess = tasksManager.updateDoneStatus(taskNum, true);
 
                 if (markSuccess) {
-                    dukeList.displayTask(taskNum);
+
+                    tasksManager.displayTask(taskNum);
                     System.out.println();
                 } else {
                     System.out.println("Oops sorry, I couldn't mark that task as done.");
 
                 }
-            } else if (userInput.toLowerCase().startsWith("unmark")) {
+            } else if (userRawInput.toLowerCase().startsWith(DukeUI.unmark_command)) {
                 // Obtain task number
-                int taskNum = Integer.parseInt(userInput.split(" ")[1]);
-                boolean unmarkSuccess = dukeList.updateDoneStatus(taskNum, false);
+                int taskNum = Integer.parseInt(userRawInput.split(" ")[1]);
+                boolean unmarkSuccess = tasksManager.updateDoneStatus(taskNum, false);
 
                 if (unmarkSuccess) {
 
-                    dukeList.displayTask(taskNum);
+                    tasksManager.displayTask(taskNum);
                     System.out.println();
                 } else {
                     System.out.println("Oops, I couldn't mark that task as not done.");
                     System.out.println("Sorry about that... (-ω-、)");
                 }
-
-            } else {
+            } else if (userRawInput.toLowerCase().startsWith(DukeUI.todo_command) ||
+                    userRawInput.toLowerCase().startsWith(DukeUI.event_command) ||
+                    userRawInput.toLowerCase().startsWith(DukeUI.deadline_command)){
                 // Add text to list
-                boolean isSuccess = dukeList.addTask(userInput);
+                boolean isSuccess = tasksManager.addTask(userRawInput);
+
                 if (isSuccess) {
-                    System.out.println("\t" + userInput);
-                    System.out.println();
+                    System.out.println("I have added your new task to my list.");
                 } else {
                     System.out.println("Oops sorry! Somehow I wasn't able to add your text to my list.");
                 }
-
+            } else {
+                System.out.println("Oops sorry! I can't understand what you've just typed.");
+                System.out.println("Could you try again?");
             }
-
-
-            //get the next user input
-            userInput = in.nextLine();
-            System.out.println(fillerLine);
         }
-
-        //if user says bye
-        System.out.println("See you again soon!");
-
     }
-}
