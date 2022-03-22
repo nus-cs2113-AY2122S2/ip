@@ -48,6 +48,6 @@ public class Duke {
 
 
     public static void main(String[] args) {
-        new Duke("data/task-file").run();
+        new Duke("task-file").run();
     }
 }
