@@ -35,6 +35,19 @@ public class TaskList {
         return this.tasks.remove(taskIndex);
     }
 
+    /** Returns a string containing all tasks in a format for Ui */
+    public String getAllTasksUi() {
+        String output = "";
+        for (int i = 0; i < this.getSize(); i++) {
+            output += String.format("%d. %s", i + 1, this.getTask(i));
+            /** Add line break */
+            if (i != this.getSize() - 1) {
+                output += "\n";
+            }
+        }
+        return output;
+    }
+
     /** Returns a string on how many tasks are remaining in the current list */
     public String getRemainingTasksStr() {
         return String.format("Now you have %d tasks in the list.", this.getSize());
