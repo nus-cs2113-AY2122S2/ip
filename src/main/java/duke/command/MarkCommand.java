@@ -9,8 +9,9 @@ import duke.task.Task;
  * Represents a Command to mark a Task found in the TaskList as completed.
  */
 public class MarkCommand extends Command {
-    private final int taskIndex;
+    public static final String COMMAND_WORD = "mark";
     public static final String MESSAGE_SUCCESS = "Nice! I've marked this task as done:";
+    private final int taskIndex;
 
     public MarkCommand(int taskIndex) {
         super();

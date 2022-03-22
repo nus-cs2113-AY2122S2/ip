@@ -10,8 +10,9 @@ import duke.task.Task;
  * as not completed.
  */
 public class UnmarkCommand extends Command {
-    private final int taskIndex;
+    public static final String COMMAND_WORD = "unmark";
     public static final String MESSAGE_SUCCESS = "OK, I've marked this task as not done yet:";
+    private final int taskIndex;
 
     public UnmarkCommand(int taskIndex) {
         super();

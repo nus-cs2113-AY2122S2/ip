@@ -9,8 +9,9 @@ import duke.task.Task;
  * Represents a Command to delete a Task from the TaskList
  */
 public class DeleteCommand extends Command {
-    private final int taskIndex;
+    public static final String COMMAND_WORD = "delete";
     public static final String MESSAGE_SUCCESS = "Noted. I've removed this task";
+    private final int taskIndex;
 
     public DeleteCommand(int taskIndex) {
         super();

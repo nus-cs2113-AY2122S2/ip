@@ -6,32 +6,13 @@ import duke.command.EventCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.ExitCommand;
-import duke.command.AddCommand;
 import duke.command.MarkCommand;
 import duke.command.TodoCommand;
 import duke.command.UnknownCommand;
 import duke.command.UnmarkCommand;
 import duke.command.DeleteCommand;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 public class Parser {
-    // Command Constants
-    public static final String LIST = "list";
-    public static final String BYE = "bye";
-    public static final String TODO = "todo";
-    public static final String DEADLINE = "deadline";
-    public static final String EVENT = "event";
-    public static final String FIND = "find";
-    public static final String MARK = "mark";
-    public static final String UNMARK = "unmark";
-    public static final String DELETE = "delete";
-
     /**
      * Returns a Command that can be executed later on. There are different
      * types of Command that can be created, based on the user input.
@@ -46,9 +27,9 @@ public class Parser {
         String arguments;
 
         switch (commandWord) {
-        case LIST:
+        case ListCommand.COMMAND_WORD:
             return new ListCommand();
-        case BYE:
+        case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
         case TodoCommand.COMMAND_WORD:
             arguments = getArguments(fullCommand);
@@ -59,15 +40,15 @@ public class Parser {
         case EventCommand.COMMAND_WORD:
             arguments = getArguments(fullCommand);
             return new EventCommand(arguments);
-        case FIND:
+        case FindCommand.COMMAND_WORD:
             return new FindCommand(getArguments(fullCommand));
-        case MARK:
+        case MarkCommand.COMMAND_WORD:
             taskIndex = Integer.parseInt(getArguments(fullCommand)) - 1;
             return new MarkCommand(taskIndex);
-        case UNMARK:
+        case UnmarkCommand.COMMAND_WORD:
             taskIndex = Integer.parseInt(getArguments(fullCommand)) - 1;
             return new UnmarkCommand(taskIndex);
-        case DELETE:
+        case DeleteCommand.COMMAND_WORD:
             taskIndex = Integer.parseInt(getArguments(fullCommand)) - 1;
             return new DeleteCommand(taskIndex);
         default:
