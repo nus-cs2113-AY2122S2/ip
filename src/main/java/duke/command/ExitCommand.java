@@ -8,9 +8,11 @@ import duke.Ui;
  * Represents a Command to terminate the program and exit out of Duke.
  */
 public class ExitCommand extends Command {
+    public static final String MESSAGE_SUCCESS = "Bye. Hope to see you again soon!";
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        System.out.println("Bye. Hope to see you again soon!");
+        ui.showToUser(MESSAGE_SUCCESS);
     }
 
     @Override
