@@ -4,25 +4,26 @@ import duke.DukeException;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
-import duke.task.Task;
+import duke.task.Todo;
 
 public class TodoCommand extends Command {
+    public static final String COMMAND_WORD = "todo";
     public static final String MESSAGE_SUCCESS = "Got it. I've added this task:";
-    private final Task task;
+    private final Todo todo;
 
-    public TodoCommand(Task task) {
+    public TodoCommand(String userInput) {
         super();
-        this.task = task;
+        this.todo = new Todo(userInput);
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        tasks.addTask(this.task);
+        tasks.addTask(this.todo);
         storage.writeTasksToStorage(tasks);
 
         ui.showToUser(
                 MESSAGE_SUCCESS,
-                String.format("  %s", this.task),
+                String.format("  %s", this.todo),
                 tasks.getRemainingTasksStr());
     }
 }

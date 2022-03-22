@@ -44,20 +44,15 @@ public class Parser {
         String commandWord = fullCommand.split(" ", 2)[0];
         int taskIndex;
         String arguments;
-        String[] argumentList;
-        String description;
-        Task newTask;
-        LocalDate dateInput;
 
         switch (commandWord) {
         case LIST:
             return new ListCommand();
         case BYE:
             return new ExitCommand();
-        case TODO:
+        case TodoCommand.COMMAND_WORD:
             arguments = getArguments(fullCommand);
-            newTask = new Todo(arguments);
-            return new TodoCommand(newTask);
+            return new TodoCommand(arguments);
         case DeadlineCommand.COMMAND_WORD:
             arguments = getArguments(fullCommand);
             return new DeadlineCommand(arguments);
