@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * have been added by the user.
  */
 public class TaskList {
+    public static final String EXCEPTION_NO_ITEM_IN_LIST = "No item in list.";
     public static final String EXCEPTION_INVALID_KEYWORD = "No item containing this term is found. " +
             "Please enter another search term.";
     ArrayList<Task> tasks;
@@ -38,12 +39,18 @@ public class TaskList {
     }
 
     /** Returns a string containing all tasks in a format for Ui */
-    public String getAllTasksUi() {
+    public String getAllTasksUi() throws DukeException{
         String output = "";
         for (int i = 0; i < this.getSize(); i++) {
             output += String.format("%d. %s", i + 1, this.getTask(i));
             output += "\n";
         }
+
+        /** Throw Exception if search term not found in any task in the tasklist */
+        if (output.length() == 0) {
+            throw new DukeException(EXCEPTION_NO_ITEM_IN_LIST);
+        }
+
         /** Remove last line break */
         output = output.substring(0, output.length() - 1);
         return output;
