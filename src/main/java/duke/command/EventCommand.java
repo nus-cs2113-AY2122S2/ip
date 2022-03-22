@@ -12,7 +12,7 @@ import java.time.format.DateTimeParseException;
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
     public static final String MESSAGE_SUCCESS = "Got it. I've added this task:";
-    public static final String MESSAGE_WRONG_INPUT = "Incorrect input format. Please enter " +
+    public static final String EXCEPTION_WRONG_INPUT = "Incorrect input format. Please enter " +
             "in this format: event opening ceremony /at 2022-12-31";
     public static final String KEYWORD_SPLIT = "/at";
     private final Event event;
@@ -30,7 +30,7 @@ public class EventCommand extends Command {
             LocalDate dateInput = LocalDate.parse(argumentList[1].trim()); // yyyy-mm-dd
             return dateInput;
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
-            throw new DukeException(MESSAGE_WRONG_INPUT);
+            throw new DukeException(EXCEPTION_WRONG_INPUT);
         }
     }
 
@@ -40,7 +40,7 @@ public class EventCommand extends Command {
             String description = argumentList[0].trim(); // eg. return book
             return description;
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(MESSAGE_WRONG_INPUT);
+            throw new DukeException(EXCEPTION_WRONG_INPUT);
         }
     }
 
