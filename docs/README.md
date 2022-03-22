@@ -62,7 +62,7 @@ initial state with the due date marked in brackets.
 ```
 ____________________________________________________________
 Got it. I've added this task:
- [D][ ] project BBA (by: 2022-02-12)
+ [D][ ] project BBA (by: Feb 12 2022)
 Now you have 3 task(s) in the list.
 ____________________________________________________________
 ```
@@ -84,7 +84,7 @@ initial state with the event date in brackets.
 ```
 ____________________________________________________________
 Got it. I've added this task:
- [E][ ] opening ceremony (at: 2022-05-05)
+ [E][ ] opening ceremony (at: May 5 2022)
 Now you have 5 task(s) in the list.
 ____________________________________________________________
 ```
@@ -106,7 +106,7 @@ shown by `[X]` in the sample output below
 ```
 ____________________________________________________________
 Nice! I've marked this task as done:
- [E][X] project meeting (at: 2019-10-16)
+ [E][X] project meeting (at: Oct 16 2022)
 ____________________________________________________________
 ```
 
@@ -127,7 +127,7 @@ shown by the empty bracket `[ ]` in the sample output below
 ```
 ____________________________________________________________
 OK, I've marked this task as not done yet:
- [E][ ] project meeting (at: 2019-10-16)
+ [E][ ] project meeting (at: Oct 16 2022)
 ____________________________________________________________
 ```
 
@@ -147,7 +147,7 @@ Delete the second task in the list of tasks.
 ```
 ____________________________________________________________
 Noted. I've removed this task:
- [E][ ] project meeting (at: 2019-10-16)
+ [E][ ] project meeting (at: Oct 16 2022)
 Now you have 4 tasks in the list
 ____________________________________________________________
 ```
@@ -165,8 +165,8 @@ List all existing tasks.
 ```
 ____________________________________________________________
 1. [T][X] borrow book
-2. [D][ ] project BBA (by: 2022-02-12)
-3. [E][ ] opening ceremony (at: 2022-05-05)
+2. [D][ ] project BBA (by: Feb 12 2022)
+3. [E][ ] opening ceremony (at: May 5 2022)
 ____________________________________________________________
 ```
 
@@ -186,14 +186,14 @@ Delete the second task in the list of tasks.
 ```
 list
 ____________________________________________________________
-1. [E][ ] opening ceremony (at: 2022-05-05)
+1. [E][ ] opening ceremony (at: May 5 2022)
 2. [T][ ] read books
-3. [D][ ] return book (by: 2022-05-06)
+3. [D][ ] return book (by: May 6 2022)
 ____________________________________________________________
 find book 
 ____________________________________________________________
 1. [T][ ] read books
-2. [D][ ] return book (by: 2022-05-06)
+2. [D][ ] return book (by: May 6 2022)
 ____________________________________________________________
 ```
 
