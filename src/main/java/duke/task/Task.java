@@ -14,18 +14,18 @@ public class Task {
         this.isDone = isDone;
     }
 
-    // Mark done task with X
+    /** Mark done task with X */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
-    // Marks task as done. Returns the task string too
+    /** Marks task as done. Returns the task string too */
     public Task markTask() {
         this.isDone = true;
         return this;
     }
 
-    // Unmark the task. Returns the task string too
+    /** Unmark the task. Returns the task string too */
     public Task unmarkTask() {
         this.isDone = false;
         return this;
@@ -35,7 +35,7 @@ public class Task {
         return this.description.contains(keyword);
     }
 
-    // Output string when saved
+    /** Output string when saved in storage */
     public String saveString() {
         int isDoneStr = isDone ? 1 : 0;
         return String.format(" | %d | %s", isDoneStr, this.description);
