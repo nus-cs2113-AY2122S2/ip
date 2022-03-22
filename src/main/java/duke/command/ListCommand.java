@@ -8,6 +8,8 @@ import duke.Ui;
  * Represents a Command to list all Tasks in the current TaskList
  */
 public class ListCommand extends Command {
+    public static final String MESSAGE_SUCCESS = "Here are the tasks in your list:";
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         System.out.println("Here are the tasks in your list:");
