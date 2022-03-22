@@ -11,7 +11,7 @@ import duke.task.Task;
  */
 public class UnmarkCommand extends Command {
     private final int taskIndex;
-    public static final String SUCCESS_MESSAGE = "OK, I've marked this task as not done yet:";
+    public static final String MESSAGE_SUCCESS = "OK, I've marked this task as not done yet:";
 
     public UnmarkCommand(int taskIndex) {
         super();
@@ -24,7 +24,7 @@ public class UnmarkCommand extends Command {
         storage.writeTasksToStorage(tasks);
 
         ui.showToUser(
-                SUCCESS_MESSAGE,
+                MESSAGE_SUCCESS,
                 task.toString());
     }
 }
