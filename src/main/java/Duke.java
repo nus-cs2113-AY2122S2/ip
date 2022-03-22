@@ -34,12 +34,35 @@ public class Duke {
 
             //get the list and print it
             if (userInput.toLowerCase().equals("list")) {
-                ArrayList<String> currentList = dukeList.getList();
-                for (int i = 0; i < currentList.size(); i += 1) {
-                    System.out.println("\t" + (i + 1) + ". " + currentList.get(i));
-                }
 
-                System.out.println(fillerLine);
+                dukeList.displayList();
+                System.out.println();
+
+            } else if (userInput.toLowerCase().startsWith("mark")) {
+                // Obtain task number
+                int taskNum = Integer.parseInt(userInput.split(" ")[1]);
+                boolean markSuccess = dukeList.updateDoneStatus(taskNum, true);
+
+                if (markSuccess) {
+                    dukeList.displayTask(taskNum);
+                    System.out.println();
+                } else {
+                    System.out.println("Oops sorry, I couldn't mark that task as done.");
+
+                }
+            } else if (userInput.toLowerCase().startsWith("unmark")) {
+                // Obtain task number
+                int taskNum = Integer.parseInt(userInput.split(" ")[1]);
+                boolean unmarkSuccess = dukeList.updateDoneStatus(taskNum, false);
+
+                if (unmarkSuccess) {
+
+                    dukeList.displayTask(taskNum);
+                    System.out.println();
+                } else {
+                    System.out.println("Oops, I couldn't mark that task as not done.");
+                    System.out.println("Sorry about that... (-ω-、)");
+                }
 
             } else {
                 // Add text to list
