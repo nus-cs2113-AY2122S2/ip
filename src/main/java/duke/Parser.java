@@ -58,18 +58,9 @@ public class Parser {
             arguments = getArguments(fullCommand);
             newTask = new Todo(arguments);
             return new TodoCommand(newTask);
-        case DEADLINE:
+        case DeadlineCommand.COMMAND_WORD:
             arguments = getArguments(fullCommand);
-            try {
-                argumentList = arguments.split("/by", 2);
-                description = argumentList[0].trim(); // eg. return book
-                dateInput = LocalDate.parse(argumentList[1].trim()); // yyyy-mm-dd
-                newTask = new Deadline(description, dateInput);
-                return new DeadlineCommand(newTask);
-            } catch (IndexOutOfBoundsException | DateTimeParseException e) {
-                throw new DukeException("Incorrect input format. Please enter " +
-                        "in this format: deadline project /by 2022-12-31");
-            }
+            return new DeadlineCommand(arguments);
         case EventCommand.COMMAND_WORD:
             arguments = getArguments(fullCommand);
             return new EventCommand(arguments);
