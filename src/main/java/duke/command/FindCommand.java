@@ -23,15 +23,5 @@ public class FindCommand extends Command {
         ui.showToUser(
                 MESSAGE_SUCCESS,
                 tasks.getAllTasksUi());
-
-//        System.out.println("Here are the matching tasks in your list:");
-//
-//        int containsCounter = 0;
-//        for (int i = 0; i < tasks.getSize(); i++) {
-//            if (tasks.getTask(i).contains(keyword)) {
-//                containsCounter += 1;
-//                System.out.println(String.format("%d. %s", containsCounter, tasks.getTask(i)));
-//            }
-//        }
     }
 }
