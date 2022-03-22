@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     public static void greetings() {
@@ -12,12 +13,14 @@ public class Duke {
 
         System.out.println("Hello! I'm Bob");
         System.out.println("What can I do for you?");
+        System.out.println(fillerLine);
 
     }
 
 
     public static void main(String[] args){
         //start the programme
+        DukeList dukeList = new DukeList();
         greetings();
 
         //get the user input
@@ -28,10 +31,27 @@ public class Duke {
         String fillerLine = "____________________________________________________________";
 
         while (!userInput.toLowerCase().equals("bye")) {
-            // Echo the user input
-            System.out.println(fillerLine);
-            System.out.println(userInput);
-            System.out.println(fillerLine);
+
+            //get the list and print it
+            if (userInput.toLowerCase().equals("list")) {
+                ArrayList<String> currentList = dukeList.getList();
+                for (int i = 0; i < currentList.size(); i += 1) {
+                    System.out.println("\t" + (i + 1) + ". " + currentList.get(i));
+                }
+
+                System.out.println(fillerLine);
+
+            } else {
+                // Add text to list
+                boolean isSuccess = dukeList.addText(userInput);
+                if(isSuccess){
+                    System.out.println("\t" + userInput);
+                    System.out.println();
+                }else{
+                    System.out.println("Oops sorry! Somehow I wasn't able to add your text to my list.");
+                }
+
+            }
 
 
             //get the next user input
