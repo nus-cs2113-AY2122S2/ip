@@ -11,6 +11,7 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     private UI ui;
+    private static final String FILE_PATH = "task-file";
 
 
     public Duke(String filePath) {
@@ -48,6 +49,6 @@ public class Duke {
 
 
     public static void main(String[] args) {
-        new Duke("task-file").run();
+        new Duke(FILE_PATH).run();
     }
 }
