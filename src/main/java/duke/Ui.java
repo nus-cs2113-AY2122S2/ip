@@ -5,7 +5,8 @@ import java.util.Scanner;
 
 public class Ui {
     private final Scanner in;
-    private static final String DIVIDER = "____________________________________________________________";
+    public static final String DIVIDER = "____________________________________________________________";
+    public static final String MESSAGE_WELCOME = "Hello! I'm Duke\nWhat can I do for you?";
 
     public Ui() {
         this(System.in);
@@ -20,10 +21,10 @@ public class Ui {
     }
 
     public void showWelcome() {
-        this.showLine();
-        System.out.println("Hello! I'm Duke");
-        System.out.println("What can I do for you?");
-        this.showLine();
+        showToUser(
+                DIVIDER,
+                MESSAGE_WELCOME,
+                DIVIDER);
     }
 
     // Shows message(s) to the user
