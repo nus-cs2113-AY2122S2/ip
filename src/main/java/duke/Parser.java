@@ -34,24 +34,25 @@ public class Parser {
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
         case TodoCommand.COMMAND_WORD:
-            arguments = getArguments(fullCommand);
+            arguments = getSecondArgument(fullCommand);
             return new TodoCommand(arguments);
         case DeadlineCommand.COMMAND_WORD:
-            arguments = getArguments(fullCommand);
+            arguments = getSecondArgument(fullCommand);
             return new DeadlineCommand(arguments);
         case EventCommand.COMMAND_WORD:
-            arguments = getArguments(fullCommand);
+            arguments = getSecondArgument(fullCommand);
             return new EventCommand(arguments);
         case FindCommand.COMMAND_WORD:
-            return new FindCommand(getArguments(fullCommand));
+            return new FindCommand(getSecondArgument(fullCommand));
         case MarkCommand.COMMAND_WORD:
-            taskIndex = Integer.parseInt(getArguments(fullCommand)) - 1;
+            /** Zero-based indexing to be parsed in */
+            taskIndex = Integer.parseInt(getSecondArgument(fullCommand)) - 1;
             return new MarkCommand(taskIndex);
         case UnmarkCommand.COMMAND_WORD:
-            taskIndex = Integer.parseInt(getArguments(fullCommand)) - 1;
+            taskIndex = Integer.parseInt(getSecondArgument(fullCommand)) - 1;
             return new UnmarkCommand(taskIndex);
         case DeleteCommand.COMMAND_WORD:
-            taskIndex = Integer.parseInt(getArguments(fullCommand)) - 1;
+            taskIndex = Integer.parseInt(getSecondArgument(fullCommand)) - 1;
             return new DeleteCommand(taskIndex);
         default:
             return new UnknownCommand();
@@ -66,11 +67,12 @@ public class Parser {
      * @throws DukeException If there is no second argument provided
      * by the user but is required by the command
      */
-    public static String getArguments(String fullCommand) throws DukeException {
+    public static String getSecondArgument(String fullCommand) throws DukeException {
         if (fullCommand.split(" ", 2).length < 2) {
             throw new DukeException(EXCEPTION_NEED_ARGS);
         }
 
+        /** Return the second argument provided */
         return fullCommand.split(" ", 2)[1];
     }
 }
