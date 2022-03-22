@@ -10,6 +10,7 @@ import duke.task.Task;
  */
 public class MarkCommand extends Command {
     private final int taskIndex;
+    public static final String MESSAGE_SUCCESS = "Nice! I've marked this task as done:";
 
     public MarkCommand(int taskIndex) {
         super();
@@ -21,7 +22,8 @@ public class MarkCommand extends Command {
         Task task = tasks.getTask(this.taskIndex).markTask();
         storage.writeTasksToStorage(tasks);
 
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
+        ui.showToUser(
+                MESSAGE_SUCCESS,
+                task.toString());
     }
 }
