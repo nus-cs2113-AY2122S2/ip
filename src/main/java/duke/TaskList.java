@@ -34,4 +34,9 @@ public class TaskList {
     public Task removeTask(int taskIndex) {
         return this.tasks.remove(taskIndex);
     }
+
+    /** Returns a string on how many tasks are remaining in the current list */
+    public String getRemainingTasksStr() {
+        return String.format("Now you have %d tasks in the list.", this.getSize());
+    }
 }

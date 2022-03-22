@@ -12,6 +12,7 @@ import duke.task.Task;
  */
 public class AddCommand extends Command {
     private final Task task;
+    public static final String MESSAGE_SUCCESS = "Got it. I've added this task:";
 
     public AddCommand(Task task) {
         super();
@@ -23,8 +24,9 @@ public class AddCommand extends Command {
         tasks.addTask(this.task);
         storage.writeTasksToStorage(tasks);
 
-        System.out.println("Got it. I've added this task:");
-        System.out.println(String.format("  %s", this.task));
-        System.out.println(String.format("Now you have %d tasks in the list.", tasks.getSize()));
+        ui.showToUser(
+                MESSAGE_SUCCESS,
+                String.format("  %s", this.task),
+                tasks.getRemainingTasksStr());
     }
 }
