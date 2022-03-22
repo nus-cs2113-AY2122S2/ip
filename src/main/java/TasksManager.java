@@ -31,30 +31,30 @@ public class TasksManager {
 
     public boolean addTask(String text) {
         //create new task object
-        boolean taskAddedSuccessfully = false;
+        boolean isSuccessful = false;
 
         if (text.toLowerCase().startsWith(DukeUI.todo_command)) {
             // Extract the to-do task description
             String todoDescription = text.split(" ", 2)[1];
 
-            taskAddedSuccessfully = list.add(new Todo(todoDescription));
+            isSuccessful = list.add(new Todo(todoDescription));
         } else if (text.toLowerCase().startsWith(DukeUI.event_command)) {
             // Extract the event task description and date
             String eventDescriptionAndDate = text.split(" ", 2)[1];
             String eventDescription = eventDescriptionAndDate.split(DukeUI.event_option_command)[0].trim();
             String eventDate = eventDescriptionAndDate.split(DukeUI.event_option_command)[1].trim();
 
-            taskAddedSuccessfully = list.add(new Event(eventDescription, eventDate));
+            isSuccessful = list.add(new Event(eventDescription, eventDate));
         } else if (text.toLowerCase().startsWith(DukeUI.deadline_command)) {
             // Extract the deadline task description and date
             String deadlineDescriptionAndDate = text.split(" ", 2)[1];
             String deadlineDescription = deadlineDescriptionAndDate.split(DukeUI.deadline_option_command)[0].trim();
             String deadlineDate = deadlineDescriptionAndDate.split(DukeUI.deadline_option_command)[1].trim();
 
-            taskAddedSuccessfully = list.add(new Deadline(deadlineDescription, deadlineDate));
+            isSuccessful = list.add(new Deadline(deadlineDescription, deadlineDate));
         }
 
-        if (taskAddedSuccessfully) {
+        if (isSuccessful) {
             incrementNumberOfTasks();
             return true;
         }
