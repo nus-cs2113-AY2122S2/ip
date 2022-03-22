@@ -52,6 +52,6 @@ public class EventCommand extends Command {
         ui.showToUser(
                 MESSAGE_SUCCESS,
                 String.format("  %s", this.event),
-                tasks.getRemainingTasksStr());
+                tasks.getNumRemainingTasksUi());
     }
 }

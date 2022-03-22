@@ -24,6 +24,6 @@ public class TodoCommand extends Command {
         ui.showToUser(
                 MESSAGE_SUCCESS,
                 String.format("  %s", this.todo),
-                tasks.getRemainingTasksStr());
+                tasks.getNumRemainingTasksUi());
     }
 }

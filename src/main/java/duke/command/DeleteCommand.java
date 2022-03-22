@@ -26,6 +26,6 @@ public class DeleteCommand extends Command {
         ui.showToUser(
                 MESSAGE_SUCCESS,
                 task.toString(),
-                tasks.getRemainingTasksStr());
+                tasks.getNumRemainingTasksUi());
     }
 }

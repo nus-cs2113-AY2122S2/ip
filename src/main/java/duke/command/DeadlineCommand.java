@@ -52,6 +52,6 @@ public class DeadlineCommand extends Command {
         ui.showToUser(
                 MESSAGE_SUCCESS,
                 String.format("  %s", this.deadline),
-                tasks.getRemainingTasksStr());
+                tasks.getNumRemainingTasksUi());
     }
 }
