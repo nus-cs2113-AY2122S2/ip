@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.DukeException;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
@@ -12,6 +13,7 @@ import duke.task.Task;
 public class UnmarkCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
     public static final String MESSAGE_SUCCESS = "OK, I've marked this task as not done yet:";
+    public static final String EXCEPTION_WRONG_INPUT = "Please enter an index within range.";
     private final int taskIndex;
 
     public UnmarkCommand(int taskIndex) {
@@ -20,7 +22,11 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        if (this.taskIndex > tasks.getSize() - 1) {
+            throw new DukeException(EXCEPTION_WRONG_INPUT);
+        }
+
         Task task = tasks.getTask(this.taskIndex).unmarkTask();
         storage.writeTasksToStorage(tasks);
 

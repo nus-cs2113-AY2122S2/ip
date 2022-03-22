@@ -13,6 +13,8 @@ import duke.command.UnmarkCommand;
 import duke.command.DeleteCommand;
 
 public class Parser {
+    public static final String EXCEPTION_NEED_ARGS = "OOPS!!! There are missing descriptions.";
+
     /**
      * Returns a Command that can be executed later on. There are different
      * types of Command that can be created, based on the user input.
@@ -66,7 +68,7 @@ public class Parser {
      */
     public static String getArguments(String fullCommand) throws DukeException {
         if (fullCommand.split(" ", 2).length < 2) {
-            throw new DukeException("OOPS!!! There are missing descriptions.");
+            throw new DukeException(EXCEPTION_NEED_ARGS);
         }
 
         return fullCommand.split(" ", 2)[1];
