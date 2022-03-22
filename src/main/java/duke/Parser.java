@@ -1,11 +1,14 @@
 package duke;
 
 import duke.command.Command;
+import duke.command.DeadlineCommand;
+import duke.command.EventCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.ExitCommand;
 import duke.command.AddCommand;
 import duke.command.MarkCommand;
+import duke.command.TodoCommand;
 import duke.command.UnknownCommand;
 import duke.command.UnmarkCommand;
 import duke.command.DeleteCommand;
@@ -54,7 +57,7 @@ public class Parser {
         case TODO:
             arguments = getArguments(fullCommand);
             newTask = new Todo(arguments);
-            return new AddCommand(newTask);
+            return new TodoCommand(newTask);
         case DEADLINE:
             arguments = getArguments(fullCommand);
             try {
@@ -62,7 +65,7 @@ public class Parser {
                 description = argumentList[0].trim(); // eg. return book
                 dateInput = LocalDate.parse(argumentList[1].trim()); // yyyy-mm-dd
                 newTask = new Deadline(description, dateInput);
-                return new AddCommand(newTask);
+                return new DeadlineCommand(newTask);
             } catch (IndexOutOfBoundsException | DateTimeParseException e) {
                 throw new DukeException("Incorrect input format. Please enter " +
                         "in this format: deadline project /by 2022-12-31");
@@ -74,7 +77,7 @@ public class Parser {
                 description = argumentList[0].trim(); // eg. return book
                 dateInput = LocalDate.parse(argumentList[1].trim()); // yyyy-mm-dd
                 newTask = new Event(description, dateInput);
-                return new AddCommand(newTask);
+                return new EventCommand(newTask);
             } catch (IndexOutOfBoundsException | DateTimeParseException e) {
                 throw new DukeException("Incorrect input format. Please enter " +
                         "in this format: event networking /at 2022-12-30");
