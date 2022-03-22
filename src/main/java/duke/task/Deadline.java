@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Represents a Deadline task (eg. deadline return book /by 2019-10-15)
  */
 public class Deadline extends Task {
+    public static final String TASK_SHORTFORM = "D";
     private LocalDate deadlineDate; // yyyy-mm-dd
 
     public Deadline(String description, LocalDate dateInput) {

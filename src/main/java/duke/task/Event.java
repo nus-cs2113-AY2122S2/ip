@@ -11,6 +11,7 @@ import java.time.format.DateTimeParseException;
  * Represents an Event task (eg. event project meeting /at 2019-10-15)
  */
 public class Event extends Task {
+    public static final String TASK_SHORTFORM = "E";
     private LocalDate eventDate; // yyyy-mm-dd
 
     public Event(String description, LocalDate dateInput) {

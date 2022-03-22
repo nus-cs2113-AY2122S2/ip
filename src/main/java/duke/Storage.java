@@ -1,5 +1,7 @@
 package duke;
 
+import duke.command.DeadlineCommand;
+import duke.command.EventCommand;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -14,8 +16,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    String folderPath;
-    String fileName;
+    public static final String EXCEPTION_ERROR_WRITE = "Error writing to file.";
+    private final String folderPath;
+    private final String fileName;
 
     public Storage(String filePath) {
         this.folderPath = filePath.split("/")[0];
@@ -28,7 +31,6 @@ public class Storage {
      * @return An ArrayList of Task
      */
     public ArrayList<Task> load() throws DukeException {
-        // Create new TaskList
         ArrayList<Task> tasks = new ArrayList<Task>();
 
         try {
@@ -43,14 +45,14 @@ public class Storage {
                 LocalDate dateInput;
 
                 switch (taskType) {
-                case "T":
+                case Todo.TASK_SHORTFORM:
                     tasks.add(new Todo(isDone, userInputArr[2]));
                     break;
-                case "D":
+                case Deadline.TASK_SHORTFORM:
                     dateInput = LocalDate.parse(userInputArr[3]);
                     tasks.add(new Deadline(isDone, userInputArr[2], dateInput));
                     break;
-                case "E":
+                case Event.TASK_SHORTFORM:
                     dateInput = LocalDate.parse(userInputArr[3]);
                     tasks.add(new Event(isDone, userInputArr[2], dateInput));
                     break;
@@ -58,13 +60,13 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             File directory = new File(folderPath);
-            // Create directory if not found
+            /** Create directory if not found */
             if (!directory.exists()) {
                 directory.mkdir();
             }
 
             File f = new File(folderPath + "/" + fileName);
-            // Create file if not found. If IOError, print error message
+            /** Create file if not found. If IOError, print error message */
             try {
                 f.createNewFile();
             } catch (IOException err) {
@@ -80,7 +82,7 @@ public class Storage {
      *
      * @param tasks TaskList containing current list of Task
      */
-    public void writeTasksToStorage(TaskList tasks) {
+    public void writeTasksToStorage(TaskList tasks) throws DukeException {
         try {
             String output = "";
             for (int i = 0; i < tasks.getSize(); i++) {
@@ -90,7 +92,7 @@ public class Storage {
             fw.write(output);
             fw.close();
         } catch (IOException e) {
-            System.out.println("Error writing to file.");
+            throw new DukeException(EXCEPTION_ERROR_WRITE);
         }
     }
 }
