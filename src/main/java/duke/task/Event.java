@@ -1,7 +1,11 @@
 package duke.task;
 
+import duke.DukeException;
+import duke.command.DeadlineCommand;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents an Event task (eg. event project meeting /at 2019-10-15)

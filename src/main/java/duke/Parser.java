@@ -70,18 +70,9 @@ public class Parser {
                 throw new DukeException("Incorrect input format. Please enter " +
                         "in this format: deadline project /by 2022-12-31");
             }
-        case EVENT:
+        case EventCommand.COMMAND_WORD:
             arguments = getArguments(fullCommand);
-            try {
-                argumentList = arguments.split("/at", 2);
-                description = argumentList[0].trim(); // eg. return book
-                dateInput = LocalDate.parse(argumentList[1].trim()); // yyyy-mm-dd
-                newTask = new Event(description, dateInput);
-                return new EventCommand(newTask);
-            } catch (IndexOutOfBoundsException | DateTimeParseException e) {
-                throw new DukeException("Incorrect input format. Please enter " +
-                        "in this format: event networking /at 2022-12-30");
-            }
+            return new EventCommand(arguments);
         case FIND:
             return new FindCommand(getArguments(fullCommand));
         case MARK:
