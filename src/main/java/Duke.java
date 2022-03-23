@@ -1,10 +1,25 @@
+import duke.task.TaskList;
+
+import java.util.Scanner;
+
 public class Duke {
+
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+
+        Scanner scanner = new Scanner(System.in);
+        Parser parser = new Parser();
+        Storage storage = new Storage();
+        TaskList taskList = new TaskList();
+
+        Ui.greet();
+
+        storage.loadPastTasks(parser, storage, taskList);
+
+        Ui.askForInput(scanner, parser, storage, taskList);
+
+        Ui.bye();
+
     }
+
+
 }
