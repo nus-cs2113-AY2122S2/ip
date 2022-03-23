@@ -1,0 +1,10 @@
+event some birthday party /at Saturday 3pm
+todo see gardens by the bay
+deadline do homework /by Monday
+deadline no seriously do the homework /by Monday
+list
+mark 4
+mark 1
+mark 2
+unmark 2
+bye
