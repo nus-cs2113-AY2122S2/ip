@@ -1,0 +1,3 @@
+T | 1 | go shopping
+D | 1 | finish 2113 iP | Friday
+E | 0 | 2113 project meeting | Monday 1:00PM
