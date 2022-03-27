@@ -1,0 +1,27 @@
+todo read book
+todo buy book
+list
+mark 1
+event meeting with kelly /at 2022-01-01 1730
+deadline return book /by 2022-02-03 1120
+deadline return kelly water bottle /by 2022-03-11 1330
+event meet ben /at 2022-10-11 1415
+mark 3
+unmark 123
+mark 23131ii
+list 
+mark 6
+find book
+find BOOK
+return 
+deadline assignment 3 /by 01-01-2011 1230
+deadline assignment 3 /by 2011-01-01 1230
+event exam2 /by 2021-11-01 1299
+event exam2 /by 2021-11-01 1249
+mark 7
+hello
+list
+unmark 7
+delete 1
+list
+bye
