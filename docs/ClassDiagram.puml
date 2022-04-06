@@ -1,0 +1,40 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class AbstractList
+abstract AbstractCollection
+interface List
+interface Collection
+
+List <|-- AbstractList
+Collection <|-- AbstractCollection
+
+Collection <|- List
+AbstractCollection <|- AbstractList
+AbstractList <|-- ArrayList
+
+class DoctorList {
+doctors: ArrayList<Doctor>
+size: Integer
+DoctorList()
+getDoctor(index: Integer): Person
+addDoctor(doctor: Doctor)
+deleteDoctor(index: Integer)
+toString(): String
+}
+
+class Person {
+
+}
+
+class Doctor {
+
+}
+
+enum TimeUnit {
+DAYS
+HOURS
+MINUTES
+}
+
+@enduml
