@@ -1,0 +1,31 @@
+list list
+list
+todo
+todo task 1
+deadline
+deadline task 2
+deadline task 2 /by 
+deadline task 2 /by due` date`
+event
+event task 3
+event task 3 /at 
+event task 3 /at time
+list
+mark
+unmark
+mark abc
+unmark abc
+unmark 1
+mark 1
+mark 1
+unmark 1
+mark 100
+unmark 100
+delete
+delete abc
+delete 100
+mark 3
+delete 2
+list
+bye bye
+bye
