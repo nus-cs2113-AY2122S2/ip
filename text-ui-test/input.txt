@@ -1,0 +1,34 @@
+todo borrow book
+list
+deadline return book /by Sunday
+event project meeting /at Mon 2-4pm
+deadline do homework /by no idea :-p
+wronginput
+deadline bad deadline /b no idea :-p
+event bad event /a Mon 2-4pm
+todont sadfsad
+list
+deadline/by 1234
+deadline /by 1234
+deadline 1/by 1234
+deadline 2 /by
+deadline 3 /by
+event/at 1234
+event /at 1234
+event 4/at 1234
+event 5 /at
+event 6 /at
+mark 1
+mark 1
+mark 50
+mark -1
+mark 1001
+list
+unmark 1
+unmark 1
+unmark 50
+unmark -1
+unmark 1001
+event asd /at /at /at
+deadline asd /by /by /by
+bye
