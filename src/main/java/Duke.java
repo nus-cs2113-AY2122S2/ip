@@ -1,12 +1,18 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static boolean processCommand(String command) {
-        if (command.equals("bye")) {
+    public static boolean processCommand(String command, TaskManager taskManager) {
+        switch(command) {
+        case "bye":
             System.out.println("Bye and see you again soon!");
             return false;
+        case "list":
+            taskManager.listTasks();
+            break;
+        default:
+            taskManager.addNewTask(command);
+            break;
         }
-        System.out.println("Echoing..." + command + "\n____________________");
         return true;
     }
 
@@ -18,9 +24,10 @@ public class Duke {
                 "What can I do for you?\n" +
                 "____________________";
         System.out.println(InitialGreeting);
+        TaskManager taskManager = new TaskManager();
         while (online) {
             command= in.nextLine();
-            online = processCommand(command);
+            online = processCommand(command, taskManager);
         }
         in.close();
     }
