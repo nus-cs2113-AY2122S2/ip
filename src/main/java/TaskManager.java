@@ -7,13 +7,12 @@ public class TaskManager {
 
     public void addNewTask(String taskName) {
         tasks.add(new Task(taskName));
-        System.out.println("Added new task: " + taskName);
-        System.out.println("____________________");
+        System.out.println("Added new task: " + taskName + "\n____________________");
         taskCount += 1;
     }
 
     public void listTasks() {
-        System.out.println("LIST OF TASKS");
+        System.out.println("Here is your list of tasks.");
         for (int i = 0; i < tasks.size(); i++) {
             char isDone = tasks.get(i).getIsDone() ? 'X' : ' ';
             System.out.println((i + 1) + ". [" + isDone + "] " + tasks.get(i).getTaskName());
@@ -21,26 +20,27 @@ public class TaskManager {
         System.out.println("____________________");
     }
 
-    public void markTasks(Boolean isDone, int taskIndex) {
+    public void markTasks(Boolean toMark, int taskIndex) {
         if (taskIndex < 1 || taskIndex > taskCount) {
             System.out.println("Invalid task indicated, unable to process request\n____________________");
             return;
         }
-        if (isDone) {
+        if (toMark) {
             if (tasks.get(taskIndex - 1).getIsDone()) {
                 System.out.println("This task has already been marked done!\n____________________");
                 return;
             }
             tasks.get(taskIndex - 1).setIsDone();
-            System.out.println(tasks.get(taskIndex - 1).getTaskName() + " has been marked as done!\n____________________");
-        }
-        else {
+            System.out.println(tasks.get(taskIndex - 1).getTaskName()
+                    + " has been marked as done!\n____________________");
+        } else {
             if (!tasks.get(taskIndex - 1).getIsDone()) {
                 System.out.println("This task has already been unmarked!\n____________________");
                 return;
             }
             tasks.get(taskIndex - 1).setIsNotDone();
-            System.out.println(tasks.get(taskIndex - 1).getTaskName() + " has been unmarked!\n____________________");
+            System.out.println(tasks.get(taskIndex - 1).getTaskName()
+                    + " has been unmarked!\n____________________");
         }
     }
 }

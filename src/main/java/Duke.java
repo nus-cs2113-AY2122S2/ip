@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 public class Duke {
-
     public static Boolean checkIsInteger(String toCheck) {
         try {
             int intValue = Integer.parseInt(toCheck);
@@ -26,11 +25,9 @@ public class Duke {
 
         if ((arrOfCommand[0].equals("mark") && arrOfCommand.length > 1) && checkIsInteger(arrOfCommand[1])) {
             taskManager.markTasks(true, Integer.parseInt(arrOfCommand[1]));
-        }
-        else if ((arrOfCommand[0].equals("unmark") && arrOfCommand.length > 1) && checkIsInteger(arrOfCommand[1])) {
+        } else if ((arrOfCommand[0].equals("unmark") && arrOfCommand.length > 1) && checkIsInteger(arrOfCommand[1])) {
             taskManager.markTasks(false, Integer.parseInt(arrOfCommand[1]));
-        }
-        else {
+        } else {
             taskManager.addNewTask(command);
         }
         return true;
@@ -38,16 +35,16 @@ public class Duke {
 
     public static void main(String[] args) {
         String command;
-        Boolean online = true;
+        Boolean isRunning = true;
         Scanner in = new Scanner(System.in);
         String InitialGreeting = "Greetings, I am Azmuth\n" +
                 "What can I do for you?\n" +
                 "____________________";
         System.out.println(InitialGreeting);
         TaskManager taskManager = new TaskManager();
-        while (online) {
+        while (isRunning) {
             command= in.nextLine();
-            online = processCommand(command, taskManager);
+            isRunning = processCommand(command, taskManager);
         }
         in.close();
     }
