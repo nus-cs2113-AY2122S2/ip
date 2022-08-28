@@ -1,10 +1,27 @@
+import java.util.Scanner;
+
 public class Duke {
+    private static void printGreetingMessage() {
+        String InitialGreeting = "Greetings, I am Azmuth\n" +
+                "What can I do for you?\n" +
+                "____________________";
+        System.out.println(InitialGreeting);
+    }
+
+    public static void runBot() {
+        String command;
+        Scanner in = new Scanner(System.in);
+        printGreetingMessage();
+        TaskManager taskManager = new TaskManager();
+        while (true) {
+            command= in.nextLine();
+            if(!Parser.isOnline(command, taskManager)) {
+                break;
+            }
+        }
+        in.close();
+    }
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        runBot();
     }
 }
