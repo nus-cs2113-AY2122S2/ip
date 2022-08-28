@@ -1,6 +1,6 @@
 public class Task {
     private String taskName;
-    private Boolean isDone;
+    private boolean isDone;
 
     public Task(String taskName) {
         this.taskName = taskName;
@@ -23,7 +23,7 @@ public class Task {
         return taskName;
     }
 
-    public Boolean getIsDone() {
+    public boolean getIsDone() {
         return isDone;
     }
 

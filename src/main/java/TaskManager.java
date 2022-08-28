@@ -20,7 +20,7 @@ public class TaskManager {
         System.out.println("____________________");
     }
 
-    public void markTasks(Boolean toMark, int taskIndex) {
+    public void markTasks(boolean toMark, int taskIndex) {
         if (taskIndex < 1 || taskIndex > taskCount) {
             System.out.println("Invalid task indicated, unable to process request\n____________________");
             return;
