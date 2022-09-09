@@ -55,6 +55,10 @@ public class Duke {
                     System.out.println(array[index].toString());
                     break;
                 case "todo":
+                    if (curCommand.length < 2) {
+                        System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                        break;
+                    }
                     array[cur] = new ToDo(curCommand[1]);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(array[cur].toString());
@@ -62,6 +66,10 @@ public class Duke {
                     cur += 1;
                     break;
                 case "deadline":
+                    if (curCommand.length < 2) {
+                        System.out.println("OOPS!!! The description of a deadline cannot be empty.");
+                        break;
+                    }
                     String[] deadlineList = curCommand[1].split(" /by ", 2);
                     array[cur] = new Deadline(deadlineList[0], deadlineList[1]);
                     System.out.println("Got it. I've added this task:");
@@ -70,6 +78,10 @@ public class Duke {
                     cur += 1;
                     break;
                 case "event":
+                    if (curCommand.length < 2) {
+                        System.out.println("OOPS!!! The description of an event cannot be empty.");
+                        break;
+                    }
                     String[] eventList = curCommand[1].split(" /at ", 2);
                     array[cur] = new Event(eventList[0], eventList[1]);
                     System.out.println("Got it. I've added this task:");
@@ -78,6 +90,7 @@ public class Duke {
                     cur += 1;
                     break;
                 default:
+                    System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
                     break;
             }
             System.out.println("____________________________________________________________");
