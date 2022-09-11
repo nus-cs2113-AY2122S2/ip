@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -6,6 +8,20 @@ public class Duke {
         System.out.println("____________________________________________________________");
         System.out.println(message);
         System.out.println("____________________________________________________________");
+    }
+
+    public static void saveTasks(ArrayList<Task> al) {
+        try {
+            String root = System.getProperty("user.dir");
+            FileWriter saveFile = new FileWriter(root + "/data/duke.txt");
+            for (int i = 0; i < al.size(); i++) {
+                saveFile.write(al.get(i).toSave() + "\n");
+            }
+            saveFile.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving file.");
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
@@ -20,6 +36,53 @@ public class Duke {
 
         ArrayList<Task> array = new ArrayList<>();
         int cur = 0;
+        String root = System.getProperty("user.dir");
+        File saveFile = new File(root + "/data/duke.txt");
+        saveFile.getParentFile().mkdirs();
+
+        ArrayList<Task> array = new ArrayList<>();
+
+        try {
+            if (saveFile.createNewFile()) {
+                System.out.println("Save file created: " + saveFile.getName());
+            } else {
+                System.out.println("Save file already exists, loading...");
+                BufferedReader br = new BufferedReader(new FileReader(root + "/data/duke.txt"));
+                String line = br.readLine();
+                while (line != null) {
+                    String[] saved = line.split(",");
+                    for (int i = 0; i < saved.length; i++) {
+                        System.out.print(saved[i] + ",");
+                    }
+                    System.out.print("\n");
+                    switch (saved[0]) {
+                        case "D":
+                            Deadline d = new Deadline(saved[2], saved[3]);
+                            if (saved[1].equals("1")) {
+                                d.setDone();
+                            }
+                            array.add(d);
+                            break;
+                        case "T":
+                            ToDo t = new ToDo(saved[2]);
+                            array.add(t);
+                            break;
+                        case "E":
+                            Event e = new Event(saved[2], saved[3]);
+                            if (saved[1].equals("1")) {
+                                e.setDone();
+                            }
+                            array.add(e);
+                            break;
+                    }
+                    line = br.readLine();
+                }
+                br.close();
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred when creating/loading save file");
+            e.printStackTrace();
+        }
 
         System.out.println("Hello from\n" + logo);
         printMsg(greeting);
@@ -39,7 +102,7 @@ public class Duke {
                     break;
                 case "list":
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < cur; i++) {
+                    for (int i = 0; i < array.size(); i++) {
                         System.out.println((i + 1) + "." + array.get(i).toString());
                     }
                     break;
@@ -48,12 +111,14 @@ public class Duke {
                     index = Integer.parseInt(curCommand[1]) - 1;
                     array.get(index).setDone();
                     System.out.println(array.get(index).toString());
+                    saveTasks(array);
                     break;
                 case "unmark":
                     System.out.println("OK, I've marked this task as not done yet:");
                     index = Integer.parseInt(curCommand[1]) - 1;
                     array.get(index).setNotDone();
                     System.out.println(array.get(index).toString());
+                    saveTasks(array);
                     break;
                 case "todo":
                     if (curCommand.length < 2) {
@@ -62,9 +127,9 @@ public class Duke {
                     }
                     array.add(new ToDo(curCommand[1]));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(array.get(cur).toString());
-                    System.out.println("Now you have " + (cur + 1) + " tasks in the list.");
-                    cur += 1;
+                    System.out.println(array.get(array.size() - 1).toString());
+                    System.out.println("Now you have " + (array.size()) + " tasks in the list.");
+                    saveTasks(array);
                     break;
                 case "deadline":
                     if (curCommand.length < 2) {
@@ -74,9 +139,9 @@ public class Duke {
                     String[] deadlineList = curCommand[1].split(" /by ", 2);
                     array.add(new Deadline(deadlineList[0], deadlineList[1]));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(array.get(cur).toString());
-                    System.out.println("Now you have " + (cur + 1) + " tasks in the list.");
-                    cur += 1;
+                    System.out.println(array.get(array.size() - 1).toString());
+                    System.out.println("Now you have " + (array.size()) + " tasks in the list.");
+                    saveTasks(array);
                     break;
                 case "event":
                     if (curCommand.length < 2) {
@@ -88,7 +153,7 @@ public class Duke {
                     System.out.println("Got it. I've added this task:");
                     System.out.println(array.get(cur).toString());
                     System.out.println("Now you have " + (cur + 1) + " tasks in the list.");
-                    cur += 1;
+                    saveTasks(array);
                     break;
                 case "delete":
                     int toDelete = Integer.parseInt(curCommand[1]) - 1;
