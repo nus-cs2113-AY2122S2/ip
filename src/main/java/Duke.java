@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -17,7 +18,7 @@ public class Duke {
                 " What can I do for you?";
         String bye = " Bye. Hope to see you again soon!";
 
-        Task[] array = new Task[100];
+        ArrayList<Task> array = new ArrayList<>();
         int cur = 0;
 
         System.out.println("Hello from\n" + logo);
@@ -39,29 +40,29 @@ public class Duke {
                 case "list":
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < cur; i++) {
-                        System.out.println((i + 1) + "." + array[i].toString());
+                        System.out.println((i + 1) + "." + array.get(i).toString());
                     }
                     break;
                 case "mark":
                     System.out.println("Nice! I've marked this task as done:");
                     index = Integer.parseInt(curCommand[1]) - 1;
-                    array[index].setDone();
-                    System.out.println(array[index].toString());
+                    array.get(index).setDone();
+                    System.out.println(array.get(index).toString());
                     break;
                 case "unmark":
                     System.out.println("OK, I've marked this task as not done yet:");
                     index = Integer.parseInt(curCommand[1]) - 1;
-                    array[index].setNotDone();
-                    System.out.println(array[index].toString());
+                    array.get(index).setNotDone();
+                    System.out.println(array.get(index).toString());
                     break;
                 case "todo":
                     if (curCommand.length < 2) {
                         System.out.println("OOPS!!! The description of a todo cannot be empty.");
                         break;
                     }
-                    array[cur] = new ToDo(curCommand[1]);
+                    array.add(new ToDo(curCommand[1]));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(array[cur].toString());
+                    System.out.println(array.get(cur).toString());
                     System.out.println("Now you have " + (cur + 1) + " tasks in the list.");
                     cur += 1;
                     break;
@@ -71,9 +72,9 @@ public class Duke {
                         break;
                     }
                     String[] deadlineList = curCommand[1].split(" /by ", 2);
-                    array[cur] = new Deadline(deadlineList[0], deadlineList[1]);
+                    array.add(new Deadline(deadlineList[0], deadlineList[1]));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(array[cur].toString());
+                    System.out.println(array.get(cur).toString());
                     System.out.println("Now you have " + (cur + 1) + " tasks in the list.");
                     cur += 1;
                     break;
@@ -83,11 +84,19 @@ public class Duke {
                         break;
                     }
                     String[] eventList = curCommand[1].split(" /at ", 2);
-                    array[cur] = new Event(eventList[0], eventList[1]);
+                    array.add(new Event(eventList[0], eventList[1]));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(array[cur].toString());
+                    System.out.println(array.get(cur).toString());
                     System.out.println("Now you have " + (cur + 1) + " tasks in the list.");
                     cur += 1;
+                    break;
+                case "delete":
+                    int toDelete = Integer.parseInt(curCommand[1]) - 1;
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(array.get(toDelete).toString());
+                    System.out.println("Now you have " + (cur - 1) + " tasks in the list.");
+                    cur -= 1;
+                    array.remove(toDelete);
                     break;
                 default:
                     System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
