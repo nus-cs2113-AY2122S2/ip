@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -35,12 +34,9 @@ public class Duke {
         String bye = " Bye. Hope to see you again soon!";
 
         ArrayList<Task> array = new ArrayList<>();
-        int cur = 0;
         String root = System.getProperty("user.dir");
         File saveFile = new File(root + "/data/duke.txt");
         saveFile.getParentFile().mkdirs();
-
-        ArrayList<Task> array = new ArrayList<>();
 
         try {
             if (saveFile.createNewFile()) {
@@ -151,17 +147,17 @@ public class Duke {
                     String[] eventList = curCommand[1].split(" /at ", 2);
                     array.add(new Event(eventList[0], eventList[1]));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(array.get(cur).toString());
-                    System.out.println("Now you have " + (cur + 1) + " tasks in the list.");
+                    System.out.println(array.get(array.size() - 1).toString());
+                    System.out.println("Now you have " + (array.size()) + " tasks in the list.");
                     saveTasks(array);
                     break;
                 case "delete":
                     int toDelete = Integer.parseInt(curCommand[1]) - 1;
                     System.out.println("Noted. I've removed this task:");
                     System.out.println(array.get(toDelete).toString());
-                    System.out.println("Now you have " + (cur - 1) + " tasks in the list.");
-                    cur -= 1;
+                    System.out.println("Now you have " + (array.size() - 1) + " tasks in the list.");
                     array.remove(toDelete);
+                    saveTasks(array);
                     break;
                 default:
                     System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
